@@ -299,12 +299,14 @@
     padding: 16px;
     border-top: 2px solid var(--border-2);
   }
+  .principle-card.foundation { border-top-color: var(--emerald); }
   .principle-card.intent { border-top-color: var(--primary); }
   .principle-card.knowledge { border-top-color: var(--emerald); }
   .principle-card.data { border-top-color: var(--amber); }
   .principle-card.verify { border-top-color: var(--amber); }
   .principle-card.boundary { border-top-color: var(--red); }
   .principle-card.time { border-top-color: var(--fg-3); }
+  .principle-card.system { border-top-color: var(--primary); }
   .principle-card.loop { border-top-color: var(--primary); background: var(--bg-3); }
   .principle-num { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; }
   .principle-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
@@ -393,15 +395,15 @@
   <div class="nav-section">
     <div class="nav-label">On this page</div>
     <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
-    <a class="nav-item" href="#knowledge-and-documentation"><span class="nav-num">01</span>Knowledge and documentation</a>
-<a class="nav-item" href="#context-and-defensibility"><span class="nav-num">02</span>Context and defensibility</a>
-<a class="nav-item" href="#intent-and-execution"><span class="nav-num">03</span>Intent and execution</a>
-<a class="nav-item" href="#verification"><span class="nav-num">04</span>Verification</a>
-<a class="nav-item" href="#simplicity-and-clarity"><span class="nav-num">05</span>Simplicity and clarity</a>
-<a class="nav-item" href="#the-human-machine-boundary"><span class="nav-num">06</span>The human-machine boundary</a>
-<a class="nav-item" href="#compounding-systems-and-substrate"><span class="nav-num">07</span>Compounding systems and substrate</a>
-<a class="nav-item" href="#time-dependence"><span class="nav-num">08</span>Time-dependence</a>
-<a class="nav-item" href="#the-delivery-loop"><span class="nav-num">09</span>The delivery loop</a>
+    <a class="nav-item" href="#universal-foundations"><span class="nav-num">01</span>Universal foundations</a>
+<a class="nav-item" href="#compounding-and-time"><span class="nav-num">02</span>Compounding and time</a>
+<a class="nav-item" href="#knowledge-data-and-context"><span class="nav-num">03</span>Knowledge, data, and context</a>
+<a class="nav-item" href="#intent-and-execution"><span class="nav-num">04</span>Intent and execution</a>
+<a class="nav-item" href="#verification-and-feedback"><span class="nav-num">05</span>Verification and feedback</a>
+<a class="nav-item" href="#simplicity-and-clarity"><span class="nav-num">06</span>Simplicity and clarity</a>
+<a class="nav-item" href="#human-judgment-and-delegation"><span class="nav-num">07</span>Human judgment and delegation</a>
+<a class="nav-item" href="#compounding-systems-and-substrate"><span class="nav-num">08</span>Compounding systems and substrate</a>
+<a class="nav-item" href="#the-operating-loop"><span class="nav-num">09</span>The operating loop</a>
   </div>
 </nav>
 
@@ -409,7 +411,7 @@
   <section id="overview" class="overview-section">
     <div class="spec-eyebrow">Core Concepts · core-principles.html</div>
     <h1>Core Principles</h1>
-    <p class="lede">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</p>
+    <p class="lede">Cross-domain principles for building compounding systems in any field. These hold in sport, education, business, operations, software, and AI-assisted work because they describe how foundations, judgment, knowledge, data, feedback, and repeated practice compound over time.</p>
     <div class="meta-row">
       <div><strong>Source:</strong> principles/core-principles.md</div>
       <div><strong>Generated:</strong> HTML companion</div>
@@ -419,58 +421,69 @@
 
 <article class="doc-body">
 <section class="level1 generated-root">
-<p>This is the highest-level principles document. Domain-specific principle docs (<code>sw-principles.md</code> today; future <code>marketing-principles.md</code>, <code>sales-principles.md</code>, etc.) inherit these and add domain-specific principles on top.</p>
-<p>Add new principles below in their appropriate section as they emerge.</p>
+<p>This is the highest-level principles document. A principle belongs here only if it remains true after the domain changes. Domain-specific principle docs (<code>sw-principles.md</code> today; future <code>marketing-principles.md</code>, <code>sales-principles.md</code>, etc.) inherit these and add their own implementation-specific rules on top.</p>
+<p>Add new principles below only when they are durable enough to survive changes in tools, tactics, markets, teams, and technology.</p>
 <div class="principle-map">
-  <div class="principle-card knowledge"><div class="principle-num">01</div><div class="principle-title">Knowledge</div><div class="principle-copy">Durable knowledge needs type, ownership, audience, and retrieval discipline.</div></div>
-  <div class="principle-card data"><div class="principle-num">02</div><div class="principle-title">Data</div><div class="principle-copy">Labeled history becomes more valuable as it accumulates.</div></div>
-  <div class="principle-card intent"><div class="principle-num">03</div><div class="principle-title">Intent</div><div class="principle-copy">Separate the desired outcome from the implementation path before work starts.</div></div>
-  <div class="principle-card verify"><div class="principle-num">04</div><div class="principle-title">Verification</div><div class="principle-copy">Every workflow exits through evidence, not confidence or plausible output.</div></div>
-  <div class="principle-card boundary"><div class="principle-num">05</div><div class="principle-title">Boundary</div><div class="principle-copy">Humans keep judgment and accountability; tools supply searchable labor.</div></div>
-  <div class="principle-card time"><div class="principle-num">06</div><div class="principle-title">Time</div><div class="principle-copy">Systems either compound asset value or compound maintenance liability.</div></div>
-  <div class="principle-card loop"><div class="principle-num">07</div><div class="principle-title">Loop</div><div class="principle-copy">When a step fails, correct the smallest upstream artifact and run again.</div></div>
+  <div class="principle-card foundation"><div class="principle-num">01</div><div class="principle-title">Foundations</div><div class="principle-copy">Early technical foundations reduce future debt, rework, and injury to the system.</div></div>
+  <div class="principle-card time"><div class="principle-num">02</div><div class="principle-title">Time</div><div class="principle-copy">Systems either compound asset value or compound maintenance liability.</div></div>
+  <div class="principle-card knowledge"><div class="principle-num">03</div><div class="principle-title">Knowledge</div><div class="principle-copy">Durable knowledge needs boundaries, ownership, audience, and retrieval discipline.</div></div>
+  <div class="principle-card data"><div class="principle-num">04</div><div class="principle-title">Data</div><div class="principle-copy">Labeled history becomes more valuable as it accumulates.</div></div>
+  <div class="principle-card intent"><div class="principle-num">05</div><div class="principle-title">Intent</div><div class="principle-copy">Separate the desired outcome from the execution path before work starts.</div></div>
+  <div class="principle-card verify"><div class="principle-num">06</div><div class="principle-title">Verification</div><div class="principle-copy">Every workflow exits through evidence, not confidence or plausible output.</div></div>
+  <div class="principle-card boundary"><div class="principle-num">07</div><div class="principle-title">Judgment</div><div class="principle-copy">Humans keep judgment and accountability when delegating labor.</div></div>
+  <div class="principle-card system"><div class="principle-num">08</div><div class="principle-title">Substrate</div><div class="principle-copy">Durable assets outlast the tools, tactics, and workers currently in use.</div></div>
+  <div class="principle-card loop"><div class="principle-num">09</div><div class="principle-title">Loop</div><div class="principle-copy">When a step fails, correct the smallest upstream artifact and run again.</div></div>
 </div>
-<section id="knowledge-and-documentation" class="level2 spec-section">
-<h2>Knowledge and documentation</h2>
-<p><strong>Give durable knowledge a type, an owner, and an audience.</strong> When knowledge must survive people, sessions, and model boundaries, encode it in documents with a single purpose and clear ownership.</p>
+<section id="universal-foundations" class="level2 spec-section">
+<h2>Universal foundations</h2>
+<p><strong>Foundations reduce future debt.</strong> In any serious domain, early technical foundations determine the cost of later progress. In tennis, poor mechanics have to be relearned under pressure and can create injury risk. In organizations, products, teams, and knowledge systems, weak foundations create the same pattern: work appears to move faster early, then every future improvement pays a hidden tax to correct what should have been learned cleanly at the start.</p>
+<p><strong>Correct repetition creates leverage; incorrect repetition compounds debt.</strong> Practice only compounds when the repeated unit is sound. Repeating a bad motion, a bad sales script, a bad decision process, or a bad operating habit makes the system more confident in the wrong pattern. Feedback turns repetition into learning; repetition without feedback turns mistakes into identity.</p>
+<p><strong>Long-term outcomes are path-dependent.</strong> Early defaults become constraints. The longer a system operates, the more expensive it becomes to change its base assumptions, vocabulary, incentives, and habits. The foundational move is not to predict every future need; it is to establish primitives that can absorb change without requiring the system to relearn itself.</p>
+</section>
+<section id="compounding-and-time" class="level2 spec-section">
+<h2>Compounding and time</h2>
+<p><strong>Time is either compounding asset value or compounding maintenance liability; there is no neutral default.</strong> A system gets more valuable every day it is used, or more painful every day it ages. There is no third option.</p>
+<p><strong>Long runs amplify every shortcut.</strong> Skipping a rigorous step in a small effort creates a defect; skipping it in a long engagement, training block, operating cycle, or research program creates a recovery project. The longer the run, the more the rigor must be enforced rather than merely suggested.</p>
+<p><strong>Reuse across many products, clients, teams, or contexts requires shared core assets, a common means of production, explicit variability management, and management discipline around the asset base.</strong> None of those happen by accident. Reuse is an operating choice, enforced by structure.</p>
+</section>
+<section id="knowledge-data-and-context" class="level2 spec-section">
+<h2>Knowledge, data, and context</h2>
+<p><strong>Give durable knowledge a type, an owner, and an audience.</strong> When knowledge must survive people, sessions, teams, and tool boundaries, encode it in documents with a single purpose and clear ownership.</p>
 <ul>
 <li>Each document should have a singular purpose. Mixing audiences creates unusable sprawl.</li>
 <li>A "knowledge base" only helps if it is curated, scoped, versioned, and written for retrieval.</li>
 <li>Over-documentation is real; the answer is not "more prose" but better document boundaries and maintenance rules.</li>
 </ul>
 <p><strong>Process over prose. Workflows over reference. Steps with exit criteria over essays without them.</strong> Reference docs in context produce plausible-sounding generation; workflows produce something that can be done and verified. The same is true for human teams — 200-page handbooks don't get read under time pressure; 40-line workflows with checkpoints do.</p>
-<p><strong>Progressive disclosure beats kitchen-sink loading.</strong> Every artifact you load into context degrades performance somewhere. Load what's relevant for the current phase; leave the rest on disk and let a small router decide what applies. True for skills, runbooks, incident playbooks — anything anyone (or any agent) will read under time pressure.</p>
+<p><strong>Progressive disclosure beats kitchen-sink loading.</strong> Every artifact introduced into a working session consumes attention somewhere. Load what is relevant for the current phase; leave the rest organized and retrievable. True for coaching, training, sales, operations, incident response, research, and any work read under time pressure.</p>
 <p><strong>Connection, not storage, is the asset.</strong> A pile of notes is not a knowledge layer. A knowledge layer is structured so that updating one entity propagates through every related one — so the answer to <em>what's currently going on with this person, client, deal, or project</em> is always one query, not a manual scan across files. The defensible thing is the graph between entries, not the entries themselves. <em>(After Garry Tan: the difference between a filing cabinet and a nervous system is connection, not storage.)</em></p>
-<p><strong>Data value increases with time when labels preserve context.</strong> Data is not just a pile of observations; it is an accumulating record of decisions, outcomes, edge cases, and behavior under real conditions. The same event is cheap to label at capture and expensive to reconstruct later. Systems that collect clean, consistently labeled data naturally become compounding systems because every future analysis, model, audit, and decision has more evidence to work from. Unlabeled data still accumulates, but it compounds ambiguity instead of leverage.</p>
-</section>
-<section id="context-and-defensibility" class="level2 spec-section">
-<h2>Context and defensibility</h2>
-<p><strong>Context is the moat.</strong> In any system that delegates work to commodities — agents, contractors, employees — the <em>captured operating mind of the business</em> is the defensible asset. What it sells, who it sells to, what it promises, who decides what, what the SOPs are, what the constraints are. The work-doer is replaceable; the context is not. A business that articulates its operating mind well will outcompete one that doesn't, at the same level of work-doer capability. That isn't a future claim.</p>
+<p><strong>Data value increases with time when labels preserve context.</strong> Data is not just a pile of observations; it is an accumulating record of decisions, outcomes, edge cases, and behavior under real conditions. The same event is cheap to label at capture and expensive to reconstruct later. Systems that collect clean, consistently labeled data naturally become compounding systems because every future analysis, audit, training cycle, and decision has more evidence to work from. Unlabeled data still accumulates, but it compounds ambiguity instead of leverage.</p>
+<p><strong>Context is the moat.</strong> In any system that delegates work to people, vendors, software, or AI, the captured operating mind of the organization is the defensible asset: what it offers, who it serves, what it promises, who decides what, what the constraints are, and how judgment is applied. Labor can often be replaced; operating context cannot. Two teams with the same tools will diverge based on the quality of the context they have captured.</p>
 </section>
 <section id="intent-and-execution" class="level2 spec-section">
 <h2>Intent and execution</h2>
 <p><strong>Separate intent from implementation.</strong> What you want is not the same as how it gets built. Specifying both well, and keeping them clearly distinguished, is most of the work.</p>
-<p><strong>As capability gets cheaper, articulated intent does not.</strong> The bottleneck moves from <em>can the work be done</em> to <em>can the human describe what should be done well enough that the work-doer knows when it is done.</em> The leverage move is getting good at articulating intent.</p>
+<p><strong>As capability gets cheaper, articulated intent does not.</strong> The bottleneck moves from <em>can the work be done</em> to <em>can the responsible person describe what should be done well enough that the executor knows when it is done.</em> The leverage move is getting good at articulating intent.</p>
 <p><strong>Write down the done-condition before the work starts.</strong> A <em>contract</em> — testable, external, agreed in advance — is the single highest-leverage move against scope drift. Once work is underway, "done" can be quietly redefined; pre-writing the exit criterion refuses that move.</p>
-<p><strong>Scope discipline: touch only what you're asked to touch.</strong> The single biggest determinant of whether work is acceptable on first pass or has to be unwound. Same reason any reviewer (human or otherwise) blocks work that does more than one thing.</p>
-<p><strong>Pre-write the rebuttals.</strong> Both AI tools and humans are excellent at rationalizing skipping a rigorous step. <em>Anti-rationalization tables</em> pair common excuses ("this task is too simple to need a spec," "I'll write the test later," "good enough, ship it") with a written rebuttal. You're refusing to argue with the work-doer — or your tired Friday-afternoon self — <em>on the day</em>, by writing the argument down before it happens.</p>
+<p><strong>Scope discipline: touch only what the goal requires.</strong> The single biggest determinant of whether work is acceptable on first pass or has to be unwound is whether it stayed inside the agreed intent. A change that does three extra things may look helpful, but it makes review, learning, and accountability harder.</p>
+<p><strong>Pre-write the rebuttals.</strong> People and tools are excellent at rationalizing skipped rigor. <em>Anti-rationalization tables</em> pair common excuses ("this is too simple to define," "I'll measure it later," "good enough, move on") with a written rebuttal. You are refusing to argue with the executor, or your tired future self, on the day by writing the argument down before it happens.</p>
 </section>
-<section id="verification" class="level2 spec-section">
-<h2>Verification</h2>
+<section id="verification-and-feedback" class="level2 spec-section">
+<h2>Verification and feedback</h2>
 <div class="split-visual">
   <div class="split-card">
-    <div class="split-label">Generation</div>
+    <div class="split-label">Execution</div>
     <div class="split-title">Produces candidate work</div>
-    <div class="split-copy">A model, person, or team creates the artifact. Output quality is not self-certifying.</div>
+    <div class="split-copy">A person, team, or tool creates the artifact. Output quality is not self-certifying.</div>
   </div>
   <div class="split-card accent">
     <div class="split-label">Evaluation</div>
     <div class="split-title">Supplies the exit signal</div>
-    <div class="split-copy">Tests, traces, screenshots, reviewers, or judges decide whether the work matches intent.</div>
+    <div class="split-copy">Measurements, reviewers, judges, tests, scoreboards, or observed outcomes decide whether the work matches intent.</div>
   </div>
 </div>
-<p><strong>Verification is the load-bearing exit criterion.</strong> Every workflow terminates in concrete evidence — a test that runs, a screenshot, a runtime trace, a reviewer signoff. The work-doer is a generator; you need a separate signal that the work is done. "Seems right" never closes the loop.</p>
-<p><strong>Separate generation from evaluation.</strong> Work-doers (especially LLMs) skew positive when grading their own work. A planner / worker / judge or generator / evaluator split is a real architectural pattern, not a stylistic one — even when the same person or model plays multiple roles with different prompts.</p>
+<p><strong>Verification is the load-bearing exit criterion.</strong> Every workflow terminates in concrete evidence: a measured outcome, a coach's review, a customer response, an audit trail, a working demonstration, a passing test, or a signed acceptance. The executor produces candidate work; a separate signal decides whether the work is done. "Seems right" never closes the loop.</p>
+<p><strong>Separate execution from evaluation.</strong> The producer of work has a natural bias toward accepting it. Independent evaluation is not stylistic overhead; it is what prevents confident output from replacing verified progress. In human systems this can be a coach, reviewer, market signal, or measurement. In AI systems this becomes an explicit generator/evaluator or worker/judge split.</p>
 </section>
 <section id="simplicity-and-clarity" class="level2 spec-section">
 <h2>Simplicity and clarity</h2>
@@ -478,36 +491,30 @@
 <ul>
 <li>Design should optimize for easy future change, not momentary cleverness.</li>
 <li>If a behavior astonishes its users, redesign it.</li>
-<li>Before changing behavior you do not understand, capture it with tests.</li>
+<li>Before changing behavior you do not understand, capture the current behavior with observable evidence.</li>
 </ul>
-<p><strong>Prefer the boring, obvious solution. Cleverness is expensive.</strong> The work-doer is not penalized for picking the more interesting design; the system is. Default to the dullest design whose failure modes you understand and reach for cleverness only when the boring version provably won't do.</p>
+<p><strong>Prefer the boring, obvious solution. Cleverness is expensive.</strong> The executor is not penalized for picking the more interesting path; the system is. Default to the dullest design whose failure modes you understand and reach for cleverness only when the boring version provably will not do.</p>
 </section>
-<section id="the-human-machine-boundary" class="level2 spec-section">
-<h2>The human-machine boundary</h2>
-<p><strong>Posture matters more than tool.</strong> The same model that hollows out one person's mental model can sharpen another's, depending on whether they use it <em>to think</em> or <em>instead of thinking</em>. Cognitive offloading (delegate the <em>how</em>, keep the <em>what</em>) and cognitive surrender (the model's output becomes yours by default) look identical from the outside.</p>
-<p><strong>Borrowed confidence is the failure mode.</strong> Models speak in declaratives, and humans inherit that certainty without inheriting the (often nonexistent) reasoning underneath. Confidence transfers cleanly; reasoning does not.</p>
-<p><strong>Calibration is the skill.</strong> The job is to know, in any given moment, whether the work-doer is helping you think or quietly doing the thinking for you. If your work is shipping and your understanding is shrinking, you're paying with cognitive debt; if your work is shipping and your understanding is growing, you're doing the job, just faster.</p>
-<p><strong>Cooperation builds mental models; delegation erodes them.</strong> With cooperation you end the session with a sharper model of the problem than you started; with delegation, the work-doer does. The work-doer is the second person in the room, not the only one.</p>
+<section id="human-judgment-and-delegation" class="level2 spec-section">
+<h2>Human judgment and delegation</h2>
+<p><strong>Posture matters more than tool.</strong> The same tool, coach, teammate, contractor, or model can hollow out one person's mental model and sharpen another's, depending on whether it is used <em>to think</em> or <em>instead of thinking</em>. Cognitive offloading delegates the <em>how</em> while keeping the <em>what</em>; cognitive surrender lets another party's output become yours by default. They can look identical from the outside.</p>
+<p><strong>Borrowed confidence is the failure mode.</strong> Fluent outputs, expert language, senior titles, dashboards, and models all create confidence that can transfer faster than reasoning. Confidence transfers cleanly; judgment does not.</p>
+<p><strong>Calibration is the skill.</strong> The job is to know, in any given moment, whether delegation is helping you think or quietly doing the thinking for you. If output is increasing and understanding is shrinking, you are paying with comprehension debt. If output is increasing and understanding is growing, the system is extending your judgment.</p>
+<p><strong>Cooperation builds mental models; blind delegation erodes them.</strong> With cooperation, the responsible person ends the session with a sharper model of the problem than they started. With blind delegation, the executor does. Delegated labor should be the second mind in the room, not the only one.</p>
+<p><strong>Cognitive surrender is path-dependent; comprehension debt compounds like any other debt.</strong> Each accepted piece of work you do not understand makes the next change to that work more likely to be another act of surrender, because forming an independent view now requires reconstructing what you skipped. The bill comes due when something breaks and no one can rebuild the system from first principles.</p>
 </section>
 <section id="compounding-systems-and-substrate" class="level2 spec-section">
 <h2>Compounding systems and substrate</h2>
-<p><strong>A compounding system has five layers, each with a different durability profile.</strong> <em>Substrate</em> (durable, repo-shaped, survives one-shot regeneration). <em>Iterating layers</em> (rented from frontier providers, replaced on their cadence). <em>Operational shape</em> (who does what — humans, work-doers, queues). <em>Intake layers</em> (where work originates — human input, monitoring, feedback, ambient ingestion). <em>The delivery loop</em> (the contract that turns intake into shipped work and substrate updates). Investments in each layer are not interchangeable; the discipline is knowing which layer you're investing in. The pattern is domain-agnostic — software, marketing, sales, knowledge management, and operations are different applications of the same five-layer shape. See <code>compounding-system.md</code>.</p>
-<p><strong>Distinguish the substrate from the iterating layers.</strong> The substrate is what passes the one-shot regeneration test: a future work-doer with better tools, given the substrate artifacts, could rebuild a <em>better</em> working version of the system from scratch. Iterating layers are everything else — useful, sometimes necessary, but rented from someone else's roadmap. The discipline is knowing which one you're working on and budgeting time accordingly.</p>
-<p><strong>Prefer building substrate to building iterating layers.</strong> Time spent reproducing what frontier providers will ship in the next 18 months is <em>rented leverage.</em> It can buy a few months of competitive advantage; it cannot compound into a long-term moat. Lean toward not building anything a frontier provider would plausibly ship within a year — and when you do build it, name it explicitly as a short-term advantage with a known maintenance cost the day their version arrives.</p>
-<p><strong>The substrate compounds with use; iterating layers age with use.</strong> Every edit to substrate is an investment that pays out across every future engagement. Every edit to a current-implementation-specific wrapper or integration is mostly maintenance against drift. Both have to happen. Only one of them earns its keep over time.</p>
-<p><strong>Substrate grows via a meta-skill, not by accumulation.</strong> Ad-hoc work doesn't become substrate by itself. Either the same workflow is re-invented every time, or someone — at some point — rewrites it as a reusable skill, capability, template, or SOP. The meta-skill (Garry Tan calls it <em>skillify</em>) is the explicit move that promotes a one-off into permanent substrate: examine the trajectory of recent work, extract the repeatable pattern, name the triggers and edge cases, write it as a versioned file, and register it where the system can find it next time. Without that move (or an equivalent), workflows accumulate; with it, they compound.</p>
+<p><strong>A compounding system has five layers, each with a different durability profile.</strong> <em>Substrate</em> is the durable layer: principles, examples, playbooks, data, templates, reusable assets, and operating memory. <em>Iterating layers</em> are the tools, tactics, vendors, and temporary methods that change on someone else's cadence. <em>Operational shape</em> is who does what. <em>Intake layers</em> are where work originates: human input, monitoring, feedback, customer signals, or ambient observation. <em>The delivery loop</em> is the contract that turns intake into shipped work and substrate updates. Investments in each layer are not interchangeable; the discipline is knowing which layer you are investing in. See <code>compounding-system.md</code>.</p>
+<p><strong>Distinguish substrate from iterating layers.</strong> The substrate is what lets a future operator, with better tools and more experience, rebuild a better version of the system from durable artifacts. Iterating layers are everything else: useful, sometimes necessary, but tied to present conditions. The discipline is knowing which one you are working on and budgeting time accordingly.</p>
+<p><strong>Prefer building substrate to building iterating layers.</strong> Time spent reproducing what the market, a tool vendor, or a changing tactic will soon commoditize is rented leverage. It can buy short-term advantage; it cannot compound into a long-term moat unless the work leaves behind reusable knowledge, data, examples, or operating assets.</p>
+<p><strong>Substrate compounds with use; iterating layers age with use.</strong> Every improvement to substrate pays out across future work. Every improvement to a current-tool-specific tactic mostly defends against drift. Both have to happen. Only one of them earns its keep over time.</p>
+<p><strong>Substrate grows through codification, not accumulation.</strong> Ad-hoc work does not become substrate by itself. Either the same workflow is reinvented every time, or someone rewrites it as a reusable skill, capability, template, curriculum, checklist, or SOP. The meta-skill (Garry Tan calls it <em>skillify</em>) is the explicit move that promotes a one-off into permanent substrate: examine recent work, extract the repeatable pattern, name the triggers and edge cases, write it as a versioned artifact, and register it where the system can find it next time. Without that move, workflows accumulate; with it, they compound.</p>
 </section>
-<section id="time-dependence" class="level2 spec-section">
-<h2>Time-dependence</h2>
-<p><strong>Time is either compounding asset value or compounding maintenance liability; there is no neutral default.</strong> A system gets more valuable every day it's used, or more painful every day it ages. There is no third option.</p>
-<p><strong>Long runs amplify every shortcut.</strong> Skipping a rigorous step in a 10-minute task produces a defect; skipping it in a 30-hour run produces a debugging archaeology project at the end. The longer the run, the more the rigor must be <em>enforced</em> rather than <em>suggested</em>.</p>
-<p><strong>Cognitive surrender is path-dependent; comprehension debt compounds like technical debt.</strong> Each accepted chunk of work you don't understand makes the next change to that chunk almost guaranteed to be another act of surrender — because forming an independent view now requires reconstructing the part you skipped. The bill comes due when something breaks and no one can rebuild the system from first principles.</p>
-<p><strong>Reuse across many products requires shared core assets, a common means of production, explicit variability management, and management discipline around the asset base.</strong> None of those happen by accident. Reuse is an operating choice, enforced by structure.</p>
-</section>
-<section id="the-delivery-loop" class="level2 spec-section">
-<h2>The delivery loop</h2>
+<section id="the-operating-loop" class="level2 spec-section">
+<h2>The operating loop</h2>
 <p><strong>When a step fails, go back to the smallest correction — usually the spec.</strong> Don't restart from scratch. Update the smallest upstream artifact that is wrong, regenerate the downstream artifacts that depend on it, re-run. The loop is the recovery mechanism, not just the build mechanism.</p>
-<p><strong>The loop is recursive; the steps are the contract.</strong> A large goal contains smaller goals, each running its own cycle. The work-doer is free to break a top-level goal into any number of inner loops, in any order, using whatever skills fit. The steps of the loop are the contract; the structure inside them is open.</p>
+<p><strong>The loop is recursive; the steps are the contract.</strong> A large goal contains smaller goals, each running its own cycle. The executor is free to break a top-level goal into any number of inner loops, in any order, using whatever methods fit. The steps of the loop are the contract; the structure inside them is open.</p>
 </section>
 </section>
   </article>
@@ -519,7 +526,7 @@
       <a class="related-card" href="../general/operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
 <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
 <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
-<a class="related-card" href="./sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits from core-principles.md (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</div></a>
+<a class="related-card" href="./sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits the domain-neutral core principles and adds implementation-specific rules for building software with AI agents.</div></a>
     </div>
   </section>
 

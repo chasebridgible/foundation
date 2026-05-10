@@ -403,19 +403,20 @@
   <div class="nav-section">
     <div class="nav-label">On this page</div>
     <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
-    <a class="nav-item" href="#knowledge-and-documentation"><span class="nav-num">01</span>Knowledge and documentation</a>
-<a class="nav-item" href="#context-and-defensibility"><span class="nav-num">02</span>Context and defensibility</a>
-<a class="nav-item" href="#intent-and-specification"><span class="nav-num">03</span>Intent and specification</a>
-<a class="nav-item" href="#verification"><span class="nav-num">04</span>Verification</a>
-<a class="nav-item" href="#modularity-and-the-unit-of-change"><span class="nav-num">05</span>Modularity and the unit of change</a>
-<a class="nav-item" href="#capabilities-and-inventory"><span class="nav-num">06</span>Capabilities and inventory</a>
-<a class="nav-item" href="#the-human-machine-boundary"><span class="nav-num">07</span>The human-machine boundary</a>
-<a class="nav-item" href="#harness-engineering"><span class="nav-num">08</span>Harness engineering</a>
-<a class="nav-item" href="#tools-and-external-systems"><span class="nav-num">09</span>Tools and external systems</a>
-<a class="nav-item" href="#long-running-execution"><span class="nav-num">10</span>Long-running execution</a>
-<a class="nav-item" href="#compounding-systems-and-substrate"><span class="nav-num">11</span>Compounding systems and substrate</a>
-<a class="nav-item" href="#time-dependence"><span class="nav-num">12</span>Time-dependence</a>
-<a class="nav-item" href="#the-delivery-loop"><span class="nav-num">13</span>The delivery loop</a>
+    <a class="nav-item" href="#core-principles-applied-to-software"><span class="nav-num">01</span>Core principles applied to software</a>
+<a class="nav-item" href="#knowledge-and-documentation"><span class="nav-num">02</span>Knowledge and documentation</a>
+<a class="nav-item" href="#context-and-defensibility"><span class="nav-num">03</span>Context and defensibility</a>
+<a class="nav-item" href="#intent-and-specification"><span class="nav-num">04</span>Intent and specification</a>
+<a class="nav-item" href="#verification"><span class="nav-num">05</span>Verification</a>
+<a class="nav-item" href="#modularity-and-the-unit-of-change"><span class="nav-num">06</span>Modularity and the unit of change</a>
+<a class="nav-item" href="#capabilities-and-inventory"><span class="nav-num">07</span>Capabilities and inventory</a>
+<a class="nav-item" href="#the-human-machine-boundary"><span class="nav-num">08</span>The human-machine boundary</a>
+<a class="nav-item" href="#harness-engineering"><span class="nav-num">09</span>Harness engineering</a>
+<a class="nav-item" href="#tools-and-external-systems"><span class="nav-num">10</span>Tools and external systems</a>
+<a class="nav-item" href="#long-running-execution"><span class="nav-num">11</span>Long-running execution</a>
+<a class="nav-item" href="#compounding-systems-and-substrate"><span class="nav-num">12</span>Compounding systems and substrate</a>
+<a class="nav-item" href="#time-dependence"><span class="nav-num">13</span>Time-dependence</a>
+<a class="nav-item" href="#the-delivery-loop"><span class="nav-num">14</span>The delivery loop</a>
   </div>
 </nav>
 
@@ -445,6 +446,16 @@
     <div class="stack-row runtime"><div class="stack-name">Harness</div><div class="stack-copy">Tools, skills, sandboxes, and logs route the model through the loop.</div><div class="stack-tag">replaceable layer</div></div>
   </div>
 </div>
+<section id="core-principles-applied-to-software" class="level2 spec-section">
+<h2>Core principles applied to software</h2>
+<p>The core principles document stays domain-neutral. This section captures the software-development and coding-agent versions of those same principles so the sharper implementation language lives here.</p>
+<p><strong>Progressive disclosure beats kitchen-sink loading in coding-agent context.</strong> Every artifact you load into context degrades performance somewhere. Load what is relevant for the current phase; leave the rest on disk and let a small router decide what applies. True for skills, runbooks, incident playbooks, specs, and any file an agent will read under time pressure.</p>
+<p><strong>Context is the moat for software businesses using agents.</strong> In any system that delegates work to commodities — agents, contractors, employees — the <em>captured operating mind of the business</em> is the defensible asset. What it sells, who it sells to, what it promises, who decides what, what the SOPs are, what the constraints are. The work-doer is replaceable; the context is not. A business that articulates its operating mind well will outcompete one that does not, at the same level of work-doer capability.</p>
+<p><strong>Scope discipline means touch only what the software task asks you to touch.</strong> The single biggest determinant of whether agent-generated work is acceptable on first pass or has to be unwound is whether it stayed inside the requested change. Any reviewer, human or otherwise, should block work that does more than one thing.</p>
+<p><strong>Pre-write the software rebuttals.</strong> AI tools and humans are both excellent at rationalizing skipped rigor. Anti-rationalization tables pair common excuses ("this task is too simple to need a spec," "I'll write the test later," "good enough, ship it") with a written rebuttal. The point is to refuse the argument before the work-doer, or your tired future self, tries to make it.</p>
+<p><strong>Software verification is the load-bearing exit criterion.</strong> Every software workflow terminates in concrete evidence — a test that runs, a screenshot, a runtime trace, a reviewer signoff. The coding agent is a generator; the system needs a separate signal that the work is done. "Seems right" never closes the loop.</p>
+<p><strong>Separate generation from evaluation in agentic software work.</strong> Work-doers, especially LLMs, skew positive when grading their own work. A planner / worker / judge or generator / evaluator split is a real architectural pattern, not a stylistic one — even when the same person or model plays multiple roles with different prompts.</p>
+</section>
 <section id="knowledge-and-documentation" class="level2 spec-section">
 <h2>Knowledge and documentation</h2>
 <p><strong><code>AGENTS.md</code> is a pilot's checklist, not a style guide.</strong> It lands in the system prompt every turn, so it's the single highest-leverage configuration point. Keep it short and earn each line: every rule traces to a specific past failure or hard external constraint, or it's noise and exhausts the context window.</p>
@@ -477,6 +488,13 @@
 </section>
 <section id="modularity-and-the-unit-of-change" class="level2 spec-section">
 <h2>Modularity and the unit of change</h2>
+<p><strong>Choose the simplest, most boring design whose failure modes you understand</strong>, and do not dismantle load-bearing weirdness until you have captured its behavior.</p>
+<ul>
+<li>Design should optimize for easy future change, not momentary cleverness.</li>
+<li>If a behavior astonishes its users, redesign it.</li>
+<li>Before changing behavior you do not understand, capture it with tests.</li>
+</ul>
+<p><strong>Prefer the boring, obvious solution. Cleverness is expensive.</strong> The work-doer is not penalized for picking the more interesting design; the system is. Default to the dullest design whose failure modes you understand and reach for cleverness only when the boring version provably will not do.</p>
 <p><strong>Decompose around volatility and language boundaries, not around execution order or presentation layers.</strong> When the point of modularity is safe change, modules should hide the decisions most likely to vary, because the whole value of decomposition is to contain blast radius. Start from difficult design decisions and likely changes, and hide those behind module boundaries.</p>
 <p><strong>Vertical-slice intuition within the scope of a productized agency is canonically sound if the slice owns a coherent concept end-to-end.</strong> In practice that means each slice should be promptable, reviewable, and testable as a unit, with contracts at its edges and no hidden cross-slice magic.</p>
 <p>Anti-patterns: layer-first decomposition, temporal decomposition, and "we'll share the same model name everywhere."</p>
@@ -501,6 +519,11 @@
 </section>
 <section id="the-human-machine-boundary" class="level2 spec-section">
 <h2>The human-machine boundary</h2>
+<p><strong>Posture matters more than tool.</strong> The same model that hollows out one person's mental model can sharpen another's, depending on whether they use it <em>to think</em> or <em>instead of thinking</em>. Cognitive offloading delegates the <em>how</em> and keeps the <em>what</em>; cognitive surrender lets the model's output become yours by default. They look identical from the outside.</p>
+<p><strong>Borrowed confidence is the failure mode.</strong> Models speak in declaratives, and humans inherit that certainty without inheriting the reasoning underneath. Confidence transfers cleanly; reasoning does not.</p>
+<p><strong>Calibration is the skill.</strong> The job is to know, in any given moment, whether the work-doer is helping you think or quietly doing the thinking for you. If your work is shipping and your understanding is shrinking, you are paying with cognitive debt; if your work is shipping and your understanding is growing, you are doing the job, just faster.</p>
+<p><strong>Cooperation builds mental models; delegation erodes them.</strong> With cooperation you end the session with a sharper model of the problem than you started; with delegation, the work-doer does. The work-doer is the second person in the room, not the only one.</p>
+<p><strong>Cognitive surrender is path-dependent; comprehension debt compounds like technical debt.</strong> Each accepted chunk of work you do not understand makes the next change to that chunk almost guaranteed to be another act of surrender — because forming an independent view now requires reconstructing the part you skipped. The bill comes due when something breaks and no one can rebuild the system from first principles.</p>
 <p><strong>Humans own intent, boundaries, harnesses, and acceptance; agents own searchable labor.</strong></p>
 <p><strong>Context engineering for coding agents is curating what the model sees.</strong></p>
 <p><strong>The real discipline is harness engineering</strong>, not prompt engineering: specs, rules, examples, fast tests, structural checks, code review surfaces, transcripts, outcome-based evals, intervention paths, and explicit handoff artifacts across sessions.</p>
@@ -552,12 +575,18 @@
 <section id="compounding-systems-and-substrate" class="level2 spec-section">
 <h2>Compounding systems and substrate</h2>
 <p>The five-layer compounding-system framework, the durability hierarchy, and the cross-domain principles for substrate vs. iterating layers live in <code>core-principles.md</code> and <code>compounding-system.md</code>. The principles below are the software-specific applications.</p>
+<p><strong>A software compounding system has five layers, each with a different durability profile.</strong> <em>Substrate</em> is durable, repo-shaped, and survives one-shot regeneration. <em>Iterating layers</em> are rented from frontier providers and replaced on their cadence. <em>Operational shape</em> is who does what — humans, work-doers, queues. <em>Intake layers</em> are where work originates — human input, monitoring, feedback, ambient ingestion. <em>The delivery loop</em> is the contract that turns intake into shipped work and substrate updates. Investments in each layer are not interchangeable; the discipline is knowing which layer you are investing in.</p>
 <p><strong>Frontier labs will keep producing better models <em>and</em> better harnesses.</strong> Both. The model gets better; the meta-skills router, the sandbox, the generic tool wrappers, the observability layer — they all get better too, on the labs' cadence. What labs <em>won't</em> produce is the captured intent of your work, the captured operating mind of your business, and the workflows that only matter inside your domain. Plan accordingly. Garry Tan compresses the same distinction into a slogan worth borrowing: <em>fat skills, fat code, fat data, thin harness</em> — invest where it compounds, rent the routing layer.</p>
+<p><strong>Distinguish the software substrate from the iterating layers.</strong> The substrate is what passes the one-shot regeneration test: a future work-doer with better tools, given the substrate artifacts, could rebuild a <em>better</em> working version of the system from scratch. Iterating layers are everything else — useful, sometimes necessary, but rented from someone else's roadmap. The discipline is knowing which one you are working on and budgeting time accordingly.</p>
+<p><strong>Prefer building software substrate to building iterating layers.</strong> Time spent reproducing what frontier providers will ship in the next 18 months is rented leverage. It can buy a few months of competitive advantage; it cannot compound into a long-term moat. Lean toward not building anything a frontier provider would plausibly ship within a year — and when you do build it, name it explicitly as a short-term advantage with a known maintenance cost the day their version arrives.</p>
+<p><strong>The software substrate compounds with use; iterating layers age with use.</strong> Every edit to substrate is an investment that pays out across every future engagement. Every edit to a current-implementation-specific wrapper or integration is mostly maintenance against drift. Both have to happen. Only one of them earns its keep over time.</p>
+<p><strong>Software substrate grows via a meta-skill, not by accumulation.</strong> Ad-hoc work does not become substrate by itself. Either the same workflow is reinvented every time, or someone — at some point — rewrites it as a reusable skill, capability, template, or SOP. The meta-skill (Garry Tan calls it <em>skillify</em>) is the explicit move that promotes a one-off into permanent substrate: examine the trajectory of recent work, extract the repeatable pattern, name the triggers and edge cases, write it as a versioned file, and register it where the system can find it next time. Without that move, workflows accumulate; with it, they compound.</p>
 <p><strong>The substrate tells the agent three things: where to look, what shape the answer should take, and what counts as done.</strong> <em>Where to look</em> is the knowledge layer and the conventions. <em>What shape</em> is the spec. <em>What counts as done</em> is the test spec and the sprint contract. A substrate missing any of the three still produces wandering output, no matter how capable the model — perfect knowledge with no spec for shape produces directionless work; a perfect spec with no done-condition produces work that won't stop. (This is the principle that distinguishes substrate from documentation: documentation describes; substrate <em>directs.</em>)</p>
 </section>
 <section id="time-dependence" class="level2 spec-section">
 <h2>Time-dependence</h2>
 <p><strong>Sustainable software is software that can keep responding to change.</strong> Smaller batches are higher quality over time, frequent upgrades make later upgrades easier, and deprecation is part of the job because obsolete systems have carrying cost.</p>
+<p><strong>Long runs amplify every shortcut.</strong> Skipping a rigorous step in a 10-minute task produces a defect; skipping it in a 30-hour run produces a debugging archaeology project at the end. The longer the run, the more the rigor must be <em>enforced</em> rather than <em>suggested</em>.</p>
 <p><strong>A good harness, good docs, good examples, and a sane platform turn model improvements into leverage. A weak system turns the same models into faster accumulation of drift.</strong></p>
 <p><strong>A spec-driven, capability-based system has positive time-dependence.</strong> Three flywheels turn at once: specs sharpen each iteration; capabilities compound into a library that doesn't deprecate the way a normal codebase does; models improve on their own schedule. This is one of the few kinds of software system that gets better while you sleep.</p>
 <p><strong>The interface to the agent is the unit of stability.</strong> Because the system meets the agent at the spec, the test, the prompt, and the skill — and because all four are stable abstractions — model improvement is absorbed automatically. No rewrites, no migration projects. The same prompts produce better work.</p>
@@ -565,6 +594,8 @@
 <section id="the-delivery-loop" class="level2 spec-section">
 <h2>The delivery loop</h2>
 <p><strong>"Spec → test → prompt → execute" is a strong inner loop. The outer loop is review, integration, rollout, observation, and deprecation.</strong> The outer loop is equally or more important to success over time. The general loop-as-recovery and recursive-loop principles live in <code>core-principles.md</code>; the four-step inner loop named here is the software-specific instantiation.</p>
+<p><strong>When a step fails, go back to the smallest correction — usually the spec.</strong> Do not restart from scratch. Update the smallest upstream artifact that is wrong, regenerate the downstream artifacts that depend on it, re-run. The loop is the recovery mechanism, not just the build mechanism.</p>
+<p><strong>The loop is recursive; the steps are the contract.</strong> A large goal contains smaller goals, each running its own cycle. The work-doer is free to break a top-level goal into any number of inner loops, in any order, using whatever skills fit. The steps of the loop are the contract; the structure inside them is open.</p>
 </section>
 </section>
   </article>
@@ -576,7 +607,7 @@
       <a class="related-card" href="../general/operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
 <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
 <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
-<a class="related-card" href="./core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</div></a>
+<a class="related-card" href="./core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems in any field: sport, education, business, operations, software, and AI-assisted work.</div></a>
     </div>
   </section>
 
