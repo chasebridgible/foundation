@@ -8,13 +8,19 @@ The same pattern holds in every serious domain. The people who reach the pinnacl
 
 This repo is the written substrate for that idea.
 
+## Reading Order
+
+1. Start with [The Compounding System](docs/compounding-systems.html). It explains the framework everything else fits inside.
+2. Read [Core Principles](docs/principles/core-principles.html). These are the cross-domain rules for building systems that improve over time.
+3. Explore from there based on what you need: software-specific principles, the working spec, or definitions.
+
 ## Core Concepts
 
-- [Building Software with Agents: A Working Spec](core-concepts/operating-spec.html)
-- [The Compounding System](core-concepts/compounding-system.html)
-- [Definitions](core-concepts/definitions/sw-definitions.html)
-- [Core Principles](core-concepts/principles/core-principles.html)
-- [Software Development Principles](core-concepts/principles/sw-principles.html)
+- [The Compounding System](docs/compounding-systems.html)
+- [Core Principles](docs/principles/core-principles.html)
+- [Software Development Principles](docs/principles/sw-principles.html)
+- [Building Software with Agents: A Working Spec](docs/general/operating-spec.html)
+- [Definitions](docs/definitions/sw-definitions.html)
 
 ## Thesis
 
