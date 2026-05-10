@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Software Development Principles — Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --input-bg: #1c1c1c;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --primary-dim: rgba(79,142,255,0.10);
+    --amber: #d4a72c;
+    --amber-dim: rgba(212,167,44,0.12);
+    --emerald: #4ec9b0;
+    --emerald-dim: rgba(78,201,176,0.12);
+    --red: #f48771;
+    --red-dim: rgba(244,135,113,0.12);
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 10px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 18px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .logo-mark {
+    width: 24px; height: 24px;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; color: var(--fg); font-size: 12px;
+  }
+  .sidebar-title { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .sidebar-sub { font-size: 11px; color: var(--fg-3); margin-top: 1px; font-family: var(--font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px; }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    font-size: 10px; font-weight: 500;
+    color: var(--fg-3);
+    padding: 10px 10px 4px;
+    font-family: var(--font-mono);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition), color var(--transition);
+    min-width: 0;
+  }
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-item:not(.doc-link) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .doc-link { align-items: flex-start; line-height: 1.35; }
+  .nav-num {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--fg-3);
+    flex-shrink: 0;
+    width: 18px;
+    text-align: right;
+    padding-top: 1px;
+  }
+  .nav-item.active .nav-num, .nav-item.current .nav-num { color: var(--fg-2); }
+
+  .main {
+    flex: 1; min-width: 0;
+    padding: 56px 72px 120px;
+    max-width: 980px;
+  }
+
+  .spec-eyebrow {
+    font-size: 11px; font-weight: 500;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+  }
+  h1 {
+    font-size: 30px; font-weight: 600;
+    line-height: 1.15; letter-spacing: -0.015em;
+    margin-bottom: 14px;
+    color: var(--fg);
+  }
+  .lede {
+    font-size: 15px; color: var(--fg-2);
+    line-height: 1.65; max-width: 680px;
+    margin-bottom: 28px;
+  }
+  .meta-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding: 10px 0;
+    font-size: 12px; color: var(--fg-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+
+  .doc-body { margin-top: 42px; }
+  .doc-body section { margin-top: 54px; }
+  .doc-body section:first-child { margin-top: 0; }
+  section { scroll-margin-top: 24px; }
+
+  h2 {
+    font-size: 19px; font-weight: 600;
+    margin-top: 56px; margin-bottom: 8px;
+    letter-spacing: -0.005em;
+    color: var(--fg);
+  }
+  .doc-body section > h2:first-child { margin-top: 0; }
+  h2 + p, h2 + .lede-2 { margin-top: 6px; }
+  .lede-2 {
+    font-size: 14px;
+    color: var(--fg-2);
+    margin-bottom: 18px;
+    max-width: 680px;
+  }
+  h3 { font-size: 14px; font-weight: 600; margin-top: 28px; margin-bottom: 8px; color: var(--fg); }
+  h4 {
+    font-size: 11px; font-weight: 600;
+    color: var(--fg-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 18px; margin-bottom: 8px;
+  }
+
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+  p strong, li strong { color: var(--fg); font-weight: 600; }
+  em { color: var(--fg); font-style: italic; }
+
+  ul, ol { color: var(--fg-2); padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 5px; line-height: 1.6; }
+  li > ul, li > ol { margin-top: 5px; margin-bottom: 8px; }
+
+  a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--fg-3); }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--bg-3);
+    color: var(--fg-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  pre,
+  div.sourceCode {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  pre code,
+  div.sourceCode code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  div.sourceCode pre {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .sourceCode span { color: inherit; }
+
+  .status-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0 22px;
+    font-size: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .status-table th {
+    text-align: left;
+    padding: 9px 14px;
+    background: var(--bg);
+    color: var(--fg-3);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+  }
+  .status-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-2);
+    vertical-align: top;
+  }
+  .status-table tr:last-child td { border-bottom: none; }
+
+  .callout {
+    display: flex; gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius);
+    margin: 14px 0;
+    border-left: 2px solid;
+    background: var(--bg-2);
+  }
+  .callout.note { border-left-color: var(--border-2); }
+  .callout-icon {
+    font-size: 11px;
+    flex-shrink: 0;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    width: 38px;
+  }
+  .callout-body { font-size: 13px; color: var(--fg-2); line-height: 1.6; flex: 1; }
+  .callout-body strong { color: var(--fg); }
+
+  .related-section { margin-top: 64px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .related-card {
+    background: var(--bg-2);
+    padding: 14px 16px;
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition);
+  }
+  .related-card:hover { background: var(--bg-3); }
+  .related-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .related-name::after { content: '→'; color: var(--fg-3); font-weight: 400; margin-left: auto; }
+  .related-card:hover .related-name::after { color: var(--fg); }
+  .related-desc { font-size: 12px; color: var(--fg-3); line-height: 1.5; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .footer-note { text-align: center; color: var(--fg-3); font-size: 12px; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--fg-3); }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 36px 22px 72px; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Core Concepts</div>
+      <div class="sidebar-sub">Software Development Principles</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Documents</div>
+    <a class="nav-item doc-link" href="../operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
+<a class="nav-item doc-link" href="../compounding-system.html"><span class="nav-num">02</span>The Compounding System</a>
+<a class="nav-item doc-link" href="../definitions/sw-definitions.html"><span class="nav-num">03</span>Definitions</a>
+<a class="nav-item doc-link" href="./core-principles.html"><span class="nav-num">04</span>Core Principles</a>
+<a class="nav-item doc-link current" href="./sw-principles.html"><span class="nav-num">05</span>Software Development Principles</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#knowledge-and-documentation"><span class="nav-num">01</span>Knowledge and documentation</a>
+<a class="nav-item" href="#context-and-defensibility"><span class="nav-num">02</span>Context and defensibility</a>
+<a class="nav-item" href="#intent-and-specification"><span class="nav-num">03</span>Intent and specification</a>
+<a class="nav-item" href="#verification"><span class="nav-num">04</span>Verification</a>
+<a class="nav-item" href="#modularity-and-the-unit-of-change"><span class="nav-num">05</span>Modularity and the unit of change</a>
+<a class="nav-item" href="#capabilities-and-inventory"><span class="nav-num">06</span>Capabilities and inventory</a>
+<a class="nav-item" href="#the-human-machine-boundary"><span class="nav-num">07</span>The human-machine boundary</a>
+<a class="nav-item" href="#harness-engineering"><span class="nav-num">08</span>Harness engineering</a>
+<a class="nav-item" href="#tools-and-external-systems"><span class="nav-num">09</span>Tools and external systems</a>
+<a class="nav-item" href="#long-running-execution"><span class="nav-num">10</span>Long-running execution</a>
+<a class="nav-item" href="#compounding-systems-and-substrate"><span class="nav-num">11</span>Compounding systems and substrate</a>
+<a class="nav-item" href="#time-dependence"><span class="nav-num">12</span>Time-dependence</a>
+<a class="nav-item" href="#the-delivery-loop"><span class="nav-num">13</span>The delivery loop</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · sw-principles.html</div>
+    <h1>Software Development Principles</h1>
+    <p class="lede">Software-development principles for spec-driven, agent-based work. Inherits from <code>core-principles.md</code> (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</p>
+    <div class="meta-row">
+      <div><strong>Source:</strong> principles/sw-principles.md</div>
+      <div><strong>Generated:</strong> HTML companion</div>
+      <div><strong>Status:</strong> Mirrors Markdown</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+<section class="level1 generated-root">
+<section id="knowledge-and-documentation" class="level2 spec-section">
+<h2>Knowledge and documentation</h2>
+<p><strong><code>AGENTS.md</code> is a pilot's checklist, not a style guide.</strong> It lands in the system prompt every turn, so it's the single highest-leverage configuration point. Keep it short and earn each line: every rule traces to a specific past failure or hard external constraint, or it's noise and exhausts the context window.</p>
+<p><strong>The session log is the substrate of recoverability.</strong> An append-only event log of every thought, tool call, and observation is what makes a long run debuggable, auditable, and resumable. Without one, a container failure is a session failure — what you have is a long-running shell script that happens to call an LLM, not a long-running agent.</p>
+</section>
+<section id="context-and-defensibility" class="level2 spec-section">
+<h2>Context and defensibility</h2>
+<p><strong>Whatever an agent does not know about your business at the moment of execution, it makes up.</strong> Most of the time the made-up answer is plausible enough that you don't notice — until you do, and the cost is whatever was built on top of the bad assumption. A finite context window plus a "looks plausible" filter is exactly the wrong combination for high-stakes work.</p>
+<p><strong>Specs and knowledge bases are the same idea at different scales.</strong> A spec captures the durable intent of <em>one piece of work</em>. A knowledge base captures the durable intent of <em>one business</em>. Together they're how a finite context window can act with the company's actual taste, instead of generic competence.</p>
+</section>
+<section id="intent-and-specification" class="level2 spec-section">
+<h2>Intent and specification</h2>
+<p><strong>Bugs are deviations from intent</strong> - but it is worth defining prioritization of intent across product, user, operator, regulator, and security. This is something to be addressed at the spec level of the system.</p>
+<p><strong>The unit of correctness is the spec, not the code.</strong> Code executes; agents execute. Wrongness in software is almost never "the machine made a mistake" — it's that the intent the machine was acting on was incomplete, ambiguous, or never written down. The first question when something goes wrong is not <em>what is the agent doing weird?</em> but <em>what did I tell it to do, and did that description capture what I wanted?</em></p>
+<p><strong>The spec and the test are the work; the prompt and execute steps are the cheap part.</strong> Code generation has compressed to near-zero; what hasn't compressed is the precision of the description the code is generated from. Vague sketch + no tests + many prompt cycles produces software whose correctness no one can verify.</p>
+<p><strong>A spec is a living product contract; specs are never finished.</strong> A spec is the most up-to-date statement of what the work is trying to achieve, not a deliverable produced once at the start. When the code changes, the relevant specs change in the same commit. A spec that drifts from the system it describes is worse than no spec, because it gives false confidence.</p>
+<p><strong>If the agent could plausibly produce ten different valid implementations, you need a technical spec to pick the one you want.</strong> Most product surfaces don't need a technical spec — any reasonable implementation of a message thread will do. Systems with non-trivial technical depth (livestreaming pipelines, custom video players, real-time sync engines) do.</p>
+<p><strong>The appreciating skill is writing specs that survive contact with an autonomous executor.</strong> Defining work crisply enough that an agent can run on it for a day is harder than doing the work yourself. That definition is the human's job and isn't going away.</p>
+</section>
+<section id="verification" class="level2 spec-section">
+<h2>Verification</h2>
+<p><strong>Write the test first</strong>, use it to drive the interface, then refactor. The Continuous Integration tradition sharpens it further: tests, linters, and other verifiers are the automated health check of the codebase.</p>
+<p><strong>Use the test pyramid</strong>, paired with Software Engineering at Google's practical advice to skew toward maintainable unit tests while still keeping broader-scoped tests; the Google rule of thumb is roughly 80% unit and 20% broader tests.</p>
+<p><strong>Even formal verification does not save you if the spec is incomplete</strong>, because perfect verification can only establish conformance to the specification, not that the specification itself is right.</p>
+<p><strong>Grade outcomes, not trajectorial theater.</strong> Recent agent-evals practice lands on the same lesson: over-specifying the path an agent must take leads to brittle evals. Evaluate what matters in the environment, then read transcripts to see whether the eval is fair.</p>
+<p><strong>Use the least expensive reliable signal that matches the risk.</strong> Interaction tests, larger tests, and inferential graders all have legitimate uses; the real rule is matching signal cost to risk.</p>
+<p><strong>The loop must refuse to let the agent stop early.</strong> Models declare "task complete" too soon. A wrapper that re-injects the goal into a fresh context window when the agent claims it's done is the simplest defense (the Ralph pattern).</p>
+<p><strong>Surface correctness is not systemic correctness.</strong> Code that compiles, lints, and passes tests still hides ordering changes, edge-case defaults, and decisions the human never made. The "looks plausible" filter is exactly the wrong filter when the author is a model.</p>
+<p><strong>The test spec is the human's seat at the table.</strong> Code-level tests (unit, integration, smoke) can be regenerated by the agent at any time; what stays human-readable is the plain-English test plan that says <em>these are the conditions we're verifying.</em> When the descriptive spec changes, the test spec changes; when the test spec changes, the code-level tests are regenerated.</p>
+</section>
+<section id="modularity-and-the-unit-of-change" class="level2 spec-section">
+<h2>Modularity and the unit of change</h2>
+<p><strong>Decompose around volatility and language boundaries, not around execution order or presentation layers.</strong> When the point of modularity is safe change, modules should hide the decisions most likely to vary, because the whole value of decomposition is to contain blast radius. Start from difficult design decisions and likely changes, and hide those behind module boundaries.</p>
+<p><strong>Vertical-slice intuition within the scope of a productized agency is canonically sound if the slice owns a coherent concept end-to-end.</strong> In practice that means each slice should be promptable, reviewable, and testable as a unit, with contracts at its edges and no hidden cross-slice magic.</p>
+<p>Anti-patterns: layer-first decomposition, temporal decomposition, and "we'll share the same model name everywhere."</p>
+<p><strong>A change should do one thing and be small enough for a reviewer to understand end-to-end.</strong> Ship small diffs if you want any realistic chance of inspecting them for correctness.</p>
+<p>This becomes dramatically more important once an agent can generate a five-file refactor, a migration, and three incidental cleanups in a single turn. Harnesses should enforce scope budgets, change descriptions, and maybe even "one primary intent per diff."</p>
+<p><strong>The unit of review is the unit of comprehension.</strong> A change too large to actually read is a change you will ratify rather than review. This is the human-side rationale behind Google's ~100-line PR norm; the agent-side rationale is the same — once a diff stops being readable, "approved" stops meaning anything.</p>
+<p><strong>Decouple Brain, Hands, and Session.</strong> The model + harness loop (Brain), the sandboxed execution environment (Hands), and the append-only event log (Session) should be independently replaceable. Coupling them means a stale assumption forces the whole system to change at once; decoupling them lets sandboxes be cattle, brain crashes recoverable, and harness pieces removable as the model grows into them.</p>
+</section>
+<section id="capabilities-and-inventory" class="level2 spec-section">
+<h2>Capabilities and inventory</h2>
+<p><strong>A capability is a vertical slice that owns every layer it touches.</strong> Database tables, API routes, shared types, frontend components — all in one folder. The unit of change is the capability, not the codebase.</p>
+<p><strong>Folder copy is the portability test.</strong> A capability is portable if dropping its folder into a new repo applies the schema, mounts the routes, exposes the types, wires up the screens, and declares the env vars — without further surgery. The test is a physical constraint, not a design rule. There is nothing to debate.</p>
+<p><strong>A capability is not done until it is substrate inventory.</strong> Every finished client feature is rewritten — as part of the same goal — into a portable capability in the shared library. Skip that step and the inventory doesn't grow; the system goes back to being a normal codebase that gets harder over time.</p>
+<p><strong>Build for one, deploy to many.</strong> A capability that ships for client A and is useful for client B <em>only</em> if A's specifics are scrubbed first is not reusable — it's a snowflake. Folder-copy portability is what keeps the inventory honest.</p>
+<p><strong>Codebases grow by accretion; capability libraries grow by inventory.</strong> Accretion entangles features over time, so the whole codebase becomes the unit of change. Inventory adds independent, self-contained slices that travel together across every layer. The fiftieth client engagement starts with forty-nine capabilities the first one didn't have.</p>
+</section>
+<section id="the-human-machine-boundary" class="level2 spec-section">
+<h2>The human-machine boundary</h2>
+<p><strong>Humans own intent, boundaries, harnesses, and acceptance; agents own searchable labor.</strong></p>
+<p><strong>Context engineering for coding agents is curating what the model sees.</strong></p>
+<p><strong>The real discipline is harness engineering</strong>, not prompt engineering: specs, rules, examples, fast tests, structural checks, code review surfaces, transcripts, outcome-based evals, intervention paths, and explicit handoff artifacts across sessions.</p>
+<p><strong>Mature oversight looks less like approving every action and more like observing traces and intervening quickly when the system drifts.</strong></p>
+<p><strong>The default behavior of any AI coding agent is the shortest path to "done."</strong> The reward signal points at "task complete," not "task complete <em>and the design doc exists</em>." Senior-engineer work — surfacing assumptions, sizing changes, writing the spec, leaving evidence, refusing to merge what can't be reviewed — is exactly what gets skipped unless skipping is made impossible.</p>
+<p><strong>Small human surface area, large agent surface area.</strong> The human belongs only where context, judgment, and accountability matter — defining intent, prioritizing work, accepting what ships. Everything else belongs to the loop. Anything more elaborate is overhead, and overhead is what stops systems like this from scaling.</p>
+</section>
+<section id="harness-engineering" class="level2 spec-section">
+<h2>Harness engineering</h2>
+<p><strong>Agent = Model + Harness.</strong> A raw chat model is not an agent. It becomes one when a harness gives it state, tool execution, feedback loops, and enforceable constraints. If you're not the model, you're the harness.</p>
+<p><strong>A decent model with a great harness beats a great model with a bad harness.</strong> Most leverage lives on the harness side of the equation, not the model side. The gap between what current models can do and what you see them doing is largely a harness gap.</p>
+<p><strong>The skills are the prompts.</strong> Mature agent systems don't prompt; they invoke skills. Each repeatable workflow lives in a versioned file with triggers, instructions, and edge cases; the harness routes to the right skill; the skill remembers the lessons the prompt window forgets. If you're hand-crafting prompts at the keyboard every session, the workflow isn't yet substrate — and the next person (or the next session) starts from scratch. <em>(After Garry Tan.)</em></p>
+<p><strong>Skills compose; improving one improves every workflow that uses it.</strong> A complex workflow is a chain of focused skills, each doing one thing well. When <code>cross-modal-eval</code> gets sharper, every skill that calls it gets sharper for free. Composability is the unit of expressiveness; per-skill quality is the unit of leverage. Ten focused skills beat one mega-skill for the same reason ten focused tools beat fifty overlapping ones.</p>
+<p><strong>Models are interchangeable; the skill decides which model to call.</strong> Precision tasks call one model; recall tasks call another; creative work calls a third; latency-critical work calls a fourth. The skill encodes the routing; the harness doesn't care. "Which model is best?" is the wrong question — every frontier model is best at something, and the substrate is what decides what. This is also why the harness has to stay thin: model selection is a per-task decision that lives next to the work, not in a global router.</p>
+<p><strong>Failures are configuration problems, not model problems.</strong> The blame-the-model default is wrong by default. Most observed failures are legible and fixable in the harness — call it the "skill issue" reframe and fix it where it lives.</p>
+<p><strong>Every harness component encodes an assumption about what the model can't do on its own.</strong> When a component can't be traced to a specific behavior the model would otherwise fail at, it shouldn't exist. When the model gets good at the behavior, the component should come out.</p>
+<p><strong>Ratchet, don't brainstorm.</strong> Add a constraint only after a real failure; remove it only when a capable model has made it redundant. Every line of <code>AGENTS.md</code>, every hook, every rule should trace to a specific thing that went wrong or a hard external constraint.</p>
+<p><strong>Expect v1 to be terrible; the fix ratchets into the skill.</strong> First-pass skills make embarrassing mistakes — factual errors, missed edge cases, generic-sounding output. That's the point. Every failure is what you ratchet the skill against, so every future invocation gets the lesson baked in. The system gets better not because the model improves but because the substrate absorbs what went wrong; the hundredth invocation is good because the first ninety-nine taught the skill something. <em>(After Garry Tan.)</em></p>
+<p><strong>Work backwards from behavior.</strong> Start from the behavior you want (or want to fix) and derive the harness piece that delivers it. If you can't name the behavior a component exists to deliver, drop it.</p>
+<p><strong>Success is silent; failures are verbose.</strong> Hooks and checks should say nothing on success and inject actionable error text on failure. This makes the feedback loop nearly free in the common case and self-correcting when it isn't.</p>
+<p><strong>Harnesses don't shrink as models improve; they move.</strong> Old scaffolding becomes dead code; the ceiling rises and exposes new failure modes that need new scaffolding. The right harness is shaped by your failure history — it can't be downloaded.</p>
+</section>
+<section id="tools-and-external-systems" class="level2 spec-section">
+<h2>Tools and external systems</h2>
+<p><strong>When an agent talks to an external service, wrap it.</strong> Three things every wrapper should do: keep a local copy of the data the agent will keep coming back to; let the agent ask compound questions in one shot; return small structured output sized for an agent's context, not a human's screen. Whether you call the wrapper an agent-native CLI, an MCP server, or a script in <code>bin/</code> matters less than the shape.</p>
+<p><strong>Local mirror beats remote API call.</strong> State out of the context window, queryable offline, replayable across sessions. The 8,000 lines of JSON belong on disk; the agent should see the table.</p>
+<p><strong>Compound commands beat ten round trips.</strong> A single command that does the work of ten — search, merge, sort, filter — keeps the context budget intact and the latency low. Raw HTTP is what you'd do with <code>curl</code>; agent-native tooling is what you'd do if you were designing the interface for the agent.</p>
+<p><strong>Tool descriptions are trusted text the model reads.</strong> Each tool's name, description, and schema gets stamped into the system prompt every request. Ten focused tools beat fifty overlapping ones, and a sloppy or malicious tool description can prompt-inject your agent before you've typed anything.</p>
+</section>
+<section id="long-running-execution" class="level2 spec-section">
+<h2>Long-running execution</h2>
+<p><strong>State must live outside the model's context window.</strong> The agent is amnesiac; the filesystem, the session log, and the memory store are not. Every long-running design is, at its core, a way of moving state out of context and back in on demand.</p>
+<p><strong>Three walls bound every long-running agent: finite context, no persistent state, no self-verification.</strong> Every architecture in this space is an answer to those three problems. If a design doesn't address all three, it isn't long-running — it's just a long single-session run.</p>
+<p><strong>Compaction alone is insufficient for very long jobs.</strong> Past a certain horizon you need full context resets — tearing down the session and rebuilding it from a structured handoff file. Closer to onboarding a new engineer than to "memory."</p>
+<p><strong>Bet on the patterns, not the products.</strong> Google, Anthropic, and Cursor have arrived at roughly the same shape from very different directions: Brain / Hands / Session, planner / worker / judge, durable session log, sprint contract, Ralph-loop continuation. Surface area differs across products; the underlying patterns converge.</p>
+</section>
+<section id="compounding-systems-and-substrate" class="level2 spec-section">
+<h2>Compounding systems and substrate</h2>
+<p>The five-layer compounding-system framework, the durability hierarchy, and the cross-domain principles for substrate vs. iterating layers live in <code>core-principles.md</code> and <code>compounding-system.md</code>. The principles below are the software-specific applications.</p>
+<p><strong>Frontier labs will keep producing better models <em>and</em> better harnesses.</strong> Both. The model gets better; the meta-skills router, the sandbox, the generic tool wrappers, the observability layer — they all get better too, on the labs' cadence. What labs <em>won't</em> produce is the captured intent of your work, the captured operating mind of your business, and the workflows that only matter inside your domain. Plan accordingly. Garry Tan compresses the same distinction into a slogan worth borrowing: <em>fat skills, fat code, fat data, thin harness</em> — invest where it compounds, rent the routing layer.</p>
+<p><strong>The substrate tells the agent three things: where to look, what shape the answer should take, and what counts as done.</strong> <em>Where to look</em> is the knowledge layer and the conventions. <em>What shape</em> is the spec. <em>What counts as done</em> is the test spec and the sprint contract. A substrate missing any of the three still produces wandering output, no matter how capable the model — perfect knowledge with no spec for shape produces directionless work; a perfect spec with no done-condition produces work that won't stop. (This is the principle that distinguishes substrate from documentation: documentation describes; substrate <em>directs.</em>)</p>
+</section>
+<section id="time-dependence" class="level2 spec-section">
+<h2>Time-dependence</h2>
+<p><strong>Sustainable software is software that can keep responding to change.</strong> Smaller batches are higher quality over time, frequent upgrades make later upgrades easier, and deprecation is part of the job because obsolete systems have carrying cost.</p>
+<p><strong>A good harness, good docs, good examples, and a sane platform turn model improvements into leverage. A weak system turns the same models into faster accumulation of drift.</strong></p>
+<p><strong>A spec-driven, capability-based system has positive time-dependence.</strong> Three flywheels turn at once: specs sharpen each iteration; capabilities compound into a library that doesn't deprecate the way a normal codebase does; models improve on their own schedule. This is one of the few kinds of software system that gets better while you sleep.</p>
+<p><strong>The interface to the agent is the unit of stability.</strong> Because the system meets the agent at the spec, the test, the prompt, and the skill — and because all four are stable abstractions — model improvement is absorbed automatically. No rewrites, no migration projects. The same prompts produce better work.</p>
+</section>
+<section id="the-delivery-loop" class="level2 spec-section">
+<h2>The delivery loop</h2>
+<p><strong>"Spec → test → prompt → execute" is a strong inner loop. The outer loop is review, integration, rollout, observation, and deprecation.</strong> The outer loop is equally or more important to success over time. The general loop-as-recovery and recursive-loop principles live in <code>core-principles.md</code>; the four-step inner loop named here is the software-specific instantiation.</p>
+</section>
+</section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede-2">Sibling HTML companions generated from the Markdown files in this folder.</p>
+    <div class="related-grid">
+      <a class="related-card" href="../operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
+<a class="related-card" href="../compounding-system.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
+<a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
+<a class="related-card" href="./core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · generated from principles/sw-principles.md</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

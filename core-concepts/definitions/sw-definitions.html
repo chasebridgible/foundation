@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Definitions — Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --input-bg: #1c1c1c;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --primary-dim: rgba(79,142,255,0.10);
+    --amber: #d4a72c;
+    --amber-dim: rgba(212,167,44,0.12);
+    --emerald: #4ec9b0;
+    --emerald-dim: rgba(78,201,176,0.12);
+    --red: #f48771;
+    --red-dim: rgba(244,135,113,0.12);
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 10px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 18px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .logo-mark {
+    width: 24px; height: 24px;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; color: var(--fg); font-size: 12px;
+  }
+  .sidebar-title { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .sidebar-sub { font-size: 11px; color: var(--fg-3); margin-top: 1px; font-family: var(--font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px; }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    font-size: 10px; font-weight: 500;
+    color: var(--fg-3);
+    padding: 10px 10px 4px;
+    font-family: var(--font-mono);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition), color var(--transition);
+    min-width: 0;
+  }
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-item:not(.doc-link) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .doc-link { align-items: flex-start; line-height: 1.35; }
+  .nav-num {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--fg-3);
+    flex-shrink: 0;
+    width: 18px;
+    text-align: right;
+    padding-top: 1px;
+  }
+  .nav-item.active .nav-num, .nav-item.current .nav-num { color: var(--fg-2); }
+
+  .main {
+    flex: 1; min-width: 0;
+    padding: 56px 72px 120px;
+    max-width: 980px;
+  }
+
+  .spec-eyebrow {
+    font-size: 11px; font-weight: 500;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+  }
+  h1 {
+    font-size: 30px; font-weight: 600;
+    line-height: 1.15; letter-spacing: -0.015em;
+    margin-bottom: 14px;
+    color: var(--fg);
+  }
+  .lede {
+    font-size: 15px; color: var(--fg-2);
+    line-height: 1.65; max-width: 680px;
+    margin-bottom: 28px;
+  }
+  .meta-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding: 10px 0;
+    font-size: 12px; color: var(--fg-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+
+  .doc-body { margin-top: 42px; }
+  .doc-body section { margin-top: 54px; }
+  .doc-body section:first-child { margin-top: 0; }
+  section { scroll-margin-top: 24px; }
+
+  h2 {
+    font-size: 19px; font-weight: 600;
+    margin-top: 56px; margin-bottom: 8px;
+    letter-spacing: -0.005em;
+    color: var(--fg);
+  }
+  .doc-body section > h2:first-child { margin-top: 0; }
+  h2 + p, h2 + .lede-2 { margin-top: 6px; }
+  .lede-2 {
+    font-size: 14px;
+    color: var(--fg-2);
+    margin-bottom: 18px;
+    max-width: 680px;
+  }
+  h3 { font-size: 14px; font-weight: 600; margin-top: 28px; margin-bottom: 8px; color: var(--fg); }
+  h4 {
+    font-size: 11px; font-weight: 600;
+    color: var(--fg-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 18px; margin-bottom: 8px;
+  }
+
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+  p strong, li strong { color: var(--fg); font-weight: 600; }
+  em { color: var(--fg); font-style: italic; }
+
+  ul, ol { color: var(--fg-2); padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 5px; line-height: 1.6; }
+  li > ul, li > ol { margin-top: 5px; margin-bottom: 8px; }
+
+  a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--fg-3); }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--bg-3);
+    color: var(--fg-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  pre,
+  div.sourceCode {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  pre code,
+  div.sourceCode code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  div.sourceCode pre {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .sourceCode span { color: inherit; }
+
+  .status-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0 22px;
+    font-size: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .status-table th {
+    text-align: left;
+    padding: 9px 14px;
+    background: var(--bg);
+    color: var(--fg-3);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+  }
+  .status-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-2);
+    vertical-align: top;
+  }
+  .status-table tr:last-child td { border-bottom: none; }
+
+  .callout {
+    display: flex; gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius);
+    margin: 14px 0;
+    border-left: 2px solid;
+    background: var(--bg-2);
+  }
+  .callout.note { border-left-color: var(--border-2); }
+  .callout-icon {
+    font-size: 11px;
+    flex-shrink: 0;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    width: 38px;
+  }
+  .callout-body { font-size: 13px; color: var(--fg-2); line-height: 1.6; flex: 1; }
+  .callout-body strong { color: var(--fg); }
+
+  .related-section { margin-top: 64px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .related-card {
+    background: var(--bg-2);
+    padding: 14px 16px;
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition);
+  }
+  .related-card:hover { background: var(--bg-3); }
+  .related-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .related-name::after { content: '→'; color: var(--fg-3); font-weight: 400; margin-left: auto; }
+  .related-card:hover .related-name::after { color: var(--fg); }
+  .related-desc { font-size: 12px; color: var(--fg-3); line-height: 1.5; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .footer-note { text-align: center; color: var(--fg-3); font-size: 12px; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--fg-3); }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 36px 22px 72px; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Core Concepts</div>
+      <div class="sidebar-sub">Definitions</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Documents</div>
+    <a class="nav-item doc-link" href="../operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
+<a class="nav-item doc-link" href="../compounding-system.html"><span class="nav-num">02</span>The Compounding System</a>
+<a class="nav-item doc-link current" href="./sw-definitions.html"><span class="nav-num">03</span>Definitions</a>
+<a class="nav-item doc-link" href="../principles/core-principles.html"><span class="nav-num">04</span>Core Principles</a>
+<a class="nav-item doc-link" href="../principles/sw-principles.html"><span class="nav-num">05</span>Software Development Principles</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#foundations-the-you-have-to-know-these-to-read-anything-else-tier"><span class="nav-num">01</span>Foundations (the &quot;you have to know these to read anything else&quot; tier)</a>
+<a class="nav-item" href="#specs"><span class="nav-num">02</span>Specs</a>
+<a class="nav-item" href="#harness-concepts"><span class="nav-num">03</span>Harness concepts</a>
+<a class="nav-item" href="#long-running-agent-concepts"><span class="nav-num">04</span>Long-running agent concepts</a>
+<a class="nav-item" href="#cognitive-concepts-the-whats-happening-to-the-human-tier"><span class="nav-num">05</span>Cognitive concepts (the &quot;what's happening to the human&quot; tier)</a>
+<a class="nav-item" href="#process-patterns"><span class="nav-num">06</span>Process patterns</a>
+<a class="nav-item" href="#git--version-control"><span class="nav-num">07</span>Git / version control</a>
+<a class="nav-item" href="#the-frontmatter-entry-expanded"><span class="nav-num">08</span>The frontmatter entry, expanded</a>
+<a class="nav-item" href="#the-yaml-entry-expanded"><span class="nav-num">09</span>The YAML entry, expanded</a>
+<a class="nav-item" href="#the-registry-file-entry-expanded"><span class="nav-num">10</span>The registry file entry, expanded</a>
+<a class="nav-item" href="#the-substrate-entry-expanded"><span class="nav-num">11</span>The substrate entry, expanded</a>
+<a class="nav-item" href="#misc"><span class="nav-num">12</span>Misc</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · sw-definitions.html</div>
+    <h1>Definitions</h1>
+    <p class="lede">Plain-language glossary of terms that show up across <code>docs/education/</code> and the wider agent / spec / harness conversation. Grow this over time.</p>
+    <div class="meta-row">
+      <div><strong>Source:</strong> definitions/sw-definitions.md</div>
+      <div><strong>Generated:</strong> HTML companion</div>
+      <div><strong>Status:</strong> Mirrors Markdown</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+<section class="level1 generated-root">
+<p><strong>How to use this doc.</strong> When a term appears in another file in this folder for the first time without a definition, add it here. Keep entries short — one or two sentences plus an example. If a term needs more than that, link out to the file that explains it in depth.</p>
+<p><strong>How to add an entry.</strong> Alphabetical within section. If a new term doesn't fit anywhere, add it under "Misc" and re-home it later.</p>
+<hr />
+<section id="foundations-the-you-have-to-know-these-to-read-anything-else-tier" class="level2 spec-section">
+<h2>Foundations (the "you have to know these to read anything else" tier)</h2>
+<p><strong>Agent.</strong> A model plus a harness running in a loop: the model decides what to do, calls a tool, reads the result, decides what to do next. A raw chat model is not an agent. See <code>harness-osmani.md</code>.</p>
+<p><strong>API (Application Programming Interface).</strong> The "back door" of an app. A list of URLs you can send requests to that return data instead of a webpage. <code>GET /charges</code> returns charges; <code>POST /refunds</code> issues a refund. When an agent "calls Stripe," it's hitting Stripe's API.</p>
+<p><strong>CLI (Command-Line Interface).</strong> A program you run by typing into a terminal. Takes text in, prints text out. <code>git status</code>, <code>npm install</code>, <code>ls</code>. Agent-native CLIs (see Printing Press) are CLIs whose inputs and outputs were designed assuming an agent is the user, not a human.</p>
+<p><strong>Compounding system.</strong> A system whose value grows with use rather than decays with neglect. Five layers, each with a different durability profile: <strong>substrate</strong> (durable, repo-shaped artifacts that survive across model generations — specs, capabilities, knowledge layer, conventions, decision records, domain-specific skills); <strong>iterating layers</strong> (general harness, framework, vendor wrappers rented from frontier labs and replaced on their cadence); <strong>operational shape</strong> (who does what — humans, agents, routing); <strong>intake layers</strong> (where work originates — human input, monitoring, user feedback, ambient ingestion); and <strong>the delivery loop</strong> (the contract that turns intake into shipped work and substrate updates). The pattern is domain-agnostic: a software-delivery compounding system is one application; marketing, sales, knowledge management, and operations are others, each with their own substrate contents but the same five-layer shape. See <code>sw-principles.md</code> §Compounding systems and substrate.</p>
+<p><strong>Data layer.</strong> Quantitative signals from the systems a business already runs — HubSpot, Stripe, the production database, the client's SQL warehouse, Slack, Linear. Tells you what <em>happened</em> (revenue last month, churn rate, ticket volume), not what the business <em>intends</em>. Accessed by agents through query tools (SQL, API wrappers, Printing Press-style CLIs) rather than markdown reads. Paired with the knowledge layer but distinct from it; quantitative answers come from here.</p>
+<p><strong>Delivery loop.</strong> The component of a compounding system that turns intake into shipped work and substrate updates. In this repo's vocabulary, the inner loop is <strong>spec → test → prompt → execute</strong> and the outer loop is review, integration, rollout, observation, and deprecation. Recursive — large goals contain smaller goals, each running its own cycle. The four steps are the contract; the structure inside them is open. See <code>sw-principles.md</code> §The delivery loop and <code>operating-spec.md</code> §2.</p>
+<p><strong>Entity propagation.</strong> The knowledge-layer pattern where updating one entity (a person, client, deal, project, meeting) automatically walks the graph and updates every related entity. After a meeting, the meeting page is not the end product — the propagation back to each person's page, each company's page, each related deal's page is. Without propagation, a knowledge layer is a filing cabinet; with it, it's a nervous system. <em>(After Garry Tan.)</em></p>
+<p><strong>Frontmatter.</strong> A small block of structured metadata at the top of a markdown file, fenced by <code>---</code> lines, written in YAML. Used to attach machine-readable info (title, tags, when-to-load rules, owner, type) to a human-readable doc. Static site generators (Jekyll, Hugo, Astro) use it for post metadata; Claude Code skills use it to tell the agent when a skill should be loaded into context. See the dedicated entry below.</p>
+<p><strong>Harness.</strong> Everything wrapped around the model: system prompts, <code>AGENTS.md</code>, skills, tools, MCP servers, sandboxes, hooks, observability, the loop itself. "Agent = model + harness." A <em>thin harness</em> is the design choice to keep this layer minimal — routing logic only, knows nothing about the domain — and invest the difference into skills, code, and structured knowledge; the alternative is a fat harness that tries to be the system itself and gets shipped past by the next frontier release. <em>(Slogan: "fat skills, fat code, fat data, thin harness," after Garry Tan.)</em> See <code>harness-osmani.md</code>.</p>
+<p><strong>Intake layer.</strong> The components of a compounding system that turn outside-the-system events into work the system can process. Four common sources: <strong>human inputs</strong> (you, Slack, conversations); <strong>monitoring</strong> (Sentry-class bug reports, alerts); <strong>user feedback</strong> (in-app reports, feature requests, support tickets); and <strong>ambient ingestion</strong> (background pulls of client SaaS, calendar, transcripts — the equivalent of Tan's 100 crons). All ideally land on the same task surface with metadata that lets the rest of the system prioritize, route, and attribute. The intake layer is where the <em>system meets the outside world.</em></p>
+<p><strong>Iterating layer.</strong> The components of a compounding system that get replaced on the frontier labs' cadence — the general harness, the runtime, framework choices, standard tool wrappers, vendor SDK wrappers. Useful while it's the best available; <em>rented leverage</em> rather than owned asset. The complement of substrate. The litmus test: would a frontier lab plausibly ship a better version within a year? If yes, iterating layer; treat investments here as short-term advantage with a known maintenance cost.</p>
+<p><strong>Knowledge layer.</strong> The captured <em>operating mind</em> of a business — what it sells, who it sells to, what it promises, who decides what, what the SOPs are, what the constraints are. Lives in versioned markdown with frontmatter (operating model / control / execution), curated and reviewed on a cadence, accessed by agents through a knowledge MCP server. Answers questions like <em>what's our refund policy?</em> or <em>who approves a deploy?</em> — things the business knows about itself that no external system records. The data layer says what <em>happened</em>; the knowledge layer says what we <em>meant.</em> See <code>knowledge-base/</code>.</p>
+<p><strong>MCP server (Model Context Protocol server).</strong> A standard way to package a bunch of tools so any agent runtime (Claude, Cursor, Codex) can use them without bespoke integration code. Think "USB-C for agent tools." Write an MCP server for Linear once; every MCP-speaking agent can now use Linear.</p>
+<p><strong>Operational shape.</strong> The component of a compounding system that names <em>who does what</em> — which humans hold which decisions, which agents do which work, which queues route what to where. Distinct from substrate (the durable artifacts), iterating layers (the rented runtime), intake layers (the surface to the outside world), and the delivery loop (the work contract). For this repo's productized-agency context, the current operational shape is described in <code>operating-spec.md</code> §7.</p>
+<p><strong>Registry file.</strong> A standalone, structured file (usually YAML or JSON) that lives at a known location in a project and describes "what exists in this system" — clients, dependencies, environments, workflows. Examples: <code>package.json</code>, <code>tsconfig.json</code>, <code>.gitignore</code>, <code>docker-compose.yml</code>, <code>clients.yml</code>. Read by humans, scripts, agents, and CI as the single source of truth for the facts they describe. See the dedicated entry below.</p>
+<p><strong>Skill.</strong> A markdown file (with frontmatter) that tells the agent, "when the user asks for X, follow these steps." A <em>workflow</em>, not a reference doc. Loaded only when relevant ("progressive disclosure"). See <code>skills-osmani.md</code>.</p>
+<p><strong>Skillify.</strong> The meta-skill that observes a recent workflow, extracts the repeatable pattern, names the triggers and edge cases, writes a tested skill file (markdown + frontmatter), and registers it where the harness can find it next time. The mechanism that turns one-off work into permanent substrate; without an equivalent move, workflows accumulate rather than compound. The capability-extraction loop (every finished client feature → portable capability) is the same pattern scaled from per-workflow to per-feature. <em>(After Garry Tan.)</em></p>
+<p><strong>Substrate.</strong> The durable, repository-shaped <em>component of a compounding system</em> — specs, capability inventory, knowledge layer, repository conventions, domain-specific skills, decision records — whose value compounds across model generations. The defining test (one-shot regeneration): a future model with a better harness, reading only the substrate, could rebuild a <em>better</em> working version of the system from scratch. The substrate iterates — entries are edited, categories are added, the implementation beneath it is replaced — but the substrate is <em>what survives</em> iteration; everything else in a compounding system is part of an iterating, operational, intake, or loop layer. The substrate is the <em>durability lever</em>, not the value generator: the part that makes today's good work still be good work in two years. See the expanded entry below.</p>
+<p><strong>Tool (in agent-land).</strong> Something an agent can call to do work in the outside world. Reading a file, searching the web, calling Stripe's API. Each tool has a name, a description, and a schema, all of which the model reads on every turn — so tool design is part of harness design.</p>
+<p><strong>YAML.</strong> A plain-text format for writing structured data (key/value pairs, lists, nested objects) in a way humans can read and edit. The format frontmatter is written in. Also the format of GitHub Actions workflows, Docker Compose files, Kubernetes manifests, most CI configs, and a huge amount of agent / LLM tooling. Indentation-sensitive (two spaces, never tabs), uses <code>key: value</code> for fields and <code>- item</code> for list entries. See the dedicated entry below.</p>
+<hr />
+</section>
+<section id="specs" class="level2 spec-section">
+<h2>Specs</h2>
+<p>Three flavors of spec recur in spec-driven development. Each answers a different question, and a complete piece of work touches all three at least once. See <code>operating-spec.md</code> §3 for the long form.</p>
+<p><strong>Descriptive spec.</strong> How the application should <em>look and feel</em> to the user — the full user flow, conditional behavior, and edge cases. Answers <em>what experience are we building?</em> The place where vagueness gets discovered: "the popup appears when the user saves a clip" is too thin; "a centered modal slides up over 200ms with a confetti burst, dismissed on tap-anywhere or after 1.5 seconds" is a spec.</p>
+<p><strong>Technical spec.</strong> How the system functions <em>internally</em> — what should happen, in what sequence, with what timing. Answers <em>which of the many valid implementations do we want?</em> Optional for off-the-shelf work (an agent doesn't need a technical spec for a generic message thread); required for systems with non-trivial technical depth (livestreaming pipelines, custom video players, real-time sync engines). Rule of thumb: if the agent could plausibly produce ten different valid implementations, you need one.</p>
+<p><strong>Test spec.</strong> Plain-English description of <em>how the system will be verified.</em> The human's seat at the table. Code-level tests (unit, integration, smoke) can be regenerated by the agent at any time; the test spec is what the human reads to decide whether the right things are being checked. When the descriptive spec changes, the test spec changes; when the test spec changes, the code-level tests are regenerated.</p>
+<hr />
+</section>
+<section id="harness-concepts" class="level2 spec-section">
+<h2>Harness concepts</h2>
+<p><strong><code>AGENTS.md</code> (also <code>CLAUDE.md</code>, etc.).</strong> The rolling rulebook that gets injected into the system prompt every turn. Highest-leverage configuration point. Should be a pilot's checklist (short, every line earned), not a style guide.</p>
+<p><strong>Compaction.</strong> Summarizing and offloading older context when the window approaches full so the agent can keep working. Necessary but not sufficient for very long runs.</p>
+<p><strong>Context rot.</strong> The observed degradation in reasoning and task completion as the context window fills. Why "load less, load just-in-time" matters.</p>
+<p><strong>Hook.</strong> A script that runs at a specific lifecycle point (before a tool call, after an edit, on commit, on session start). Where deterministic enforcement lives. Convention: silent on success, verbose with an actionable error on failure.</p>
+<p><strong>Progressive disclosure.</strong> Loading instructions, tools, or skills only when the current task calls for them, instead of stuffing everything into context at startup. The mechanism that lets a 20-skill library fit into a small context slot.</p>
+<p><strong>Ralph loop.</strong> A wrapper that intercepts the agent's "I'm done" signal and re-injects the original goal into a fresh context window. Each iteration starts clean but reads state from disk left by the previous one. Turns a single-session agent into a multi-session one.</p>
+<p><strong>ReAct loop.</strong> The standard agent loop: model reasons, takes an action via a tool call, observes the result, repeats. "An agent is a system that runs tools in a loop to achieve a goal." (Simon Willison)</p>
+<p><strong>Sandbox.</strong> An isolated execution environment with allow-listed network and filesystem access, where the agent can run bash and code without breaking the host machine. Hosts the "Hands" half of Brain/Hands/Session.</p>
+<p><strong>Sprint contract.</strong> A done-condition negotiated and written down <em>before</em> the agent starts. The single highest-leverage move against scope drift on long runs.</p>
+<hr />
+</section>
+<section id="long-running-agent-concepts" class="level2 spec-section">
+<h2>Long-running agent concepts</h2>
+<p><strong>Brain / Hands / Session split (Anthropic).</strong> Three independently-replaceable layers: the model + harness loop (Brain), the sandboxed execution environment (Hands), and the append-only event log (Session). Crash a brain, recover from the log; throw away a sandbox, get a clean one.</p>
+<p><strong>Cross-modal evaluation.</strong> Multi-model scoring pattern: send the same output through several models with different strengths (one tuned for precision, one for recall, one for creativity) and have them score each other on the dimensions that matter. The operational form of <em>separate generation from evaluation</em> (see <code>core-principles.md</code> §Verification) — catches failure modes a single model can't see in itself, including its own confident errors. <em>(Garry Tan's framing; sibling pattern to Cursor's planner / worker / judge.)</em></p>
+<p><strong>Long-horizon reasoning.</strong> The model can plan and execute over many dependent steps. A model-quality story.</p>
+<p><strong>Long-running execution.</strong> The agent's <em>process</em> runs for hours or days; the model is invoked thousands of times. A harness story. (Distinct from long-horizon.)</p>
+<p><strong>Memory Bank (Google).</strong> Curated long-term memory layer scoped to a user identity, with a search API. The "agent remembers what you usually mean by 'the dashboard'" layer.</p>
+<p><strong>METR time horizon metric.</strong> An estimate of how long a task a frontier model can complete with 50% reliability. Has been doubling roughly every seven months. Useful for "is this delegable yet" sanity checks.</p>
+<p><strong>Planner / Worker / Judge (Cursor).</strong> Planners explore and emit tasks; workers execute without coordinating; judges decide when an iteration is finished or must restart. A real architectural pattern even when all three are the same model with different prompts.</p>
+<p><strong>Three walls.</strong> Finite context, no persistent state, no self-verification. Every long-running architecture is some answer to those three.</p>
+<hr />
+</section>
+<section id="cognitive-concepts-the-whats-happening-to-the-human-tier" class="level2 spec-section">
+<h2>Cognitive concepts (the "what's happening to the human" tier)</h2>
+<p><strong>Borrowed confidence.</strong> Adopting the model's certainty as your own without inheriting any of its reasoning. The mechanism by which surrender starts.</p>
+<p><strong>Cognitive offloading.</strong> Delegating mechanics to a tool while still owning the answer. You judge sensibility, intervene when results are off. Healthy mode.</p>
+<p><strong>Cognitive surrender.</strong> The point at which you stop constructing an answer at all. The model's output becomes yours by default. Failure mode that looks identical to offloading from the outside.</p>
+<p><strong>Comprehension debt.</strong> The growing gap between how much code exists in your system and how much any human genuinely understands. The bill for repeated surrender.</p>
+<p><strong>Mutual amplification (Andy Clark).</strong> A cooperation loop where your prompts sharpen the model's output, which sharpens your next prompts, which sharpens your model of the problem. The "I end the session smarter" outcome.</p>
+<p><strong>Scaffolded cognitive friction.</strong> Deliberately introduced moments of resistance — design docs, confirmation steps, checklists — that interrupt heuristic acceptance.</p>
+<hr />
+</section>
+<section id="process-patterns" class="level2 spec-section">
+<h2>Process patterns</h2>
+<p><strong>Anti-rationalization table.</strong> A pre-written list of common excuses for skipping a rigorous step, paired with rebuttals. The point: don't argue with the model (or yourself) on the day; settle the argument in advance. See <code>skills-osmani.md</code>.</p>
+<p><strong>Beyoncé Rule.</strong> "If you liked it, you should have put a test on it." — Software Engineering at Google. If a behavior matters, encode it as an automated check.</p>
+<p><strong>Chesterton's Fence.</strong> Don't remove a thing until you understand why it was put there.</p>
+<p><strong>DAMP over DRY (in tests).</strong> Descriptive And Meaningful Phrases over Don't Repeat Yourself. Tests should read like a specification even at the cost of duplication.</p>
+<p><strong>Hyrum's Law.</strong> Every observable behavior of your API will eventually be depended on by someone. Design accordingly.</p>
+<p><strong>Scope discipline.</strong> "Touch only what you're asked to touch." The single biggest determinant of whether an agent's PR is mergeable or has to be unwound.</p>
+<p><strong>Vertical slice.</strong> A unit of work that owns a coherent concept end-to-end (UI through API through DB), instead of being decomposed by layer (all UI, all API, all DB). Promptable, reviewable, and testable as a unit.</p>
+<p><strong>Verification as exit criterion.</strong> Every task terminates in concrete evidence — a test that runs, a screenshot, a runtime trace, a reviewer signoff. "Looks right" doesn't close the loop.</p>
+<hr />
+</section>
+<section id="git--version-control" class="level2 spec-section">
+<h2>Git / version control</h2>
+<p><strong>Branch.</strong> A named pointer to a commit in git history — <code>main</code>, <code>feature-x</code>, <code>chase/refactor-clients</code>. Cheap, logical, lives inside <code>.git/</code>. Switching branches in a normal checkout moves <code>HEAD</code> and rewrites the files in your working directory underneath you. The label on the door, not the room itself.</p>
+<p><strong>Worktree.</strong> A separate working directory on disk tied to a different branch of the same repo. <code>git worktree add ../core-templates-feature-x feature-x</code> gives you a second folder you can <code>cd</code> into, edit, build, and run independently — while your original checkout stays on <code>main</code>, untouched. One repo, many branches; one repo can also have many worktrees, each parked on a different branch. The room; the branch is the label on the door. Why agent harnesses care: spawn five background agents in one repo and they'd fight over the same files. Give each its own worktree and they can work in parallel and merge back via PR — the pattern Cursor background agents and the <code>best-of-n-runner</code> subagent use.</p>
+<hr />
+</section>
+<section id="the-frontmatter-entry-expanded" class="level2 spec-section">
+<h2>The frontmatter entry, expanded</h2>
+<p>Frontmatter is a YAML block at the top of a markdown file, fenced by two <code>---</code> lines. It holds structured metadata — things a human could parse from the prose, but a machine can't be expected to. Example, from a Claude Code skill:</p>
+<pre class="markdown"><code>---
+name: test-driven-development
+description: Use when implementing a new behavior. Write the failing test first.
+when_to_use:
+  - new feature
+  - bug fix where root cause is unclear
+owner: chase
+---
+
+# Test-Driven Development
+
+(Body of the skill goes here.)</code></pre>
+<p>The lines between the two <code>---</code> are YAML key/value pairs. Everything after the closing <code>---</code> is the normal markdown body.</p>
+<p><strong>Why it exists.</strong> Markdown is great for humans but invisible to programs. Frontmatter is the side channel. A static site generator reads <code>title:</code> and <code>date:</code> to render a blog index. A Claude Code agent reads <code>description:</code> and <code>when_to_use:</code> to decide whether to load a skill into context for the current task. A zettelkasten system reads <code>tags:</code> to build a graph between notes.</p>
+<p><strong>Why this matters for what we're building.</strong> The agent only sees the frontmatter at first — that's how it decides which skills are relevant <em>without</em> loading the whole body. Bad frontmatter, the right skill never activates. Good frontmatter, you get progressive disclosure for free. It's the metadata layer that makes "load just-in-time" work in practice.</p>
+<p><strong>Common fields you'll see in agent skills:</strong></p>
+<ul>
+<li><code>name</code> — slug used to reference the skill.</li>
+<li><code>description</code> — one-line "when does this apply." Critical: this is what the router reads.</li>
+<li><code>when_to_use</code> / <code>triggers</code> — list of situations or task types.</li>
+<li><code>tags</code> — categorical handles for grouping and search.</li>
+<li><code>owner</code> — who maintains it.</li>
+<li><code>version</code> — for ratcheting and rollback.</li>
+</ul>
+<p><strong>Common fields you'll see in blog/note systems:</strong></p>
+<ul>
+<li><code>title</code>, <code>date</code>, <code>author</code>, <code>slug</code>, <code>tags</code>, <code>summary</code>, <code>draft</code>.</li>
+</ul>
+<p><strong>TOML and JSON variants.</strong> Same idea, different syntax. TOML uses <code>+++</code> instead of <code>---</code>; JSON uses <code>{}</code>. YAML is by far the most common in the agent world.</p>
+<p><strong>Failure modes worth knowing.</strong></p>
+<ul>
+<li><em>Indentation matters in YAML.</em> Two spaces, not tabs. Quoting strings is sometimes required (anything starting with <code>:</code> or containing <code>#</code>).</li>
+<li><em>Frontmatter that contradicts the body.</em> <code>description:</code> says one thing, the body does another. The agent reads both at different times and gets confused.</li>
+<li><em>Frontmatter as a dumping ground.</em> If every skill has 30 fields and only 4 of them get read, you've recreated the "essay nobody reads" problem at the metadata layer.</li>
+</ul>
+<hr />
+</section>
+<section id="the-yaml-entry-expanded" class="level2 spec-section">
+<h2>The YAML entry, expanded</h2>
+<p>YAML stands for "YAML Ain't Markup Language" (originally "Yet Another Markup Language" — they renamed it once it caught on). It's a way of writing structured data — the same kind of data you'd put in a JSON file or a database row — but in a format that reads more like a list someone wrote in a notebook than like code.</p>
+<p>A small example:</p>
+<pre class="yaml"><code>name: chase
+role: founder
+projects:
+  - core-templates
+  - sandia-oil
+preferences:
+  editor: cursor
+  shell: zsh</code></pre>
+<p>That's three things:</p>
+<ul>
+<li>A top-level <strong>string</strong> (<code>name: chase</code>).</li>
+<li>A <strong>list</strong> under <code>projects:</code>, where each <code>- item</code> is one entry.</li>
+<li>A <strong>nested object</strong> under <code>preferences:</code>, with its own keys indented underneath.</li>
+</ul>
+<p>The same data in JSON would be:</p>
+<pre class="json"><code>{
+  &quot;name&quot;: &quot;chase&quot;,
+  &quot;role&quot;: &quot;founder&quot;,
+  &quot;projects&quot;: [&quot;core-templates&quot;, &quot;sandia-oil&quot;],
+  &quot;preferences&quot;: {
+    &quot;editor&quot;: &quot;cursor&quot;,
+    &quot;shell&quot;: &quot;zsh&quot;
+  }
+}</code></pre>
+<p>Both express the same structure. YAML wins when humans need to write or edit it; JSON wins when programs need to exchange it over a network.</p>
+<p><strong>Where YAML shows up in your world right now:</strong></p>
+<ul>
+<li><strong>Frontmatter</strong> in markdown files (skills, blog posts, notes).</li>
+<li><strong>GitHub Actions</strong> workflows (<code>.github/workflows/*.yml</code>).</li>
+<li><strong>Docker Compose</strong> files (<code>docker-compose.yml</code>).</li>
+<li><strong>Kubernetes</strong> manifests (every Deployment, Service, ConfigMap).</li>
+<li><strong>CI configs</strong> for CircleCI, Travis, GitLab CI.</li>
+<li><strong>Most agent/LLM tooling configs</strong> (skill definitions, prompt templates, eval harnesses).</li>
+</ul>
+<p>If you're going to spend the next two years configuring agent harnesses, you will write more YAML than you do English. Worth getting comfortable with.</p>
+<p><strong>The five things to know to read and write it:</strong></p>
+<ol type="1">
+<li><strong>Indentation is structural, and must be spaces</strong> (two by convention, never tabs). The indentation level <em>is</em> the nesting level. This is the thing that bites everybody — copying YAML from a webpage often replaces spaces with tabs and the file silently breaks.</li>
+<li><strong><code>key: value</code> for fields, <code>- item</code> for list entries.</strong> That's 90% of the syntax.</li>
+<li><strong>Strings usually don't need quotes.</strong> <code>name: chase</code> is fine. You only need quotes when the value contains characters YAML would otherwise interpret — <code>:</code>, <code>#</code>, leading/trailing whitespace, or values that look like other types (<code>yes</code>, <code>no</code>, <code>true</code>, <code>false</code>, numbers).</li>
+<li><strong><code>#</code> starts a comment.</strong> Everything after it on that line is ignored.</li>
+<li><strong><code>---</code> on its own line is a document separator.</strong> That's why frontmatter is fenced by <code>---</code> lines: technically the file is "an empty YAML doc, then your markdown content."</li>
+</ol>
+<p><strong>The classic YAML gotchas, in order of how often they bite people:</strong></p>
+<ul>
+<li><em>The Norway Problem.</em> <code>country: NO</code> becomes the boolean <code>false</code> (because YAML 1.1 treats <code>no</code>, <code>yes</code>, <code>on</code>, <code>off</code> as booleans). Quote it: <code>country: "NO"</code>.</li>
+<li><em>Numbers that aren't.</em> <code>version: 1.10</code> becomes the number <code>1.1</code> (because trailing zeros). If it's a version string, quote it: <code>version: "1.10"</code>.</li>
+<li><em>Indentation drift.</em> Two spaces here, four spaces there, mixed tabs anywhere — the file parses as something other than what you meant. Most editors have a "show whitespace" toggle; turn it on when debugging.</li>
+<li><em>Multiline strings.</em> <code>description: |</code> keeps newlines, <code>description: &gt;</code> folds them into spaces. Easy to grab the wrong one.</li>
+</ul>
+<p><strong>A heuristic for when to use YAML vs. JSON vs. TOML.</strong></p>
+<ul>
+<li><strong>YAML</strong> when humans write and edit it (config files, frontmatter, manifests).</li>
+<li><strong>JSON</strong> when programs exchange it (APIs, structured logs, anything machine-to-machine).</li>
+<li><strong>TOML</strong> when you want the readability of YAML without the indentation traps (Rust's <code>Cargo.toml</code>, Python's <code>pyproject.toml</code>).</li>
+</ul>
+<p>For the knowledge base you're building, YAML is the right default for frontmatter and skill metadata. JSON is what you'll see come back from API calls inside CLIs and MCP servers. TOML you'll only meet if you write Rust or modern Python tooling.</p>
+<hr />
+</section>
+<section id="the-registry-file-entry-expanded" class="level2 spec-section">
+<h2>The registry file entry, expanded</h2>
+<p>A <strong>registry file</strong> is a standalone, structured file (almost always YAML or JSON) that lives at a known location in a project and answers the question, "what exists in this system?" Every healthy project ends up with a small constellation of them. Examples already familiar from working in any modern repo:</p>
+<ul>
+<li><code>package.json</code> — what npm packages does this project depend on?</li>
+<li><code>tsconfig.json</code> — how should TypeScript be configured?</li>
+<li><code>.gitignore</code> — what files should git ignore?</li>
+<li><code>docker-compose.yml</code> — what containers does this project run?</li>
+<li><code>.github/workflows/*.yml</code> — what CI runs on what triggers?</li>
+<li><code>clients.yml</code> (in this repo) — what clients does this project serve?</li>
+</ul>
+<p>Same shape every time: data the system needs, in a known location, in a machine-readable format, separate from any prose that explains how to use it.</p>
+<section id="why-registries-exist" class="level3">
+<h3>Why registries exist</h3>
+<p>The alternative is hard-coding facts into prose. The list of clients ends up scattered across <code>CLIENT_SETUP.md</code>, <code>AGENTS.md</code>, three bash scripts, and somebody's memory. Adding a client means editing all of those. Removing one means hoping you found every reference.</p>
+<p>A registry collapses that into one file. "The list of clients" lives in exactly one place. Humans, scripts, agents, CI, and future-you all read from the same source. Add a client → edit the registry → everything else picks it up.</p>
+</section>
+<section id="when-to-make-something-a-registry-file" class="level3">
+<h3>When to make something a registry file</h3>
+<p>Use a registry file when <strong>all</strong> of these are true:</p>
+<ul>
+<li>The data describes the <strong>project</strong>, not a specific document. (If it's about one file, use frontmatter.)</li>
+<li>The data is <strong>structured</strong> — fields, lists, nested objects, not freeform prose.</li>
+<li>The data is <strong>referenced from multiple places</strong> — scripts, agents, runbooks, other configs.</li>
+<li>The data is <strong>edited by humans</strong> more often than by machines. (If machines own it, it's probably state and belongs in a database.)</li>
+<li>The dataset is <strong>small to medium</strong> — tens or low hundreds of entries, not thousands.</li>
+</ul>
+<p>When any of those is false, pick a different home:</p>
+<ul>
+<li>"Describes one document" → frontmatter.</li>
+<li>"Freeform prose" → markdown body.</li>
+<li>"Only used in one place" → inline constant, env var, or config object in code.</li>
+<li>"Machines write to it during runtime" → database / state store.</li>
+<li>"Thousands of rows" → database.</li>
+<li>"Secrets" → secrets manager (AWS Secrets Manager, 1Password, Doppler). Reference by name from the registry, never embed the secret itself.</li>
+</ul>
+</section>
+<section id="the-decision-rule-said-plainly" class="level3">
+<h3>The decision rule, said plainly</h3>
+<blockquote class="callout note"><div class="callout-icon">Note</div><div class="callout-body">
+<p><strong>Three places data can live: standalone registry files (about the whole project), frontmatter (about one document), prose (about whatever the prose is talking about). Pick by scope, not by mood.</strong></p>
+</div></blockquote>
+</section>
+<section id="what-good-registry-hygiene-looks-like" class="level3">
+<h3>What good registry hygiene looks like</h3>
+<ul>
+<li><strong>Known location.</strong> <code>clients.yml</code> at the project root, not buried three folders deep. The whole point is that anyone (human or agent) can find it without looking.</li>
+<li><strong>One job per registry.</strong> <code>clients.yml</code> lists clients. Don't also stash <code>default_aws_region</code> or <code>default_branch</code> in there unless it's per-client. System-wide defaults belong in their own file or in env vars.</li>
+<li><strong>Reference, don't duplicate.</strong> If <code>clients.yml</code> has an <code>aws_profile</code> field, every script and runbook should read that field — not hard-code the profile name. The registry is the source of truth precisely because everything else points at it.</li>
+<li><strong>Validate it.</strong> Either with a JSON Schema (for JSON), a YAML schema, or a CI check that loads the file and asserts shape. A registry that drifts out of shape silently is worse than no registry at all.</li>
+<li><strong>Don't put secrets in it.</strong> Reference where the secret lives (<code>secrets_vault: clients/example-client</code>). Never the secret itself. The registry is committed to git; secrets are not.</li>
+<li><strong>Document the schema once, somewhere obvious.</strong> Either via comments in the file itself, a sibling <code>clients.schema.yml</code>, or a section in <code>AGENTS.md</code> / <code>CLIENT_SETUP.md</code>. If anyone has to guess what <code>default_branch</code> means, it's not yet a registry — it's just a YAML file.</li>
+</ul>
+</section>
+<section id="what-this-unlocks-for-an-agent-system" class="level3">
+<h3>What this unlocks for an agent system</h3>
+<p>Once a registry exists, you can do things you can't do with prose:</p>
+<ul>
+<li><strong><code>AGENTS.md</code> can say</strong>: "Before doing client work, read <code>clients.yml</code> for the client's <code>aws_profile</code> and <code>secrets_vault</code>." Now every agent that loads that rulebook knows where to look.</li>
+<li><strong>A bash script can do</strong>: <code>yq '.clients | keys' clients.yml</code> and loop over the slugs.</li>
+<li><strong>A Ralph-loop wrapper can do</strong>: read the registry, pick the next unfinished entry, run the agent on that one entry.</li>
+<li><strong>CI can do</strong>: validate that every client referenced anywhere in the repo has a corresponding entry. Catches typos before they hit production.</li>
+<li><strong>Onboarding becomes</strong>: add an entry to the registry, run a setup command, and the system fills in the rest using the runbook as the procedure.</li>
+</ul>
+<p>The general pattern: <strong>registries are how you stop hard-coding facts into prose.</strong> Once the registry exists, every other file in the system can stay generic — and the truth lives in one place that's easy to read, easy to diff, and easy to audit.</p>
+<hr />
+</section>
+</section>
+<section id="the-substrate-entry-expanded" class="level2 spec-section">
+<h2>The substrate entry, expanded</h2>
+<p>A <strong>substrate</strong> is the durable, repository-shaped <em>component of a compounding system</em> that captures the work no frontier lab will ever do for you, arranged so that a more capable model and a better harness can do strictly better work off the same artifacts over time. It's the part of a compounding system whose value compounds across model generations — distinct from the iterating layers (specific harness configs, runtime wiring, framework choices, vendor integrations) that get obsoleted on the labs' cadence.</p>
+<p>The substrate is one of five layers in a compounding system. The others are <strong>iterating layers</strong> (rented from the labs), <strong>operational shape</strong> (who does what), <strong>intake layers</strong> (where work originates), and <strong>the delivery loop</strong> (the contract). All five are necessary for a compounding system to function; only the substrate is what <em>survives across model generations</em>. The substrate is the durability lever, not the value generator.</p>
+<p>The substrate iterates too. Entries are edited, categories are added, the implementations beneath them are replaced. But the substrate is <em>what survives the iteration</em> — everything outside it is part of one of the other four layers, each with its own design rule and lifecycle.</p>
+<section id="the-defining-test-one-shot-regeneration" class="level3">
+<h3>The defining test: one-shot regeneration</h3>
+<p>The substrate is whatever passes this thought experiment:</p>
+<blockquote class="callout note"><div class="callout-icon">Note</div><div class="callout-body">
+<p>A future model + future harness, given only the substrate artifacts (specs, capabilities, knowledge layer, conventions, decision records, domain skills), can regenerate a working version of the system from scratch — and a <em>better</em> one than today's setup can produce.</p>
+</div></blockquote>
+<p>What's <em>outside</em> the substrate is whatever fails that test: the specific runtime wiring, the bespoke harness scaffolding around a current model's weak spots, the integration code for whichever vendor is on top this quarter. All useful at the time. None durable across model generations.</p>
+<p>This is not "documentation." Documentation describes what exists. The substrate is the source of truth for what <em>should</em> exist; the implementation is derived from it, not the other way around.</p>
+</section>
+<section id="what-the-substrate-is-made-of-today" class="level3">
+<h3>What the substrate is made of, today</h3>
+<p>This list is the working answer. It is not closed — categories will be added as new things prove they pass the one-shot test.</p>
+<ol type="1">
+<li><strong>Specs.</strong> Descriptive, technical, and test specs (see the Specs section above). The precision of intent for each piece of work.</li>
+<li><strong>Capability inventory.</strong> The shared library of vertical slices (<code>capabilities/</code>), each portable by folder copy. The accumulated answer to "what have we built that's reusable across clients." A capability's <em>implementation</em> is rebuildable; what's substrate is the fact that the capability exists, the shape it has, and the specs it satisfies.</li>
+<li><strong>Knowledge layer.</strong> The captured operating mind of the business — <code>knowledge-base/</code> content, the operating model, control, and execution docs. The data layer (HubSpot, Stripe, the SQL warehouse) is <em>not</em> substrate; it's signal flowing through external systems the business doesn't own. One page schema worth flagging as a candidate for entity-style entries (people, clients, ongoing relationships): Garry Tan's <em>brain page</em> shape — <em>compiled truth</em> (current state) at the top, <em>append-only timeline</em> (events in chronological order) below, <em>raw data sidecars</em> for source material. Event-sourced rather than rule-based; complements rather than replaces the current <code>canonical-doc-template.md</code> shape.</li>
+<li><strong>Domain-specific skills and tools.</strong> Workflows and CLIs that only matter inside our domain — <code>done-with-you-intake</code>, capability-extraction skills, client-specific Printing Press CLIs. Workflows no frontier lab will ever ship because they're too specific to be commodified.</li>
+<li><strong>Repository conventions.</strong> How files are laid out, how things are named, what folder structure means, what the spec/test/prompt/execute loop expects. <code>AGENTS.md</code> is the rolling rulebook; the conventions encoded around it (vertical-slice folders, the <code>knowledge-base/</code> layout, frontmatter contracts) are the rest. A new model with a better harness still needs to know "this is how we do things <em>here.</em>"</li>
+<li><strong>Decision records.</strong> The captured <em>why</em> — ADRs and equivalent that record reasoning behind paths taken and roads not taken. Without these, every future agent re-litigates settled decisions. Frontier labs will not write your ADRs.</li>
+</ol>
+</section>
+<section id="whats-not-substrate" class="level3">
+<h3>What's <em>not</em> substrate</h3>
+<ul>
+<li><strong>The model.</strong> Always commodity.</li>
+<li><strong>The general harness.</strong> Skill routers, sandboxes, observability, the meta-loop — labs ship these on their cadence.</li>
+<li><strong>Standard tool wrappers.</strong> MCP servers for popular SaaS (Linear, Stripe, Notion) — somebody will ship them better than you can.</li>
+<li><strong>The data layer itself.</strong> HubSpot, Stripe, your SQL warehouse. You don't own these; you query them.</li>
+<li><strong>Today's framework choices.</strong> Expo, Fastify, Postgres, Cognito — replaceable.</li>
+<li><strong>Specific orchestration wiring.</strong> Whichever board, queue, or wrapper happens to run the loop this quarter.</li>
+</ul>
+<p>Same test in every case: would a frontier lab plausibly ship a better version within a year? If yes → iterating layer, treat as rented leverage. If no → substrate candidate.</p>
+</section>
+<section id="open-what-else-might-belong" class="level3">
+<h3>Open: what else might belong</h3>
+<p>The taxonomy will evolve. Candidates considered but not yet committed:</p>
+<ul>
+<li><strong>Validation gauntlets</strong> — schema validators, capability portability checks, frontmatter validators. They encode "what good looks like," which leans substrate. Tightly coupled to repository conventions; may fold into that category rather than stand alone.</li>
+<li><strong>Reference artifacts</strong> — exemplar specs, capabilities, and knowledge entries that show the shape. Could be its own category; could live alongside each substrate category as "examples of how to do this here."</li>
+<li><strong>Style and voice guides</strong> — for client-facing copy, naming, communication. Domain-specific, not commodity. Probably substrate, not formalized yet.</li>
+<li><strong>Ambient ingestion pipelines.</strong> Background cron jobs that pull client systems (Slack, CRM, calendar, metrics feeds) into each client's knowledge layer on a schedule, not on demand. The thing that keeps the knowledge layer warm between agent runs. Garry Tan's setup runs 100+ such crons; our current operating shape (<code>operating-spec.md</code> §7) is reactive by default. Leans substrate when the ingestion pipeline shape is domain-specific (each pipeline encodes "what to capture from this kind of system, how to normalize it, where to file it"); leans iterating-layer when it's a thin wrapper around a vendor SDK that the labs will eventually ship better. Worth a separate decision once the first such pipeline ships.</li>
+</ul>
+<p>The rule for adding a new category is the same as the rule for defining the substrate: does it pass the one-shot regeneration test? If you can throw away the implementation and the substrate alone can rebuild a better version, the substrate is complete. If not, something is missing — and that something is the new category.</p>
+<hr />
+</section>
+</section>
+<section id="misc" class="level2 spec-section">
+<h2>Misc</h2>
+<p>(Re-home as the doc grows.)</p>
+</section>
+</section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede-2">Sibling HTML companions generated from the Markdown files in this folder.</p>
+    <div class="related-grid">
+      <a class="related-card" href="../operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
+<a class="related-card" href="../compounding-system.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
+<a class="related-card" href="../principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</div></a>
+<a class="related-card" href="../principles/sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits from core-principles.md (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · generated from definitions/sw-definitions.md</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

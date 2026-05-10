@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core Principles — Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --input-bg: #1c1c1c;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --primary-dim: rgba(79,142,255,0.10);
+    --amber: #d4a72c;
+    --amber-dim: rgba(212,167,44,0.12);
+    --emerald: #4ec9b0;
+    --emerald-dim: rgba(78,201,176,0.12);
+    --red: #f48771;
+    --red-dim: rgba(244,135,113,0.12);
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 10px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 18px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .logo-mark {
+    width: 24px; height: 24px;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; color: var(--fg); font-size: 12px;
+  }
+  .sidebar-title { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .sidebar-sub { font-size: 11px; color: var(--fg-3); margin-top: 1px; font-family: var(--font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px; }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    font-size: 10px; font-weight: 500;
+    color: var(--fg-3);
+    padding: 10px 10px 4px;
+    font-family: var(--font-mono);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition), color var(--transition);
+    min-width: 0;
+  }
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-item:not(.doc-link) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .doc-link { align-items: flex-start; line-height: 1.35; }
+  .nav-num {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--fg-3);
+    flex-shrink: 0;
+    width: 18px;
+    text-align: right;
+    padding-top: 1px;
+  }
+  .nav-item.active .nav-num, .nav-item.current .nav-num { color: var(--fg-2); }
+
+  .main {
+    flex: 1; min-width: 0;
+    padding: 56px 72px 120px;
+    max-width: 980px;
+  }
+
+  .spec-eyebrow {
+    font-size: 11px; font-weight: 500;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+  }
+  h1 {
+    font-size: 30px; font-weight: 600;
+    line-height: 1.15; letter-spacing: -0.015em;
+    margin-bottom: 14px;
+    color: var(--fg);
+  }
+  .lede {
+    font-size: 15px; color: var(--fg-2);
+    line-height: 1.65; max-width: 680px;
+    margin-bottom: 28px;
+  }
+  .meta-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding: 10px 0;
+    font-size: 12px; color: var(--fg-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+
+  .doc-body { margin-top: 42px; }
+  .doc-body section { margin-top: 54px; }
+  .doc-body section:first-child { margin-top: 0; }
+  section { scroll-margin-top: 24px; }
+
+  h2 {
+    font-size: 19px; font-weight: 600;
+    margin-top: 56px; margin-bottom: 8px;
+    letter-spacing: -0.005em;
+    color: var(--fg);
+  }
+  .doc-body section > h2:first-child { margin-top: 0; }
+  h2 + p, h2 + .lede-2 { margin-top: 6px; }
+  .lede-2 {
+    font-size: 14px;
+    color: var(--fg-2);
+    margin-bottom: 18px;
+    max-width: 680px;
+  }
+  h3 { font-size: 14px; font-weight: 600; margin-top: 28px; margin-bottom: 8px; color: var(--fg); }
+  h4 {
+    font-size: 11px; font-weight: 600;
+    color: var(--fg-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 18px; margin-bottom: 8px;
+  }
+
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+  p strong, li strong { color: var(--fg); font-weight: 600; }
+  em { color: var(--fg); font-style: italic; }
+
+  ul, ol { color: var(--fg-2); padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 5px; line-height: 1.6; }
+  li > ul, li > ol { margin-top: 5px; margin-bottom: 8px; }
+
+  a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--fg-3); }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--bg-3);
+    color: var(--fg-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  pre,
+  div.sourceCode {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  pre code,
+  div.sourceCode code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  div.sourceCode pre {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .sourceCode span { color: inherit; }
+
+  .status-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0 22px;
+    font-size: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .status-table th {
+    text-align: left;
+    padding: 9px 14px;
+    background: var(--bg);
+    color: var(--fg-3);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+  }
+  .status-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-2);
+    vertical-align: top;
+  }
+  .status-table tr:last-child td { border-bottom: none; }
+
+  .callout {
+    display: flex; gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius);
+    margin: 14px 0;
+    border-left: 2px solid;
+    background: var(--bg-2);
+  }
+  .callout.note { border-left-color: var(--border-2); }
+  .callout-icon {
+    font-size: 11px;
+    flex-shrink: 0;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    width: 38px;
+  }
+  .callout-body { font-size: 13px; color: var(--fg-2); line-height: 1.6; flex: 1; }
+  .callout-body strong { color: var(--fg); }
+
+  .related-section { margin-top: 64px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .related-card {
+    background: var(--bg-2);
+    padding: 14px 16px;
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition);
+  }
+  .related-card:hover { background: var(--bg-3); }
+  .related-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .related-name::after { content: '→'; color: var(--fg-3); font-weight: 400; margin-left: auto; }
+  .related-card:hover .related-name::after { color: var(--fg); }
+  .related-desc { font-size: 12px; color: var(--fg-3); line-height: 1.5; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .footer-note { text-align: center; color: var(--fg-3); font-size: 12px; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--fg-3); }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 36px 22px 72px; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Core Concepts</div>
+      <div class="sidebar-sub">Core Principles</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Documents</div>
+    <a class="nav-item doc-link" href="../operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
+<a class="nav-item doc-link" href="../compounding-system.html"><span class="nav-num">02</span>The Compounding System</a>
+<a class="nav-item doc-link" href="../definitions/sw-definitions.html"><span class="nav-num">03</span>Definitions</a>
+<a class="nav-item doc-link current" href="./core-principles.html"><span class="nav-num">04</span>Core Principles</a>
+<a class="nav-item doc-link" href="./sw-principles.html"><span class="nav-num">05</span>Software Development Principles</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#knowledge-and-documentation"><span class="nav-num">01</span>Knowledge and documentation</a>
+<a class="nav-item" href="#context-and-defensibility"><span class="nav-num">02</span>Context and defensibility</a>
+<a class="nav-item" href="#intent-and-execution"><span class="nav-num">03</span>Intent and execution</a>
+<a class="nav-item" href="#verification"><span class="nav-num">04</span>Verification</a>
+<a class="nav-item" href="#simplicity-and-clarity"><span class="nav-num">05</span>Simplicity and clarity</a>
+<a class="nav-item" href="#the-human-machine-boundary"><span class="nav-num">06</span>The human-machine boundary</a>
+<a class="nav-item" href="#compounding-systems-and-substrate"><span class="nav-num">07</span>Compounding systems and substrate</a>
+<a class="nav-item" href="#time-dependence"><span class="nav-num">08</span>Time-dependence</a>
+<a class="nav-item" href="#the-delivery-loop"><span class="nav-num">09</span>The delivery loop</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · core-principles.html</div>
+    <h1>Core Principles</h1>
+    <p class="lede">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</p>
+    <div class="meta-row">
+      <div><strong>Source:</strong> principles/core-principles.md</div>
+      <div><strong>Generated:</strong> HTML companion</div>
+      <div><strong>Status:</strong> Mirrors Markdown</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+<section class="level1 generated-root">
+<p>This is the highest-level principles document. Domain-specific principle docs (<code>sw-principles.md</code> today; future <code>marketing-principles.md</code>, <code>sales-principles.md</code>, etc.) inherit these and add domain-specific principles on top.</p>
+<p>Add new principles below in their appropriate section as they emerge.</p>
+<section id="knowledge-and-documentation" class="level2 spec-section">
+<h2>Knowledge and documentation</h2>
+<p><strong>Give durable knowledge a type, an owner, and an audience.</strong> When knowledge must survive people, sessions, and model boundaries, encode it in documents with a single purpose and clear ownership.</p>
+<ul>
+<li>Each document should have a singular purpose. Mixing audiences creates unusable sprawl.</li>
+<li>A "knowledge base" only helps if it is curated, scoped, versioned, and written for retrieval.</li>
+<li>Over-documentation is real; the answer is not "more prose" but better document boundaries and maintenance rules.</li>
+</ul>
+<p><strong>Process over prose. Workflows over reference. Steps with exit criteria over essays without them.</strong> Reference docs in context produce plausible-sounding generation; workflows produce something that can be done and verified. The same is true for human teams — 200-page handbooks don't get read under time pressure; 40-line workflows with checkpoints do.</p>
+<p><strong>Progressive disclosure beats kitchen-sink loading.</strong> Every artifact you load into context degrades performance somewhere. Load what's relevant for the current phase; leave the rest on disk and let a small router decide what applies. True for skills, runbooks, incident playbooks — anything anyone (or any agent) will read under time pressure.</p>
+<p><strong>Connection, not storage, is the asset.</strong> A pile of notes is not a knowledge layer. A knowledge layer is structured so that updating one entity propagates through every related one — so the answer to <em>what's currently going on with this person, client, deal, or project</em> is always one query, not a manual scan across files. The defensible thing is the graph between entries, not the entries themselves. <em>(After Garry Tan: the difference between a filing cabinet and a nervous system is connection, not storage.)</em></p>
+</section>
+<section id="context-and-defensibility" class="level2 spec-section">
+<h2>Context and defensibility</h2>
+<p><strong>Context is the moat.</strong> In any system that delegates work to commodities — agents, contractors, employees — the <em>captured operating mind of the business</em> is the defensible asset. What it sells, who it sells to, what it promises, who decides what, what the SOPs are, what the constraints are. The work-doer is replaceable; the context is not. A business that articulates its operating mind well will outcompete one that doesn't, at the same level of work-doer capability. That isn't a future claim.</p>
+</section>
+<section id="intent-and-execution" class="level2 spec-section">
+<h2>Intent and execution</h2>
+<p><strong>Separate intent from implementation.</strong> What you want is not the same as how it gets built. Specifying both well, and keeping them clearly distinguished, is most of the work.</p>
+<p><strong>As capability gets cheaper, articulated intent does not.</strong> The bottleneck moves from <em>can the work be done</em> to <em>can the human describe what should be done well enough that the work-doer knows when it is done.</em> The leverage move is getting good at articulating intent.</p>
+<p><strong>Write down the done-condition before the work starts.</strong> A <em>contract</em> — testable, external, agreed in advance — is the single highest-leverage move against scope drift. Once work is underway, "done" can be quietly redefined; pre-writing the exit criterion refuses that move.</p>
+<p><strong>Scope discipline: touch only what you're asked to touch.</strong> The single biggest determinant of whether work is acceptable on first pass or has to be unwound. Same reason any reviewer (human or otherwise) blocks work that does more than one thing.</p>
+<p><strong>Pre-write the rebuttals.</strong> Both AI tools and humans are excellent at rationalizing skipping a rigorous step. <em>Anti-rationalization tables</em> pair common excuses ("this task is too simple to need a spec," "I'll write the test later," "good enough, ship it") with a written rebuttal. You're refusing to argue with the work-doer — or your tired Friday-afternoon self — <em>on the day</em>, by writing the argument down before it happens.</p>
+</section>
+<section id="verification" class="level2 spec-section">
+<h2>Verification</h2>
+<p><strong>Verification is the load-bearing exit criterion.</strong> Every workflow terminates in concrete evidence — a test that runs, a screenshot, a runtime trace, a reviewer signoff. The work-doer is a generator; you need a separate signal that the work is done. "Seems right" never closes the loop.</p>
+<p><strong>Separate generation from evaluation.</strong> Work-doers (especially LLMs) skew positive when grading their own work. A planner / worker / judge or generator / evaluator split is a real architectural pattern, not a stylistic one — even when the same person or model plays multiple roles with different prompts.</p>
+</section>
+<section id="simplicity-and-clarity" class="level2 spec-section">
+<h2>Simplicity and clarity</h2>
+<p><strong>Choose the simplest, most boring design whose failure modes you understand</strong>, and do not dismantle load-bearing weirdness until you have captured its behavior.</p>
+<ul>
+<li>Design should optimize for easy future change, not momentary cleverness.</li>
+<li>If a behavior astonishes its users, redesign it.</li>
+<li>Before changing behavior you do not understand, capture it with tests.</li>
+</ul>
+<p><strong>Prefer the boring, obvious solution. Cleverness is expensive.</strong> The work-doer is not penalized for picking the more interesting design; the system is. Default to the dullest design whose failure modes you understand and reach for cleverness only when the boring version provably won't do.</p>
+</section>
+<section id="the-human-machine-boundary" class="level2 spec-section">
+<h2>The human-machine boundary</h2>
+<p><strong>Posture matters more than tool.</strong> The same model that hollows out one person's mental model can sharpen another's, depending on whether they use it <em>to think</em> or <em>instead of thinking</em>. Cognitive offloading (delegate the <em>how</em>, keep the <em>what</em>) and cognitive surrender (the model's output becomes yours by default) look identical from the outside.</p>
+<p><strong>Borrowed confidence is the failure mode.</strong> Models speak in declaratives, and humans inherit that certainty without inheriting the (often nonexistent) reasoning underneath. Confidence transfers cleanly; reasoning does not.</p>
+<p><strong>Calibration is the skill.</strong> The job is to know, in any given moment, whether the work-doer is helping you think or quietly doing the thinking for you. If your work is shipping and your understanding is shrinking, you're paying with cognitive debt; if your work is shipping and your understanding is growing, you're doing the job, just faster.</p>
+<p><strong>Cooperation builds mental models; delegation erodes them.</strong> With cooperation you end the session with a sharper model of the problem than you started; with delegation, the work-doer does. The work-doer is the second person in the room, not the only one.</p>
+</section>
+<section id="compounding-systems-and-substrate" class="level2 spec-section">
+<h2>Compounding systems and substrate</h2>
+<p><strong>A compounding system has five layers, each with a different durability profile.</strong> <em>Substrate</em> (durable, repo-shaped, survives one-shot regeneration). <em>Iterating layers</em> (rented from frontier providers, replaced on their cadence). <em>Operational shape</em> (who does what — humans, work-doers, queues). <em>Intake layers</em> (where work originates — human input, monitoring, feedback, ambient ingestion). <em>The delivery loop</em> (the contract that turns intake into shipped work and substrate updates). Investments in each layer are not interchangeable; the discipline is knowing which layer you're investing in. The pattern is domain-agnostic — software, marketing, sales, knowledge management, and operations are different applications of the same five-layer shape. See <code>compounding-system.md</code>.</p>
+<p><strong>Distinguish the substrate from the iterating layers.</strong> The substrate is what passes the one-shot regeneration test: a future work-doer with better tools, given the substrate artifacts, could rebuild a <em>better</em> working version of the system from scratch. Iterating layers are everything else — useful, sometimes necessary, but rented from someone else's roadmap. The discipline is knowing which one you're working on and budgeting time accordingly.</p>
+<p><strong>Prefer building substrate to building iterating layers.</strong> Time spent reproducing what frontier providers will ship in the next 18 months is <em>rented leverage.</em> It can buy a few months of competitive advantage; it cannot compound into a long-term moat. Lean toward not building anything a frontier provider would plausibly ship within a year — and when you do build it, name it explicitly as a short-term advantage with a known maintenance cost the day their version arrives.</p>
+<p><strong>The substrate compounds with use; iterating layers age with use.</strong> Every edit to substrate is an investment that pays out across every future engagement. Every edit to a current-implementation-specific wrapper or integration is mostly maintenance against drift. Both have to happen. Only one of them earns its keep over time.</p>
+<p><strong>Substrate grows via a meta-skill, not by accumulation.</strong> Ad-hoc work doesn't become substrate by itself. Either the same workflow is re-invented every time, or someone — at some point — rewrites it as a reusable skill, capability, template, or SOP. The meta-skill (Garry Tan calls it <em>skillify</em>) is the explicit move that promotes a one-off into permanent substrate: examine the trajectory of recent work, extract the repeatable pattern, name the triggers and edge cases, write it as a versioned file, and register it where the system can find it next time. Without that move (or an equivalent), workflows accumulate; with it, they compound.</p>
+</section>
+<section id="time-dependence" class="level2 spec-section">
+<h2>Time-dependence</h2>
+<p><strong>Time is either compounding asset value or compounding maintenance liability; there is no neutral default.</strong> A system gets more valuable every day it's used, or more painful every day it ages. There is no third option.</p>
+<p><strong>Long runs amplify every shortcut.</strong> Skipping a rigorous step in a 10-minute task produces a defect; skipping it in a 30-hour run produces a debugging archaeology project at the end. The longer the run, the more the rigor must be <em>enforced</em> rather than <em>suggested</em>.</p>
+<p><strong>Cognitive surrender is path-dependent; comprehension debt compounds like technical debt.</strong> Each accepted chunk of work you don't understand makes the next change to that chunk almost guaranteed to be another act of surrender — because forming an independent view now requires reconstructing the part you skipped. The bill comes due when something breaks and no one can rebuild the system from first principles.</p>
+<p><strong>Reuse across many products requires shared core assets, a common means of production, explicit variability management, and management discipline around the asset base.</strong> None of those happen by accident. Reuse is an operating choice, enforced by structure.</p>
+</section>
+<section id="the-delivery-loop" class="level2 spec-section">
+<h2>The delivery loop</h2>
+<p><strong>When a step fails, go back to the smallest correction — usually the spec.</strong> Don't restart from scratch. Update the smallest upstream artifact that is wrong, regenerate the downstream artifacts that depend on it, re-run. The loop is the recovery mechanism, not just the build mechanism.</p>
+<p><strong>The loop is recursive; the steps are the contract.</strong> A large goal contains smaller goals, each running its own cycle. The work-doer is free to break a top-level goal into any number of inner loops, in any order, using whatever skills fit. The steps of the loop are the contract; the structure inside them is open.</p>
+</section>
+</section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede-2">Sibling HTML companions generated from the Markdown files in this folder.</p>
+    <div class="related-grid">
+      <a class="related-card" href="../operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
+<a class="related-card" href="../compounding-system.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
+<a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
+<a class="related-card" href="./sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits from core-principles.md (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · generated from principles/core-principles.md</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

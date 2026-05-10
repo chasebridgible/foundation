@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Compounding System — Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --input-bg: #1c1c1c;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --primary-dim: rgba(79,142,255,0.10);
+    --amber: #d4a72c;
+    --amber-dim: rgba(212,167,44,0.12);
+    --emerald: #4ec9b0;
+    --emerald-dim: rgba(78,201,176,0.12);
+    --red: #f48771;
+    --red-dim: rgba(244,135,113,0.12);
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 10px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 18px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .logo-mark {
+    width: 24px; height: 24px;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; color: var(--fg); font-size: 12px;
+  }
+  .sidebar-title { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .sidebar-sub { font-size: 11px; color: var(--fg-3); margin-top: 1px; font-family: var(--font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px; }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    font-size: 10px; font-weight: 500;
+    color: var(--fg-3);
+    padding: 10px 10px 4px;
+    font-family: var(--font-mono);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition), color var(--transition);
+    min-width: 0;
+  }
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-item:not(.doc-link) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .doc-link { align-items: flex-start; line-height: 1.35; }
+  .nav-num {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--fg-3);
+    flex-shrink: 0;
+    width: 18px;
+    text-align: right;
+    padding-top: 1px;
+  }
+  .nav-item.active .nav-num, .nav-item.current .nav-num { color: var(--fg-2); }
+
+  .main {
+    flex: 1; min-width: 0;
+    padding: 56px 72px 120px;
+    max-width: 980px;
+  }
+
+  .spec-eyebrow {
+    font-size: 11px; font-weight: 500;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+  }
+  h1 {
+    font-size: 30px; font-weight: 600;
+    line-height: 1.15; letter-spacing: -0.015em;
+    margin-bottom: 14px;
+    color: var(--fg);
+  }
+  .lede {
+    font-size: 15px; color: var(--fg-2);
+    line-height: 1.65; max-width: 680px;
+    margin-bottom: 28px;
+  }
+  .meta-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding: 10px 0;
+    font-size: 12px; color: var(--fg-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+
+  .doc-body { margin-top: 42px; }
+  .doc-body section { margin-top: 54px; }
+  .doc-body section:first-child { margin-top: 0; }
+  section { scroll-margin-top: 24px; }
+
+  h2 {
+    font-size: 19px; font-weight: 600;
+    margin-top: 56px; margin-bottom: 8px;
+    letter-spacing: -0.005em;
+    color: var(--fg);
+  }
+  .doc-body section > h2:first-child { margin-top: 0; }
+  h2 + p, h2 + .lede-2 { margin-top: 6px; }
+  .lede-2 {
+    font-size: 14px;
+    color: var(--fg-2);
+    margin-bottom: 18px;
+    max-width: 680px;
+  }
+  h3 { font-size: 14px; font-weight: 600; margin-top: 28px; margin-bottom: 8px; color: var(--fg); }
+  h4 {
+    font-size: 11px; font-weight: 600;
+    color: var(--fg-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 18px; margin-bottom: 8px;
+  }
+
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+  p strong, li strong { color: var(--fg); font-weight: 600; }
+  em { color: var(--fg); font-style: italic; }
+
+  ul, ol { color: var(--fg-2); padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 5px; line-height: 1.6; }
+  li > ul, li > ol { margin-top: 5px; margin-bottom: 8px; }
+
+  a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--fg-3); }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--bg-3);
+    color: var(--fg-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  pre,
+  div.sourceCode {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  pre code,
+  div.sourceCode code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  div.sourceCode pre {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .sourceCode span { color: inherit; }
+
+  .status-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0 22px;
+    font-size: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .status-table th {
+    text-align: left;
+    padding: 9px 14px;
+    background: var(--bg);
+    color: var(--fg-3);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+  }
+  .status-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-2);
+    vertical-align: top;
+  }
+  .status-table tr:last-child td { border-bottom: none; }
+
+  .callout {
+    display: flex; gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius);
+    margin: 14px 0;
+    border-left: 2px solid;
+    background: var(--bg-2);
+  }
+  .callout.note { border-left-color: var(--border-2); }
+  .callout-icon {
+    font-size: 11px;
+    flex-shrink: 0;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    width: 38px;
+  }
+  .callout-body { font-size: 13px; color: var(--fg-2); line-height: 1.6; flex: 1; }
+  .callout-body strong { color: var(--fg); }
+
+  .related-section { margin-top: 64px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .related-card {
+    background: var(--bg-2);
+    padding: 14px 16px;
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition);
+  }
+  .related-card:hover { background: var(--bg-3); }
+  .related-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .related-name::after { content: '→'; color: var(--fg-3); font-weight: 400; margin-left: auto; }
+  .related-card:hover .related-name::after { color: var(--fg); }
+  .related-desc { font-size: 12px; color: var(--fg-3); line-height: 1.5; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .footer-note { text-align: center; color: var(--fg-3); font-size: 12px; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--fg-3); }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 36px 22px 72px; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Core Concepts</div>
+      <div class="sidebar-sub">The Compounding System</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Documents</div>
+    <a class="nav-item doc-link" href="./operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
+<a class="nav-item doc-link current" href="./compounding-system.html"><span class="nav-num">02</span>The Compounding System</a>
+<a class="nav-item doc-link" href="./definitions/sw-definitions.html"><span class="nav-num">03</span>Definitions</a>
+<a class="nav-item doc-link" href="./principles/core-principles.html"><span class="nav-num">04</span>Core Principles</a>
+<a class="nav-item doc-link" href="./principles/sw-principles.html"><span class="nav-num">05</span>Software Development Principles</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#how-to-read-this"><span class="nav-num">01</span>How to read this</a>
+<a class="nav-item" href="#1-the-shape"><span class="nav-num">02</span>1. The shape</a>
+<a class="nav-item" href="#2-substrate"><span class="nav-num">03</span>2. Substrate</a>
+<a class="nav-item" href="#3-iterating-layers"><span class="nav-num">04</span>3. Iterating layers</a>
+<a class="nav-item" href="#4-operational-shape"><span class="nav-num">05</span>4. Operational shape</a>
+<a class="nav-item" href="#5-intake-layers"><span class="nav-num">06</span>5. Intake layers</a>
+<a class="nav-item" href="#6-the-delivery-loop"><span class="nav-num">07</span>6. The delivery loop</a>
+<a class="nav-item" href="#7-domain-agnostic-application"><span class="nav-num">08</span>7. Domain-agnostic application</a>
+<a class="nav-item" href="#8-the-cross-layer-principles"><span class="nav-num">09</span>8. The cross-layer principles</a>
+<a class="nav-item" href="#what-is-settled-vs-what-is-iterating"><span class="nav-num">10</span>What is settled vs. what is iterating</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · compounding-system.html</div>
+    <h1>The Compounding System</h1>
+    <p class="lede">The framework. <code>operating-spec.md</code> is one instance of it.</p>
+    <div class="meta-row">
+      <div><strong>Source:</strong> compounding-system.md</div>
+      <div><strong>Generated:</strong> HTML companion</div>
+      <div><strong>Status:</strong> Mirrors Markdown</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+<section class="level1 generated-root">
+<section id="how-to-read-this" class="level2 spec-section">
+<h2>How to read this</h2>
+<p>This document defines the structure I use to build systems whose value grows with use. It is the <strong>framework</strong> — a description of the layers any compounding system has, what design rule each layer obeys, and how to tell whether each layer is healthy. <code>operating-spec.md</code> is one application of this framework: a compounding system for productized-agency software delivery. Future compounding systems (knowledge management, marketing, sales, operations) follow the same shape with different contents.</p>
+<p>The framework is settled in its shape (five layers, the durability hierarchy, the one-shot regeneration test). The contents inside each layer are domain-specific and iterate with the work.</p>
+<p>If you are an agent reading this, this is the structure of the system you operate inside. Read §1 for the shape, §2-§6 for the layer-by-layer design rules, and §7 for how the framework applies beyond software.</p>
+<hr />
+</section>
+<section id="1-the-shape" class="level2 spec-section">
+<h2>1. The shape</h2>
+<p>Every compounding system has five layers:</p>
+<pre class="text"><code>Compounding system  (the whole — value grows with use)
+├── Substrate              (durable, repo-shaped — survives one-shot regeneration)
+├── Iterating layers       (rented from frontier providers — replaced on their cadence)
+├── Operational shape      (who does what — humans, agents, queues)
+├── Intake layers          (where work originates — human, monitoring, feedback, ambient)
+└── The delivery loop      (the contract — turns intake into shipped work and substrate updates)</code></pre>
+<p>Each layer has a different durability profile, a different design rule, and a different relationship to "what survives across model generations." Investments in different layers are not interchangeable.</p>
+<p>The defining property of a compounding system is that <strong>value grows with use rather than decays with neglect.</strong> Most software systems decay — code rots, dependencies drift, edge cases accumulate, the team gets steadily slower at making the same kind of change. Capability libraries, knowledge bases, and skill libraries compound. A compounding system is whatever has the second property — and the architecture below is the structure that produces it.</p>
+<hr />
+</section>
+<section id="2-substrate" class="level2 spec-section">
+<h2>2. Substrate</h2>
+<p><strong>The durable, repository-shaped component that survives across model generations.</strong></p>
+<p>The substrate is everything in the repo that captures work no frontier lab will ever do for you, arranged so that a more capable model and a better harness can do strictly better work off the same artifacts over time. Six categories, today:</p>
+<ul>
+<li><strong>Specs</strong> (descriptive, technical, test) — the precision of intent for each piece of work.</li>
+<li><strong>Capability inventory</strong> — the shared library of vertical slices, each portable by folder copy.</li>
+<li><strong>Knowledge layer</strong> — the captured operating mind of the business, queryable per question.</li>
+<li><strong>Domain-specific skills and tools</strong> — workflows that only matter inside the domain.</li>
+<li><strong>Repository conventions</strong> — folder layout, naming, frontmatter contracts, the loop-as-contract.</li>
+<li><strong>Decision records</strong> — the captured <em>why</em> behind paths taken and roads not taken.</li>
+</ul>
+<p><strong>The defining test for substrate (one-shot regeneration):</strong> A future model with a better harness, reading only the substrate, could rebuild a <em>better</em> working version of the system from scratch. Whatever fails this test is not substrate.</p>
+<p><strong>Design rule.</strong> Build only what frontier labs won't build for you. Edit substrate continuously; treat each edit as an investment that pays out across every future engagement.</p>
+<p><strong>Lifecycle.</strong> The substrate iterates — entries are edited, categories are added, the implementation beneath it is replaced. But the substrate is <em>what survives</em> iteration. As the labs ship better models and harnesses, the substrate stays; the iterating layers around it churn.</p>
+<p><strong>Healthy.</strong> Spec count grows. Capability inventory grows. Knowledge layer is reviewed on cadence. Decision records exist for every settled path. Conventions are explicit and validated.</p>
+<p><strong>Unhealthy.</strong> Substrate categories are sparse or empty. Specs drift from the code they describe. Knowledge entries go stale. Conventions exist as oral tradition rather than written contracts. Future agents have to re-litigate settled decisions.</p>
+<p>See <code>docs/education/definitions.md</code> "The substrate entry, expanded" for the full taxonomy and open-category candidates.</p>
+<hr />
+</section>
+<section id="3-iterating-layers" class="level2 spec-section">
+<h2>3. Iterating layers</h2>
+<p><strong>The components rented from frontier providers and replaced on their cadence.</strong></p>
+<p>Iterating layers are everything in the system that someone else (Anthropic, OpenAI, Google, Cursor, AWS, framework maintainers) will ship a better version of within a year. Useful while it's the best available; <em>rented leverage</em> rather than owned asset.</p>
+<p>Common iterating layers:</p>
+<ul>
+<li><strong>The general harness / runtime</strong> — OpenClaw, Cursor, Claude Code, the meta-skill router.</li>
+<li><strong>Framework choices</strong> — Expo, Fastify, Postgres, Cognito, AWS. Replaceable by definition.</li>
+<li><strong>Standard tool wrappers</strong> — MCP servers for popular SaaS (Linear, Stripe, Notion). Someone will ship a better one.</li>
+<li><strong>Vendor SDK wrappers</strong> — Slack, Sentry, HubSpot integrations. Same logic.</li>
+</ul>
+<p><strong>Design rule.</strong> Use the best available; do not invest in building your own. The litmus test before building anything: would a frontier provider plausibly ship a better version within a year? If yes, lean toward not building it. If you do build it, name it explicitly as a short-term advantage with a known maintenance cost the day their version arrives.</p>
+<p><strong>Lifecycle.</strong> Replaced as soon as something better ships. The expectation is that this layer turns over completely every 18-36 months. Anything you build here is on a clock from day one.</p>
+<p><strong>Healthy.</strong> Thin. Whatever you're using is the current best-available version. Switching costs are low. The iterating layer is recognized as iterating, not mistaken for substrate.</p>
+<p><strong>Unhealthy.</strong> Heavy custom investment in the wrong layer. "We built our own version of X" when X is a frontier-provider roadmap item. Maintenance burden grows faster than value delivered. The iterating layer is treated as if it were substrate, and gets defended past its expiration date.</p>
+<hr />
+</section>
+<section id="4-operational-shape" class="level2 spec-section">
+<h2>4. Operational shape</h2>
+<p><strong>Who does what — which humans hold which decisions, which agents do which work, which queues route what to where.</strong></p>
+<p>The operational shape is the organizational structure of the compounding system. It names the human roles, the agent roles, and the routing surface that connects them. Distinct from substrate (the artifacts) and iterating layers (the runtime), the operational shape is <em>who sits where in the loop.</em></p>
+<p>Three components:</p>
+<ul>
+<li><strong>Human roles</strong> — who holds intent, who prioritizes, who accepts. The places where context, judgment, and accountability matter.</li>
+<li><strong>Agent roles</strong> — who plans, who executes, who reviews. The searchable-labor surface.</li>
+<li><strong>Routing</strong> — the queue, the board, the metadata schema that lets the system prioritize and attribute work.</li>
+</ul>
+<p><strong>Design rule.</strong> Small surface area for the human, large surface area for the agent. Put the human only where context, judgment, and accountability matter — defining intent, prioritizing work, accepting what ships. Everything else belongs to the agent. Anything more elaborate is overhead, and overhead is what stops compounding systems from scaling.</p>
+<p><strong>Lifecycle.</strong> The roles and routing evolve with the work and with the team. Generally more stable than iterating layers, less stable than substrate. Operational shape changes when the team scales, when the work mix shifts, or when a new intake source comes online.</p>
+<p><strong>Healthy.</strong> Each human decision is high-leverage. Routing is unambiguous — every piece of work has a clear owner and a clear next step. Agents do not idle waiting for human approval on low-stakes calls.</p>
+<p><strong>Unhealthy.</strong> Humans are bottlenecks on routine work. Routing is opaque. Multiple humans each "kind of" own the same decision. Agents can't tell what's pending and what's blocked.</p>
+<p>For this repo's productized-agency context, the current operational shape is described in <code>operating-spec.md</code> §7.</p>
+<hr />
+</section>
+<section id="5-intake-layers" class="level2 spec-section">
+<h2>5. Intake layers</h2>
+<p><strong>Where work originates — the surface where the outside world becomes work the system processes.</strong></p>
+<p>The intake layer is everything that turns events into tasks. Without it, the system runs only on what humans manually request; with it, the system runs on a continuously refreshed task surface.</p>
+<p>Four common sources:</p>
+<ul>
+<li><strong>Human inputs</strong> — direct requests from you or your team, conversations in Slack, feedback in standups.</li>
+<li><strong>Monitoring</strong> — Sentry-class signals, alerts, anomaly detection. Bugs and incidents that the system catches before users report them.</li>
+<li><strong>User feedback</strong> — in-app reports, feature requests, support tickets. Direct user-to-task pipelines.</li>
+<li><strong>Ambient ingestion</strong> — background pulls of client SaaS, calendar, transcripts, metrics. Garry Tan's 100 crons. Keeps the substrate (especially the knowledge layer) warm between agent runs.</li>
+</ul>
+<p>All four ideally land on the same task surface — the board — with metadata that lets the rest of the system prioritize, route, and attribute. Source, severity, client, type, urgency, related entity. The metadata schema is substrate; the wrappers feeding into it are iterating layer.</p>
+<p><strong>Design rule.</strong> The intake layer should be additive — new sources land on the board with the right metadata, and the rest of the system picks them up without changes. If adding a new intake source requires rewriting routing or prioritization logic, the metadata schema is wrong.</p>
+<p><strong>Lifecycle.</strong> New intake sources arrive as the business grows (new clients, new monitoring tools, new user feedback channels). The metadata schema (substrate) is meant to be stable; the wrappers feeding into it (iterating layer) churn.</p>
+<p><strong>Healthy.</strong> All work, regardless of source, lands on one task surface with consistent metadata. The board is the single source of truth for what the system is doing. Adding a new intake source is a config change, not a rewrite.</p>
+<p><strong>Unhealthy.</strong> Multiple parallel queues that don't talk to each other. Work falls between sources. The board is incomplete. Some intake is silently lost or deprioritized because it didn't land in the right place.</p>
+<hr />
+</section>
+<section id="6-the-delivery-loop" class="level2 spec-section">
+<h2>6. The delivery loop</h2>
+<p><strong>The contract that turns intake into shipped work and substrate updates.</strong></p>
+<p>The delivery loop is the protocol every piece of work follows. In this repo's vocabulary, the inner loop is <strong>spec → test → prompt → execute</strong>; the outer loop is review, integration, rollout, observation, and deprecation. The four steps of the inner loop are the contract; the structure inside them is open.</p>
+<p>The loop is recursive: large goals contain smaller goals, each running its own spec/test/prompt/execute cycle. An agent is free to break a top-level goal into any number of inner loops, in any order, using whatever skills fit.</p>
+<p><strong>Design rule.</strong> When a step fails, go back to the smallest correction — usually the spec — update it, regenerate the downstream artifacts, re-run. Don't restart from scratch. The loop is the recovery mechanism, not just the build mechanism.</p>
+<p><strong>Lifecycle.</strong> The four-step contract is settled. The skills, tools, and workflows that run inside the contract iterate continuously. The outer loop (review → ship → observe → deprecate) is also stable in shape; the implementation evolves with the team and the iterating layers.</p>
+<p><strong>Healthy.</strong> Every piece of work passes through all four steps with evidence at each. Failures route to the smallest correction. The loop is recursive in practice, not just in theory.</p>
+<p><strong>Unhealthy.</strong> Steps get skipped under time pressure. Agents prompt-and-execute without specs or tests. Work is "done" without verification. Loop iterations re-litigate things that should have been settled in the spec.</p>
+<p>For the principles that govern the loop, see <code>sw-principles.md</code> §The delivery loop and §Intent and specification.</p>
+<hr />
+</section>
+<section id="7-domain-agnostic-application" class="level2 spec-section">
+<h2>7. Domain-agnostic application</h2>
+<p>The framework is not specific to software. The same five-layer shape applies to any domain where (a) durable artifacts can be captured, (b) the artifacts can be referenced by a person or agent, and (c) there's a loop that produces work and feeds back into the artifacts. If a domain <em>can't</em> be structured this way, it doesn't compound, and the framework doesn't apply.</p>
+<table class="status-table">
+<thead>
+<tr class="header">
+<th>Domain</th>
+<th>Substrate</th>
+<th>Iterating layers</th>
+<th>Operational shape</th>
+<th>Intake</th>
+<th>Loop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Software (this repo)</strong></td>
+<td>Specs, capability inventory, knowledge layer, conventions, skills, ADRs</td>
+<td>OpenClaw, framework choices, vendor SDKs</td>
+<td>You → board → agent → PR</td>
+<td>Slack, Sentry, user feedback, ambient</td>
+<td>Spec → test → prompt → execute</td>
+</tr>
+<tr class="even">
+<td><strong>Marketing</strong></td>
+<td>Brand voice, ICP definitions, channel playbooks, content templates, campaign post-mortems</td>
+<td>Ad platforms, analytics tools, CMS</td>
+<td>You → marketer → agent → publish</td>
+<td>Performance signals, customer feedback</td>
+<td>Hypothesis → asset → test → measure → learn</td>
+</tr>
+<tr class="odd">
+<td><strong>Sales</strong></td>
+<td>ICP, qualification framework, objection library, deal patterns, win/loss notes</td>
+<td>CRM, dialer, prospecting tools</td>
+<td>You → SDR/AE → agent</td>
+<td>Inbound, outbound, referrals</td>
+<td>Lead → qualify → propose → close → record</td>
+</tr>
+<tr class="even">
+<td><strong>Knowledge management</strong> (the <code>knowledge-base/</code> itself)</td>
+<td>Canonical entity pages, taxonomy, schema, validation rules</td>
+<td>MCP server, search backend</td>
+<td>Owner → editor → agent</td>
+<td>Interviews, transcripts, source docs</td>
+<td>Capture → synthesize → review → publish</td>
+</tr>
+<tr class="odd">
+<td><strong>Operations / SOPs</strong></td>
+<td>SOPs, decision trees, escalation paths, role definitions</td>
+<td>Workflow tools, automation platforms</td>
+<td>Owner → operator → agent</td>
+<td>Tickets, alerts, exceptions</td>
+<td>Trigger → run SOP → verify → log</td>
+</tr>
+</tbody>
+</table>
+<p>Same shape every time. The substrate contents differ; the structure of a compounding system doesn't.</p>
+<p>This is why the framework is durable: the domain-specific contents iterate, but the layered shape and the durability hierarchy stay constant. A marketing compounding system built on this framework today will, in two years, still have substrate / iterating / operational / intake / loop as its layers — even though every piece of content inside each layer will have turned over.</p>
+<hr />
+</section>
+<section id="8-the-cross-layer-principles" class="level2 spec-section">
+<h2>8. The cross-layer principles</h2>
+<p>A few rules of thumb apply to compounding systems regardless of which layer you're working in.</p>
+<p><strong>Investments are not interchangeable across layers.</strong> An hour spent on substrate compounds across every future engagement. An hour spent on iterating-layer customization is rented leverage on someone else's roadmap. An hour spent on operational shape clarifies who decides what. An hour spent on intake schema unblocks every future intake source. Different layers, different returns. Budget time accordingly.</p>
+<p><strong>The substrate is the durability lever, not the value generator.</strong> The intake brings work in. The operational shape routes it. The loop processes it. The iterating layers execute it. The substrate is what makes today's good work still be good work in two years. Different jobs.</p>
+<p><strong>Healthy compounding systems get more valuable with use; unhealthy ones get more painful.</strong> Time is either compounding asset value or compounding maintenance liability; there is no neutral default. The five-layer architecture is one answer to "what does it look like when value compounds." A system whose substrate is sparse and whose iterating layers are heavy will compound <em>liability</em> instead.</p>
+<p><strong>The framework absorbs improvement.</strong> When a frontier provider ships a better harness, the iterating layer is replaced; the substrate is unchanged. When a new intake source comes online, the metadata schema (substrate) absorbs it; routing (operational shape) picks it up. The compounding system gets <em>better</em> with each external improvement, because the iterating layers are designed to be replaced and the substrate is designed to absorb.</p>
+<hr />
+</section>
+<section id="what-is-settled-vs-what-is-iterating" class="level2 spec-section">
+<h2>What is settled vs. what is iterating</h2>
+<p><strong>Settled</strong> (the framework itself):</p>
+<ul>
+<li>The five layers (substrate / iterating / operational / intake / loop).</li>
+<li>The durability hierarchy (substrate is what survives one-shot regeneration; iterating layers are rented; operational shape is structural; intake is the world-facing surface; the loop is the contract).</li>
+<li>The cross-layer rules (investments are not interchangeable; substrate is the durability lever; healthy systems compound asset value; the framework absorbs improvement).</li>
+<li>The domain-agnostic generalization (the same shape applies to software, marketing, sales, knowledge management, operations).</li>
+</ul>
+<p><strong>Iterating</strong> (the contents of any one compounding system):</p>
+<ul>
+<li>Which categories exactly belong in the substrate. Today: six. Likely to grow.</li>
+<li>Which iterating layers we currently rent. Today: OpenClaw, Expo, Fastify, Postgres, Cognito, AWS, vendor SDKs. Will turn over completely on a 18-36 month cadence.</li>
+<li>The operational shape for the productized agency. Currently described in <code>operating-spec.md</code> §7.</li>
+<li>The intake sources currently feeding the system. Today: human inputs and a planned client-side feedback panel. Will grow to include monitoring, ambient ingestion, etc.</li>
+<li>The specific skills, tools, and conventions inside each layer.</li>
+</ul>
+<p>This document is updated when either column changes.</p>
+</section>
+</section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede-2">Sibling HTML companions generated from the Markdown files in this folder.</p>
+    <div class="related-grid">
+      <a class="related-card" href="./operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
+<a class="related-card" href="./definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
+<a class="related-card" href="./principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</div></a>
+<a class="related-card" href="./principles/sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits from core-principles.md (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · generated from compounding-system.md</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

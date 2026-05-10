@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building Software with Agents: A Working Spec — Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --input-bg: #1c1c1c;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --primary-dim: rgba(79,142,255,0.10);
+    --amber: #d4a72c;
+    --amber-dim: rgba(212,167,44,0.12);
+    --emerald: #4ec9b0;
+    --emerald-dim: rgba(78,201,176,0.12);
+    --red: #f48771;
+    --red-dim: rgba(244,135,113,0.12);
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 10px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 18px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .logo-mark {
+    width: 24px; height: 24px;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; color: var(--fg); font-size: 12px;
+  }
+  .sidebar-title { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .sidebar-sub { font-size: 11px; color: var(--fg-3); margin-top: 1px; font-family: var(--font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px; }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    font-size: 10px; font-weight: 500;
+    color: var(--fg-3);
+    padding: 10px 10px 4px;
+    font-family: var(--font-mono);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition), color var(--transition);
+    min-width: 0;
+  }
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-item:not(.doc-link) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .doc-link { align-items: flex-start; line-height: 1.35; }
+  .nav-num {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--fg-3);
+    flex-shrink: 0;
+    width: 18px;
+    text-align: right;
+    padding-top: 1px;
+  }
+  .nav-item.active .nav-num, .nav-item.current .nav-num { color: var(--fg-2); }
+
+  .main {
+    flex: 1; min-width: 0;
+    padding: 56px 72px 120px;
+    max-width: 980px;
+  }
+
+  .spec-eyebrow {
+    font-size: 11px; font-weight: 500;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+  }
+  h1 {
+    font-size: 30px; font-weight: 600;
+    line-height: 1.15; letter-spacing: -0.015em;
+    margin-bottom: 14px;
+    color: var(--fg);
+  }
+  .lede {
+    font-size: 15px; color: var(--fg-2);
+    line-height: 1.65; max-width: 680px;
+    margin-bottom: 28px;
+  }
+  .meta-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding: 10px 0;
+    font-size: 12px; color: var(--fg-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+
+  .doc-body { margin-top: 42px; }
+  .doc-body section { margin-top: 54px; }
+  .doc-body section:first-child { margin-top: 0; }
+  section { scroll-margin-top: 24px; }
+
+  h2 {
+    font-size: 19px; font-weight: 600;
+    margin-top: 56px; margin-bottom: 8px;
+    letter-spacing: -0.005em;
+    color: var(--fg);
+  }
+  .doc-body section > h2:first-child { margin-top: 0; }
+  h2 + p, h2 + .lede-2 { margin-top: 6px; }
+  .lede-2 {
+    font-size: 14px;
+    color: var(--fg-2);
+    margin-bottom: 18px;
+    max-width: 680px;
+  }
+  h3 { font-size: 14px; font-weight: 600; margin-top: 28px; margin-bottom: 8px; color: var(--fg); }
+  h4 {
+    font-size: 11px; font-weight: 600;
+    color: var(--fg-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 18px; margin-bottom: 8px;
+  }
+
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+  p strong, li strong { color: var(--fg); font-weight: 600; }
+  em { color: var(--fg); font-style: italic; }
+
+  ul, ol { color: var(--fg-2); padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 5px; line-height: 1.6; }
+  li > ul, li > ol { margin-top: 5px; margin-bottom: 8px; }
+
+  a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--fg-3); }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--bg-3);
+    color: var(--fg-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  pre,
+  div.sourceCode {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  pre code,
+  div.sourceCode code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  div.sourceCode pre {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .sourceCode span { color: inherit; }
+
+  .status-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0 22px;
+    font-size: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .status-table th {
+    text-align: left;
+    padding: 9px 14px;
+    background: var(--bg);
+    color: var(--fg-3);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+  }
+  .status-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-2);
+    vertical-align: top;
+  }
+  .status-table tr:last-child td { border-bottom: none; }
+
+  .callout {
+    display: flex; gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius);
+    margin: 14px 0;
+    border-left: 2px solid;
+    background: var(--bg-2);
+  }
+  .callout.note { border-left-color: var(--border-2); }
+  .callout-icon {
+    font-size: 11px;
+    flex-shrink: 0;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    width: 38px;
+  }
+  .callout-body { font-size: 13px; color: var(--fg-2); line-height: 1.6; flex: 1; }
+  .callout-body strong { color: var(--fg); }
+
+  .related-section { margin-top: 64px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .related-card {
+    background: var(--bg-2);
+    padding: 14px 16px;
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition);
+  }
+  .related-card:hover { background: var(--bg-3); }
+  .related-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .related-name::after { content: '→'; color: var(--fg-3); font-weight: 400; margin-left: auto; }
+  .related-card:hover .related-name::after { color: var(--fg); }
+  .related-desc { font-size: 12px; color: var(--fg-3); line-height: 1.5; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .footer-note { text-align: center; color: var(--fg-3); font-size: 12px; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--fg-3); }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 36px 22px 72px; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Core Concepts</div>
+      <div class="sidebar-sub">Building Software with Agents: A Working Spec</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Documents</div>
+    <a class="nav-item doc-link current" href="./operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
+<a class="nav-item doc-link" href="./compounding-system.html"><span class="nav-num">02</span>The Compounding System</a>
+<a class="nav-item doc-link" href="./definitions/sw-definitions.html"><span class="nav-num">03</span>Definitions</a>
+<a class="nav-item doc-link" href="./principles/core-principles.html"><span class="nav-num">04</span>Core Principles</a>
+<a class="nav-item doc-link" href="./principles/sw-principles.html"><span class="nav-num">05</span>Software Development Principles</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#how-to-read-this"><span class="nav-num">01</span>How to read this</a>
+<a class="nav-item" href="#1-bugs-are-deviations-from-intent"><span class="nav-num">02</span>1. Bugs are deviations from intent.</a>
+<a class="nav-item" href="#2-the-loop-spec-test-prompt-execute"><span class="nav-num">03</span>2. The loop: spec, test, prompt, execute.</a>
+<a class="nav-item" href="#3-specs-evolve-so-do-the-tests-they-generate"><span class="nav-num">04</span>3. Specs evolve. So do the tests they generate.</a>
+<a class="nav-item" href="#4-capabilities--vertical-slices-that-compound"><span class="nav-num">05</span>4. Capabilities — vertical slices that compound.</a>
+<a class="nav-item" href="#5-the-knowledge-base--durable-context"><span class="nav-num">06</span>5. The knowledge base — durable context.</a>
+<a class="nav-item" href="#6-the-system-gets-better-as-the-world-gets-better"><span class="nav-num">07</span>6. The system gets better as the world gets better.</a>
+<a class="nav-item" href="#7-the-operating-shape"><span class="nav-num">08</span>7. The operating shape.</a>
+<a class="nav-item" href="#8-the-business--productized-agency"><span class="nav-num">09</span>8. The business — productized agency.</a>
+<a class="nav-item" href="#what-is-settled-vs-what-is-iterating"><span class="nav-num">10</span>What is settled vs. what is iterating</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · operating-spec.html</div>
+    <h1>Building Software with Agents:<br>A Working Spec</h1>
+    <p class="lede">For me, and for the agents I work with.</p>
+    <div class="meta-row">
+      <div><strong>Source:</strong> operating-spec.md</div>
+      <div><strong>Generated:</strong> HTML companion</div>
+      <div><strong>Status:</strong> Mirrors Markdown</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+<section class="level1 generated-root">
+<section id="how-to-read-this" class="level2 spec-section">
+<h2>How to read this</h2>
+<p>This document is itself a spec. It describes how I want to build software with agents, and how the agents I work with should operate inside the system. It is written in the form it teaches: short, declarative, principle-first, kept current as I learn.</p>
+<p>Two kinds of claim show up in here. <strong>Principles</strong> I am confident in — I would defend them in conversation and do not expect them to change as my technical understanding improves. <strong>Operating choices</strong> are my current best implementation of those principles. Those will change. When they do, this doc is updated in the same commit as the system that changed.</p>
+<p>If you are an agent reading this, this is your environment. Read §7 (the operating shape) for what to do, and read everything else for why.</p>
+<hr />
+</section>
+<section id="1-bugs-are-deviations-from-intent" class="level2 spec-section">
+<h2>1. Bugs are deviations from intent.</h2>
+<p>Code executes. Agents execute. Wrongness in software is almost never "the machine made a mistake" — it is that the intent the machine was acting on was incomplete, ambiguous, or never written down. A bug is a gap between what was supposed to happen and what was specified to happen.</p>
+<p>That is not a semantic move. It changes where you look when something goes wrong. The first question is not <em>what is the agent doing weird?</em> It is <em>what did I tell it to do, and did that description capture what I wanted?</em> Almost always, the answer is no — the deviation is the agent faithfully executing an under-specified intent.</p>
+<p>The implication for how to work with agents is direct. <strong>The unit of correctness is the spec, not the code.</strong> If you can describe what should happen with enough precision that a test could verify it, the rest of the work compresses. If you cannot, no amount of prompting or model upgrade will reliably get you there.</p>
+<p>This claim has a corollary worth stating out loud. As models improve, raw technical capability gets cheaper. What does not is articulated intent. The bottleneck in software development is moving from <em>can the machine build this</em> to <em>can the human describe what should be built well enough that the machine knows when it is done.</em> The leverage move is to get good at articulating intent.</p>
+<hr />
+</section>
+<section id="2-the-loop-spec-test-prompt-execute" class="level2 spec-section">
+<h2>2. The loop: spec, test, prompt, execute.</h2>
+<p>Every piece of agentic work runs the same four-step cycle.</p>
+<ol type="1">
+<li><strong>Spec.</strong> Describe the intended user experience and outcome with enough specificity that a test could verify it.</li>
+<li><strong>Test.</strong> Derive tests from the spec — both code-level (unit, integration, smoke) and an English-readable test plan a human can review for intent.</li>
+<li><strong>Prompt.</strong> Compose a prompt that references the spec, the tests, the rules of the system, the available skills, and the relevant context.</li>
+<li><strong>Execute.</strong> The agent runs against the prompt, produces work, and the tests verify whether the work matches intent.</li>
+</ol>
+<p>When a step fails, you do not restart from scratch. You go back to whichever step is the smallest correction — usually the spec — update it, regenerate tests, re-prompt, re-execute. The loop is the thing.</p>
+<p>What this loop replaces is the older mode I used to work in: prompt and execute, repeatedly, with a vague sketch instead of a spec and no tests at all. That mode burns context, generates work that drifts further from intent each round, and produces software whose correctness no one can verify. The lesson from doing it that way for too long is that the spec and the test are not optional preliminaries. They are the work; the prompt and execute steps are the cheap part.</p>
+<p>The loop is also recursive. A large goal contains smaller goals, each running its own spec/test/prompt/execute cycle. The agent is free to break a top-level goal into any number of inner loops, in any order, using whatever skills fit. The four steps are the contract; the structure inside them is open.</p>
+<hr />
+</section>
+<section id="3-specs-evolve-so-do-the-tests-they-generate" class="level2 spec-section">
+<h2>3. Specs evolve. So do the tests they generate.</h2>
+<p>A spec is a living product contract. It says: <em>this is how the system should look and behave from the user's side, and these are the verifiable conditions that protect that behavior.</em> Specs are never finished. They are the most up-to-date statement of what the work is trying to achieve.</p>
+<p>There are three kinds, and they answer different questions.</p>
+<p><strong>Descriptive specs</strong> describe how the application should look and feel to a user — the full user flow, conditional behavior, edge cases. This is where the experience the user actually has gets articulated, and where vagueness gets discovered. A descriptive spec that says "the popup should appear when the user saves a clip" is too thin. One that says "a centered modal slides up over 200ms with a confetti burst, a haptic tap on iOS and Android, the title 'Saved' in 18pt semibold, the subtitle 'Your highlight is in your camera roll' in 14pt regular, dismissed on tap-anywhere or after 1.5 seconds" is a spec.</p>
+<p><strong>Technical specs</strong> describe how the system functions internally — what should happen, in what sequence, with what timing. They are optional for off-the-shelf work (an agent does not need a technical spec for a generic message thread) and required for systems with non-trivial technical depth (a livestreaming pipeline, a custom video player, a real-time sync engine). The rule is: if the agent could plausibly produce ten different valid implementations, you need a technical spec to pick the one you want.</p>
+<p><strong>Test specs</strong> describe in plain English how the system will be verified. They are the human's seat at the table. The code-level tests can be regenerated by the agent at any time, but the test spec is what the human reads to decide whether the right things are being checked. When the descriptive spec changes, the test spec changes; when the test spec changes, the underlying code-level tests are regenerated.</p>
+<p>The discipline that makes all of this work is straightforward. <strong>When the code changes, the relevant Specs must also change.</strong> A spec that drifts from the system it describes is worse than no spec, because it gives false confidence. Spec/code consistency is part of every loop iteration, not an afterthought.</p>
+<hr />
+</section>
+<section id="4-capabilities--vertical-slices-that-compound" class="level2 spec-section">
+<h2>4. Capabilities — vertical slices that compound.</h2>
+<p>Most software gets harder to change as it ages. The unit of change keeps growing — a new feature touches the database, the API, the contracts, the frontend, three shared utilities, and the dev environment, and any of those can break the others. The codebase becomes the unit of change, and the codebase is the whole system.</p>
+<p>The fix is to make the unit of change much smaller and much more self-contained. A <strong>capability</strong> is a single product feature that owns every layer it touches: its database tables, its API routes, its shared types, its frontend components. All in one folder. The capability moves between client repos by folder copy. If it does not move cleanly that way — schema applied, routes mounted, types available, screens wired up, env vars declared — the capability is not done.</p>
+<p>Folder copy is the portability test because it is a physical constraint, not a design rule. The capability either drops into a new repo and works, or it does not. There is nothing to debate.</p>
+<p>This is what makes the system compound. A normal codebase grows by accretion: features tangle, the whole thing becomes one big thing. A capability library grows by <strong>inventory</strong>. Every feature built for one client becomes a reusable asset across every layer at once — a new screen <em>and</em> a new route <em>and</em> a new schema slice, traveling together. The next client either uses the capability as-is, extends it, or contributes a new one back.</p>
+<p>The discipline that makes this real is the corollary of the principle. <strong>A capability is not done until it is substrate inventory.</strong> Every finished client feature is rewritten — by the agent, as part of the same goal — into a portable capability in the shared library. Skip that step and the inventory does not grow, and the system goes back to being a normal codebase that gets harder over time.</p>
+<hr />
+</section>
+<section id="5-the-knowledge-base--durable-context" class="level2 spec-section">
+<h2>5. The knowledge base — durable context.</h2>
+<p>A context window is finite. Whatever an agent does not know about your business at the moment of execution, it makes up. Most of the time the made-up answer is plausible enough that you do not notice — until you do, and the cost is whatever piece of work was built on top of the bad assumption.</p>
+<p>Context is the moat in agent-based development. The defensible thing is not the agent or the model; both are commodities. The defensible thing is the captured operating mind of the business — what it sells, who it sells to, what it promises, what it does not, who decides what, what the SOPs are, what the constraints are. That is the <strong>knowledge base</strong>.</p>
+<p>A knowledge base is structured so an agent can read exactly the part it needs at exactly the moment it needs it. It contains the company's operating model (strategy, positioning, offerings), control (roles, decisions, systems, metrics), and execution (SOPs, checklists, workflows). It is edited continuously — by humans and by agents — and validated against a small set of rules so it stays trustworthy.</p>
+<p>The knowledge base and the spec serve the same function at different scales. A spec captures the durable intent of <em>one piece of work</em>. The knowledge base captures the durable intent of <em>one business</em>. Together they are how a finite context window can act with the company's actual taste, instead of generic competence.</p>
+<p>A business that articulates its operating mind well will outcompete one that does not, even at the same level of model capability. That is not a future claim. It is already true.</p>
+<hr />
+</section>
+<section id="6-the-system-gets-better-as-the-world-gets-better" class="level2 spec-section">
+<h2>6. The system gets better as the world gets better.</h2>
+<p>Most software systems decay. Code rots, dependencies drift, original authors leave, edge cases pile up, and the team gets steadily slower at making the same kind of change. The default time-direction of software is downhill.</p>
+<p>A spec-driven, capability-based system goes the other way. Three flywheels turn at once.</p>
+<p><strong>Specs sharpen over time.</strong> Every iteration of the loop teaches you something about the work — an edge case you had not considered, a behavior you took for granted that needed to be explicit. The next version of the spec is more precise than the last. Compounded over a year, the spec for any given feature is dramatically more useful than the day it was written.</p>
+<p><strong>Capabilities compound.</strong> Every engagement contributes new vertical slices to the shared library. The library does not deprecate the way a normal codebase does, because each capability is self-contained — old ones do not block new ones. The fiftieth client engagement starts with forty-nine capabilities of inventory the first one did not have.</p>
+<p><strong>Models improve on their own schedule.</strong> The agent operating against this system in a year will be smarter than the one operating against it today. Because the system's interface to the agent is the spec, the test, the prompt, and the skill — and because all four of those are stable abstractions — the system absorbs model improvement automatically. No rewrites. No migration projects. The same prompts produce better work.</p>
+<p>The limit case of all three turning together is the <strong>hypothetical one-shot</strong>: a perfect spec, a strong enough model, a rich enough capability library, and the system produces the right outcome in a single pass. We are not there yet. But the trajectory is toward there, and every piece of discipline in this document is an investment in moving along that curve.</p>
+<p>The strongest version of the claim is this. <strong>This is one of the few kinds of software system that has positive time dependence.</strong> It gets better while you sleep.</p>
+<hr />
+</section>
+<section id="7-the-operating-shape" class="level2 spec-section">
+<h2>7. The operating shape.</h2>
+<p>The system that runs the loop is deliberately small.</p>
+<p><strong>Me.</strong> I confirm specs, prioritize development tasks, and decide what is good enough to ship. Three high-leverage decisions, repeated.</p>
+<p><strong>Shipmate.</strong> My CTO and operator. Watches the task board, notifies me on Slack when something needs attention, kicks off agent runs when I green-light work, reports back when work finishes or blocks, and runs deployments when I tell it to. Shipmate does not write code. It makes sure the right work happens at the right time with the right context.</p>
+<p><strong>The task board.</strong> A simple two-lane queue: <code>Later</code> and <code>Now</code>. New work — from me, from clients, from in-app feedback, from crash reports — lands in <code>Later</code>. Work moves to <code>Now</code> only when I green-light it. That move is the only execution gate in the system. No agent ever starts work on something still in <code>Later</code>, regardless of who created it.</p>
+<p><strong>The agent.</strong> One worker at a time, across all active repos. Receives a goal from the board, runs the spec/test/prompt/execute loop against the substrate (knowledge base, capabilities, templates), and produces a pull request. Spawns subagents when a goal benefits from parallel inner loops. Uses whatever skills fit the work; the workflow phases (plan, architect, design, build, review, push, deploy) are tactics inside the loop, not a fixed sequence.</p>
+<p>That is the whole shape. Anything more elaborate is implementation detail. The reason this works is that it puts the human only in the places where context, judgment, and accountability matter — defining intent, prioritizing, accepting work — and delegates everything else to the loop.</p>
+<p>The operating choices inside this shape (which board, which orchestration framework, which skills, which validation gauntlet) are an iterating layer. The shape itself is settled.</p>
+<hr />
+</section>
+<section id="8-the-business--productized-agency" class="level2 spec-section">
+<h2>8. The business — productized agency.</h2>
+<p>The same principles, at company scale.</p>
+<p>A traditional agency consumes effort per engagement that does not return. Each client is a fresh start; the work that ships for one is rarely useful for the next. Labor cost scales linearly with revenue, and margin compresses as the team grows.</p>
+<p>A productized agency built on the system above looks different. The substrate (the shared templates, the knowledge base structure, the operating shape) is built once. The capability library grows with every engagement and is available to every future engagement. The agent does the work the same way each time, against the same substrate, using the same loop. What is customized per client is the spec — the intent — and the small surface of capabilities the client actually needs. Most of the work is not bespoke.</p>
+<p>That is the gap the business model lives in. The client perceives a custom application built specifically for them, because the spec, the knowledge base, and the selected capabilities really are theirs. The delivery cost looks more like a product than a service, because the substrate carries most of the load. <strong>Service-grade outcomes with high revenue at product-grade cost.</strong> The margin lives in the gap, and the gap widens as the capability library grows.</p>
+<p>Three things this depends on, all of which are claims I am willing to make.</p>
+<p><strong>Context is the moat.</strong> The defensible asset is each client's captured business context, the agency's accumulated capability inventory, and the business knowledge and acumen of the agency operators. None of these are replicable from outside.</p>
+<p><strong>Build for one, deploy to many.</strong> A capability that ships for client A and is useful for client B <em>only</em> if A's specifics are scrubbed is not reusable; it is a snowflake. Folder-copy portability is what keeps the inventory honest.</p>
+<p><strong>The offer compounds with the inventory.</strong> What an agency built on this system can promise a new client in year three is qualitatively different from what it can promise in year one — not because the team is more skilled, but because the substrate they ship onto is richer. The offer becomes uniquely positioned because the inventory backing it has no equivalent elsewhere.</p>
+<p>The business shape this produces is a small team with a large surface area, building custom client systems as a service, but delivering with the speed that a product would offer. The bet is that a system like this allows for increased speed, capability, and the opportunity to scale beyond traditional limits.</p>
+<hr />
+</section>
+<section id="what-is-settled-vs-what-is-iterating" class="level2 spec-section">
+<h2>What is settled vs. what is iterating</h2>
+<p><strong>Settled</strong> (will not change as I learn more):</p>
+<ul>
+<li>The principles in §1 (intent is the bottleneck) and §2 (the four-step loop).</li>
+<li>The three spec types in §3 and the discipline of co-evolution.</li>
+<li>Capabilities as vertical slices, with folder-copy portability as the test.</li>
+<li>The knowledge base as durable context.</li>
+<li>The three flywheels and positive time-dependence.</li>
+<li>The basic operating shape: me → OpenClaw → board → agent.</li>
+<li>The productized agency thesis.</li>
+</ul>
+<p><strong>Iterating</strong> (current best implementation; will keep evolving):</p>
+<ul>
+<li>Which skills the agent invokes inside the prompt and execute steps, and how they are packaged.</li>
+<li>How OpenClaw orchestrates exactly — the wrapper, the failure handling, the run-state machine.</li>
+<li>How the board ingests external requests when the contribute panel ships.</li>
+<li>How the validation gauntlet is wired per client.</li>
+<li>The opinionated stack itself (Expo, Fastify, Postgres, Cognito, AWS) — settled for now, but the principles work on any stack.</li>
+</ul>
+<p>This document is updated when either column changes.</p>
+</section>
+</section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede-2">Sibling HTML companions generated from the Markdown files in this folder.</p>
+    <div class="related-grid">
+      <a class="related-card" href="./compounding-system.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
+<a class="related-card" href="./definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
+<a class="related-card" href="./principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</div></a>
+<a class="related-card" href="./principles/sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits from core-principles.md (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · generated from operating-spec.md</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
