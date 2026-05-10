@@ -301,6 +301,7 @@
   }
   .principle-card.intent { border-top-color: var(--primary); }
   .principle-card.knowledge { border-top-color: var(--emerald); }
+  .principle-card.data { border-top-color: var(--amber); }
   .principle-card.verify { border-top-color: var(--amber); }
   .principle-card.boundary { border-top-color: var(--red); }
   .principle-card.time { border-top-color: var(--fg-3); }
@@ -422,11 +423,12 @@
 <p>Add new principles below in their appropriate section as they emerge.</p>
 <div class="principle-map">
   <div class="principle-card knowledge"><div class="principle-num">01</div><div class="principle-title">Knowledge</div><div class="principle-copy">Durable knowledge needs type, ownership, audience, and retrieval discipline.</div></div>
-  <div class="principle-card intent"><div class="principle-num">02</div><div class="principle-title">Intent</div><div class="principle-copy">Separate the desired outcome from the implementation path before work starts.</div></div>
-  <div class="principle-card verify"><div class="principle-num">03</div><div class="principle-title">Verification</div><div class="principle-copy">Every workflow exits through evidence, not confidence or plausible output.</div></div>
-  <div class="principle-card boundary"><div class="principle-num">04</div><div class="principle-title">Boundary</div><div class="principle-copy">Humans keep judgment and accountability; tools supply searchable labor.</div></div>
-  <div class="principle-card time"><div class="principle-num">05</div><div class="principle-title">Time</div><div class="principle-copy">Systems either compound asset value or compound maintenance liability.</div></div>
-  <div class="principle-card loop"><div class="principle-num">06</div><div class="principle-title">Loop</div><div class="principle-copy">When a step fails, correct the smallest upstream artifact and run again.</div></div>
+  <div class="principle-card data"><div class="principle-num">02</div><div class="principle-title">Data</div><div class="principle-copy">Labeled history becomes more valuable as it accumulates.</div></div>
+  <div class="principle-card intent"><div class="principle-num">03</div><div class="principle-title">Intent</div><div class="principle-copy">Separate the desired outcome from the implementation path before work starts.</div></div>
+  <div class="principle-card verify"><div class="principle-num">04</div><div class="principle-title">Verification</div><div class="principle-copy">Every workflow exits through evidence, not confidence or plausible output.</div></div>
+  <div class="principle-card boundary"><div class="principle-num">05</div><div class="principle-title">Boundary</div><div class="principle-copy">Humans keep judgment and accountability; tools supply searchable labor.</div></div>
+  <div class="principle-card time"><div class="principle-num">06</div><div class="principle-title">Time</div><div class="principle-copy">Systems either compound asset value or compound maintenance liability.</div></div>
+  <div class="principle-card loop"><div class="principle-num">07</div><div class="principle-title">Loop</div><div class="principle-copy">When a step fails, correct the smallest upstream artifact and run again.</div></div>
 </div>
 <section id="knowledge-and-documentation" class="level2 spec-section">
 <h2>Knowledge and documentation</h2>
@@ -439,6 +441,7 @@
 <p><strong>Process over prose. Workflows over reference. Steps with exit criteria over essays without them.</strong> Reference docs in context produce plausible-sounding generation; workflows produce something that can be done and verified. The same is true for human teams — 200-page handbooks don't get read under time pressure; 40-line workflows with checkpoints do.</p>
 <p><strong>Progressive disclosure beats kitchen-sink loading.</strong> Every artifact you load into context degrades performance somewhere. Load what's relevant for the current phase; leave the rest on disk and let a small router decide what applies. True for skills, runbooks, incident playbooks — anything anyone (or any agent) will read under time pressure.</p>
 <p><strong>Connection, not storage, is the asset.</strong> A pile of notes is not a knowledge layer. A knowledge layer is structured so that updating one entity propagates through every related one — so the answer to <em>what's currently going on with this person, client, deal, or project</em> is always one query, not a manual scan across files. The defensible thing is the graph between entries, not the entries themselves. <em>(After Garry Tan: the difference between a filing cabinet and a nervous system is connection, not storage.)</em></p>
+<p><strong>Data value increases with time when labels preserve context.</strong> Data is not just a pile of observations; it is an accumulating record of decisions, outcomes, edge cases, and behavior under real conditions. The same event is cheap to label at capture and expensive to reconstruct later. Systems that collect clean, consistently labeled data naturally become compounding systems because every future analysis, model, audit, and decision has more evidence to work from. Unlabeled data still accumulates, but it compounds ambiguity instead of leverage.</p>
 </section>
 <section id="context-and-defensibility" class="level2 spec-section">
 <h2>Context and defensibility</h2>
