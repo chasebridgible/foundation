@@ -267,6 +267,87 @@
   .callout-body { font-size: 13px; color: var(--fg-2); line-height: 1.6; flex: 1; }
   .callout-body strong { color: var(--fg); }
 
+  .visual-block {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin: 18px 0 24px;
+    overflow: hidden;
+  }
+  .visual-header {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+  .visual-title { font-size: 12px; font-weight: 600; color: var(--fg); font-family: var(--font-mono); }
+  .visual-kicker { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); }
+  .layer-stack { display: flex; flex-direction: column; gap: 8px; }
+  .layer-row {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) 150px;
+    gap: 12px;
+    align-items: center;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--border-2);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+  }
+  .layer-row.substrate { border-left-color: var(--emerald); }
+  .layer-row.iterating { border-left-color: var(--amber); }
+  .layer-row.operational { border-left-color: var(--primary); }
+  .layer-row.intake { border-left-color: var(--red); }
+  .layer-row.loop { border-left-color: var(--fg-3); }
+  .layer-num { font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+  .layer-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 2px; }
+  .layer-desc { font-size: 12px; color: var(--fg-2); line-height: 1.45; }
+  .layer-rule {
+    justify-self: end;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--fg-3);
+    text-align: right;
+  }
+  .flywheel {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .fly-step { background: var(--bg-2); padding: 16px; min-height: 128px; }
+  .fly-step.accent { background: var(--bg-3); }
+  .fly-num { font-size: 10px; color: var(--fg-3); font-family: var(--font-mono); margin-bottom: 8px; }
+  .fly-title { font-size: 13px; color: var(--fg); font-weight: 600; margin-bottom: 6px; }
+  .fly-copy { font-size: 12px; color: var(--fg-2); line-height: 1.55; }
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .matrix-cell { background: var(--bg-2); padding: 13px 14px; min-height: 112px; }
+  .matrix-cell.accent { background: var(--bg-3); }
+  .matrix-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--fg-3);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .matrix-value { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
+  .matrix-copy { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+
   .related-section { margin-top: 64px; }
   .related-grid {
     display: grid;
@@ -308,7 +389,9 @@
       border-bottom: 1px solid var(--border);
     }
     .main { padding: 36px 22px 72px; }
-    .related-grid { grid-template-columns: 1fr; }
+    .related-grid, .flywheel, .matrix-grid { grid-template-columns: 1fr; }
+    .layer-row { grid-template-columns: 28px minmax(0, 1fr); }
+    .layer-rule { justify-self: start; text-align: left; grid-column: 2; }
   }
 </style>
 </head>
@@ -325,8 +408,8 @@
 
   <div class="nav-section">
     <div class="nav-label">Documents</div>
-    <a class="nav-item doc-link" href="./operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
-<a class="nav-item doc-link current" href="./compounding-system.html"><span class="nav-num">02</span>The Compounding System</a>
+    <a class="nav-item doc-link" href="./general/operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
+<a class="nav-item doc-link current" href="./compounding-systems.html"><span class="nav-num">02</span>The Compounding System</a>
 <a class="nav-item doc-link" href="./definitions/sw-definitions.html"><span class="nav-num">03</span>Definitions</a>
 <a class="nav-item doc-link" href="./principles/core-principles.html"><span class="nav-num">04</span>Core Principles</a>
 <a class="nav-item doc-link" href="./principles/sw-principles.html"><span class="nav-num">05</span>Software Development Principles</a>
@@ -350,7 +433,7 @@
 
 <main class="main">
   <section id="overview" class="overview-section">
-    <div class="spec-eyebrow">Core Concepts · compounding-system.html</div>
+    <div class="spec-eyebrow">Core Concepts · compounding-systems.html</div>
     <h1>The Compounding System</h1>
     <p class="lede">The framework. <code>operating-spec.md</code> is one instance of it.</p>
     <div class="meta-row">
@@ -372,6 +455,39 @@
 <section id="1-the-shape" class="level2 spec-section">
 <h2>1. The shape</h2>
 <p>Every compounding system has five layers:</p>
+<div class="visual-block">
+  <div class="visual-header">
+    <div class="visual-title">Five-layer compounding system</div>
+    <div class="visual-kicker">durability hierarchy</div>
+  </div>
+  <div class="layer-stack">
+    <div class="layer-row substrate">
+      <div class="layer-num">01</div>
+      <div><div class="layer-name">Substrate</div><div class="layer-desc">The durable repo-shaped artifacts that survive model and harness changes.</div></div>
+      <div class="layer-rule">owned leverage</div>
+    </div>
+    <div class="layer-row iterating">
+      <div class="layer-num">02</div>
+      <div><div class="layer-name">Iterating layers</div><div class="layer-desc">The rented runtime, tools, frameworks, and wrappers replaced on vendor cadence.</div></div>
+      <div class="layer-rule">rented leverage</div>
+    </div>
+    <div class="layer-row operational">
+      <div class="layer-num">03</div>
+      <div><div class="layer-name">Operational shape</div><div class="layer-desc">The human roles, agent roles, queues, and routing rules.</div></div>
+      <div class="layer-rule">who decides</div>
+    </div>
+    <div class="layer-row intake">
+      <div class="layer-num">04</div>
+      <div><div class="layer-name">Intake layers</div><div class="layer-desc">The channels where the outside world becomes work the system can process.</div></div>
+      <div class="layer-rule">where work starts</div>
+    </div>
+    <div class="layer-row loop">
+      <div class="layer-num">05</div>
+      <div><div class="layer-name">Delivery loop</div><div class="layer-desc">The contract that turns work into shipped output and substrate updates.</div></div>
+      <div class="layer-rule">how work compounds</div>
+    </div>
+  </div>
+</div>
 <pre class="text"><code>Compounding system  (the whole — value grows with use)
 ├── Substrate              (durable, repo-shaped — survives one-shot regeneration)
 ├── Iterating layers       (rented from frontier providers — replaced on their cadence)
@@ -385,6 +501,28 @@
 <section id="2-substrate" class="level2 spec-section">
 <h2>2. Substrate</h2>
 <p><strong>The durable, repository-shaped component that survives across model generations.</strong></p>
+<div class="matrix-grid">
+  <div class="matrix-cell accent">
+    <div class="matrix-label">Test</div>
+    <div class="matrix-value">One-shot regeneration</div>
+    <div class="matrix-copy">A future model can rebuild a better system from these artifacts alone.</div>
+  </div>
+  <div class="matrix-cell">
+    <div class="matrix-label">Own</div>
+    <div class="matrix-value">Intent and context</div>
+    <div class="matrix-copy">Specs, knowledge, conventions, decisions, and domain workflows.</div>
+  </div>
+  <div class="matrix-cell">
+    <div class="matrix-label">Rent</div>
+    <div class="matrix-value">Generic execution</div>
+    <div class="matrix-copy">Models, general harnesses, commodity wrappers, and framework churn.</div>
+  </div>
+  <div class="matrix-cell">
+    <div class="matrix-label">Failure</div>
+    <div class="matrix-value">False substrate</div>
+    <div class="matrix-copy">Current-runtime wiring mistaken for durable advantage.</div>
+  </div>
+</div>
 <p>The substrate is everything in the repo that captures work no frontier lab will ever do for you, arranged so that a more capable model and a better harness can do strictly better work off the same artifacts over time. Six categories, today:</p>
 <ul>
 <li><strong>Specs</strong> (descriptive, technical, test) — the precision of intent for each piece of work.</li>
@@ -530,6 +668,23 @@
 <section id="8-the-cross-layer-principles" class="level2 spec-section">
 <h2>8. The cross-layer principles</h2>
 <p>A few rules of thumb apply to compounding systems regardless of which layer you're working in.</p>
+<div class="flywheel">
+  <div class="fly-step">
+    <div class="fly-num">01</div>
+    <div class="fly-title">Intake creates work</div>
+    <div class="fly-copy">Signals arrive through people, monitoring, users, and ambient ingestion.</div>
+  </div>
+  <div class="fly-step accent">
+    <div class="fly-num">02</div>
+    <div class="fly-title">The loop ships work</div>
+    <div class="fly-copy">Each task moves through a repeatable contract instead of an improvised run.</div>
+  </div>
+  <div class="fly-step">
+    <div class="fly-num">03</div>
+    <div class="fly-title">Substrate absorbs learning</div>
+    <div class="fly-copy">The next run starts from sharper specs, stronger context, and better examples.</div>
+  </div>
+</div>
 <p><strong>Investments are not interchangeable across layers.</strong> An hour spent on substrate compounds across every future engagement. An hour spent on iterating-layer customization is rented leverage on someone else's roadmap. An hour spent on operational shape clarifies who decides what. An hour spent on intake schema unblocks every future intake source. Different layers, different returns. Budget time accordingly.</p>
 <p><strong>The substrate is the durability lever, not the value generator.</strong> The intake brings work in. The operational shape routes it. The loop processes it. The iterating layers execute it. The substrate is what makes today's good work still be good work in two years. Different jobs.</p>
 <p><strong>Healthy compounding systems get more valuable with use; unhealthy ones get more painful.</strong> Time is either compounding asset value or compounding maintenance liability; there is no neutral default. The five-layer architecture is one answer to "what does it look like when value compounds." A system whose substrate is sparse and whose iterating layers are heavy will compound <em>liability</em> instead.</p>
@@ -562,7 +717,7 @@
     <h2>Related core concept docs</h2>
     <p class="lede-2">Sibling HTML companions generated from the Markdown files in this folder.</p>
     <div class="related-grid">
-      <a class="related-card" href="./operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
+      <a class="related-card" href="./general/operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
 <a class="related-card" href="./definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
 <a class="related-card" href="./principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</div></a>
 <a class="related-card" href="./principles/sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits from core-principles.md (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</div></a>

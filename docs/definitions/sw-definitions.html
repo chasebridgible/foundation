@@ -267,6 +267,53 @@
   .callout-body { font-size: 13px; color: var(--fg-2); line-height: 1.6; flex: 1; }
   .callout-body strong { color: var(--fg); }
 
+  .visual-block {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin: 18px 0 24px;
+    overflow: hidden;
+  }
+  .visual-header {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+  .visual-title { font-size: 12px; font-weight: 600; color: var(--fg); font-family: var(--font-mono); }
+  .visual-kicker { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); }
+  .glossary-map {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .glossary-card { background: var(--bg-2); padding: 14px; min-height: 116px; }
+  .glossary-card.accent { background: var(--bg-3); }
+  .glossary-label { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .glossary-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 5px; }
+  .glossary-copy { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+  .scope-map {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .scope-card { background: var(--bg-2); padding: 16px; min-height: 124px; }
+  .scope-card.accent { background: var(--bg-3); }
+  .scope-tag { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .scope-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+  .scope-copy { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+
   .related-section { margin-top: 64px; }
   .related-grid {
     display: grid;
@@ -308,7 +355,7 @@
       border-bottom: 1px solid var(--border);
     }
     .main { padding: 36px 22px 72px; }
-    .related-grid { grid-template-columns: 1fr; }
+    .related-grid, .glossary-map, .scope-map { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -325,8 +372,8 @@
 
   <div class="nav-section">
     <div class="nav-label">Documents</div>
-    <a class="nav-item doc-link" href="../operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
-<a class="nav-item doc-link" href="../compounding-system.html"><span class="nav-num">02</span>The Compounding System</a>
+    <a class="nav-item doc-link" href="../general/operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
+<a class="nav-item doc-link" href="../compounding-systems.html"><span class="nav-num">02</span>The Compounding System</a>
 <a class="nav-item doc-link current" href="./sw-definitions.html"><span class="nav-num">03</span>Definitions</a>
 <a class="nav-item doc-link" href="../principles/core-principles.html"><span class="nav-num">04</span>Core Principles</a>
 <a class="nav-item doc-link" href="../principles/sw-principles.html"><span class="nav-num">05</span>Software Development Principles</a>
@@ -366,6 +413,18 @@
 <section class="level1 generated-root">
 <p><strong>How to use this doc.</strong> When a term appears in another file in this folder for the first time without a definition, add it here. Keep entries short — one or two sentences plus an example. If a term needs more than that, link out to the file that explains it in depth.</p>
 <p><strong>How to add an entry.</strong> Alphabetical within section. If a new term doesn't fit anywhere, add it under "Misc" and re-home it later.</p>
+<div class="visual-block">
+  <div class="visual-header">
+    <div class="visual-title">Glossary map</div>
+    <div class="visual-kicker">how the terms cluster</div>
+  </div>
+  <div class="glossary-map">
+    <div class="glossary-card accent"><div class="glossary-label">Foundations</div><div class="glossary-title">System vocabulary</div><div class="glossary-copy">Agent, harness, substrate, intake, loop, knowledge layer.</div></div>
+    <div class="glossary-card"><div class="glossary-label">Specs</div><div class="glossary-title">Intent vocabulary</div><div class="glossary-copy">Descriptive, technical, and test specs describe what should exist.</div></div>
+    <div class="glossary-card"><div class="glossary-label">Harness</div><div class="glossary-title">Runtime vocabulary</div><div class="glossary-copy">Context, hooks, sandboxes, compaction, and progressive disclosure.</div></div>
+    <div class="glossary-card"><div class="glossary-label">Long-running</div><div class="glossary-title">Agent durability</div><div class="glossary-copy">Brain / Hands / Session, memory, planner / worker / judge, and three walls.</div></div>
+  </div>
+</div>
 <hr />
 <section id="foundations-the-you-have-to-know-these-to-read-anything-else-tier" class="level2 spec-section">
 <h2>Foundations (the "you have to know these to read anything else" tier)</h2>
@@ -558,6 +617,23 @@ preferences:
 <section id="the-registry-file-entry-expanded" class="level2 spec-section">
 <h2>The registry file entry, expanded</h2>
 <p>A <strong>registry file</strong> is a standalone, structured file (almost always YAML or JSON) that lives at a known location in a project and answers the question, "what exists in this system?" Every healthy project ends up with a small constellation of them. Examples already familiar from working in any modern repo:</p>
+<div class="scope-map">
+  <div class="scope-card accent">
+    <div class="scope-tag">Project-wide</div>
+    <div class="scope-title">Registry file</div>
+    <div class="scope-copy">Structured data about the whole system, read by humans, agents, scripts, and CI.</div>
+  </div>
+  <div class="scope-card">
+    <div class="scope-tag">One document</div>
+    <div class="scope-title">Frontmatter</div>
+    <div class="scope-copy">Metadata that describes a single markdown file and helps routers load it.</div>
+  </div>
+  <div class="scope-card">
+    <div class="scope-tag">Explanation</div>
+    <div class="scope-title">Prose</div>
+    <div class="scope-copy">Narrative context, rules, examples, and rationale that humans need to read.</div>
+  </div>
+</div>
 <ul>
 <li><code>package.json</code> — what npm packages does this project depend on?</li>
 <li><code>tsconfig.json</code> — how should TypeScript be configured?</li>
@@ -685,8 +761,8 @@ preferences:
     <h2>Related core concept docs</h2>
     <p class="lede-2">Sibling HTML companions generated from the Markdown files in this folder.</p>
     <div class="related-grid">
-      <a class="related-card" href="../operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
-<a class="related-card" href="../compounding-system.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
+      <a class="related-card" href="../general/operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
+<a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
 <a class="related-card" href="../principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</div></a>
 <a class="related-card" href="../principles/sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits from core-principles.md (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</div></a>
     </div>

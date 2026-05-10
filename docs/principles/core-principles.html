@@ -267,6 +267,63 @@
   .callout-body { font-size: 13px; color: var(--fg-2); line-height: 1.6; flex: 1; }
   .callout-body strong { color: var(--fg); }
 
+  .visual-block {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin: 18px 0 24px;
+    overflow: hidden;
+  }
+  .visual-header {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+  .visual-title { font-size: 12px; font-weight: 600; color: var(--fg); font-family: var(--font-mono); }
+  .visual-kicker { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); }
+  .principle-map {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .principle-card {
+    background: var(--bg-2);
+    min-height: 140px;
+    padding: 16px;
+    border-top: 2px solid var(--border-2);
+  }
+  .principle-card.intent { border-top-color: var(--primary); }
+  .principle-card.knowledge { border-top-color: var(--emerald); }
+  .principle-card.verify { border-top-color: var(--amber); }
+  .principle-card.boundary { border-top-color: var(--red); }
+  .principle-card.time { border-top-color: var(--fg-3); }
+  .principle-card.loop { border-top-color: var(--primary); background: var(--bg-3); }
+  .principle-num { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; }
+  .principle-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+  .principle-copy { font-size: 12px; color: var(--fg-2); line-height: 1.55; }
+  .split-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .split-card { background: var(--bg-2); padding: 16px; min-height: 128px; }
+  .split-card.accent { background: var(--bg-3); }
+  .split-label { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .split-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+  .split-copy { font-size: 12px; color: var(--fg-2); line-height: 1.55; }
+
   .related-section { margin-top: 64px; }
   .related-grid {
     display: grid;
@@ -308,7 +365,7 @@
       border-bottom: 1px solid var(--border);
     }
     .main { padding: 36px 22px 72px; }
-    .related-grid { grid-template-columns: 1fr; }
+    .related-grid, .principle-map, .split-visual { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -325,8 +382,8 @@
 
   <div class="nav-section">
     <div class="nav-label">Documents</div>
-    <a class="nav-item doc-link" href="../operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
-<a class="nav-item doc-link" href="../compounding-system.html"><span class="nav-num">02</span>The Compounding System</a>
+    <a class="nav-item doc-link" href="../general/operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
+<a class="nav-item doc-link" href="../compounding-systems.html"><span class="nav-num">02</span>The Compounding System</a>
 <a class="nav-item doc-link" href="../definitions/sw-definitions.html"><span class="nav-num">03</span>Definitions</a>
 <a class="nav-item doc-link current" href="./core-principles.html"><span class="nav-num">04</span>Core Principles</a>
 <a class="nav-item doc-link" href="./sw-principles.html"><span class="nav-num">05</span>Software Development Principles</a>
@@ -359,10 +416,18 @@
     </div>
   </section>
 
-  <article class="doc-body">
+<article class="doc-body">
 <section class="level1 generated-root">
 <p>This is the highest-level principles document. Domain-specific principle docs (<code>sw-principles.md</code> today; future <code>marketing-principles.md</code>, <code>sales-principles.md</code>, etc.) inherit these and add domain-specific principles on top.</p>
 <p>Add new principles below in their appropriate section as they emerge.</p>
+<div class="principle-map">
+  <div class="principle-card knowledge"><div class="principle-num">01</div><div class="principle-title">Knowledge</div><div class="principle-copy">Durable knowledge needs type, ownership, audience, and retrieval discipline.</div></div>
+  <div class="principle-card intent"><div class="principle-num">02</div><div class="principle-title">Intent</div><div class="principle-copy">Separate the desired outcome from the implementation path before work starts.</div></div>
+  <div class="principle-card verify"><div class="principle-num">03</div><div class="principle-title">Verification</div><div class="principle-copy">Every workflow exits through evidence, not confidence or plausible output.</div></div>
+  <div class="principle-card boundary"><div class="principle-num">04</div><div class="principle-title">Boundary</div><div class="principle-copy">Humans keep judgment and accountability; tools supply searchable labor.</div></div>
+  <div class="principle-card time"><div class="principle-num">05</div><div class="principle-title">Time</div><div class="principle-copy">Systems either compound asset value or compound maintenance liability.</div></div>
+  <div class="principle-card loop"><div class="principle-num">06</div><div class="principle-title">Loop</div><div class="principle-copy">When a step fails, correct the smallest upstream artifact and run again.</div></div>
+</div>
 <section id="knowledge-and-documentation" class="level2 spec-section">
 <h2>Knowledge and documentation</h2>
 <p><strong>Give durable knowledge a type, an owner, and an audience.</strong> When knowledge must survive people, sessions, and model boundaries, encode it in documents with a single purpose and clear ownership.</p>
@@ -389,6 +454,18 @@
 </section>
 <section id="verification" class="level2 spec-section">
 <h2>Verification</h2>
+<div class="split-visual">
+  <div class="split-card">
+    <div class="split-label">Generation</div>
+    <div class="split-title">Produces candidate work</div>
+    <div class="split-copy">A model, person, or team creates the artifact. Output quality is not self-certifying.</div>
+  </div>
+  <div class="split-card accent">
+    <div class="split-label">Evaluation</div>
+    <div class="split-title">Supplies the exit signal</div>
+    <div class="split-copy">Tests, traces, screenshots, reviewers, or judges decide whether the work matches intent.</div>
+  </div>
+</div>
 <p><strong>Verification is the load-bearing exit criterion.</strong> Every workflow terminates in concrete evidence — a test that runs, a screenshot, a runtime trace, a reviewer signoff. The work-doer is a generator; you need a separate signal that the work is done. "Seems right" never closes the loop.</p>
 <p><strong>Separate generation from evaluation.</strong> Work-doers (especially LLMs) skew positive when grading their own work. A planner / worker / judge or generator / evaluator split is a real architectural pattern, not a stylistic one — even when the same person or model plays multiple roles with different prompts.</p>
 </section>
@@ -436,8 +513,8 @@
     <h2>Related core concept docs</h2>
     <p class="lede-2">Sibling HTML companions generated from the Markdown files in this folder.</p>
     <div class="related-grid">
-      <a class="related-card" href="../operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
-<a class="related-card" href="../compounding-system.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
+      <a class="related-card" href="../general/operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
+<a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
 <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
 <a class="related-card" href="./sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits from core-principles.md (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</div></a>
     </div>

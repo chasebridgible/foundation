@@ -267,6 +267,83 @@
   .callout-body { font-size: 13px; color: var(--fg-2); line-height: 1.6; flex: 1; }
   .callout-body strong { color: var(--fg); }
 
+  .visual-block {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin: 18px 0 24px;
+    overflow: hidden;
+  }
+  .visual-header {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+  .visual-title { font-size: 12px; font-weight: 600; color: var(--fg); font-family: var(--font-mono); }
+  .visual-kicker { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); }
+  .loop-flow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .loop-node {
+    background: var(--bg-2);
+    padding: 16px;
+    min-height: 136px;
+    position: relative;
+  }
+  .loop-node.accent { background: var(--bg-3); }
+  .loop-node:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .loop-num { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; }
+  .loop-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+  .loop-copy { font-size: 12px; color: var(--fg-2); line-height: 1.55; padding-right: 12px; }
+  .actor-chain { display: flex; align-items: stretch; gap: 8px; flex-wrap: wrap; }
+  .actor-card {
+    flex: 1 1 150px;
+    min-width: 140px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 12px 13px;
+  }
+  .actor-card.human { border-left-color: var(--emerald); }
+  .actor-card.queue { border-left-color: var(--amber); }
+  .actor-card.agent { border-left-color: var(--primary); }
+  .actor-label { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .actor-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
+  .actor-copy { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+  .business-gap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .gap-card { background: var(--bg-2); padding: 16px; }
+  .gap-card.accent { background: var(--bg-3); }
+  .gap-kicker { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .gap-title { font-size: 13px; color: var(--fg); font-weight: 600; margin-bottom: 6px; }
+  .gap-copy { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+
   .related-section { margin-top: 64px; }
   .related-grid {
     display: grid;
@@ -308,7 +385,8 @@
       border-bottom: 1px solid var(--border);
     }
     .main { padding: 36px 22px 72px; }
-    .related-grid { grid-template-columns: 1fr; }
+    .related-grid, .loop-flow, .business-gap { grid-template-columns: 1fr; }
+    .loop-node:not(:last-child)::after { content: '↓'; }
   }
 </style>
 </head>
@@ -326,10 +404,10 @@
   <div class="nav-section">
     <div class="nav-label">Documents</div>
     <a class="nav-item doc-link current" href="./operating-spec.html"><span class="nav-num">01</span>Building Software with Agents: A Working Spec</a>
-<a class="nav-item doc-link" href="./compounding-system.html"><span class="nav-num">02</span>The Compounding System</a>
-<a class="nav-item doc-link" href="./definitions/sw-definitions.html"><span class="nav-num">03</span>Definitions</a>
-<a class="nav-item doc-link" href="./principles/core-principles.html"><span class="nav-num">04</span>Core Principles</a>
-<a class="nav-item doc-link" href="./principles/sw-principles.html"><span class="nav-num">05</span>Software Development Principles</a>
+<a class="nav-item doc-link" href="../compounding-systems.html"><span class="nav-num">02</span>The Compounding System</a>
+<a class="nav-item doc-link" href="../definitions/sw-definitions.html"><span class="nav-num">03</span>Definitions</a>
+<a class="nav-item doc-link" href="../principles/core-principles.html"><span class="nav-num">04</span>Core Principles</a>
+<a class="nav-item doc-link" href="../principles/sw-principles.html"><span class="nav-num">05</span>Software Development Principles</a>
   </div>
 
   <div class="nav-section">
@@ -380,6 +458,28 @@
 <section id="2-the-loop-spec-test-prompt-execute" class="level2 spec-section">
 <h2>2. The loop: spec, test, prompt, execute.</h2>
 <p>Every piece of agentic work runs the same four-step cycle.</p>
+<div class="loop-flow">
+  <div class="loop-node accent">
+    <div class="loop-num">01</div>
+    <div class="loop-title">Spec</div>
+    <div class="loop-copy">State the intended outcome clearly enough that a test could verify it.</div>
+  </div>
+  <div class="loop-node">
+    <div class="loop-num">02</div>
+    <div class="loop-title">Test</div>
+    <div class="loop-copy">Turn the intent into code-level checks and a human-readable test plan.</div>
+  </div>
+  <div class="loop-node">
+    <div class="loop-num">03</div>
+    <div class="loop-title">Prompt</div>
+    <div class="loop-copy">Load the spec, tests, rules, skills, and relevant context into the run.</div>
+  </div>
+  <div class="loop-node">
+    <div class="loop-num">04</div>
+    <div class="loop-title">Execute</div>
+    <div class="loop-copy">The agent builds against the contract; evidence decides whether it is done.</div>
+  </div>
+</div>
 <ol type="1">
 <li><strong>Spec.</strong> Describe the intended user experience and outcome with enough specificity that a test could verify it.</li>
 <li><strong>Test.</strong> Derive tests from the spec — both code-level (unit, integration, smoke) and an English-readable test plan a human can review for intent.</li>
@@ -433,6 +533,18 @@
 <section id="7-the-operating-shape" class="level2 spec-section">
 <h2>7. The operating shape.</h2>
 <p>The system that runs the loop is deliberately small.</p>
+<div class="visual-block">
+  <div class="visual-header">
+    <div class="visual-title">Operating shape</div>
+    <div class="visual-kicker">small human surface · large agent surface</div>
+  </div>
+  <div class="actor-chain">
+    <div class="actor-card human"><div class="actor-label">intent</div><div class="actor-name">Me</div><div class="actor-copy">Confirm specs, prioritize work, accept what ships.</div></div>
+    <div class="actor-card queue"><div class="actor-label">operator</div><div class="actor-name">Shipmate</div><div class="actor-copy">Watches the board, reports blocks, runs deployment commands.</div></div>
+    <div class="actor-card queue"><div class="actor-label">gate</div><div class="actor-name">Now / Later</div><div class="actor-copy">A simple queue decides what is authorized to execute.</div></div>
+    <div class="actor-card agent"><div class="actor-label">labor</div><div class="actor-name">Agent</div><div class="actor-copy">Runs the loop against the substrate and produces a PR.</div></div>
+  </div>
+</div>
 <p><strong>Me.</strong> I confirm specs, prioritize development tasks, and decide what is good enough to ship. Three high-leverage decisions, repeated.</p>
 <p><strong>Shipmate.</strong> My CTO and operator. Watches the task board, notifies me on Slack when something needs attention, kicks off agent runs when I green-light work, reports back when work finishes or blocks, and runs deployments when I tell it to. Shipmate does not write code. It makes sure the right work happens at the right time with the right context.</p>
 <p><strong>The task board.</strong> A simple two-lane queue: <code>Later</code> and <code>Now</code>. New work — from me, from clients, from in-app feedback, from crash reports — lands in <code>Later</code>. Work moves to <code>Now</code> only when I green-light it. That move is the only execution gate in the system. No agent ever starts work on something still in <code>Later</code>, regardless of who created it.</p>
@@ -444,6 +556,18 @@
 <section id="8-the-business--productized-agency" class="level2 spec-section">
 <h2>8. The business — productized agency.</h2>
 <p>The same principles, at company scale.</p>
+<div class="business-gap">
+  <div class="gap-card">
+    <div class="gap-kicker">Traditional agency</div>
+    <div class="gap-title">Effort resets each engagement</div>
+    <div class="gap-copy">Client work ships, but little returns to the next client. Revenue scales with labor.</div>
+  </div>
+  <div class="gap-card accent">
+    <div class="gap-kicker">Productized agency</div>
+    <div class="gap-title">Inventory compounds each engagement</div>
+    <div class="gap-copy">Specs, context, and capabilities become reusable substrate for the next run.</div>
+  </div>
+</div>
 <p>A traditional agency consumes effort per engagement that does not return. Each client is a fresh start; the work that ships for one is rarely useful for the next. Labor cost scales linearly with revenue, and margin compresses as the team grows.</p>
 <p>A productized agency built on the system above looks different. The substrate (the shared templates, the knowledge base structure, the operating shape) is built once. The capability library grows with every engagement and is available to every future engagement. The agent does the work the same way each time, against the same substrate, using the same loop. What is customized per client is the spec — the intent — and the small surface of capabilities the client actually needs. Most of the work is not bespoke.</p>
 <p>That is the gap the business model lives in. The client perceives a custom application built specifically for them, because the spec, the knowledge base, and the selected capabilities really are theirs. The delivery cost looks more like a product than a service, because the substrate carries most of the load. <strong>Service-grade outcomes with high revenue at product-grade cost.</strong> The margin lives in the gap, and the gap widens as the capability library grows.</p>
@@ -483,10 +607,10 @@
     <h2>Related core concept docs</h2>
     <p class="lede-2">Sibling HTML companions generated from the Markdown files in this folder.</p>
     <div class="related-grid">
-      <a class="related-card" href="./compounding-system.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
-<a class="related-card" href="./definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
-<a class="related-card" href="./principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</div></a>
-<a class="related-card" href="./principles/sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits from core-principles.md (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</div></a>
+      <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
+<a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
+<a class="related-card" href="../principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems with AI tools and human teams. These hold whether the domain is software, marketing, sales, knowledge management, or operations — anywhere durable artifacts and iterative work compound over time.</div></a>
+<a class="related-card" href="../principles/sw-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits from core-principles.md (cross-domain principles); this document adds principles specific to building software with AI agents. Add new principles below in their appropriate section as they emerge.</div></a>
     </div>
   </section>
 
