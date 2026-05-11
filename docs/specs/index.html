@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.spec-system">
+<meta name="spec:type" content="index">
+<meta name="spec:status" content="active">
+<meta name="spec:owner" content="Foundation">
+<meta name="spec:last-updated" content="2026-05-11">
+<title>Spec System - Foundation</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="schema" href="./spec-registry.schema.json">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.spec-system",
+  "title": "Foundation Spec System",
+  "type": "index",
+  "status": "active",
+  "owner": "Foundation",
+  "lastUpdated": "2026-05-11",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "relatedSpecs": [
+    { "id": "foundation.spec-process", "relationship": "child", "sections": ["workflow-contract"] },
+    { "id": "foundation.spec-linking", "relationship": "child", "sections": ["html-native-metadata"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/index.html", "kind": "doc", "ownership": "direct" },
+    { "path": "foundation/docs/specs/spec-registry.schema.json", "kind": "schema", "ownership": "direct" }
+  ],
+  "coverage": []
+}
+</script>
+<script type="application/json" id="spec-registry">
+{
+  "registryVersion": "1.0",
+  "lastUpdated": "2026-05-11",
+  "description": "Machine-readable registry for Foundation spec-system artifacts. Paths are repo-relative from /Users/ChaseBartlett/Documents/repos.",
+  "specs": [
+    {
+      "id": "foundation.spec-system",
+      "title": "Foundation Spec System",
+      "type": "index",
+      "status": "active",
+      "file": "foundation/docs/specs/index.html",
+      "canonicalSection": "overview",
+      "owner": "Foundation",
+      "lastUpdated": "2026-05-11",
+      "reviewCadence": "monthly",
+      "confidence": "high",
+      "parent": null,
+      "children": ["foundation.spec-process", "foundation.spec-linking", "foundation.spec-template.descriptive", "foundation.spec-template.technical", "foundation.spec-template.test"],
+      "relatedSpecs": [
+        { "id": "foundation.spec-process", "relationship": "child", "sections": ["workflow-contract"], "notes": "Defines how specs evolve during work." },
+        { "id": "foundation.spec-linking", "relationship": "child", "sections": ["html-native-metadata"], "notes": "Defines spec IDs, HTML metadata, and path ownership." }
+      ],
+      "ownedPaths": [
+        { "path": "foundation/docs/specs/index.html", "kind": "doc", "ownership": "direct", "notes": "Human index plus embedded registry." },
+        { "path": "foundation/docs/specs/spec-registry.schema.json", "kind": "schema", "ownership": "direct", "notes": "Shape for the embedded registry." }
+      ],
+      "coverage": [],
+      "tags": ["substrate", "specs", "registry"]
+    },
+    {
+      "id": "foundation.spec-process",
+      "title": "Spec Maintenance Process",
+      "type": "process",
+      "status": "active",
+      "file": "foundation/docs/specs/process.html",
+      "canonicalSection": "workflow-contract",
+      "owner": "Foundation",
+      "lastUpdated": "2026-05-11",
+      "reviewCadence": "monthly",
+      "confidence": "high",
+      "parent": "foundation.spec-system",
+      "children": [],
+      "relatedSpecs": [
+        { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["path-update-loop"], "notes": "Process depends on linking discipline." }
+      ],
+      "ownedPaths": [
+        { "path": "foundation/docs/specs/process.html", "kind": "doc", "ownership": "direct" }
+      ],
+      "coverage": [],
+      "tags": ["process", "spec-test-prompt-execute"]
+    },
+    {
+      "id": "foundation.spec-linking",
+      "title": "Spec Linking Model",
+      "type": "linking",
+      "status": "active",
+      "file": "foundation/docs/specs/linking.html",
+      "canonicalSection": "html-native-metadata",
+      "owner": "Foundation",
+      "lastUpdated": "2026-05-11",
+      "reviewCadence": "monthly",
+      "confidence": "high",
+      "parent": "foundation.spec-system",
+      "children": [],
+      "relatedSpecs": [
+        { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["update-obligations"], "notes": "Linking obligations are enforced by the work process." }
+      ],
+      "ownedPaths": [
+        { "path": "foundation/docs/specs/linking.html", "kind": "doc", "ownership": "direct" }
+      ],
+      "coverage": [],
+      "tags": ["linking", "registry", "metadata"]
+    },
+    {
+      "id": "foundation.spec-template.descriptive",
+      "title": "Descriptive Spec Template",
+      "type": "template",
+      "status": "active",
+      "file": "foundation/docs/specs/templates/descriptive-spec-template.html",
+      "canonicalSection": "product-intent",
+      "owner": "Foundation",
+      "lastUpdated": "2026-05-11",
+      "reviewCadence": "quarterly",
+      "confidence": "high",
+      "parent": "foundation.spec-system",
+      "children": [],
+      "relatedSpecs": [
+        { "id": "foundation.spec-template.test", "relationship": "sibling", "sections": ["acceptance-mapping"], "notes": "Descriptive changes require test spec changes." }
+      ],
+      "ownedPaths": [
+        { "path": "foundation/docs/specs/templates/descriptive-spec-template.html", "kind": "doc", "ownership": "direct" }
+      ],
+      "coverage": [],
+      "tags": ["template", "descriptive"]
+    },
+    {
+      "id": "foundation.spec-template.technical",
+      "title": "Technical Spec Template",
+      "type": "template",
+      "status": "active",
+      "file": "foundation/docs/specs/templates/technical-spec-template.html",
+      "canonicalSection": "when-required",
+      "owner": "Foundation",
+      "lastUpdated": "2026-05-11",
+      "reviewCadence": "quarterly",
+      "confidence": "high",
+      "parent": "foundation.spec-system",
+      "children": [],
+      "relatedSpecs": [
+        { "id": "foundation.spec-template.descriptive", "relationship": "sibling", "sections": ["product-intent"], "notes": "Technical specs serve product intent; they do not replace it." }
+      ],
+      "ownedPaths": [
+        { "path": "foundation/docs/specs/templates/technical-spec-template.html", "kind": "doc", "ownership": "direct" }
+      ],
+      "coverage": [],
+      "tags": ["template", "technical"]
+    },
+    {
+      "id": "foundation.spec-template.test",
+      "title": "Test Spec Template",
+      "type": "template",
+      "status": "active",
+      "file": "foundation/docs/specs/templates/test-spec-template.html",
+      "canonicalSection": "verification-contract",
+      "owner": "Foundation",
+      "lastUpdated": "2026-05-11",
+      "reviewCadence": "quarterly",
+      "confidence": "high",
+      "parent": "foundation.spec-system",
+      "children": [],
+      "relatedSpecs": [
+        { "id": "foundation.spec-template.descriptive", "relationship": "validates", "sections": ["product-intent"], "notes": "Test specs validate descriptive intent." },
+        { "id": "foundation.spec-template.technical", "relationship": "validates", "sections": ["failure-modes"], "notes": "Technical risks drive signal choice." }
+      ],
+      "ownedPaths": [
+        { "path": "foundation/docs/specs/templates/test-spec-template.html", "kind": "doc", "ownership": "direct" }
+      ],
+      "coverage": [],
+      "tags": ["template", "test"]
+    },
+    {
+      "id": "fup.kitchen-queue.descriptive",
+      "title": "Fired Up Pizza Kitchen Queue - Descriptive Spec Example",
+      "type": "descriptive",
+      "status": "active",
+      "file": "foundation/docs/specs/examples/descriptive-spec-example.html",
+      "canonicalSection": "product-intent",
+      "owner": "Foundation example",
+      "lastUpdated": "2026-05-11",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": null,
+      "children": ["fup.kitchen-queue.technical", "fup.kitchen-queue.test"],
+      "relatedSpecs": [
+        { "id": "fup.kitchen-queue.technical", "relationship": "child", "sections": ["internal-sequence", "data-contract"], "notes": "Technical behavior for live queue updates." },
+        { "id": "fup.kitchen-queue.test", "relationship": "validated-by", "sections": ["acceptance-mapping"], "notes": "Acceptance mapping for this product contract." }
+      ],
+      "ownedPaths": [
+        { "path": "client/src/pages/kitchen-queue.tsx", "kind": "source", "ownership": "direct", "symbols": ["KitchenQueuePage"] },
+        { "path": "client/src/components/kitchen/order-card.tsx", "kind": "source", "ownership": "direct", "symbols": ["OrderCard"] }
+      ],
+      "coverage": [
+        { "id": "KQ-D1", "level": "component", "status": "planned", "path": "client/src/components/kitchen/order-card.test.tsx", "mapsTo": ["fup.kitchen-queue.descriptive#states-and-rules"], "command": "npm test -- order-card", "evidence": "Order cards render promised status labels." }
+      ],
+      "tags": ["example", "descriptive", "fired-up-pizza"]
+    },
+    {
+      "id": "fup.kitchen-queue.technical",
+      "title": "Fired Up Pizza Kitchen Queue - Technical Spec Example",
+      "type": "technical",
+      "status": "active",
+      "file": "foundation/docs/specs/examples/technical-spec-example.html",
+      "canonicalSection": "internal-sequence",
+      "owner": "Foundation example",
+      "lastUpdated": "2026-05-11",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "fup.kitchen-queue.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        { "id": "fup.kitchen-queue.descriptive", "relationship": "parent", "sections": ["states-and-rules"], "notes": "Technical sequence implements visible queue behavior." },
+        { "id": "fup.kitchen-queue.test", "relationship": "validated-by", "sections": ["risk-based-signal-choice"], "notes": "Concurrency and reconnect risks require integration tests." }
+      ],
+      "ownedPaths": [
+        { "path": "server/src/routes/kitchen-orders.ts", "kind": "source", "ownership": "direct", "symbols": ["patchOrderItemStatus"] },
+        { "path": "server/src/services/order-status-bus.ts", "kind": "source", "ownership": "direct", "symbols": ["OrderStatusBus"] },
+        { "path": "shared/order-status.ts", "kind": "source", "ownership": "direct", "symbols": ["OrderStatus", "KitchenQueueEvent"] }
+      ],
+      "coverage": [
+        { "id": "KQ-T1", "level": "integration", "status": "planned", "path": "server/src/routes/kitchen-orders.test.ts", "mapsTo": ["fup.kitchen-queue.technical#concurrency-and-timing"], "command": "npm test -- kitchen-orders", "evidence": "Concurrent status updates serialize by order item." }
+      ],
+      "tags": ["example", "technical", "fired-up-pizza"]
+    },
+    {
+      "id": "fup.kitchen-queue.test",
+      "title": "Fired Up Pizza Kitchen Queue - Test Spec Example",
+      "type": "test",
+      "status": "active",
+      "file": "foundation/docs/specs/examples/test-spec-example.html",
+      "canonicalSection": "verification-contract",
+      "owner": "Foundation example",
+      "lastUpdated": "2026-05-11",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "fup.kitchen-queue.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        { "id": "fup.kitchen-queue.descriptive", "relationship": "validates", "sections": ["interface-journey", "states-and-rules"], "notes": "Primary product intent under test." },
+        { "id": "fup.kitchen-queue.technical", "relationship": "validates", "sections": ["failure-modes", "concurrency-and-timing"], "notes": "Technical risks under test." }
+      ],
+      "ownedPaths": [
+        { "path": "client/tests/e2e/kitchen-queue.spec.ts", "kind": "test", "ownership": "direct" },
+        { "path": "server/src/routes/kitchen-orders.test.ts", "kind": "test", "ownership": "direct" },
+        { "path": "client/src/components/kitchen/order-card.test.tsx", "kind": "test", "ownership": "direct" }
+      ],
+      "coverage": [
+        { "id": "KQ-A1", "level": "e2e", "status": "planned", "path": "client/tests/e2e/kitchen-queue.spec.ts", "mapsTo": ["fup.kitchen-queue.descriptive#interface-journey"], "command": "npm run test:e2e -- kitchen-queue", "evidence": "Staff can advance an item with one tap and customer status updates." }
+      ],
+      "tags": ["example", "test", "fired-up-pizza"]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">S</div>
+    <div>
+      <div class="sidebar-title">Spec System</div>
+      <div class="sidebar-sub">index + registry</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">System</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#registry"><span class="nav-num">01</span>Registry</a>
+    <a class="nav-item" href="#entry-points"><span class="nav-num">02</span>Entry points</a>
+    <a class="nav-item" href="#templates"><span class="nav-num">03</span>Templates</a>
+    <a class="nav-item" href="#examples"><span class="nav-num">04</span>Examples</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">Foundation · docs/specs/index.html</div>
+    <h1>The spec system</h1>
+    <p class="lede">Specs are durable source-of-truth contracts for what should exist. They are not traditional docs, stale plans, or workflow procedures. This folder defines the first HTML-native spec system for productized-agency software development substrate.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-11</div>
+      <div><strong>Registry:</strong> embedded JSON in <code>#spec-registry</code></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="registry" data-spec-section="registry" data-section-type="machine-contract">
+      <h2>Registry contract</h2>
+      <p>The registry is the filesystem map agents should read before loading a full spec. It maps stable spec IDs to HTML files, statuses, parent/child links, directly owned implementation paths, and test coverage links.</p>
+      <div class="callout info"><strong>Machine entry point:</strong> parse <code>&lt;script type="application/json" id="spec-registry"&gt;</code> in this file, then validate it with <a href="./spec-registry.schema.json">spec-registry.schema.json</a>.</div>
+      <table class="status-table">
+        <thead>
+          <tr><th>Field</th><th>Purpose</th><th>Rule</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>id</code></td><td>Stable durable identity</td><td>Never rename casually. Use <code>replacedBy</code> when retiring.</td></tr>
+          <tr><td><code>type</code></td><td>Descriptive, technical, test, process, linking, index, or template</td><td>Agents use this to choose reading order.</td></tr>
+          <tr><td><code>parent</code> / <code>children</code></td><td>Multi-level spec graph</td><td>High-level specs link to children instead of duplicating leaf paths.</td></tr>
+          <tr><td><code>ownedPaths</code></td><td>Direct code, test, design, schema, ADR, or doc ownership</td><td>Only low-level specs should own concrete leaf paths.</td></tr>
+          <tr><td><code>coverage</code></td><td>Tests or evidence mapped to spec sections</td><td>When product intent changes, coverage changes in the same commit.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="entry-points" data-spec-section="entry-points" data-section-type="agent-navigation">
+      <h2>How an agent enters</h2>
+      <div class="three-grid">
+        <div class="card accent">
+          <div class="card-title">From a code path</div>
+          <div class="card-copy">Search the registry for <code>ownedPaths.path</code> or <code>implementationPaths.path</code>. Load the owning low-level spec first, then walk to parent intent and sibling test specs.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">From a feature name</div>
+          <div class="card-copy">Search registry titles, tags, and section IDs. Start with the descriptive spec, then load technical only when it exists or when implementation choices are non-obvious.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">From a board card</div>
+          <div class="card-copy">Read the card's explicit spec IDs if present. If absent, search by feature terms, confirm the candidate spec, and add the board card reference during substrate update.</div>
+        </div>
+      </div>
+      <p>The default reading order for implementation work is: descriptive spec section relevant to the user outcome, test spec acceptance mapping, technical spec only if required, then directly owned paths.</p>
+    </section>
+
+    <section id="templates" data-spec-section="templates" data-section-type="human-index">
+      <h2>Templates</h2>
+      <div class="related-grid">
+        <a class="related-card" data-spec-link="foundation.spec-template.descriptive" href="./templates/descriptive-spec-template.html">
+          <div class="related-name">Descriptive spec template</div>
+          <div class="related-desc">Product intent, user model, interface journey, rules, edge cases, UX contracts, design placeholders, path ownership, and test mapping.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.spec-template.technical" href="./templates/technical-spec-template.html">
+          <div class="related-name">Technical spec template</div>
+          <div class="related-desc">Required only when many valid implementations are possible. Defines internals, contracts, timing, boundaries, migrations, ADRs, and non-goals.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.spec-template.test" href="./templates/test-spec-template.html">
+          <div class="related-name">Test spec template</div>
+          <div class="related-desc">Plain-English verification contract with acceptance mapping, signal choice, commands, evidence, gaps, and co-evolution rules.</div>
+        </a>
+      </div>
+    </section>
+
+    <section id="examples" data-spec-section="examples" data-section-type="human-index">
+      <h2>Concrete examples</h2>
+      <p class="lede-2">The examples use the Fired Up Pizza kitchen queue as a low-level feature spec set. They are examples of shape, not canonical product direction.</p>
+      <div class="related-grid">
+        <a class="related-card" data-spec-link="fup.kitchen-queue.descriptive" href="./examples/descriptive-spec-example.html">
+          <div class="related-name">Kitchen queue descriptive spec</div>
+          <div class="related-desc">What kitchen staff and customers experience while orders move from received to ready.</div>
+        </a>
+        <a class="related-card" data-spec-link="fup.kitchen-queue.technical" href="./examples/technical-spec-example.html">
+          <div class="related-name">Kitchen queue technical spec</div>
+          <div class="related-desc">Status mutation sequence, websocket event contract, concurrency guard, and reconnect behavior.</div>
+        </a>
+        <a class="related-card" data-spec-link="fup.kitchen-queue.test" href="./examples/test-spec-example.html">
+          <div class="related-name">Kitchen queue test spec</div>
+          <div class="related-desc">Acceptance conditions and evidence mapped back to descriptive and technical sections.</div>
+        </a>
+      </div>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation spec system · registry-backed HTML specs</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(item => item.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>

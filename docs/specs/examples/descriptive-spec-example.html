@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="fup.kitchen-queue.descriptive">
+<meta name="spec:type" content="descriptive">
+<meta name="spec:status" content="active">
+<meta name="spec:owner" content="Foundation example">
+<meta name="spec:last-updated" content="2026-05-11">
+<title>Fired Up Pizza Kitchen Queue - Descriptive Spec Example</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "fup.kitchen-queue.descriptive",
+  "title": "Fired Up Pizza Kitchen Queue - Descriptive Spec Example",
+  "type": "descriptive",
+  "status": "active",
+  "owner": "Foundation example",
+  "lastUpdated": "2026-05-11",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": null,
+  "children": ["fup.kitchen-queue.technical", "fup.kitchen-queue.test"],
+  "relatedSpecs": [
+    { "id": "fup.kitchen-queue.technical", "relationship": "child", "sections": ["internal-sequence", "data-contract"] },
+    { "id": "fup.kitchen-queue.test", "relationship": "validated-by", "sections": ["acceptance-mapping"] }
+  ],
+  "ownedPaths": [
+    { "path": "client/src/pages/kitchen-queue.tsx", "kind": "source", "ownership": "direct", "symbols": ["KitchenQueuePage"] },
+    { "path": "client/src/components/kitchen/order-card.tsx", "kind": "source", "ownership": "direct", "symbols": ["OrderCard"] },
+    { "path": "client/src/components/kitchen/kitchen-queue-empty.tsx", "kind": "source", "ownership": "direct", "symbols": ["KitchenQueueEmpty"] }
+  ],
+  "implementationPaths": [
+    { "path": "server/src/routes/kitchen-orders.ts", "kind": "source", "ownership": "reference", "symbols": ["patchOrderItemStatus"] }
+  ],
+  "coverage": [
+    { "id": "KQ-D1", "level": "component", "status": "planned", "path": "client/src/components/kitchen/order-card.test.tsx", "mapsTo": ["fup.kitchen-queue.descriptive#states-and-rules"], "command": "npm test -- order-card", "evidence": "Order cards render status labels, disabled states, and one-tap actions." },
+    { "id": "KQ-D2", "level": "e2e", "status": "planned", "path": "client/tests/e2e/kitchen-queue.spec.ts", "mapsTo": ["fup.kitchen-queue.descriptive#interface-journey"], "command": "npm run test:e2e -- kitchen-queue", "evidence": "Kitchen staff advances an item and customer status updates." }
+  ],
+  "tags": ["example", "fired-up-pizza", "kitchen", "orders"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Kitchen Queue</div>
+      <div class="sidebar-sub">descriptive</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Product</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#user-model"><span class="nav-num">02</span>User model</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Journey</a>
+    <a class="nav-item" href="#states-and-rules"><span class="nav-num">04</span>States/rules</a>
+    <a class="nav-item" href="#edge-cases"><span class="nav-num">05</span>Edges</a>
+    <a class="nav-item" href="#ux-contracts"><span class="nav-num">06</span>UX contracts</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">07</span>Links/paths</a>
+    <a class="nav-item" href="#design-placeholders"><span class="nav-num">08</span>Design</a>
+    <a class="nav-item" href="#test-coverage"><span class="nav-num">09</span>Coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent">
+    <div class="spec-eyebrow">Example · fup.kitchen-queue.descriptive</div>
+    <h1>Kitchen queue for live order prep</h1>
+    <p class="lede">Kitchen staff need a tablet-friendly queue that shows active orders in the order they should be prepared, lets them advance each item with one tap, and keeps customer status screens current without requiring staff to think about synchronization.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Owner:</strong> Foundation example</div>
+      <div><strong>Updated:</strong> 2026-05-11</div>
+      <div><strong>Confidence:</strong> medium</div>
+    </div>
+    <h3>Product promise</h3>
+    <p>During service, a cook can glance at a 10-inch landscape tablet and know what to make next, what is already in progress, and what can be marked ready. The screen favors speed and confidence over management detail.</p>
+    <h3>Scope</h3>
+    <p>This spec covers the kitchen-facing queue and the user-visible status effects of staff actions. Menu management, payment, manager reports, and delivery assignment are outside this feature.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="user-model" data-spec-section="user-model" data-section-type="user-model">
+      <h2>User model</h2>
+      <table class="status-table">
+        <thead><tr><th>User</th><th>Goal</th><th>Context</th><th>Language</th></tr></thead>
+        <tbody>
+          <tr><td>Kitchen staff</td><td>Move orders through prep without stopping to interpret the system.</td><td>Hands busy, tablet in landscape, noise and time pressure.</td><td>"Next order", "start this", "ready", "pickup", "delivery".</td></tr>
+          <tr><td>Customer</td><td>Trust that their order status is current.</td><td>Watching order tracker after checkout.</td><td>"Placed", "In progress", "Ready", "Out for delivery".</td></tr>
+          <tr><td>Manager</td><td>Know the queue is moving and not losing orders.</td><td>May glance at the same queue during rush.</td><td>"Late", "ready time", "order count".</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Interface journey</h2>
+      <ol>
+        <li><strong>Staff opens Kitchen Queue.</strong> The page shows active orders sorted by promised pickup/delivery time, with the oldest urgent order first. Empty state says "No active orders".</li>
+        <li><strong>New order arrives.</strong> A new card appears without page reload. The card is highlighted for 2 seconds and includes order number, pickup/delivery label, promised time, item list, and current item states. <a class="test-marker" href="./test-spec-example.html#coverage-plan">KQ-A1</a></li>
+        <li><strong>Staff taps Start on an item.</strong> The tapped item changes from <code>received</code> to <code>in progress</code>. The button becomes disabled while the update is being saved, then changes to "Mark ready".</li>
+        <li><strong>Staff taps Ready.</strong> The item changes to <code>ready</code>. When every item in the order is ready, the order card moves to the Ready group and the customer tracker shows "Ready for pickup" or "Out for delivery" depending on fulfillment type.</li>
+        <li><strong>Order leaves the kitchen queue.</strong> Pickup orders leave when a staff user taps "Picked up". Delivery orders leave when a staff user taps "Out for delivery".</li>
+      </ol>
+    </section>
+
+    <section id="states-and-rules" data-spec-section="states-and-rules" data-section-type="states-rules">
+      <h2>States and rules</h2>
+      <table class="status-table">
+        <thead><tr><th>State</th><th>Card label</th><th>Allowed staff action</th><th>Customer status</th></tr></thead>
+        <tbody>
+          <tr><td><code>received</code></td><td>Not started</td><td>Start</td><td>Order placed</td></tr>
+          <tr><td><code>in-progress</code></td><td>In progress</td><td>Mark ready</td><td>In progress</td></tr>
+          <tr><td><code>ready</code></td><td>Ready</td><td>None at item level</td><td>Ready when all items are ready</td></tr>
+          <tr><td><code>out-for-delivery</code></td><td>Out for delivery</td><td>Complete delivery</td><td>Out for delivery</td></tr>
+          <tr><td><code>delivered</code></td><td>Completed</td><td>Hidden from active queue</td><td>Delivered</td></tr>
+        </tbody>
+      </table>
+      <ul>
+        <li>Staff cannot skip <code>received</code> directly to <code>ready</code>.</li>
+        <li>Order cards are grouped as Active, Ready, and Late. Late is a visual treatment, not a separate order state.</li>
+        <li>One tap must be enough to advance an item. No confirmation dialog appears for normal status advancement.</li>
+        <li>Buttons disabled by a pending save must preserve their width so the card does not shift during rush.</li>
+      </ul>
+    </section>
+
+    <section id="edge-cases" data-spec-section="edge-cases" data-section-type="edge-cases">
+      <h2>Edge cases and recovery paths</h2>
+      <ul>
+        <li><strong>Websocket disconnects:</strong> a small banner says "Reconnecting - queue may be stale". Staff can keep viewing the last known queue, but status buttons are disabled until reconnect completes.</li>
+        <li><strong>Status save fails:</strong> the item returns to its previous state and the card shows "Could not update. Try again." The action button re-enables.</li>
+        <li><strong>Another tablet updated first:</strong> this tablet accepts the newer state and shows a short "Updated elsewhere" note on the card.</li>
+        <li><strong>No active orders:</strong> the page shows a quiet empty state with current store name and "No active orders" rather than a blank board.</li>
+        <li><strong>Order is canceled:</strong> the card leaves the queue and a small toast says "Order #123 canceled". It is not shown as ready or completed.</li>
+      </ul>
+    </section>
+
+    <section id="ux-contracts" data-spec-section="ux-contracts" data-section-type="hidden-mechanics">
+      <h2>Hidden mechanics as UX contracts</h2>
+      <table class="status-table">
+        <thead><tr><th>Hidden mechanic</th><th>UX contract</th><th>Recovery promise</th></tr></thead>
+        <tbody>
+          <tr><td>Websocket subscription</td><td>New orders and status updates appear without reload.</td><td>If disconnected, the UI says so and prevents stale writes.</td></tr>
+          <tr><td>Server-side status transition guard</td><td>Staff cannot accidentally skip required kitchen steps.</td><td>Invalid transition returns the current server state and explains the card changed elsewhere.</td></tr>
+          <tr><td>Order item transaction</td><td>A tap changes exactly one intended item.</td><td>Failed saves roll the item back visibly.</td></tr>
+          <tr><td>Customer tracker sync</td><td>Customer status follows kitchen progress within 2 seconds in normal network conditions.</td><td>If delayed, customer tracker remains on the last confirmed state, not an optimistic lie.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="linking">
+      <h2>Related specs and implementation paths</h2>
+      <div class="related-grid">
+        <a class="related-card" data-spec-link="fup.kitchen-queue.technical" href="./technical-spec-example.html">
+          <div class="related-name">Kitchen queue technical spec</div>
+          <div class="related-desc">Status mutation sequence, event payloads, reconnect behavior, and concurrency rules.</div>
+        </a>
+        <a class="related-card" data-spec-link="fup.kitchen-queue.test" href="./test-spec-example.html">
+          <div class="related-name">Kitchen queue test spec</div>
+          <div class="related-desc">Acceptance conditions and test coverage mapped back to this spec.</div>
+        </a>
+      </div>
+      <h3>Directly owned paths</h3>
+      <ul class="path-list">
+        <li data-implementation-path="client/src/pages/kitchen-queue.tsx"><code>client/src/pages/kitchen-queue.tsx</code> - page layout, grouping, filter, and subscription wiring.</li>
+        <li data-implementation-path="client/src/components/kitchen/order-card.tsx"><code>client/src/components/kitchen/order-card.tsx</code> - visible card states and staff actions.</li>
+        <li data-implementation-path="client/src/components/kitchen/kitchen-queue-empty.tsx"><code>client/src/components/kitchen/kitchen-queue-empty.tsx</code> - empty state.</li>
+      </ul>
+      <p>This is a low-level feature spec, so it owns concrete UI paths. A future high-level Order Operations spec should link here instead of duplicating these paths.</p>
+    </section>
+
+    <section id="design-placeholders" data-spec-section="design-placeholders" data-section-type="design">
+      <h2>Screenshot and design placeholders</h2>
+      <ul>
+        <li><strong>Tablet landscape active queue:</strong> <code>design/kitchen-queue/tablet-active.png</code> - Active and Late groups visible.</li>
+        <li><strong>Ready group:</strong> <code>design/kitchen-queue/ready-group.png</code> - all items ready, pickup action visible.</li>
+        <li><strong>Reconnect banner:</strong> <code>design/kitchen-queue/reconnecting.png</code> - disabled buttons and banner text.</li>
+      </ul>
+    </section>
+
+    <section id="test-coverage" data-spec-section="test-coverage" data-section-type="coverage">
+      <h2>Test coverage mapping and known gaps</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Spec section</th><th>Coverage</th><th>Status</th><th>Gap</th></tr></thead>
+        <tbody>
+          <tr><td>KQ-D1</td><td><code>#states-and-rules</code></td><td>Component tests for labels, disabled buttons, and width-stable pending state.</td><td>planned</td><td>No visual regression yet for tablet density.</td></tr>
+          <tr><td>KQ-D2</td><td><code>#interface-journey</code></td><td>E2E staff advances item and customer tracker updates.</td><td>planned</td><td>Needs seeded order factory.</td></tr>
+          <tr><td>KQ-D3</td><td><code>#edge-cases</code></td><td>Reconnect banner and disabled write actions.</td><td>gap</td><td>Requires websocket test helper.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Example descriptive spec · Fired Up Pizza</p>
+</main>
+</body>
+</html>

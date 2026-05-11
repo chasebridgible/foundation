@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.spec-process">
+<meta name="spec:type" content="process">
+<meta name="spec:status" content="active">
+<meta name="spec:owner" content="Foundation">
+<meta name="spec:last-updated" content="2026-05-11">
+<title>Spec Maintenance Process - Foundation</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.spec-process",
+  "title": "Spec Maintenance Process",
+  "type": "process",
+  "status": "active",
+  "owner": "Foundation",
+  "lastUpdated": "2026-05-11",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": "foundation.spec-system",
+  "relatedSpecs": [
+    { "id": "foundation.spec-system", "relationship": "parent", "sections": ["registry"] },
+    { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["path-update-loop"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/process.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "coverage": []
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">P</div>
+    <div>
+      <div class="sidebar-title">Spec Process</div>
+      <div class="sidebar-sub">maintenance loop</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#workflow-contract"><span class="nav-num">01</span>Workflow contract</a>
+    <a class="nav-item" href="#reading-order"><span class="nav-num">02</span>Reading order</a>
+    <a class="nav-item" href="#update-obligations"><span class="nav-num">03</span>Update obligations</a>
+    <a class="nav-item" href="#blockers-and-exits"><span class="nav-num">04</span>Blockers and exits</a>
+    <a class="nav-item" href="#workflow-skills"><span class="nav-num">05</span>Workflow skills</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">Foundation · docs/specs/process.html</div>
+    <h1>Spec maintenance process</h1>
+    <p class="lede">The process keeps specs, tests, and code moving together. Plans are temporary reasoning unless they are converted into specs, ADRs, tests, or board/session history.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-11</div>
+      <div><strong>Parent:</strong> <a data-spec-link="foundation.spec-system" href="./index.html">foundation.spec-system</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="workflow-contract" data-spec-section="workflow-contract" data-section-type="process-contract">
+      <h2>Workflow contract</h2>
+      <p>The durable loop is <strong>spec -> test -> prompt -> execute</strong>. The steps are the contract; the workflow skills that run inside them can change.</p>
+      <table class="status-table">
+        <thead><tr><th>Step</th><th>Purpose</th><th>Durable output</th></tr></thead>
+        <tbody>
+          <tr><td>Spec</td><td>State what should exist, who it serves, what rules govern it, and where intent lives.</td><td>Descriptive spec; technical spec if needed; related ADR if a decision is non-obvious.</td></tr>
+          <tr><td>Test</td><td>Convert intent into a verification contract before implementation claims success.</td><td>Test spec plus code-level tests or planned gaps.</td></tr>
+          <tr><td>Prompt</td><td>Load only the relevant specs, tests, rules, skills, and code paths.</td><td>Run prompt or board/session record, not a stale plan file.</td></tr>
+          <tr><td>Execute</td><td>Change code, tests, and specs together, then produce evidence.</td><td>Diff, passing commands, screenshots/traces where useful, registry updates.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warning"><strong>Recovery rule:</strong> when a step fails, correct the smallest upstream artifact, usually the spec, then regenerate downstream tests and prompts.</div>
+    </section>
+
+    <section id="reading-order" data-spec-section="reading-order" data-section-type="progressive-disclosure">
+      <h2>Reading order</h2>
+      <p>Progressive disclosure is mandatory. An agent should not read every spec in the repo when one feature section is enough.</p>
+      <ol>
+        <li>Read <a data-spec-link="foundation.spec-system" href="./index.html">the registry</a> and identify candidate specs by ID, path, title, tags, or board card.</li>
+        <li>Load the relevant descriptive spec section first. Product intent outranks implementation convenience.</li>
+        <li>Load the test spec acceptance mapping before editing code. The test spec tells the agent what will count as done.</li>
+        <li>Load a technical spec only when the registry says one exists or the change has multiple valid internal designs.</li>
+        <li>Load direct owned paths from the lowest-level relevant spec. Avoid walking every path in parent specs.</li>
+      </ol>
+    </section>
+
+    <section id="update-obligations" data-spec-section="update-obligations" data-section-type="maintenance">
+      <h2>Update obligations</h2>
+      <table class="status-table">
+        <thead><tr><th>Trigger</th><th>Required update</th><th>Same commit?</th></tr></thead>
+        <tbody>
+          <tr><td>Product behavior changes</td><td>Descriptive spec section and mapped test spec acceptance condition.</td><td>Yes</td></tr>
+          <tr><td>Internal contract, timing, concurrency, migration, or integration changes</td><td>Technical spec and mapped test spec risks.</td><td>Yes</td></tr>
+          <tr><td>Code-level tests added, renamed, deleted, or regenerated</td><td>Test spec coverage table and registry coverage entries.</td><td>Yes</td></tr>
+          <tr><td>Owned file moved or deleted</td><td>All affected <code>ownedPaths</code>, <code>implementationPaths</code>, and coverage paths in metadata and visible path lists.</td><td>Yes</td></tr>
+          <tr><td>Spec retired or replaced</td><td>Status, <code>replacedBy</code>, registry links, and parent/child references.</td><td>Yes</td></tr>
+          <tr><td>New reusable workflow discovered</td><td>Convert to a workflow skill or SOP, then link from the relevant spec process note if needed.</td><td>Before relying on it again</td></tr>
+        </tbody>
+      </table>
+      <p>A diff that changes behavior without changing the relevant specs and test specs is incomplete by default.</p>
+    </section>
+
+    <section id="blockers-and-exits" data-spec-section="blockers-and-exits" data-section-type="exit-criteria">
+      <h2>Blockers and exits</h2>
+      <h3>Blocker conditions</h3>
+      <ul>
+        <li>No descriptive spec exists for the user-visible behavior being changed.</li>
+        <li>The test spec cannot name the evidence required to accept the change.</li>
+        <li>A technical choice is non-obvious and no technical spec or ADR selects the intended design.</li>
+        <li>Registry links point to missing specs, moved files, or deleted tests.</li>
+        <li>The agent cannot tell whether a path is directly owned by the current feature or merely referenced by a parent spec.</li>
+      </ul>
+      <h3>Exit criteria</h3>
+      <ul>
+        <li>Relevant specs state the current intended behavior.</li>
+        <li>Test spec maps acceptance conditions to descriptive and technical sections.</li>
+        <li>Code-level tests, manual evidence, or explicit gaps match the test spec.</li>
+        <li>Registry metadata resolves related specs, owned paths, and coverage paths.</li>
+        <li>Final evidence names commands run and unresolved decisions.</li>
+      </ul>
+    </section>
+
+    <section id="workflow-skills" data-spec-section="workflow-skills" data-section-type="boundary">
+      <h2>What belongs in workflow skills</h2>
+      <p>Workflows are procedures. Specs are source-of-truth contracts. Do not blur them.</p>
+      <table class="status-table">
+        <thead><tr><th>Workflow skill field</th><th>What it should define</th><th>What it must not become</th></tr></thead>
+        <tbody>
+          <tr><td>Triggers</td><td>When to invoke the workflow: new feature, bug, refactor, review, release.</td><td>A duplicate product spec.</td></tr>
+          <tr><td>Required inputs</td><td>Spec IDs, board card, repo path, constraints, environment access.</td><td>A hidden source of intent not reflected in specs.</td></tr>
+          <tr><td>Reading order</td><td>Which registry fields and spec sections to load first.</td><td>A requirement to read everything.</td></tr>
+          <tr><td>Context files</td><td>AGENTS/CLAUDE files, package scripts, local conventions, relevant specs.</td><td>A dumping ground for stale plans.</td></tr>
+          <tr><td>Update obligations</td><td>Which specs, tests, registry entries, ADRs, or board records must change.</td><td>A substitute for changing those artifacts.</td></tr>
+          <tr><td>Exit criteria</td><td>Evidence required to stop: tests, screenshots, traces, review notes.</td><td>A self-certifying "looks done" statement.</td></tr>
+          <tr><td>Substrate updates</td><td>When to extract a new template, capability, skill, or convention.</td><td>Spec content that should live in the spec system.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Spec process · specs and tests co-evolve</p>
+</main>
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(item => item.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>

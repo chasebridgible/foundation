@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foundation.local/docs/specs/spec-registry.schema.json",
+  "title": "Foundation Spec Registry",
+  "type": "object",
+  "required": ["registryVersion", "lastUpdated", "specs"],
+  "additionalProperties": false,
+  "properties": {
+    "registryVersion": {
+      "type": "string",
+      "description": "Version of the registry shape, not the product being specified."
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the registry was last edited."
+    },
+    "description": {
+      "type": "string"
+    },
+    "specs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/specEntry" }
+    }
+  },
+  "$defs": {
+    "specEntry": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "type",
+        "status",
+        "file",
+        "owner",
+        "lastUpdated",
+        "reviewCadence",
+        "confidence",
+        "ownedPaths",
+        "coverage"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9.-]*[a-z0-9]$",
+          "description": "Stable spec ID. Use dotted namespaces, for example fup.kitchen-queue.descriptive."
+        },
+        "title": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["descriptive", "technical", "test", "process", "linking", "index", "template"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "active", "retired", "replaced"]
+        },
+        "file": {
+          "type": "string",
+          "description": "Repo-relative file path to the HTML spec."
+        },
+        "canonicalSection": {
+          "type": "string",
+          "description": "Optional section ID to load first when an agent only needs the entry point."
+        },
+        "owner": { "type": "string" },
+        "lastUpdated": { "type": "string", "format": "date" },
+        "reviewCadence": {
+          "type": "string",
+          "description": "Expected review rhythm, for example per-change, monthly, quarterly, or on-trigger."
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "replaces": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "replacedBy": {
+          "type": ["string", "null"]
+        },
+        "parent": {
+          "type": ["string", "null"],
+          "description": "Parent spec ID. High-level specs should depend on child specs instead of duplicating leaf paths."
+        },
+        "children": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "relatedSpecs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/specLink" }
+        },
+        "ownedPaths": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/pathRef" },
+          "description": "Concrete owned paths for low-level specs. High-level specs should point at child specs instead."
+        },
+        "implementationPaths": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/pathRef" },
+          "description": "Non-owning implementation references useful for navigation."
+        },
+        "coverage": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/coverageRef" }
+        },
+        "boardCards": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/boardCardRef" }
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "specLink": {
+      "type": "object",
+      "required": ["id", "relationship"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "relationship": {
+          "type": "string",
+          "enum": ["parent", "child", "sibling", "depends-on", "validates", "validated-by", "replaces", "replaced-by", "informs"]
+        },
+        "sections": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "pathRef": {
+      "type": "object",
+      "required": ["path", "kind", "ownership"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string" },
+        "kind": {
+          "type": "string",
+          "enum": ["source", "test", "design", "adr", "migration", "schema", "config", "doc", "workflow", "example"]
+        },
+        "ownership": {
+          "type": "string",
+          "enum": ["direct", "abstract", "reference"]
+        },
+        "symbols": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "coverageRef": {
+      "type": "object",
+      "required": ["id", "level", "status", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "level": {
+          "type": "string",
+          "enum": ["unit", "integration", "e2e", "manual", "visual", "static"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["existing", "planned", "gap", "not-applicable"]
+        },
+        "path": { "type": "string" },
+        "mapsTo": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "Spec section references, for example fup.kitchen-queue.descriptive#states-and-rules."
+          }
+        },
+        "command": { "type": "string" },
+        "evidence": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "boardCardRef": {
+      "type": "object",
+      "required": ["id", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "source": { "type": "string" },
+        "url": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

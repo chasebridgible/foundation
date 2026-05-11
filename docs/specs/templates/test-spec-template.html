@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.spec-template.test">
+<meta name="spec:type" content="template">
+<meta name="spec:status" content="active">
+<meta name="spec:owner" content="Foundation">
+<meta name="spec:last-updated" content="2026-05-11">
+<title>Test Spec Template</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.spec-template.test",
+  "title": "Test Spec Template",
+  "type": "template",
+  "status": "active",
+  "owner": "Foundation",
+  "lastUpdated": "2026-05-11",
+  "reviewCadence": "quarterly",
+  "confidence": "high",
+  "parent": "foundation.spec-system",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.spec-template.descriptive", "relationship": "sibling", "sections": ["interface-journey", "states-and-rules"] },
+    { "id": "foundation.spec-template.technical", "relationship": "sibling", "sections": ["failure-modes"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/templates/test-spec-template.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": ["template", "test"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">V</div>
+    <div>
+      <div class="sidebar-title">Test Spec</div>
+      <div class="sidebar-sub">template</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Required</div>
+    <a class="nav-item active" href="#verification-contract"><span class="nav-num">01</span>Contract</a>
+    <a class="nav-item" href="#acceptance-mapping"><span class="nav-num">02</span>Acceptance</a>
+    <a class="nav-item" href="#coverage-plan"><span class="nav-num">03</span>Coverage</a>
+    <a class="nav-item" href="#commands-and-evidence"><span class="nav-num">04</span>Evidence</a>
+    <a class="nav-item" href="#risk-based-signal-choice"><span class="nav-num">05</span>Risk signal</a>
+    <a class="nav-item" href="#gaps-and-followups"><span class="nav-num">06</span>Gaps</a>
+    <a class="nav-item" href="#coevolution-rule"><span class="nav-num">07</span>Co-evolution</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract">
+    <div class="spec-eyebrow">Template · test spec</div>
+    <h1>[Feature name] test spec</h1>
+    <p class="lede">A test spec is the plain-English verification contract. It is the human-readable source for what code-level tests, manual checks, screenshots, traces, and review evidence must prove.</p>
+    <div class="meta-row">
+      <div><strong>Template status:</strong> active</div>
+      <div><strong>Parent:</strong> foundation.spec-system</div>
+      <div><strong>Updated:</strong> 2026-05-11</div>
+    </div>
+    <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace the new file's <code>spec-metadata</code>, meta tags, visible placeholders, related spec IDs, owned paths, and coverage entries before using it to drive work.</div>
+    <p>State the highest-risk user outcome in one paragraph. If the evidence below passes, what can the reviewer trust?</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
+      <h2>Acceptance conditions mapped to specs</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Condition</th><th>Maps to</th><th>Must prove</th></tr></thead>
+        <tbody>
+          <tr><td>AC-1</td><td>[plain-English condition]</td><td><code>replace.feature.descriptive#states-and-rules</code></td><td>[observable proof]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
+      <h2>Unit, integration, e2e, and manual coverage</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Level</th><th>Path or evidence</th><th>Status</th><th>Why this level</th></tr></thead>
+        <tbody>
+          <tr><td>T-1</td><td>unit</td><td><code>path/to/feature.test.ts</code></td><td>planned</td><td>[cheapest reliable signal]</td></tr>
+          <tr><td>T-2</td><td>manual</td><td>[screenshot, trace, or reviewer action]</td><td>gap</td><td>[why automation is not enough or not available]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">
+      <h2>Commands or evidence required</h2>
+      <ul class="path-list">
+        <li><code>[test command]</code> - [what it proves and expected output].</li>
+        <li><code>[lint/build command]</code> - [what it proves and expected output].</li>
+        <li>[manual evidence path] - [screenshot, trace, log, or review note required].</li>
+      </ul>
+    </section>
+
+    <section id="risk-based-signal-choice" data-spec-section="risk-based-signal-choice" data-section-type="risk">
+      <h2>Risk-based signal choice</h2>
+      <p>Use the least expensive reliable signal that matches the risk. Explain why each broad test exists and why lower-level tests are sufficient elsewhere.</p>
+      <table class="status-table">
+        <thead><tr><th>Risk</th><th>Signal</th><th>Why not cheaper?</th><th>Why not broader?</th></tr></thead>
+        <tbody>
+          <tr><td>[risk]</td><td>[unit/integration/e2e/manual]</td><td>[reason]</td><td>[reason]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
+      <h2>Gaps and follow-up tests</h2>
+      <p>List known missing coverage. Gaps are allowed only when they are explicit, owned, and risk-classified.</p>
+      <table class="status-table">
+        <thead><tr><th>Gap</th><th>Risk</th><th>Owner</th><th>Follow-up trigger</th></tr></thead>
+        <tbody>
+          <tr><td>[gap]</td><td>low/medium/high</td><td>[owner]</td><td>[when it must be closed]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coevolution-rule" data-spec-section="coevolution-rule" data-section-type="maintenance">
+      <h2>Co-evolution rule</h2>
+      <div class="callout warning"><strong>Required:</strong> when the descriptive spec changes, this test spec changes. When this test spec changes, code-level tests are regenerated or updated. Code, specs, and test specs must ship in the same commit for behavior changes.</div>
+      <p>During review, search the changed descriptive and technical sections listed above. If they changed without this file changing, the diff is incomplete unless the final evidence explains why no verification contract changed.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Test spec template · plain-English verification contract</p>
+</main>
+</body>
+</html>

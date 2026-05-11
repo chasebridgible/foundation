@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.spec-template.technical">
+<meta name="spec:type" content="template">
+<meta name="spec:status" content="active">
+<meta name="spec:owner" content="Foundation">
+<meta name="spec:last-updated" content="2026-05-11">
+<title>Technical Spec Template</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.spec-template.technical",
+  "title": "Technical Spec Template",
+  "type": "template",
+  "status": "active",
+  "owner": "Foundation",
+  "lastUpdated": "2026-05-11",
+  "reviewCadence": "quarterly",
+  "confidence": "high",
+  "parent": "foundation.spec-system",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.spec-template.descriptive", "relationship": "sibling", "sections": ["product-intent", "states-and-rules"] },
+    { "id": "foundation.spec-template.test", "relationship": "sibling", "sections": ["risk-based-signal-choice"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/templates/technical-spec-template.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": ["template", "technical"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+    <div>
+      <div class="sidebar-title">Technical Spec</div>
+      <div class="sidebar-sub">template</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Required</div>
+    <a class="nav-item active" href="#when-required"><span class="nav-num">01</span>When required</a>
+    <a class="nav-item" href="#internal-sequence"><span class="nav-num">02</span>Sequence</a>
+    <a class="nav-item" href="#data-model"><span class="nav-num">03</span>Data model</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">04</span>Contracts</a>
+    <a class="nav-item" href="#concurrency-and-timing"><span class="nav-num">05</span>Timing</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">06</span>Failures</a>
+    <a class="nav-item" href="#boundaries"><span class="nav-num">07</span>Boundaries</a>
+    <a class="nav-item" href="#migrations-and-adrs"><span class="nav-num">08</span>Migrations/ADRs</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">09</span>Paths/coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="when-required" data-spec-section="when-required" data-section-type="decision-rule">
+    <div class="spec-eyebrow">Template · technical spec</div>
+    <h1>[Feature name] technical spec</h1>
+    <p class="lede">Use a technical spec only when many valid implementations are possible, or when internal contracts, timing, data, concurrency, migration, or integration behavior materially affect correctness.</p>
+    <div class="meta-row">
+      <div><strong>Template status:</strong> active</div>
+      <div><strong>Parent:</strong> foundation.spec-system</div>
+      <div><strong>Updated:</strong> 2026-05-11</div>
+    </div>
+    <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace the new file's <code>spec-metadata</code>, meta tags, visible placeholders, related spec IDs, owned paths, and coverage entries before using it to drive work.</div>
+    <h3>Why this technical spec exists</h3>
+    <p>State the ambiguity this spec resolves. If the agent could build ten valid versions, name the one this system wants.</p>
+    <h3>Non-goals</h3>
+    <p>List valid designs this feature intentionally does not choose, and explain whether an ADR captures the decision.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
+      <h2>Internal sequence</h2>
+      <p>Describe the system sequence from trigger to durable state change to emitted side effects. Include retries, ordering, and idempotency rules.</p>
+      <ol>
+        <li><strong>Trigger:</strong> [request, event, cron, user action].</li>
+        <li><strong>Validate:</strong> [input, auth, permissions, state preconditions].</li>
+        <li><strong>Mutate:</strong> [transaction boundary and records changed].</li>
+        <li><strong>Publish:</strong> [events, cache invalidation, notifications].</li>
+        <li><strong>Observe:</strong> [logs, metrics, traces, user-visible confirmation].</li>
+      </ol>
+    </section>
+
+    <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
+      <h2>Data model</h2>
+      <table class="status-table">
+        <thead><tr><th>Entity</th><th>Fields</th><th>Invariant</th><th>Owner</th></tr></thead>
+        <tbody>
+          <tr><td>[entity]</td><td><code>[field: type]</code></td><td>[rule that must stay true]</td><td>[module/spec]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
+      <h2>Contracts and integrations</h2>
+      <p>Define API shapes, event names, payloads, external service contracts, and versioning rules. Use structured examples when shape matters.</p>
+      <pre><code>{
+  "event": "replace.event.name",
+  "payload": {
+    "id": "string",
+    "status": "replace-status"
+  }
+}</code></pre>
+    </section>
+
+    <section id="concurrency-and-timing" data-spec-section="concurrency-and-timing" data-section-type="concurrency">
+      <h2>Timing, concurrency, and ordering</h2>
+      <p>Name locks, queues, transaction isolation, debounce windows, latency expectations, race conditions, and stale-base behavior.</p>
+      <ul>
+        <li><strong>[race]:</strong> [expected winner, loser behavior, retry rule, user-visible result].</li>
+      </ul>
+    </section>
+
+    <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+      <h2>Failure modes</h2>
+      <table class="status-table">
+        <thead><tr><th>Failure</th><th>System behavior</th><th>User behavior</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>[failure]</td><td>[rollback, retry, quarantine]</td><td>[message or recovery path]</td><td>[test/log/metric]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="boundaries" data-spec-section="boundaries" data-section-type="boundaries">
+      <h2>Boundaries and abstraction level</h2>
+      <p>List the modules this spec owns and the modules it only references. Do not list every downstream file if a lower-level child spec owns that detail.</p>
+      <ul>
+        <li><strong>Owns:</strong> [module, API, schema, worker, route].</li>
+        <li><strong>References:</strong> [child spec or external module].</li>
+      </ul>
+    </section>
+
+    <section id="migrations-and-adrs" data-spec-section="migrations-and-adrs" data-section-type="decisions">
+      <h2>Migrations and ADR links</h2>
+      <p>Link migrations and ADRs for non-obvious technical decisions. If the decision is obvious, do not create an ADR just to fill the section.</p>
+      <ul>
+        <li><strong>Migration:</strong> <code>path/to/migration.sql</code> - [what it changes and rollback plan].</li>
+        <li><strong>ADR:</strong> <code>docs/adr/NNNN-title.md</code> - [decision captured].</li>
+      </ul>
+    </section>
+
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Related paths and coverage</h2>
+      <ul class="path-list">
+        <li data-implementation-path="path/to/internal-file.ts"><code>path/to/internal-file.ts</code> - direct internal implementation owned by this technical spec.</li>
+      </ul>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Risk</th><th>Coverage</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>TS-1</td><td>[technical risk]</td><td>[integration/unit/e2e/manual evidence]</td><td>planned</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Technical spec template · required only when internal design matters</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.spec-template.descriptive">
+<meta name="spec:type" content="template">
+<meta name="spec:status" content="active">
+<meta name="spec:owner" content="Foundation">
+<meta name="spec:last-updated" content="2026-05-11">
+<title>Descriptive Spec Template</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.spec-template.descriptive",
+  "title": "Descriptive Spec Template",
+  "type": "template",
+  "status": "active",
+  "owner": "Foundation",
+  "lastUpdated": "2026-05-11",
+  "reviewCadence": "quarterly",
+  "confidence": "high",
+  "parent": "foundation.spec-system",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.spec-template.technical", "relationship": "sibling", "sections": ["when-required"] },
+    { "id": "foundation.spec-template.test", "relationship": "sibling", "sections": ["verification-contract"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/templates/descriptive-spec-template.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": ["template", "descriptive"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Descriptive Spec</div>
+      <div class="sidebar-sub">template</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Required</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Product intent</a>
+    <a class="nav-item" href="#user-model"><span class="nav-num">02</span>User model</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Interface journey</a>
+    <a class="nav-item" href="#states-and-rules"><span class="nav-num">04</span>States and rules</a>
+    <a class="nav-item" href="#edge-cases"><span class="nav-num">05</span>Edge cases</a>
+    <a class="nav-item" href="#ux-contracts"><span class="nav-num">06</span>UX contracts</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">07</span>Links and paths</a>
+    <a class="nav-item" href="#design-placeholders"><span class="nav-num">08</span>Design placeholders</a>
+    <a class="nav-item" href="#test-coverage"><span class="nav-num">09</span>Test coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent">
+    <div class="spec-eyebrow">Template · descriptive spec</div>
+    <h1>[Feature name] descriptive spec</h1>
+    <p class="lede">Replace this with the product outcome in user language. A descriptive spec defines what should exist from the user's side. It should be precise enough that a test spec can verify it.</p>
+    <div class="meta-row">
+      <div><strong>Template status:</strong> active</div>
+      <div><strong>Owner:</strong> Foundation</div>
+      <div><strong>Updated:</strong> 2026-05-11</div>
+    </div>
+    <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace the new file's <code>spec-metadata</code>, meta tags, visible placeholders, related spec IDs, owned paths, and coverage entries before using it to drive work.</div>
+    <h3>Intent</h3>
+    <p>State the product promise and the user-visible result. Avoid implementation nouns unless the user would naturally say them.</p>
+    <h3>Out of scope</h3>
+    <p>List adjacent behaviors this spec does not cover. Link child specs instead of expanding into every lower-level detail.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="user-model" data-spec-section="user-model" data-section-type="user-model">
+      <h2>User model</h2>
+      <p>Define who uses this, what they are trying to accomplish, what they know before entering the flow, and what language they would use. Use product/user language, not implementation language.</p>
+      <table class="status-table">
+        <thead><tr><th>User</th><th>Goal</th><th>Context</th><th>Success feeling</th></tr></thead>
+        <tbody>
+          <tr><td>[primary user]</td><td>[plain-English goal]</td><td>[entry context]</td><td>[what good feels like]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Interface journey</h2>
+      <p>Describe the actual journey in order. Include entry points, visible controls, expected feedback, transitions, and exit states.</p>
+      <ol>
+        <li><strong>Entry:</strong> how the user gets here and what they see first.</li>
+        <li><strong>Primary action:</strong> what the user does, what control they use, and what happens immediately.</li>
+        <li><strong>System response:</strong> what changes on screen, what stays stable, and what the user can do next.</li>
+        <li><strong>Exit:</strong> what counts as a finished interaction and where the user lands.</li>
+      </ol>
+    </section>
+
+    <section id="states-and-rules" data-spec-section="states-and-rules" data-section-type="states-rules">
+      <h2>States and rules</h2>
+      <p>Define each user-visible state and the rules that move between states. Name labels, disabled states, empty states, loading states, and permission rules.</p>
+      <table class="status-table">
+        <thead><tr><th>State</th><th>User sees</th><th>Allowed actions</th><th>Transition rule</th></tr></thead>
+        <tbody>
+          <tr><td><code>[state]</code></td><td>[visible label and UI]</td><td>[actions]</td><td>[what changes state]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="edge-cases" data-spec-section="edge-cases" data-section-type="edge-cases">
+      <h2>Edge cases and recovery paths</h2>
+      <p>List the ways the user can be confused, blocked, offline, unauthorized, racing another user, or recovering from a failure. For each, state the user-visible recovery path.</p>
+      <ul>
+        <li><strong>[edge case]:</strong> [what happens, what message appears, what action recovers].</li>
+      </ul>
+    </section>
+
+    <section id="ux-contracts" data-spec-section="ux-contracts" data-section-type="hidden-mechanics">
+      <h2>Hidden mechanics as UX contracts</h2>
+      <p>Translate internal mechanics into promises the user can feel. Do not expose implementation detail unless it changes user expectations.</p>
+      <table class="status-table">
+        <thead><tr><th>Hidden mechanic</th><th>UX contract</th><th>Failure promise</th></tr></thead>
+        <tbody>
+          <tr><td>[cache, queue, background job, lock]</td><td>[what the user can rely on]</td><td>[how failure is shown or recovered]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="linking">
+      <h2>Related specs and implementation paths</h2>
+      <h3>Related specs</h3>
+      <ul>
+        <li><a data-spec-link="replace.feature.technical" href="./technical-spec-template.html">replace.feature.technical</a> - internal design when multiple implementations are valid.</li>
+        <li><a data-spec-link="replace.feature.test" href="./test-spec-template.html">replace.feature.test</a> - acceptance mapping and evidence.</li>
+      </ul>
+      <h3>Directly owned paths</h3>
+      <ul class="path-list">
+        <li data-implementation-path="path/to/user-facing-file.tsx"><code>path/to/user-facing-file.tsx</code> - direct user-facing implementation owned by this low-level feature spec.</li>
+      </ul>
+      <p>High-level descriptive specs should link child specs here instead of owning every leaf file path.</p>
+    </section>
+
+    <section id="design-placeholders" data-spec-section="design-placeholders" data-section-type="design">
+      <h2>Screenshot and design placeholders</h2>
+      <p>Add links to screenshots, Figma frames, browser captures, or design notes. If the visual state is important, map it to a test or manual evidence row.</p>
+      <ul>
+        <li><strong>[design artifact]:</strong> [path or URL] - [state represented].</li>
+      </ul>
+    </section>
+
+    <section id="test-coverage" data-spec-section="test-coverage" data-section-type="coverage">
+      <h2>Test coverage mapping and known gaps</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Spec section</th><th>Coverage</th><th>Status</th><th>Gap</th></tr></thead>
+        <tbody>
+          <tr><td>DS-1</td><td><code>#states-and-rules</code></td><td>Component test for visible state labels</td><td>planned</td><td>[known gap]</td></tr>
+        </tbody>
+      </table>
+      <p>When this descriptive spec changes, the mapped test spec must change in the same commit.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Descriptive spec template · replace placeholders before use</p>
+</main>
+</body>
+</html>

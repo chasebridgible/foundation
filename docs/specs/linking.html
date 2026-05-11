@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.spec-linking">
+<meta name="spec:type" content="linking">
+<meta name="spec:status" content="active">
+<meta name="spec:owner" content="Foundation">
+<meta name="spec:last-updated" content="2026-05-11">
+<title>Spec Linking Model - Foundation</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.spec-linking",
+  "title": "Spec Linking Model",
+  "type": "linking",
+  "status": "active",
+  "owner": "Foundation",
+  "lastUpdated": "2026-05-11",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": "foundation.spec-system",
+  "relatedSpecs": [
+    { "id": "foundation.spec-system", "relationship": "parent", "sections": ["registry"] },
+    { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["update-obligations"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/linking.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "coverage": []
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">L</div>
+    <div>
+      <div class="sidebar-title">Spec Linking</div>
+      <div class="sidebar-sub">HTML metadata</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#html-native-metadata"><span class="nav-num">01</span>HTML metadata</a>
+    <a class="nav-item" href="#multi-level-specs"><span class="nav-num">02</span>Multi-level specs</a>
+    <a class="nav-item" href="#resolution"><span class="nav-num">03</span>Resolution</a>
+    <a class="nav-item" href="#path-update-loop"><span class="nav-num">04</span>Path updates</a>
+    <a class="nav-item" href="#status-and-review"><span class="nav-num">05</span>Status and review</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">Foundation · docs/specs/linking.html</div>
+    <h1>Spec linking model</h1>
+    <p class="lede">The linking model gives HTML specs the machine-readable affordances Markdown frontmatter used to provide, while keeping the artifact pleasant for humans in a browser.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-11</div>
+      <div><strong>Registry:</strong> <a data-spec-link="foundation.spec-system" href="./index.html">index.html</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="html-native-metadata" data-spec-section="html-native-metadata" data-section-type="machine-contract">
+      <h2>HTML-native metadata</h2>
+      <p>Each spec has three machine-readable layers. Agents should read them in this order before reading prose.</p>
+      <table class="status-table">
+        <thead><tr><th>Layer</th><th>Example</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>Stable file path</td><td><code>foundation/docs/specs/examples/test-spec-example.html</code></td><td>Filesystem discovery and durable linking.</td></tr>
+          <tr><td>HTML meta tags</td><td><code>&lt;meta name="spec:id" content="fup.kitchen-queue.test"&gt;</code></td><td>Cheap parse without loading body content.</td></tr>
+          <tr><td>Embedded JSON</td><td><code>&lt;script type="application/json" id="spec-metadata"&gt;</code></td><td>Full metadata: links, paths, coverage, status, ownership.</td></tr>
+          <tr><td>Section attributes</td><td><code>&lt;section id="states-and-rules" data-spec-section="states-and-rules"&gt;</code></td><td>Precise section loading and acceptance mapping.</td></tr>
+          <tr><td>Link attributes</td><td><code>&lt;a data-spec-link=&quot;fup.kitchen-queue.test&quot; href=&quot;./test-spec-example.html&quot;&gt;</code></td><td>Human links that still resolve by stable ID.</td></tr>
+        </tbody>
+      </table>
+      <p>Human-facing links can use friendly labels. If a page uses wiki-style aliases or natural prose links, it still needs <code>data-spec-link</code> or registry entries so agents can resolve them without visual inference.</p>
+    </section>
+
+    <section id="multi-level-specs" data-spec-section="multi-level-specs" data-section-type="graph-rule">
+      <h2>Multi-level specs</h2>
+      <p>Specs form a graph, not a flat pile. The goal is to avoid duplicating leaf paths in high-level specs.</p>
+      <div class="three-grid">
+        <div class="card accent">
+          <div class="card-title">High-level product spec</div>
+          <div class="card-copy">Owns product intent, boundaries, and child spec IDs. It should rarely own leaf implementation files.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Low-level feature spec</div>
+          <div class="card-copy">Owns concrete code, design, and test paths directly touched by the feature.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Test spec</div>
+          <div class="card-copy">Owns verification paths and maps acceptance conditions back to section IDs in descriptive and technical specs.</div>
+        </div>
+      </div>
+      <p>A parent should say "kitchen queue behavior is owned by <code>fup.kitchen-queue.descriptive</code>" rather than copying every React component and API route. A low-level spec should name the files it directly owns.</p>
+    </section>
+
+    <section id="resolution" data-spec-section="resolution" data-section-type="agent-navigation">
+      <h2>Resolution algorithm</h2>
+      <ol>
+        <li>Parse <code>foundation/docs/specs/index.html#spec-registry</code>.</li>
+        <li>If starting from a code path, match exact path in <code>ownedPaths</code>, then fallback to <code>implementationPaths</code>.</li>
+        <li>If multiple specs match, prefer direct ownership over reference ownership, then prefer lower-level child specs over parents.</li>
+        <li>Load the descriptive spec for intent, the test spec for done conditions, and the technical spec only when present or required.</li>
+        <li>Use section IDs for focused loading. Do not load whole sibling specs unless the target section is insufficient.</li>
+        <li>If no spec resolves, create or update a spec before changing durable behavior.</li>
+      </ol>
+      <div class="callout info"><strong>Board cards:</strong> a card should carry spec IDs when known. If a card only names a feature, the agent searches registry titles/tags, confirms the candidate, and records the board card reference in metadata if the work proceeds.</div>
+    </section>
+
+    <section id="path-update-loop" data-spec-section="path-update-loop" data-section-type="maintenance">
+      <h2>Path update loop</h2>
+      <p>Moving or deleting a file is a spec event when a spec references that file.</p>
+      <table class="status-table">
+        <thead><tr><th>Change</th><th>Agent obligation</th><th>Review check</th></tr></thead>
+        <tbody>
+          <tr><td>File moved</td><td>Update every matching <code>ownedPaths.path</code>, visible path list, and coverage path.</td><td>Search old path across specs before final answer.</td></tr>
+          <tr><td>File deleted</td><td>Remove or replace path references, and explain whether spec ownership moved to a child spec.</td><td>No registry entry points at a missing file unless status is retired and notes explain why.</td></tr>
+          <tr><td>Test renamed</td><td>Update test spec coverage and registry coverage entries.</td><td>Acceptance IDs still map to the right section IDs.</td></tr>
+          <tr><td>Feature split</td><td>Create child specs or re-home ownership, then remove duplicated paths from parents.</td><td>High-level spec links to children instead of owning every leaf path.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="status-and-review" data-spec-section="status-and-review" data-section-type="metadata-fields">
+      <h2>Status and review fields</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Values</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>status</code></td><td>draft, active, retired, replaced</td><td>Whether the spec can drive new work.</td></tr>
+          <tr><td><code>owner</code></td><td>Person, team, or repo owner</td><td>Who is accountable for keeping intent current.</td></tr>
+          <tr><td><code>reviewCadence</code></td><td>per-change, monthly, quarterly, on-trigger</td><td>When the spec must be re-read even without code changes.</td></tr>
+          <tr><td><code>confidence</code></td><td>low, medium, high</td><td>How settled the current contract is.</td></tr>
+          <tr><td><code>lastUpdated</code></td><td>ISO date</td><td>When the contract last changed.</td></tr>
+          <tr><td><code>replacedBy</code></td><td>spec ID or null</td><td>Where agents should go when a spec has been superseded.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Spec linking · human-readable and machine-navigable</p>
+</main>
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(item => item.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>

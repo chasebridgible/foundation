@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="fup.kitchen-queue.test">
+<meta name="spec:type" content="test">
+<meta name="spec:status" content="active">
+<meta name="spec:owner" content="Foundation example">
+<meta name="spec:last-updated" content="2026-05-11">
+<title>Fired Up Pizza Kitchen Queue - Test Spec Example</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "fup.kitchen-queue.test",
+  "title": "Fired Up Pizza Kitchen Queue - Test Spec Example",
+  "type": "test",
+  "status": "active",
+  "owner": "Foundation example",
+  "lastUpdated": "2026-05-11",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "fup.kitchen-queue.descriptive",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "fup.kitchen-queue.descriptive", "relationship": "validates", "sections": ["interface-journey", "states-and-rules", "edge-cases"] },
+    { "id": "fup.kitchen-queue.technical", "relationship": "validates", "sections": ["contracts", "concurrency-and-timing", "failure-modes"] }
+  ],
+  "ownedPaths": [
+    { "path": "client/tests/e2e/kitchen-queue.spec.ts", "kind": "test", "ownership": "direct" },
+    { "path": "server/src/routes/kitchen-orders.test.ts", "kind": "test", "ownership": "direct" },
+    { "path": "client/src/components/kitchen/order-card.test.tsx", "kind": "test", "ownership": "direct" },
+    { "path": "shared/order-status.test.ts", "kind": "test", "ownership": "direct" }
+  ],
+  "implementationPaths": [
+    { "path": "client/src/pages/kitchen-queue.tsx", "kind": "source", "ownership": "reference" },
+    { "path": "server/src/routes/kitchen-orders.ts", "kind": "source", "ownership": "reference" }
+  ],
+  "coverage": [
+    { "id": "KQ-A1", "level": "e2e", "status": "planned", "path": "client/tests/e2e/kitchen-queue.spec.ts", "mapsTo": ["fup.kitchen-queue.descriptive#interface-journey"], "command": "npm run test:e2e -- kitchen-queue", "evidence": "Staff advances one item and customer tracker updates." },
+    { "id": "KQ-T1", "level": "integration", "status": "planned", "path": "server/src/routes/kitchen-orders.test.ts", "mapsTo": ["fup.kitchen-queue.technical#concurrency-and-timing"], "command": "npm test -- kitchen-orders", "evidence": "Concurrent updates serialize." },
+    { "id": "KQ-D1", "level": "component", "status": "planned", "path": "client/src/components/kitchen/order-card.test.tsx", "mapsTo": ["fup.kitchen-queue.descriptive#states-and-rules"], "command": "npm test -- order-card", "evidence": "Order card labels and actions match the spec." }
+  ],
+  "tags": ["example", "fired-up-pizza", "test", "orders"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">V</div>
+    <div>
+      <div class="sidebar-title">Kitchen Queue</div>
+      <div class="sidebar-sub">test</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Verification</div>
+    <a class="nav-item active" href="#verification-contract"><span class="nav-num">01</span>Contract</a>
+    <a class="nav-item" href="#acceptance-mapping"><span class="nav-num">02</span>Acceptance</a>
+    <a class="nav-item" href="#coverage-plan"><span class="nav-num">03</span>Coverage</a>
+    <a class="nav-item" href="#commands-and-evidence"><span class="nav-num">04</span>Evidence</a>
+    <a class="nav-item" href="#risk-based-signal-choice"><span class="nav-num">05</span>Risk</a>
+    <a class="nav-item" href="#gaps-and-followups"><span class="nav-num">06</span>Gaps</a>
+    <a class="nav-item" href="#coevolution-rule"><span class="nav-num">07</span>Co-evolution</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract">
+    <div class="spec-eyebrow">Example · fup.kitchen-queue.test</div>
+    <h1>Kitchen queue verification contract</h1>
+    <p class="lede">The kitchen queue is correct when a staff user can advance order items quickly and safely, customers see committed status changes, concurrent tablets cannot corrupt status, and reconnect recovery preserves the true queue.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Validates:</strong> <a data-spec-link="fup.kitchen-queue.descriptive" href="./descriptive-spec-example.html">descriptive</a> + <a data-spec-link="fup.kitchen-queue.technical" href="./technical-spec-example.html">technical</a></div>
+      <div><strong>Updated:</strong> 2026-05-11</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
+      <h2>Acceptance conditions mapped to specs</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Condition</th><th>Maps to</th><th>Must prove</th></tr></thead>
+        <tbody>
+          <tr><td>KQ-A1</td><td>Staff can advance an item from received to in progress to ready with one tap per transition.</td><td><code>fup.kitchen-queue.descriptive#interface-journey</code></td><td>UI updates and customer tracker reflects committed status.</td></tr>
+          <tr><td>KQ-A2</td><td>Staff cannot skip received directly to ready.</td><td><code>fup.kitchen-queue.descriptive#states-and-rules</code>, <code>fup.kitchen-queue.technical#data-contract</code></td><td>Invalid transition is rejected and current server state is shown.</td></tr>
+          <tr><td>KQ-A3</td><td>Two tablets updating the same item cannot double-advance or lose the true state.</td><td><code>fup.kitchen-queue.technical#concurrency-and-timing</code></td><td>One write wins; stale client receives latest state.</td></tr>
+          <tr><td>KQ-A4</td><td>Reconnect catches up to committed queue state.</td><td><code>fup.kitchen-queue.descriptive#edge-cases</code>, <code>fup.kitchen-queue.technical#failure-modes</code></td><td>Disconnected client disables writes, reconnects, and renders latest events or full refetch.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
+      <h2>Unit, integration, e2e, and manual coverage</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Level</th><th>Path or evidence</th><th>Status</th><th>Why this level</th></tr></thead>
+        <tbody>
+          <tr><td>KQ-D1</td><td>component</td><td><code>client/src/components/kitchen/order-card.test.tsx</code></td><td>planned</td><td>Cheapest reliable check for labels, actions, and disabled states.</td></tr>
+          <tr><td>KQ-T1</td><td>integration</td><td><code>server/src/routes/kitchen-orders.test.ts</code></td><td>planned</td><td>Concurrency and transaction behavior need route plus database behavior.</td></tr>
+          <tr><td>KQ-T2</td><td>unit</td><td><code>shared/order-status.test.ts</code></td><td>planned</td><td>Transition table and payload names should fail fast without UI.</td></tr>
+          <tr><td>KQ-A1</td><td>e2e</td><td><code>client/tests/e2e/kitchen-queue.spec.ts</code></td><td>planned</td><td>Customer tracker sync crosses staff UI, server state, and customer UI.</td></tr>
+          <tr><td>KQ-M1</td><td>manual</td><td><code>evidence/kitchen-queue/tablet-density.png</code></td><td>gap</td><td>Tablet scanability needs visual review until visual regression is wired.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">
+      <h2>Commands or evidence required</h2>
+      <ul class="path-list">
+        <li><code>npm test -- order-card</code> - proves card state labels, one-tap actions, pending disabled state, and accepted status text.</li>
+        <li><code>npm test -- kitchen-orders</code> - proves transition guard, stale version handling, row-lock behavior, and event persistence.</li>
+        <li><code>npm test -- order-status</code> - proves status transition table and event payload keys.</li>
+        <li><code>npm run test:e2e -- kitchen-queue</code> - proves staff update and customer tracker synchronization across the stack.</li>
+        <li><code>evidence/kitchen-queue/tablet-density.png</code> - manual screenshot showing active queue on 10-inch landscape viewport.</li>
+      </ul>
+    </section>
+
+    <section id="risk-based-signal-choice" data-spec-section="risk-based-signal-choice" data-section-type="risk">
+      <h2>Risk-based signal choice</h2>
+      <table class="status-table">
+        <thead><tr><th>Risk</th><th>Signal</th><th>Why not cheaper?</th><th>Why not broader?</th></tr></thead>
+        <tbody>
+          <tr><td>Status corruption during rush</td><td>Integration</td><td>Unit tests cannot prove transaction and stale-write behavior.</td><td>E2E would be slower and less precise for concurrency edge cases.</td></tr>
+          <tr><td>Staff taps wrong action due to unclear card state</td><td>Component + manual screenshot</td><td>Pure unit tests cannot verify visible card anatomy.</td><td>E2E does not need to cover every visual state.</td></tr>
+          <tr><td>Customer sees status too early</td><td>E2E</td><td>Needs staff action, server commit, websocket, and customer tracker together.</td><td>Manual-only would be too easy to skip and hard to reproduce.</td></tr>
+          <tr><td>Event payload drift</td><td>Unit</td><td>Cheap and deterministic.</td><td>Broader tests would catch drift later with worse error messages.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
+      <h2>Gaps and follow-up tests</h2>
+      <table class="status-table">
+        <thead><tr><th>Gap</th><th>Risk</th><th>Owner</th><th>Follow-up trigger</th></tr></thead>
+        <tbody>
+          <tr><td>Websocket reconnect helper does not exist.</td><td>medium</td><td>Kitchen queue implementer</td><td>Before shipping reconnect behavior beyond manual QA.</td></tr>
+          <tr><td>Tablet density has no visual regression.</td><td>low</td><td>Frontend owner</td><td>Before adding more order card metadata.</td></tr>
+          <tr><td>Delivery completion flow not covered here.</td><td>medium</td><td>Order operations owner</td><td>When delivery route assignment enters scope.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coevolution-rule" data-spec-section="coevolution-rule" data-section-type="maintenance">
+      <h2>Co-evolution rule</h2>
+      <div class="callout warning"><strong>Required:</strong> if <a data-spec-link="fup.kitchen-queue.descriptive" href="./descriptive-spec-example.html">fup.kitchen-queue.descriptive</a> changes any state, label, journey step, or recovery path, this test spec must change in the same commit. If this test spec changes, code-level tests must be regenerated or updated.</div>
+      <p>Reviewers should reject a kitchen queue behavior diff when code paths change without corresponding updates to the descriptive spec, technical spec, and this test spec coverage table.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Example test spec · Fired Up Pizza</p>
+</main>
+</body>
+</html>

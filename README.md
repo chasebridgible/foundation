@@ -12,7 +12,8 @@ This repo is the written substrate for that idea.
 
 1. Start with [The Compounding System](docs/compounding-systems.html). It explains the framework everything else fits inside.
 2. Read [Core Principles](docs/principles/core-principles.html). These are the cross-domain rules for building systems that improve over time.
-3. Explore from there based on what you need: software-specific principles, the working spec, or definitions.
+3. Read [The Spec System](docs/specs/index.html) when you are building or changing software. It defines where product intent, technical intent, test intent, related specs, code paths, and update obligations live.
+4. Explore from there based on what you need: software-specific principles, the working spec, definitions, or spec templates.
 
 ## Core Concepts
 
@@ -20,7 +21,14 @@ This repo is the written substrate for that idea.
 - [Core Principles](docs/principles/core-principles.html)
 - [Software Development Principles](docs/principles/sw-principles.html)
 - [Building Software with Agents: A Working Spec](docs/general/operating-spec.html)
+- [Spec System](docs/specs/index.html)
 - [Definitions](docs/definitions/sw-definitions.html)
+
+## Spec System
+
+Specs are durable contracts for what should exist. They are not stale plans or traditional documentation. Start at [docs/specs/index.html](docs/specs/index.html) for the registry, templates, examples, linking model, and maintenance process.
+
+Future agents should use the embedded registry in `docs/specs/index.html` to resolve spec IDs to files, related specs, owned implementation paths, and test coverage. When code behavior changes, update the relevant descriptive, technical, and test specs in the same commit.
 
 ## Thesis
 

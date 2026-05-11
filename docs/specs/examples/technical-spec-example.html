@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="fup.kitchen-queue.technical">
+<meta name="spec:type" content="technical">
+<meta name="spec:status" content="active">
+<meta name="spec:owner" content="Foundation example">
+<meta name="spec:last-updated" content="2026-05-11">
+<title>Fired Up Pizza Kitchen Queue - Technical Spec Example</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "fup.kitchen-queue.technical",
+  "title": "Fired Up Pizza Kitchen Queue - Technical Spec Example",
+  "type": "technical",
+  "status": "active",
+  "owner": "Foundation example",
+  "lastUpdated": "2026-05-11",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "fup.kitchen-queue.descriptive",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "fup.kitchen-queue.descriptive", "relationship": "parent", "sections": ["states-and-rules", "ux-contracts"] },
+    { "id": "fup.kitchen-queue.test", "relationship": "validated-by", "sections": ["risk-based-signal-choice"] }
+  ],
+  "ownedPaths": [
+    { "path": "server/src/routes/kitchen-orders.ts", "kind": "source", "ownership": "direct", "symbols": ["patchOrderItemStatus"] },
+    { "path": "server/src/services/order-status-bus.ts", "kind": "source", "ownership": "direct", "symbols": ["OrderStatusBus"] },
+    { "path": "shared/order-status.ts", "kind": "source", "ownership": "direct", "symbols": ["OrderStatus", "KitchenQueueEvent"] },
+    { "path": "server/db/migrations/20260511_order_item_status.sql", "kind": "migration", "ownership": "direct" }
+  ],
+  "implementationPaths": [
+    { "path": "client/src/pages/kitchen-queue.tsx", "kind": "source", "ownership": "reference", "symbols": ["KitchenQueuePage"] }
+  ],
+  "coverage": [
+    { "id": "KQ-T1", "level": "integration", "status": "planned", "path": "server/src/routes/kitchen-orders.test.ts", "mapsTo": ["fup.kitchen-queue.technical#concurrency-and-timing"], "command": "npm test -- kitchen-orders", "evidence": "Concurrent status updates serialize by order item." },
+    { "id": "KQ-T2", "level": "unit", "status": "planned", "path": "shared/order-status.test.ts", "mapsTo": ["fup.kitchen-queue.technical#contracts"], "command": "npm test -- order-status", "evidence": "Event payloads and status transitions match contract." }
+  ],
+  "tags": ["example", "fired-up-pizza", "kitchen", "orders", "websocket"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+    <div>
+      <div class="sidebar-title">Kitchen Queue</div>
+      <div class="sidebar-sub">technical</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Technical</div>
+    <a class="nav-item active" href="#when-required"><span class="nav-num">01</span>Why needed</a>
+    <a class="nav-item" href="#internal-sequence"><span class="nav-num">02</span>Sequence</a>
+    <a class="nav-item" href="#data-contract"><span class="nav-num">03</span>Data contract</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">04</span>Events</a>
+    <a class="nav-item" href="#concurrency-and-timing"><span class="nav-num">05</span>Concurrency</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">06</span>Failures</a>
+    <a class="nav-item" href="#boundaries"><span class="nav-num">07</span>Boundaries</a>
+    <a class="nav-item" href="#migrations-and-adrs"><span class="nav-num">08</span>Migrations</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">09</span>Coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="when-required" data-spec-section="when-required" data-section-type="decision-rule">
+    <div class="spec-eyebrow">Example · fup.kitchen-queue.technical</div>
+    <h1>Kitchen queue technical contract</h1>
+    <p class="lede">This feature needs a technical spec because there are many plausible ways to move order state in real time. This spec chooses a server-authoritative status transition model with websocket fanout and stale-write protection.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Parent:</strong> <a data-spec-link="fup.kitchen-queue.descriptive" href="./descriptive-spec-example.html">fup.kitchen-queue.descriptive</a></div>
+      <div><strong>Updated:</strong> 2026-05-11</div>
+    </div>
+    <h3>Non-goals</h3>
+    <ul>
+      <li>No peer-to-peer tablet sync. All writes go through the server.</li>
+      <li>No optimistic customer status beyond the last committed server state.</li>
+      <li>No kitchen batching algorithm in v1. Sorting uses promised time and created time only.</li>
+    </ul>
+  </section>
+
+  <article class="doc-body">
+    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
+      <h2>Internal sequence</h2>
+      <ol>
+        <li><strong>Client sends mutation:</strong> <code>PATCH /api/orders/:orderId/items/:itemId/status</code> with the requested next status and the card's last seen <code>version</code>.</li>
+        <li><strong>Server validates:</strong> staff PIN session, store access, item belongs to store, transition is legal, and client version is not stale.</li>
+        <li><strong>Server mutates:</strong> one database transaction updates the order item status, increments item version, recalculates aggregate order status, and writes an order status event row.</li>
+        <li><strong>Server publishes:</strong> <code>OrderStatusBus</code> emits <code>kitchen.order.updated</code> to staff tablets and <code>customer.order.statusChanged</code> to customer trackers.</li>
+        <li><strong>Client reconciles:</strong> kitchen queue applies the event by order ID and version. Older events are ignored.</li>
+      </ol>
+    </section>
+
+    <section id="data-contract" data-spec-section="data-contract" data-section-type="data-model">
+      <h2>Data model</h2>
+      <table class="status-table">
+        <thead><tr><th>Entity</th><th>Fields</th><th>Invariant</th><th>Owner</th></tr></thead>
+        <tbody>
+          <tr><td>OrderItem</td><td><code>id, order_id, status, version, updated_at</code></td><td>Status can only move <code>received -> in-progress -> ready</code>.</td><td><code>server/src/routes/kitchen-orders.ts</code></td></tr>
+          <tr><td>Order</td><td><code>id, status, promised_at, fulfillment_type, version</code></td><td>Aggregate status is derived from child item statuses except cancelation.</td><td><code>server/src/services/order-status-bus.ts</code></td></tr>
+          <tr><td>OrderStatusEvent</td><td><code>id, order_id, version, event_name, payload, created_at</code></td><td>Every published status event has a durable row for reconnect catch-up.</td><td><code>server/db/migrations/20260511_order_item_status.sql</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
+      <h2>API and websocket contracts</h2>
+      <h3>Status mutation request</h3>
+      <pre><code>{
+  "nextStatus": "in-progress",
+  "lastSeenVersion": 7
+}</code></pre>
+      <h3>Kitchen queue event</h3>
+      <pre><code>{
+  "event": "kitchen.order.updated",
+  "orderId": "ord_123",
+  "version": 8,
+  "orderStatus": "in-progress",
+  "items": [
+    { "id": "item_1", "status": "in-progress", "version": 8 }
+  ],
+  "occurredAt": "2026-05-11T15:24:00.000Z"
+}</code></pre>
+      <p>Event names and payload field names are contract names. A code change that renames them must update this spec and the test spec in the same commit.</p>
+    </section>
+
+    <section id="concurrency-and-timing" data-spec-section="concurrency-and-timing" data-section-type="concurrency">
+      <h2>Timing, concurrency, and ordering</h2>
+      <ul>
+        <li><strong>Stale write:</strong> if <code>lastSeenVersion</code> is older than the server item version, the server returns <code>409</code> with the latest item and order state.</li>
+        <li><strong>Concurrent taps:</strong> item update uses a row-level lock. The first legal transition commits; the second receives the newer state and does not double-advance.</li>
+        <li><strong>Event order:</strong> clients apply an event only if <code>event.version &gt; current.version</code> for that order.</li>
+        <li><strong>Normal propagation target:</strong> kitchen tablets and customer trackers should reflect committed status within 2 seconds under normal network conditions.</li>
+        <li><strong>Reconnect catch-up:</strong> on reconnect, client requests events since its last seen order version, then falls back to full queue fetch if the gap cannot be filled.</li>
+      </ul>
+    </section>
+
+    <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+      <h2>Failure modes</h2>
+      <table class="status-table">
+        <thead><tr><th>Failure</th><th>System behavior</th><th>User behavior</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Database update fails</td><td>Transaction rolls back. No event row is written.</td><td>Card returns to previous state with retry message.</td><td>KQ-T1 integration test.</td></tr>
+          <tr><td>Websocket publish fails after commit</td><td>Event row remains durable. Reconnect catch-up returns it.</td><td>Tablet may lag, then catches up after reconnect.</td><td>KQ-T3 reconnect test.</td></tr>
+          <tr><td>Invalid transition</td><td>Server rejects with <code>422</code> and current state.</td><td>Card updates to current state and shows "Updated elsewhere" if applicable.</td><td>KQ-T2 unit test.</td></tr>
+          <tr><td>Unauthorized staff session</td><td>Server rejects with <code>401</code>.</td><td>Queue locks and prompts for staff PIN.</td><td>Auth integration test.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="boundaries" data-spec-section="boundaries" data-section-type="boundaries">
+      <h2>Boundaries and abstraction level</h2>
+      <ul>
+        <li><strong>Owns:</strong> kitchen status mutation route, status transition helper, websocket event payload, reconnect catch-up query, order item status migration.</li>
+        <li><strong>References:</strong> kitchen page rendering from <a data-spec-link="fup.kitchen-queue.descriptive" href="./descriptive-spec-example.html">descriptive spec</a>.</li>
+        <li><strong>Does not own:</strong> Stripe webhook handling, menu CRUD, staff PIN auth internals, customer checkout.</li>
+      </ul>
+    </section>
+
+    <section id="migrations-and-adrs" data-spec-section="migrations-and-adrs" data-section-type="decisions">
+      <h2>Migrations and ADR links</h2>
+      <ul>
+        <li><strong>Migration:</strong> <code>server/db/migrations/20260511_order_item_status.sql</code> adds <code>version</code> to <code>order_items</code> and creates <code>order_status_events</code>.</li>
+        <li><strong>ADR candidate:</strong> <code>docs/adr/0004-server-authoritative-kitchen-status.md</code> should be created if the team debates optimistic local writes versus server-authoritative status.</li>
+      </ul>
+    </section>
+
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Related paths and coverage</h2>
+      <ul class="path-list">
+        <li data-implementation-path="server/src/routes/kitchen-orders.ts"><code>server/src/routes/kitchen-orders.ts</code> - mutation route and transition validation.</li>
+        <li data-implementation-path="server/src/services/order-status-bus.ts"><code>server/src/services/order-status-bus.ts</code> - event persistence and websocket fanout.</li>
+        <li data-implementation-path="shared/order-status.ts"><code>shared/order-status.ts</code> - shared status and event types.</li>
+        <li data-implementation-path="server/db/migrations/20260511_order_item_status.sql"><code>server/db/migrations/20260511_order_item_status.sql</code> - versioning and durable event table.</li>
+      </ul>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Risk</th><th>Coverage</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>KQ-T1</td><td>Concurrent taps double-advance an item.</td><td>Integration test with two simultaneous PATCH requests.</td><td>planned</td></tr>
+          <tr><td>KQ-T2</td><td>Client and server disagree on legal transitions.</td><td>Unit tests for shared transition table.</td><td>planned</td></tr>
+          <tr><td>KQ-T3</td><td>Published event is lost after commit.</td><td>Reconnect integration test using durable event row.</td><td>gap</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Example technical spec · Fired Up Pizza</p>
+</main>
+</body>
+</html>
