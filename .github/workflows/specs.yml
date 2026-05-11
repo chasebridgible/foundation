@@ -1,0 +1,24 @@
+name: Specs
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  spec-check:
+    name: Spec registry and metadata
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate generated spec registry
+        run: npm run spec:check

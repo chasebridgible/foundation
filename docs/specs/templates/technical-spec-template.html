@@ -6,7 +6,6 @@
 <meta name="spec:id" content="foundation.spec-template.technical">
 <meta name="spec:type" content="template">
 <meta name="spec:status" content="active">
-<meta name="spec:owner" content="Foundation">
 <meta name="spec:last-updated" content="2026-05-11">
 <title>Technical Spec Template</title>
 <link rel="stylesheet" href="../spec-system.css">
@@ -17,7 +16,6 @@
   "title": "Technical Spec Template",
   "type": "template",
   "status": "active",
-  "owner": "Foundation",
   "lastUpdated": "2026-05-11",
   "reviewCadence": "quarterly",
   "confidence": "high",
@@ -60,7 +58,7 @@
 </nav>
 
 <main class="main">
-  <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule">
+  <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
     <div class="spec-eyebrow">Template · technical spec</div>
     <h1>[Feature name] technical spec</h1>
     <p class="lede">Use a technical spec for every software task. Scale the level of detail to the task: compact for small changes, deeper when internal contracts, timing, data, concurrency, migration, or integration behavior materially affect correctness.</p>
@@ -92,7 +90,7 @@
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table">
-        <thead><tr><th>Entity</th><th>Fields</th><th>Invariant</th><th>Owner</th></tr></thead>
+        <thead><tr><th>Entity</th><th>Fields</th><th>Invariant</th><th>Spec/module</th></tr></thead>
         <tbody>
           <tr><td>[entity]</td><td><code>[field: type]</code></td><td>[rule that must stay true]</td><td>[module/spec]</td></tr>
         </tbody>

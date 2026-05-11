@@ -6,7 +6,6 @@
 <meta name="spec:id" content="foundation.spec-linking">
 <meta name="spec:type" content="linking">
 <meta name="spec:status" content="active">
-<meta name="spec:owner" content="Foundation">
 <meta name="spec:last-updated" content="2026-05-11">
 <title>Spec Linking Model - Foundation</title>
 <link rel="stylesheet" href="./spec-system.css">
@@ -17,11 +16,11 @@
   "title": "Spec Linking Model",
   "type": "linking",
   "status": "active",
-  "owner": "Foundation",
   "lastUpdated": "2026-05-11",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": "foundation.spec-system",
+  "children": [],
   "relatedSpecs": [
     { "id": "foundation.spec-system", "relationship": "parent", "sections": ["registry"] },
     { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["update-obligations"] }
@@ -29,7 +28,9 @@
   "ownedPaths": [
     { "path": "foundation/docs/specs/linking.html", "kind": "doc", "ownership": "direct" }
   ],
-  "coverage": []
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": ["linking", "registry", "metadata"]
 }
 </script>
 </head>
@@ -57,7 +58,7 @@
   <section id="overview" data-spec-section="overview" data-section-type="summary">
     <div class="spec-eyebrow">Foundation · docs/specs/linking.html</div>
     <h1>Spec linking model</h1>
-    <p class="lede">The linking model gives HTML specs the machine-readable affordances Markdown frontmatter used to provide, while keeping the artifact pleasant for humans in a browser.</p>
+    <p class="lede">The linking model makes each HTML spec both the human-readable contract and the machine-readable source of truth.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
       <div><strong>Updated:</strong> 2026-05-11</div>
@@ -66,20 +67,21 @@
   </section>
 
   <article class="doc-body">
-    <section id="html-native-metadata" data-spec-section="html-native-metadata" data-section-type="machine-contract">
+    <section id="html-native-metadata" data-spec-section="html-native-metadata" data-section-type="machine-contract" data-spec-canonical="true">
       <h2>HTML-native metadata</h2>
-      <p>Each spec has three machine-readable layers. Agents should read them in this order before reading prose.</p>
+      <p>Each spec has machine-readable layers. Agents should read them in this order before reading prose.</p>
       <table class="status-table">
         <thead><tr><th>Layer</th><th>Example</th><th>Use</th></tr></thead>
         <tbody>
           <tr><td>Stable file path</td><td><code>foundation/docs/specs/examples/test-spec-example.html</code></td><td>Filesystem discovery and durable linking.</td></tr>
           <tr><td>HTML meta tags</td><td><code>&lt;meta name="spec:id" content="fup.kitchen-queue.test"&gt;</code></td><td>Cheap parse without loading body content.</td></tr>
-          <tr><td>Embedded JSON</td><td><code>&lt;script type="application/json" id="spec-metadata"&gt;</code></td><td>Full metadata: links, paths, coverage, status, ownership.</td></tr>
+          <tr><td>Embedded JSON</td><td><code>&lt;script type="application/json" id="spec-metadata"&gt;</code></td><td>Canonical metadata: links, paths, coverage, status, cadence, confidence.</td></tr>
           <tr><td>Section attributes</td><td><code>&lt;section id="states-and-rules" data-spec-section="states-and-rules"&gt;</code></td><td>Precise section loading and acceptance mapping.</td></tr>
+          <tr><td>Canonical section marker</td><td><code>data-spec-canonical="true"</code></td><td>One section per spec can define the generated registry entry point.</td></tr>
           <tr><td>Link attributes</td><td><code>&lt;a data-spec-link=&quot;fup.kitchen-queue.test&quot; href=&quot;./test-spec-example.html&quot;&gt;</code></td><td>Human links that still resolve by stable ID.</td></tr>
         </tbody>
       </table>
-      <p>Human-facing links can use friendly labels. If a page uses wiki-style aliases or natural prose links, it still needs <code>data-spec-link</code> or registry entries so agents can resolve them without visual inference.</p>
+      <p>Human-facing links can use friendly labels. If a page uses wiki-style aliases or natural prose links, it still needs <code>data-spec-link</code> or canonical <code>spec-metadata</code> so agents can resolve them without visual inference.</p>
     </section>
 
     <section id="multi-level-specs" data-spec-section="multi-level-specs" data-section-type="graph-rule">
@@ -105,7 +107,7 @@
     <section id="resolution" data-spec-section="resolution" data-section-type="agent-navigation">
       <h2>Resolution algorithm</h2>
       <ol>
-        <li>Parse <code>foundation/docs/specs/index.html#spec-registry</code>.</li>
+        <li>Parse <code>foundation/docs/specs/index.html#spec-registry</code>, the generated index built from each HTML spec's canonical <code>spec-metadata</code>.</li>
         <li>If starting from a code path, match exact path in <code>ownedPaths</code>, then fallback to <code>implementationPaths</code>.</li>
         <li>If multiple specs match, prefer direct ownership over reference ownership, then prefer lower-level child specs over parents.</li>
         <li>Load the descriptive spec for intent, the test spec for done conditions, and the technical spec for the internal contract. The technical spec is always required; its depth scales with the task.</li>
@@ -121,9 +123,9 @@
       <table class="status-table">
         <thead><tr><th>Change</th><th>Agent obligation</th><th>Review check</th></tr></thead>
         <tbody>
-          <tr><td>File moved</td><td>Update every matching <code>ownedPaths.path</code>, visible path list, and coverage path.</td><td>Search old path across specs before final answer.</td></tr>
-          <tr><td>File deleted</td><td>Remove or replace path references, and explain whether spec ownership moved to a child spec.</td><td>No registry entry points at a missing file unless status is retired and notes explain why.</td></tr>
-          <tr><td>Test renamed</td><td>Update test spec coverage and registry coverage entries.</td><td>Acceptance IDs still map to the right section IDs.</td></tr>
+          <tr><td>File moved</td><td>Update every matching <code>ownedPaths.path</code>, visible path list, and coverage path, then regenerate the registry.</td><td>Search old path across specs before final answer.</td></tr>
+          <tr><td>File deleted</td><td>Remove or replace path references, and explain whether spec ownership moved to a child spec.</td><td>No generated registry entry points at a missing file unless status is retired and notes explain why.</td></tr>
+          <tr><td>Test renamed</td><td>Update test spec coverage and regenerate the registry.</td><td>Acceptance IDs still map to the right section IDs.</td></tr>
           <tr><td>Feature split</td><td>Create child specs or re-home ownership, then remove duplicated paths from parents.</td><td>High-level spec links to children instead of owning every leaf path.</td></tr>
         </tbody>
       </table>
@@ -135,7 +137,6 @@
         <thead><tr><th>Field</th><th>Values</th><th>Meaning</th></tr></thead>
         <tbody>
           <tr><td><code>status</code></td><td>draft, active, retired, replaced</td><td>Whether the spec can drive new work.</td></tr>
-          <tr><td><code>owner</code></td><td>Person, team, or repo owner</td><td>Who is accountable for keeping intent current.</td></tr>
           <tr><td><code>reviewCadence</code></td><td>per-change, monthly, quarterly, on-trigger</td><td>When the spec must be re-read even without code changes.</td></tr>
           <tr><td><code>confidence</code></td><td>low, medium, high</td><td>How settled the current contract is.</td></tr>
           <tr><td><code>lastUpdated</code></td><td>ISO date</td><td>When the contract last changed.</td></tr>

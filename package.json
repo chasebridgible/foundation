@@ -1,0 +1,9 @@
+{
+  "name": "foundation",
+  "private": true,
+  "scripts": {
+    "spec:registry": "node docs/specs/generate-registry.mjs",
+    "spec:check": "node docs/specs/generate-registry.mjs --check && node docs/specs/check-specs.mjs",
+    "site-map": "node docs/generate-site-map.mjs"
+  }
+}

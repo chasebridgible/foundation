@@ -26,9 +26,9 @@ This repo is the written substrate for that idea.
 
 ## Spec System
 
-Specs are durable contracts for what should exist. They are not stale plans or traditional documentation. Start at [docs/specs/index.html](docs/specs/index.html) for the registry, templates, examples, linking model, and maintenance process.
+Specs are HTML-native durable contracts for what should exist. They are not stale plans or traditional documentation. Start at [docs/specs/index.html](docs/specs/index.html) for the registry, templates, examples, linking model, and maintenance process.
 
-Future agents should use the embedded registry in `docs/specs/index.html` to resolve spec IDs to files, related specs, owned implementation paths, and test coverage. When code behavior changes, update the relevant descriptive, technical, and test specs in the same commit.
+Future agents should use the embedded registry in `docs/specs/index.html` to resolve spec IDs to files, related specs, owned implementation paths, and test coverage. Each spec's embedded `spec-metadata` is canonical; the registry is generated from those HTML specs. When code behavior changes, update the relevant descriptive, technical, and test specs in the same commit, run `npm run spec:registry`, then run `npm run spec:check`. CI runs the same check on pull requests and pushes to `main`.
 
 ## Thesis
 

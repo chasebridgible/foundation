@@ -6,7 +6,6 @@
 <meta name="spec:id" content="foundation.spec-process">
 <meta name="spec:type" content="process">
 <meta name="spec:status" content="active">
-<meta name="spec:owner" content="Foundation">
 <meta name="spec:last-updated" content="2026-05-11">
 <title>Spec Maintenance Process - Foundation</title>
 <link rel="stylesheet" href="./spec-system.css">
@@ -17,11 +16,11 @@
   "title": "Spec Maintenance Process",
   "type": "process",
   "status": "active",
-  "owner": "Foundation",
   "lastUpdated": "2026-05-11",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": "foundation.spec-system",
+  "children": [],
   "relatedSpecs": [
     { "id": "foundation.spec-system", "relationship": "parent", "sections": ["registry"] },
     { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["path-update-loop"] }
@@ -29,7 +28,9 @@
   "ownedPaths": [
     { "path": "foundation/docs/specs/process.html", "kind": "doc", "ownership": "direct" }
   ],
-  "coverage": []
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": ["process", "spec-test-prompt-execute"]
 }
 </script>
 </head>
@@ -47,9 +48,10 @@
     <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
     <a class="nav-item" href="#workflow-contract"><span class="nav-num">01</span>Workflow contract</a>
     <a class="nav-item" href="#reading-order"><span class="nav-num">02</span>Reading order</a>
-    <a class="nav-item" href="#update-obligations"><span class="nav-num">03</span>Update obligations</a>
-    <a class="nav-item" href="#blockers-and-exits"><span class="nav-num">04</span>Blockers and exits</a>
-    <a class="nav-item" href="#workflow-skills"><span class="nav-num">05</span>Workflow skills</a>
+    <a class="nav-item" href="#spec-authoring"><span class="nav-num">03</span>Spec authoring</a>
+    <a class="nav-item" href="#update-obligations"><span class="nav-num">04</span>Update obligations</a>
+    <a class="nav-item" href="#blockers-and-exits"><span class="nav-num">05</span>Blockers and exits</a>
+    <a class="nav-item" href="#workflow-skills"><span class="nav-num">06</span>Workflow skills</a>
   </div>
 </nav>
 
@@ -66,7 +68,7 @@
   </section>
 
   <article class="doc-body">
-    <section id="workflow-contract" data-spec-section="workflow-contract" data-section-type="process-contract">
+    <section id="workflow-contract" data-spec-section="workflow-contract" data-section-type="process-contract" data-spec-canonical="true">
       <h2>Workflow contract</h2>
       <p>The durable loop is <strong>spec -> test -> prompt -> execute</strong>. The steps are the contract; the workflow skills that run inside them can change.</p>
       <table class="status-table">
@@ -75,7 +77,7 @@
           <tr><td>Spec</td><td>State what should exist, who it serves, what rules govern it, and where intent lives.</td><td>Descriptive spec; technical spec scaled to task depth; related ADR if a decision is non-obvious.</td></tr>
           <tr><td>Test</td><td>Convert intent into a verification contract before implementation claims success.</td><td>Test spec plus code-level tests or planned gaps.</td></tr>
           <tr><td>Prompt</td><td>Load only the relevant specs, tests, rules, skills, and code paths.</td><td>Run prompt or board/session record, not a stale plan file.</td></tr>
-          <tr><td>Execute</td><td>Change code, tests, and specs together, then produce evidence.</td><td>Diff, passing commands, screenshots/traces where useful, registry updates.</td></tr>
+          <tr><td>Execute</td><td>Change code, tests, and specs together, then produce evidence.</td><td>Diff, passing commands, screenshots/traces where useful, passing <code>npm run spec:check</code>.</td></tr>
         </tbody>
       </table>
       <div class="callout warning"><strong>Recovery rule:</strong> when a step fails, correct the smallest upstream artifact, usually the spec, then regenerate downstream tests and prompts.</div>
@@ -93,16 +95,33 @@
       </ol>
     </section>
 
+    <section id="spec-authoring" data-spec-section="spec-authoring" data-section-type="authoring-contract">
+      <h2>Spec authoring</h2>
+      <p>When a human and agent create or revise a spec together, the HTML spec is the authored source. The generated registry is only the index.</p>
+      <ol>
+        <li>Search the registry first. Update an existing spec when it already owns the behavior; create a new spec only when the behavior needs its own durable contract.</li>
+        <li>Copy the closest HTML template: descriptive for product intent, technical for internal behavior, or test for verification.</li>
+        <li>Fill <code>spec-metadata</code> before relying on the prose. Use a stable dotted <code>id</code>, accurate <code>title</code>, valid <code>type</code>, <code>status</code>, <code>lastUpdated</code>, <code>reviewCadence</code>, and <code>confidence</code>. Do not add document-level owner metadata.</li>
+        <li>Set graph fields deliberately: <code>parent</code>, <code>children</code>, and <code>relatedSpecs</code>. Prefer linking to child specs over copying their leaf paths into a parent.</li>
+        <li>Map paths deliberately: <code>ownedPaths</code> for files this spec directly owns; <code>implementationPaths</code> for non-owning references that help navigation.</li>
+        <li>Map verification deliberately: <code>coverage</code> entries should point to tests or evidence and use <code>mapsTo</code> section references for the behavior they verify. Planned or gap coverage is acceptable when it is explicit.</li>
+        <li>Keep the cheap HTML tags aligned with metadata: <code>spec:id</code>, <code>spec:type</code>, <code>spec:status</code>, and <code>spec:last-updated</code>.</li>
+        <li>Mark exactly one entry section with <code>data-spec-canonical="true"</code>. The registry generator uses it for <code>canonicalSection</code>.</li>
+        <li>Update visible links, path lists, and coverage tables so the human-readable prose agrees with the metadata.</li>
+        <li>Run <code>npm run spec:registry</code>, then <code>npm run spec:check</code>. A human review still has to confirm the mappings are semantically true.</li>
+      </ol>
+    </section>
+
     <section id="update-obligations" data-spec-section="update-obligations" data-section-type="maintenance">
       <h2>Update obligations</h2>
       <table class="status-table">
         <thead><tr><th>Trigger</th><th>Required update</th><th>Same commit?</th></tr></thead>
         <tbody>
-          <tr><td>Product behavior changes</td><td>Descriptive spec section and mapped test spec acceptance condition.</td><td>Yes</td></tr>
-          <tr><td>Any implementation behavior changes</td><td>Technical spec depth adjusted to the task, plus mapped test spec risks where behavior is externally verifiable.</td><td>Yes</td></tr>
-          <tr><td>Code-level tests added, renamed, deleted, or regenerated</td><td>Test spec coverage table and registry coverage entries.</td><td>Yes</td></tr>
-          <tr><td>Owned file moved or deleted</td><td>All affected <code>ownedPaths</code>, <code>implementationPaths</code>, and coverage paths in metadata and visible path lists.</td><td>Yes</td></tr>
-          <tr><td>Spec retired or replaced</td><td>Status, <code>replacedBy</code>, registry links, and parent/child references.</td><td>Yes</td></tr>
+          <tr><td>Product behavior changes</td><td>Descriptive spec section and mapped test spec acceptance condition in canonical HTML <code>spec-metadata</code> and prose, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
+          <tr><td>Any implementation behavior changes</td><td>Technical spec depth adjusted to the task, plus mapped test spec risks where behavior is externally verifiable, followed by <code>npm run spec:registry</code> if metadata changed.</td><td>Yes</td></tr>
+          <tr><td>Code-level tests added, renamed, deleted, or regenerated</td><td>Test spec coverage table and canonical coverage entries in <code>spec-metadata</code>, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
+          <tr><td>Owned file moved or deleted</td><td>All affected <code>ownedPaths</code>, <code>implementationPaths</code>, and coverage paths in canonical metadata and visible path lists, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
+          <tr><td>Spec retired or replaced</td><td>Status, <code>replacedBy</code>, and parent/child references in canonical metadata, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
           <tr><td>New reusable workflow discovered</td><td>Convert to a workflow skill or SOP, then link from the relevant spec process note if needed.</td><td>Before relying on it again</td></tr>
         </tbody>
       </table>
@@ -124,7 +143,8 @@
         <li>Relevant specs state the current intended behavior.</li>
         <li>Test spec maps acceptance conditions to descriptive and technical sections.</li>
         <li>Code-level tests, manual evidence, or explicit gaps match the test spec.</li>
-        <li>Registry metadata resolves related specs, owned paths, and coverage paths.</li>
+        <li><code>npm run spec:check</code> proves the generated registry is current and resolves related specs, owned paths, coverage paths, and section references.</li>
+        <li>CI runs <code>npm run spec:check</code> on pull requests and pushes to <code>main</code>; stale generated registry output blocks the change.</li>
         <li>Final evidence names commands run and unresolved decisions.</li>
       </ul>
     </section>

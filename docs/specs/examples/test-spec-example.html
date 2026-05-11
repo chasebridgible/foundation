@@ -6,7 +6,6 @@
 <meta name="spec:id" content="fup.kitchen-queue.test">
 <meta name="spec:type" content="test">
 <meta name="spec:status" content="active">
-<meta name="spec:owner" content="Foundation example">
 <meta name="spec:last-updated" content="2026-05-11">
 <title>Fired Up Pizza Kitchen Queue - Test Spec Example</title>
 <link rel="stylesheet" href="../spec-system.css">
@@ -17,7 +16,6 @@
   "title": "Fired Up Pizza Kitchen Queue - Test Spec Example",
   "type": "test",
   "status": "active",
-  "owner": "Foundation example",
   "lastUpdated": "2026-05-11",
   "reviewCadence": "per-change",
   "confidence": "medium",
@@ -68,7 +66,7 @@
 </nav>
 
 <main class="main">
-  <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract">
+  <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
     <div class="spec-eyebrow">Example · fup.kitchen-queue.test</div>
     <h1>Kitchen queue verification contract</h1>
     <p class="lede">The kitchen queue is correct when a staff user can advance order items quickly and safely, customers see committed status changes, concurrent tablets cannot corrupt status, and reconnect recovery preserves the true queue.</p>
@@ -134,11 +132,11 @@
     <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
       <h2>Gaps and follow-up tests</h2>
       <table class="status-table">
-        <thead><tr><th>Gap</th><th>Risk</th><th>Owner</th><th>Follow-up trigger</th></tr></thead>
+        <thead><tr><th>Gap</th><th>Risk</th><th>Follow-up trigger</th></tr></thead>
         <tbody>
-          <tr><td>Websocket reconnect helper does not exist.</td><td>medium</td><td>Kitchen queue implementer</td><td>Before shipping reconnect behavior beyond manual QA.</td></tr>
-          <tr><td>Tablet density has no visual regression.</td><td>low</td><td>Frontend owner</td><td>Before adding more order card metadata.</td></tr>
-          <tr><td>Delivery completion flow not covered here.</td><td>medium</td><td>Order operations owner</td><td>When delivery route assignment enters scope.</td></tr>
+          <tr><td>Websocket reconnect helper does not exist.</td><td>medium</td><td>Before shipping reconnect behavior beyond manual QA.</td></tr>
+          <tr><td>Tablet density has no visual regression.</td><td>low</td><td>Before adding more order card metadata.</td></tr>
+          <tr><td>Delivery completion flow not covered here.</td><td>medium</td><td>When delivery route assignment enters scope.</td></tr>
         </tbody>
       </table>
     </section>

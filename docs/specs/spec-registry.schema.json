@@ -32,7 +32,6 @@
         "type",
         "status",
         "file",
-        "owner",
         "lastUpdated",
         "reviewCadence",
         "confidence",
@@ -63,7 +62,6 @@
           "type": "string",
           "description": "Optional section ID to load first when an agent only needs the entry point."
         },
-        "owner": { "type": "string" },
         "lastUpdated": { "type": "string", "format": "date" },
         "reviewCadence": {
           "type": "string",
@@ -162,7 +160,7 @@
         "id": { "type": "string" },
         "level": {
           "type": "string",
-          "enum": ["unit", "integration", "e2e", "manual", "visual", "static"]
+          "enum": ["unit", "component", "integration", "e2e", "manual", "visual", "static"]
         },
         "status": {
           "type": "string",

@@ -6,7 +6,6 @@
 <meta name="spec:id" content="fup.kitchen-queue.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:owner" content="Foundation example">
 <meta name="spec:last-updated" content="2026-05-11">
 <title>Fired Up Pizza Kitchen Queue - Technical Spec Example</title>
 <link rel="stylesheet" href="../spec-system.css">
@@ -17,7 +16,6 @@
   "title": "Fired Up Pizza Kitchen Queue - Technical Spec Example",
   "type": "technical",
   "status": "active",
-  "owner": "Foundation example",
   "lastUpdated": "2026-05-11",
   "reviewCadence": "per-change",
   "confidence": "medium",
@@ -86,7 +84,7 @@
   </section>
 
   <article class="doc-body">
-    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
+    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence" data-spec-canonical="true">
       <h2>Internal sequence</h2>
       <ol>
         <li><strong>Client sends mutation:</strong> <code>PATCH /api/orders/:orderId/items/:itemId/status</code> with the requested next status and the card's last seen <code>version</code>.</li>
@@ -100,7 +98,7 @@
     <section id="data-contract" data-spec-section="data-contract" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table">
-        <thead><tr><th>Entity</th><th>Fields</th><th>Invariant</th><th>Owner</th></tr></thead>
+        <thead><tr><th>Entity</th><th>Fields</th><th>Invariant</th><th>Spec/module</th></tr></thead>
         <tbody>
           <tr><td>OrderItem</td><td><code>id, order_id, status, version, updated_at</code></td><td>Status can only move <code>received -> in-progress -> ready</code>.</td><td><code>server/src/routes/kitchen-orders.ts</code></td></tr>
           <tr><td>Order</td><td><code>id, status, promised_at, fulfillment_type, version</code></td><td>Aggregate status is derived from child item statuses except cancelation.</td><td><code>server/src/services/order-status-bus.ts</code></td></tr>

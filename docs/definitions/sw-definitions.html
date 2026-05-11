@@ -394,9 +394,9 @@
     <h1>Definitions</h1>
     <p class="lede">Plain-language glossary of terms that show up across <code>docs/education/</code> and the wider agent / spec / harness conversation. Grow this over time.</p>
     <div class="meta-row">
-      <div><strong>Source:</strong> definitions/sw-definitions.md</div>
-      <div><strong>Generated:</strong> HTML companion</div>
-      <div><strong>Status:</strong> Mirrors Markdown</div>
+      <div><strong>Format:</strong> HTML-native</div>
+      <div><strong>Authoring:</strong> edit this HTML file</div>
+      <div><strong>Status:</strong> Canonical HTML</div>
     </div>
   </section>
 
@@ -426,7 +426,7 @@
 <p><strong>Data layer.</strong> Quantitative signals from the systems a business already runs — HubSpot, Stripe, the production database, the client's SQL warehouse, Slack, Linear. Tells you what <em>happened</em> (revenue last month, churn rate, ticket volume), not what the business <em>intends</em>. Accessed by agents through query tools (SQL, API wrappers, Printing Press-style CLIs) rather than markdown reads. Paired with the knowledge layer but distinct from it; quantitative answers come from here.</p>
 <p><strong>Delivery loop.</strong> The component of a compounding system that turns intake into shipped work and substrate updates. In this repo's vocabulary, the inner loop is <strong>spec → test → prompt → execute</strong> and the outer loop is review, integration, rollout, observation, and deprecation. Recursive — large goals contain smaller goals, each running its own cycle. The four steps are the contract; the structure inside them is open. See <code>sw-principles.md</code> §The delivery loop and <code>operating-spec.md</code> §2.</p>
 <p><strong>Entity propagation.</strong> The knowledge-layer pattern where updating one entity (a person, client, deal, project, meeting) automatically walks the graph and updates every related entity. After a meeting, the meeting page is not the end product — the propagation back to each person's page, each company's page, each related deal's page is. Without propagation, a knowledge layer is a filing cabinet; with it, it's a nervous system. <em>(After Garry Tan.)</em></p>
-<p><strong>Frontmatter.</strong> A small block of structured metadata at the top of a markdown file, fenced by <code>---</code> lines, written in YAML. Used to attach machine-readable info (title, tags, when-to-load rules, owner, type) to a human-readable doc. Static site generators (Jekyll, Hugo, Astro) use it for post metadata; Claude Code skills use it to tell the agent when a skill should be loaded into context. See the dedicated entry below.</p>
+<p><strong>Frontmatter.</strong> A small block of structured metadata at the top of a markdown file, fenced by <code>---</code> lines, written in YAML. Used to attach machine-readable info (title, tags, when-to-load rules, optional maintainer, type) to a human-readable doc. Static site generators (Jekyll, Hugo, Astro) use it for post metadata; Claude Code skills use it to tell the agent when a skill should be loaded into context. See the dedicated entry below.</p>
 <p><strong>Harness.</strong> Everything wrapped around the model: system prompts, <code>AGENTS.md</code>, skills, tools, MCP servers, sandboxes, hooks, observability, the loop itself. "Agent = model + harness." A <em>thin harness</em> is the design choice to keep this layer minimal — routing logic only, knows nothing about the domain — and invest the difference into skills, code, and structured knowledge; the alternative is a fat harness that tries to be the system itself and gets shipped past by the next frontier release. <em>(Slogan: "fat skills, fat code, fat data, thin harness," after Garry Tan.)</em> See <code>harness-osmani.md</code>.</p>
 <p><strong>Intake layer.</strong> The components of a compounding system that turn outside-the-system events into work the system can process. Four common sources: <strong>human inputs</strong> (you, Slack, conversations); <strong>monitoring</strong> (Sentry-class bug reports, alerts); <strong>user feedback</strong> (in-app reports, feature requests, support tickets); and <strong>ambient ingestion</strong> (background pulls of client SaaS, calendar, transcripts — the equivalent of Tan's 100 crons). All ideally land on the same task surface with metadata that lets the rest of the system prioritize, route, and attribute. The intake layer is where the <em>system meets the outside world.</em></p>
 <p><strong>Iterating layer.</strong> The components of a compounding system that get replaced on the frontier labs' cadence — the general harness, the runtime, framework choices, standard tool wrappers, vendor SDK wrappers. Useful while it's the best available; <em>rented leverage</em> rather than owned asset. The complement of substrate. The litmus test: would a frontier lab plausibly ship a better version within a year? If yes, iterating layer; treat investments here as short-term advantage with a known maintenance cost.</p>
@@ -512,7 +512,6 @@ description: Use when implementing a new behavior. Write the failing test first.
 when_to_use:
   - new feature
   - bug fix where root cause is unclear
-owner: chase
 ---
 
 # Test-Driven Development
@@ -527,7 +526,7 @@ owner: chase
 <li><code>description</code> — one-line "when does this apply." Critical: this is what the router reads.</li>
 <li><code>when_to_use</code> / <code>triggers</code> — list of situations or task types.</li>
 <li><code>tags</code> — categorical handles for grouping and search.</li>
-<li><code>owner</code> — who maintains it.</li>
+<li><code>maintainer</code> — optional; useful when accountability is distributed across a team.</li>
 <li><code>version</code> — for ratcheting and rollback.</li>
 </ul>
 <p><strong>Common fields you'll see in blog/note systems:</strong></p>
@@ -751,7 +750,7 @@ preferences:
 
   <section id="related" class="related-section">
     <h2>Related core concept docs</h2>
-    <p class="lede-2">Sibling HTML companions generated from the Markdown files in this folder.</p>
+    <p class="lede-2">Sibling HTML-native documents in this folder.</p>
     <div class="related-grid">
       <a class="related-card" href="../general/operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
 <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
@@ -761,7 +760,7 @@ preferences:
   </section>
 
   <hr>
-  <p class="footer-note">Core Concepts · generated from definitions/sw-definitions.md</p>
+  <p class="footer-note">Core Concepts · HTML-native document</p>
 </main>
 
 <script>
