@@ -134,7 +134,7 @@
       "type": "template",
       "status": "active",
       "file": "foundation/docs/specs/templates/technical-spec-template.html",
-      "canonicalSection": "when-required",
+      "canonicalSection": "required-depth",
       "owner": "Foundation",
       "lastUpdated": "2026-05-11",
       "reviewCadence": "quarterly",
@@ -316,14 +316,14 @@
         </div>
         <div class="card">
           <div class="card-title">From a feature name</div>
-          <div class="card-copy">Search registry titles, tags, and section IDs. Start with the descriptive spec, then load technical only when it exists or when implementation choices are non-obvious.</div>
+          <div class="card-copy">Search registry titles, tags, and section IDs. Start with the descriptive spec, then load the technical spec at the depth appropriate to the implementation risk.</div>
         </div>
         <div class="card">
           <div class="card-title">From a board card</div>
           <div class="card-copy">Read the card's explicit spec IDs if present. If absent, search by feature terms, confirm the candidate spec, and add the board card reference during substrate update.</div>
         </div>
       </div>
-      <p>The default reading order for implementation work is: descriptive spec section relevant to the user outcome, test spec acceptance mapping, technical spec only if required, then directly owned paths.</p>
+      <p>The default reading order for implementation work is: descriptive spec section relevant to the user outcome, test spec acceptance mapping, technical spec at the depth the task requires, then directly owned paths.</p>
     </section>
 
     <section id="templates" data-spec-section="templates" data-section-type="human-index">
@@ -335,7 +335,7 @@
         </a>
         <a class="related-card" data-spec-link="foundation.spec-template.technical" href="./templates/technical-spec-template.html">
           <div class="related-name">Technical spec template</div>
-          <div class="related-desc">Required only when many valid implementations are possible. Defines internals, contracts, timing, boundaries, migrations, ADRs, and non-goals.</div>
+          <div class="related-desc">Required for every software task. Defines internals, contracts, timing, boundaries, migrations, ADRs, and non-goals at a depth proportional to the task.</div>
         </a>
         <a class="related-card" data-spec-link="foundation.spec-template.test" href="./templates/test-spec-template.html">
           <div class="related-name">Test spec template</div>

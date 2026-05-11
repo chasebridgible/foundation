@@ -72,7 +72,7 @@
       <table class="status-table">
         <thead><tr><th>Step</th><th>Purpose</th><th>Durable output</th></tr></thead>
         <tbody>
-          <tr><td>Spec</td><td>State what should exist, who it serves, what rules govern it, and where intent lives.</td><td>Descriptive spec; technical spec if needed; related ADR if a decision is non-obvious.</td></tr>
+          <tr><td>Spec</td><td>State what should exist, who it serves, what rules govern it, and where intent lives.</td><td>Descriptive spec; technical spec scaled to task depth; related ADR if a decision is non-obvious.</td></tr>
           <tr><td>Test</td><td>Convert intent into a verification contract before implementation claims success.</td><td>Test spec plus code-level tests or planned gaps.</td></tr>
           <tr><td>Prompt</td><td>Load only the relevant specs, tests, rules, skills, and code paths.</td><td>Run prompt or board/session record, not a stale plan file.</td></tr>
           <tr><td>Execute</td><td>Change code, tests, and specs together, then produce evidence.</td><td>Diff, passing commands, screenshots/traces where useful, registry updates.</td></tr>
@@ -88,7 +88,7 @@
         <li>Read <a data-spec-link="foundation.spec-system" href="./index.html">the registry</a> and identify candidate specs by ID, path, title, tags, or board card.</li>
         <li>Load the relevant descriptive spec section first. Product intent outranks implementation convenience.</li>
         <li>Load the test spec acceptance mapping before editing code. The test spec tells the agent what will count as done.</li>
-        <li>Load a technical spec only when the registry says one exists or the change has multiple valid internal designs.</li>
+        <li>Load the technical spec for every implementation task. For small tasks, expect a compact internal contract; for complex tasks, expect deeper sequencing, data, timing, concurrency, failure, and boundary detail.</li>
         <li>Load direct owned paths from the lowest-level relevant spec. Avoid walking every path in parent specs.</li>
       </ol>
     </section>
@@ -99,7 +99,7 @@
         <thead><tr><th>Trigger</th><th>Required update</th><th>Same commit?</th></tr></thead>
         <tbody>
           <tr><td>Product behavior changes</td><td>Descriptive spec section and mapped test spec acceptance condition.</td><td>Yes</td></tr>
-          <tr><td>Internal contract, timing, concurrency, migration, or integration changes</td><td>Technical spec and mapped test spec risks.</td><td>Yes</td></tr>
+          <tr><td>Any implementation behavior changes</td><td>Technical spec depth adjusted to the task, plus mapped test spec risks where behavior is externally verifiable.</td><td>Yes</td></tr>
           <tr><td>Code-level tests added, renamed, deleted, or regenerated</td><td>Test spec coverage table and registry coverage entries.</td><td>Yes</td></tr>
           <tr><td>Owned file moved or deleted</td><td>All affected <code>ownedPaths</code>, <code>implementationPaths</code>, and coverage paths in metadata and visible path lists.</td><td>Yes</td></tr>
           <tr><td>Spec retired or replaced</td><td>Status, <code>replacedBy</code>, registry links, and parent/child references.</td><td>Yes</td></tr>
@@ -115,7 +115,7 @@
       <ul>
         <li>No descriptive spec exists for the user-visible behavior being changed.</li>
         <li>The test spec cannot name the evidence required to accept the change.</li>
-        <li>A technical choice is non-obvious and no technical spec or ADR selects the intended design.</li>
+        <li>No technical spec exists for the work, or the technical spec is too shallow for the implementation risk.</li>
         <li>Registry links point to missing specs, moved files, or deleted tests.</li>
         <li>The agent cannot tell whether a path is directly owned by the current feature or merely referenced by a parent spec.</li>
       </ul>

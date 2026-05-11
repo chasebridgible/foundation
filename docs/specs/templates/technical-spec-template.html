@@ -47,7 +47,7 @@
   </div>
   <div class="nav-section">
     <div class="nav-label">Required</div>
-    <a class="nav-item active" href="#when-required"><span class="nav-num">01</span>When required</a>
+    <a class="nav-item active" href="#required-depth"><span class="nav-num">01</span>Required depth</a>
     <a class="nav-item" href="#internal-sequence"><span class="nav-num">02</span>Sequence</a>
     <a class="nav-item" href="#data-model"><span class="nav-num">03</span>Data model</a>
     <a class="nav-item" href="#contracts"><span class="nav-num">04</span>Contracts</a>
@@ -60,18 +60,18 @@
 </nav>
 
 <main class="main">
-  <section id="when-required" data-spec-section="when-required" data-section-type="decision-rule">
+  <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule">
     <div class="spec-eyebrow">Template · technical spec</div>
     <h1>[Feature name] technical spec</h1>
-    <p class="lede">Use a technical spec only when many valid implementations are possible, or when internal contracts, timing, data, concurrency, migration, or integration behavior materially affect correctness.</p>
+    <p class="lede">Use a technical spec for every software task. Scale the level of detail to the task: compact for small changes, deeper when internal contracts, timing, data, concurrency, migration, or integration behavior materially affect correctness.</p>
     <div class="meta-row">
       <div><strong>Template status:</strong> active</div>
       <div><strong>Parent:</strong> foundation.spec-system</div>
       <div><strong>Updated:</strong> 2026-05-11</div>
     </div>
     <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace the new file's <code>spec-metadata</code>, meta tags, visible placeholders, related spec IDs, owned paths, and coverage entries before using it to drive work.</div>
-    <h3>Why this technical spec exists</h3>
-    <p>State the ambiguity this spec resolves. If the agent could build ten valid versions, name the one this system wants.</p>
+    <h3>Depth calibration</h3>
+    <p>State why this spec is compact or deep. For a small task, name touched modules, data flow, contracts, and non-goals. For a complex task, include sequence, timing, concurrency, failure modes, integrations, migrations, and boundaries.</p>
     <h3>Non-goals</h3>
     <p>List valid designs this feature intentionally does not choose, and explain whether an ADR captures the decision.</p>
   </section>
@@ -162,7 +162,7 @@
   </article>
 
   <hr>
-  <p class="footer-note">Technical spec template · required only when internal design matters</p>
+  <p class="footer-note">Technical spec template · required for every software task</p>
 </main>
 </body>
 </html>

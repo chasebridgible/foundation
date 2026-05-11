@@ -108,7 +108,7 @@
         <li>Parse <code>foundation/docs/specs/index.html#spec-registry</code>.</li>
         <li>If starting from a code path, match exact path in <code>ownedPaths</code>, then fallback to <code>implementationPaths</code>.</li>
         <li>If multiple specs match, prefer direct ownership over reference ownership, then prefer lower-level child specs over parents.</li>
-        <li>Load the descriptive spec for intent, the test spec for done conditions, and the technical spec only when present or required.</li>
+        <li>Load the descriptive spec for intent, the test spec for done conditions, and the technical spec for the internal contract. The technical spec is always required; its depth scales with the task.</li>
         <li>Use section IDs for focused loading. Do not load whole sibling specs unless the target section is insufficient.</li>
         <li>If no spec resolves, create or update a spec before changing durable behavior.</li>
       </ol>
