@@ -126,11 +126,6 @@
       section.appendChild(details);
     }
 
-    Array.from(sidebar.querySelectorAll(":scope > .nav-section")).forEach(existingSection => {
-      const existingLabel = existingSection.querySelector(".nav-label")?.textContent?.trim();
-      if (existingLabel === "Documents") existingSection.remove();
-    });
-
     const existingSections = Array.from(sidebar.querySelectorAll(":scope > .nav-section"));
     const firstSection = existingSections[0];
 
