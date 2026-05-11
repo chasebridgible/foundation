@@ -126,14 +126,16 @@
       section.appendChild(details);
     }
 
+    Array.from(sidebar.querySelectorAll(":scope > .nav-section")).forEach(existingSection => {
+      const existingLabel = existingSection.querySelector(".nav-label")?.textContent?.trim();
+      if (existingLabel === "Documents") existingSection.remove();
+    });
+
     const existingSections = Array.from(sidebar.querySelectorAll(":scope > .nav-section"));
     const firstSection = existingSections[0];
-    const firstLabel = firstSection?.querySelector(".nav-label")?.textContent?.trim();
 
     if (!firstSection) {
       sidebar.appendChild(section);
-    } else if (firstLabel === "Documents") {
-      firstSection.after(section);
     } else {
       sidebar.insertBefore(section, firstSection);
     }
