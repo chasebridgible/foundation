@@ -7,13 +7,13 @@
 <meta name="spec:type" content="index">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-12">
-<title>Spec System - Foundation</title>
+<title>Spec System</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="schema" href="./spec-registry.schema.json">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.spec-system",
-  "title": "Foundation Spec System",
+  "title": "Spec System",
   "type": "index",
   "status": "active",
   "lastUpdated": "2026-05-12",
@@ -26,6 +26,8 @@
     { "id": "foundation.spec-linking", "relationship": "child", "sections": ["html-native-metadata"] }
   ],
   "ownedPaths": [
+    { "path": "foundation/README.md", "kind": "doc", "ownership": "direct" },
+    { "path": "foundation/.gitignore", "kind": "config", "ownership": "direct" },
     { "path": "foundation/AGENTS.md", "kind": "config", "ownership": "direct" },
     { "path": "foundation/docs/specs/index.html", "kind": "doc", "ownership": "direct" },
     { "path": "foundation/docs/specs/spec-registry.schema.json", "kind": "schema", "ownership": "direct" },
@@ -35,6 +37,8 @@
     { "path": "foundation/.github/workflows/specs.yml", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/skills/spec-workflow/SKILL.md", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/skills/spec-workflow/agents/openai.yaml", "kind": "config", "ownership": "direct" },
+    { "path": "foundation/skills/install-foundation-substrate/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/install-foundation-substrate/agents/openai.yaml", "kind": "config", "ownership": "direct" },
     { "path": "foundation/package.json", "kind": "config", "ownership": "direct" }
   ],
   "implementationPaths": [],
@@ -50,7 +54,7 @@
   "specs": [
     {
       "id": "foundation.spec-system",
-      "title": "Foundation Spec System",
+      "title": "Spec System",
       "type": "index",
       "status": "active",
       "file": "foundation/docs/specs/index.html",
@@ -86,6 +90,16 @@
         }
       ],
       "ownedPaths": [
+        {
+          "path": "foundation/README.md",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/.gitignore",
+          "kind": "config",
+          "ownership": "direct"
+        },
         {
           "path": "foundation/AGENTS.md",
           "kind": "config",
@@ -128,6 +142,16 @@
         },
         {
           "path": "foundation/skills/spec-workflow/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/install-foundation-substrate/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
         },
@@ -693,7 +717,7 @@
 
 <main class="main">
   <section id="overview" data-spec-section="overview" data-section-type="summary" data-spec-canonical="true">
-    <div class="spec-eyebrow">Foundation · docs/specs/index.html</div>
+    <div class="spec-eyebrow">Spec System · docs/specs/index.html</div>
     <h1>The spec system</h1>
     <p class="lede">Specs are durable source-of-truth contracts for what should exist. They are not traditional docs, stale plans, or workflow procedures. This folder defines the first HTML-native spec system for productized-agency software development substrate.</p>
     <div class="meta-row">
@@ -781,7 +805,7 @@
   </article>
 
   <hr>
-  <p class="footer-note">Foundation spec system · registry-backed HTML specs</p>
+  <p class="footer-note">Spec system · registry-backed HTML specs</p>
 </main>
 
 <script>

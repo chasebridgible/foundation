@@ -1,0 +1,4 @@
+interface:
+  display_name: "Install Substrate"
+  short_description: "Copy substrate into a target repo"
+  default_prompt: "Use $install-foundation-substrate to install the software substrate into this target repo and verify the setup."

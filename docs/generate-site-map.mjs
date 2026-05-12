@@ -57,9 +57,7 @@ function readPage(file) {
   const html = fs.readFileSync(path.join(docsDir, file), "utf8");
   const title = html.match(/<title>([^<]+)<\/title>/)?.[1]?.trim() || file;
   const specId = html.match(/<meta name="spec:id" content="([^"]+)">/)?.[1];
-  const cleanTitle = title
-    .replace(/ - Foundation$/, "")
-    .replace(/ \u2014 Core Concepts$/, "");
+  const cleanTitle = title.replace(/ \u2014 Core Concepts$/, "");
   return { title: cleanTitle, path: file, ...(specId ? { specId } : {}) };
 }
 
@@ -83,6 +81,6 @@ const groups = groupOrder
   }))
   .filter(group => group.items.length > 0);
 
-const contents = `window.FoundationSiteMap = ${JSON.stringify(groups, null, 2)};\n`;
+const contents = `window.SubstrateSiteMap = ${JSON.stringify(groups, null, 2)};\n`;
 fs.writeFileSync(outputPath, contents);
 console.log(`Wrote ${path.relative(process.cwd(), outputPath)} with ${htmlFiles.length} HTML files.`);

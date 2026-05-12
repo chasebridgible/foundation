@@ -11,10 +11,10 @@
   }
 
   function injectStyles() {
-    if (document.getElementById("foundation-site-nav-styles")) return;
+    if (document.getElementById("substrate-site-nav-styles")) return;
 
     const style = document.createElement("style");
-    style.id = "foundation-site-nav-styles";
+    style.id = "substrate-site-nav-styles";
     style.textContent = `
       .site-wide-nav {
         border-top: 1px solid var(--border, #2a2a2a);
@@ -87,7 +87,7 @@
 
   function addSiteNav() {
     const sidebar = document.querySelector(".sidebar");
-    const siteMap = window.FoundationSiteMap;
+    const siteMap = window.SubstrateSiteMap;
     if (!sidebar || !Array.isArray(siteMap) || sidebar.querySelector("[data-site-nav]")) return;
 
     injectStyles();
