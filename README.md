@@ -1,34 +1,70 @@
 # Foundation
 
-Foundation is a set of core concepts for building compounding systems.
+Foundation is the source bundle for a portable software substrate: principles, specs, skills, checks, and repo conventions for building software with agents.
 
-The idea comes from my life as a Division 1 tennis player. The missing piece that held me back from achieving my highest goals was that I didn't learn the foundations early enough. In a tennis career, learning the foundations early not only prevents debt but enables systems that help you improve naturally over time. If you never learn the technical foundations early, for example, no amount of effort will allow you to avoid constantly relearning basic mechanics. Even worse, your technical debt will lead to mistakes and injuries that kill your career's momentum.
+This repo is both a reference implementation and the thing to copy from. The README describes the current source repo and the workflow for installing the substrate into a new repo.
 
-The same pattern holds in every serious domain. The people who reach the pinnacle learn and follow the foundational principles and rules. They do not treat fundamentals as beginner material. They use them as the base layer for compounding systems that enable them to improve over time.
+## What This Repo Contains
 
-This repo is the written substrate for that idea.
+- `AGENTS.md`: the small always-loaded rulebook that points agents to the spec system and protected-main workflow.
+- `skills/`: reusable workflow skills, including the spec workflow and the one-time install workflow.
+- `docs/specs/`: the HTML-native spec system, templates, examples, registry generator, checker, schema, and `spec:new` scaffold command.
+- `docs/principles/`: durable principles for agentic software work and compounding systems.
+- `docs/definitions/`: shared vocabulary for substrate, harnesses, skills, specs, and portability.
+- `docs/compounding-systems.html`: the conceptual root for why this substrate should compound instead of drift.
+- `.github/workflows/specs.yml`: CI enforcement for generated registry and metadata validity.
 
 ## Reading Order
 
-1. Start with [The Compounding System](docs/compounding-systems.html). It explains the framework everything else fits inside.
-2. Read [Core Principles](docs/principles/core-principles.html). These are the cross-domain rules for building systems that improve over time.
-3. Read [The Spec System](docs/specs/index.html) when you are building or changing software. It defines where product intent, technical intent, test intent, related specs, code paths, and update obligations live.
-4. Explore from there based on what you need: software-specific principles, the working spec, definitions, or spec templates.
+1. Read [The Compounding System](docs/compounding-systems.html).
+2. Read [Core Principles](docs/principles/core-principles.html).
+3. Read [Software Development Principles](docs/principles/sw-principles.html).
+4. Read [The Spec System](docs/specs/index.html).
+5. Read [The Spec Process](docs/specs/process.html) when creating, changing, or reviewing specs.
 
-## Core Concepts
+## Install Into A New Repo
 
-- [The Compounding System](docs/compounding-systems.html)
-- [Core Principles](docs/principles/core-principles.html)
-- [Software Development Principles](docs/principles/sw-principles.html)
-- [Building Software with Agents: A Working Spec](docs/general/operating-spec.html)
-- [Spec System](docs/specs/index.html)
-- [Definitions](docs/definitions/sw-definitions.html)
+Install the substrate as one bundle. The principles and definitions are part of what make the spec system legible to agents, so they travel with the spec system.
+
+1. Copy these paths into the target repo:
+   - `AGENTS.md`
+   - `skills/`
+   - `docs/`
+   - `.github/workflows/specs.yml`
+   - spec-related `package.json` scripts
+   - `.gitignore`
+
+2. Adapt the target repo:
+   - Rewrite `README.md` for the target product or client repo.
+   - Merge the spec scripts into the target repo's existing `package.json` instead of replacing it blindly.
+   - Replace source-repo names, paths, and spec IDs where they should be target-specific.
+   - Keep example specs clearly under `docs/specs/examples/` or replace them with target examples.
+
+3. Regenerate machine indexes:
+   - Run `npm run site-map`.
+   - Run `npm run spec:registry`.
+   - Run `npm run spec:check`.
+
+4. Configure GitHub:
+   - Ensure `.github/workflows/specs.yml` runs in the target repo.
+   - Protect `main`.
+   - Require the status check `Spec registry and metadata`.
+   - Use branch -> PR -> required checks pass -> merge for spec and behavior changes.
+
+5. Confirm the install:
+   - `npm run spec:check` passes locally.
+   - The required GitHub check passes on a PR.
+   - Agents can start from `AGENTS.md`, find `docs/specs/index.html`, and invoke `skills/spec-workflow/SKILL.md`.
+
+## One-Time Install Skill
+
+Use `skills/install-foundation-substrate/SKILL.md` when applying this repo to a new target repo. It exists to guide the copy/adapt/verify process and can remain in the target repo as historical substrate or be removed after install if the target repo no longer needs it.
 
 ## Spec System
 
-Specs are HTML-native durable contracts for what should exist. They are not stale plans or traditional documentation. Start at [docs/specs/index.html](docs/specs/index.html) for the registry, templates, examples, linking model, and maintenance process.
+Specs are HTML-native durable contracts for what should exist. Each spec's embedded `spec-metadata` is canonical; the registry in `docs/specs/index.html` is generated from those HTML specs.
 
-Future agents should use the embedded registry in `docs/specs/index.html` to resolve spec IDs to files, related specs, owned implementation paths, and test coverage. Each spec's embedded `spec-metadata` is canonical; the registry is generated from those HTML specs. When code behavior changes, update the relevant descriptive, technical, and test specs in the same commit, run `npm run spec:registry`, then run `npm run spec:check`. CI runs the same check on pull requests and pushes to `main`.
+When code behavior changes, update the relevant descriptive, technical, and test specs in the same commit. If spec metadata changes, run `npm run spec:registry`, then `npm run spec:check`.
 
 ## Thesis
 

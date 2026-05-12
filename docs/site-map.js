@@ -1,4 +1,4 @@
-window.FoundationSiteMap = [
+window.SubstrateSiteMap = [
   {
     "group": "Core Concepts",
     "items": [

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://foundation.local/docs/specs/spec-registry.schema.json",
-  "title": "Foundation Spec Registry",
+  "$id": "https://spec-system.local/docs/specs/spec-registry.schema.json",
+  "title": "Spec Registry",
   "type": "object",
   "required": ["registryVersion", "lastUpdated", "specs"],
   "additionalProperties": false,
