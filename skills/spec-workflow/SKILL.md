@@ -40,3 +40,17 @@ When code behavior changes, update the relevant specs and tests in the same chan
 ## Review Boundary
 
 `npm run spec:check` proves the registry is current and references resolve. It does not prove the mappings are semantically true. For final review, explicitly check whether `relatedSpecs`, `ownedPaths`, `implementationPaths`, and `coverage.mapsTo` truthfully describe the work.
+
+## Protected Main Flow
+
+Use this flow for spec-system, spec metadata, or behavior-changing commits:
+
+1. Create a feature branch from current `main`.
+2. Commit changes on the feature branch.
+3. Push the feature branch and open a PR into `main`.
+4. Wait for the required `Spec registry and metadata` check to pass.
+5. Merge the PR only after the required check is green.
+6. Sync local `main` from `origin/main`.
+7. Delete the feature branch after merge.
+
+Do not direct-push these changes to protected `main`; GitHub rejects commits that have not already passed the required check in the protected flow.
