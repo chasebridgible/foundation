@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec Workflow"
+  short_description: "HTML spec workflow and verification"
+  default_prompt: "Use $spec-workflow to create or update the relevant HTML-native specs, regenerate the registry, and verify the spec system."
