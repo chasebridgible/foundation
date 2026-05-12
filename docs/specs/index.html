@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-system">
 <meta name="spec:type" content="index">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-11">
+<meta name="spec:last-updated" content="2026-05-12">
 <title>Spec System - Foundation</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="schema" href="./spec-registry.schema.json">
@@ -16,19 +16,20 @@
   "title": "Foundation Spec System",
   "type": "index",
   "status": "active",
-  "lastUpdated": "2026-05-11",
+  "lastUpdated": "2026-05-12",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": null,
   "children": ["foundation.spec-process", "foundation.spec-linking", "foundation.spec-template.descriptive", "foundation.spec-template.technical", "foundation.spec-template.test"],
   "relatedSpecs": [
-    { "id": "foundation.spec-process", "relationship": "child", "sections": ["workflow-contract", "spec-authoring"] },
+    { "id": "foundation.spec-process", "relationship": "child", "sections": ["workflow-contract", "spec-authoring", "risk-tiers", "semantic-review"] },
     { "id": "foundation.spec-linking", "relationship": "child", "sections": ["html-native-metadata"] }
   ],
   "ownedPaths": [
     { "path": "foundation/AGENTS.md", "kind": "config", "ownership": "direct" },
     { "path": "foundation/docs/specs/index.html", "kind": "doc", "ownership": "direct" },
     { "path": "foundation/docs/specs/spec-registry.schema.json", "kind": "schema", "ownership": "direct" },
+    { "path": "foundation/docs/specs/new-spec.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/docs/specs/generate-registry.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/docs/specs/check-specs.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/.github/workflows/specs.yml", "kind": "workflow", "ownership": "direct" },
@@ -44,7 +45,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-05-11",
+  "lastUpdated": "2026-05-12",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -54,7 +55,7 @@
       "status": "active",
       "file": "foundation/docs/specs/index.html",
       "canonicalSection": "overview",
-      "lastUpdated": "2026-05-11",
+      "lastUpdated": "2026-05-12",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": null,
@@ -71,7 +72,9 @@
           "relationship": "child",
           "sections": [
             "workflow-contract",
-            "spec-authoring"
+            "spec-authoring",
+            "risk-tiers",
+            "semantic-review"
           ]
         },
         {
@@ -96,6 +99,11 @@
         {
           "path": "foundation/docs/specs/spec-registry.schema.json",
           "kind": "schema",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/specs/new-spec.mjs",
+          "kind": "workflow",
           "ownership": "direct"
         },
         {
@@ -144,7 +152,7 @@
       "status": "active",
       "file": "foundation/docs/specs/process.html",
       "canonicalSection": "workflow-contract",
-      "lastUpdated": "2026-05-11",
+      "lastUpdated": "2026-05-12",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -690,7 +698,7 @@
     <p class="lede">Specs are durable source-of-truth contracts for what should exist. They are not traditional docs, stale plans, or workflow procedures. This folder defines the first HTML-native spec system for productized-agency software development substrate.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-11</div>
+      <div><strong>Updated:</strong> 2026-05-12</div>
       <div><strong>Metadata:</strong> per-spec <code>#spec-metadata</code> is canonical</div>
     </div>
   </section>

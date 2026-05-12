@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-process">
 <meta name="spec:type" content="process">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-11">
+<meta name="spec:last-updated" content="2026-05-12">
 <title>Spec Maintenance Process - Foundation</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Spec Maintenance Process",
   "type": "process",
   "status": "active",
-  "lastUpdated": "2026-05-11",
+  "lastUpdated": "2026-05-12",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": "foundation.spec-system",
@@ -49,9 +49,11 @@
     <a class="nav-item" href="#workflow-contract"><span class="nav-num">01</span>Workflow contract</a>
     <a class="nav-item" href="#reading-order"><span class="nav-num">02</span>Reading order</a>
     <a class="nav-item" href="#spec-authoring"><span class="nav-num">03</span>Spec authoring</a>
-    <a class="nav-item" href="#update-obligations"><span class="nav-num">04</span>Update obligations</a>
-    <a class="nav-item" href="#blockers-and-exits"><span class="nav-num">05</span>Blockers and exits</a>
-    <a class="nav-item" href="#workflow-skills"><span class="nav-num">06</span>Workflow skills</a>
+    <a class="nav-item" href="#risk-tiers"><span class="nav-num">04</span>Risk tiers</a>
+    <a class="nav-item" href="#semantic-review"><span class="nav-num">05</span>Semantic review</a>
+    <a class="nav-item" href="#update-obligations"><span class="nav-num">06</span>Update obligations</a>
+    <a class="nav-item" href="#blockers-and-exits"><span class="nav-num">07</span>Blockers and exits</a>
+    <a class="nav-item" href="#workflow-skills"><span class="nav-num">08</span>Workflow skills</a>
   </div>
 </nav>
 
@@ -62,7 +64,7 @@
     <p class="lede">The process keeps specs, tests, and code moving together. Plans are temporary reasoning unless they are converted into specs, ADRs, tests, or board/session history.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-11</div>
+      <div><strong>Updated:</strong> 2026-05-12</div>
       <div><strong>Parent:</strong> <a data-spec-link="foundation.spec-system" href="./index.html">foundation.spec-system</a></div>
     </div>
   </section>
@@ -110,6 +112,41 @@
         <li>Update visible links, path lists, and coverage tables so the human-readable prose agrees with the metadata.</li>
         <li>Run <code>npm run spec:registry</code>, then <code>npm run spec:check</code>. A human review still has to confirm the mappings are semantically true.</li>
       </ol>
+      <div class="callout info"><strong>Scaffold:</strong> use <code>npm run spec:new -- --type descriptive --id product.feature.descriptive --title "Feature Descriptive Spec" --out docs/specs/features/feature-descriptive.html</code> to create a valid HTML starter, then fill the prose and metadata deliberately.</div>
+    </section>
+
+    <section id="risk-tiers" data-spec-section="risk-tiers" data-section-type="risk-scaling">
+      <h2>Risk tiers</h2>
+      <p>Spec depth scales with behavioral risk. The goal is to avoid both skipped rigor and low-value spec churn.</p>
+      <table class="status-table">
+        <thead><tr><th>Tier</th><th>Change type</th><th>Spec obligation</th><th>Verification obligation</th></tr></thead>
+        <tbody>
+          <tr><td>T0</td><td>Formatting, typo, comment, or navigation-only edits that do not change product, test, or implementation behavior.</td><td>No spec update unless the edited doc is itself inaccurate.</td><td>Run the narrowest relevant check; <code>npm run spec:check</code> when spec files or harness files change.</td></tr>
+          <tr><td>T1</td><td>Spec metadata, path, registry, CI, or harness maintenance.</td><td>Update canonical <code>spec-metadata</code> or process docs, then regenerate the registry when metadata changed.</td><td><code>npm run spec:registry</code> when metadata changed, then <code>npm run spec:check</code>.</td></tr>
+          <tr><td>T2</td><td>Small bugfix or refactor with no intended user-visible behavior change.</td><td>Compact technical spec note or update to the owning technical section; descriptive spec usually unchanged.</td><td>Targeted unit/static/manual evidence, plus explicit test gap if no automated signal is worth adding.</td></tr>
+          <tr><td>T3</td><td>User-visible behavior change inside an existing feature boundary.</td><td>Update descriptive, technical, and test spec sections that define the behavior and done signal.</td><td>Mapped coverage entry or explicit gap in the test spec; run the relevant code-level command.</td></tr>
+          <tr><td>T4</td><td>New feature, new flow, or meaningful feature split.</td><td>Create or update descriptive, technical, and test specs. Prefer child specs over broad parent path ownership.</td><td>Acceptance mapping plus planned, existing, or gap coverage for the primary user journey and main technical risks.</td></tr>
+          <tr><td>T5</td><td>Architecture, data model, security, concurrency, migration, or cross-feature contract change.</td><td>Deep technical spec section, related ADR when the decision is non-obvious, and all affected parent/child links.</td><td>Integration/e2e/manual evidence appropriate to the risk, with explicit rollback or follow-up gaps.</td></tr>
+        </tbody>
+      </table>
+      <p>If the tier is ambiguous, choose the higher tier until the spec or tests make the risk smaller.</p>
+    </section>
+
+    <section id="semantic-review" data-spec-section="semantic-review" data-section-type="review-checklist">
+      <h2>Semantic review</h2>
+      <p><code>npm run spec:check</code> proves that metadata is valid and references resolve. It does not prove the metadata tells the truth.</p>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Review question</th><th>Failure smell</th></tr></thead>
+        <tbody>
+          <tr><td><code>relatedSpecs</code></td><td>Do these relationships explain the actual dependency, validation, parent, child, or sibling relationship?</td><td>Broad links added only so an agent can find more context.</td></tr>
+          <tr><td><code>ownedPaths</code></td><td>Does this spec directly own each listed file?</td><td>Parent specs owning every leaf file, or duplicate direct ownership across siblings.</td></tr>
+          <tr><td><code>implementationPaths</code></td><td>Are these useful non-owning references, not hidden ownership claims?</td><td>Reference paths that should really be direct ownership in a child spec.</td></tr>
+          <tr><td><code>coverage.mapsTo</code></td><td>Does the evidence actually verify the mapped section?</td><td>Coverage linked to a nearby section because the right section was missing or unclear.</td></tr>
+          <tr><td>Visible prose</td><td>Does the human-readable path list, coverage table, and behavior text agree with metadata?</td><td>Registry/check passes while prose says something different.</td></tr>
+          <tr><td>Risk tier</td><td>Does the depth of descriptive, technical, and test work match the tier?</td><td>Heavy spec edits for T0/T1 work, or shallow notes for T4/T5 work.</td></tr>
+        </tbody>
+      </table>
+      <p>Final answers for spec work should say whether this semantic review found any unresolved mapping risk.</p>
     </section>
 
     <section id="update-obligations" data-spec-section="update-obligations" data-section-type="maintenance">
@@ -143,6 +180,8 @@
         <li>Relevant specs state the current intended behavior.</li>
         <li>Test spec maps acceptance conditions to descriptive and technical sections.</li>
         <li>Code-level tests, manual evidence, or explicit gaps match the test spec.</li>
+        <li>Risk tier is named or obvious from the diff, and spec depth matches that tier.</li>
+        <li>Semantic review confirms metadata mappings are truthful, not just valid.</li>
         <li><code>npm run spec:check</code> proves the generated registry is current and resolves related specs, owned paths, coverage paths, and section references.</li>
         <li>CI runs <code>npm run spec:check</code> on pull requests and pushes to <code>main</code>; stale generated registry output blocks the change.</li>
         <li>Final evidence names commands run and unresolved decisions.</li>
