@@ -56,6 +56,7 @@ Set up each target repo as a consumer of canonical Foundation.
    - Point to the canonical Foundation path.
    - Name target-repo commands, paths, constraints, and project-specific exceptions.
    - Do not duplicate shared Foundation rules.
+   - Use `templates/target-repo-AGENTS.md` as the adapter shape.
 
 2. Keep project-owned artifacts in the target repo:
    - Product specs in `docs/specs/`.
@@ -91,6 +92,10 @@ npm run foundation:doctor -- --repo /path/to/target-repo
 ```
 
 The doctor checks that Foundation exists at the canonical path, required Foundation skills exist, global Codex instructions point to Foundation, the target repo adapter points back to Foundation without copying shared rules, target specs stay out of the `foundation.*` namespace, and target CI references a pinned Foundation revision when CI is configured.
+
+## AGENTS-Load Canary
+
+Use [Foundation AGENTS Load Canary Test](docs/specs/foundation-agents-load-canary-test.html) when proving that a new agent session loads the expected instruction layers. The canary is a temporary manual smoke test: add nonce-based canary lines, start a cold agent session, verify the phrases in the first response, and remove the canary lines immediately.
 
 ## Setup Skill
 

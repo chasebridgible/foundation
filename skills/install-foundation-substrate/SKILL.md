@@ -14,6 +14,7 @@ Use this skill to connect a target repo to Foundation. The model is defined in `
 3. Create or update the target repo `AGENTS.md` as a local adapter only:
    - It may define local commands, paths, project constraints, and repo-specific exceptions.
    - It must not duplicate or redefine shared Foundation rules.
+   - Use `templates/target-repo-AGENTS.md` as the starting shape.
 4. Keep project specs, project knowledge, tests, ADRs, and implementation paths in the target repo.
 5. Keep shared process, templates, skills, validators, and principles in Foundation.
 6. Configure CI to check out a pinned Foundation revision, not an implicit local sibling path.
