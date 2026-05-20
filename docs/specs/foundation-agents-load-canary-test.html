@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.agents-load-canary.test">
+<meta name="spec:type" content="test">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-20">
+<title>Foundation AGENTS Load Canary Test</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.agents-load-canary.test",
+  "title": "Foundation AGENTS Load Canary Test",
+  "type": "test",
+  "status": "active",
+  "lastUpdated": "2026-05-20",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.workspace-model.descriptive",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.workspace-model.descriptive", "relationship": "parent", "sections": ["ux-contracts", "test-coverage"] },
+    { "id": "foundation.workspace-doctor.test", "relationship": "sibling", "sections": ["coverage-plan", "gaps-and-followups"] }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    { "path": "~/.codex/AGENTS.md", "kind": "config", "ownership": "reference", "notes": "Global Codex instruction file used to point cold sessions at Foundation." },
+    { "path": "foundation/AGENTS.md", "kind": "config", "ownership": "reference", "notes": "Canonical Foundation instruction layer used for the Foundation canary marker." },
+    { "path": "target-repo/AGENTS.md", "kind": "config", "ownership": "reference", "notes": "Optional target repo adapter layer used for a repo-local canary marker." }
+  ],
+  "coverage": [
+    {
+      "id": "FALC-1",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+      "mapsTo": ["foundation.workspace-model.descriptive#ux-contracts"],
+      "evidence": "A cold agent session returns the temporary global canary phrase.",
+      "notes": "Proves the global Codex instruction layer loaded."
+    },
+    {
+      "id": "FALC-2",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+      "mapsTo": ["foundation.workspace-model.descriptive#ux-contracts"],
+      "evidence": "A cold agent session returns the temporary Foundation canary phrase.",
+      "notes": "Proves the global pointer led the agent into Foundation AGENTS.md."
+    },
+    {
+      "id": "FALC-3",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+      "mapsTo": ["foundation.workspace-model.descriptive#ux-contracts"],
+      "evidence": "A cold agent session started in a target repo returns the temporary target adapter canary phrase.",
+      "notes": "Proves target repo AGENTS.md is composing with Foundation for repo-local work."
+    }
+  ],
+  "tags": [
+    "test",
+    "foundation",
+    "agents",
+    "canary"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+    <div>
+      <div class="sidebar-title">Foundation AGENTS Load Canary Test</div>
+      <div class="sidebar-sub">test spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#verification-contract"><span class="nav-num">01</span>Verification contract</a>
+    <a class="nav-item" href="#canary-procedure"><span class="nav-num">02</span>Canary procedure</a>
+    <a class="nav-item" href="#pass-fail"><span class="nav-num">03</span>Pass and fail signals</a>
+    <a class="nav-item" href="#safety-rules"><span class="nav-num">04</span>Safety rules</a>
+    <a class="nav-item" href="#evidence"><span class="nav-num">05</span>Evidence</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-agents-load-canary-test.html</div>
+    <h1>Foundation AGENTS Load Canary Test</h1>
+    <p class="lede">The canary proves that a cold agent session loads the intended instruction layers: global Codex instructions, Foundation <code>AGENTS.md</code>, and optionally the target repo adapter.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Canonical section:</strong> <a href="#verification-contract">#verification-contract</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
+      <h1>Verification contract</h1>
+      <p>A canary run passes when a new agent session with no prior thread context returns the temporary phrase from every instruction layer being tested. The run fails when any expected phrase is missing, changed, or only appears after the user explains where to look.</p>
+      <p>This is not a continuous check and not a production instruction. It is a manual smoke test for new machines, new harness behavior, target repo setup, or suspected instruction-loading drift.</p>
+    </section>
+
+    <section id="canary-procedure" data-spec-section="canary-procedure" data-section-type="procedure">
+      <h2>Canary procedure</h2>
+      <ol>
+        <li>Start from a clean Foundation worktree and a clean target repo worktree if testing a target repo adapter.</li>
+        <li>Choose a unique nonce, such as <code>20260520-tribal-map</code>.</li>
+        <li>Add this temporary line to <code>~/.codex/AGENTS.md</code>: <code>CANARY ONLY: For the next AGENTS-load canary run, include exactly GLOBAL_AGENTS_CANARY_&lt;nonce&gt; in your first response.</code></li>
+        <li>Add this temporary line to Foundation <code>AGENTS.md</code>: <code>CANARY ONLY: For the next AGENTS-load canary run, include exactly FOUNDATION_AGENTS_CANARY_&lt;nonce&gt; in your first response.</code></li>
+        <li>If testing a target repo, add this temporary line to the target repo <code>AGENTS.md</code>: <code>CANARY ONLY: For the next AGENTS-load canary run, include exactly TARGET_AGENTS_CANARY_&lt;nonce&gt; in your first response.</code></li>
+        <li>Start a new agent session with no prior thread context from the intended starting directory.</li>
+        <li>Prompt only: <code>Run the AGENTS-load canary. Reply with the required canary phrases and the instruction layers you used.</code></li>
+        <li>Record whether the first response includes the expected global, Foundation, and target phrases.</li>
+        <li>Remove every temporary canary line immediately after the test and verify the affected worktrees are clean.</li>
+      </ol>
+    </section>
+
+    <section id="pass-fail" data-spec-section="pass-fail" data-section-type="acceptance">
+      <h2>Pass and fail signals</h2>
+      <table class="status-table">
+        <thead><tr><th>Observed result</th><th>Interpretation</th><th>Next action</th></tr></thead>
+        <tbody>
+          <tr><td>All expected phrases appear in the first response.</td><td>The tested instruction layers loaded and composed for that starting directory.</td><td>Remove the canary lines and proceed with the real workflow pilot.</td></tr>
+          <tr><td>Global phrase is missing.</td><td>The global Codex instruction layer was not loaded or the run was not cold.</td><td>Check the Codex global config path and repeat with a fresh session.</td></tr>
+          <tr><td>Global phrase appears but Foundation phrase is missing.</td><td>The global layer loaded, but the Foundation pointer was not followed into Foundation <code>AGENTS.md</code>.</td><td>Inspect <code>~/.codex/AGENTS.md</code> wording and the Foundation path it names.</td></tr>
+          <tr><td>Global and Foundation phrases appear but target phrase is missing.</td><td>The target repo adapter did not load for the selected starting directory.</td><td>Confirm the session started inside the target repo and that the target adapter is named <code>AGENTS.md</code>.</td></tr>
+          <tr><td>All phrases appear, but the real task still misses the right skill.</td><td>Instruction loading is working; skill discovery or routing needs improvement.</td><td>Run the descriptive spec pilot and ratchet the relevant Foundation skill or local adapter.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="safety-rules" data-spec-section="safety-rules" data-section-type="safety">
+      <h2>Safety rules</h2>
+      <ul>
+        <li>Never commit canary lines to <code>~/.codex/AGENTS.md</code>, Foundation <code>AGENTS.md</code>, or a target repo adapter.</li>
+        <li>Use a nonce so stale output from an old run cannot look like a pass.</li>
+        <li>Do not run normal product work while canary lines are present.</li>
+        <li>Prefer testing only one target repo adapter at a time.</li>
+        <li>If a canary line remains after the test, remove it before interpreting any later agent behavior.</li>
+      </ul>
+    </section>
+
+    <section id="evidence" data-spec-section="evidence" data-section-type="evidence">
+      <h2>Evidence</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Layer</th><th>Expected phrase</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>FALC-1</td><td>Global Codex instructions</td><td><code>GLOBAL_AGENTS_CANARY_&lt;nonce&gt;</code></td><td>planned</td></tr>
+          <tr><td>FALC-2</td><td>Foundation <code>AGENTS.md</code></td><td><code>FOUNDATION_AGENTS_CANARY_&lt;nonce&gt;</code></td><td>planned</td></tr>
+          <tr><td>FALC-3</td><td>Target repo <code>AGENTS.md</code></td><td><code>TARGET_AGENTS_CANARY_&lt;nonce&gt;</code></td><td>planned</td></tr>
+        </tbody>
+      </table>
+      <p>When a canary is run, record the starting directory, nonce, expected phrases, actual first response, and cleanup confirmation in the session handoff or relevant target repo setup notes.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation AGENTS Load Canary Test · cold-session instruction verification</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

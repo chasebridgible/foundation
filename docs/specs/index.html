@@ -734,6 +734,105 @@
       ]
     },
     {
+      "id": "foundation.agents-load-canary.test",
+      "title": "Foundation AGENTS Load Canary Test",
+      "type": "test",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.workspace-model.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.workspace-model.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "ux-contracts",
+            "test-coverage"
+          ]
+        },
+        {
+          "id": "foundation.workspace-doctor.test",
+          "relationship": "sibling",
+          "sections": [
+            "coverage-plan",
+            "gaps-and-followups"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "~/.codex/AGENTS.md",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Global Codex instruction file used to point cold sessions at Foundation."
+        },
+        {
+          "path": "foundation/AGENTS.md",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Canonical Foundation instruction layer used for the Foundation canary marker."
+        },
+        {
+          "path": "target-repo/AGENTS.md",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Optional target repo adapter layer used for a repo-local canary marker."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "FALC-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+          "mapsTo": [
+            "foundation.workspace-model.descriptive#ux-contracts"
+          ],
+          "evidence": "A cold agent session returns the temporary global canary phrase.",
+          "notes": "Proves the global Codex instruction layer loaded."
+        },
+        {
+          "id": "FALC-2",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+          "mapsTo": [
+            "foundation.workspace-model.descriptive#ux-contracts"
+          ],
+          "evidence": "A cold agent session returns the temporary Foundation canary phrase.",
+          "notes": "Proves the global pointer led the agent into Foundation AGENTS.md."
+        },
+        {
+          "id": "FALC-3",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+          "mapsTo": [
+            "foundation.workspace-model.descriptive#ux-contracts"
+          ],
+          "evidence": "A cold agent session started in a target repo returns the temporary target adapter canary phrase.",
+          "notes": "Proves target repo AGENTS.md is composing with Foundation for repo-local work."
+        }
+      ],
+      "tags": [
+        "test",
+        "foundation",
+        "agents",
+        "canary"
+      ]
+    },
+    {
       "id": "foundation.workspace-doctor.technical",
       "title": "Foundation Workspace Doctor Technical Spec",
       "type": "technical",
@@ -998,6 +1097,7 @@
       "confidence": "medium",
       "parent": "foundation.spec-system",
       "children": [
+        "foundation.agents-load-canary.test",
         "foundation.workspace-doctor.technical",
         "foundation.workspace-doctor.test"
       ],
@@ -1027,6 +1127,14 @@
           ]
         },
         {
+          "id": "foundation.agents-load-canary.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "canary-procedure"
+          ]
+        },
+        {
           "id": "foundation.workspace-doctor.technical",
           "relationship": "child",
           "sections": [
@@ -1046,6 +1154,11 @@
       "ownedPaths": [
         {
           "path": "foundation/docs/specs/foundation-workspace-model.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/templates/target-repo-AGENTS.md",
           "kind": "doc",
           "ownership": "direct"
         }
@@ -1106,6 +1219,12 @@
           "notes": "Target repo setup workflow for connecting repos to canonical Foundation."
         },
         {
+          "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Manual cold-session procedure for proving AGENTS instruction loading."
+        },
+        {
           "path": "foundation/scripts/foundation-doctor.mjs",
           "kind": "workflow",
           "ownership": "reference",
@@ -1156,12 +1275,12 @@
           "id": "FW-4",
           "level": "manual",
           "status": "planned",
-          "path": "foundation/docs/specs/foundation-workspace-model.html",
+          "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
           "mapsTo": [
             "foundation.workspace-model.descriptive#ux-contracts"
           ],
           "evidence": "Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.",
-          "notes": "This is intentionally separate from foundation:doctor so production AGENTS rules do not alter normal responses."
+          "notes": "Procedure is defined in foundation.agents-load-canary.test and is intentionally separate from foundation:doctor."
         }
       ],
       "tags": [
@@ -1253,6 +1372,10 @@
         <a class="related-card" data-spec-link="foundation.workspace-model.descriptive" href="./foundation-workspace-model.html">
           <div class="related-name">Foundation workspace model</div>
           <div class="related-desc">Canonical Foundation repo, global Codex pointer, target repo adapters, skill discovery, and CI pinning model.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.agents-load-canary.test" href="./foundation-agents-load-canary-test.html">
+          <div class="related-name">Foundation AGENTS load canary test</div>
+          <div class="related-desc">Manual cold-session smoke test for global Codex instructions, Foundation AGENTS, and target repo adapter loading.</div>
         </a>
         <a class="related-card" data-spec-link="foundation.workspace-doctor.technical" href="./foundation-workspace-doctor-technical.html">
           <div class="related-name">Foundation workspace doctor technical spec</div>
