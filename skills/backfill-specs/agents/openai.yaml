@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backfill Specs"
+  short_description: "Draft specs from existing repo behavior"
+  default_prompt: "Use $backfill-specs to inspect this existing repo, create draft descriptive and technical specs, and maintain a dated backfill review report."

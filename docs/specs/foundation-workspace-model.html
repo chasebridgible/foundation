@@ -21,6 +21,7 @@
   "confidence": "medium",
   "parent": "foundation.spec-system",
   "children": [
+    "foundation.backfill-specs.descriptive",
     "foundation.agents-load-canary.test",
     "foundation.workspace-doctor.technical",
     "foundation.workspace-doctor.test"
@@ -29,6 +30,7 @@
     { "id": "foundation.spec-system", "relationship": "parent", "sections": ["registry", "entry-points"] },
     { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["workflow-contract", "update-obligations"] },
     { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["resolution", "path-update-loop"] },
+    { "id": "foundation.backfill-specs.descriptive", "relationship": "child", "sections": ["product-intent", "interface-journey", "ux-contracts"] },
     { "id": "foundation.agents-load-canary.test", "relationship": "child", "sections": ["verification-contract", "canary-procedure"] },
     { "id": "foundation.workspace-doctor.technical", "relationship": "child", "sections": ["required-depth", "contracts"] },
     { "id": "foundation.workspace-doctor.test", "relationship": "child", "sections": ["verification-contract", "acceptance-mapping"] }
@@ -53,6 +55,7 @@
     { "path": "foundation/docs/specs/index.html", "kind": "doc", "ownership": "reference", "notes": "Spec registry and agent entry point." },
     { "path": "foundation/docs/specs/process.html", "kind": "doc", "ownership": "reference", "notes": "Spec authoring and update obligations." },
     { "path": "foundation/skills/descriptive-spec-interview/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Human-heavy descriptive spec creation workflow." },
+    { "path": "foundation/skills/backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Existing repo adoption workflow for creating draft descriptive and technical specs." },
     { "path": "foundation/skills/spec-workflow/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Spec authoring, registry, and verification workflow." },
     { "path": "foundation/skills/install-foundation-substrate/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Target repo setup workflow for connecting repos to canonical Foundation." },
     { "path": "foundation/docs/specs/foundation-agents-load-canary-test.html", "kind": "doc", "ownership": "reference", "notes": "Manual cold-session procedure for proving AGENTS instruction loading." },
@@ -225,6 +228,7 @@
         <li><a data-spec-link="foundation.spec-system" href="./index.html">foundation.spec-system</a> - registry and agent entry point for specs.</li>
         <li><a data-spec-link="foundation.spec-process" href="./process.html">foundation.spec-process</a> - spec authoring and update obligations.</li>
         <li><a data-spec-link="foundation.spec-linking" href="./linking.html">foundation.spec-linking</a> - metadata, path ownership, and spec resolution.</li>
+        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a> - existing repo adoption workflow for draft descriptive and technical specs.</li>
         <li><a data-spec-link="foundation.agents-load-canary.test" href="./foundation-agents-load-canary-test.html">foundation.agents-load-canary.test</a> - cold-session AGENTS load verification procedure.</li>
         <li><a data-spec-link="foundation.workspace-doctor.technical" href="./foundation-workspace-doctor-technical.html">foundation.workspace-doctor.technical</a> - diagnostic command contract for the workspace model.</li>
         <li><a data-spec-link="foundation.workspace-doctor.test" href="./foundation-workspace-doctor-test.html">foundation.workspace-doctor.test</a> - verification contract for the diagnostic command.</li>
@@ -238,6 +242,7 @@
       <ul class="path-list">
         <li><code>foundation/AGENTS.md</code> - shared agent routing checklist.</li>
         <li><code>foundation/skills/descriptive-spec-interview/SKILL.md</code> - entry workflow for user-facing spec creation.</li>
+        <li><code>foundation/skills/backfill-specs/SKILL.md</code> - workflow for adopting existing repos into draft specs.</li>
         <li><code>foundation/skills/spec-workflow/SKILL.md</code> - spec registry and verification workflow.</li>
         <li><code>foundation/skills/install-foundation-substrate/SKILL.md</code> - target repo setup workflow for connecting repos to canonical Foundation.</li>
         <li><code>foundation/docs/specs/foundation-agents-load-canary-test.html</code> - manual AGENTS-load canary procedure.</li>

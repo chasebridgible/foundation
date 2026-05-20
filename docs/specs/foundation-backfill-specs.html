@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-specs.descriptive">
+<meta name="spec:type" content="descriptive">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-20">
+<title>Foundation Backfill Specs</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-specs.descriptive",
+  "title": "Foundation Backfill Specs",
+  "type": "descriptive",
+  "status": "active",
+  "lastUpdated": "2026-05-20",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.workspace-model.descriptive",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.workspace-model.descriptive", "relationship": "parent", "sections": ["product-intent", "states-and-rules", "ux-contracts"] },
+    { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["spec-authoring", "semantic-review"] },
+    { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["html-native-metadata", "path-update-loop"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/foundation-backfill-specs.html", "kind": "doc", "ownership": "direct" },
+    { "path": "foundation/skills/backfill-specs/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/backfill-specs/agents/openai.yaml", "kind": "config", "ownership": "direct" }
+  ],
+  "implementationPaths": [
+    { "path": "foundation/AGENTS.md", "kind": "config", "ownership": "reference", "notes": "Routes existing-repo spec backfill requests to the Backfill Specs skill." },
+    { "path": "foundation/templates/target-repo-AGENTS.md", "kind": "doc", "ownership": "reference", "notes": "Provides a place for target repos to name active dated backfill reports." },
+    { "path": "foundation/README.md", "kind": "doc", "ownership": "reference", "notes": "Documents the target repo adoption sequence." },
+    { "path": "foundation/skills/install-foundation-substrate/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Connects target repos before backfill begins." },
+    { "path": "foundation/docs/specs/templates/descriptive-spec-template.html", "kind": "doc", "ownership": "reference", "notes": "Template for draft descriptive specs created during backfill." },
+    { "path": "foundation/docs/specs/templates/technical-spec-template.html", "kind": "doc", "ownership": "reference", "notes": "Template for draft technical specs created during backfill." },
+    { "path": "foundation/docs/principles/sw-principles.html", "kind": "doc", "ownership": "reference", "notes": "Progressive disclosure, current-path documentation, and long-running execution principles." },
+    { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "Validates the Backfill Specs skill is present as part of required Foundation setup." },
+    { "path": "foundation/scripts/foundation-doctor.test.mjs", "kind": "test", "ownership": "reference", "notes": "Covers required-skill discovery for Foundation doctor fixtures." }
+  ],
+  "coverage": [
+    {
+      "id": "FBS-1",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "mapsTo": ["foundation.backfill-specs.descriptive#interface-journey", "foundation.backfill-specs.descriptive#ux-contracts"],
+      "evidence": "Skill defines the resumable loop, evidence hierarchy, dated report contract, and handoff requirements."
+    },
+    {
+      "id": "FBS-2",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/AGENTS.md",
+      "mapsTo": ["foundation.backfill-specs.descriptive#states-and-rules"],
+      "evidence": "Foundation AGENTS routes existing repo spec conversion requests to Backfill Specs."
+    },
+    {
+      "id": "FBS-3",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.backfill-specs.descriptive#states-and-rules"],
+      "evidence": "Foundation doctor fixtures include backfill-specs as a required Foundation skill."
+    },
+    {
+      "id": "FBS-4",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "mapsTo": ["foundation.backfill-specs.descriptive#test-coverage"],
+      "evidence": "Pilot a real target repo backfill and verify the report can resume work after a context reset."
+    }
+  ],
+  "tags": ["descriptive", "foundation", "backfill", "specs", "adoption"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Foundation Backfill Specs</div>
+      <div class="sidebar-sub">descriptive spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Product intent</a>
+    <a class="nav-item" href="#user-model"><span class="nav-num">02</span>User model</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Interface journey</a>
+    <a class="nav-item" href="#states-and-rules"><span class="nav-num">04</span>States and rules</a>
+    <a class="nav-item" href="#edge-cases"><span class="nav-num">05</span>Edge cases</a>
+    <a class="nav-item" href="#ux-contracts"><span class="nav-num">06</span>UX contracts</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">07</span>Links and paths</a>
+    <a class="nav-item" href="#design-placeholders"><span class="nav-num">08</span>Design placeholders</a>
+    <a class="nav-item" href="#test-coverage"><span class="nav-num">09</span>Test coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-specs.html</div>
+    <h1>Foundation Backfill Specs</h1>
+    <p class="lede">Backfill Specs is the Foundation workflow for meeting an existing repository where it is, reading the built system as evidence, and creating draft descriptive and technical specs that become the repo's intended contract from here forward.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Canonical section:</strong> <a href="#product-intent">#product-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
+      <h1>Backfill Specs</h1>
+      <p class="lede">A user should be able to point Foundation at a mature repo with messy or missing docs and receive a durable spec system that captures how the system is intended to work, without rewriting code or pretending stale documentation is authoritative.</p>
+      <h3>Intent</h3>
+      <p>The backfill workflow converts existing code, schemas, tests, and supporting docs into a set of draft descriptive and technical specs. It gives the user a reviewable spec graph, a top-level system/app contract, slice-level specs, and a dated HTML report that makes the work resumable across context resets.</p>
+      <p>The workflow is designed for large repos and monorepos. It should operate in loops, load only the evidence needed for the current slice, and leave enough written state that a later agent can continue without relying on prior chat history.</p>
+      <h3>Out of scope</h3>
+      <p>This spec does not define test-spec backfill. Test specs and acceptance mapping should be handled by a later Backfill Tests skill unless the user explicitly asks to include them in a backfill run.</p>
+      <p>This spec does not authorize code cleanup, documentation deletion, architecture rewrites, or old-plan cleanup. Backfill Specs may identify those needs, but old docs and code stay in place until a separate cleanup or implementation workflow begins.</p>
+    </section>
+
+    <section id="user-model" data-spec-section="user-model" data-section-type="user-model">
+      <h2>User model</h2>
+      <table class="status-table">
+        <thead><tr><th>User</th><th>Goal</th><th>Context</th><th>Success feeling</th></tr></thead>
+        <tbody>
+          <tr><td>Repo owner</td><td>Turn a large existing app into a Foundation-governed spec system.</td><td>The repo may contain production code, old plans, uneven docs, partial tests, and no active specs.</td><td>The repo now has draft specs and a clear review queue instead of a pile of uncertain documents.</td></tr>
+          <tr><td>Codex agent</td><td>Resume a long-running backfill without holding the full repo in context.</td><td>The agent starts from target AGENTS, Foundation AGENTS, the Backfill Specs skill, the dated report, and current specs.</td><td>The next slice is obvious, evidence is bounded, and handoff state lives on disk.</td></tr>
+          <tr><td>Future maintainer</td><td>Understand what the app is intended to do before changing behavior.</td><td>They read draft or active specs instead of reverse-engineering intent from code and stale docs.</td><td>The spec system is more trustworthy than the old documentation layer.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Interface journey</h2>
+      <ol>
+        <li><strong>Setup:</strong> the target repo is connected with the Foundation setup skill, then <code>npm run foundation:doctor -- --repo &lt;target-repo&gt;</code> confirms the shared substrate is discoverable.</li>
+        <li><strong>Backfill start:</strong> the agent reads target <code>AGENTS.md</code>, Foundation <code>AGENTS.md</code>, the Backfill Specs skill, any existing dated report, and the top-level system/app spec if present.</li>
+        <li><strong>Run identity:</strong> the agent creates or continues a dated report such as <code>docs/specs/backfill/review-report-20260520-01.html</code>. If a target repo adapter names the current report, that file is canonical for the run.</li>
+        <li><strong>Repo map:</strong> the agent creates a bounded repo map from file structure, package boundaries, routes, schemas, tests, and docs without loading the whole repo into context.</li>
+        <li><strong>Spec graph:</strong> the agent proposes a top-level system/app spec and child spec slices. The top-level spec is created early as the spine for product promise, vocabulary, boundaries, and child specs.</li>
+        <li><strong>Slice loop:</strong> for each slice, the agent loads only relevant evidence, writes or updates draft descriptive and technical specs, regenerates the registry, runs checks, and appends the result to the report.</li>
+        <li><strong>Handoff:</strong> the agent ends with specs created, checks run, report path, material unresolved decisions, and the recommended next slice. If the user has set a long-running goal and no blocker exists, the agent continues the loop.</li>
+      </ol>
+    </section>
+
+    <section id="states-and-rules" data-spec-section="states-and-rules" data-section-type="states-rules">
+      <h2>States and rules</h2>
+      <table class="status-table">
+        <thead><tr><th>State</th><th>Rule</th><th>User-visible result</th></tr></thead>
+        <tbody>
+          <tr><td>Repo not connected</td><td>Backfill does not begin until Foundation setup and doctor have run.</td><td>The agent routes to setup instead of creating orphan specs.</td></tr>
+          <tr><td>No report exists</td><td>Create a dated report under <code>docs/specs/backfill/</code> and record the run ID before drafting slices.</td><td>The first session has durable state from the start.</td></tr>
+          <tr><td>Report exists</td><td>Continue the existing dated report unless the user asks for a new run.</td><td>Backfill work resumes instead of fragmenting into multiple reports.</td></tr>
+          <tr><td>No top-level spec exists</td><td>Create the top-level system/app draft early and use it as parent or spine for child specs.</td><td>Slice specs have a shared product context instead of becoming disconnected pages.</td></tr>
+          <tr><td>Slice in progress</td><td>Load only the files needed to understand that slice and list evidence paths in the report.</td><td>The agent can keep moving in large repos without context overload.</td></tr>
+          <tr><td>Spec drafted</td><td>Backfilled specs start as <code>status: draft</code> with low or medium confidence.</td><td>The user has an explicit review/approval step before specs become active contracts.</td></tr>
+          <tr><td>Contradiction found</td><td>Flag material contradictions between code, schema, tests, and docs in the report.</td><td>The user reviews important decisions without being buried in minor doc drift.</td></tr>
+          <tr><td>Fallback behavior found</td><td>Record the current fallback as evidence and ask whether it is intended.</td><td>The intended spec does not accidentally preserve old fallback logic as product truth.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="edge-cases" data-spec-section="edge-cases" data-section-type="edge-cases">
+      <h2>Edge cases and recovery paths</h2>
+      <ul>
+        <li><strong>Huge monorepo:</strong> start with packages, apps, routes, data domains, and service boundaries. Do not try to read the whole repo before creating the first report and slice queue.</li>
+        <li><strong>Stale documentation:</strong> record the stale doc only when it creates a material question about intent. Code and schema remain stronger evidence.</li>
+        <li><strong>Behavior exists but intent is unclear:</strong> draft the observable behavior with a low-confidence note or stop for human clarification if the choice would materially change future work.</li>
+        <li><strong>Old docs should be deleted eventually:</strong> leave them alone during backfill and flag cleanup as a later pass after specs have been reviewed.</li>
+        <li><strong>Existing specs already exist:</strong> revise them in place when they clearly own the behavior. Create new specs only when ownership is missing or the existing spec is the wrong altitude.</li>
+        <li><strong>Context reset:</strong> the next agent reads the report, top-level spec, and relevant slice specs, then continues from the next-slice recommendation.</li>
+        <li><strong>User asks to run until done:</strong> continue the loop while checks pass and no material human decision blocks the next slice. Each loop still updates the report.</li>
+      </ul>
+    </section>
+
+    <section id="ux-contracts" data-spec-section="ux-contracts" data-section-type="hidden-mechanics">
+      <h2>Hidden mechanics as UX contracts</h2>
+      <table class="status-table">
+        <thead><tr><th>Hidden mechanic</th><th>UX contract</th><th>Failure promise</th></tr></thead>
+        <tbody>
+          <tr><td>Evidence hierarchy</td><td>Specs are based primarily on current code, schemas, tests, and observed behavior, with docs used as supporting evidence.</td><td>If evidence conflicts, the agent records the conflict instead of silently choosing a convenient story.</td></tr>
+          <tr><td>Progressive disclosure</td><td>The agent works slice by slice and keeps the full repo map in the report, not in the prompt window.</td><td>If the next slice is unclear, the agent updates the report with the ambiguity and asks for direction.</td></tr>
+          <tr><td>Draft approval gate</td><td>Backfilled specs are reviewable drafts until a human promotes them to active.</td><td>If an agent needs to rely on an unapproved backfill spec, it treats the confidence and unresolved items as part of the decision.</td></tr>
+          <tr><td>Dated report identity</td><td>A backfill run has a stable dated report path that can be named from target <code>AGENTS.md</code>.</td><td>If multiple reports exist, the agent asks which run to continue or chooses the adapter-named report.</td></tr>
+          <tr><td>Registry/check loop</td><td>Every slice update keeps the spec registry and metadata valid.</td><td>If checks fail, the agent fixes spec-system issues before proceeding to another slice.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="linking">
+      <h2>Related specs and implementation paths</h2>
+      <h3>Related specs</h3>
+      <ul>
+        <li><a data-spec-link="foundation.workspace-model.descriptive" href="./foundation-workspace-model.html">foundation.workspace-model.descriptive</a> - canonical Foundation repo, target repo adapters, and cross-repo skill discovery.</li>
+        <li><a data-spec-link="foundation.spec-process" href="./process.html">foundation.spec-process</a> - spec authoring, metadata, registry, and semantic review obligations.</li>
+        <li><a data-spec-link="foundation.spec-linking" href="./linking.html">foundation.spec-linking</a> - HTML-native linking, owned paths, and path-update loops.</li>
+      </ul>
+      <h3>Directly owned paths</h3>
+      <ul class="path-list">
+        <li data-implementation-path="foundation/docs/specs/foundation-backfill-specs.html"><code>foundation/docs/specs/foundation-backfill-specs.html</code> - descriptive contract for existing repo spec backfill.</li>
+        <li data-implementation-path="foundation/skills/backfill-specs/SKILL.md"><code>foundation/skills/backfill-specs/SKILL.md</code> - executable agent workflow for backfilling draft descriptive and technical specs.</li>
+        <li data-implementation-path="foundation/skills/backfill-specs/agents/openai.yaml"><code>foundation/skills/backfill-specs/agents/openai.yaml</code> - UI metadata for the skill.</li>
+      </ul>
+      <h3>Implementation references</h3>
+      <ul class="path-list">
+        <li><code>foundation/AGENTS.md</code> - shared routing line for Backfill Specs.</li>
+        <li><code>foundation/templates/target-repo-AGENTS.md</code> - target adapter field for current backfill status.</li>
+        <li><code>foundation/skills/install-foundation-substrate/SKILL.md</code> - setup workflow before backfill starts.</li>
+        <li><code>foundation/docs/specs/templates/descriptive-spec-template.html</code> - draft descriptive spec shape.</li>
+        <li><code>foundation/docs/specs/templates/technical-spec-template.html</code> - draft technical spec shape.</li>
+        <li><code>foundation/scripts/foundation-doctor.mjs</code> - required-skill check for Foundation setup.</li>
+      </ul>
+    </section>
+
+    <section id="design-placeholders" data-spec-section="design-placeholders" data-section-type="design">
+      <h2>Screenshot and design placeholders</h2>
+      <p>The primary user-visible artifact is the dated HTML review report. It should be scannable, durable, and useful when opened directly in a browser.</p>
+      <ul>
+        <li><strong>Report header:</strong> run ID, date, target repo, Foundation revision if known, top-level spec ID, and current status.</li>
+        <li><strong>Slice queue:</strong> table of proposed slices with status, evidence loaded, spec IDs, confidence, and next action.</li>
+        <li><strong>Review queue:</strong> material discrepancies, stale-doc warnings, fallback behavior decisions, and human approval needs.</li>
+        <li><strong>Handoff block:</strong> next-slice recommendation and commands/checks last run.</li>
+      </ul>
+    </section>
+
+    <section id="test-coverage" data-spec-section="test-coverage" data-section-type="coverage">
+      <h2>Test coverage</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Spec section</th><th>Coverage</th><th>Status</th><th>Gap</th></tr></thead>
+        <tbody>
+          <tr><td>FBS-1</td><td><code>#interface-journey</code>, <code>#ux-contracts</code></td><td>Static skill review: Backfill Specs defines the resumable loop and report contract.</td><td>existing</td><td>Does not yet execute a full repo backfill.</td></tr>
+          <tr><td>FBS-2</td><td><code>#states-and-rules</code></td><td>Foundation AGENTS routes existing-repo backfill work to the skill.</td><td>existing</td><td>Cold-session behavior should be verified during a target repo pilot.</td></tr>
+          <tr><td>FBS-3</td><td><code>#states-and-rules</code></td><td>Foundation doctor fixtures include Backfill Specs as a required skill.</td><td>existing</td><td>Presence check only, not semantic validation.</td></tr>
+          <tr><td>FBS-4</td><td><code>#test-coverage</code></td><td>Manual pilot on a real target repo with a context-reset resume.</td><td>planned</td><td>Needed before calling the workflow proven for large repos.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation Backfill Specs · existing repo adoption workflow</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

@@ -7,7 +7,7 @@ This repo is both the reference implementation and the shared system other repos
 ## What This Repo Contains
 
 - `AGENTS.md`: the small always-loaded rulebook that points agents to the spec system and protected-main workflow.
-- `skills/`: reusable workflow skills, including descriptive spec interview, spec workflow, and Foundation target-repo setup.
+- `skills/`: reusable workflow skills, including descriptive spec interview, spec workflow, Foundation target-repo setup, and existing repo spec backfill.
 - `docs/specs/`: the HTML-native spec system, templates, examples, registry generator, checker, schema, and `spec:new` scaffold command.
 - `docs/specs/foundation-workspace-model.html`: the workspace model for using one canonical Foundation repo from many target repos.
 - `docs/principles/`: durable principles for agentic software work and compounding systems.
@@ -24,6 +24,7 @@ This repo is both the reference implementation and the shared system other repos
 4. Read [The Spec System](docs/specs/index.html).
 5. Read [The Spec Process](docs/specs/process.html) when creating, changing, or reviewing specs.
 6. Read [The Foundation Workspace Model](docs/specs/foundation-workspace-model.html) when setting up cross-repo use, global Codex instructions, target repo adapters, or CI integration.
+7. Read [Foundation Backfill Specs](docs/specs/foundation-backfill-specs.html) when adopting an existing repo into the spec system.
 
 ## Use Foundation From A Target Repo
 
@@ -81,6 +82,17 @@ Set up each target repo as a consumer of canonical Foundation.
    - A user-facing spec request in the target repo routes to Foundation `skills/descriptive-spec-interview/SKILL.md`.
    - Shared process changes are made in Foundation; target product truth remains in the target repo.
    - `npm run foundation:doctor -- --repo /path/to/target-repo` reports no failures.
+
+## Adopt An Existing Repo
+
+Use this sequence when a repo already has substantial code, docs, plans, or tests and needs to join the Foundation spec system:
+
+1. Use `skills/install-foundation-substrate/SKILL.md` to connect the repo to Foundation.
+2. Run `npm run foundation:doctor -- --repo /path/to/target-repo`.
+3. Use `skills/backfill-specs/SKILL.md` to inspect current repo behavior and create draft descriptive and technical specs.
+4. Keep the active dated report named in the target repo `AGENTS.md` while backfill is in progress.
+5. Leave existing docs and code in place until the backfilled specs are reviewed and a separate cleanup pass is approved.
+6. Use a later test-backfill workflow for test specs and acceptance mapping.
 
 ## Foundation Doctor
 

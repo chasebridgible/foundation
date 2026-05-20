@@ -833,6 +833,169 @@
       ]
     },
     {
+      "id": "foundation.backfill-specs.descriptive",
+      "title": "Foundation Backfill Specs",
+      "type": "descriptive",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-backfill-specs.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.workspace-model.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.workspace-model.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.spec-process",
+          "relationship": "sibling",
+          "sections": [
+            "spec-authoring",
+            "semantic-review"
+          ]
+        },
+        {
+          "id": "foundation.spec-linking",
+          "relationship": "sibling",
+          "sections": [
+            "html-native-metadata",
+            "path-update-loop"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-specs/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/AGENTS.md",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Routes existing-repo spec backfill requests to the Backfill Specs skill."
+        },
+        {
+          "path": "foundation/templates/target-repo-AGENTS.md",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Provides a place for target repos to name active dated backfill reports."
+        },
+        {
+          "path": "foundation/README.md",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Documents the target repo adoption sequence."
+        },
+        {
+          "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Connects target repos before backfill begins."
+        },
+        {
+          "path": "foundation/docs/specs/templates/descriptive-spec-template.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Template for draft descriptive specs created during backfill."
+        },
+        {
+          "path": "foundation/docs/specs/templates/technical-spec-template.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Template for draft technical specs created during backfill."
+        },
+        {
+          "path": "foundation/docs/principles/sw-principles.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Progressive disclosure, current-path documentation, and long-running execution principles."
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Validates the Backfill Specs skill is present as part of required Foundation setup."
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "kind": "test",
+          "ownership": "reference",
+          "notes": "Covers required-skill discovery for Foundation doctor fixtures."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "FBS-1",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "mapsTo": [
+            "foundation.backfill-specs.descriptive#interface-journey",
+            "foundation.backfill-specs.descriptive#ux-contracts"
+          ],
+          "evidence": "Skill defines the resumable loop, evidence hierarchy, dated report contract, and handoff requirements."
+        },
+        {
+          "id": "FBS-2",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/AGENTS.md",
+          "mapsTo": [
+            "foundation.backfill-specs.descriptive#states-and-rules"
+          ],
+          "evidence": "Foundation AGENTS routes existing repo spec conversion requests to Backfill Specs."
+        },
+        {
+          "id": "FBS-3",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.backfill-specs.descriptive#states-and-rules"
+          ],
+          "evidence": "Foundation doctor fixtures include backfill-specs as a required Foundation skill."
+        },
+        {
+          "id": "FBS-4",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "mapsTo": [
+            "foundation.backfill-specs.descriptive#test-coverage"
+          ],
+          "evidence": "Pilot a real target repo backfill and verify the report can resume work after a context reset."
+        }
+      ],
+      "tags": [
+        "descriptive",
+        "foundation",
+        "backfill",
+        "specs",
+        "adoption"
+      ]
+    },
+    {
       "id": "foundation.workspace-doctor.technical",
       "title": "Foundation Workspace Doctor Technical Spec",
       "type": "technical",
@@ -1097,6 +1260,7 @@
       "confidence": "medium",
       "parent": "foundation.spec-system",
       "children": [
+        "foundation.backfill-specs.descriptive",
         "foundation.agents-load-canary.test",
         "foundation.workspace-doctor.technical",
         "foundation.workspace-doctor.test"
@@ -1124,6 +1288,15 @@
           "sections": [
             "resolution",
             "path-update-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "interface-journey",
+            "ux-contracts"
           ]
         },
         {
@@ -1205,6 +1378,12 @@
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Human-heavy descriptive spec creation workflow."
+        },
+        {
+          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Existing repo adoption workflow for creating draft descriptive and technical specs."
         },
         {
           "path": "foundation/skills/spec-workflow/SKILL.md",
@@ -1372,6 +1551,10 @@
         <a class="related-card" data-spec-link="foundation.workspace-model.descriptive" href="./foundation-workspace-model.html">
           <div class="related-name">Foundation workspace model</div>
           <div class="related-desc">Canonical Foundation repo, global Codex pointer, target repo adapters, skill discovery, and CI pinning model.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">
+          <div class="related-name">Foundation backfill specs</div>
+          <div class="related-desc">Existing repo adoption workflow for creating draft descriptive and technical specs plus a dated review report.</div>
         </a>
         <a class="related-card" data-spec-link="foundation.agents-load-canary.test" href="./foundation-agents-load-canary-test.html">
           <div class="related-name">Foundation AGENTS load canary test</div>
