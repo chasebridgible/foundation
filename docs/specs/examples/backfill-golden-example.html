@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-golden-example">
+<meta name="spec:type" content="process">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-20">
+<title>Foundation Backfill Golden Example</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-golden-example",
+  "title": "Foundation Backfill Golden Example",
+  "type": "process",
+  "status": "active",
+  "lastUpdated": "2026-05-20",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-evaluation.process",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.backfill-evaluation.process", "relationship": "parent", "sections": ["scoring-rubric", "good-enough-gate"] },
+    { "id": "foundation.backfill-specs.descriptive", "relationship": "sibling", "sections": ["ux-contracts", "design-placeholders"] },
+    { "id": "foundation.backfill-orchestration.technical", "relationship": "sibling", "sections": ["contracts"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/examples/backfill-golden-example.html", "kind": "example", "ownership": "direct" }
+  ],
+  "implementationPaths": [
+    { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Evaluation workflow calibrated by this example." },
+    { "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Descriptive layer quality modeled below." },
+    { "path": "foundation/skills/backfill-technical-spec-author/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Technical architecture classification modeled below." }
+  ],
+  "coverage": [
+    {
+      "id": "FBG-1",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+      "mapsTo": ["foundation.backfill-golden-example#golden-report", "foundation.backfill-golden-example#evaluator-scorecard"],
+      "evidence": "Example includes report, spec, and scorecard sections."
+    },
+    {
+      "id": "FBG-2",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+      "mapsTo": ["foundation.backfill-golden-example#golden-technical"],
+      "evidence": "Use during target repo pilots to compare generated architecture classification quality."
+    }
+  ],
+  "tags": ["example", "foundation", "backfill", "evaluation", "golden"]
+}
+</script>
+<style>
+.demo-shell { border: 1px solid #d7dde8; border-radius: 8px; padding: 16px; background: #f8fafc; }
+.demo-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; padding: 12px; margin: 8px 0; border-radius: 8px; background: #fff; border: 1px solid #e2e8f0; }
+.demo-status { font-weight: 700; color: #0f5132; }
+.demo-actions button { margin-left: 8px; padding: 8px 10px; border-radius: 6px; border: 1px solid #94a3b8; background: #fff; cursor: pointer; }
+.demo-actions button.active { background: #0f766e; color: #fff; border-color: #0f766e; }
+.score-good { color: #166534; font-weight: 700; }
+</style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">G</div>
+    <div>
+      <div class="sidebar-title">Backfill Golden</div>
+      <div class="sidebar-sub">example</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Example</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">01</span>Overview</a>
+    <a class="nav-item" href="#expected-artifacts"><span class="nav-num">02</span>Artifacts</a>
+    <a class="nav-item" href="#golden-report"><span class="nav-num">03</span>Report</a>
+    <a class="nav-item" href="#golden-descriptive"><span class="nav-num">04</span>Descriptive</a>
+    <a class="nav-item" href="#golden-technical"><span class="nav-num">05</span>Technical</a>
+    <a class="nav-item" href="#evaluator-scorecard"><span class="nav-num">06</span>Scorecard</a>
+    <a class="nav-item" href="#quality-notes"><span class="nav-num">07</span>Quality notes</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/examples/backfill-golden-example.html</div>
+    <h1>Backfill golden example</h1>
+    <p class="lede">This example shows what good looks like for a small backfilled feature slice: durable report state, concrete user intent, rendered UX, contract-first technical detail, architecture flexibility, and an evaluator scorecard.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Feature:</strong> Field Visit Check-In</div>
+      <div><strong>Use:</strong> evaluator calibration</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="expected-artifacts" data-spec-section="expected-artifacts" data-section-type="contracts">
+      <h2>Expected artifact set</h2>
+      <table class="status-table">
+        <thead><tr><th>Artifact</th><th>Example path</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Backfill report</td><td><code>docs/specs/backfill/review-report-20260520-01.html</code></td><td>Durable run state, inventory, queue, evidence, and review questions.</td></tr>
+          <tr><td>Descriptive spec</td><td><code>docs/specs/field-visit-check-in-descriptive.html</code></td><td>Architecture-agnostic user/operator intent.</td></tr>
+          <tr><td>Technical spec</td><td><code>docs/specs/field-visit-check-in-technical.html</code></td><td>Required contracts, current evidence, constraints, and implementation latitude.</td></tr>
+          <tr><td>Evaluation report</td><td><code>docs/specs/backfill/evaluation-report-20260520-01.html</code></td><td>Scorecard, spec-only probe, findings, and revision queue.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="golden-report" data-spec-section="golden-report" data-section-type="data-model">
+      <h2>Golden backfill report excerpt</h2>
+      <table class="status-table">
+        <thead><tr><th>Inventory ID</th><th>Evidence</th><th>Owning spec</th><th>Status</th><th>Next action</th></tr></thead>
+        <tbody>
+          <tr><td>FV-ROUTE-01</td><td><code>apps/web/routes/visits/$visitId/check-in.tsx</code></td><td><code>field.visit-check-in.descriptive</code></td><td>adequacy-reviewed</td><td>none</td></tr>
+          <tr><td>FV-COMP-02</td><td><code>apps/web/components/VisitCheckInPanel.tsx</code></td><td><code>field.visit-check-in.descriptive</code></td><td>rendered UX reviewed</td><td>none</td></tr>
+          <tr><td>FV-API-03</td><td><code>services/visits/checkInVisit.ts</code></td><td><code>field.visit-check-in.technical</code></td><td>technical drafted</td><td>adequacy reviewed</td></tr>
+          <tr><td>FV-DOC-04</td><td><code>docs/old/mobile-visit-plan.md</code></td><td>review queue</td><td>stale evidence</td><td>human confirms offline mode priority</td></tr>
+        </tbody>
+      </table>
+      <p>The report names evidence paths, owner specs, layer status, and the next action. It distinguishes stale docs from current code and keeps the human question material.</p>
+    </section>
+
+    <section id="golden-descriptive" data-spec-section="golden-descriptive" data-section-type="journey">
+      <h2>Golden descriptive slice excerpt</h2>
+      <p class="lede">A field coordinator needs to check into a scheduled visit from a phone, confirm they are at the right location, and leave the team with a reliable timestamp and readiness signal before work starts.</p>
+      <h3>User flow</h3>
+      <ol>
+        <li><strong>Open visit:</strong> the coordinator opens today's visit and sees address, scheduled time, customer name, and check-in status.</li>
+        <li><strong>Confirm location:</strong> the coordinator taps Check in. The system compares current location with the visit address tolerance and shows a clear warning when the user is outside the expected radius.</li>
+        <li><strong>Submit check-in:</strong> the coordinator confirms arrival. The visit moves to Checked in, records timestamp and user, and exposes Start work as the next action.</li>
+        <li><strong>Recover:</strong> if location is unavailable, the coordinator can submit with a reason. The operations view flags the check-in for review.</li>
+      </ol>
+      <h3>Rendered UX excerpt</h3>
+      <div class="demo-shell" data-demo="check-in">
+        <div class="demo-row">
+          <div>
+            <strong>Visit: Red Mesa Health Center</strong>
+            <div>9:30 AM · 1240 Cedar Ridge Rd · Assigned to Maria</div>
+            <div>Status: <span class="demo-status" id="visitStatus">Ready to check in</span></div>
+          </div>
+          <div class="demo-actions">
+            <button type="button" id="nearBtn" class="active">At location</button>
+            <button type="button" id="farBtn">Too far</button>
+            <button type="button" id="checkInBtn">Check in</button>
+          </div>
+        </div>
+        <p id="visitMessage">The coordinator is within the allowed location radius.</p>
+      </div>
+      <p>This descriptive layer avoids framework, database, and cloud choices. It defines the user-visible behavior, states, and recovery promise.</p>
+    </section>
+
+    <section id="golden-technical" data-spec-section="golden-technical" data-section-type="contracts">
+      <h2>Golden technical slice excerpt</h2>
+      <table class="status-table">
+        <thead><tr><th>Classification</th><th>Spec content</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Required contract</td><td>Check-in records visit ID, user ID, timestamp, location confidence, and optional override reason.</td><td>Operations and audit workflows depend on these facts.</td></tr>
+          <tr><td>Current evidence</td><td><code>checkInVisit.ts</code> writes to <code>visit_events</code> and updates <code>visits.status</code>.</td><td>Current repo shows event-plus-status behavior.</td></tr>
+          <tr><td>Architecture constraint</td><td>Preserve historical visit event records during migration.</td><td>Production audit history is user and operator truth.</td></tr>
+          <tr><td>Implementation latitude</td><td>The future build may use REST, RPC, or a server action if the required contract, auth rule, and audit event remain intact.</td><td>The transport mechanism is implementation latitude.</td></tr>
+        </tbody>
+      </table>
+      <h3>Technical contract summary</h3>
+      <ul>
+        <li><strong>Permission:</strong> only assigned coordinators, workspace admins, or operations supervisors can check in.</li>
+        <li><strong>Idempotency:</strong> repeated check-in attempts for the same visit return the existing check-in event.</li>
+        <li><strong>Timing:</strong> check-in before the scheduled day requires supervisor permission; late check-in remains allowed and is flagged.</li>
+        <li><strong>Observability:</strong> rejected check-ins and manual overrides are logged with reason and actor.</li>
+      </ul>
+    </section>
+
+    <section id="evaluator-scorecard" data-spec-section="evaluator-scorecard" data-section-type="coverage">
+      <h2>Golden evaluator scorecard excerpt</h2>
+      <table class="status-table">
+        <thead><tr><th>Category</th><th>Score</th><th>Evidence</th><th>Revision queue</th></tr></thead>
+        <tbody>
+          <tr><td>Inventory coverage</td><td class="score-good">3</td><td>All field visit route/component/service rows map to owner specs.</td><td>none</td></tr>
+          <tr><td>Descriptive intent</td><td class="score-good">3</td><td>User flow names roles, states, success, location warning, and recovery.</td><td>none</td></tr>
+          <tr><td>Rendered UX</td><td class="score-good">3</td><td>Spec includes interactive ready, too-far, and checked-in states.</td><td>none</td></tr>
+          <tr><td>Technical contracts</td><td class="score-good">3</td><td>Spec defines permission, idempotency, timing, audit, and observability.</td><td>none</td></tr>
+          <tr><td>Architecture flexibility</td><td class="score-good">3</td><td>Transport is latitude; production event history is constraint.</td><td>none</td></tr>
+          <tr><td>Spec-only rebuild readiness</td><td class="score-good">2</td><td>A build agent can implement the core flow; geolocation tolerance value remains a human review question.</td><td>Ask user to confirm default radius.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quality-notes" data-spec-section="quality-notes" data-section-type="decision-rule">
+      <h2>Quality notes</h2>
+      <ul>
+        <li>The descriptive excerpt is specific while preserving implementation flexibility.</li>
+        <li>The technical excerpt preserves contracts and makes flexible implementation choices explicit.</li>
+        <li>The evaluator scorecard cites artifacts and produces a concrete revision queue.</li>
+        <li>A generated backfill that only says "field visits have check-in" would score shallow.</li>
+      </ul>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation Backfill Golden Example · evaluator calibration</p>
+</main>
+<script>
+const statusEl = document.getElementById("visitStatus");
+const messageEl = document.getElementById("visitMessage");
+const nearBtn = document.getElementById("nearBtn");
+const farBtn = document.getElementById("farBtn");
+const checkInBtn = document.getElementById("checkInBtn");
+let near = true;
+function render() {
+  nearBtn.classList.toggle("active", near);
+  farBtn.classList.toggle("active", !near);
+  statusEl.textContent = near ? "Ready to check in" : "Location warning";
+  messageEl.textContent = near
+    ? "The coordinator is within the allowed location radius."
+    : "The coordinator can submit with a reason; operations will review the check-in.";
+}
+nearBtn.addEventListener("click", () => { near = true; render(); });
+farBtn.addEventListener("click", () => { near = false; render(); });
+checkInBtn.addEventListener("click", () => {
+  statusEl.textContent = near ? "Checked in" : "Checked in - review needed";
+  messageEl.textContent = near ? "Arrival recorded. Start work is now available." : "Arrival recorded with an override reason required.";
+});
+render();
+</script>
+<script src="../../site-map.js"></script>
+<script src="../../site-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evaluate Backfill Specs"
+  short_description: "Judge backfill spec quality"
+  default_prompt: "Use $evaluate-backfill-specs to review a completed backfill report and draft spec graph against the Foundation golden example and adequacy rubric."

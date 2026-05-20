@@ -734,6 +734,101 @@
       ]
     },
     {
+      "id": "foundation.backfill-golden-example",
+      "title": "Foundation Backfill Golden Example",
+      "type": "process",
+      "status": "active",
+      "file": "foundation/docs/specs/examples/backfill-golden-example.html",
+      "canonicalSection": "overview",
+      "lastUpdated": "2026-05-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-evaluation.process",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-evaluation.process",
+          "relationship": "parent",
+          "sections": [
+            "scoring-rubric",
+            "good-enough-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "sibling",
+          "sections": [
+            "ux-contracts",
+            "design-placeholders"
+          ]
+        },
+        {
+          "id": "foundation.backfill-orchestration.technical",
+          "relationship": "sibling",
+          "sections": [
+            "contracts"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+          "kind": "example",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Evaluation workflow calibrated by this example."
+        },
+        {
+          "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Descriptive layer quality modeled below."
+        },
+        {
+          "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Technical architecture classification modeled below."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "FBG-1",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+          "mapsTo": [
+            "foundation.backfill-golden-example#golden-report",
+            "foundation.backfill-golden-example#evaluator-scorecard"
+          ],
+          "evidence": "Example includes report, spec, and scorecard sections."
+        },
+        {
+          "id": "FBG-2",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+          "mapsTo": [
+            "foundation.backfill-golden-example#golden-technical"
+          ],
+          "evidence": "Use during target repo pilots to compare generated architecture classification quality."
+        }
+      ],
+      "tags": [
+        "example",
+        "foundation",
+        "backfill",
+        "evaluation",
+        "golden"
+      ]
+    },
+    {
       "id": "foundation.agents-load-canary.test",
       "title": "Foundation AGENTS Load Canary Test",
       "type": "test",
@@ -833,6 +928,333 @@
       ]
     },
     {
+      "id": "foundation.backfill-evaluation.process",
+      "title": "Foundation Backfill Evaluation Process",
+      "type": "process",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-backfill-evaluation.html",
+      "canonicalSection": "purpose",
+      "lastUpdated": "2026-05-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-golden-example"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "ux-contracts",
+            "test-coverage"
+          ]
+        },
+        {
+          "id": "foundation.backfill-orchestration.technical",
+          "relationship": "sibling",
+          "sections": [
+            "contracts",
+            "failure-modes"
+          ]
+        },
+        {
+          "id": "foundation.backfill-golden-example",
+          "relationship": "child",
+          "sections": [
+            "golden-report",
+            "golden-technical",
+            "evaluator-scorecard"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evaluation.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/evaluate-backfill-specs/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+          "kind": "example",
+          "ownership": "reference",
+          "notes": "Golden example for evaluator calibration."
+        },
+        {
+          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Backfill orchestrator invokes this evaluation after graph coverage is complete."
+        },
+        {
+          "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Per-slice adequacy review feeds the final evaluation."
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Required-skill validation includes the evaluator."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "FBE-1",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "mapsTo": [
+            "foundation.backfill-evaluation.process#evaluator-journey",
+            "foundation.backfill-evaluation.process#output-contract"
+          ],
+          "evidence": "Evaluation skill defines the scoring workflow and report contract."
+        },
+        {
+          "id": "FBE-2",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+          "mapsTo": [
+            "foundation.backfill-evaluation.process#scoring-rubric"
+          ],
+          "evidence": "Golden example provides calibration for report, descriptive, technical, and scorecard quality."
+        },
+        {
+          "id": "FBE-3",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.backfill-evaluation.process#paths-and-coverage"
+          ],
+          "evidence": "Doctor fixtures include evaluate-backfill-specs as a required Foundation skill."
+        }
+      ],
+      "tags": [
+        "process",
+        "foundation",
+        "backfill",
+        "evaluation",
+        "llm-judge"
+      ]
+    },
+    {
+      "id": "foundation.backfill-orchestration.technical",
+      "title": "Foundation Backfill Orchestration Technical Spec",
+      "type": "technical",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "interface-journey",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evaluation.process",
+          "relationship": "sibling",
+          "sections": [
+            "evaluator-journey",
+            "good-enough-gate"
+          ]
+        },
+        {
+          "id": "foundation.spec-process",
+          "relationship": "sibling",
+          "sections": [
+            "spec-authoring",
+            "semantic-review"
+          ]
+        },
+        {
+          "id": "foundation.spec-linking",
+          "relationship": "sibling",
+          "sections": [
+            "html-native-metadata",
+            "path-update-loop"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-repo-inventory/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-user-flow-extraction/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-rendered-ux-spec/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Orchestrator skill that sequences the layer skills."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Descriptive contract for the backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evaluation.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Evaluation process and good-enough gate."
+        },
+        {
+          "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+          "kind": "example",
+          "ownership": "reference",
+          "notes": "Golden example for evaluator calibration."
+        },
+        {
+          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Graph-level semantic evaluation workflow."
+        },
+        {
+          "path": "foundation/docs/specs/templates/descriptive-spec-template.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Descriptive spec structure used by backfill authoring."
+        },
+        {
+          "path": "foundation/docs/specs/templates/technical-spec-template.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Technical spec structure used by backfill authoring."
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Required-skill validation for Foundation setup."
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "kind": "test",
+          "ownership": "reference",
+          "notes": "Doctor fixtures include all required backfill skills."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "FBO-1",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "mapsTo": [
+            "foundation.backfill-orchestration.technical#internal-sequence"
+          ],
+          "evidence": "Backfill orchestrator names the skill chain and resumable loop."
+        },
+        {
+          "id": "FBO-2",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
+          "mapsTo": [
+            "foundation.backfill-orchestration.technical#contracts"
+          ],
+          "evidence": "Adequacy review skill defines the slice completion gate."
+        },
+        {
+          "id": "FBO-3",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.backfill-orchestration.technical#paths-and-coverage"
+          ],
+          "evidence": "Doctor fixtures include required backfill sub-skills."
+        },
+        {
+          "id": "FBO-4",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
+          "mapsTo": [
+            "foundation.backfill-orchestration.technical#failure-modes"
+          ],
+          "evidence": "Run a large target repo backfill and verify the report marks complete after relevant inventory items are mapped, parent-covered, out of scope, and adequacy-reviewed."
+        },
+        {
+          "id": "FBO-5",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
+          "mapsTo": [
+            "foundation.backfill-orchestration.technical#contracts"
+          ],
+          "evidence": "Technical authoring requires required contracts, current evidence, architecture constraints, and implementation latitude."
+        }
+      ],
+      "tags": [
+        "technical",
+        "foundation",
+        "backfill",
+        "orchestration",
+        "skills"
+      ]
+    },
+    {
       "id": "foundation.backfill-specs.descriptive",
       "title": "Foundation Backfill Specs",
       "type": "descriptive",
@@ -843,7 +1265,10 @@
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.descriptive",
-      "children": [],
+      "children": [
+        "foundation.backfill-orchestration.technical",
+        "foundation.backfill-evaluation.process"
+      ],
       "relatedSpecs": [
         {
           "id": "foundation.workspace-model.descriptive",
@@ -852,6 +1277,24 @@
             "product-intent",
             "states-and-rules",
             "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-orchestration.technical",
+          "relationship": "child",
+          "sections": [
+            "required-depth",
+            "internal-sequence",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evaluation.process",
+          "relationship": "child",
+          "sections": [
+            "evaluator-journey",
+            "scoring-rubric",
+            "good-enough-gate"
           ]
         },
         {
@@ -926,6 +1369,66 @@
           "notes": "Template for draft technical specs created during backfill."
         },
         {
+          "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Technical contract for the backfill skill chain, coverage ledger, and adequacy gate."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evaluation.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Evaluation process and good-enough gate."
+        },
+        {
+          "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+          "kind": "example",
+          "ownership": "reference",
+          "notes": "Golden example for evaluator calibration."
+        },
+        {
+          "path": "foundation/skills/backfill-repo-inventory/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Builds repo evidence inventory and coverage ledger."
+        },
+        {
+          "path": "foundation/skills/backfill-user-flow-extraction/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Extracts concrete user flows before descriptive authoring."
+        },
+        {
+          "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Authors intent-grade descriptive specs."
+        },
+        {
+          "path": "foundation/skills/backfill-rendered-ux-spec/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Adds interactive HTML-native UX examples."
+        },
+        {
+          "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Authors technical contracts from descriptive intent and repo evidence."
+        },
+        {
+          "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Reviews slice adequacy before it can be marked drafted."
+        },
+        {
+          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Evaluates completed backfill graphs against the golden example and rubric."
+        },
+        {
           "path": "foundation/docs/principles/sw-principles.html",
           "kind": "doc",
           "ownership": "reference",
@@ -995,6 +1498,26 @@
             "foundation.backfill-specs.descriptive#design-placeholders"
           ],
           "evidence": "Backfill a user-facing UI slice and verify the descriptive spec includes rendered, interactive HTML-native UX examples."
+        },
+        {
+          "id": "FBS-6",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "mapsTo": [
+            "foundation.backfill-specs.descriptive#ux-contracts"
+          ],
+          "evidence": "Backfill Specs requires intent-rigid, architecture-flexible descriptive and technical output."
+        },
+        {
+          "id": "FBS-7",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "mapsTo": [
+            "foundation.backfill-specs.descriptive#test-coverage"
+          ],
+          "evidence": "Evaluate Backfill Specs defines the semantic quality gate for completed graphs."
         }
       ],
       "tags": [
@@ -1565,6 +2088,10 @@
         <a class="related-card" data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">
           <div class="related-name">Foundation backfill specs</div>
           <div class="related-desc">Existing repo adoption workflow for creating draft descriptive and technical specs plus a dated review report.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.backfill-orchestration.technical" href="./foundation-backfill-orchestration-technical.html">
+          <div class="related-name">Foundation backfill orchestration technical spec</div>
+          <div class="related-desc">Skill-chain contract for repo inventory, user flows, spec authoring, rendered UX, technical contracts, and adequacy review.</div>
         </a>
         <a class="related-card" data-spec-link="foundation.agents-load-canary.test" href="./foundation-agents-load-canary-test.html">
           <div class="related-name">Foundation AGENTS load canary test</div>

@@ -29,6 +29,8 @@ const groupOrder = [
     order: [
       "specs/foundation-workspace-model.html",
       "specs/foundation-backfill-specs.html",
+      "specs/foundation-backfill-orchestration-technical.html",
+      "specs/foundation-backfill-evaluation.html",
       "specs/foundation-agents-load-canary-test.html",
       "specs/foundation-workspace-doctor-technical.html",
       "specs/foundation-workspace-doctor-test.html"
@@ -47,6 +49,7 @@ const groupOrder = [
     group: "Spec Examples",
     include: file => file.startsWith("specs/examples/"),
     order: [
+      "specs/examples/backfill-golden-example.html",
       "specs/examples/descriptive-spec-example.html",
       "specs/examples/technical-spec-example.html",
       "specs/examples/test-spec-example.html"

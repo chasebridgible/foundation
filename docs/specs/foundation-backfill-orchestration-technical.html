@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-orchestration.technical">
+<meta name="spec:type" content="technical">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-20">
+<title>Foundation Backfill Orchestration Technical Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-orchestration.technical",
+  "title": "Foundation Backfill Orchestration Technical Spec",
+  "type": "technical",
+  "status": "active",
+  "lastUpdated": "2026-05-20",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-specs.descriptive",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.backfill-specs.descriptive", "relationship": "parent", "sections": ["product-intent", "interface-journey", "states-and-rules", "ux-contracts"] },
+    { "id": "foundation.backfill-evaluation.process", "relationship": "sibling", "sections": ["evaluator-journey", "good-enough-gate"] },
+    { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["spec-authoring", "semantic-review"] },
+    { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["html-native-metadata", "path-update-loop"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html", "kind": "doc", "ownership": "direct" },
+    { "path": "foundation/skills/backfill-repo-inventory/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/backfill-user-flow-extraction/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/backfill-rendered-ux-spec/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/backfill-technical-spec-author/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md", "kind": "workflow", "ownership": "direct" }
+  ],
+  "implementationPaths": [
+    { "path": "foundation/skills/backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Orchestrator skill that sequences the layer skills." },
+    { "path": "foundation/docs/specs/foundation-backfill-specs.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive contract for the backfill workflow." },
+    { "path": "foundation/docs/specs/foundation-backfill-evaluation.html", "kind": "doc", "ownership": "reference", "notes": "Evaluation process and good-enough gate." },
+    { "path": "foundation/docs/specs/examples/backfill-golden-example.html", "kind": "example", "ownership": "reference", "notes": "Golden example for evaluator calibration." },
+    { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Graph-level semantic evaluation workflow." },
+    { "path": "foundation/docs/specs/templates/descriptive-spec-template.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive spec structure used by backfill authoring." },
+    { "path": "foundation/docs/specs/templates/technical-spec-template.html", "kind": "doc", "ownership": "reference", "notes": "Technical spec structure used by backfill authoring." },
+    { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "Required-skill validation for Foundation setup." },
+    { "path": "foundation/scripts/foundation-doctor.test.mjs", "kind": "test", "ownership": "reference", "notes": "Doctor fixtures include all required backfill skills." }
+  ],
+  "coverage": [
+    {
+      "id": "FBO-1",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "mapsTo": ["foundation.backfill-orchestration.technical#internal-sequence"],
+      "evidence": "Backfill orchestrator names the skill chain and resumable loop."
+    },
+    {
+      "id": "FBO-2",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
+      "mapsTo": ["foundation.backfill-orchestration.technical#contracts"],
+      "evidence": "Adequacy review skill defines the slice completion gate."
+    },
+    {
+      "id": "FBO-3",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.backfill-orchestration.technical#paths-and-coverage"],
+      "evidence": "Doctor fixtures include required backfill sub-skills."
+    },
+    {
+      "id": "FBO-4",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
+      "mapsTo": ["foundation.backfill-orchestration.technical#failure-modes"],
+      "evidence": "Run a large target repo backfill and verify the report marks complete after relevant inventory items are mapped, parent-covered, out of scope, and adequacy-reviewed."
+    },
+    {
+      "id": "FBO-5",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
+      "mapsTo": ["foundation.backfill-orchestration.technical#contracts"],
+      "evidence": "Technical authoring requires required contracts, current evidence, architecture constraints, and implementation latitude."
+    }
+  ],
+  "tags": ["technical", "foundation", "backfill", "orchestration", "skills"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+    <div>
+      <div class="sidebar-title">Backfill Orchestration</div>
+      <div class="sidebar-sub">technical spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#required-depth"><span class="nav-num">01</span>Required depth</a>
+    <a class="nav-item" href="#internal-sequence"><span class="nav-num">02</span>Sequence</a>
+    <a class="nav-item" href="#data-model"><span class="nav-num">03</span>Data model</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">04</span>Contracts</a>
+    <a class="nav-item" href="#concurrency-and-timing"><span class="nav-num">05</span>Timing</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">06</span>Failures</a>
+    <a class="nav-item" href="#boundaries"><span class="nav-num">07</span>Boundaries</a>
+    <a class="nav-item" href="#migrations-and-adrs"><span class="nav-num">08</span>Migrations/ADRs</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">09</span>Paths/coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-orchestration-technical.html</div>
+    <h1>Foundation Backfill Orchestration Technical Spec</h1>
+    <p class="lede">The backfill orchestrator is a resumable workflow that delegates each layer of repo intent extraction to focused skills and only advances a slice after adequacy review.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Canonical section:</strong> <a href="#required-depth">#required-depth</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
+      <h1>Required depth</h1>
+      <p>The backfill system extracts intended behavior from repo evidence. Code is the strongest available evidence, but the durable output is a spec graph that states what the system is meant to do for users, operators, and future implementers.</p>
+      <p>The orchestrated output is intent-rigid and architecture-flexible. Descriptive specs carry architecture-agnostic intent. Technical specs carry required contracts, current implementation evidence, justified architecture constraints, and implementation latitude.</p>
+      <p>Backfill completion depends on coverage and adequacy. A complete run has a coverage ledger where every relevant inventory item is mapped to an adequate spec, intentionally covered by a parent section, or explicitly marked out of scope.</p>
+    </section>
+
+    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
+      <h2>Internal sequence</h2>
+      <ol>
+        <li><strong>Connect:</strong> use Foundation setup and doctor to confirm the target repo can consume Foundation.</li>
+        <li><strong>Inventory:</strong> run <code>backfill-repo-inventory</code> to build or refresh the coverage ledger.</li>
+        <li><strong>Queue:</strong> choose the next slice from inventory rows awaiting owner specs, child behavior coverage, or adequacy review.</li>
+        <li><strong>Extract flows:</strong> run <code>backfill-user-flow-extraction</code> for user-facing inventory items.</li>
+        <li><strong>Draft descriptive:</strong> run <code>backfill-descriptive-spec-author</code> and create or update draft descriptive specs.</li>
+        <li><strong>Render UX:</strong> run <code>backfill-rendered-ux-spec</code> when the descriptive slice has visual or UX-visible behavior.</li>
+        <li><strong>Draft technical:</strong> run <code>backfill-technical-spec-author</code> and create or update draft technical specs that classify required contracts, current evidence, architecture constraints, and implementation latitude.</li>
+        <li><strong>Review adequacy:</strong> run <code>backfill-spec-adequacy-review</code>, revise layers that need more detail, and mark the slice adequacy-reviewed after it passes.</li>
+        <li><strong>Validate:</strong> regenerate registry and run spec checks.</li>
+        <li><strong>Continue:</strong> update the report and start the next unreviewed slice until inventory coverage is complete.</li>
+        <li><strong>Evaluate:</strong> run <code>evaluate-backfill-specs</code> against the completed graph, golden example, and rubric before final handoff.</li>
+      </ol>
+    </section>
+
+    <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
+      <h2>Data model</h2>
+      <table class="status-table">
+        <thead><tr><th>Artifact</th><th>Required fields</th><th>Invariant</th><th>Owner</th></tr></thead>
+        <tbody>
+          <tr><td>Backfill report</td><td>run ID, date, target repo, Foundation revision, top-level spec, slice queue, review queue, evaluation status, validation results</td><td>Can resume the run from durable files.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Inventory row</td><td>ID, category, label, evidence path, owning spec, coverage layer, missing detail, notes</td><td>Every relevant row reaches mapped, adequacy-reviewed, or out-of-scope status by completion.</td><td><code>backfill-repo-inventory</code></td></tr>
+          <tr><td>User flow row</td><td>user, entry point, intent, actions, states, success, failure/recovery, evidence, owning spec</td><td>Every user-facing entry point maps to a concrete flow.</td><td><code>backfill-user-flow-extraction</code></td></tr>
+          <tr><td>Adequacy row</td><td>slice, specs, inventory result, flow result, rendered UX result, technical result, architecture flexibility result, traceability result, revisions, status</td><td>A slice advances after adequacy review passes or records isolated review questions.</td><td><code>backfill-spec-adequacy-review</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
+      <h2>Contracts</h2>
+      <table class="status-table">
+        <thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Intent extraction</td><td>Specs state intended behavior supported by evidence.</td><td>Specs are durable product and system contracts.</td></tr>
+          <tr><td>Descriptive/technical split</td><td>Descriptive specs define architecture-agnostic user/operator intent; technical specs define contract-level system requirements.</td><td>The spec graph preserves intent while allowing implementation improvement.</td></tr>
+          <tr><td>Architecture classification</td><td>Technical specs classify required contracts, current implementation evidence, architecture constraints, and implementation latitude.</td><td>Future build agents know what must remain true and where architecture may change.</td></tr>
+          <tr><td>Layered workflow</td><td>Inventory, flow extraction, descriptive drafting, rendered UX, technical drafting, and adequacy review are separate steps.</td><td>Focused steps reduce context loss and make completion testable.</td></tr>
+          <tr><td>User flow depth</td><td>User-facing behavior is sliced by concrete user flows where possible.</td><td>Flow-sized specs can carry specific states, rules, and rendered examples.</td></tr>
+          <tr><td>Parent/child graph</td><td>Parent specs define vocabulary and boundaries; child specs carry behavior.</td><td>Behavior coverage has an explicit owner.</td></tr>
+          <tr><td>Adequacy gate</td><td>The review question is whether a future build agent could implement intended behavior from specs alone while preserving required contracts and using implementation latitude where architecture is flexible.</td><td>This is the practical signal that the spec has enough detail.</td></tr>
+          <tr><td>Evaluation gate</td><td>The final graph is judged by <code>evaluate-backfill-specs</code> against the golden example and scoring rubric.</td><td>Backfill quality is evaluated as a system output, not just a file-generation task.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="concurrency-and-timing" data-spec-section="concurrency-and-timing" data-section-type="concurrency">
+      <h2>Timing, concurrency, and ordering</h2>
+      <p>Backfill runs are allowed to span multiple sessions. Ordering is enforced by durable report state.</p>
+      <ul>
+        <li><strong>Resume:</strong> read the report, inventory, top-level spec, current slice specs, and relevant skill before continuing.</li>
+        <li><strong>Revision loop:</strong> adequacy review may send the slice back to inventory, flow extraction, descriptive authoring, rendered UX, or technical authoring before the next slice begins.</li>
+        <li><strong>Validation cadence:</strong> run spec registry/check after each drafted slice or grouped set of tightly related child specs.</li>
+      </ul>
+    </section>
+
+    <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+      <h2>Failure modes</h2>
+      <table class="status-table">
+        <thead><tr><th>Failure</th><th>System behavior</th><th>User behavior</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Coverage ledger</td><td>Inventory rows awaiting owner specs, child behavior coverage, or adequacy review remain in the slice queue.</td><td>User sees the remaining slice queue until coverage is complete.</td><td>Coverage ledger</td></tr>
+          <tr><td>Adequacy loop</td><td>Adequacy review marks flows, rules, UX, or technical contracts for revision and loops to the owning skill.</td><td>User receives specs that have passed the review gate.</td><td>Adequacy table</td></tr>
+          <tr><td>Context reset</td><td>Next agent resumes from report, inventory, current specs, and skill chain.</td><td>User continues from durable state.</td><td>Dated report</td></tr>
+          <tr><td>Evidence conflict</td><td>Report records the contradiction and the spec states evidence-backed intended behavior with review notes.</td><td>User can adjudicate high-value questions after full coverage exists.</td><td>Review queue</td></tr>
+          <tr><td>Architecture classification gap</td><td>Adequacy review sends current implementation details back for classification as required contracts, current evidence, justified constraints, or implementation latitude.</td><td>User receives specs that preserve necessary contracts and keep flexible implementation choices available.</td><td>Architecture flexibility result</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="boundaries" data-spec-section="boundaries" data-section-type="boundaries">
+      <h2>Boundaries and abstraction level</h2>
+      <ul>
+        <li><strong>Orchestrator:</strong> sequencing, report state, skill selection, validation, and completion.</li>
+        <li><strong>Inventory skill:</strong> evidence discovery and coverage ledger.</li>
+        <li><strong>User-flow skill:</strong> user-centered journeys and flow granularity.</li>
+        <li><strong>Authoring skills:</strong> descriptive intent, rendered UX, and technical contracts.</li>
+        <li><strong>Review skill:</strong> adequacy gate and revision loop.</li>
+      </ul>
+    </section>
+
+    <section id="migrations-and-adrs" data-spec-section="migrations-and-adrs" data-section-type="decisions">
+      <h2>Migrations and ADR links</h2>
+      <p>This change splits workflow instructions into skills and adds a technical orchestration contract. Future work may add deterministic report checkers or inventory parsers.</p>
+    </section>
+
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Related paths and coverage</h2>
+      <h3>Direct paths</h3>
+      <ul class="path-list">
+        <li data-implementation-path="foundation/skills/backfill-repo-inventory/SKILL.md"><code>foundation/skills/backfill-repo-inventory/SKILL.md</code> - inventory and coverage ledger workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-user-flow-extraction/SKILL.md"><code>foundation/skills/backfill-user-flow-extraction/SKILL.md</code> - concrete user-flow extraction workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-descriptive-spec-author/SKILL.md"><code>foundation/skills/backfill-descriptive-spec-author/SKILL.md</code> - descriptive spec authoring workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-rendered-ux-spec/SKILL.md"><code>foundation/skills/backfill-rendered-ux-spec/SKILL.md</code> - rendered UX workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-technical-spec-author/SKILL.md"><code>foundation/skills/backfill-technical-spec-author/SKILL.md</code> - technical spec authoring workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-spec-adequacy-review/SKILL.md"><code>foundation/skills/backfill-spec-adequacy-review/SKILL.md</code> - adequacy review workflow.</li>
+        <li data-implementation-path="foundation/skills/evaluate-backfill-specs/SKILL.md"><code>foundation/skills/evaluate-backfill-specs/SKILL.md</code> - graph-level semantic evaluation workflow.</li>
+      </ul>
+      <h3>Coverage</h3>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>FBO-1</td><td><code>#internal-sequence</code></td><td>Backfill orchestrator names the skill chain and resumable loop.</td><td>existing</td></tr>
+          <tr><td>FBO-2</td><td><code>#contracts</code></td><td>Adequacy review skill defines the slice completion gate.</td><td>existing</td></tr>
+          <tr><td>FBO-3</td><td><code>#paths-and-coverage</code></td><td>Doctor fixtures include required backfill sub-skills.</td><td>existing</td></tr>
+          <tr><td>FBO-4</td><td><code>#failure-modes</code></td><td>Manual large-repo pilot for inventory and adequacy completion gates.</td><td>planned</td></tr>
+          <tr><td>FBO-5</td><td><code>#contracts</code></td><td>Technical authoring skill requires architecture classification.</td><td>existing</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation Backfill Orchestration Technical Spec · skill-chain contract</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>
