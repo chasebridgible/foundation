@@ -8,6 +8,7 @@ const scriptPath = fileURLToPath(import.meta.url);
 const repoRoot = path.dirname(path.dirname(scriptPath));
 const requiredSkills = [
   "descriptive-spec-interview",
+  "backfill-specs",
   "spec-workflow",
   "install-foundation-substrate"
 ];

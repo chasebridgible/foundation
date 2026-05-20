@@ -4,5 +4,6 @@
 - Keep product specs, project knowledge, implementation paths, tests, ADRs, and local commands in this repo.
 - Keep shared process, principles, reusable skills, templates, and validators in Foundation.
 - Product spec entry point: `docs/specs/index.html`.
+- Backfill status: `none`, or name the dated `docs/specs/backfill/` report, current top-level spec ID, and next slice.
 - Local commands: replace this line with the repo's test, build, lint, typecheck, dev, data, and spec commands.
 - Local constraints: replace this line with repo-specific deployment, data, security, branch, environment, or ownership constraints.

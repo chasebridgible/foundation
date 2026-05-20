@@ -53,6 +53,11 @@ window.SubstrateSiteMap = [
         "specId": "foundation.workspace-model.descriptive"
       },
       {
+        "title": "Foundation Backfill Specs",
+        "path": "specs/foundation-backfill-specs.html",
+        "specId": "foundation.backfill-specs.descriptive"
+      },
+      {
         "title": "Foundation AGENTS Load Canary Test",
         "path": "specs/foundation-agents-load-canary-test.html",
         "specId": "foundation.agents-load-canary.test"

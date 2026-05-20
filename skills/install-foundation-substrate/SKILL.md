@@ -25,9 +25,18 @@ Use this skill to connect a target repo to Foundation. The model is defined in `
 1. Rewrite the target repo README for the target product or client repo.
 2. Create target-owned spec directories when the repo starts carrying product specs.
 3. Use target-owned spec IDs. Do not create target product specs under `foundation.*`.
-4. Record local test, build, and development commands in the target repo adapter.
+4. Record local test, build, development, and active backfill report paths in the target repo adapter.
 5. Route shared process improvements back to Foundation.
 6. Route product behavior, project knowledge, ADRs, tests, and implementation paths to the target repo.
+
+## Existing Repo Adoption
+
+After the target repo is connected:
+
+1. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation.
+2. Use `skills/backfill-specs/SKILL.md` to inspect existing repo behavior and create draft descriptive and technical specs.
+3. Keep the active dated backfill report named in the target repo adapter while the backfill is in progress.
+4. Use a later test-backfill workflow for test specs and acceptance mapping.
 
 ## GitHub Setup
 
@@ -46,5 +55,6 @@ Use this skill to connect a target repo to Foundation. The model is defined in `
 - The target README explains what the target repo is.
 - Product specs and project facts live in the target repo.
 - Shared process changes live in Foundation.
+- Existing repo adoption routes to Backfill Specs after setup.
 - CI checks out a pinned Foundation revision before running Foundation-backed validation.
 - `npm run foundation:doctor -- --repo <target-repo>` reports no failures.
