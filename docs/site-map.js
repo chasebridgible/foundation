@@ -45,6 +45,26 @@ window.SubstrateSiteMap = [
     ]
   },
   {
+    "group": "Foundation Specs",
+    "items": [
+      {
+        "title": "Foundation Workspace Model",
+        "path": "specs/foundation-workspace-model.html",
+        "specId": "foundation.workspace-model.descriptive"
+      },
+      {
+        "title": "Foundation Workspace Doctor Technical Spec",
+        "path": "specs/foundation-workspace-doctor-technical.html",
+        "specId": "foundation.workspace-doctor.technical"
+      },
+      {
+        "title": "Foundation Workspace Doctor Test Spec",
+        "path": "specs/foundation-workspace-doctor-test.html",
+        "specId": "foundation.workspace-doctor.test"
+      }
+    ]
+  },
+  {
     "group": "Spec Templates",
     "items": [
       {

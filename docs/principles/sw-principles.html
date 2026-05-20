@@ -450,6 +450,7 @@
 <section id="knowledge-and-documentation" class="level2 spec-section">
 <h2>Knowledge and documentation</h2>
 <p><strong><code>AGENTS.md</code> is a pilot's checklist, not a style guide.</strong> It lands in the system prompt every turn, so it's the single highest-leverage configuration point. Keep it short and earn each line: every rule traces to a specific past failure or hard external constraint, or it's noise and exhausts the context window.</p>
+<p><strong>Document the current path, not the transition.</strong> When a workflow changes, operational docs, specs, and code comments should say how the system works now. Do not preserve the old way as a "fallback," "legacy option," or parallel instruction unless it is an actively supported mode with a named trigger, owner, tests, and deprecation plan. Historical context belongs in ADRs, changelogs, or commit history; instructions should leave the next agent with one clear path.</p>
 <p><strong>The session log is the substrate of recoverability.</strong> An append-only event log of every thought, tool call, and observation is what makes a long run debuggable, auditable, and resumable. Without one, a container failure is a session failure — what you have is a long-running shell script that happens to call an LLM, not a long-running agent.</p>
 </section>
 <section id="context-and-defensibility" class="level2 spec-section">

@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-system">
 <meta name="spec:type" content="index">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-12">
+<meta name="spec:last-updated" content="2026-05-20">
 <title>Spec System</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="schema" href="./spec-registry.schema.json">
@@ -16,14 +16,15 @@
   "title": "Spec System",
   "type": "index",
   "status": "active",
-  "lastUpdated": "2026-05-12",
+  "lastUpdated": "2026-05-20",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": null,
-  "children": ["foundation.spec-process", "foundation.spec-linking", "foundation.spec-template.descriptive", "foundation.spec-template.technical", "foundation.spec-template.test"],
+  "children": ["foundation.spec-process", "foundation.spec-linking", "foundation.workspace-model.descriptive", "foundation.spec-template.descriptive", "foundation.spec-template.technical", "foundation.spec-template.test"],
   "relatedSpecs": [
     { "id": "foundation.spec-process", "relationship": "child", "sections": ["workflow-contract", "spec-authoring", "risk-tiers", "semantic-review"] },
-    { "id": "foundation.spec-linking", "relationship": "child", "sections": ["html-native-metadata"] }
+    { "id": "foundation.spec-linking", "relationship": "child", "sections": ["html-native-metadata"] },
+    { "id": "foundation.workspace-model.descriptive", "relationship": "child", "sections": ["product-intent", "states-and-rules", "ux-contracts"] }
   ],
   "ownedPaths": [
     { "path": "foundation/README.md", "kind": "doc", "ownership": "direct" },
@@ -34,7 +35,12 @@
     { "path": "foundation/docs/specs/new-spec.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/docs/specs/generate-registry.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/docs/specs/check-specs.mjs", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/docs/generate-site-map.mjs", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/docs/site-map.js", "kind": "config", "ownership": "direct" },
+    { "path": "foundation/docs/site-nav.js", "kind": "source", "ownership": "direct" },
     { "path": "foundation/.github/workflows/specs.yml", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/descriptive-spec-interview/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/descriptive-spec-interview/agents/openai.yaml", "kind": "config", "ownership": "direct" },
     { "path": "foundation/skills/spec-workflow/SKILL.md", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/skills/spec-workflow/agents/openai.yaml", "kind": "config", "ownership": "direct" },
     { "path": "foundation/skills/install-foundation-substrate/SKILL.md", "kind": "workflow", "ownership": "direct" },
@@ -49,7 +55,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-05-12",
+  "lastUpdated": "2026-05-20",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -59,13 +65,14 @@
       "status": "active",
       "file": "foundation/docs/specs/index.html",
       "canonicalSection": "overview",
-      "lastUpdated": "2026-05-12",
+      "lastUpdated": "2026-05-20",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": null,
       "children": [
         "foundation.spec-process",
         "foundation.spec-linking",
+        "foundation.workspace-model.descriptive",
         "foundation.spec-template.descriptive",
         "foundation.spec-template.technical",
         "foundation.spec-template.test"
@@ -86,6 +93,15 @@
           "relationship": "child",
           "sections": [
             "html-native-metadata"
+          ]
+        },
+        {
+          "id": "foundation.workspace-model.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "states-and-rules",
+            "ux-contracts"
           ]
         }
       ],
@@ -131,8 +147,33 @@
           "ownership": "direct"
         },
         {
+          "path": "foundation/docs/generate-site-map.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/site-map.js",
+          "kind": "config",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/site-nav.js",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
           "path": "foundation/.github/workflows/specs.yml",
           "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/descriptive-spec-interview/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/descriptive-spec-interview/agents/openai.yaml",
+          "kind": "config",
           "ownership": "direct"
         },
         {
@@ -691,6 +732,444 @@
         "test",
         "orders"
       ]
+    },
+    {
+      "id": "foundation.workspace-doctor.technical",
+      "title": "Foundation Workspace Doctor Technical Spec",
+      "type": "technical",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-workspace-doctor-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.workspace-model.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.workspace-model.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.workspace-doctor.test",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.spec-process",
+          "relationship": "informs",
+          "sections": [
+            "spec-authoring",
+            "semantic-review"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-workspace-doctor-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/package.json",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Exposes foundation:doctor and foundation:doctor:test scripts."
+        },
+        {
+          "path": "foundation/README.md",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Documents user-facing doctor commands."
+        },
+        {
+          "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Uses the doctor as target repo setup evidence."
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "kind": "test",
+          "ownership": "reference",
+          "notes": "Verifies doctor behavior."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "FWD-T1",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.technical#contracts"
+          ],
+          "evidence": "machine setup passes when global pointer and required skills exist"
+        },
+        {
+          "id": "FWD-T2",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.technical#contracts"
+          ],
+          "evidence": "target repo adapter passes when it points to Foundation"
+        },
+        {
+          "id": "FWD-T3",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.technical#failure-modes"
+          ],
+          "evidence": "target repo AGENTS fails when it duplicates Foundation-owned rules"
+        },
+        {
+          "id": "FWD-T4",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.technical#failure-modes"
+          ],
+          "evidence": "target repo specs fail when product specs use foundation namespace"
+        }
+      ],
+      "tags": [
+        "technical",
+        "foundation",
+        "workspace",
+        "doctor"
+      ]
+    },
+    {
+      "id": "foundation.workspace-doctor.test",
+      "title": "Foundation Workspace Doctor Test Spec",
+      "type": "test",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-workspace-doctor-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.workspace-model.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.workspace-model.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.workspace-doctor.technical",
+          "relationship": "sibling",
+          "sections": [
+            "contracts",
+            "failure-modes"
+          ]
+        },
+        {
+          "id": "foundation.spec-process",
+          "relationship": "informs",
+          "sections": [
+            "semantic-review",
+            "update-obligations"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-workspace-doctor-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "kind": "test",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-doctor.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Behavior under test."
+        },
+        {
+          "path": "foundation/package.json",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Exposes the test command."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "FWD-A1",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.test#acceptance-mapping",
+            "foundation.workspace-doctor.technical#contracts"
+          ],
+          "evidence": "machine setup passes when global pointer and required skills exist"
+        },
+        {
+          "id": "FWD-A2",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.test#acceptance-mapping",
+            "foundation.workspace-doctor.technical#contracts"
+          ],
+          "evidence": "target repo adapter passes when it points to Foundation"
+        },
+        {
+          "id": "FWD-A3",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.test#acceptance-mapping",
+            "foundation.workspace-doctor.technical#failure-modes"
+          ],
+          "evidence": "target repo AGENTS fails when it duplicates Foundation-owned rules"
+        },
+        {
+          "id": "FWD-A4",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.test#acceptance-mapping",
+            "foundation.workspace-doctor.technical#failure-modes"
+          ],
+          "evidence": "target repo specs fail when product specs use foundation namespace"
+        },
+        {
+          "id": "FWD-A5",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-workspace-doctor-test.html",
+          "mapsTo": [
+            "foundation.workspace-model.descriptive#ux-contracts"
+          ],
+          "evidence": "Run doctor against a real target repo after that repo has a pinned Foundation CI workflow.",
+          "notes": "This requires a target repo fixture or real repo with GitHub workflow shape."
+        }
+      ],
+      "tags": [
+        "test",
+        "foundation",
+        "workspace",
+        "doctor"
+      ]
+    },
+    {
+      "id": "foundation.workspace-model.descriptive",
+      "title": "Foundation Workspace Model",
+      "type": "descriptive",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-workspace-model.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.spec-system",
+      "children": [
+        "foundation.workspace-doctor.technical",
+        "foundation.workspace-doctor.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-system",
+          "relationship": "parent",
+          "sections": [
+            "registry",
+            "entry-points"
+          ]
+        },
+        {
+          "id": "foundation.spec-process",
+          "relationship": "sibling",
+          "sections": [
+            "workflow-contract",
+            "update-obligations"
+          ]
+        },
+        {
+          "id": "foundation.spec-linking",
+          "relationship": "sibling",
+          "sections": [
+            "resolution",
+            "path-update-loop"
+          ]
+        },
+        {
+          "id": "foundation.workspace-doctor.technical",
+          "relationship": "child",
+          "sections": [
+            "required-depth",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.workspace-doctor.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-workspace-model.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/AGENTS.md",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Canonical Foundation agent rulebook for shared spec and substrate behavior."
+        },
+        {
+          "path": "foundation/README.md",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Foundation setup overview and target-repo instructions for canonical workspace use."
+        },
+        {
+          "path": "foundation/package.json",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Command registry for spec, site-map, and doctor checks."
+        },
+        {
+          "path": "foundation/.github/workflows/specs.yml",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Current Foundation CI check; target repos need equivalent pinned validation."
+        },
+        {
+          "path": "foundation/docs/specs/index.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Spec registry and agent entry point."
+        },
+        {
+          "path": "foundation/docs/specs/process.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Spec authoring and update obligations."
+        },
+        {
+          "path": "foundation/skills/descriptive-spec-interview/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Human-heavy descriptive spec creation workflow."
+        },
+        {
+          "path": "foundation/skills/spec-workflow/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Spec authoring, registry, and verification workflow."
+        },
+        {
+          "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Target repo setup workflow for connecting repos to canonical Foundation."
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration."
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "kind": "test",
+          "ownership": "reference",
+          "notes": "Automated coverage for the Foundation doctor rules."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "FW-1",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.mjs",
+          "mapsTo": [
+            "foundation.workspace-model.descriptive#states-and-rules"
+          ],
+          "evidence": "foundation:doctor target repo adapter check fails when AGENTS.md duplicates Foundation-owned rules.",
+          "notes": "Implemented by foundation.workspace-doctor.technical."
+        },
+        {
+          "id": "FW-2",
+          "level": "integration",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.mjs",
+          "mapsTo": [
+            "foundation.workspace-model.descriptive#ux-contracts"
+          ],
+          "evidence": "foundation:doctor reports Foundation path, global Codex pointer, required skills, target adapter status, spec namespace status, and CI pin status.",
+          "notes": "CI pinning is a warning until a target repo configures GitHub workflows."
+        },
+        {
+          "id": "FW-3",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-workspace-model.html",
+          "mapsTo": [
+            "foundation.workspace-model.descriptive#interface-journey"
+          ],
+          "evidence": "Manual walkthrough from a target repo: create a descriptive spec using Foundation and write it into the target repo.",
+          "notes": "Run after the technical spec defines install/sync mechanics."
+        },
+        {
+          "id": "FW-4",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-workspace-model.html",
+          "mapsTo": [
+            "foundation.workspace-model.descriptive#ux-contracts"
+          ],
+          "evidence": "Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.",
+          "notes": "This is intentionally separate from foundation:doctor so production AGENTS rules do not alter normal responses."
+        }
+      ],
+      "tags": [
+        "descriptive",
+        "foundation",
+        "workspace",
+        "substrate"
+      ]
     }
   ]
 }
@@ -710,8 +1189,9 @@
     <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
     <a class="nav-item" href="#registry"><span class="nav-num">01</span>Registry</a>
     <a class="nav-item" href="#entry-points"><span class="nav-num">02</span>Entry points</a>
-    <a class="nav-item" href="#templates"><span class="nav-num">03</span>Templates</a>
-    <a class="nav-item" href="#examples"><span class="nav-num">04</span>Examples</a>
+    <a class="nav-item" href="#foundation-specs"><span class="nav-num">03</span>Foundation specs</a>
+    <a class="nav-item" href="#templates"><span class="nav-num">04</span>Templates</a>
+    <a class="nav-item" href="#examples"><span class="nav-num">05</span>Examples</a>
   </div>
 </nav>
 
@@ -722,7 +1202,7 @@
     <p class="lede">Specs are durable source-of-truth contracts for what should exist. They are not traditional docs, stale plans, or workflow procedures. This folder defines the first HTML-native spec system for productized-agency software development substrate.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-12</div>
+      <div><strong>Updated:</strong> 2026-05-20</div>
       <div><strong>Metadata:</strong> per-spec <code>#spec-metadata</code> is canonical</div>
     </div>
   </section>
@@ -764,6 +1244,25 @@
         </div>
       </div>
       <p>The default reading order for implementation work is: descriptive spec section relevant to the user outcome, test spec acceptance mapping, technical spec at the depth the task requires, then directly owned paths. When creating or revising a spec, follow the <a data-spec-link="foundation.spec-process" href="./process.html#spec-authoring">spec authoring contract</a> before depending on the generated registry.</p>
+    </section>
+
+    <section id="foundation-specs" data-spec-section="foundation-specs" data-section-type="human-index">
+      <h2>Foundation specs</h2>
+      <p class="lede-2">Foundation-owned specs define shared substrate behavior. Product and client specs belong in the target repo that owns the product truth.</p>
+      <div class="related-grid">
+        <a class="related-card" data-spec-link="foundation.workspace-model.descriptive" href="./foundation-workspace-model.html">
+          <div class="related-name">Foundation workspace model</div>
+          <div class="related-desc">Canonical Foundation repo, global Codex pointer, target repo adapters, skill discovery, and CI pinning model.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.workspace-doctor.technical" href="./foundation-workspace-doctor-technical.html">
+          <div class="related-name">Foundation workspace doctor technical spec</div>
+          <div class="related-desc">Diagnostic command contract for canonical Foundation setup, target repo adapters, target spec namespace, and pinned CI checks.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.workspace-doctor.test" href="./foundation-workspace-doctor-test.html">
+          <div class="related-name">Foundation workspace doctor test spec</div>
+          <div class="related-desc">Verification contract for the doctor command, including setup fixtures, adapter drift, and namespace checks.</div>
+        </a>
+      </div>
     </section>
 
     <section id="templates" data-spec-section="templates" data-section-type="human-index">
