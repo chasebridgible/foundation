@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.workspace-doctor.technical">
+<meta name="spec:type" content="technical">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-20">
+<title>Foundation Workspace Doctor Technical Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.workspace-doctor.technical",
+  "title": "Foundation Workspace Doctor Technical Spec",
+  "type": "technical",
+  "status": "active",
+  "lastUpdated": "2026-05-20",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.workspace-model.descriptive",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.workspace-model.descriptive", "relationship": "parent", "sections": ["states-and-rules", "ux-contracts"] },
+    { "id": "foundation.workspace-doctor.test", "relationship": "sibling", "sections": ["verification-contract", "acceptance-mapping"] },
+    { "id": "foundation.spec-process", "relationship": "informs", "sections": ["spec-authoring", "semantic-review"] }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-workspace-doctor-technical.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/foundation-doctor.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    { "path": "foundation/package.json", "kind": "config", "ownership": "reference", "notes": "Exposes foundation:doctor and foundation:doctor:test scripts." },
+    { "path": "foundation/README.md", "kind": "doc", "ownership": "reference", "notes": "Documents user-facing doctor commands." },
+    { "path": "foundation/skills/install-foundation-substrate/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Uses the doctor as target repo setup evidence." },
+    { "path": "foundation/scripts/foundation-doctor.test.mjs", "kind": "test", "ownership": "reference", "notes": "Verifies doctor behavior." }
+  ],
+  "coverage": [
+    {
+      "id": "FWD-T1",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.workspace-doctor.technical#contracts"],
+      "evidence": "machine setup passes when global pointer and required skills exist"
+    },
+    {
+      "id": "FWD-T2",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.workspace-doctor.technical#contracts"],
+      "evidence": "target repo adapter passes when it points to Foundation"
+    },
+    {
+      "id": "FWD-T3",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.workspace-doctor.technical#failure-modes"],
+      "evidence": "target repo AGENTS fails when it duplicates Foundation-owned rules"
+    },
+    {
+      "id": "FWD-T4",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.workspace-doctor.technical#failure-modes"],
+      "evidence": "target repo specs fail when product specs use foundation namespace"
+    }
+  ],
+  "tags": [
+    "technical",
+    "foundation",
+    "workspace",
+    "doctor"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+    <div>
+      <div class="sidebar-title">Foundation Workspace Doctor Technical Spec</div>
+      <div class="sidebar-sub">technical spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#required-depth"><span class="nav-num">01</span>Required depth</a>
+    <a class="nav-item" href="#internal-sequence"><span class="nav-num">02</span>Internal sequence</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">03</span>Contracts</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">04</span>Failure modes</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">05</span>Paths and coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-workspace-doctor-technical.html</div>
+    <h1>Foundation Workspace Doctor Technical Spec</h1>
+    <p class="lede">The Foundation doctor is an on-demand diagnostic command that tells a user whether the canonical Foundation repo, global Codex pointer, target repo adapter, target spec namespace, and target CI pinning are shaped correctly for the workspace model.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Canonical section:</strong> <a href="#required-depth">#required-depth</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
+      <h1>Required depth</h1>
+      <p>The doctor is a setup and maintenance diagnostic, not a long-running sync system. It should give deterministic local evidence that a machine and optional target repo are connected to canonical Foundation without requiring a network call or mutating the target repo.</p>
+      <p>The command must be cheap enough to run during setup, before handoff, and when a target repo feels misconfigured. It reports failures for broken core assumptions and warnings for missing optional maturity such as target CI that has not been configured yet.</p>
+    </section>
+
+    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
+      <h2>Internal sequence</h2>
+      <ol>
+        <li>Parse CLI flags for Foundation path, optional target repo path, global Codex AGENTS path, JSON output, and spec-check skipping.</li>
+        <li>Validate the Foundation repo exists, is a Git repo, has <code>AGENTS.md</code>, and contains the required Foundation skills.</li>
+        <li>Validate global Codex instructions exist and explicitly point to the canonical Foundation path and Foundation <code>AGENTS.md</code>.</li>
+        <li>Run Foundation spec registry/check unless the caller deliberately skips it.</li>
+        <li>When a target repo is provided, validate repo shape, local <code>AGENTS.md</code> adapter behavior, target spec namespace, and GitHub workflow Foundation pinning.</li>
+        <li>Render a stable text or JSON report and exit nonzero when any failure exists.</li>
+      </ol>
+    </section>
+
+    <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
+      <h2>Contracts</h2>
+      <table class="status-table">
+        <thead><tr><th>Check</th><th>Status behavior</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Canonical Foundation path</td><td>Fail when missing or not a Git repo.</td><td>Agents and CI need a durable shared substrate location.</td></tr>
+          <tr><td>Foundation <code>AGENTS.md</code></td><td>Fail when missing.</td><td>The shared rulebook is the entry point for Foundation behavior.</td></tr>
+          <tr><td>Required skills</td><td>Fail when descriptive spec interview, spec workflow, or target repo setup skills are missing.</td><td>The workspace model depends on skills as executable process.</td></tr>
+          <tr><td>Global Codex pointer</td><td>Fail when missing or not pointing to the canonical Foundation path and Foundation <code>AGENTS.md</code>.</td><td>Starting in a target repo should still discover Foundation.</td></tr>
+          <tr><td>Foundation spec check</td><td>Fail when registry or spec metadata checks fail; warn only when skipped by flag.</td><td>Foundation cannot be canonical if its own registry is stale or invalid.</td></tr>
+          <tr><td>Target repo adapter</td><td>Fail when missing, not pointing to Foundation, or duplicating Foundation-owned rules.</td><td>Local instructions should refine project context, not fork shared process.</td></tr>
+          <tr><td>Target spec namespace</td><td>Warn when no target specs exist; fail when target specs use <code>foundation.*</code> IDs.</td><td>Shared-process specs live in Foundation; product specs live in the target namespace.</td></tr>
+          <tr><td>Target CI pin</td><td>Warn when CI is absent, does not mention Foundation, or mentions Foundation without a pinned commit SHA.</td><td>CI maturity should be visible without blocking early local setup.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+      <h2>Failure modes</h2>
+      <ul>
+        <li><strong>Broken machine setup:</strong> the user should see the exact missing path or missing skill and a failed summary.</li>
+        <li><strong>Unclear global pointer:</strong> the user should see which global AGENTS file was checked and which Foundation path was expected.</li>
+        <li><strong>Target repo copies Foundation rules:</strong> the report should name duplicated rule text so the adapter can be reduced to local context.</li>
+        <li><strong>Product specs under Foundation namespace:</strong> the report should name each file and spec ID that must move into the target namespace.</li>
+        <li><strong>CI not ready:</strong> the report should warn without failing while the repo is still local-only or before GitHub workflows are configured.</li>
+      </ul>
+    </section>
+
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Paths and coverage</h2>
+      <h3>Directly owned paths</h3>
+      <ul class="path-list">
+        <li data-implementation-path="foundation/docs/specs/foundation-workspace-doctor-technical.html"><code>foundation/docs/specs/foundation-workspace-doctor-technical.html</code> - technical contract for the diagnostic command.</li>
+        <li data-implementation-path="foundation/scripts/foundation-doctor.mjs"><code>foundation/scripts/foundation-doctor.mjs</code> - CLI implementation.</li>
+      </ul>
+      <h3>Referenced paths</h3>
+      <ul class="path-list">
+        <li><code>foundation/package.json</code> - command wiring for <code>foundation:doctor</code> and <code>foundation:doctor:test</code>.</li>
+        <li><code>foundation/scripts/foundation-doctor.test.mjs</code> - automated coverage.</li>
+        <li><code>foundation/README.md</code> - setup instructions.</li>
+        <li><code>foundation/skills/install-foundation-substrate/SKILL.md</code> - target repo setup workflow.</li>
+      </ul>
+      <h3>Coverage</h3>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>FWD-T1</td><td><code>#contracts</code></td><td>Machine setup passes when global pointer and required skills exist.</td><td>existing</td></tr>
+          <tr><td>FWD-T2</td><td><code>#contracts</code></td><td>Target repo adapter passes when it points to Foundation.</td><td>existing</td></tr>
+          <tr><td>FWD-T3</td><td><code>#failure-modes</code></td><td>Target repo AGENTS fails when it duplicates Foundation-owned rules.</td><td>existing</td></tr>
+          <tr><td>FWD-T4</td><td><code>#failure-modes</code></td><td>Target repo specs fail when product specs use Foundation namespace.</td><td>existing</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation Workspace Doctor Technical Spec · current diagnostic contract</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

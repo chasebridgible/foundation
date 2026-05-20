@@ -1,47 +1,49 @@
 ---
 name: install-foundation-substrate
-description: Install this repo's software substrate into another repository. Use when Codex needs to copy or adapt AGENTS.md, skills, docs, specs, package scripts, GitHub Actions, and required-check setup from this repo into a target repo.
+description: Connect a target repository to the canonical Foundation software substrate. Use when Codex needs to set up the Foundation workspace model for a repo, create a local AGENTS.md adapter, verify the global Codex pointer, place target-owned specs correctly, configure GitHub Actions with a pinned Foundation checkout, or establish required spec checks.
 ---
 
-# Install Substrate
+# Connect Target Repo
 
-Use this skill as a one-time install workflow for moving the substrate into a target repo. Treat the substrate as one bundle: principles, definitions, specs, skills, scripts, and CI enforcement travel together.
+Use this skill to connect a target repo to Foundation. The model is defined in `docs/specs/foundation-workspace-model.html`: one canonical Foundation repo, global Codex pointer, and small target-repo adapters.
 
-## Copy Set
+## Target Repo Setup
 
-Copy these paths from the source repo:
+1. Confirm the canonical Foundation path.
+2. Confirm global Codex instructions point to Foundation.
+3. Create or update the target repo `AGENTS.md` as a local adapter only:
+   - It may define local commands, paths, project constraints, and repo-specific exceptions.
+   - It must not duplicate or redefine shared Foundation rules.
+4. Keep project specs, project knowledge, tests, ADRs, and implementation paths in the target repo.
+5. Keep shared process, templates, skills, validators, and principles in Foundation.
+6. Configure CI to check out a pinned Foundation revision, not an implicit local sibling path.
+7. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation and resolve failures before handoff.
 
-- `AGENTS.md`
-- `skills/`
-- `docs/`
-- `.github/workflows/specs.yml`
-- `.gitignore`
-- the spec scripts from `package.json`: `spec:new`, `spec:registry`, `spec:check`, and `site-map`
+## Target Repo Adapter
 
-Do not copy the source repo `README.md` as-is. Rewrite the target README for the target product or client repo.
-
-## Adaptation Steps
-
-1. Merge `package.json` scripts into the target repo's existing package file.
-2. Rewrite `AGENTS.md` only where target-specific paths, commands, or protected-branch rules differ.
-3. Keep general principles, definitions, and compounding-system docs unless the target repo has an explicit reason to exclude them.
-4. Keep example specs under `docs/specs/examples/` or replace them with target-specific examples.
-5. Rename target-owned spec IDs to the target namespace. Do not create new target specs under `foundation.*`.
-6. Run `npm run site-map`, `npm run spec:registry`, and `npm run spec:check`.
+1. Rewrite the target repo README for the target product or client repo.
+2. Create target-owned spec directories when the repo starts carrying product specs.
+3. Use target-owned spec IDs. Do not create target product specs under `foundation.*`.
+4. Record local test, build, and development commands in the target repo adapter.
+5. Route shared process improvements back to Foundation.
+6. Route product behavior, project knowledge, ADRs, tests, and implementation paths to the target repo.
 
 ## GitHub Setup
 
-1. Push the installed substrate on a feature branch.
+1. Push the target repo setup on a feature branch.
 2. Open a PR into `main`.
-3. Confirm the `Specs` workflow runs.
-4. Protect `main`.
-5. Require the status check `Spec registry and metadata`.
-6. Use branch -> PR -> required checks pass -> merge for future spec and behavior changes.
+3. Configure the workflow to check out a pinned Foundation revision.
+4. Run the target repo's local tests/builds and Foundation-backed spec validation.
+5. Protect `main`.
+6. Require the target repo's quality and spec validation checks.
+7. Use branch -> PR -> required checks pass -> merge for future spec and behavior changes.
 
 ## Exit Criteria
 
-- `npm run spec:check` passes locally.
-- The required GitHub check passes on a PR.
+- Codex can start in the target repo and discover Foundation through global Codex instructions.
+- The target repo `AGENTS.md` is a short adapter, not a copy of Foundation rules.
 - The target README explains what the target repo is.
-- `AGENTS.md` points agents to `docs/specs/index.html` and `skills/spec-workflow/SKILL.md`.
-- No copied spec claims target product truth unless it has been reviewed and adapted.
+- Product specs and project facts live in the target repo.
+- Shared process changes live in Foundation.
+- CI checks out a pinned Foundation revision before running Foundation-backed validation.
+- `npm run foundation:doctor -- --repo <target-repo>` reports no failures.

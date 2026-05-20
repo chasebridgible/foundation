@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.workspace-model.descriptive">
+<meta name="spec:type" content="descriptive">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-20">
+<title>Foundation Workspace Model</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.workspace-model.descriptive",
+  "title": "Foundation Workspace Model",
+  "type": "descriptive",
+  "status": "active",
+  "lastUpdated": "2026-05-20",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.spec-system",
+  "children": [
+    "foundation.workspace-doctor.technical",
+    "foundation.workspace-doctor.test"
+  ],
+  "relatedSpecs": [
+    { "id": "foundation.spec-system", "relationship": "parent", "sections": ["registry", "entry-points"] },
+    { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["workflow-contract", "update-obligations"] },
+    { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["resolution", "path-update-loop"] },
+    { "id": "foundation.workspace-doctor.technical", "relationship": "child", "sections": ["required-depth", "contracts"] },
+    { "id": "foundation.workspace-doctor.test", "relationship": "child", "sections": ["verification-contract", "acceptance-mapping"] }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-workspace-model.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    { "path": "foundation/AGENTS.md", "kind": "config", "ownership": "reference", "notes": "Canonical Foundation agent rulebook for shared spec and substrate behavior." },
+    { "path": "foundation/README.md", "kind": "doc", "ownership": "reference", "notes": "Foundation setup overview and target-repo instructions for canonical workspace use." },
+    { "path": "foundation/package.json", "kind": "config", "ownership": "reference", "notes": "Command registry for spec, site-map, and doctor checks." },
+    { "path": "foundation/.github/workflows/specs.yml", "kind": "config", "ownership": "reference", "notes": "Current Foundation CI check; target repos need equivalent pinned validation." },
+    { "path": "foundation/docs/specs/index.html", "kind": "doc", "ownership": "reference", "notes": "Spec registry and agent entry point." },
+    { "path": "foundation/docs/specs/process.html", "kind": "doc", "ownership": "reference", "notes": "Spec authoring and update obligations." },
+    { "path": "foundation/skills/descriptive-spec-interview/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Human-heavy descriptive spec creation workflow." },
+    { "path": "foundation/skills/spec-workflow/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Spec authoring, registry, and verification workflow." },
+    { "path": "foundation/skills/install-foundation-substrate/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Target repo setup workflow for connecting repos to canonical Foundation." },
+    { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration." },
+    { "path": "foundation/scripts/foundation-doctor.test.mjs", "kind": "test", "ownership": "reference", "notes": "Automated coverage for the Foundation doctor rules." }
+  ],
+  "coverage": [
+    {
+      "id": "FW-1",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.mjs",
+      "mapsTo": ["foundation.workspace-model.descriptive#states-and-rules"],
+      "evidence": "foundation:doctor target repo adapter check fails when AGENTS.md duplicates Foundation-owned rules.",
+      "notes": "Implemented by foundation.workspace-doctor.technical."
+    },
+    {
+      "id": "FW-2",
+      "level": "integration",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.mjs",
+      "mapsTo": ["foundation.workspace-model.descriptive#ux-contracts"],
+      "evidence": "foundation:doctor reports Foundation path, global Codex pointer, required skills, target adapter status, spec namespace status, and CI pin status.",
+      "notes": "CI pinning is a warning until a target repo configures GitHub workflows."
+    },
+    {
+      "id": "FW-3",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-workspace-model.html",
+      "mapsTo": ["foundation.workspace-model.descriptive#interface-journey"],
+      "evidence": "Manual walkthrough from a target repo: create a descriptive spec using Foundation and write it into the target repo.",
+      "notes": "Run after the technical spec defines install/sync mechanics."
+    },
+    {
+      "id": "FW-4",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-workspace-model.html",
+      "mapsTo": ["foundation.workspace-model.descriptive#ux-contracts"],
+      "evidence": "Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.",
+      "notes": "This is intentionally separate from foundation:doctor so production AGENTS rules do not alter normal responses."
+    }
+  ],
+  "tags": [
+    "descriptive",
+    "foundation",
+    "workspace",
+    "substrate"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Foundation Workspace Model</div>
+      <div class="sidebar-sub">descriptive spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Product intent</a>
+    <a class="nav-item" href="#user-model"><span class="nav-num">02</span>User model</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Interface journey</a>
+    <a class="nav-item" href="#states-and-rules"><span class="nav-num">04</span>States and rules</a>
+    <a class="nav-item" href="#edge-cases"><span class="nav-num">05</span>Edge cases</a>
+    <a class="nav-item" href="#ux-contracts"><span class="nav-num">06</span>UX contracts</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">07</span>Links and paths</a>
+    <a class="nav-item" href="#design-placeholders"><span class="nav-num">08</span>Design placeholders</a>
+    <a class="nav-item" href="#test-coverage"><span class="nav-num">09</span>Test coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-workspace-model.html</div>
+    <h1>Foundation Workspace Model</h1>
+    <p class="lede">Foundation is the canonical development substrate for software work across local repositories. It must be easy for an agent to discover, safe for a project repo to consume, and reproducible in CI without copying shared rules into every repo by hand.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Canonical section:</strong> <a href="#product-intent">#product-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
+      <h1>Foundation workspace model</h1>
+      <p class="lede">A user should be able to work in any repository under a local workspace and have Codex reliably apply the shared Foundation process while keeping project-specific truth inside the target repo.</p>
+      <h3>Intent</h3>
+      <p>Foundation should behave like the software-development operating system for the workspace: shared principles, spec workflow, skills, validators, and CI patterns live in one canonical repository, while each product repo keeps its own specs, knowledge, implementation paths, tests, and project-specific agent notes.</p>
+      <p>The model must prevent drift. Updating the Foundation substrate should improve future work across repos without requiring the user to manually copy common docs, skills, or rules into every project after each change.</p>
+      <h3>Out of scope</h3>
+      <p>This spec does not define the full technical implementation of the installer, sync command, global Codex configuration, or target-repo CI. Those need technical and test specs after this descriptive model is accepted.</p>
+      <p>This spec also does not define Tribal Innovations, MatchCoach, Sandia Oil, or any other product repo's feature specs. Those specs belong in the target repo and should reference Foundation only for shared process.</p>
+    </section>
+
+    <section id="user-model" data-spec-section="user-model" data-section-type="user-model">
+      <h2>User model</h2>
+      <table class="status-table">
+        <thead><tr><th>User</th><th>Goal</th><th>Context</th><th>Success feeling</th></tr></thead>
+        <tbody>
+          <tr><td>Workspace owner</td><td>Improve the shared development system once and have that improvement available while working in other repos.</td><td>Owns multiple local repos under a common parent such as <code>Documents/repos/</code>.</td><td>Foundation feels canonical, not copied, and project work starts with the right process automatically.</td></tr>
+          <tr><td>Codex agent</td><td>Discover which rules, skills, specs, validators, and local repo facts govern the current task.</td><td>May start in the workspace parent, the Foundation repo, or a product repo.</td><td>There is a deterministic path from task to relevant shared and local instructions.</td></tr>
+          <tr><td>Target repo</td><td>Consume Foundation process while preserving project-specific truth.</td><td>Has its own code, specs, tests, CI, and optional local <code>AGENTS.md</code>.</td><td>It can update Foundation safely without losing local behavior or accumulating stale copied substrate.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Interface journey</h2>
+      <ol>
+        <li><strong>Canonical setup:</strong> the workspace has a known Foundation repo path. The user's global Codex instructions point agents to that canonical location before repo-specific work begins.</li>
+        <li><strong>Project entry:</strong> when a user opens a product repo, Codex reads the global Foundation pointer, reads Foundation's canonical <code>AGENTS.md</code>, then reads the target repo's local <code>AGENTS.md</code> if present.</li>
+        <li><strong>Task routing:</strong> shared process questions route through Foundation skills. Product-specific questions route into the target repo's specs, knowledge base, tests, and code.</li>
+        <li><strong>Spec creation:</strong> if the user asks to create a user-facing spec, Codex uses Foundation's descriptive spec interview workflow, then writes the resulting project spec into the target repo unless the spec is itself about Foundation.</li>
+        <li><strong>Foundation improvement:</strong> if work reveals a reusable process improvement, Codex updates Foundation, not the product repo, and leaves the target repo with only the project-specific effect.</li>
+        <li><strong>Validation:</strong> before handoff, local checks run in the target repo and Foundation-backed checks verify the target repo's specs and substrate shape.</li>
+      </ol>
+    </section>
+
+    <section id="states-and-rules" data-spec-section="states-and-rules" data-section-type="states-rules">
+      <h2>States and rules</h2>
+      <table class="status-table">
+        <thead><tr><th>Area</th><th>Rule</th><th>User-visible result</th></tr></thead>
+        <tbody>
+          <tr><td>Canonical Foundation</td><td>There is exactly one canonical Foundation repo for the local workspace.</td><td>The user can ask "use Foundation" without restating paths, rules, or skill locations every turn.</td></tr>
+          <tr><td>Global Codex pointer</td><td>Global instructions point to Foundation and require agents to read Foundation before shared-process work.</td><td>Starting in a product repo still loads the shared system.</td></tr>
+          <tr><td>Local repo adapter</td><td>A target repo's <code>AGENTS.md</code> may contain project-specific facts, commands, paths, and constraints, but must not duplicate or redefine shared Foundation rules.</td><td>Local context composes with Foundation instead of forking it.</td></tr>
+          <tr><td>Skill discovery</td><td>Foundation skills must be discoverable from non-Foundation repos through either global skill installation, a workspace pointer, or a future Foundation command.</td><td>Users can say "create a descriptive spec" in Tribal Innovations and get the Foundation interview workflow.</td></tr>
+          <tr><td>Spec location</td><td>Shared-process specs live in Foundation; product specs live in the target repo.</td><td>Tribal map specs do not end up in Foundation, and Foundation workflow specs do not get copied into Tribal as stale source.</td></tr>
+          <tr><td>CI reproducibility</td><td>Target repo CI should use a pinned Foundation version or explicit synced artifact, not an unpinned local sibling path.</td><td>A repo's checks are repeatable even if Foundation changes later the same day.</td></tr>
+          <tr><td>Update flow</td><td>Foundation updates propagate by explicit sync, install, status, or version bump, not by silent mutation of product repos.</td><td>The user sees what changed and can review the blast radius.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="edge-cases" data-spec-section="edge-cases" data-section-type="edge-cases">
+      <h2>Edge cases and recovery paths</h2>
+      <ul>
+        <li><strong>Agent starts inside a product repo:</strong> global Codex instructions must still identify the canonical Foundation path, then the local repo adapter supplies only project-specific additions.</li>
+        <li><strong>Agent starts inside the workspace parent:</strong> Foundation is not discovered by sibling scanning alone; the global pointer or an explicit workspace config must name it.</li>
+        <li><strong>Target repo has no adapter:</strong> Codex uses Foundation rules and asks where project specs, commands, and knowledge should live before creating durable artifacts.</li>
+        <li><strong>Local adapter conflicts with Foundation:</strong> the conflict should be treated as a substrate issue. Shared-process changes belong in Foundation; local exceptions must be explicit and narrow.</li>
+        <li><strong>Foundation changes while target work is active:</strong> the current task should finish against the loaded/pinned process unless the user asks to refresh Foundation mid-task.</li>
+        <li><strong>CI cannot reach the local Foundation path:</strong> CI checks out the pinned Foundation revision named by the target repo workflow instead of relying on the developer's filesystem layout.</li>
+      </ul>
+    </section>
+
+    <section id="ux-contracts" data-spec-section="ux-contracts" data-section-type="hidden-mechanics">
+      <h2>Hidden mechanics as UX contracts</h2>
+      <table class="status-table">
+        <thead><tr><th>Hidden mechanic</th><th>UX contract</th><th>Failure promise</th></tr></thead>
+        <tbody>
+          <tr><td>AGENTS.md layering</td><td>Global Foundation instructions load before repo-local instructions; repo-local rules refine, not replace, the shared process.</td><td>If the agent cannot confirm the load path, it states that and reads the relevant files manually before continuing.</td></tr>
+          <tr><td>Foundation versioning</td><td>Local work uses the canonical Foundation repo; CI checks out the pinned Foundation revision named by the target repo.</td><td>If Foundation and CI disagree, the mismatch is reported as a version issue, not treated as a product bug.</td></tr>
+          <tr><td>Skill routing</td><td>Shared workflows are invoked by intent, not by copy-pasted prompts.</td><td>If a Foundation skill is unavailable from a target repo, the agent reports the missing discovery path and falls back by reading the source skill.</td></tr>
+          <tr><td>Substrate ownership</td><td>Every durable artifact has one home: Foundation for shared process, target repos for product truth.</td><td>If an artifact could belong in either place, the agent asks or records an explicit assumption before writing it.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="linking">
+      <h2>Related specs and implementation paths</h2>
+      <h3>Related specs</h3>
+      <ul>
+        <li><a data-spec-link="foundation.spec-system" href="./index.html">foundation.spec-system</a> - registry and agent entry point for specs.</li>
+        <li><a data-spec-link="foundation.spec-process" href="./process.html">foundation.spec-process</a> - spec authoring and update obligations.</li>
+        <li><a data-spec-link="foundation.spec-linking" href="./linking.html">foundation.spec-linking</a> - metadata, path ownership, and spec resolution.</li>
+        <li><a data-spec-link="foundation.workspace-doctor.technical" href="./foundation-workspace-doctor-technical.html">foundation.workspace-doctor.technical</a> - diagnostic command contract for the workspace model.</li>
+        <li><a data-spec-link="foundation.workspace-doctor.test" href="./foundation-workspace-doctor-test.html">foundation.workspace-doctor.test</a> - verification contract for the diagnostic command.</li>
+      </ul>
+      <h3>Directly owned paths</h3>
+      <ul class="path-list">
+        <li data-implementation-path="foundation/docs/specs/foundation-workspace-model.html"><code>foundation/docs/specs/foundation-workspace-model.html</code> - canonical descriptive contract for workspace-level Foundation consumption.</li>
+      </ul>
+      <h3>Implementation references</h3>
+      <ul class="path-list">
+        <li><code>foundation/AGENTS.md</code> - shared agent routing checklist.</li>
+        <li><code>foundation/skills/descriptive-spec-interview/SKILL.md</code> - entry workflow for user-facing spec creation.</li>
+        <li><code>foundation/skills/spec-workflow/SKILL.md</code> - spec registry and verification workflow.</li>
+        <li><code>foundation/skills/install-foundation-substrate/SKILL.md</code> - target repo setup workflow for connecting repos to canonical Foundation.</li>
+        <li><code>foundation/scripts/foundation-doctor.mjs</code> - setup diagnostic for canonical Foundation use from target repos.</li>
+        <li><code>foundation/scripts/foundation-doctor.test.mjs</code> - automated tests for doctor checks.</li>
+        <li><code>foundation/.github/workflows/specs.yml</code> - current Foundation CI check.</li>
+      </ul>
+    </section>
+
+    <section id="design-placeholders" data-spec-section="design-placeholders" data-section-type="design">
+      <h2>Screenshot and design placeholders</h2>
+      <p>No visual design artifact exists yet. The expected user-visible surface is command-line and agent-session behavior: clear routing, explicit sync/version status, and deterministic check output.</p>
+      <ul>
+        <li><strong>Future CLI output:</strong> show canonical Foundation path, current Foundation revision, target repo adapter status, skill discovery status, and CI pin status.</li>
+        <li><strong>Future docs view:</strong> show this spec in the site navigation as a Foundation spec, separate from templates and examples.</li>
+      </ul>
+    </section>
+
+    <section id="test-coverage" data-spec-section="test-coverage" data-section-type="coverage">
+      <h2>Test coverage</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Spec section</th><th>Coverage</th><th>Status</th><th>Gap</th></tr></thead>
+        <tbody>
+          <tr><td>FW-1</td><td><code>#states-and-rules</code></td><td><code>foundation:doctor</code> target repo adapter check fails when <code>AGENTS.md</code> duplicates Foundation-owned rules.</td><td>existing</td><td>Implemented by <code>foundation.workspace-doctor.technical</code>.</td></tr>
+          <tr><td>FW-2</td><td><code>#ux-contracts</code></td><td><code>foundation:doctor</code> reports Foundation path, global Codex pointer, required skills, target adapter status, spec namespace status, and CI pin status.</td><td>existing</td><td>CI pinning is a warning until a target repo configures GitHub workflows.</td></tr>
+          <tr><td>FW-3</td><td><code>#interface-journey</code></td><td>Manual walkthrough from a target repo: create a descriptive spec using Foundation and write it into the target repo.</td><td>planned</td><td>Run after the technical spec defines install/sync mechanics.</td></tr>
+          <tr><td>FW-4</td><td><code>#ux-contracts</code></td><td>Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.</td><td>planned</td><td>Keep outside <code>foundation:doctor</code> so production AGENTS rules do not alter normal responses.</td></tr>
+        </tbody>
+      </table>
+      <p>The next phase should define the isolated AGENTS-load canary and the target-repo CI template that runs Foundation-backed validation against a pinned Foundation revision.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation Workspace Model · canonical workspace contract</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

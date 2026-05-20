@@ -24,6 +24,15 @@ const groupOrder = [
     order: ["specs/index.html", "specs/process.html", "specs/linking.html"]
   },
   {
+    group: "Foundation Specs",
+    include: file => /^specs\/[^/]+\.html$/.test(file) && !/^specs\/(index|process|linking)\.html$/.test(file),
+    order: [
+      "specs/foundation-workspace-model.html",
+      "specs/foundation-workspace-doctor-technical.html",
+      "specs/foundation-workspace-doctor-test.html"
+    ]
+  },
+  {
     group: "Spec Templates",
     include: file => file.startsWith("specs/templates/"),
     order: [
