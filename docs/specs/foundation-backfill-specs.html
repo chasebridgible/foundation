@@ -73,7 +73,15 @@
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-specs.html",
       "mapsTo": ["foundation.backfill-specs.descriptive#test-coverage"],
-      "evidence": "Pilot a real target repo backfill and verify the report can resume work after a context reset."
+      "evidence": "Pilot a real target repo backfill and verify the agent continues from one slice to the next until the draft spec graph is complete."
+    },
+    {
+      "id": "FBS-5",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "mapsTo": ["foundation.backfill-specs.descriptive#design-placeholders"],
+      "evidence": "Backfill a user-facing UI slice and verify the descriptive spec includes rendered, interactive HTML-native UX examples."
     }
   ],
   "tags": ["descriptive", "foundation", "backfill", "specs", "adoption"]
@@ -98,7 +106,7 @@
     <a class="nav-item" href="#edge-cases"><span class="nav-num">05</span>Edge cases</a>
     <a class="nav-item" href="#ux-contracts"><span class="nav-num">06</span>UX contracts</a>
     <a class="nav-item" href="#links-and-paths"><span class="nav-num">07</span>Links and paths</a>
-    <a class="nav-item" href="#design-placeholders"><span class="nav-num">08</span>Design placeholders</a>
+    <a class="nav-item" href="#design-placeholders"><span class="nav-num">08</span>Rendered UX</a>
     <a class="nav-item" href="#test-coverage"><span class="nav-num">09</span>Test coverage</a>
   </div>
 </nav>
@@ -107,7 +115,7 @@
   <section id="overview" data-spec-section="overview" data-section-type="summary">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-specs.html</div>
     <h1>Foundation Backfill Specs</h1>
-    <p class="lede">Backfill Specs is the Foundation workflow for meeting an existing repository where it is, reading the built system as evidence, and creating draft descriptive and technical specs that become the repo's intended contract from here forward.</p>
+    <p class="lede">Backfill Specs is the Foundation workflow for meeting an existing repository where it is, reading the built system as evidence, and creating a complete draft descriptive and technical spec graph that becomes the repo's intended contract from here forward.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
       <div><strong>Updated:</strong> 2026-05-20</div>
@@ -118,10 +126,10 @@
   <article class="doc-body">
     <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
       <h1>Backfill Specs</h1>
-      <p class="lede">A user should be able to point Foundation at a mature repo with messy or missing docs and receive a durable spec system that captures how the system is intended to work, without rewriting code or pretending stale documentation is authoritative.</p>
+      <p class="lede">A user should be able to point Foundation at a mature repo with messy or missing docs and receive a durable draft spec system for the whole repo, without rewriting code or pretending stale documentation is authoritative.</p>
       <h3>Intent</h3>
-      <p>The backfill workflow converts existing code, schemas, tests, and supporting docs into a set of draft descriptive and technical specs. It gives the user a reviewable spec graph, a top-level system/app contract, slice-level specs, and a dated HTML report that makes the work resumable across context resets.</p>
-      <p>The workflow is designed for large repos and monorepos. It should operate in loops, load only the evidence needed for the current slice, and leave enough written state that a later agent can continue without relying on prior chat history.</p>
+      <p>The backfill workflow converts existing code, schemas, tests, and supporting docs into a complete set of draft descriptive and technical specs. It gives the user a reviewable spec graph, a top-level system/app contract, slice-level specs, and a dated HTML report that makes the work resumable across context resets.</p>
+      <p>The workflow is designed for large repos and monorepos. It should operate in loops, load only the evidence needed for the current slice, and keep moving through the slice queue until every proposed slice has draft specs or has been marked out of scope in the report.</p>
       <h3>Out of scope</h3>
       <p>This spec does not define test-spec backfill. Test specs and acceptance mapping should be handled by a later Backfill Tests skill unless the user explicitly asks to include them in a backfill run.</p>
       <p>This spec does not authorize code cleanup, documentation deletion, architecture rewrites, or old-plan cleanup. Backfill Specs may identify those needs, but old docs and code stay in place until a separate cleanup or implementation workflow begins.</p>
@@ -132,7 +140,7 @@
       <table class="status-table">
         <thead><tr><th>User</th><th>Goal</th><th>Context</th><th>Success feeling</th></tr></thead>
         <tbody>
-          <tr><td>Repo owner</td><td>Turn a large existing app into a Foundation-governed spec system.</td><td>The repo may contain production code, old plans, uneven docs, partial tests, and no active specs.</td><td>The repo now has draft specs and a clear review queue instead of a pile of uncertain documents.</td></tr>
+          <tr><td>Repo owner</td><td>Turn a large existing app into a Foundation-governed spec system.</td><td>The repo may contain production code, old plans, uneven docs, partial tests, and no active specs.</td><td>The repo now has a complete draft spec graph and a clear review queue instead of a pile of uncertain documents.</td></tr>
           <tr><td>Codex agent</td><td>Resume a long-running backfill without holding the full repo in context.</td><td>The agent starts from target AGENTS, Foundation AGENTS, the Backfill Specs skill, the dated report, and current specs.</td><td>The next slice is obvious, evidence is bounded, and handoff state lives on disk.</td></tr>
           <tr><td>Future maintainer</td><td>Understand what the app is intended to do before changing behavior.</td><td>They read draft or active specs instead of reverse-engineering intent from code and stale docs.</td><td>The spec system is more trustworthy than the old documentation layer.</td></tr>
         </tbody>
@@ -147,8 +155,8 @@
         <li><strong>Run identity:</strong> the agent creates or continues a dated report such as <code>docs/specs/backfill/review-report-20260520-01.html</code>. If a target repo adapter names the current report, that file is canonical for the run.</li>
         <li><strong>Repo map:</strong> the agent creates a bounded repo map from file structure, package boundaries, routes, schemas, tests, and docs without loading the whole repo into context.</li>
         <li><strong>Spec graph:</strong> the agent proposes a top-level system/app spec and child spec slices. The top-level spec is created early as the spine for product promise, vocabulary, boundaries, and child specs.</li>
-        <li><strong>Slice loop:</strong> for each slice, the agent loads only relevant evidence, writes or updates draft descriptive and technical specs, regenerates the registry, runs checks, and appends the result to the report.</li>
-        <li><strong>Handoff:</strong> the agent ends with specs created, checks run, report path, material unresolved decisions, and the recommended next slice. If the user has set a long-running goal and no blocker exists, the agent continues the loop.</li>
+        <li><strong>Slice loop:</strong> for each slice, the agent loads only relevant evidence, writes or updates draft descriptive and technical specs, regenerates the registry, runs checks, appends the result to the report, and immediately starts the next unbackfilled slice.</li>
+        <li><strong>Completion:</strong> the agent hands off when the proposed spec graph has draft descriptive and technical specs for every slice, plus a review queue for material contradictions, fallback decisions, stale docs, and unresolved intent.</li>
       </ol>
     </section>
 
@@ -162,9 +170,12 @@
           <tr><td>Report exists</td><td>Continue the existing dated report unless the user asks for a new run.</td><td>Backfill work resumes instead of fragmenting into multiple reports.</td></tr>
           <tr><td>No top-level spec exists</td><td>Create the top-level system/app draft early and use it as parent or spine for child specs.</td><td>Slice specs have a shared product context instead of becoming disconnected pages.</td></tr>
           <tr><td>Slice in progress</td><td>Load only the files needed to understand that slice and list evidence paths in the report.</td><td>The agent can keep moving in large repos without context overload.</td></tr>
-          <tr><td>Spec drafted</td><td>Backfilled specs start as <code>status: draft</code> with low or medium confidence.</td><td>The user has an explicit review/approval step before specs become active contracts.</td></tr>
+          <tr><td>Slice drafted</td><td>After checks pass and the report is updated, the next unbackfilled slice becomes the current slice.</td><td>A clean slice does not become a stopping point while the repo still has remaining slices.</td></tr>
+          <tr><td>Spec drafted</td><td>Backfilled specs start as <code>status: draft</code> with low or medium confidence.</td><td>The user reviews and promotes specs after the backfill graph is complete.</td></tr>
           <tr><td>Contradiction found</td><td>Flag material contradictions between code, schema, tests, and docs in the report.</td><td>The user reviews important decisions without being buried in minor doc drift.</td></tr>
-          <tr><td>Fallback behavior found</td><td>Record the current fallback as evidence and ask whether it is intended.</td><td>The intended spec does not accidentally preserve old fallback logic as product truth.</td></tr>
+          <tr><td>Fallback behavior found</td><td>Record the current fallback as evidence and add a review question about whether it is intended.</td><td>The intended spec does not accidentally preserve old fallback logic as product truth.</td></tr>
+          <tr><td>UX slice drafted</td><td>User-facing descriptive specs include rendered, interactive HTML-native examples when the intended experience can be represented visually.</td><td>The user can open the spec and inspect the intended interface and state behavior directly.</td></tr>
+          <tr><td>Graph complete</td><td>Final handoff happens after every proposed slice has draft descriptive and technical specs or is marked out of scope.</td><td>The user receives one review phase for the draft spec system instead of being asked to steer each slice.</td></tr>
         </tbody>
       </table>
     </section>
@@ -174,11 +185,11 @@
       <ul>
         <li><strong>Huge monorepo:</strong> start with packages, apps, routes, data domains, and service boundaries. Do not try to read the whole repo before creating the first report and slice queue.</li>
         <li><strong>Stale documentation:</strong> record the stale doc only when it creates a material question about intent. Code and schema remain stronger evidence.</li>
-        <li><strong>Behavior exists but intent is unclear:</strong> draft the observable behavior with a low-confidence note or stop for human clarification if the choice would materially change future work.</li>
+        <li><strong>Behavior exists but intent is unclear:</strong> draft the observable behavior with low confidence and add the intent question to the report review queue.</li>
         <li><strong>Old docs should be deleted eventually:</strong> leave them alone during backfill and flag cleanup as a later pass after specs have been reviewed.</li>
         <li><strong>Existing specs already exist:</strong> revise them in place when they clearly own the behavior. Create new specs only when ownership is missing or the existing spec is the wrong altitude.</li>
-        <li><strong>Context reset:</strong> the next agent reads the report, top-level spec, and relevant slice specs, then continues from the next-slice recommendation.</li>
-        <li><strong>User asks to run until done:</strong> continue the loop while checks pass and no material human decision blocks the next slice. Each loop still updates the report.</li>
+        <li><strong>Context reset:</strong> the next agent reads the report, top-level spec, and relevant slice specs, then continues from the remaining slice queue.</li>
+        <li><strong>Large review queue:</strong> continue drafting the spec graph and keep material issues in the report so the user can review them after the backfill has full coverage.</li>
       </ul>
     </section>
 
@@ -188,10 +199,11 @@
         <thead><tr><th>Hidden mechanic</th><th>UX contract</th><th>Failure promise</th></tr></thead>
         <tbody>
           <tr><td>Evidence hierarchy</td><td>Specs are based primarily on current code, schemas, tests, and observed behavior, with docs used as supporting evidence.</td><td>If evidence conflicts, the agent records the conflict instead of silently choosing a convenient story.</td></tr>
-          <tr><td>Progressive disclosure</td><td>The agent works slice by slice and keeps the full repo map in the report, not in the prompt window.</td><td>If the next slice is unclear, the agent updates the report with the ambiguity and asks for direction.</td></tr>
-          <tr><td>Draft approval gate</td><td>Backfilled specs are reviewable drafts until a human promotes them to active.</td><td>If an agent needs to rely on an unapproved backfill spec, it treats the confidence and unresolved items as part of the decision.</td></tr>
+          <tr><td>Progressive disclosure</td><td>The agent works slice by slice and keeps the full repo map in the report, not in the prompt window.</td><td>If the next slice is unclear, the agent infers the next best slice from the repo map and records the ambiguity in the report.</td></tr>
+          <tr><td>Draft approval gate</td><td>Backfilled specs are reviewable drafts until a human promotes them to active after the graph is complete.</td><td>If an agent needs to rely on an unapproved backfill spec, it treats the confidence and unresolved items as part of the decision.</td></tr>
           <tr><td>Dated report identity</td><td>A backfill run has a stable dated report path that can be named from target <code>AGENTS.md</code>.</td><td>If multiple reports exist, the agent asks which run to continue or chooses the adapter-named report.</td></tr>
           <tr><td>Registry/check loop</td><td>Every slice update keeps the spec registry and metadata valid.</td><td>If checks fail, the agent fixes spec-system issues before proceeding to another slice.</td></tr>
+          <tr><td>Rendered UX</td><td>User-facing descriptive specs make intended layouts and interactions inspectable inside the HTML spec itself.</td><td>If the slice is nonvisual, the spec explicitly says rendered UX is not applicable and defines the user-visible contract in prose and tables.</td></tr>
         </tbody>
       </table>
     </section>
@@ -222,13 +234,22 @@
     </section>
 
     <section id="design-placeholders" data-spec-section="design-placeholders" data-section-type="design">
-      <h2>Screenshot and design placeholders</h2>
-      <p>The primary user-visible artifact is the dated HTML review report. It should be scannable, durable, and useful when opened directly in a browser.</p>
+      <h2>Rendered experience and design evidence</h2>
+      <p>Backfilled descriptive specs should show the intended experience inside the HTML spec whenever the slice has user-facing UI or UX-visible behavior. The rendered section is a spec-native prototype: enough HTML, CSS, and lightweight JavaScript to inspect states and interactions directly, not production implementation.</p>
+      <h3>Descriptive spec rendering</h3>
+      <ul>
+        <li><strong>Visual surface:</strong> include a rendered layout using believable product data and copy.</li>
+        <li><strong>State behavior:</strong> show important empty, loading, ready, error, permission, and completed states.</li>
+        <li><strong>Interaction:</strong> include lightweight controls for stateful behaviors such as comments, tabs, filters, menus, inline editing, retries, approvals, and selections.</li>
+        <li><strong>Evidence:</strong> link source screenshots, Figma frames, browser captures, or existing UI paths when they help explain the intended design.</li>
+      </ul>
+      <h3>Backfill report rendering</h3>
+      <p>The dated HTML review report should be scannable, durable, and useful when opened directly in a browser.</p>
       <ul>
         <li><strong>Report header:</strong> run ID, date, target repo, Foundation revision if known, top-level spec ID, and current status.</li>
         <li><strong>Slice queue:</strong> table of proposed slices with status, evidence loaded, spec IDs, confidence, and next action.</li>
         <li><strong>Review queue:</strong> material discrepancies, stale-doc warnings, fallback behavior decisions, and human approval needs.</li>
-        <li><strong>Handoff block:</strong> next-slice recommendation and commands/checks last run.</li>
+        <li><strong>Run state:</strong> remaining slice queue, current status, review queue, and commands/checks last run.</li>
       </ul>
     </section>
 
@@ -240,7 +261,8 @@
           <tr><td>FBS-1</td><td><code>#interface-journey</code>, <code>#ux-contracts</code></td><td>Static skill review: Backfill Specs defines the resumable loop and report contract.</td><td>existing</td><td>Does not yet execute a full repo backfill.</td></tr>
           <tr><td>FBS-2</td><td><code>#states-and-rules</code></td><td>Foundation AGENTS routes existing-repo backfill work to the skill.</td><td>existing</td><td>Cold-session behavior should be verified during a target repo pilot.</td></tr>
           <tr><td>FBS-3</td><td><code>#states-and-rules</code></td><td>Foundation doctor fixtures include Backfill Specs as a required skill.</td><td>existing</td><td>Presence check only, not semantic validation.</td></tr>
-          <tr><td>FBS-4</td><td><code>#test-coverage</code></td><td>Manual pilot on a real target repo with a context-reset resume.</td><td>planned</td><td>Needed before calling the workflow proven for large repos.</td></tr>
+          <tr><td>FBS-4</td><td><code>#test-coverage</code></td><td>Manual pilot on a real target repo that verifies the agent continues across slices until the draft graph is complete.</td><td>planned</td><td>Needed before calling the workflow proven for large repos.</td></tr>
+          <tr><td>FBS-5</td><td><code>#design-placeholders</code></td><td>Manual pilot on a user-facing UI slice that verifies the descriptive spec includes rendered, interactive HTML-native UX examples.</td><td>planned</td><td>Needed to prove generated specs are inspectable, not only descriptive prose.</td></tr>
         </tbody>
       </table>
     </section>

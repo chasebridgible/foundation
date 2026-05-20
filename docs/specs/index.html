@@ -302,7 +302,7 @@
       "status": "active",
       "file": "foundation/docs/specs/templates/descriptive-spec-template.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-11",
+      "lastUpdated": "2026-05-20",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -984,7 +984,17 @@
           "mapsTo": [
             "foundation.backfill-specs.descriptive#test-coverage"
           ],
-          "evidence": "Pilot a real target repo backfill and verify the report can resume work after a context reset."
+          "evidence": "Pilot a real target repo backfill and verify the agent continues from one slice to the next until the draft spec graph is complete."
+        },
+        {
+          "id": "FBS-5",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "mapsTo": [
+            "foundation.backfill-specs.descriptive#design-placeholders"
+          ],
+          "evidence": "Backfill a user-facing UI slice and verify the descriptive spec includes rendered, interactive HTML-native UX examples."
         }
       ],
       "tags": [
