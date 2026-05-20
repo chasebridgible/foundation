@@ -89,7 +89,7 @@ Use this sequence when a repo already has substantial code, docs, plans, or test
 
 1. Use `skills/install-foundation-substrate/SKILL.md` to connect the repo to Foundation.
 2. Run `npm run foundation:doctor -- --repo /path/to/target-repo`.
-3. Use `skills/backfill-specs/SKILL.md` to inspect current repo behavior and create draft descriptive and technical specs.
+3. Use `skills/backfill-specs/SKILL.md` to inspect current repo behavior and keep drafting descriptive and technical specs until the proposed spec graph is complete.
 4. Keep the active dated report named in the target repo `AGENTS.md` while backfill is in progress.
 5. Leave existing docs and code in place until the backfilled specs are reviewed and a separate cleanup pass is approved.
 6. Use a later test-backfill workflow for test specs and acceptance mapping.

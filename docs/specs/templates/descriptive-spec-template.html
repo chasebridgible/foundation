@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-template.descriptive">
 <meta name="spec:type" content="template">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-11">
+<meta name="spec:last-updated" content="2026-05-20">
 <title>Descriptive Spec Template</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,7 +16,7 @@
   "title": "Descriptive Spec Template",
   "type": "template",
   "status": "active",
-  "lastUpdated": "2026-05-11",
+  "lastUpdated": "2026-05-20",
   "reviewCadence": "quarterly",
   "confidence": "high",
   "parent": "foundation.spec-system",
@@ -52,7 +52,7 @@
     <a class="nav-item" href="#edge-cases"><span class="nav-num">05</span>Edge cases</a>
     <a class="nav-item" href="#ux-contracts"><span class="nav-num">06</span>UX contracts</a>
     <a class="nav-item" href="#links-and-paths"><span class="nav-num">07</span>Links and paths</a>
-    <a class="nav-item" href="#design-placeholders"><span class="nav-num">08</span>Design placeholders</a>
+    <a class="nav-item" href="#design-placeholders"><span class="nav-num">08</span>Rendered experience</a>
     <a class="nav-item" href="#test-coverage"><span class="nav-num">09</span>Test coverage</a>
   </div>
 </nav>
@@ -64,7 +64,7 @@
     <p class="lede">Replace this with the product outcome in user language. A descriptive spec defines what should exist from the user's side. It should be precise enough that a test spec can verify it.</p>
     <div class="meta-row">
       <div><strong>Template status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-11</div>
+      <div><strong>Updated:</strong> 2026-05-20</div>
     </div>
     <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace the new file's <code>spec-metadata</code>, meta tags, visible placeholders, related spec IDs, owned paths, and coverage entries before using it to drive work.</div>
     <h3>Intent</h3>
@@ -141,11 +141,19 @@
     </section>
 
     <section id="design-placeholders" data-spec-section="design-placeholders" data-section-type="design">
-      <h2>Screenshot and design placeholders</h2>
-      <p>Add links to screenshots, Figma frames, browser captures, or design notes. If the visual state is important, map it to a test or manual evidence row.</p>
+      <h2>Rendered experience and design evidence</h2>
+      <p>If this spec owns user-facing UI or UX-visible behavior, include a rendered HTML-native experience directly in the spec. Show the intended layout, representative states, and lightweight interactions such as open/closed panels, selected rows, filters, tabs, menus, inline editing, comment submission, retries, or approval actions. This is a spec-native intent prototype, not production implementation.</p>
+      <div data-spec-demo="[feature-demo]">
+        <button type="button" data-demo-toggle="[state-name]">[state-changing action]</button>
+        <div data-demo-state="[default-state]">[rendered default UI state]</div>
+        <div data-demo-state="[alternate-state]" hidden>[rendered alternate UI state]</div>
+      </div>
       <ul>
-        <li><strong>[design artifact]:</strong> [path or URL] - [state represented].</li>
+        <li><strong>[rendered state]:</strong> [ready, empty, loading, error, permission, completed, or other state represented in HTML].</li>
+        <li><strong>[interaction]:</strong> [what the user can click/type/select in the spec demo and what state changes].</li>
+        <li><strong>[design artifact]:</strong> [path or URL] - [screenshot, Figma frame, browser capture, or existing UI evidence].</li>
       </ul>
+      <p>If the slice is nonvisual, state that rendered UX is not applicable and describe the user-visible contract in the journey, state, and edge-case sections.</p>
     </section>
 
     <section id="test-coverage" data-spec-section="test-coverage" data-section-type="coverage">
@@ -163,6 +171,19 @@
   <hr>
   <p class="footer-note">Descriptive spec template · replace placeholders before use</p>
 </main>
+<script>
+  document.querySelectorAll('[data-demo-toggle]').forEach(button => {
+    button.addEventListener('click', () => {
+      const demo = button.closest('[data-spec-demo]');
+      const states = demo ? Array.from(demo.querySelectorAll('[data-demo-state]')) : [];
+      if (states.length < 2) return;
+      const visibleIndex = Math.max(0, states.findIndex(state => !state.hidden));
+      states.forEach((state, index) => {
+        state.hidden = index !== (visibleIndex + 1) % states.length;
+      });
+    });
+  });
+</script>
 <script src="../../site-map.js"></script>
 <script src="../../site-nav.js"></script>
 </body>
