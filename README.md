@@ -7,7 +7,7 @@ This repo is both the reference implementation and the shared system other repos
 ## What This Repo Contains
 
 - `AGENTS.md`: the small always-loaded rulebook that points agents to the spec system and protected-main workflow.
-- `skills/`: reusable workflow skills, including descriptive spec interview, spec workflow, Foundation target-repo setup, and existing repo spec backfill.
+- `skills/`: reusable workflow skills, including descriptive spec interview, spec workflow, Foundation target-repo setup, orchestrated existing repo spec backfill, and backfill evaluation.
 - `docs/specs/`: the HTML-native spec system, templates, examples, registry generator, checker, schema, and `spec:new` scaffold command.
 - `docs/specs/foundation-workspace-model.html`: the workspace model for using one canonical Foundation repo from many target repos.
 - `docs/principles/`: durable principles for agentic software work and compounding systems.
@@ -25,6 +25,8 @@ This repo is both the reference implementation and the shared system other repos
 5. Read [The Spec Process](docs/specs/process.html) when creating, changing, or reviewing specs.
 6. Read [The Foundation Workspace Model](docs/specs/foundation-workspace-model.html) when setting up cross-repo use, global Codex instructions, target repo adapters, or CI integration.
 7. Read [Foundation Backfill Specs](docs/specs/foundation-backfill-specs.html) when adopting an existing repo into the spec system.
+8. Read [Foundation Backfill Orchestration Technical Spec](docs/specs/foundation-backfill-orchestration-technical.html) when changing the backfill skill chain, coverage ledger, or adequacy gate.
+9. Read [Foundation Backfill Evaluation Process](docs/specs/foundation-backfill-evaluation.html) when changing the evaluator rubric, golden example, or quality gate.
 
 ## Use Foundation From A Target Repo
 
@@ -39,7 +41,7 @@ Use one canonical Foundation repo plus small target-repo adapters.
 
 3. Keep target repo truth local:
    - Product specs, project knowledge, implementation paths, tests, and ADRs live in the target repo.
-   - Target repo `AGENTS.md` files are adapters: they may define local commands, paths, constraints, and exceptions, but should not duplicate or redefine shared Foundation rules.
+   - Target repo `AGENTS.md` files are adapters: they define local commands, paths, constraints, and exceptions while Foundation owns shared rules.
 
 4. Treat Foundation updates as shared substrate updates:
    - Process improvements, shared skills, templates, validators, and principles are changed in Foundation.
@@ -56,13 +58,13 @@ Set up each target repo as a consumer of canonical Foundation.
 1. Create or update the target repo `AGENTS.md`:
    - Point to the canonical Foundation path.
    - Name target-repo commands, paths, constraints, and project-specific exceptions.
-   - Do not duplicate shared Foundation rules.
+   - Keep shared Foundation rules in Foundation.
    - Use `templates/target-repo-AGENTS.md` as the adapter shape.
 
 2. Keep project-owned artifacts in the target repo:
    - Product specs in `docs/specs/`.
    - Project knowledge, ADRs, tests, implementation paths, and product README content.
-   - Target-owned spec IDs in the target namespace, not `foundation.*`.
+   - Target-owned spec IDs in the target namespace.
 
 3. Use Foundation-owned workflows:
    - Use Foundation `AGENTS.md` for shared routing.
@@ -89,10 +91,12 @@ Use this sequence when a repo already has substantial code, docs, plans, or test
 
 1. Use `skills/install-foundation-substrate/SKILL.md` to connect the repo to Foundation.
 2. Run `npm run foundation:doctor -- --repo /path/to/target-repo`.
-3. Use `skills/backfill-specs/SKILL.md` to inspect current repo behavior and keep drafting descriptive and technical specs until the proposed spec graph is complete.
+3. Use `skills/backfill-specs/SKILL.md` to orchestrate inventory, user-flow extraction, descriptive specs, rendered UX, technical specs, and adequacy review until coverage is complete.
 4. Keep the active dated report named in the target repo `AGENTS.md` while backfill is in progress.
-5. Leave existing docs and code in place until the backfilled specs are reviewed and a separate cleanup pass is approved.
-6. Use a later test-backfill workflow for test specs and acceptance mapping.
+5. Keep descriptive specs architecture-agnostic and technical specs contract-first: required contracts, current evidence, architecture constraints, and implementation latitude.
+6. Use `skills/evaluate-backfill-specs/SKILL.md` to create an evaluation report and revision queue before calling the backfill good enough for human review.
+7. Leave existing docs and code in place until the backfilled specs are reviewed and a separate cleanup pass is approved.
+8. Use a later test-backfill workflow for test specs and acceptance mapping.
 
 ## Foundation Doctor
 
@@ -103,7 +107,7 @@ npm run foundation:doctor
 npm run foundation:doctor -- --repo /path/to/target-repo
 ```
 
-The doctor checks that Foundation exists at the canonical path, required Foundation skills exist, global Codex instructions point to Foundation, the target repo adapter points back to Foundation without copying shared rules, target specs stay out of the `foundation.*` namespace, and target CI references a pinned Foundation revision when CI is configured.
+The doctor checks that Foundation exists at the canonical path, required Foundation skills exist, global Codex instructions point to Foundation, the target repo adapter points back to Foundation with local adapter content, target specs use a target-owned namespace, and target CI references a pinned Foundation revision when CI is configured.
 
 ## AGENTS-Load Canary
 

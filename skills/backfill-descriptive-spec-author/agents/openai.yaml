@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backfill Descriptive Spec"
+  short_description: "Write intent-grade descriptive specs"
+  default_prompt: "Use $backfill-descriptive-spec-author to write an intent-grade descriptive spec from the current backfill slice evidence."

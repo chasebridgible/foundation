@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backfill Technical Spec"
+  short_description: "Write architecture-flexible contracts"
+  default_prompt: "Use $backfill-technical-spec-author to map this backfill slice's intent to required contracts, current evidence, architecture constraints, and implementation latitude."

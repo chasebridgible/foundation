@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-evaluation.process">
+<meta name="spec:type" content="process">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-20">
+<title>Foundation Backfill Evaluation Process</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-evaluation.process",
+  "title": "Foundation Backfill Evaluation Process",
+  "type": "process",
+  "status": "active",
+  "lastUpdated": "2026-05-20",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-specs.descriptive",
+  "children": ["foundation.backfill-golden-example"],
+  "relatedSpecs": [
+    { "id": "foundation.backfill-specs.descriptive", "relationship": "parent", "sections": ["product-intent", "ux-contracts", "test-coverage"] },
+    { "id": "foundation.backfill-orchestration.technical", "relationship": "sibling", "sections": ["contracts", "failure-modes"] },
+    { "id": "foundation.backfill-golden-example", "relationship": "child", "sections": ["golden-report", "golden-technical", "evaluator-scorecard"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/foundation-backfill-evaluation.html", "kind": "doc", "ownership": "direct" },
+    { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/evaluate-backfill-specs/agents/openai.yaml", "kind": "config", "ownership": "direct" }
+  ],
+  "implementationPaths": [
+    { "path": "foundation/docs/specs/examples/backfill-golden-example.html", "kind": "example", "ownership": "reference", "notes": "Golden example for evaluator calibration." },
+    { "path": "foundation/skills/backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Backfill orchestrator invokes this evaluation after graph coverage is complete." },
+    { "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Per-slice adequacy review feeds the final evaluation." },
+    { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "Required-skill validation includes the evaluator." }
+  ],
+  "coverage": [
+    {
+      "id": "FBE-1",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+      "mapsTo": ["foundation.backfill-evaluation.process#evaluator-journey", "foundation.backfill-evaluation.process#output-contract"],
+      "evidence": "Evaluation skill defines the scoring workflow and report contract."
+    },
+    {
+      "id": "FBE-2",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+      "mapsTo": ["foundation.backfill-evaluation.process#scoring-rubric"],
+      "evidence": "Golden example provides calibration for report, descriptive, technical, and scorecard quality."
+    },
+    {
+      "id": "FBE-3",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.backfill-evaluation.process#paths-and-coverage"],
+      "evidence": "Doctor fixtures include evaluate-backfill-specs as a required Foundation skill."
+    }
+  ],
+  "tags": ["process", "foundation", "backfill", "evaluation", "llm-judge"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">E</div>
+    <div>
+      <div class="sidebar-title">Backfill Evaluation</div>
+      <div class="sidebar-sub">process spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#purpose"><span class="nav-num">01</span>Purpose</a>
+    <a class="nav-item" href="#evaluator-journey"><span class="nav-num">02</span>Journey</a>
+    <a class="nav-item" href="#scoring-rubric"><span class="nav-num">03</span>Rubric</a>
+    <a class="nav-item" href="#output-contract"><span class="nav-num">04</span>Output</a>
+    <a class="nav-item" href="#good-enough-gate"><span class="nav-num">05</span>Gate</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">06</span>Coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="purpose" data-spec-section="purpose" data-section-type="product-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-evaluation.html</div>
+    <h1>Backfill evaluation process</h1>
+    <p class="lede">Foundation evaluates backfill results with an LLM judge workflow that compares generated artifacts to a golden example, scores semantic quality, and produces a concrete revision queue before the work is called good enough.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Golden example:</strong> <a data-spec-link="foundation.backfill-golden-example" href="./examples/backfill-golden-example.html">foundation.backfill-golden-example</a></div>
+    </div>
+    <p>Mechanical checks prove the substrate is wired. Evaluation proves the produced specs are useful: specific, traceable, architecture-flexible, and strong enough for a future build agent to understand intended behavior from specs alone.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="evaluator-journey" data-spec-section="evaluator-journey" data-section-type="journey">
+      <h2>Evaluator journey</h2>
+      <ol>
+        <li><strong>Calibrate:</strong> read <a data-spec-link="foundation.backfill-golden-example" href="./examples/backfill-golden-example.html">the golden example</a> and this process spec.</li>
+        <li><strong>Load artifacts:</strong> read target <code>AGENTS.md</code>, the dated backfill report, inventory ledger, top-level app spec, and draft slice specs.</li>
+        <li><strong>Spec-only pass:</strong> review generated specs first and judge what a future build agent could understand from the specs alone.</li>
+        <li><strong>Evidence audit:</strong> sample original evidence for high-risk claims, UX-visible behavior, architecture constraints, and unresolved questions.</li>
+        <li><strong>Score:</strong> assign rubric scores with citations to report rows, spec sections, and evidence paths.</li>
+        <li><strong>Report:</strong> create or update <code>docs/specs/backfill/evaluation-report-YYYYMMDD-NN.html</code> using the same run ID as the backfill report.</li>
+        <li><strong>Route revisions:</strong> append the evaluation result to the backfill report and route each revision item to the owning backfill skill layer.</li>
+      </ol>
+    </section>
+
+    <section id="scoring-rubric" data-spec-section="scoring-rubric" data-section-type="decision-rule">
+      <h2>Scoring rubric</h2>
+      <p>Each category is scored from <code>0</code> to <code>3</code>: absent, shallow, usable, or good enough.</p>
+      <table class="status-table">
+        <thead><tr><th>Category</th><th>Good enough means</th><th>Primary evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Routing and durable state</td><td>The run can resume from target AGENTS, report, inventory, and spec graph.</td><td>Backfill report and target AGENTS.</td></tr>
+          <tr><td>Inventory coverage</td><td>Relevant repo items map to owner specs, parent coverage, adequacy-reviewed slices, or out-of-scope notes.</td><td>Inventory ledger.</td></tr>
+          <tr><td>Descriptive intent</td><td>Specs define user/operator intent, flows, states, rules, outcomes, and recovery at an architecture-agnostic level.</td><td>Descriptive specs.</td></tr>
+          <tr><td>User-flow specificity</td><td>Each user-facing entry point maps to a concrete journey with roles, states, success, and recovery.</td><td>Flow rows and descriptive specs.</td></tr>
+          <tr><td>Rendered UX</td><td>User-facing slices include inspectable HTML-native examples for important states and interactions.</td><td>Rendered sections.</td></tr>
+          <tr><td>Technical contracts</td><td>Technical specs define data, APIs, permissions, services, integrations, timing, failures, observability, and boundaries.</td><td>Technical specs.</td></tr>
+          <tr><td>Architecture flexibility</td><td>Technical specs separate required contracts, current evidence, architecture constraints, and implementation latitude.</td><td>Architecture classification tables.</td></tr>
+          <tr><td>Evidence traceability</td><td>Material claims cite spec sections, report rows, or source evidence.</td><td>Report and evidence paths.</td></tr>
+          <tr><td>Review questions</td><td>Questions are material, isolated, and ready for human decision.</td><td>Review queue.</td></tr>
+          <tr><td>Spec-only rebuild readiness</td><td>A future build agent can understand intended behavior from specs alone and identify flexible implementation choices.</td><td>Spec-only probe notes.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="output-contract" data-spec-section="output-contract" data-section-type="contracts">
+      <h2>Evaluation report contract</h2>
+      <ul>
+        <li><strong>Header:</strong> run ID, target repo, evaluator date, evaluated report path, spec graph summary, and overall result.</li>
+        <li><strong>Scorecard:</strong> category scores from <code>0</code> to <code>3</code> with citations.</li>
+        <li><strong>Slice findings:</strong> findings grouped by slice and routed to inventory, user-flow, descriptive, rendered UX, technical, or adequacy skills.</li>
+        <li><strong>Architecture flexibility:</strong> findings on required contracts, current evidence, architecture constraints, and implementation latitude.</li>
+        <li><strong>Spec-only rebuild probe:</strong> what a future build agent could build or would still need to know from specs alone.</li>
+        <li><strong>Revision queue:</strong> concrete next actions with owner skill and affected artifacts.</li>
+      </ul>
+    </section>
+
+    <section id="good-enough-gate" data-spec-section="good-enough-gate" data-section-type="decision-rule">
+      <h2>Good enough gate</h2>
+      <p>A backfill result is good enough for human review when every rubric category scores at least <code>2</code>, spec-only rebuild readiness scores at least <code>2</code>, and all remaining revision items are isolated in the evaluation report. A score below <code>2</code> routes work back to the owning backfill layer before final handoff.</p>
+    </section>
+
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Related paths and coverage</h2>
+      <ul class="path-list">
+        <li data-implementation-path="foundation/skills/evaluate-backfill-specs/SKILL.md"><code>foundation/skills/evaluate-backfill-specs/SKILL.md</code> - executable evaluation workflow.</li>
+        <li data-implementation-path="foundation/docs/specs/examples/backfill-golden-example.html"><code>foundation/docs/specs/examples/backfill-golden-example.html</code> - golden calibration artifact.</li>
+        <li data-implementation-path="foundation/skills/backfill-specs/SKILL.md"><code>foundation/skills/backfill-specs/SKILL.md</code> - orchestrator that invokes evaluation before final handoff.</li>
+      </ul>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>FBE-1</td><td><code>#evaluator-journey</code>, <code>#output-contract</code></td><td>Evaluation skill defines workflow and report contract.</td><td>existing</td></tr>
+          <tr><td>FBE-2</td><td><code>#scoring-rubric</code></td><td>Golden example calibrates quality expectations.</td><td>existing</td></tr>
+          <tr><td>FBE-3</td><td><code>#paths-and-coverage</code></td><td>Doctor fixtures include the evaluator skill.</td><td>existing</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation Backfill Evaluation Process · semantic quality gate</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

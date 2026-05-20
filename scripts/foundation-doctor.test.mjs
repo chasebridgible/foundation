@@ -17,7 +17,19 @@ function write(file, content) {
 function makeFoundation(root) {
   fs.mkdirSync(path.join(root, ".git"), { recursive: true });
   write(path.join(root, "AGENTS.md"), "# AGENTS.md\n");
-  for (const skill of ["descriptive-spec-interview", "backfill-specs", "spec-workflow", "install-foundation-substrate"]) {
+  for (const skill of [
+    "descriptive-spec-interview",
+    "backfill-specs",
+    "backfill-repo-inventory",
+    "backfill-user-flow-extraction",
+    "backfill-descriptive-spec-author",
+    "backfill-rendered-ux-spec",
+    "backfill-technical-spec-author",
+    "backfill-spec-adequacy-review",
+    "evaluate-backfill-specs",
+    "spec-workflow",
+    "install-foundation-substrate"
+  ]) {
     write(path.join(root, "skills", skill, "SKILL.md"), `---\nname: ${skill}\ndescription: test\n---\n`);
   }
 }

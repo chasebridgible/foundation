@@ -58,6 +58,16 @@ window.SubstrateSiteMap = [
         "specId": "foundation.backfill-specs.descriptive"
       },
       {
+        "title": "Foundation Backfill Orchestration Technical Spec",
+        "path": "specs/foundation-backfill-orchestration-technical.html",
+        "specId": "foundation.backfill-orchestration.technical"
+      },
+      {
+        "title": "Foundation Backfill Evaluation Process",
+        "path": "specs/foundation-backfill-evaluation.html",
+        "specId": "foundation.backfill-evaluation.process"
+      },
+      {
         "title": "Foundation AGENTS Load Canary Test",
         "path": "specs/foundation-agents-load-canary-test.html",
         "specId": "foundation.agents-load-canary.test"
@@ -97,6 +107,11 @@ window.SubstrateSiteMap = [
   {
     "group": "Spec Examples",
     "items": [
+      {
+        "title": "Foundation Backfill Golden Example",
+        "path": "specs/examples/backfill-golden-example.html",
+        "specId": "foundation.backfill-golden-example"
+      },
       {
         "title": "Fired Up Pizza Kitchen Queue - Descriptive Spec Example",
         "path": "specs/examples/descriptive-spec-example.html",
