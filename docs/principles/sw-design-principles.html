@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Software Design Principles — Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --primary-dim: rgba(79,142,255,0.12);
+    --amber: #d4a72c;
+    --amber-dim: rgba(212,167,44,0.12);
+    --emerald: #4ec9b0;
+    --emerald-dim: rgba(78,201,176,0.12);
+    --red: #f48771;
+    --red-dim: rgba(244,135,113,0.12);
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 18px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .logo-mark {
+    width: 24px; height: 24px;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; color: var(--fg); font-size: 12px;
+  }
+  .sidebar-title { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .sidebar-sub { font-size: 11px; color: var(--fg-3); margin-top: 1px; font-family: var(--font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px; }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    font-size: 10px; font-weight: 500;
+    color: var(--fg-3);
+    padding: 10px 10px 4px;
+    font-family: var(--font-mono);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition), color var(--transition);
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-num {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--fg-3);
+    flex-shrink: 0;
+    width: 18px;
+    text-align: right;
+    padding-top: 1px;
+  }
+  .nav-item.active .nav-num, .nav-item.current .nav-num { color: var(--fg-2); }
+
+  .main {
+    flex: 1; min-width: 0;
+    padding: 56px 72px 120px;
+    max-width: 1080px;
+  }
+
+  .spec-eyebrow {
+    font-size: 11px; font-weight: 500;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+  }
+  h1 {
+    font-size: 30px; font-weight: 600;
+    line-height: 1.15; letter-spacing: -0.015em;
+    margin-bottom: 14px;
+    color: var(--fg);
+  }
+  h2 {
+    font-size: 20px; font-weight: 600;
+    margin: 44px 0 14px;
+    line-height: 1.25;
+  }
+  h3 {
+    font-size: 15px; font-weight: 600;
+    margin: 26px 0 8px;
+    line-height: 1.35;
+  }
+  p { margin: 0 0 14px; color: var(--fg-2); }
+  strong { color: var(--fg); font-weight: 600; }
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg);
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1px 4px;
+  }
+  a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--border-2); }
+  a:hover { border-color: var(--primary); }
+
+  .lede {
+    font-size: 15px; color: var(--fg-2);
+    line-height: 1.65; max-width: 760px;
+    margin-bottom: 28px;
+  }
+  .lede-2 {
+    font-size: 14px; color: var(--fg-2);
+    max-width: 760px;
+  }
+  .meta-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding: 10px 0;
+    font-size: 12px; color: var(--fg-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+  .doc-body { margin-top: 32px; }
+  .spec-section {
+    border-top: 1px solid var(--border);
+    padding-top: 4px;
+    margin-top: 36px;
+  }
+
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 22px 0 28px;
+  }
+  .principle-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    min-height: 126px;
+  }
+  .principle-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 22px;
+    border-radius: var(--radius-sm);
+    background: var(--primary-dim);
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+  .principle-title {
+    color: var(--fg);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .principle-copy { color: var(--fg-2); font-size: 13px; line-height: 1.55; }
+
+  .callout {
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius);
+    background: var(--bg-2);
+    padding: 14px 16px;
+    margin: 20px 0;
+  }
+  .callout strong { display: block; margin-bottom: 4px; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin: 18px 0 28px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    color: var(--fg);
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--bg-2);
+  }
+  td { color: var(--fg-2); font-size: 13px; }
+  tr:last-child td { border-bottom: 0; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 18px 0;
+  }
+  .panel {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+  }
+  .panel-label {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+  .panel-title { color: var(--fg); font-weight: 600; margin-bottom: 6px; }
+  .panel-copy { color: var(--fg-2); font-size: 13px; line-height: 1.55; }
+
+  .related-section {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .related-card {
+    display: block;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    text-decoration: none;
+  }
+  .related-card:hover { border-color: var(--border-2); }
+  .related-name { color: var(--fg); font-weight: 600; margin-bottom: 6px; }
+  .related-desc { color: var(--fg-2); font-size: 13px; line-height: 1.55; }
+  hr { border: 0; border-top: 1px solid var(--border); margin: 40px 0 18px; }
+  .footer-note { color: var(--fg-3); font-size: 12px; font-family: var(--font-mono); }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 36px 22px 72px; }
+    .principle-grid, .two-col, .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Core Concepts</div>
+      <div class="sidebar-sub">Software Design Principles</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#foundation-position"><span class="nav-num">01</span>Foundation position</a>
+    <a class="nav-item" href="#interface-principles"><span class="nav-num">02</span>Interface principles</a>
+    <a class="nav-item" href="#platform-interpretation"><span class="nav-num">03</span>Platform interpretation</a>
+    <a class="nav-item" href="#spec-implications"><span class="nav-num">04</span>Spec implications</a>
+    <a class="nav-item" href="#verification"><span class="nav-num">05</span>Verification</a>
+    <a class="nav-item" href="#related"><span class="nav-num">06</span>Related docs</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · sw-design-principles.html</div>
+    <h1>Software Design Principles</h1>
+    <p class="lede">Durable principles for user-facing software design in Foundation. These principles turn design quality into substrate: they shape descriptive specs, rendered HTML-native intent artifacts, implementation review, and visual verification across web, mobile, dashboards, content pages, and cross-platform apps.</p>
+    <div class="meta-row">
+      <div><strong>Format:</strong> HTML-native</div>
+      <div><strong>Scope:</strong> user-facing software design</div>
+      <div><strong>Status:</strong> Canonical HTML</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="foundation-position" class="level2 spec-section">
+      <h2>Foundation position</h2>
+      <p><strong>Design principles are substrate when they change future work.</strong> Foundation promotes a design rule only when it survives model churn, framework churn, and design-system churn; improves what agents generate; and gives the system something concrete to verify later.</p>
+      <p><strong>Design quality is not aesthetic preference.</strong> The durable failures are human-factor failures: weak signifiers, unclear hierarchy, hidden state, excessive recall burden, broken focus order, inadequate contrast, undersized targets, incoherent reflow, or layouts that fit pixels while losing meaning.</p>
+      <p><strong>Visible features need experience contracts.</strong> For user-facing work, descriptive specs define the intended experience: what users see, what they can do, what state means, how the interface responds, and how the experience adapts across device and modality.</p>
+      <div class="callout">
+        <strong>Operating rule</strong>
+        <p>A visually meaningful feature is ready for implementation only when the descriptive spec gives enough hierarchy, state, copy, responsive, accessibility, and rendered-experience detail for another agent to rebuild the intended user experience without relying on the original implementation.</p>
+      </div>
+    </section>
+
+    <section id="interface-principles" class="level2 spec-section">
+      <h2>Interface principles</h2>
+      <p>These are the software-design rules agents should apply when creating or reviewing user-facing specs, rendered UX, and implementation evidence.</p>
+      <div class="principle-grid">
+        <div class="principle-card">
+          <div class="principle-num">01</div>
+          <div class="principle-title">Hierarchy matches task priority</div>
+          <div class="principle-copy">A screen should show what matters first, second, and third through constrained contrast, scale, grouping, and placement. One dominant purpose anchors the screen.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">02</div>
+          <div class="principle-title">Structure comes before decoration</div>
+          <div class="principle-copy">Semantic grouping, reading order, alignment, and stable spatial relationships carry the experience. Visual treatments earn their place by clarifying hierarchy or affordance.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">03</div>
+          <div class="principle-title">Action and state are signified</div>
+          <div class="principle-copy">Users can tell what is actionable, what is selected, what is loading, what changed, and what happens next from visible cues at the point of use.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">04</div>
+          <div class="principle-title">Recognition beats recall</div>
+          <div class="principle-copy">Options, locations, labels, values, and recovery paths stay visible or easily retrievable. The interface carries memory instead of requiring the user to carry it.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">05</div>
+          <div class="principle-title">Complexity is staged</div>
+          <div class="principle-copy">Primary tasks stay present; advanced filters, secondary controls, extra metrics, and rare settings appear through clear progressive-disclosure affordances.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">06</div>
+          <div class="principle-title">Consistency compounds</div>
+          <div class="principle-copy">The same meaning uses the same vocabulary, component treatment, state pattern, and platform convention across screens, reducing cognitive load over time.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">07</div>
+          <div class="principle-title">Accessibility is correctness</div>
+          <div class="principle-copy">Contrast, visible focus, logical focus order, descriptive names, labels, roles, states, reflow, and target sizing are correctness constraints for visible software.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">08</div>
+          <div class="principle-title">Copy is design material</div>
+          <div class="principle-copy">Headings, labels, button names, empty states, error messages, confirmations, and recovery guidance orient users and belong in the design contract.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">09</div>
+          <div class="principle-title">Responsive adaptation preserves meaning</div>
+          <div class="principle-copy">Breakpoints change navigation, density, grouping, and task flow so the screen still communicates the same intent; fitting pixels is not enough.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">10</div>
+          <div class="principle-title">All visible states are designed</div>
+          <div class="principle-copy">Ready, loading, empty, partial, success, error, permission-denied, offline, and completed states are specified where they affect user understanding or action.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">11</div>
+          <div class="principle-title">Platform parity is task-level</div>
+          <div class="principle-copy">Product intent, domain vocabulary, and state model stay equivalent across platforms while navigation chrome, density, pointer, keyboard, and focus behavior adapt.</div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-num">12</div>
+          <div class="principle-title">Experience verification is load-bearing</div>
+          <div class="principle-copy">Code structure alone cannot certify UI quality. Rendered evidence confirms hierarchy, spacing, overflow, states, accessibility-sensitive behavior, and responsive meaning.</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Principle family</th>
+              <th>Healthy output</th>
+              <th>Review signal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hierarchy and structure</td>
+              <td>The screen has one dominant purpose, clear grouping, stable alignment, and a small set of deliberate text styles.</td>
+              <td>Review the rendered screen and identify the first, second, and third priority elements without reading implementation code.</td>
+            </tr>
+            <tr>
+              <td>Action and state</td>
+              <td>Controls look actionable; state changes are visible; default, hover, focus, pressed, disabled, loading, success, and error treatments exist where relevant.</td>
+              <td>Exercise the main interaction states and confirm the user can tell what happened and what can happen next.</td>
+            </tr>
+            <tr>
+              <td>Recognition and disclosure</td>
+              <td>Important options and labels stay visible; advanced controls are staged behind clear affordances; field labels and navigation names carry user language.</td>
+              <td>Walk the flow from a cold start and confirm the user is oriented without remembering hidden choices from prior screens.</td>
+            </tr>
+            <tr>
+              <td>Accessibility and semantics</td>
+              <td>Names, roles, states, headings, labels, contrast-sensitive elements, focus behavior, and target sizing are specified and verified.</td>
+              <td>Keyboard, screen-reader semantics, visible focus, contrast, and target-size evidence support the intended experience.</td>
+            </tr>
+            <tr>
+              <td>Responsive meaning</td>
+              <td>Mobile, tablet, desktop, and wide layouts preserve task order and meaning while adapting density and navigation patterns.</td>
+              <td>Rendered evidence at intended breakpoints shows coherent hierarchy, no meaningful overflow, and no hidden primary action.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="platform-interpretation" class="level2 spec-section">
+      <h2>Platform interpretation</h2>
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-label">Mobile apps</div>
+          <div class="panel-title">One dominant purpose per screen</div>
+          <div class="panel-copy">Small screens favor clear top-level navigation, touch-safe controls, short labels, staged complexity, and focused task flow. Dense control matrices and tiny adjacent targets weaken the experience.</div>
+        </div>
+        <div class="panel">
+          <div class="panel-label">Web apps and SaaS</div>
+          <div class="panel-title">Scanability, orientation, and reversibility</div>
+          <div class="panel-copy">Professional tools can carry density when page regions, selection states, filters, summary-detail structures, and recovery paths stay predictable.</div>
+        </div>
+        <div class="panel">
+          <div class="panel-label">Dashboards</div>
+          <div class="panel-title">Dashboards are for decisions</div>
+          <div class="panel-copy">Status, change, anomaly, and next action matter more than ornamental metrics. Grouping should match operational domains and de-emphasize metrics that do not change decisions.</div>
+        </div>
+        <div class="panel">
+          <div class="panel-label">Content and product pages</div>
+          <div class="panel-title">Narrative clarity with constrained emphasis</div>
+          <div class="panel-copy">Strong reading order, concise headings, restrained typography, meaningful sections, and one dominant call to action per narrative step carry the page.</div>
+        </div>
+        <div class="panel">
+          <div class="panel-label">Cross-platform apps</div>
+          <div class="panel-title">Task-level parity, platform-level adaptation</div>
+          <div class="panel-copy">Intent, vocabulary, state model, and outcomes stay aligned while navigation chrome, pointer affordances, keyboard behavior, focus treatment, and density adapt to the platform.</div>
+        </div>
+        <div class="panel">
+          <div class="panel-label">Agent-generated UI</div>
+          <div class="panel-title">Variation needs a reason</div>
+          <div class="panel-copy">Agents should reuse established component families, vocabulary, state patterns, and layout grammar unless the spec names a product reason to introduce a new pattern.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="spec-implications" class="level2 spec-section">
+      <h2>Spec implications</h2>
+      <p><strong>Descriptive specs are the design contract for visible software.</strong> They should describe the intended user experience with enough fidelity for implementation to remain architecture-flexible while experience intent remains stable.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Visible feature spec area</th>
+              <th>What the spec should capture</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Primary hierarchy</td>
+              <td>The screen purpose, first-priority object or action, secondary information, and what is deliberately de-emphasized.</td>
+            </tr>
+            <tr>
+              <td>Dominant action</td>
+              <td>The main user action, when it is available, how it is labeled, and how competing actions are ordered.</td>
+            </tr>
+            <tr>
+              <td>Component pattern family</td>
+              <td>The intended family of patterns: table, list, timeline, form, map, split view, card collection, command surface, modal, sheet, tab set, or other named structure.</td>
+            </tr>
+            <tr>
+              <td>State set</td>
+              <td>Ready, loading, empty, partial, success, error, permission-denied, offline, completed, selected, disabled, and recovering states that affect comprehension or action.</td>
+            </tr>
+            <tr>
+              <td>Responsive collapse rules</td>
+              <td>How navigation, density, grouping, columns, filters, panels, maps, media, and actions adapt at the intended breakpoints.</td>
+            </tr>
+            <tr>
+              <td>Density expectation</td>
+              <td>Whether the experience is operational, editorial, exploratory, form-heavy, or review-heavy, and how much information belongs above the fold.</td>
+            </tr>
+            <tr>
+              <td>Critical copy</td>
+              <td>Headings, labels, button names, error messages, empty states, confirmations, and recovery guidance that carry meaning.</td>
+            </tr>
+            <tr>
+              <td>Accessibility semantics</td>
+              <td>Headings, labels, names, roles, states, focus order, visible focus, contrast-sensitive elements, keyboard behavior, and target-size expectations.</td>
+            </tr>
+            <tr>
+              <td>Rendered HTML-native intent</td>
+              <td>Interactive or stateful HTML in the descriptive spec for screens, key states, and critical interactions where visual behavior matters.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Rendered experience is not a placeholder.</strong> For visible features, the HTML-native rendered experience is a first-class intent artifact. It can be simple, but it should make hierarchy, copy, state, responsive behavior, and critical interactions inspectable.</p>
+    </section>
+
+    <section id="verification" class="level2 spec-section">
+      <h2>Verification</h2>
+      <p><strong>No visually meaningful feature is done without rendered evidence.</strong> Passing code tests can prove behavior, but rendered UI evidence proves that the intended experience is visible, coherent, accessible, and responsive.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Evidence</th>
+              <th>What it confirms</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Stateful screenshots or trace captures</td>
+              <td>Hierarchy, grouping, spacing consistency, overflow behavior, and empty/loading/error/success/permission states.</td>
+            </tr>
+            <tr>
+              <td>Responsive breakpoint captures</td>
+              <td>Meaningful reflow, preserved primary action, coherent navigation, and appropriate density at mobile, tablet, desktop, and wide sizes.</td>
+            </tr>
+            <tr>
+              <td>Keyboard and focus evidence</td>
+              <td>Logical focus order, visible focus treatment, operability, and no trapped or unreachable controls where keyboard access applies.</td>
+            </tr>
+            <tr>
+              <td>Contrast and target-size checks</td>
+              <td>Readable text, non-color-only meaning, usable targets, and sufficient spacing for the platform and interaction mode.</td>
+            </tr>
+            <tr>
+              <td>Rendered spec-to-implementation comparison</td>
+              <td>The implementation matches the descriptive spec's hierarchy, states, copy, responsive rules, and critical interactions.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <strong>Done condition for user-facing UI</strong>
+        <p>The review evidence should let a reviewer reject a mediocre interface even when the component tree is clean and the tests pass. The rendered result is part of the contract.</p>
+      </div>
+    </section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede-2">Sibling HTML-native documents that this design layer inherits from and feeds back into.</p>
+    <div class="related-grid">
+      <a class="related-card" href="./core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for compounding systems, intent, verification, judgment, and preserved meaning.</div></a>
+      <a class="related-card" href="./sw-dev-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work and harness engineering.</div></a>
+      <a class="related-card" href="../specs/templates/descriptive-spec-template.html"><div class="related-name">Descriptive Spec Template</div><div class="related-desc">The HTML-native contract shape for user-facing behavior and rendered experience.</div></a>
+      <a class="related-card" href="../specs/foundation-backfill-orchestration-technical.html"><div class="related-name">Backfill Orchestration Technical Spec</div><div class="related-desc">The backfill chain that uses rendered UX and adequacy review for visible slices.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · HTML-native document</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>
