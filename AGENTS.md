@@ -3,7 +3,7 @@
 - Specs are HTML-native durable contracts. Start at `docs/specs/index.html` before behavior-changing software work or spec authoring.
 - Use the Descriptive Spec Interview skill at `skills/descriptive-spec-interview/SKILL.md` when turning fuzzy user-facing intent into a descriptive spec.
 - Use `docs/principles/sw-design-principles.html` before user-facing UI, rendered-UX, accessibility, responsive layout, or visual-verification work.
-- Use the Backfill Specs skill at `skills/backfill-specs/SKILL.md` when converting an existing repo into a complete intent-rigid, architecture-flexible descriptive/technical spec graph and dated backfill review report.
+- Use the Backfill Specs skill at `skills/backfill-specs/SKILL.md` when converting an existing repo into a complete intent-rigid, architecture-flexible descriptive/technical spec graph, dated review report, and JSONL run log.
 - Use the Evaluate Backfill Specs skill at `skills/evaluate-backfill-specs/SKILL.md` when judging whether generated backfill specs meet the strict acceptable-quality gate.
 - Use `docs/principles/ai-evals-principles.html` before creating or changing LLM judge rubrics, eval workflows, or backfill quality gates.
 - Use the Spec workflow skill at `skills/spec-workflow/SKILL.md` when creating or updating specs, mapping tests, or keeping code/spec/test changes aligned.

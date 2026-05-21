@@ -36,7 +36,9 @@
     { "path": "foundation/skills/backfill-technical-spec-author/SKILL.md", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/scripts/backfill-queue-check.mjs", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/scripts/backfill-queue-check.test.mjs", "kind": "test", "ownership": "direct" }
+    { "path": "foundation/scripts/backfill-queue-check.test.mjs", "kind": "test", "ownership": "direct" },
+    { "path": "foundation/scripts/backfill-run-log-check.mjs", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/scripts/backfill-run-log-check.test.mjs", "kind": "test", "ownership": "direct" }
   ],
   "implementationPaths": [
     { "path": "foundation/skills/backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Orchestrator skill that sequences the layer skills." },
@@ -46,6 +48,8 @@
     { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Slice and graph semantic evaluation workflow." },
     { "path": "foundation/scripts/backfill-queue-check.mjs", "kind": "workflow", "ownership": "direct", "notes": "Durable queue validation command." },
     { "path": "foundation/scripts/backfill-queue-check.test.mjs", "kind": "test", "ownership": "direct", "notes": "Automated coverage for durable queue validation." },
+    { "path": "foundation/scripts/backfill-run-log-check.mjs", "kind": "workflow", "ownership": "direct", "notes": "Execution run log validation command." },
+    { "path": "foundation/scripts/backfill-run-log-check.test.mjs", "kind": "test", "ownership": "direct", "notes": "Automated coverage for execution run log validation." },
     { "path": "foundation/docs/specs/templates/descriptive-spec-template.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive spec structure used by backfill authoring." },
     { "path": "foundation/docs/specs/templates/technical-spec-template.html", "kind": "doc", "ownership": "reference", "notes": "Technical spec structure used by backfill authoring." },
     { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "Required-skill validation for Foundation setup." },
@@ -99,6 +103,14 @@
       "path": "foundation/scripts/backfill-queue-check.test.mjs",
       "mapsTo": ["foundation.backfill-orchestration.technical#data-model", "foundation.backfill-orchestration.technical#failure-modes"],
       "evidence": "Backfill queue checker tests validate embedded queue presence, parsing, status shape, and acceptable-score threshold."
+    },
+    {
+      "id": "FBO-7",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+      "mapsTo": ["foundation.backfill-orchestration.technical#data-model", "foundation.backfill-orchestration.technical#failure-modes"],
+      "evidence": "Backfill run log checker tests validate JSONL execution event shape, ordered sequences, run identity, and complete-event requirements."
     }
   ],
   "tags": ["technical", "foundation", "backfill", "orchestration", "skills"]
@@ -154,13 +166,14 @@
         <li><strong>Connect:</strong> use Foundation setup and doctor to confirm the target repo can consume Foundation.</li>
         <li><strong>Inventory:</strong> run <code>backfill-repo-inventory</code> to build or refresh the coverage ledger.</li>
         <li><strong>Queue:</strong> create or refresh the embedded durable queue and choose the next slice awaiting owner specs, child behavior coverage, revision, or strict evaluation.</li>
+        <li><strong>Observe:</strong> append JSONL run-log events when phases start, finish, checkpoint, validate, evaluate, revise, block, or hand off.</li>
         <li><strong>Extract flows:</strong> run <code>backfill-user-flow-extraction</code> for user-facing inventory items.</li>
         <li><strong>Draft descriptive:</strong> run <code>backfill-descriptive-spec-author</code> and create or update draft descriptive specs.</li>
         <li><strong>Render UX:</strong> run <code>backfill-rendered-ux-spec</code> when the descriptive slice has visual or UX-visible behavior.</li>
         <li><strong>Draft technical:</strong> run <code>backfill-technical-spec-author</code> and create or update draft technical specs that classify required contracts, current evidence, architecture constraints, and implementation latitude.</li>
         <li><strong>Review adequacy:</strong> run <code>backfill-spec-adequacy-review</code>, revise layers that need more detail, and mark the slice ready for evaluator scoring after it passes.</li>
         <li><strong>Evaluate slice:</strong> run <code>evaluate-backfill-specs</code>, revise category gaps below threshold, and re-evaluate until the slice is acceptable or blocked by a named human decision.</li>
-        <li><strong>Validate:</strong> check the durable queue, regenerate registry, and run spec checks.</li>
+        <li><strong>Validate:</strong> check the durable queue, check the execution run log, regenerate registry, and run spec checks.</li>
         <li><strong>Continue:</strong> update the report and start the next queued slice until inventory coverage is complete.</li>
         <li><strong>Evaluate graph:</strong> run <code>evaluate-backfill-specs</code> against the completed graph, golden example, and rubric before final handoff.</li>
       </ol>
@@ -172,6 +185,7 @@
         <thead><tr><th>Artifact</th><th>Required fields</th><th>Invariant</th><th>Owner</th></tr></thead>
         <tbody>
           <tr><td>Backfill report</td><td>run ID, date, target repo, Foundation revision, top-level spec, embedded durable queue, review queue, evaluation status, validation results</td><td>Can resume the run from durable files.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Execution run log</td><td>run ID, sequence, timestamp, slice, phase, event, summary, artifacts read/changed, commands, checks, duration, result, next action</td><td>Append-only JSONL events describe what happened without replacing the queue as canonical state.</td><td><code>backfill-specs</code></td></tr>
           <tr><td>Durable queue slice</td><td>ID, scope, status, owner skill, descriptive spec, technical spec, score, next action, exit criterion, blocking gaps, evidence rows</td><td>Every slice has exactly one current next action unless it is acceptable, out of scope, or blocked by human decision.</td><td><code>backfill-specs</code></td></tr>
           <tr><td>Inventory row</td><td>ID, category, label, evidence path, owning spec, coverage layer, missing detail, notes</td><td>Every relevant row reaches an acceptable slice, parent-covered reason, blocked human decision, or out-of-scope status by completion.</td><td><code>backfill-repo-inventory</code></td></tr>
           <tr><td>User flow row</td><td>user, entry point, intent, actions, states, success, failure/recovery, evidence, owning spec</td><td>Every user-facing entry point maps to a concrete flow.</td><td><code>backfill-user-flow-extraction</code></td></tr>
@@ -190,6 +204,7 @@
           <tr><td>Descriptive/technical split</td><td>Descriptive specs define architecture-agnostic user/operator intent; technical specs define contract-level system requirements.</td><td>The spec graph preserves intent while allowing implementation improvement.</td></tr>
           <tr><td>Architecture classification</td><td>Technical specs classify required contracts, current implementation evidence, architecture constraints, and implementation latitude.</td><td>Future build agents know what must remain true and where architecture may change.</td></tr>
           <tr><td>Layered workflow</td><td>Inventory, flow extraction, descriptive drafting, rendered UX, technical drafting, and adequacy review are separate steps.</td><td>Focused steps reduce context loss and make completion testable.</td></tr>
+          <tr><td>State and observability split</td><td>The report and embedded queue own durable run state; the JSONL run log owns execution observability.</td><td>Agents can resume from state while users can inspect how work proceeded.</td></tr>
           <tr><td>User flow depth</td><td>User-facing behavior is sliced by concrete user flows where possible.</td><td>Flow-sized specs can carry specific states, rules, and rendered examples.</td></tr>
           <tr><td>Parent/child graph</td><td>Parent specs define vocabulary and boundaries; child specs carry behavior.</td><td>Behavior coverage has an explicit owner.</td></tr>
           <tr><td>Adequacy gate</td><td>The review question is whether a future build agent could implement intended behavior from specs alone while preserving required contracts and using implementation latitude where architecture is flexible.</td><td>This is the practical signal that the spec has enough detail.</td></tr>
@@ -203,6 +218,7 @@
       <p>Backfill runs are allowed to span multiple sessions. Ordering is enforced by durable report state.</p>
       <ul>
         <li><strong>Resume:</strong> read the report, inventory, top-level spec, current slice specs, and relevant skill before continuing.</li>
+        <li><strong>Observe:</strong> append run-log checkpoint, start, complete, validation, evaluation, and handoff events as phases progress.</li>
         <li><strong>Revision loop:</strong> adequacy review or strict evaluation may send the slice back to inventory, flow extraction, descriptive authoring, rendered UX, or technical authoring before the next slice begins.</li>
         <li><strong>Validation cadence:</strong> run spec registry/check after each acceptable slice or grouped set of tightly related child specs.</li>
       </ul>
@@ -214,6 +230,7 @@
         <thead><tr><th>Failure</th><th>System behavior</th><th>User behavior</th><th>Evidence</th></tr></thead>
         <tbody>
           <tr><td>Durable queue</td><td>Inventory rows awaiting owner specs, child behavior coverage, revision, evaluation, or human decision remain in the slice queue.</td><td>User sees the remaining slice queue until coverage is complete.</td><td>Embedded queue and visible table</td></tr>
+          <tr><td>Execution run log missing or malformed</td><td>Run-log validation fails and the agent repairs JSONL shape or appends the missing phase evidence before handoff.</td><td>User receives an inspectable record of phase progress, commands, checks, and next action.</td><td>Run log checker</td></tr>
           <tr><td>Adequacy loop</td><td>Adequacy review marks flows, rules, UX, or technical contracts for revision and loops to the owning skill.</td><td>User receives specs that have passed the review gate before evaluator scoring.</td><td>Adequacy table</td></tr>
           <tr><td>Evaluation loop</td><td>Evaluator category scores below threshold route the slice back to the owner skill with exit criteria.</td><td>User receives acceptable slices rather than passable summaries.</td><td>Evaluation report and queue update</td></tr>
           <tr><td>Context reset</td><td>Next agent resumes from report, embedded queue, inventory, current specs, and skill chain.</td><td>User continues from durable state.</td><td>Dated report</td></tr>
@@ -250,6 +267,8 @@
         <li data-implementation-path="foundation/skills/backfill-technical-spec-author/SKILL.md"><code>foundation/skills/backfill-technical-spec-author/SKILL.md</code> - technical spec authoring workflow.</li>
         <li data-implementation-path="foundation/skills/backfill-spec-adequacy-review/SKILL.md"><code>foundation/skills/backfill-spec-adequacy-review/SKILL.md</code> - adequacy review workflow.</li>
         <li data-implementation-path="foundation/skills/evaluate-backfill-specs/SKILL.md"><code>foundation/skills/evaluate-backfill-specs/SKILL.md</code> - graph-level semantic evaluation workflow.</li>
+        <li data-implementation-path="foundation/scripts/backfill-queue-check.mjs"><code>foundation/scripts/backfill-queue-check.mjs</code> - durable queue validation command.</li>
+        <li data-implementation-path="foundation/scripts/backfill-run-log-check.mjs"><code>foundation/scripts/backfill-run-log-check.mjs</code> - execution run log validation command.</li>
       </ul>
       <h3>Coverage</h3>
       <table class="status-table">
@@ -261,6 +280,7 @@
           <tr><td>FBO-4</td><td><code>#failure-modes</code></td><td>Manual large-repo pilot for inventory coverage, strict evaluation, and queue-resume behavior.</td><td>planned</td></tr>
           <tr><td>FBO-5</td><td><code>#contracts</code></td><td>Technical authoring skill requires architecture classification.</td><td>existing</td></tr>
           <tr><td>FBO-6</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill queue checker validates embedded durable queue structure.</td><td>existing</td></tr>
+          <tr><td>FBO-7</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill run log checker validates JSONL execution event structure.</td><td>existing</td></tr>
         </tbody>
       </table>
     </section>
