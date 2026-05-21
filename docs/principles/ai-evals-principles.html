@@ -292,73 +292,88 @@
 	        </div>
 	        <div class="principle-card">
 	          <div class="principle-num">04</div>
+	          <div class="principle-title">The evaluated unit is the whole system</div>
+	          <div class="principle-copy">For agents, the model is not the system. Eval records must identify the model, harness, tools, memory, subagents, prompts, run settings, environment, and provider conditions that produced the behavior.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">05</div>
+	          <div class="principle-title">Capability is not reliability</div>
+	          <div class="principle-copy">A high success score does not prove useful reliability. Evals should separately measure consistency, robustness, predictability, calibration, failure severity, and resource stability when those dimensions affect trust.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">06</div>
+	          <div class="principle-title">The environment is part of the eval</div>
+	          <div class="principle-copy">Agent evals depend on the sandbox, tools, world state, hidden grader, task definition, and solution isolation. The environment must be production-like enough to matter and constrained enough to prevent reward hacking.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">07</div>
 	          <div class="principle-title">Agent failures cascade through steps</div>
 	          <div class="principle-copy">An agent can fail at routing, tool choice, arguments, interpretation, synthesis, stopping, or handoff. Evals need enough trace visibility to locate the step where the failure entered.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">05</div>
+	          <div class="principle-num">08</div>
 	          <div class="principle-title">Signals are complementary</div>
 	          <div class="principle-copy">Code evals, LLM judges, human review, production traces, and incident reports measure different things. A durable eval system composes them instead of pretending one signal can cover all failure classes.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">06</div>
+	          <div class="principle-num">09</div>
 	          <div class="principle-title">Use the cheapest reliable signal</div>
 	          <div class="principle-copy">Deterministic facts should be checked with deterministic code. Semantic claims need semantic judges. Novel, ambiguous, or high-consequence failures need human labeling until the system can encode them.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">07</div>
+	          <div class="principle-num">10</div>
 	          <div class="principle-title">Generation and judgment stay separate</div>
 	          <div class="principle-copy">A system should not self-certify important work. The artifact producer, evaluator, rubric, golden examples, and human calibration path should be separable enough that bad work can be rejected without relying on the producer's confidence.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">08</div>
+	          <div class="principle-num">11</div>
 	          <div class="principle-title">Judges are systems under test</div>
 	          <div class="principle-copy">An LLM judge is another model-driven component. Its rubric, labels, explanations, bias profile, precision, recall, and agreement with human labels must be evaluated like any other system.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">09</div>
+	          <div class="principle-num">12</div>
 	          <div class="principle-title">Rubrics encode observed distinctions</div>
 	          <div class="principle-copy">A good rubric names the role, the evidence, the decision labels, and the failure modes the system has actually shown. It should make disagreement inspectable rather than mysterious.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">10</div>
+	          <div class="principle-num">13</div>
 	          <div class="principle-title">Suites are representative, versioned, and refreshed</div>
 	          <div class="principle-copy">Static eval sets drift, saturate, and leak. Durable eval suites preserve version history while adding production failures, edge cases, fresh tasks, and provenance notes that explain what the suite represents.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">11</div>
+	          <div class="principle-num">14</div>
 	          <div class="principle-title">Runs are traceable, reproducible, and auditable</div>
-	          <div class="principle-copy">An eval result is weak evidence if it cannot be replayed or explained. Preserve prompts, tools, model versions, datasets, rubrics, traces, artifacts, and evidence paths needed to compare runs.</div>
+	          <div class="principle-copy">An eval result is weak evidence if it cannot be replayed or explained. Preserve prompts, tools, model versions, datasets, rubrics, traces, artifacts, seeds, settings, and evidence paths needed to compare runs.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">12</div>
+	          <div class="principle-num">15</div>
 	          <div class="principle-title">Robustness and misuse are part of correctness</div>
 	          <div class="principle-copy">Happy-path success is incomplete. Evals should cover perturbations, tool errors, long context, unsafe side effects, constraint adherence, misuse pressure, and recovery behavior when those failures matter.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">13</div>
+	          <div class="principle-num">16</div>
 	          <div class="principle-title">Offline and online evals feed each other</div>
 	          <div class="principle-copy">Offline datasets compare changes before release. Online traces reveal live failures, drift, and edge cases. The system improves when production failures become new offline cases and offline regressions shape production monitoring.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">14</div>
+	          <div class="principle-num">17</div>
 	          <div class="principle-title">Explanations are diagnostic data</div>
 	          <div class="principle-copy">A score alone tells the system what happened. A short explanation tells the system why it happened, which lets failures be grouped into patterns and routed to the right fix.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">15</div>
+	          <div class="principle-num">18</div>
 	          <div class="principle-title">Failures become dataset assets</div>
 	          <div class="principle-copy">Today's production failure should become tomorrow's test case. Golden datasets, failure sets, and regression suites are compounding substrate, not disposable QA artifacts.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">16</div>
+	          <div class="principle-num">19</div>
 	          <div class="principle-title">Experiments prove improvement</div>
 	          <div class="principle-copy">Prompt, model, tool, and workflow changes should be compared against a known dataset. Improvement means the measured behavior changed in the intended direction without hiding regressions.</div>
 	        </div>
 	        <div class="principle-card">
-	          <div class="principle-num">17</div>
+	          <div class="principle-num">20</div>
 	          <div class="principle-title">Reliability is distributional</div>
-	          <div class="principle-copy">One good run proves little. Evaluate repeated runs, representative cases, hard cases, known failures, and risk tiers so reliability reflects how the system behaves across a distribution.</div>
+	          <div class="principle-copy">One good run proves little. Evaluate repeated runs, representative cases, hard cases, known failures, uncertainty, variance, and risk tiers so reliability reflects how the system behaves across a distribution.</div>
 	        </div>
       </div>
     </section>
@@ -367,8 +382,11 @@
       <h2>Agent implications</h2>
       <p><strong>Agent evaluation should judge task usefulness, not artifact fluency.</strong> The central question is whether a future user or agent could rely on the output to make the next correct move without hidden context.</p>
       <p><strong>The eval contract should name intent, context, and risk.</strong> The evaluator should know the goal, operating environment, acceptable threshold, and unacceptable failure classes before scoring generated work.</p>
+      <p><strong>The agent identity must be explicit.</strong> A model name is not enough. The run record should identify the harness, tools, subagents, memory state, provider or local inference environment, prompts, seeds, temperature, retries, and other settings needed to reproduce the behavior.</p>
       <p><strong>The first pass should inspect the generated artifact on its own terms.</strong> Read the generated output before auditing source evidence. This exposes what the artifact itself communicates and prevents the evaluator from mentally filling gaps with outside knowledge.</p>
       <p><strong>The evidence pass should sample high-risk claims.</strong> An evaluator does not need to reread every source in every pass. It should audit the claims most likely to create durable damage: user-visible behavior, data contracts, permissions, architecture constraints, integrations, safety boundaries, and material discrepancies.</p>
+      <p><strong>The environment and grader must resist reward hacking.</strong> The agent should not see hidden solutions, grader logic, or ungraded task requirements it can ignore. If a task asks for a behavior, the grader must check that behavior or explicitly mark it out of scope.</p>
+      <p><strong>Run reports should include uncertainty and resource behavior.</strong> Success rate, pass@K, error bars or standard error, step count, token use, latency, cost, failure severity, and run-to-run variance are part of the evidence when they affect deployment or trust.</p>
       <p><strong>The result should route work, not merely score it.</strong> An eval is useful when its findings identify the smallest owning layer that can prevent the failure next time: spec, data, prompt, tool, skill, checker, rubric, implementation, or human decision.</p>
     </section>
 
@@ -386,6 +404,8 @@
           </thead>
           <tbody>
             <tr><td>Intent and risk</td><td>Define success, operating context, risk tier, and unacceptable failures.</td><td>Spec, eval contract, scenario coverage matrix.</td></tr>
+            <tr><td>System identity</td><td>Record the whole evaluated system, not just the model name.</td><td>Model, harness, tools, subagents, memory, provider, prompts, seeds, and run settings.</td></tr>
+            <tr><td>Environment contract</td><td>Define the sandbox, world state, tools, task, hidden solution, grader, and reward-hacking boundaries.</td><td>Versioned environment, isolated grader, task checklist, and reproducible run command.</td></tr>
             <tr><td>Offline evaluation</td><td>Compare prompts, models, tools, skills, and workflows before release.</td><td>Versioned dataset, golden labels, repeatable experiment report.</td></tr>
             <tr><td>Online evaluation</td><td>Observe production or realistic traces for drift, new failures, incidents, and edge cases.</td><td>Trace log, anomaly queue, incident or feedback record.</td></tr>
             <tr><td>Refresh loop</td><td>Turn failures and external feedback into regression coverage.</td><td>New cases, revised rubric, updated skill, stricter checker, or changed spec.</td></tr>
