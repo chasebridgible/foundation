@@ -24,16 +24,21 @@ For the current slice:
    - user intent
    - primary actions
    - visible states
+   - state transitions
+   - permissions and denial behavior
    - system responses
    - success outcome
-   - failure, retry, denial, empty, and recovery paths
+   - failure, retry, empty, offline, partial, and recovery paths
    - evidence paths
    - proposed descriptive spec owner
+   - unresolved human decisions
 5. Update the dated report with the flow list and remaining flow gaps.
 
 ## Granularity Rule
 
 A flow should be small enough that another agent could render the intended experience and write concrete state/rule tables. If a flow contains multiple goals, roles, major states, or decisions, split it.
+
+Broad domains such as "identity", "dashboard", or "admin" are flow containers, not complete flows. Split them into concrete journeys before descriptive authoring.
 
 ## Completion Rule
 

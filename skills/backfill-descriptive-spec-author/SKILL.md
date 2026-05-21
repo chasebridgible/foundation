@@ -25,6 +25,9 @@ For the current slice:
 4. Write the descriptive sections:
    - product intent
    - user model
+   - observed current behavior
+   - inferred intended behavior
+   - required future contract
    - interface journey
    - visible states and rules
    - edge cases and recovery
@@ -47,5 +50,6 @@ Descriptive prose must be specific enough to answer:
 - what happens when data is missing, permissions fail, work is processing, or an operation errors
 - which details are product intent versus implementation evidence
 - what evidence supports the intent
+- what remains a human decision
 
 If the slice has visual or UX-visible behavior, call `backfill-rendered-ux-spec` before adequacy review.

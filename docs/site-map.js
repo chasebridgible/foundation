@@ -15,6 +15,10 @@ window.SubstrateSiteMap = [
         "path": "principles/sw-dev-principles.html"
       },
       {
+        "title": "AI Evals Principles - Core Concepts",
+        "path": "principles/ai-evals-principles.html"
+      },
+      {
         "title": "Software Design Principles",
         "path": "principles/sw-design-principles.html"
       },

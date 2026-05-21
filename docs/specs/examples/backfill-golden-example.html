@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-golden-example">
 <meta name="spec:type" content="process">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-20">
+<meta name="spec:last-updated" content="2026-05-21">
 <title>Foundation Backfill Golden Example</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,13 +16,13 @@
   "title": "Foundation Backfill Golden Example",
   "type": "process",
   "status": "active",
-  "lastUpdated": "2026-05-20",
+  "lastUpdated": "2026-05-21",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-evaluation.process",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.backfill-evaluation.process", "relationship": "parent", "sections": ["scoring-rubric", "good-enough-gate"] },
+    { "id": "foundation.backfill-evaluation.process", "relationship": "parent", "sections": ["scoring-rubric", "acceptability-gate"] },
     { "id": "foundation.backfill-specs.descriptive", "relationship": "sibling", "sections": ["ux-contracts", "design-placeholders"] },
     { "id": "foundation.backfill-orchestration.technical", "relationship": "sibling", "sections": ["contracts"] }
   ],
@@ -62,6 +62,7 @@
 .demo-actions button { margin-left: 8px; padding: 8px 10px; border-radius: 6px; border: 1px solid #94a3b8; background: #fff; cursor: pointer; }
 .demo-actions button.active { background: #0f766e; color: #fff; border-color: #0f766e; }
 .score-good { color: #166534; font-weight: 700; }
+.score-warn { color: #92400e; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -89,11 +90,12 @@
   <section id="overview" data-spec-section="overview" data-section-type="summary" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/examples/backfill-golden-example.html</div>
     <h1>Backfill golden example</h1>
-    <p class="lede">This example shows what good looks like for a small backfilled feature slice: durable report state, concrete user intent, rendered UX, contract-first technical detail, architecture flexibility, and an evaluator scorecard.</p>
+    <p class="lede">This example shows what excellent looks like for a small backfilled feature slice: durable queue state, precise evidence, architecture-agnostic product intent, rendered UX, contract-first technical detail, architecture flexibility, category-level adequacy review, and a strict 100-point evaluator scorecard.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
       <div><strong>Feature:</strong> Field Visit Check-In</div>
       <div><strong>Use:</strong> evaluator calibration</div>
+      <div><strong>Target score:</strong> 96-100 acceptable</div>
     </div>
   </section>
 
@@ -103,31 +105,126 @@
       <table class="status-table">
         <thead><tr><th>Artifact</th><th>Example path</th><th>Purpose</th></tr></thead>
         <tbody>
-          <tr><td>Backfill report</td><td><code>docs/specs/backfill/review-report-20260520-01.html</code></td><td>Durable run state, inventory, queue, evidence, and review questions.</td></tr>
-          <tr><td>Descriptive spec</td><td><code>docs/specs/field-visit-check-in-descriptive.html</code></td><td>Architecture-agnostic user/operator intent.</td></tr>
-          <tr><td>Technical spec</td><td><code>docs/specs/field-visit-check-in-technical.html</code></td><td>Required contracts, current evidence, constraints, and implementation latitude.</td></tr>
-          <tr><td>Evaluation report</td><td><code>docs/specs/backfill/evaluation-report-20260520-01.html</code></td><td>Scorecard, spec-only probe, findings, and revision queue.</td></tr>
+          <tr><td>Backfill report</td><td><code>docs/specs/backfill/review-report-20260521-01.html</code></td><td>Durable run state, inventory, slice queue, evidence audit, discrepancy log, and human decision queue.</td></tr>
+          <tr><td>Durable queue</td><td><code>#backfill-slice-queue</code> inside the report</td><td>Machine-readable and human-readable status for every slice: owner skill, score, next action, blocker, and exit criterion.</td></tr>
+          <tr><td>Descriptive spec</td><td><code>docs/specs/field-visit-check-in-descriptive.html</code></td><td>Architecture-agnostic user/operator intent, flows, states, copy, recovery, and rendered experience.</td></tr>
+          <tr><td>Technical spec</td><td><code>docs/specs/field-visit-check-in-technical.html</code></td><td>Required contracts, current evidence, constraints, implementation latitude, and failure/observability rules.</td></tr>
+          <tr><td>Evaluation report</td><td><code>docs/specs/backfill/evaluation-report-20260521-01.html</code></td><td>100-point scorecard, spec-only probe, evidence audit, category findings, and concrete revision routing.</td></tr>
         </tbody>
       </table>
+      <p>An acceptable backfill result is not just a set of generated pages. It is a resumable state machine: each slice is either queued, in progress, needs revision, revision-ready, acceptable, out of scope, or blocked by a named human decision.</p>
     </section>
 
     <section id="golden-report" data-spec-section="golden-report" data-section-type="data-model">
       <h2>Golden backfill report excerpt</h2>
+      <h3>Slice ledger</h3>
+      <script type="application/json" id="backfill-slice-queue">
+{
+  "runId": "20260521-01",
+  "targetRepo": "field-ops-example",
+  "currentSlice": "FV-CHECKIN-01",
+  "nextSlice": "FV-NOTES-02",
+  "slices": [
+    {
+      "id": "FV-CHECKIN-01",
+      "scope": "Coordinator visit check-in from mobile web",
+      "status": "acceptable",
+      "score": 99,
+      "ownerSkill": "evaluate-backfill-specs",
+      "descriptiveSpec": "field.visit-check-in.descriptive",
+      "technicalSpec": "field.visit-check-in.technical",
+      "nextAction": "Continue to FV-NOTES-02",
+      "exitCriterion": "Slice scored 99 with every category >= 9 and rebuild readiness = 10.",
+      "blockingGaps": [],
+      "evidence": [
+        "apps/web/routes/visits/$visitId/check-in.tsx",
+        "apps/web/components/VisitCheckInPanel.tsx",
+        "services/visits/checkInVisit.ts",
+        "db/schema/visit_events.sql",
+        "docs/old/mobile-visit-plan.md"
+      ]
+    },
+    {
+      "id": "FV-NOTES-02",
+      "scope": "Visit notes, photos, and completion summary",
+      "status": "queued",
+      "score": null,
+      "ownerSkill": "backfill-user-flow-extraction",
+      "descriptiveSpec": null,
+      "technicalSpec": null,
+      "nextAction": "Extract route, component, service, and existing-doc evidence.",
+      "exitCriterion": "Concrete note/photo/completion flow rows are ready for descriptive authoring.",
+      "blockingGaps": [],
+      "evidence": [
+        "apps/web/routes/visits/$visitId/notes.tsx",
+        "apps/web/components/VisitNotesPanel.tsx",
+        "services/visits/completeVisit.ts"
+      ]
+    },
+    {
+      "id": "FV-SCHEDULE-03",
+      "scope": "Visit scheduling and reassignment",
+      "status": "queued",
+      "score": null,
+      "ownerSkill": "backfill-repo-inventory",
+      "descriptiveSpec": null,
+      "technicalSpec": null,
+      "nextAction": "Map scheduling routes, calendar service, and notification behavior.",
+      "exitCriterion": "Scheduling evidence rows have proposed owner specs and slice boundaries.",
+      "blockingGaps": [],
+      "evidence": [
+        "apps/web/routes/visits/schedule.tsx",
+        "services/visits/scheduleVisit.ts",
+        "services/notifications/visitAssignments.ts"
+      ]
+    }
+  ]
+}
+      </script>
       <table class="status-table">
-        <thead><tr><th>Inventory ID</th><th>Evidence</th><th>Owning spec</th><th>Status</th><th>Next action</th></tr></thead>
+        <thead><tr><th>Slice ID</th><th>Scope</th><th>Owner skill</th><th>Status</th><th>Score</th><th>Next action</th></tr></thead>
         <tbody>
-          <tr><td>FV-ROUTE-01</td><td><code>apps/web/routes/visits/$visitId/check-in.tsx</code></td><td><code>field.visit-check-in.descriptive</code></td><td>adequacy-reviewed</td><td>none</td></tr>
-          <tr><td>FV-COMP-02</td><td><code>apps/web/components/VisitCheckInPanel.tsx</code></td><td><code>field.visit-check-in.descriptive</code></td><td>rendered UX reviewed</td><td>none</td></tr>
-          <tr><td>FV-API-03</td><td><code>services/visits/checkInVisit.ts</code></td><td><code>field.visit-check-in.technical</code></td><td>technical drafted</td><td>adequacy reviewed</td></tr>
-          <tr><td>FV-DOC-04</td><td><code>docs/old/mobile-visit-plan.md</code></td><td>review queue</td><td>stale evidence</td><td>human confirms offline mode priority</td></tr>
+          <tr><td>FV-CHECKIN-01</td><td>Coordinator visit check-in from mobile web</td><td>evaluator</td><td>acceptable</td><td class="score-good">99</td><td>Continue to <code>FV-NOTES-02</code></td></tr>
+          <tr><td>FV-NOTES-02</td><td>Visit notes, photos, and completion summary</td><td>user-flow extraction</td><td>queued</td><td>not scored</td><td>Extract flow evidence from route, component, service, and existing docs.</td></tr>
+          <tr><td>FV-SCHEDULE-03</td><td>Visit scheduling and reassignment</td><td>inventory</td><td>queued</td><td>not scored</td><td>Map scheduling routes, calendar service, and notification behavior.</td></tr>
         </tbody>
       </table>
-      <p>The report names evidence paths, owner specs, layer status, and the next action. It distinguishes stale docs from current code and keeps the human question material.</p>
+      <h3>Evidence ledger for <code>FV-CHECKIN-01</code></h3>
+      <table class="status-table">
+        <thead><tr><th>Inventory ID</th><th>Evidence</th><th>Finding</th><th>Owning spec section</th><th>Confidence</th></tr></thead>
+        <tbody>
+          <tr><td>FV-ROUTE-01</td><td><code>apps/web/routes/visits/$visitId/check-in.tsx</code></td><td>Route requires authenticated workspace member and loads visit, assignment, and latest check-in event.</td><td><code>field.visit-check-in.descriptive#entry-and-context</code></td><td>high</td></tr>
+          <tr><td>FV-COMP-02</td><td><code>apps/web/components/VisitCheckInPanel.tsx</code></td><td>UI exposes ready, location warning, override reason, submitting, checked-in, and review-needed states.</td><td><code>field.visit-check-in.descriptive#states-and-recovery</code></td><td>high</td></tr>
+          <tr><td>FV-API-03</td><td><code>services/visits/checkInVisit.ts</code></td><td>Service writes immutable event record and updates visit status idempotently.</td><td><code>field.visit-check-in.technical#write-contract</code></td><td>high</td></tr>
+          <tr><td>FV-DB-04</td><td><code>db/schema/visit_events.sql</code></td><td>Current event schema records actor, event type, timestamp, coordinates, confidence, and metadata JSON.</td><td><code>field.visit-check-in.technical#data-contract</code></td><td>high</td></tr>
+          <tr><td>FV-DOC-05</td><td><code>docs/old/mobile-visit-plan.md</code></td><td>Old plan says offline check-in is required; no current code path implements offline queueing.</td><td><code>field.visit-check-in.descriptive#human-decisions</code></td><td>medium, stale-doc discrepancy</td></tr>
+        </tbody>
+      </table>
+      <h3>Revision history</h3>
+      <table class="status-table">
+        <thead><tr><th>Pass</th><th>Evaluator result</th><th>Revision routed to</th><th>Exit criterion</th><th>Outcome</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="score-warn">84</td><td>descriptive authoring</td><td>Add concrete state table, recovery rules, and user-visible copy.</td><td>revised</td></tr>
+          <tr><td>2</td><td class="score-warn">93</td><td>technical authoring</td><td>Separate required contract from current transport and storage details.</td><td>revised</td></tr>
+          <tr><td>3</td><td class="score-good">99</td><td>none</td><td>All categories >= 9 and rebuild readiness = 10.</td><td>acceptable</td></tr>
+        </tbody>
+      </table>
+      <p>The report names where the agent is, what is complete, what is next, and what evidence supports each claim. It distinguishes stale docs from current code and keeps the only product question isolated as a non-blocking human decision.</p>
     </section>
 
     <section id="golden-descriptive" data-spec-section="golden-descriptive" data-section-type="journey">
       <h2>Golden descriptive slice excerpt</h2>
       <p class="lede">A field coordinator needs to check into a scheduled visit from a phone, confirm they are at the right location, and leave the team with a reliable timestamp and readiness signal before work starts.</p>
+      <h3>Intent contract</h3>
+      <table class="status-table">
+        <thead><tr><th>Topic</th><th>Intent</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Primary user</td><td>Assigned field coordinator checking into a visit at the customer site.</td><td><code>VisitCheckInPanel.tsx</code>, route assignment guard.</td></tr>
+          <tr><td>Primary outcome</td><td>The visit has a trustworthy arrival event and the next work action becomes visible.</td><td><code>checkInVisit.ts</code>, <code>visit_events.sql</code>.</td></tr>
+          <tr><td>Secondary user</td><td>Operations supervisor reviewing manual overrides, late arrivals, and location warnings.</td><td>operations dashboard status badges and override notes.</td></tr>
+          <tr><td>Architecture stance</td><td>Descriptive spec defines behavior, state, language, and recovery without requiring REST, RPC, server actions, or a specific database shape.</td><td>Backfill architecture flexibility rule.</td></tr>
+        </tbody>
+      </table>
       <h3>User flow</h3>
       <ol>
         <li><strong>Open visit:</strong> the coordinator opens today's visit and sees address, scheduled time, customer name, and check-in status.</li>
@@ -135,6 +232,18 @@
         <li><strong>Submit check-in:</strong> the coordinator confirms arrival. The visit moves to Checked in, records timestamp and user, and exposes Start work as the next action.</li>
         <li><strong>Recover:</strong> if location is unavailable, the coordinator can submit with a reason. The operations view flags the check-in for review.</li>
       </ol>
+      <h3>State and copy contract</h3>
+      <table class="status-table">
+        <thead><tr><th>State</th><th>User-visible copy</th><th>Action rule</th><th>Recovery rule</th></tr></thead>
+        <tbody>
+          <tr><td>Ready</td><td><code>Ready to check in</code></td><td>Check in is primary. Start work is hidden.</td><td>Location check runs before submission.</td></tr>
+          <tr><td>Location warning</td><td><code>You appear to be outside the visit area.</code></td><td>Check in remains available only with an override reason.</td><td>Operations review flag is added after submit.</td></tr>
+          <tr><td>Submitting</td><td><code>Recording arrival...</code></td><td>Primary button is disabled and duplicate submissions are suppressed.</td><td>If the request fails, keep user input and show retry.</td></tr>
+          <tr><td>Checked in</td><td><code>Arrival recorded. Start work is now available.</code></td><td>Start work becomes primary. Check in becomes read-only history.</td><td>Repeat check-in returns existing event.</td></tr>
+          <tr><td>Review needed</td><td><code>Arrival recorded for supervisor review.</code></td><td>Start work is available unless workspace policy blocks override starts.</td><td>Supervisor queue receives actor, reason, timestamp, and location confidence.</td></tr>
+          <tr><td>Permission denied</td><td><code>This visit is assigned to another coordinator.</code></td><td>Check in is hidden. Request reassignment is secondary when allowed.</td><td>Workspace admin or supervisor can reassign.</td></tr>
+        </tbody>
+      </table>
       <h3>Rendered UX excerpt</h3>
       <div class="demo-shell" data-demo="check-in">
         <div class="demo-row">
@@ -151,7 +260,15 @@
         </div>
         <p id="visitMessage">The coordinator is within the allowed location radius.</p>
       </div>
-      <p>This descriptive layer avoids framework, database, and cloud choices. It defines the user-visible behavior, states, and recovery promise.</p>
+      <h3>Human decisions</h3>
+      <table class="status-table">
+        <thead><tr><th>Question</th><th>Current evidence</th><th>Spec stance</th><th>Blocking?</th></tr></thead>
+        <tbody>
+          <tr><td>Should offline check-in queue locally?</td><td>Old plan requires it; current code has no offline queue.</td><td>Mark offline queue as a product decision before implementation. Current intended behavior is online check-in with retry and preserved input.</td><td>No, because current code and active UI do not implement offline mode.</td></tr>
+          <tr><td>What is the exact location radius?</td><td>Current service uses a workspace setting with a default.</td><td>Spec requires configurable tolerance and visible warning, not a hard-coded global radius.</td><td>No.</td></tr>
+        </tbody>
+      </table>
+      <p>This descriptive layer avoids framework, database, and cloud choices. It defines user-visible behavior, copy, states, recovery, and unresolved product decisions clearly enough for a build agent to implement the intended experience without copying the current UI framework.</p>
     </section>
 
     <section id="golden-technical" data-spec-section="golden-technical" data-section-type="contracts">
@@ -165,13 +282,28 @@
           <tr><td>Implementation latitude</td><td>The future build may use REST, RPC, or a server action if the required contract, auth rule, and audit event remain intact.</td><td>The transport mechanism is implementation latitude.</td></tr>
         </tbody>
       </table>
-      <h3>Technical contract summary</h3>
-      <ul>
-        <li><strong>Permission:</strong> only assigned coordinators, workspace admins, or operations supervisors can check in.</li>
-        <li><strong>Idempotency:</strong> repeated check-in attempts for the same visit return the existing check-in event.</li>
-        <li><strong>Timing:</strong> check-in before the scheduled day requires supervisor permission; late check-in remains allowed and is flagged.</li>
-        <li><strong>Observability:</strong> rejected check-ins and manual overrides are logged with reason and actor.</li>
-      </ul>
+      <h3>Technical contract matrix</h3>
+      <table class="status-table">
+        <thead><tr><th>Contract</th><th>Required behavior</th><th>Evidence</th><th>Latitude</th></tr></thead>
+        <tbody>
+          <tr><td>Permission</td><td>Only assigned coordinators, workspace admins, and operations supervisors can check in. Reassignment changes who is assigned; it does not bypass audit.</td><td>Route guard and service authorization checks.</td><td>Role names may vary if the permission semantics remain.</td></tr>
+          <tr><td>Write model</td><td>Create immutable check-in event and update current visit status in one logical operation.</td><td><code>visit_events</code> insert plus <code>visits.status</code> update.</td><td>Transaction, unit of work, event handler, or durable queue is acceptable if the user observes one completed action.</td></tr>
+          <tr><td>Idempotency</td><td>Repeated check-in attempts for the same visit and actor return the existing check-in event and do not create duplicate audit entries.</td><td>Service checks latest event before write.</td><td>Implementation may use unique key, idempotency key, or event lookup.</td></tr>
+          <tr><td>Location confidence</td><td>Record whether location is within tolerance, outside tolerance, unavailable, or manually overridden.</td><td>Panel state and event metadata.</td><td>Distance calculation provider can change.</td></tr>
+          <tr><td>Timing</td><td>Early check-in before the scheduled day requires supervisor permission; late check-in remains allowed and flagged.</td><td>Service policy branch and operations badge.</td><td>Exact grace windows are workspace policy.</td></tr>
+          <tr><td>Observability</td><td>Rejected attempts, manual overrides, and permission failures log actor, visit, reason, and correlation ID.</td><td>Current service logger and audit event metadata.</td><td>Logging backend is flexible.</td></tr>
+        </tbody>
+      </table>
+      <h3>Failure modes</h3>
+      <table class="status-table">
+        <thead><tr><th>Failure</th><th>User behavior</th><th>System behavior</th><th>Review implication</th></tr></thead>
+        <tbody>
+          <tr><td>Location unavailable</td><td>User can submit with a reason.</td><td>Event records unavailable location and manual reason; operations review flag is set.</td><td>Descriptive and technical specs both cover the recovery path.</td></tr>
+          <tr><td>Network request fails</td><td>User sees retry and keeps typed reason.</td><td>No event is written unless the operation completes.</td><td>Implementation must test duplicate suppression and retry behavior.</td></tr>
+          <tr><td>User loses assignment mid-flow</td><td>User sees permission denied on submit.</td><td>Service refuses write and logs rejected attempt.</td><td>Permission is enforced server-side, not only by UI.</td></tr>
+          <tr><td>Duplicate submit</td><td>User sees the existing checked-in state.</td><td>Service returns existing event.</td><td>Idempotency is required contract.</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <section id="evaluator-scorecard" data-spec-section="evaluator-scorecard" data-section-type="coverage">
@@ -179,23 +311,29 @@
       <table class="status-table">
         <thead><tr><th>Category</th><th>Score</th><th>Evidence</th><th>Revision queue</th></tr></thead>
         <tbody>
-          <tr><td>Inventory coverage</td><td class="score-good">3</td><td>All field visit route/component/service rows map to owner specs.</td><td>none</td></tr>
-          <tr><td>Descriptive intent</td><td class="score-good">3</td><td>User flow names roles, states, success, location warning, and recovery.</td><td>none</td></tr>
-          <tr><td>Rendered UX</td><td class="score-good">3</td><td>Spec includes interactive ready, too-far, and checked-in states.</td><td>none</td></tr>
-          <tr><td>Technical contracts</td><td class="score-good">3</td><td>Spec defines permission, idempotency, timing, audit, and observability.</td><td>none</td></tr>
-          <tr><td>Architecture flexibility</td><td class="score-good">3</td><td>Transport is latitude; production event history is constraint.</td><td>none</td></tr>
-          <tr><td>Spec-only rebuild readiness</td><td class="score-good">2</td><td>A build agent can implement the core flow; geolocation tolerance value remains a human review question.</td><td>Ask user to confirm default radius.</td></tr>
+          <tr><td>Durable queue and resumability</td><td class="score-good">10</td><td>Slice ledger records status, score, owner skill, next slice, and revision history.</td><td>none</td></tr>
+          <tr><td>Inventory coverage and slice boundaries</td><td class="score-good">10</td><td>Route, component, service, DB, and stale-doc evidence map to one correctly sized slice.</td><td>none</td></tr>
+          <tr><td>Evidence traceability</td><td class="score-good">10</td><td>Every material claim cites source evidence, owner spec section, or labeled stale-doc discrepancy.</td><td>none</td></tr>
+          <tr><td>Descriptive intent</td><td class="score-good">10</td><td>Intent contract names users, outcomes, architecture stance, flow, state, copy, recovery, and human decisions.</td><td>none</td></tr>
+          <tr><td>User-flow and state specificity</td><td class="score-good">10</td><td>Flow and state table cover ready, warning, submitting, checked-in, review-needed, and permission-denied behavior.</td><td>none</td></tr>
+          <tr><td>Rendered UX</td><td class="score-good">10</td><td>Interactive HTML demonstrates ready, too-far, and checked-in/review-needed states with user-visible copy.</td><td>none</td></tr>
+          <tr><td>Technical contracts</td><td class="score-good">10</td><td>Permission, write model, idempotency, location confidence, timing, observability, and failure modes are specified.</td><td>none</td></tr>
+          <tr><td>Architecture flexibility</td><td class="score-good">10</td><td>Required contracts, current evidence, constraints, and latitude are separated; transport and distance provider remain flexible.</td><td>none</td></tr>
+          <tr><td>Review questions and discrepancies</td><td class="score-good">9</td><td>Offline-mode stale-doc discrepancy and radius policy are isolated as non-blocking human decisions.</td><td>Confirm product priority for offline queue before future implementation.</td></tr>
+          <tr><td>Spec-only rebuild readiness</td><td class="score-good">10</td><td>A cold build agent could implement the intended behavior from the descriptive and technical excerpts alone.</td><td>none</td></tr>
         </tbody>
       </table>
+      <p><strong>Total:</strong> <span class="score-good">99 / 100</span>. This is acceptable because the total is at least <code>96</code>, every category is at least <code>9</code>, rebuild readiness is <code>10</code>, and the only remaining product question is isolated as non-blocking.</p>
     </section>
 
     <section id="quality-notes" data-spec-section="quality-notes" data-section-type="decision-rule">
       <h2>Quality notes</h2>
       <ul>
-        <li>The descriptive excerpt is specific while preserving implementation flexibility.</li>
-        <li>The technical excerpt preserves contracts and makes flexible implementation choices explicit.</li>
-        <li>The evaluator scorecard cites artifacts and produces a concrete revision queue.</li>
-        <li>A generated backfill that only says "field visits have check-in" would score shallow.</li>
+        <li>The durable queue makes continuation mechanical: the next agent can resume from the slice ledger without reconstructing context from prose.</li>
+        <li>The descriptive excerpt is specific while preserving implementation flexibility: it defines intent, states, copy, recovery, and rendered experience without choosing framework architecture.</li>
+        <li>The technical excerpt preserves contracts and makes flexible implementation choices explicit: required behavior is separated from current evidence and replaceable implementation details.</li>
+        <li>The evaluator scorecard is strict enough to distinguish excellent, rebuild-useful specs from passable summaries.</li>
+        <li>A generated backfill that only says "field visits have check-in" should score around <code>30-45</code>; a broad but useful summary should score around <code>65-75</code>; an acceptable slice should score <code>96-100</code>.</li>
       </ul>
     </section>
   </article>

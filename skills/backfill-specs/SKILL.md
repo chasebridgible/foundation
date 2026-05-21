@@ -9,9 +9,20 @@ Use this skill after a target repo is connected to Foundation. It orchestrates s
 
 The output is intent-rigid and architecture-flexible. Descriptive specs define what the system is meant to make possible. Technical specs define required contracts and distinguish current implementation evidence from architecture constraints and implementation latitude.
 
-A request to backfill a repo means the whole repo. After each successful slice, update the report and continue to the next unbackfilled slice until the proposed spec graph is drafted end-to-end.
+A request to backfill a repo means the whole repo. After each successful slice, evaluate it, revise it until acceptable, update the durable queue, and continue to the next queued slice until the proposed spec graph is drafted and evaluated end-to-end.
 
 This skill owns spec artifacts and backfill reports. Existing code and old docs stay in place during backfill. A separate cleanup pass begins when the user asks for one.
+
+## Quality Target
+
+Backfill quality is intentionally demanding. The target is rebuild-useful spec substrate: precise enough for a future build agent to recover intended behavior from specs, report state, and named human decisions.
+
+Use the strict evaluator standard from `skills/evaluate-backfill-specs/SKILL.md`:
+
+- category scores are `0-10`
+- total score is `0-100`
+- acceptable means total score at least `96`, every category at least `9`, and spec-only rebuild readiness equals `10`
+- anything below acceptable loops back to the owning backfill layer before the slice advances
 
 ## Skill Chain
 
@@ -22,8 +33,8 @@ Run these skills as the backfill loop requires:
 3. `skills/backfill-descriptive-spec-author/SKILL.md` - write intent-grade descriptive specs from flow evidence.
 4. `skills/backfill-rendered-ux-spec/SKILL.md` - add interactive HTML-native rendered experience sections for visual/user-facing slices.
 5. `skills/backfill-technical-spec-author/SKILL.md` - write technical contracts that support the intended behavior.
-6. `skills/backfill-spec-adequacy-review/SKILL.md` - review the slice against evidence and revise before marking it drafted.
-7. `skills/evaluate-backfill-specs/SKILL.md` - evaluate the completed graph against the golden example and rubric before final handoff.
+6. `skills/backfill-spec-adequacy-review/SKILL.md` - review the slice against evidence and revise before evaluator scoring.
+7. `skills/evaluate-backfill-specs/SKILL.md` - score each slice and the completed graph against the golden example and strict rubric; route weak categories back to owner skills.
 
 The orchestrator owns sequencing and durable state. The sub-skills own their layer.
 
@@ -36,9 +47,12 @@ Before starting or resuming backfill work:
 3. Read this skill.
 4. Run or confirm `npm run foundation:doctor -- --repo <target-repo>` from Foundation.
 5. Read the current dated backfill report if the target repo names one.
-6. Read the top-level system/app spec if it exists.
+6. Read the embedded durable queue in the dated report if it exists.
+7. Read the top-level system/app spec if it exists.
 
 When the repo still needs a Foundation connection, use `skills/install-foundation-substrate/SKILL.md` first.
+
+Setup and backfill are separate phases. A successful Foundation setup or doctor run means the repo is ready for backfill; it does not count as semantic backfill progress.
 
 ## Source Of Truth
 
@@ -75,19 +89,50 @@ Use the same run ID across reports from one backfill run. Continue the existing 
 
 The review report is temporary working state and may be deleted after review. It must be useful after context reset.
 
-Keep it updated after each slice with:
+Keep it updated after each slice with human-readable tables and an embedded durable queue:
+
+```html
+<script type="application/json" id="backfill-slice-queue">
+{
+  "runId": "YYYYMMDD-NN",
+  "targetRepo": "repo-name",
+  "currentSlice": "slice-id",
+  "nextSlice": "slice-id",
+  "slices": [
+    {
+      "id": "stable-slice-id",
+      "scope": "bounded behavior or system contract",
+      "status": "queued|in-progress|needs-revision|revision-ready|acceptable|out-of-scope|blocked-by-human",
+      "ownerSkill": "backfill-repo-inventory|backfill-user-flow-extraction|backfill-descriptive-spec-author|backfill-rendered-ux-spec|backfill-technical-spec-author|backfill-spec-adequacy-review|evaluate-backfill-specs",
+      "descriptiveSpec": "spec.id.or.null",
+      "technicalSpec": "spec.id.or.null",
+      "score": null,
+      "nextAction": "concrete next action",
+      "exitCriterion": "condition for moving this slice forward",
+      "blockingGaps": [],
+      "evidence": []
+    }
+  ]
+}
+</script>
+```
+
+The queue is canonical run state for agents. The visible tables explain it for humans.
+
+Keep the report updated with:
 
 - Run ID, date, target repo, Foundation path or revision if known.
 - Current top-level spec ID, if one exists.
 - Proposed spec graph, slice queue, and inventory coverage ledger.
-- Overall status: in progress or complete.
-- Slice status: queued, inventory ready, flows extracted, descriptive drafted, technical drafted, adequacy reviewed, needs review, approved, or out of scope.
+- Overall status: setup complete, in progress, evaluating, complete, or blocked by human decision.
+- Slice status from the durable queue enum.
 - Remaining slice queue.
 - Created or updated spec IDs and file paths.
 - Evidence paths loaded for each slice.
 - Coverage by layer: inventory, user flows, rendered UX where applicable, behavior rules, technical contracts, and evidence traceability.
+- Observed behavior, inferred intent, required future contract, and unresolved human decisions for each slice.
 - Architecture classification: required contracts, current implementation evidence, architecture constraints, and implementation latitude.
-- Evaluation status and evaluation report path once graph coverage is complete.
+- Slice evaluation status and graph evaluation status, including evaluation report path.
 - Material contradictions, stale docs, missing intent, and unresolved decisions.
 - Fallback behavior discovered in code that needs a human decision about intended behavior.
 - Current slice and next slice.
@@ -108,23 +153,27 @@ At the start of each loop:
 4. Read the dated review report if it exists.
 5. Read the top-level system/app spec if it exists.
 6. Use `backfill-repo-inventory` to create or refresh the inventory and coverage ledger.
-7. Pick the next slice from the ledger.
-8. Use `backfill-user-flow-extraction` for user-facing slices before drafting descriptive prose.
-9. Use `backfill-descriptive-spec-author` to write or update descriptive specs.
-10. Use `backfill-rendered-ux-spec` when the slice has visual or UX-visible behavior.
-11. Use `backfill-technical-spec-author` to write or update technical specs.
-12. Use `backfill-spec-adequacy-review` to review the slice against evidence and revise until it passes.
-13. Run registry/check commands required by the target repo and Foundation process.
-14. Append the slice result and remaining queue to the report.
-15. Start the next unbackfilled slice from the report.
+7. Create or refresh the embedded durable queue from the inventory ledger.
+8. Pick the next queued, in-progress, or revision-ready slice.
+9. Use `backfill-user-flow-extraction` for user-facing slices before drafting descriptive prose.
+10. Use `backfill-descriptive-spec-author` to write or update descriptive specs.
+11. Use `backfill-rendered-ux-spec` when the slice has visual or UX-visible behavior.
+12. Use `backfill-technical-spec-author` to write or update technical specs.
+13. Use `backfill-spec-adequacy-review` to review the slice against evidence and revise until it is ready for strict evaluation.
+14. Use `evaluate-backfill-specs` on the slice.
+15. If the slice scores below acceptable, update the queue to `needs-revision`, route the category gaps to the owning skill, revise, and re-evaluate.
+16. Mark the slice `acceptable` only when the evaluator threshold passes.
+17. Run `npm run backfill:queue:check -- <target-repo>/docs/specs/backfill/review-report-YYYYMMDD-NN.html` from Foundation after durable queue changes.
+18. Run registry/check commands required by the target repo and Foundation process.
+19. Append the slice result and remaining queue to the report.
+20. Start the next queued slice from the report.
 
 Use the report and specs as the durable handoff for long-running state.
-Backfill is complete when every relevant inventory item is mapped to an adequate spec, intentionally covered by a parent spec section, or explicitly marked out of scope.
-When coverage is complete, use `evaluate-backfill-specs` to create the evaluation report. If evaluation returns `needs revision`, route the revision queue back through the owning backfill skill layers.
+Backfill is complete when every relevant inventory item is mapped to an acceptable slice, intentionally covered by a parent spec section, explicitly marked out of scope, or blocked by a named human decision. When slice coverage is complete, use `evaluate-backfill-specs` on the full graph. If graph evaluation returns `needs revision`, route the revision queue back through the owning backfill skill layers.
 
 ## Slice Strategy
 
-For the first pass, map the repo at a useful altitude:
+At the start of a run, map the repo at a useful altitude:
 
 - top-level product/app boundary
 - applications and packages in a monorepo
@@ -135,20 +184,33 @@ For the first pass, map the repo at a useful altitude:
 
 Create the top-level system/app spec early. It is the spine for child specs and should own product promise, domain vocabulary, repo boundaries, and the proposed spec graph.
 
-Then work one bounded slice at a time. Prefer user-flow-sized child specs when a domain contains multiple journeys, screens, roles, API resources, data entities, jobs, or operational processes. Parent specs define vocabulary, boundaries, and child graph structure. Child specs carry behavior.
+Then work one bounded slice at a time. Prefer slices that are small enough to score strictly:
+
+- one concrete user journey or role-specific workflow
+- one permission or entitlement flow
+- one data lifecycle or state-machine flow
+- one API resource family with clear user/operator outcome
+- one worker/job/integration contract
+- one infrastructure contract that materially affects behavior
+
+Parent specs define vocabulary, boundaries, and child graph structure. Child specs carry behavior. A broad slice such as "web app", "identity", or "infrastructure" is acceptable only as a parent map unless it has no meaningful child behavior.
 
 ## Writing Specs
 
-For each slice, write current evidence as intended behavior:
+For each slice, separate evidence from intent:
 
 1. Use target-owned spec IDs, never `foundation.*` for product specs.
 2. Set `status: draft`.
 3. Link parent, child, sibling, descriptive, and technical specs where known.
-4. Keep descriptive specs architecture-agnostic by default: users, operator goals, flows, states, rules, outcomes, rendered UX, and product intent.
-5. Keep technical specs contract-first: required contracts, current evidence, architecture constraints, implementation latitude, data/API/service rules, operational behavior, and evidence paths.
-6. Name evidence paths in prose, metadata, or the report where they are useful for review.
-7. Preserve old docs and code.
-8. Regenerate the registry and run spec checks before handoff.
+4. Record observed current behavior.
+5. Record inferred product/system intent.
+6. Record required future contract.
+7. Record unresolved human decisions.
+8. Keep descriptive specs architecture-agnostic by default: users, operator goals, flows, states, rules, outcomes, rendered UX, and product intent.
+9. Keep technical specs contract-first: required contracts, current evidence, architecture constraints, implementation latitude, data/API/service rules, operational behavior, and evidence paths.
+10. Name evidence paths in prose, metadata, or the report where they are useful for review.
+11. Preserve old docs and code.
+12. Regenerate the registry and run spec checks before handoff.
 
 If a fallback path exists in code, record it as current evidence and add a review question about whether it is intended. Write the intended spec around supported product behavior.
 

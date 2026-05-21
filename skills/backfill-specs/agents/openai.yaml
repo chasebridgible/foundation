@@ -1,4 +1,4 @@
 interface:
   display_name: "Backfill Specs"
   short_description: "Orchestrate existing repo backfill"
-  default_prompt: "Use $backfill-specs to orchestrate inventory, user-flow extraction, intent-rigid spec drafting, rendered UX, architecture-flexible technical contracts, adequacy review, and final evaluation for this repo."
+  default_prompt: "Use $backfill-specs to run the repo-wide loop: inventory, durable queue, user-flow extraction, intent-rigid spec drafting, rendered UX, architecture-flexible technical contracts, adequacy review, strict evaluation, revision, and queue validation until coverage is complete."

@@ -14,6 +14,7 @@ const groupOrder = [
       "compounding-systems.html",
       "principles/core-principles.html",
       "principles/sw-dev-principles.html",
+      "principles/ai-evals-principles.html",
       "principles/sw-design-principles.html",
       "general/operating-spec.html",
       "definitions/sw-definitions.html"

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Evals Principles - Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --primary-dim: rgba(79,142,255,0.12);
+    --amber: #d4a72c;
+    --amber-dim: rgba(212,167,44,0.12);
+    --emerald: #4ec9b0;
+    --emerald-dim: rgba(78,201,176,0.12);
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 18px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+
+  .logo-mark {
+    width: 24px;
+    height: 24px;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--fg);
+    font-size: 12px;
+  }
+
+  .sidebar-title { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .sidebar-sub { font-size: 11px; color: var(--fg-3); margin-top: 1px; font-family: var(--font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px; }
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label { font-size: 10px; font-weight: 500; color: var(--fg-3); padding: 10px 10px 4px; font-family: var(--font-mono); }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition), color var(--transition);
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-num { font-size: 10px; font-family: var(--font-mono); color: var(--fg-3); flex-shrink: 0; width: 18px; text-align: right; padding-top: 1px; }
+  .nav-item.active .nav-num, .nav-item.current .nav-num { color: var(--fg-2); }
+
+  .main {
+    flex: 1;
+    min-width: 0;
+    padding: 56px 72px 120px;
+    max-width: 1080px;
+  }
+
+  .spec-eyebrow { font-size: 11px; font-weight: 500; color: var(--fg-3); margin-bottom: 14px; font-family: var(--font-mono); }
+  h1 { font-size: 30px; font-weight: 600; line-height: 1.15; margin-bottom: 14px; color: var(--fg); }
+  h2 { font-size: 20px; font-weight: 600; margin: 44px 0 14px; line-height: 1.25; }
+  h3 { font-size: 15px; font-weight: 600; margin: 26px 0 8px; line-height: 1.35; }
+  p { margin: 0 0 14px; color: var(--fg-2); }
+  strong { color: var(--fg); font-weight: 600; }
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg);
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1px 4px;
+  }
+
+  a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--border-2); }
+  a:hover { border-color: var(--primary); }
+
+  .lede { font-size: 15px; color: var(--fg-2); line-height: 1.65; max-width: 760px; margin-bottom: 28px; }
+  .lede-2 { font-size: 14px; color: var(--fg-2); max-width: 760px; }
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    font-size: 12px;
+    color: var(--fg-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+  .doc-body { margin-top: 32px; }
+  .spec-section { border-top: 1px solid var(--border); padding-top: 4px; margin-top: 36px; }
+
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 22px 0 28px;
+  }
+
+  .principle-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    min-height: 138px;
+  }
+
+  .principle-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 22px;
+    border-radius: var(--radius-sm);
+    background: var(--primary-dim);
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+
+  .principle-title { color: var(--fg); font-weight: 600; margin-bottom: 6px; }
+  .principle-copy { color: var(--fg-2); font-size: 13px; line-height: 1.55; }
+
+  .callout {
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius);
+    background: var(--bg-2);
+    padding: 14px 16px;
+    margin: 20px 0;
+  }
+  .callout strong { display: block; margin-bottom: 4px; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin: 18px 0 28px;
+  }
+
+  table { width: 100%; border-collapse: collapse; min-width: 760px; }
+  th, td { text-align: left; vertical-align: top; padding: 11px 12px; border-bottom: 1px solid var(--border); }
+  th { color: var(--fg); font-size: 12px; font-weight: 600; background: var(--bg-2); }
+  td { color: var(--fg-2); font-size: 13px; }
+  tr:last-child td { border-bottom: 0; }
+
+  .related-section { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .related-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+  .related-card { display: block; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px; text-decoration: none; }
+  .related-card:hover { border-color: var(--border-2); }
+  .related-name { color: var(--fg); font-weight: 600; margin-bottom: 6px; }
+  .related-desc { color: var(--fg-2); font-size: 13px; line-height: 1.55; }
+  hr { border: 0; border-top: 1px solid var(--border); margin: 40px 0 18px; }
+  .footer-note { color: var(--fg-3); font-size: 12px; font-family: var(--font-mono); }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 36px 22px 72px; }
+    .principle-grid, .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">E</div>
+    <div>
+      <div class="sidebar-title">Core Concepts</div>
+      <div class="sidebar-sub">AI Evals Principles</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#foundation-position"><span class="nav-num">01</span>Foundation position</a>
+    <a class="nav-item" href="#principles"><span class="nav-num">02</span>Principles</a>
+    <a class="nav-item" href="#agent-implications"><span class="nav-num">03</span>Agent implications</a>
+    <a class="nav-item" href="#eval-lifecycle"><span class="nav-num">04</span>Eval lifecycle</a>
+    <a class="nav-item" href="#signal-selection"><span class="nav-num">05</span>Signal selection</a>
+    <a class="nav-item" href="#judge-quality"><span class="nav-num">06</span>Judge quality</a>
+    <a class="nav-item" href="#related"><span class="nav-num">07</span>Related docs</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · ai-evals-principles.html</div>
+    <h1>AI Evals Principles</h1>
+    <p class="lede">Durable principles for evaluating AI and agentic systems. These principles apply when Foundation judges whether generated work is acceptable to trust, revise, or promote into reusable substrate.</p>
+    <div class="meta-row">
+      <div><strong>Format:</strong> HTML-native</div>
+      <div><strong>Scope:</strong> AI and agent evaluation</div>
+      <div><strong>Status:</strong> Canonical HTML</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="foundation-position" class="level2 spec-section">
+      <h2>Foundation position</h2>
+      <p><strong>AI evals are tests for systems whose correct output is not a single string.</strong> Traditional tests still matter, but AI systems need evaluation because the same input can produce many acceptable outputs and many plausible failures.</p>
+      <p><strong>An eval belongs in Foundation only when it creates verification leverage.</strong> The test is useful when it can reject bad output, preserve known-good behavior through change, reveal systematic failures, or improve the system that produced the work.</p>
+      <p><strong>Generated artifacts need eval principles because their surface shape can pass while their substance fails.</strong> A generated spec, plan, design, implementation, report, or decision can look complete while still being too shallow, too ungrounded, too risky, or too ambiguous to become reusable substrate.</p>
+      <div class="callout">
+        <strong>Operating rule</strong>
+        <p>Evaluation starts from written intent, operating context, risk tolerance, and observed behavior, then ends in a decision. The evaluator reads traces, artifacts, and evidence; applies the least expensive reliable signal for each claim; and returns a result that can either accept the work or route concrete revisions.</p>
+      </div>
+    </section>
+
+    <section id="principles" class="level2 spec-section">
+      <h2>Principles</h2>
+      <div class="principle-grid">
+	        <div class="principle-card">
+	          <div class="principle-num">01</div>
+	          <div class="principle-title">Intent and risk come first</div>
+	          <div class="principle-copy">An eval starts from a written contract: what the system should achieve, for whom, in what context, and which failures are unacceptable. Scores without that contract are easy to optimize and hard to trust.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">02</div>
+	          <div class="principle-title">Observed behavior precedes measurement</div>
+	          <div class="principle-copy">Read traces, outputs, artifacts, and failure examples before writing the eval. A rubric invented before evidence usually measures a theory of failure instead of the system's real failure modes.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">03</div>
+	          <div class="principle-title">Outcomes first, traces when conduct matters</div>
+	          <div class="principle-copy">Evaluate whether the system completes the intended task in the environment of use. Inspect traces when tool choice, handoffs, side effects, policy compliance, cost, or recovery behavior are part of correctness.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">04</div>
+	          <div class="principle-title">Agent failures cascade through steps</div>
+	          <div class="principle-copy">An agent can fail at routing, tool choice, arguments, interpretation, synthesis, stopping, or handoff. Evals need enough trace visibility to locate the step where the failure entered.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">05</div>
+	          <div class="principle-title">Signals are complementary</div>
+	          <div class="principle-copy">Code evals, LLM judges, human review, production traces, and incident reports measure different things. A durable eval system composes them instead of pretending one signal can cover all failure classes.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">06</div>
+	          <div class="principle-title">Use the cheapest reliable signal</div>
+	          <div class="principle-copy">Deterministic facts should be checked with deterministic code. Semantic claims need semantic judges. Novel, ambiguous, or high-consequence failures need human labeling until the system can encode them.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">07</div>
+	          <div class="principle-title">Generation and judgment stay separate</div>
+	          <div class="principle-copy">A system should not self-certify important work. The artifact producer, evaluator, rubric, golden examples, and human calibration path should be separable enough that bad work can be rejected without relying on the producer's confidence.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">08</div>
+	          <div class="principle-title">Judges are systems under test</div>
+	          <div class="principle-copy">An LLM judge is another model-driven component. Its rubric, labels, explanations, bias profile, precision, recall, and agreement with human labels must be evaluated like any other system.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">09</div>
+	          <div class="principle-title">Rubrics encode observed distinctions</div>
+	          <div class="principle-copy">A good rubric names the role, the evidence, the decision labels, and the failure modes the system has actually shown. It should make disagreement inspectable rather than mysterious.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">10</div>
+	          <div class="principle-title">Suites are representative, versioned, and refreshed</div>
+	          <div class="principle-copy">Static eval sets drift, saturate, and leak. Durable eval suites preserve version history while adding production failures, edge cases, fresh tasks, and provenance notes that explain what the suite represents.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">11</div>
+	          <div class="principle-title">Runs are traceable, reproducible, and auditable</div>
+	          <div class="principle-copy">An eval result is weak evidence if it cannot be replayed or explained. Preserve prompts, tools, model versions, datasets, rubrics, traces, artifacts, and evidence paths needed to compare runs.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">12</div>
+	          <div class="principle-title">Robustness and misuse are part of correctness</div>
+	          <div class="principle-copy">Happy-path success is incomplete. Evals should cover perturbations, tool errors, long context, unsafe side effects, constraint adherence, misuse pressure, and recovery behavior when those failures matter.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">13</div>
+	          <div class="principle-title">Offline and online evals feed each other</div>
+	          <div class="principle-copy">Offline datasets compare changes before release. Online traces reveal live failures, drift, and edge cases. The system improves when production failures become new offline cases and offline regressions shape production monitoring.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">14</div>
+	          <div class="principle-title">Explanations are diagnostic data</div>
+	          <div class="principle-copy">A score alone tells the system what happened. A short explanation tells the system why it happened, which lets failures be grouped into patterns and routed to the right fix.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">15</div>
+	          <div class="principle-title">Failures become dataset assets</div>
+	          <div class="principle-copy">Today's production failure should become tomorrow's test case. Golden datasets, failure sets, and regression suites are compounding substrate, not disposable QA artifacts.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">16</div>
+	          <div class="principle-title">Experiments prove improvement</div>
+	          <div class="principle-copy">Prompt, model, tool, and workflow changes should be compared against a known dataset. Improvement means the measured behavior changed in the intended direction without hiding regressions.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">17</div>
+	          <div class="principle-title">Reliability is distributional</div>
+	          <div class="principle-copy">One good run proves little. Evaluate repeated runs, representative cases, hard cases, known failures, and risk tiers so reliability reflects how the system behaves across a distribution.</div>
+	        </div>
+      </div>
+    </section>
+
+    <section id="agent-implications" class="level2 spec-section">
+      <h2>Agent implications</h2>
+      <p><strong>Agent evaluation should judge task usefulness, not artifact fluency.</strong> The central question is whether a future user or agent could rely on the output to make the next correct move without hidden context.</p>
+      <p><strong>The eval contract should name intent, context, and risk.</strong> The evaluator should know the goal, operating environment, acceptable threshold, and unacceptable failure classes before scoring generated work.</p>
+      <p><strong>The first pass should inspect the generated artifact on its own terms.</strong> Read the generated output before auditing source evidence. This exposes what the artifact itself communicates and prevents the evaluator from mentally filling gaps with outside knowledge.</p>
+      <p><strong>The evidence pass should sample high-risk claims.</strong> An evaluator does not need to reread every source in every pass. It should audit the claims most likely to create durable damage: user-visible behavior, data contracts, permissions, architecture constraints, integrations, safety boundaries, and material discrepancies.</p>
+      <p><strong>The result should route work, not merely score it.</strong> An eval is useful when its findings identify the smallest owning layer that can prevent the failure next time: spec, data, prompt, tool, skill, checker, rubric, implementation, or human decision.</p>
+    </section>
+
+    <section id="eval-lifecycle" class="level2 spec-section">
+      <h2>Eval lifecycle</h2>
+      <p><strong>Eval design follows the system lifecycle.</strong> Define intent and risk first, choose environment-level outcomes second, calibrate independent judgment third, then maintain representative suites, traceable runs, robustness coverage, and failure-driven substrate updates.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>Purpose</th>
+              <th>Durable output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Intent and risk</td><td>Define success, operating context, risk tier, and unacceptable failures.</td><td>Spec, eval contract, scenario coverage matrix.</td></tr>
+            <tr><td>Offline evaluation</td><td>Compare prompts, models, tools, skills, and workflows before release.</td><td>Versioned dataset, golden labels, repeatable experiment report.</td></tr>
+            <tr><td>Online evaluation</td><td>Observe production or realistic traces for drift, new failures, incidents, and edge cases.</td><td>Trace log, anomaly queue, incident or feedback record.</td></tr>
+            <tr><td>Refresh loop</td><td>Turn failures and external feedback into regression coverage.</td><td>New cases, revised rubric, updated skill, stricter checker, or changed spec.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="signal-selection" class="level2 spec-section">
+      <h2>Signal selection</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Signal</th>
+              <th>Best for</th>
+              <th>Principle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Code eval</td>
+              <td>Deterministic shape: JSON validity, required fields, path existence, forbidden terms, registry freshness, maximum length, and link integrity.</td>
+              <td>Use code when correctness is mechanically decidable.</td>
+            </tr>
+            <tr>
+              <td>LLM judge</td>
+              <td>Semantic quality: intent coverage, faithfulness to source material, user-flow specificity, architecture flexibility, adequacy, tone, and actionability.</td>
+              <td>Use a semantic judge when correctness depends on meaning.</td>
+            </tr>
+            <tr>
+              <td>Human review</td>
+              <td>Novel failures, product judgment, ambiguous tradeoffs, golden labels, and acceptance decisions that carry accountability.</td>
+              <td>Use humans to define and calibrate judgment, not to manually repeat scalable checks forever.</td>
+            </tr>
+	            <tr>
+	              <td>Experiment</td>
+	              <td>Comparing prompt, model, skill, tool, or rubric changes against stable datasets and known failure sets.</td>
+	              <td>Use controlled comparison when the question is whether a change improved the system.</td>
+	            </tr>
+	            <tr>
+	              <td>Production trace</td>
+	              <td>Live or realistic agent behavior, workflow drift, side effects, unusual inputs, incidents, and failures not represented in the offline suite.</td>
+	              <td>Use online evidence to discover new cases; promote recurring failures into versioned offline evals.</td>
+	            </tr>
+	            <tr>
+	              <td>Robustness probe</td>
+	              <td>Perturbations, tool failures, long-context cases, misuse pressure, and recovery paths that happy-path tests hide.</td>
+	              <td>Use robustness probes when failure under stress changes trust, safety, cost, or user outcomes.</td>
+	            </tr>
+	          </tbody>
+	        </table>
+	      </div>
+    </section>
+
+    <section id="judge-quality" class="level2 spec-section">
+      <h2>Judge quality</h2>
+      <p><strong>Meta-evaluation is required for LLM judges that matter.</strong> A judge that gates important work should be tested against labeled examples, known failures, and disagreement cases. The evaluator should track where the judge is too permissive, too strict, position-biased, confidence-biased, self-preferring, or blind to a category of failure.</p>
+      <p><strong>Judge calibration is a product of examples, labels, and bias checks.</strong> Calibrate important judges against golden artifacts, expert labels, pairwise or pass/fail comparisons where useful, and checks for order, length, self-preference, and overconfidence bias.</p>
+      <p><strong>Human agreement is the benchmark, not perfection.</strong> Human reviewers disagree on subjective labels. A judge should be measured against the level of consistency a responsible human process can actually achieve, while still making failures feel fair and explainable.</p>
+      <p><strong>False positives and false negatives have different costs.</strong> In many safety, correctness, and spec-quality gates, reviewing an extra item is cheaper than letting a real failure pass. The eval should make that tradeoff explicit.</p>
+      <p><strong>A judge should usually return a compact label and a compact explanation.</strong> The label enables aggregation. The explanation enables diagnosis, failure clustering, and targeted revision.</p>
+    </section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede-2">Sibling documents that this eval layer inherits from and supports.</p>
+    <div class="related-grid">
+      <a class="related-card" href="./core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for verification, feedback, judgment, and substrate.</div></a>
+      <a class="related-card" href="./sw-dev-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work and harness engineering.</div></a>
+      <a class="related-card" href="../specs/process.html"><div class="related-name">The Spec Process</div><div class="related-desc">Foundation's durable workflow for keeping specs, implementation, and verification aligned.</div></a>
+      <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The conceptual root for substrate, feedback loops, and work that compounds instead of drifting.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · HTML-native document</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

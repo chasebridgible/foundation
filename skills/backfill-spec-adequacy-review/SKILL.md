@@ -5,7 +5,7 @@ description: Review a backfilled slice for adequacy before it can be marked draf
 
 # Backfill Spec Adequacy Review
 
-Use this skill inside `backfill-specs` before a slice can be marked drafted.
+Use this skill inside `backfill-specs` before a slice can be sent to strict evaluator scoring.
 
 ## Review Question
 
@@ -28,6 +28,9 @@ Review the slice against its inventory and evidence:
 - parent specs define vocabulary and graph structure, while child specs carry behavior
 - vague nouns, unsupported claims, summary-only prose, and missing state/rule tables have been revised
 - major claims are backed by evidence paths or marked as inferred/review-needed
+- the durable queue names the slice, owner skill, current status, next action, and exit criterion
+- observed behavior, inferred intent, required future contract, and unresolved human decisions are separated
+- the slice is small enough to score strictly; parent-level summaries do not stand in for child behavior
 
 ## Report Output
 
@@ -44,8 +47,9 @@ Append an adequacy table to the dated report:
 - traceability result
 - revision actions taken
 - remaining review questions
-- status: needs revision or adequacy-reviewed
+- evaluator readiness: ready-for-evaluation or needs-revision
+- status: needs-revision, revision-ready, or ready-for-evaluation
 
 ## Completion Rule
 
-Mark a slice `adequacy-reviewed` after revising the specs to satisfy the checks. A slice with unresolved human review questions may be adequacy-reviewed when the intended behavior is drafted clearly and the questions are isolated in the report.
+Mark a slice `ready-for-evaluation` after revising the specs to satisfy the checks. A slice with unresolved human review questions may proceed only when the intended behavior is drafted clearly and the questions are isolated as non-blocking decisions. The slice becomes `acceptable` only after `evaluate-backfill-specs` scores it at the required threshold.
