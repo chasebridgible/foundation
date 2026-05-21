@@ -73,6 +73,7 @@ Create artifacts in the target repo. Use Foundation artifact paths when Foundati
 - Draft descriptive specs in `docs/specs/`.
 - Draft technical specs in `docs/specs/`.
 - Ongoing review reports in `docs/specs/backfill/`.
+- Execution run logs in `docs/specs/backfill/`.
 - Repo inventory and coverage ledgers in the review report, or in `docs/specs/backfill/repo-inventory-YYYYMMDD-NN.html` when the inventory is too large for the report.
 - Test specs are handled by a later test-backfill skill when the user includes test backfill.
 
@@ -81,9 +82,44 @@ Backfilled specs must start with `status: draft`. Use `confidence: low` or `conf
 Use a dated run ID for reports:
 
 - Review report: `docs/specs/backfill/review-report-YYYYMMDD-NN.html`.
+- Execution run log: `docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl`.
 - Optional final handoff artifact: `docs/specs/backfill/backfill-handoff-YYYYMMDD-NN.html`.
 
 Use the same run ID across reports from one backfill run. Continue the existing dated report when resuming a run; start a new run when the user asks for one.
+
+## Execution Run Log
+
+The review report and embedded queue are durable workflow state. The run log is execution observability: an append-only JSONL record of what the agent did, when phases started and finished, what artifacts were read or changed, which commands/checks ran, and what the next action became.
+
+Create or continue `docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl` with the same run ID as the review report. Append one JSON object per line at phase boundaries. Do not rewrite previous log lines except to fix invalid JSON before handoff.
+
+Use this event shape:
+
+```json
+{"ts":"2026-05-21T14:00:00.000Z","runId":"YYYYMMDD-NN","sequence":1,"slice":"slice-id-or-null","phase":"inventory","event":"start","summary":"Started repo inventory.","artifactsRead":[],"artifactsChanged":[],"commands":[],"checks":[],"durationSeconds":null,"result":null,"nextAction":"Map package, route, schema, test, and doc evidence."}
+```
+
+Required fields:
+
+- `ts`: ISO timestamp.
+- `runId`: the dated backfill run ID.
+- `sequence`: positive integer that increases by one or more on every appended event.
+- `slice`: current slice ID, or `null` for run-level work.
+- `phase`: `setup`, `inventory`, `queue`, `user-flow`, `descriptive`, `rendered-ux`, `technical`, `adequacy`, `evaluation`, `validation`, `report`, or `handoff`.
+- `event`: `start`, `complete`, `checkpoint`, `revision`, `evaluation`, `validation`, `blocked`, or `handoff`.
+- `summary`: concise human-readable statement of the work.
+- `artifactsRead`, `artifactsChanged`, `commands`, and `checks`: arrays, even when empty.
+- `durationSeconds`: required for `complete` events. Use best-effort wall-clock timing when exact timing is unavailable.
+- `result`: required for `complete`, `blocked`, `evaluation`, `validation`, and `handoff` events.
+- `nextAction`: concrete next action, or `null` when complete.
+
+Append `start` and `complete` events for inventory, queue refresh, user-flow extraction, descriptive authoring, rendered UX, technical authoring, adequacy review, evaluation, validation, report update, and handoff as those phases occur. When resuming after a context reset, append a `checkpoint` event after reading the target adapter, Foundation instructions, review report, queue, current specs, and existing run log.
+
+Validate the log before handoff and after meaningful phase batches:
+
+```sh
+npm run backfill:run-log:check -- <target-repo>/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl
+```
 
 ## Report Contract
 
@@ -122,6 +158,7 @@ The queue is canonical run state for agents. The visible tables explain it for h
 Keep the report updated with:
 
 - Run ID, date, target repo, Foundation path or revision if known.
+- Run log path and last run log sequence.
 - Current top-level spec ID, if one exists.
 - Proposed spec graph, slice queue, and inventory coverage ledger.
 - Overall status: setup complete, in progress, evaluating, complete, or blocked by human decision.
@@ -151,22 +188,25 @@ At the start of each loop:
 2. Read Foundation `AGENTS.md`.
 3. Read this skill.
 4. Read the dated review report if it exists.
-5. Read the top-level system/app spec if it exists.
-6. Use `backfill-repo-inventory` to create or refresh the inventory and coverage ledger.
-7. Create or refresh the embedded durable queue from the inventory ledger.
-8. Pick the next queued, in-progress, or revision-ready slice.
-9. Use `backfill-user-flow-extraction` for user-facing slices before drafting descriptive prose.
-10. Use `backfill-descriptive-spec-author` to write or update descriptive specs.
-11. Use `backfill-rendered-ux-spec` when the slice has visual or UX-visible behavior.
-12. Use `backfill-technical-spec-author` to write or update technical specs.
-13. Use `backfill-spec-adequacy-review` to review the slice against evidence and revise until it is ready for strict evaluation.
-14. Use `evaluate-backfill-specs` on the slice.
-15. If the slice scores below acceptable, update the queue to `needs-revision`, route the category gaps to the owning skill, revise, and re-evaluate.
-16. Mark the slice `acceptable` only when the evaluator threshold passes.
-17. Run `npm run backfill:queue:check -- <target-repo>/docs/specs/backfill/review-report-YYYYMMDD-NN.html` from Foundation after durable queue changes.
-18. Run registry/check commands required by the target repo and Foundation process.
-19. Append the slice result and remaining queue to the report.
-20. Start the next queued slice from the report.
+5. Read the existing run log if it exists and append a `checkpoint` event when resuming.
+6. Read the top-level system/app spec if it exists.
+7. Use `backfill-repo-inventory` to create or refresh the inventory and coverage ledger.
+8. Create or refresh the embedded durable queue from the inventory ledger.
+9. Pick the next queued, in-progress, or revision-ready slice.
+10. Append run-log `start` and `complete` events for each phase as it begins and finishes.
+11. Use `backfill-user-flow-extraction` for user-facing slices before drafting descriptive prose.
+12. Use `backfill-descriptive-spec-author` to write or update descriptive specs.
+13. Use `backfill-rendered-ux-spec` when the slice has visual or UX-visible behavior.
+14. Use `backfill-technical-spec-author` to write or update technical specs.
+15. Use `backfill-spec-adequacy-review` to review the slice against evidence and revise until it is ready for strict evaluation.
+16. Use `evaluate-backfill-specs` on the slice.
+17. If the slice scores below acceptable, update the queue to `needs-revision`, route the category gaps to the owning skill, revise, and re-evaluate.
+18. Mark the slice `acceptable` only when the evaluator threshold passes.
+19. Run `npm run backfill:queue:check -- <target-repo>/docs/specs/backfill/review-report-YYYYMMDD-NN.html` from Foundation after durable queue changes.
+20. Run `npm run backfill:run-log:check -- <target-repo>/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl` from Foundation after run-log updates.
+21. Run registry/check commands required by the target repo and Foundation process.
+22. Append the slice result, remaining queue, run log path, and last run log sequence to the report.
+23. Start the next queued slice from the report.
 
 Use the report and specs as the durable handoff for long-running state.
 Backfill is complete when every relevant inventory item is mapped to an acceptable slice, intentionally covered by a parent spec section, explicitly marked out of scope, or blocked by a named human decision. When slice coverage is complete, use `evaluate-backfill-specs` on the full graph. If graph evaluation returns `needs revision`, route the revision queue back through the owning backfill skill layers.
@@ -224,6 +264,7 @@ When the backfill is complete, report:
 - Evaluation result and evaluation report path.
 - Registry/check commands run and results.
 - Report path.
+- Run log path and last run log sequence.
 - Material unresolved decisions.
 - Remaining review queue.
 

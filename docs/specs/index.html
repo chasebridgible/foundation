@@ -1152,6 +1152,16 @@
           "path": "foundation/scripts/backfill-queue-check.test.mjs",
           "kind": "test",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/backfill-run-log-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+          "kind": "test",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -1196,6 +1206,18 @@
           "kind": "test",
           "ownership": "direct",
           "notes": "Automated coverage for durable queue validation."
+        },
+        {
+          "path": "foundation/scripts/backfill-run-log-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct",
+          "notes": "Execution run log validation command."
+        },
+        {
+          "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+          "kind": "test",
+          "ownership": "direct",
+          "notes": "Automated coverage for execution run log validation."
         },
         {
           "path": "foundation/docs/specs/templates/descriptive-spec-template.html",
@@ -1283,6 +1305,17 @@
             "foundation.backfill-orchestration.technical#failure-modes"
           ],
           "evidence": "Backfill queue checker tests validate embedded queue presence, parsing, status shape, and acceptable-score threshold."
+        },
+        {
+          "id": "FBO-7",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+          "mapsTo": [
+            "foundation.backfill-orchestration.technical#data-model",
+            "foundation.backfill-orchestration.technical#failure-modes"
+          ],
+          "evidence": "Backfill run log checker tests validate JSONL execution event shape, ordered sequences, run identity, and complete-event requirements."
         }
       ],
       "tags": [
@@ -1480,6 +1513,18 @@
           "notes": "Covers durable queue validation behavior."
         },
         {
+          "path": "foundation/scripts/backfill-run-log-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Validates the append-only JSONL execution log for a dated backfill run."
+        },
+        {
+          "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+          "kind": "test",
+          "ownership": "reference",
+          "notes": "Covers execution run log validation behavior."
+        },
+        {
           "path": "foundation/docs/principles/sw-dev-principles.html",
           "kind": "doc",
           "ownership": "reference",
@@ -1569,6 +1614,17 @@
             "foundation.backfill-specs.descriptive#test-coverage"
           ],
           "evidence": "Evaluate Backfill Specs defines the semantic quality gate for completed graphs."
+        },
+        {
+          "id": "FBS-8",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+          "mapsTo": [
+            "foundation.backfill-specs.descriptive#states-and-rules",
+            "foundation.backfill-specs.descriptive#ux-contracts"
+          ],
+          "evidence": "Run log checker tests validate JSONL parsing, run identity, event shape, ordered sequences, complete-event duration, and result fields."
         }
       ],
       "tags": [

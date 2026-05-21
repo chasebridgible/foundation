@@ -107,6 +107,7 @@
         <tbody>
           <tr><td>Backfill report</td><td><code>docs/specs/backfill/review-report-20260521-01.html</code></td><td>Durable run state, inventory, slice queue, evidence audit, discrepancy log, and human decision queue.</td></tr>
           <tr><td>Durable queue</td><td><code>#backfill-slice-queue</code> inside the report</td><td>Machine-readable and human-readable status for every slice: owner skill, score, next action, blocker, and exit criterion.</td></tr>
+          <tr><td>Execution run log</td><td><code>docs/specs/backfill/run-log-20260521-01.jsonl</code></td><td>Append-only JSONL phase events for work performed, artifacts read/changed, commands, checks, timing, result, and next action.</td></tr>
           <tr><td>Descriptive spec</td><td><code>docs/specs/field-visit-check-in-descriptive.html</code></td><td>Architecture-agnostic user/operator intent, flows, states, copy, recovery, and rendered experience.</td></tr>
           <tr><td>Technical spec</td><td><code>docs/specs/field-visit-check-in-technical.html</code></td><td>Required contracts, current evidence, constraints, implementation latitude, and failure/observability rules.</td></tr>
           <tr><td>Evaluation report</td><td><code>docs/specs/backfill/evaluation-report-20260521-01.html</code></td><td>100-point scorecard, spec-only probe, evidence audit, category findings, and concrete revision routing.</td></tr>
@@ -189,6 +190,9 @@
           <tr><td>FV-SCHEDULE-03</td><td>Visit scheduling and reassignment</td><td>inventory</td><td>queued</td><td>not scored</td><td>Map scheduling routes, calendar service, and notification behavior.</td></tr>
         </tbody>
       </table>
+      <h3>Run log excerpt</h3>
+      <pre><code class="language-json">{"ts":"2026-05-21T14:00:00.000Z","runId":"20260521-01","sequence":1,"slice":"FV-CHECKIN-01","phase":"user-flow","event":"start","summary":"Started extracting the coordinator check-in flow.","artifactsRead":["apps/web/routes/visits/$visitId/check-in.tsx","apps/web/components/VisitCheckInPanel.tsx"],"artifactsChanged":[],"commands":[],"checks":[],"durationSeconds":null,"result":null,"nextAction":"Map entry, action, success, warning, and recovery states."}
+{"ts":"2026-05-21T14:18:00.000Z","runId":"20260521-01","sequence":2,"slice":"FV-CHECKIN-01","phase":"user-flow","event":"complete","summary":"Completed user-flow extraction for check-in.","artifactsRead":["apps/web/routes/visits/$visitId/check-in.tsx","apps/web/components/VisitCheckInPanel.tsx","services/visits/checkInVisit.ts"],"artifactsChanged":["docs/specs/backfill/review-report-20260521-01.html"],"commands":["rg --files apps/web services"],"checks":[],"durationSeconds":1080,"result":"Flow rows cover ready, location warning, submitting, checked-in, review-needed, and permission denied states.","nextAction":"Draft architecture-agnostic descriptive spec."}</code></pre>
       <h3>Evidence ledger for <code>FV-CHECKIN-01</code></h3>
       <table class="status-table">
         <thead><tr><th>Inventory ID</th><th>Evidence</th><th>Finding</th><th>Owning spec section</th><th>Confidence</th></tr></thead>

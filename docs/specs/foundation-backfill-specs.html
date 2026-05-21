@@ -52,6 +52,8 @@
     { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Scores slices and completed backfill graphs against the golden example and strict 100-point rubric." },
     { "path": "foundation/scripts/backfill-queue-check.mjs", "kind": "workflow", "ownership": "reference", "notes": "Validates the embedded durable queue in a dated backfill report." },
     { "path": "foundation/scripts/backfill-queue-check.test.mjs", "kind": "test", "ownership": "reference", "notes": "Covers durable queue validation behavior." },
+    { "path": "foundation/scripts/backfill-run-log-check.mjs", "kind": "workflow", "ownership": "reference", "notes": "Validates the append-only JSONL execution log for a dated backfill run." },
+    { "path": "foundation/scripts/backfill-run-log-check.test.mjs", "kind": "test", "ownership": "reference", "notes": "Covers execution run log validation behavior." },
     { "path": "foundation/docs/principles/sw-dev-principles.html", "kind": "doc", "ownership": "reference", "notes": "Progressive disclosure, current-path documentation, and long-running execution principles." },
     { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "Validates the Backfill Specs skill is present as part of required Foundation setup." },
     { "path": "foundation/scripts/foundation-doctor.test.mjs", "kind": "test", "ownership": "reference", "notes": "Covers required-skill discovery for Foundation doctor fixtures." }
@@ -112,6 +114,14 @@
       "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
       "mapsTo": ["foundation.backfill-specs.descriptive#test-coverage"],
       "evidence": "Evaluate Backfill Specs defines the semantic quality gate for completed graphs."
+    },
+    {
+      "id": "FBS-8",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+      "mapsTo": ["foundation.backfill-specs.descriptive#states-and-rules", "foundation.backfill-specs.descriptive#ux-contracts"],
+      "evidence": "Run log checker tests validate JSONL parsing, run identity, event shape, ordered sequences, complete-event duration, and result fields."
     }
   ],
   "tags": ["descriptive", "foundation", "backfill", "specs", "adoption"]
@@ -158,7 +168,7 @@
       <h1>Backfill Specs</h1>
       <p class="lede">A user should be able to point Foundation at a mature repo with messy or missing docs and receive a durable draft spec system for the whole repo, while keeping code intact and treating stale documentation as supporting evidence.</p>
       <h3>Intent</h3>
-      <p>The backfill workflow converts existing code, schemas, tests, and supporting docs into a complete set of draft descriptive and technical specs. It gives the user a reviewable spec graph, a top-level system/app contract, slice-level specs, and a dated HTML report with an embedded durable queue that makes the work resumable across context resets.</p>
+      <p>The backfill workflow converts existing code, schemas, tests, and supporting docs into a complete set of draft descriptive and technical specs. It gives the user a reviewable spec graph, a top-level system/app contract, slice-level specs, a dated HTML report with an embedded durable queue, and a JSONL execution run log that makes the work observable across long sessions and context resets.</p>
       <p>Backfilled specs are intent-rigid and architecture-flexible. Descriptive specs define user and operator intent at an architecture-agnostic level. Technical specs preserve required contracts and classify current implementation evidence, architecture constraints, and implementation latitude.</p>
       <p>The workflow is designed for large repos and monorepos. It operates in loops: create a slice, evaluate the slice, revise weak categories, mark the slice acceptable, then continue. It loads the evidence needed for the current slice and keeps moving through the durable queue until every relevant slice is acceptable, blocked by a named human decision, parent-covered with an explicit reason, or marked out of scope.</p>
       <h3>Workflow boundary</h3>
@@ -183,10 +193,10 @@
       <ol>
         <li><strong>Setup:</strong> the target repo is connected with the Foundation setup skill, then <code>npm run foundation:doctor -- --repo &lt;target-repo&gt;</code> confirms the shared substrate is discoverable.</li>
         <li><strong>Backfill start:</strong> the agent reads target <code>AGENTS.md</code>, Foundation <code>AGENTS.md</code>, the Backfill Specs skill, any existing dated report, and the top-level system/app spec if present.</li>
-        <li><strong>Run identity:</strong> the agent creates or continues a dated report such as <code>docs/specs/backfill/review-report-20260521-01.html</code>. If a target repo adapter names the current report, that file is canonical for the run.</li>
+        <li><strong>Run identity:</strong> the agent creates or continues a dated report such as <code>docs/specs/backfill/review-report-20260521-01.html</code> and matching run log such as <code>docs/specs/backfill/run-log-20260521-01.jsonl</code>. If a target repo adapter names the current report, that file is canonical for the run.</li>
         <li><strong>Repo map:</strong> the agent creates a bounded repo map from file structure, package boundaries, routes, schemas, tests, and docs using progressive disclosure.</li>
         <li><strong>Spec graph:</strong> the agent proposes a top-level system/app spec and child spec slices. The top-level spec is created early as the spine for product promise, vocabulary, boundaries, and child specs.</li>
-        <li><strong>Slice loop:</strong> for each slice, the agent loads only relevant evidence, writes or updates draft descriptive and technical specs, classifies architecture constraints and implementation latitude, adds rendered UX where required, runs adequacy review, scores the slice, revises weak categories, and marks the slice acceptable only after it passes the strict evaluator gate.</li>
+        <li><strong>Slice loop:</strong> for each slice, the agent loads only relevant evidence, appends run-log phase events, writes or updates draft descriptive and technical specs, classifies architecture constraints and implementation latitude, adds rendered UX where required, runs adequacy review, scores the slice, revises weak categories, and marks the slice acceptable only after it passes the strict evaluator gate.</li>
         <li><strong>Graph evaluation:</strong> after slice coverage is complete, the agent runs Evaluate Backfill Specs against the whole graph and writes a dated evaluation report using the same run ID.</li>
         <li><strong>Completion:</strong> the agent hands off when the proposed spec graph has acceptable descriptive and technical specs for every relevant slice, plus an evaluation report and review queue for material contradictions, fallback decisions, stale docs, and unresolved intent.</li>
       </ol>
@@ -200,6 +210,7 @@
           <tr><td>Repo setup needed</td><td>Backfill begins after Foundation setup and doctor have run.</td><td>The agent routes to setup and creates specs inside a connected substrate.</td></tr>
           <tr><td>Initial run</td><td>Create a dated report under <code>docs/specs/backfill/</code> and record the run ID before drafting slices.</td><td>The first session has durable state from the start.</td></tr>
           <tr><td>Report exists</td><td>Continue the existing dated report. Start a new run when the user asks for one.</td><td>Backfill work resumes from a single current report.</td></tr>
+          <tr><td>Run log active</td><td>Append ordered JSONL events for phase starts, completions, checkpoints, evaluations, validations, and handoff; validate with <code>backfill:run-log:check</code>.</td><td>The user can inspect what happened during a long backfill without treating the report as a telemetry log.</td></tr>
           <tr><td>Top-level spec needed</td><td>Create the top-level system/app draft early and use it as parent or spine for child specs.</td><td>Slice specs have a shared product context.</td></tr>
           <tr><td>Slice in progress</td><td>Load the files needed to understand that slice and list evidence paths in the report.</td><td>The agent can keep moving in large repos with bounded context.</td></tr>
           <tr><td>Slice evaluated</td><td>After checks pass, evaluator score is acceptable, and the durable queue is updated, the next queued slice becomes the current slice.</td><td>The agent keeps moving through the remaining slice queue without lowering quality.</td></tr>
@@ -236,6 +247,7 @@
           <tr><td>Evidence hierarchy</td><td>Specs are based primarily on current code, schemas, tests, and observed behavior, with docs used as supporting evidence.</td><td>When evidence conflicts, the agent records the conflict and drafts the best evidence-backed intent.</td></tr>
           <tr><td>Intent and architecture split</td><td>Descriptive specs own architecture-agnostic intent. Technical specs own required contracts, current evidence, architecture constraints, and implementation latitude.</td><td>A rebuild can preserve intended behavior while improving implementation choices that are flexible.</td></tr>
           <tr><td>Durable queue</td><td>The dated report embeds a machine-readable slice queue with status, owner skill, score, next action, exit criterion, and blocking gaps.</td><td>After context reset, the next agent resumes from queue state rather than inventing a new plan.</td></tr>
+          <tr><td>Execution run log</td><td>The dated JSONL run log records phase starts, completions, checkpoints, artifacts read/changed, commands, checks, results, and next actions.</td><td>When the user reviews a long backfill, they can see the work pattern separately from the durable queue state.</td></tr>
           <tr><td>Progressive disclosure</td><td>The agent works slice by slice and keeps the full repo map in the report.</td><td>When the next slice is unclear, the agent infers the next best slice from the repo map and records the ambiguity in the report.</td></tr>
           <tr><td>Strict evaluation loop</td><td>Each slice is evaluated, revised by category, and re-evaluated before it can be marked acceptable.</td><td>Broad summaries and passable drafts keep moving through revision instead of becoming final substrate.</td></tr>
           <tr><td>Human activation gate</td><td>Backfilled specs are reviewable drafts until a human promotes them to active after the graph is complete.</td><td>Agents treat draft confidence and unresolved items as part of future decisions until activation.</td></tr>
@@ -278,6 +290,7 @@
         <li><code>foundation/skills/backfill-spec-adequacy-review/SKILL.md</code> - adequacy review workflow.</li>
         <li><code>foundation/skills/evaluate-backfill-specs/SKILL.md</code> - semantic evaluation workflow.</li>
         <li><code>foundation/scripts/backfill-queue-check.mjs</code> - durable queue validator for dated backfill reports.</li>
+        <li><code>foundation/scripts/backfill-run-log-check.mjs</code> - JSONL execution run log validator for dated backfill reports.</li>
         <li><code>foundation/docs/specs/templates/descriptive-spec-template.html</code> - draft descriptive spec shape.</li>
         <li><code>foundation/docs/specs/templates/technical-spec-template.html</code> - draft technical spec shape.</li>
         <li><code>foundation/scripts/foundation-doctor.mjs</code> - required-skill check for Foundation setup.</li>
@@ -301,6 +314,7 @@
         <li><strong>Slice queue:</strong> visible table plus embedded JSON of proposed slices with status, owner skill, score, evidence loaded, spec IDs, exit criterion, blocking gaps, and next action.</li>
         <li><strong>Architecture classification:</strong> table or section showing required contracts, current implementation evidence, architecture constraints, and implementation latitude for each technical slice.</li>
         <li><strong>Evaluation status:</strong> slice and graph evaluation report paths, scorecard result, and revision queue owner for generated graph quality.</li>
+        <li><strong>Run log status:</strong> JSONL run log path, last event sequence, last completed phase, and latest validation result.</li>
         <li><strong>Review queue:</strong> material discrepancies, stale-doc warnings, fallback behavior decisions, and human activation needs.</li>
         <li><strong>Run state:</strong> remaining slice queue, current status, review queue, and commands/checks last run.</li>
       </ul>
@@ -318,6 +332,7 @@
           <tr><td>FBS-5</td><td><code>#design-placeholders</code></td><td>Manual pilot on a user-facing UI slice that verifies the descriptive spec includes rendered, interactive HTML-native UX examples.</td><td>planned</td><td>Confirms generated specs are inspectable and descriptive.</td></tr>
           <tr><td>FBS-6</td><td><code>#ux-contracts</code></td><td>Static skill review: Backfill Specs requires intent-rigid, architecture-flexible output.</td><td>existing</td><td>Full repo pilots confirm semantic behavior.</td></tr>
           <tr><td>FBS-7</td><td><code>#test-coverage</code></td><td>Static skill review: Evaluate Backfill Specs defines the semantic quality gate.</td><td>existing</td><td>Target repo pilots confirm scoring calibration.</td></tr>
+          <tr><td>FBS-8</td><td><code>#states-and-rules</code>, <code>#ux-contracts</code></td><td>Unit coverage: run-log checker validates JSONL event shape, run identity, sequence ordering, complete-event timing, and result fields.</td><td>existing</td><td>Target repo pilots confirm agents maintain logs during long-running backfills.</td></tr>
         </tbody>
       </table>
     </section>
