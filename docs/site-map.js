@@ -12,7 +12,11 @@ window.SubstrateSiteMap = [
       },
       {
         "title": "Software Development Principles",
-        "path": "principles/sw-principles.html"
+        "path": "principles/sw-dev-principles.html"
+      },
+      {
+        "title": "Software Design Principles",
+        "path": "principles/sw-design-principles.html"
       },
       {
         "title": "Building Software with Agents: A Working Spec",
