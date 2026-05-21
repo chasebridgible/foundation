@@ -4,6 +4,8 @@
   "scripts": {
     "foundation:doctor": "node scripts/foundation-doctor.mjs",
     "foundation:doctor:test": "node --test scripts/foundation-doctor.test.mjs",
+    "backfill:queue:check": "node scripts/backfill-queue-check.mjs",
+    "backfill:queue:test": "node --test scripts/backfill-queue-check.test.mjs",
     "spec:new": "node docs/specs/new-spec.mjs",
     "spec:registry": "node docs/specs/generate-registry.mjs",
     "spec:check": "node docs/specs/generate-registry.mjs --check && node docs/specs/check-specs.mjs",

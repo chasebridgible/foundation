@@ -55,7 +55,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-05-20",
+  "lastUpdated": "2026-05-21",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -740,7 +740,7 @@
       "status": "active",
       "file": "foundation/docs/specs/examples/backfill-golden-example.html",
       "canonicalSection": "overview",
-      "lastUpdated": "2026-05-20",
+      "lastUpdated": "2026-05-21",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-evaluation.process",
@@ -751,7 +751,7 @@
           "relationship": "parent",
           "sections": [
             "scoring-rubric",
-            "good-enough-gate"
+            "acceptability-gate"
           ]
         },
         {
@@ -934,7 +934,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-evaluation.html",
       "canonicalSection": "purpose",
-      "lastUpdated": "2026-05-20",
+      "lastUpdated": "2026-05-21",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-specs.descriptive",
@@ -988,6 +988,12 @@
       ],
       "implementationPaths": [
         {
+          "path": "foundation/docs/principles/ai-evals-principles.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Evaluator stance: outcomes over trajectories, complementary signals, judge meta-evaluation, and failure-to-dataset loop."
+        },
+        {
           "path": "foundation/docs/specs/examples/backfill-golden-example.html",
           "kind": "example",
           "ownership": "reference",
@@ -997,7 +1003,7 @@
           "path": "foundation/skills/backfill-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Backfill orchestrator invokes this evaluation after graph coverage is complete."
+          "notes": "Backfill orchestrator invokes this evaluation per slice and again after graph coverage is complete."
         },
         {
           "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
@@ -1060,7 +1066,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-20",
+      "lastUpdated": "2026-05-21",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-specs.descriptive",
@@ -1081,7 +1087,7 @@
           "relationship": "sibling",
           "sections": [
             "evaluator-journey",
-            "good-enough-gate"
+            "acceptability-gate"
           ]
         },
         {
@@ -1136,6 +1142,16 @@
           "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/backfill-queue-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/backfill-queue-check.test.mjs",
+          "kind": "test",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -1155,7 +1171,7 @@
           "path": "foundation/docs/specs/foundation-backfill-evaluation.html",
           "kind": "doc",
           "ownership": "reference",
-          "notes": "Evaluation process and good-enough gate."
+          "notes": "Evaluation process and acceptability gate."
         },
         {
           "path": "foundation/docs/specs/examples/backfill-golden-example.html",
@@ -1167,7 +1183,19 @@
           "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Graph-level semantic evaluation workflow."
+          "notes": "Slice and graph semantic evaluation workflow."
+        },
+        {
+          "path": "foundation/scripts/backfill-queue-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct",
+          "notes": "Durable queue validation command."
+        },
+        {
+          "path": "foundation/scripts/backfill-queue-check.test.mjs",
+          "kind": "test",
+          "ownership": "direct",
+          "notes": "Automated coverage for durable queue validation."
         },
         {
           "path": "foundation/docs/specs/templates/descriptive-spec-template.html",
@@ -1213,7 +1241,7 @@
           "mapsTo": [
             "foundation.backfill-orchestration.technical#contracts"
           ],
-          "evidence": "Adequacy review skill defines the slice completion gate."
+          "evidence": "Adequacy review skill defines the evaluator-readiness gate."
         },
         {
           "id": "FBO-3",
@@ -1233,7 +1261,7 @@
           "mapsTo": [
             "foundation.backfill-orchestration.technical#failure-modes"
           ],
-          "evidence": "Run a large target repo backfill and verify the report marks complete after relevant inventory items are mapped, parent-covered, out of scope, and adequacy-reviewed."
+          "evidence": "Run a large target repo backfill and verify the report marks complete after relevant inventory items are mapped to acceptable slices, parent-covered, blocked by a named human decision, or out of scope."
         },
         {
           "id": "FBO-5",
@@ -1244,6 +1272,17 @@
             "foundation.backfill-orchestration.technical#contracts"
           ],
           "evidence": "Technical authoring requires required contracts, current evidence, architecture constraints, and implementation latitude."
+        },
+        {
+          "id": "FBO-6",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/backfill-queue-check.test.mjs",
+          "mapsTo": [
+            "foundation.backfill-orchestration.technical#data-model",
+            "foundation.backfill-orchestration.technical#failure-modes"
+          ],
+          "evidence": "Backfill queue checker tests validate embedded queue presence, parsing, status shape, and acceptable-score threshold."
         }
       ],
       "tags": [
@@ -1261,7 +1300,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-specs.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-20",
+      "lastUpdated": "2026-05-21",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.descriptive",
@@ -1294,7 +1333,7 @@
           "sections": [
             "evaluator-journey",
             "scoring-rubric",
-            "good-enough-gate"
+            "acceptability-gate"
           ]
         },
         {
@@ -1378,7 +1417,7 @@
           "path": "foundation/docs/specs/foundation-backfill-evaluation.html",
           "kind": "doc",
           "ownership": "reference",
-          "notes": "Evaluation process and good-enough gate."
+          "notes": "Evaluation process and strict acceptability gate."
         },
         {
           "path": "foundation/docs/specs/examples/backfill-golden-example.html",
@@ -1420,13 +1459,25 @@
           "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Reviews slice adequacy before it can be marked drafted."
+          "notes": "Reviews slice adequacy before strict evaluator scoring."
         },
         {
           "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Evaluates completed backfill graphs against the golden example and rubric."
+          "notes": "Scores slices and completed backfill graphs against the golden example and strict 100-point rubric."
+        },
+        {
+          "path": "foundation/scripts/backfill-queue-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Validates the embedded durable queue in a dated backfill report."
+        },
+        {
+          "path": "foundation/scripts/backfill-queue-check.test.mjs",
+          "kind": "test",
+          "ownership": "reference",
+          "notes": "Covers durable queue validation behavior."
         },
         {
           "path": "foundation/docs/principles/sw-dev-principles.html",

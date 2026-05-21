@@ -32,10 +32,17 @@ For the current slice:
    - current evidence: how the existing repo appears to satisfy the contract
    - architecture constraints: implementation choices that are required and why
    - implementation latitude: choices a future build agent may change while preserving the contract
-4. Use target-owned spec IDs and `status: draft`.
-5. Link sibling descriptive specs and evidence paths.
-6. Record inferred architecture, constraints, latitude, and review questions in the report.
+4. Add a contract matrix for behavior-bearing slices:
+   - contract name
+   - required behavior
+   - observed current evidence
+   - implementation latitude
+   - failure and recovery implications
+   - verification implication
+5. Use target-owned spec IDs and `status: draft`.
+6. Link sibling descriptive specs and evidence paths.
+7. Record inferred architecture, constraints, latitude, and review questions in the report.
 
 ## Completion Rule
 
-The technical layer is complete when every behavior-bearing inventory item in the slice maps to a required contract, current evidence, a justified architecture constraint, implementation latitude, a parent-owned boundary, or an out-of-scope note.
+The technical layer is complete when every behavior-bearing inventory item in the slice maps to a required contract, current evidence, a justified architecture constraint, implementation latitude, a parent-owned boundary, or an out-of-scope note. If a cold build agent could not identify what must be preserved versus what may change, mark the slice `needs-revision`.

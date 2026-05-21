@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-orchestration.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-20">
+<meta name="spec:last-updated" content="2026-05-21">
 <title>Foundation Backfill Orchestration Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,14 +16,14 @@
   "title": "Foundation Backfill Orchestration Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-05-20",
+  "lastUpdated": "2026-05-21",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-specs.descriptive",
   "children": [],
   "relatedSpecs": [
     { "id": "foundation.backfill-specs.descriptive", "relationship": "parent", "sections": ["product-intent", "interface-journey", "states-and-rules", "ux-contracts"] },
-    { "id": "foundation.backfill-evaluation.process", "relationship": "sibling", "sections": ["evaluator-journey", "good-enough-gate"] },
+    { "id": "foundation.backfill-evaluation.process", "relationship": "sibling", "sections": ["evaluator-journey", "acceptability-gate"] },
     { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["spec-authoring", "semantic-review"] },
     { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["html-native-metadata", "path-update-loop"] }
   ],
@@ -34,14 +34,18 @@
     { "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/skills/backfill-rendered-ux-spec/SKILL.md", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/skills/backfill-technical-spec-author/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md", "kind": "workflow", "ownership": "direct" }
+    { "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/scripts/backfill-queue-check.mjs", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/scripts/backfill-queue-check.test.mjs", "kind": "test", "ownership": "direct" }
   ],
   "implementationPaths": [
     { "path": "foundation/skills/backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Orchestrator skill that sequences the layer skills." },
     { "path": "foundation/docs/specs/foundation-backfill-specs.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive contract for the backfill workflow." },
-    { "path": "foundation/docs/specs/foundation-backfill-evaluation.html", "kind": "doc", "ownership": "reference", "notes": "Evaluation process and good-enough gate." },
+    { "path": "foundation/docs/specs/foundation-backfill-evaluation.html", "kind": "doc", "ownership": "reference", "notes": "Evaluation process and acceptability gate." },
     { "path": "foundation/docs/specs/examples/backfill-golden-example.html", "kind": "example", "ownership": "reference", "notes": "Golden example for evaluator calibration." },
-    { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Graph-level semantic evaluation workflow." },
+    { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Slice and graph semantic evaluation workflow." },
+    { "path": "foundation/scripts/backfill-queue-check.mjs", "kind": "workflow", "ownership": "direct", "notes": "Durable queue validation command." },
+    { "path": "foundation/scripts/backfill-queue-check.test.mjs", "kind": "test", "ownership": "direct", "notes": "Automated coverage for durable queue validation." },
     { "path": "foundation/docs/specs/templates/descriptive-spec-template.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive spec structure used by backfill authoring." },
     { "path": "foundation/docs/specs/templates/technical-spec-template.html", "kind": "doc", "ownership": "reference", "notes": "Technical spec structure used by backfill authoring." },
     { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "Required-skill validation for Foundation setup." },
@@ -62,7 +66,7 @@
       "status": "existing",
       "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
       "mapsTo": ["foundation.backfill-orchestration.technical#contracts"],
-      "evidence": "Adequacy review skill defines the slice completion gate."
+      "evidence": "Adequacy review skill defines the evaluator-readiness gate."
     },
     {
       "id": "FBO-3",
@@ -78,7 +82,7 @@
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
       "mapsTo": ["foundation.backfill-orchestration.technical#failure-modes"],
-      "evidence": "Run a large target repo backfill and verify the report marks complete after relevant inventory items are mapped, parent-covered, out of scope, and adequacy-reviewed."
+      "evidence": "Run a large target repo backfill and verify the report marks complete after relevant inventory items are mapped to acceptable slices, parent-covered, blocked by a named human decision, or out of scope."
     },
     {
       "id": "FBO-5",
@@ -87,6 +91,14 @@
       "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
       "mapsTo": ["foundation.backfill-orchestration.technical#contracts"],
       "evidence": "Technical authoring requires required contracts, current evidence, architecture constraints, and implementation latitude."
+    },
+    {
+      "id": "FBO-6",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/backfill-queue-check.test.mjs",
+      "mapsTo": ["foundation.backfill-orchestration.technical#data-model", "foundation.backfill-orchestration.technical#failure-modes"],
+      "evidence": "Backfill queue checker tests validate embedded queue presence, parsing, status shape, and acceptable-score threshold."
     }
   ],
   "tags": ["technical", "foundation", "backfill", "orchestration", "skills"]
@@ -120,10 +132,10 @@
   <section id="overview" data-spec-section="overview" data-section-type="summary">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-orchestration-technical.html</div>
     <h1>Foundation Backfill Orchestration Technical Spec</h1>
-    <p class="lede">The backfill orchestrator is a resumable workflow that delegates each layer of repo intent extraction to focused skills and only advances a slice after adequacy review.</p>
+    <p class="lede">The backfill orchestrator is a resumable workflow that delegates each layer of repo intent extraction to focused skills and only advances a slice after adequacy review and strict evaluation.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Updated:</strong> 2026-05-21</div>
       <div><strong>Canonical section:</strong> <a href="#required-depth">#required-depth</a></div>
     </div>
   </section>
@@ -133,7 +145,7 @@
       <h1>Required depth</h1>
       <p>The backfill system extracts intended behavior from repo evidence. Code is the strongest available evidence, but the durable output is a spec graph that states what the system is meant to do for users, operators, and future implementers.</p>
       <p>The orchestrated output is intent-rigid and architecture-flexible. Descriptive specs carry architecture-agnostic intent. Technical specs carry required contracts, current implementation evidence, justified architecture constraints, and implementation latitude.</p>
-      <p>Backfill completion depends on coverage and adequacy. A complete run has a coverage ledger where every relevant inventory item is mapped to an adequate spec, intentionally covered by a parent section, or explicitly marked out of scope.</p>
+      <p>Backfill completion depends on coverage, adequacy, and strict evaluation. A complete run has a durable queue where every relevant inventory item is mapped to an acceptable slice, intentionally covered by a parent section, blocked by a named human decision, or explicitly marked out of scope.</p>
     </section>
 
     <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
@@ -141,15 +153,16 @@
       <ol>
         <li><strong>Connect:</strong> use Foundation setup and doctor to confirm the target repo can consume Foundation.</li>
         <li><strong>Inventory:</strong> run <code>backfill-repo-inventory</code> to build or refresh the coverage ledger.</li>
-        <li><strong>Queue:</strong> choose the next slice from inventory rows awaiting owner specs, child behavior coverage, or adequacy review.</li>
+        <li><strong>Queue:</strong> create or refresh the embedded durable queue and choose the next slice awaiting owner specs, child behavior coverage, revision, or strict evaluation.</li>
         <li><strong>Extract flows:</strong> run <code>backfill-user-flow-extraction</code> for user-facing inventory items.</li>
         <li><strong>Draft descriptive:</strong> run <code>backfill-descriptive-spec-author</code> and create or update draft descriptive specs.</li>
         <li><strong>Render UX:</strong> run <code>backfill-rendered-ux-spec</code> when the descriptive slice has visual or UX-visible behavior.</li>
         <li><strong>Draft technical:</strong> run <code>backfill-technical-spec-author</code> and create or update draft technical specs that classify required contracts, current evidence, architecture constraints, and implementation latitude.</li>
-        <li><strong>Review adequacy:</strong> run <code>backfill-spec-adequacy-review</code>, revise layers that need more detail, and mark the slice adequacy-reviewed after it passes.</li>
-        <li><strong>Validate:</strong> regenerate registry and run spec checks.</li>
-        <li><strong>Continue:</strong> update the report and start the next unreviewed slice until inventory coverage is complete.</li>
-        <li><strong>Evaluate:</strong> run <code>evaluate-backfill-specs</code> against the completed graph, golden example, and rubric before final handoff.</li>
+        <li><strong>Review adequacy:</strong> run <code>backfill-spec-adequacy-review</code>, revise layers that need more detail, and mark the slice ready for evaluator scoring after it passes.</li>
+        <li><strong>Evaluate slice:</strong> run <code>evaluate-backfill-specs</code>, revise category gaps below threshold, and re-evaluate until the slice is acceptable or blocked by a named human decision.</li>
+        <li><strong>Validate:</strong> check the durable queue, regenerate registry, and run spec checks.</li>
+        <li><strong>Continue:</strong> update the report and start the next queued slice until inventory coverage is complete.</li>
+        <li><strong>Evaluate graph:</strong> run <code>evaluate-backfill-specs</code> against the completed graph, golden example, and rubric before final handoff.</li>
       </ol>
     </section>
 
@@ -158,10 +171,12 @@
       <table class="status-table">
         <thead><tr><th>Artifact</th><th>Required fields</th><th>Invariant</th><th>Owner</th></tr></thead>
         <tbody>
-          <tr><td>Backfill report</td><td>run ID, date, target repo, Foundation revision, top-level spec, slice queue, review queue, evaluation status, validation results</td><td>Can resume the run from durable files.</td><td><code>backfill-specs</code></td></tr>
-          <tr><td>Inventory row</td><td>ID, category, label, evidence path, owning spec, coverage layer, missing detail, notes</td><td>Every relevant row reaches mapped, adequacy-reviewed, or out-of-scope status by completion.</td><td><code>backfill-repo-inventory</code></td></tr>
+          <tr><td>Backfill report</td><td>run ID, date, target repo, Foundation revision, top-level spec, embedded durable queue, review queue, evaluation status, validation results</td><td>Can resume the run from durable files.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Durable queue slice</td><td>ID, scope, status, owner skill, descriptive spec, technical spec, score, next action, exit criterion, blocking gaps, evidence rows</td><td>Every slice has exactly one current next action unless it is acceptable, out of scope, or blocked by human decision.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Inventory row</td><td>ID, category, label, evidence path, owning spec, coverage layer, missing detail, notes</td><td>Every relevant row reaches an acceptable slice, parent-covered reason, blocked human decision, or out-of-scope status by completion.</td><td><code>backfill-repo-inventory</code></td></tr>
           <tr><td>User flow row</td><td>user, entry point, intent, actions, states, success, failure/recovery, evidence, owning spec</td><td>Every user-facing entry point maps to a concrete flow.</td><td><code>backfill-user-flow-extraction</code></td></tr>
-          <tr><td>Adequacy row</td><td>slice, specs, inventory result, flow result, rendered UX result, technical result, architecture flexibility result, traceability result, revisions, status</td><td>A slice advances after adequacy review passes or records isolated review questions.</td><td><code>backfill-spec-adequacy-review</code></td></tr>
+          <tr><td>Adequacy row</td><td>slice, specs, inventory result, flow result, rendered UX result, technical result, architecture flexibility result, traceability result, revisions, evaluator readiness</td><td>A slice advances to strict evaluation after adequacy review passes or records isolated non-blocking human questions.</td><td><code>backfill-spec-adequacy-review</code></td></tr>
+          <tr><td>Evaluation row</td><td>slice, total score, category scores, citations, revision owner, next action, queue status</td><td>A slice advances to acceptable only when it reaches the strict 100-point threshold.</td><td><code>evaluate-backfill-specs</code></td></tr>
         </tbody>
       </table>
     </section>
@@ -188,8 +203,8 @@
       <p>Backfill runs are allowed to span multiple sessions. Ordering is enforced by durable report state.</p>
       <ul>
         <li><strong>Resume:</strong> read the report, inventory, top-level spec, current slice specs, and relevant skill before continuing.</li>
-        <li><strong>Revision loop:</strong> adequacy review may send the slice back to inventory, flow extraction, descriptive authoring, rendered UX, or technical authoring before the next slice begins.</li>
-        <li><strong>Validation cadence:</strong> run spec registry/check after each drafted slice or grouped set of tightly related child specs.</li>
+        <li><strong>Revision loop:</strong> adequacy review or strict evaluation may send the slice back to inventory, flow extraction, descriptive authoring, rendered UX, or technical authoring before the next slice begins.</li>
+        <li><strong>Validation cadence:</strong> run spec registry/check after each acceptable slice or grouped set of tightly related child specs.</li>
       </ul>
     </section>
 
@@ -198,9 +213,10 @@
       <table class="status-table">
         <thead><tr><th>Failure</th><th>System behavior</th><th>User behavior</th><th>Evidence</th></tr></thead>
         <tbody>
-          <tr><td>Coverage ledger</td><td>Inventory rows awaiting owner specs, child behavior coverage, or adequacy review remain in the slice queue.</td><td>User sees the remaining slice queue until coverage is complete.</td><td>Coverage ledger</td></tr>
-          <tr><td>Adequacy loop</td><td>Adequacy review marks flows, rules, UX, or technical contracts for revision and loops to the owning skill.</td><td>User receives specs that have passed the review gate.</td><td>Adequacy table</td></tr>
-          <tr><td>Context reset</td><td>Next agent resumes from report, inventory, current specs, and skill chain.</td><td>User continues from durable state.</td><td>Dated report</td></tr>
+          <tr><td>Durable queue</td><td>Inventory rows awaiting owner specs, child behavior coverage, revision, evaluation, or human decision remain in the slice queue.</td><td>User sees the remaining slice queue until coverage is complete.</td><td>Embedded queue and visible table</td></tr>
+          <tr><td>Adequacy loop</td><td>Adequacy review marks flows, rules, UX, or technical contracts for revision and loops to the owning skill.</td><td>User receives specs that have passed the review gate before evaluator scoring.</td><td>Adequacy table</td></tr>
+          <tr><td>Evaluation loop</td><td>Evaluator category scores below threshold route the slice back to the owner skill with exit criteria.</td><td>User receives acceptable slices rather than passable summaries.</td><td>Evaluation report and queue update</td></tr>
+          <tr><td>Context reset</td><td>Next agent resumes from report, embedded queue, inventory, current specs, and skill chain.</td><td>User continues from durable state.</td><td>Dated report</td></tr>
           <tr><td>Evidence conflict</td><td>Report records the contradiction and the spec states evidence-backed intended behavior with review notes.</td><td>User can adjudicate high-value questions after full coverage exists.</td><td>Review queue</td></tr>
           <tr><td>Architecture classification gap</td><td>Adequacy review sends current implementation details back for classification as required contracts, current evidence, justified constraints, or implementation latitude.</td><td>User receives specs that preserve necessary contracts and keep flexible implementation choices available.</td><td>Architecture flexibility result</td></tr>
         </tbody>
@@ -240,10 +256,11 @@
         <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>
         <tbody>
           <tr><td>FBO-1</td><td><code>#internal-sequence</code></td><td>Backfill orchestrator names the skill chain and resumable loop.</td><td>existing</td></tr>
-          <tr><td>FBO-2</td><td><code>#contracts</code></td><td>Adequacy review skill defines the slice completion gate.</td><td>existing</td></tr>
+          <tr><td>FBO-2</td><td><code>#contracts</code></td><td>Adequacy review skill defines the evaluator-readiness gate.</td><td>existing</td></tr>
           <tr><td>FBO-3</td><td><code>#paths-and-coverage</code></td><td>Doctor fixtures include required backfill sub-skills.</td><td>existing</td></tr>
-          <tr><td>FBO-4</td><td><code>#failure-modes</code></td><td>Manual large-repo pilot for inventory and adequacy completion gates.</td><td>planned</td></tr>
+          <tr><td>FBO-4</td><td><code>#failure-modes</code></td><td>Manual large-repo pilot for inventory coverage, strict evaluation, and queue-resume behavior.</td><td>planned</td></tr>
           <tr><td>FBO-5</td><td><code>#contracts</code></td><td>Technical authoring skill requires architecture classification.</td><td>existing</td></tr>
+          <tr><td>FBO-6</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill queue checker validates embedded durable queue structure.</td><td>existing</td></tr>
         </tbody>
       </table>
     </section>

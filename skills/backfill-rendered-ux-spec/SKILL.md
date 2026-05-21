@@ -17,6 +17,8 @@ For the current descriptive spec, add a rendered experience section that include
 
 - representative layout using believable domain data and product copy
 - ready, empty, loading, error, permission, and completed states when relevant
+- responsive behavior or a stated non-responsive reason when layout matters
+- copy for primary actions, warnings, empty states, errors, and confirmations
 - lightweight interaction for stateful behavior such as comments, tabs, filters, menus, open/closed panels, inline editing, retries, approvals, selections, uploads, or exports
 - short notes mapping rendered states to user-flow and state/rule sections
 - evidence links to existing UI files, screenshots, routes, or docs when useful
@@ -29,4 +31,4 @@ For backend-only, infrastructure, worker, or nonvisual slices, add a short state
 
 ## Completion Rule
 
-The rendered UX layer is complete when a reviewer can open the descriptive spec and inspect the important intended states and interactions from the spec itself.
+The rendered UX layer is complete when a reviewer can open the descriptive spec and inspect the important intended states, hierarchy, copy, and interactions from the spec itself. If a user-facing slice lacks rendered UX, mark the slice `needs-revision` before adequacy review.

@@ -11,6 +11,8 @@ Use this skill inside `backfill-specs` before drafting and whenever a backfill r
 
 Create durable state that shows what exists in the repo and how each item is covered by specs. The inventory prevents broad domain summaries from being mistaken for complete backfill coverage.
 
+The inventory also seeds the durable slice queue. A cold agent should be able to resume from the report without reconstructing repo state from memory.
+
 ## Inventory Scope
 
 Inventory the repo by evidence category:
@@ -36,10 +38,27 @@ Each item needs:
 - category and label
 - evidence path or source
 - owning or proposed spec ID
-- coverage layer: awaiting owner, parent-mapped, flow-mapped, descriptive-drafted, technical-drafted, adequacy-reviewed, approved, or out-of-scope
+- coverage layer: awaiting owner, queued, in-progress, parent-mapped, needs-revision, acceptable, blocked-by-human, or out-of-scope
 - remaining detail or next action
 - notes on evidence conflicts, stale docs, or inferred intent
 
+## Slice Queue Fields
+
+Group inventory rows into bounded slices. Each slice needs:
+
+- stable slice ID
+- bounded scope
+- evidence rows included
+- proposed parent spec and child spec owner
+- slice kind: user-flow, permission-flow, data-lifecycle, API-contract, worker-job, integration, infrastructure, or parent-map
+- status: queued, in-progress, needs-revision, revision-ready, acceptable, out-of-scope, or blocked-by-human
+- owner skill for the next action
+- current score, if evaluated
+- exit criterion for moving the slice forward
+- blocking gaps and human decisions
+
+Prefer smaller behavior-bearing slices over broad domains. Broad domains become parent specs unless they truly contain no separable behavior.
+
 ## Completion Rule
 
-Backfill is complete when relevant inventory items are mapped to owner specs, covered by child behavior specs where needed, adequacy-reviewed, or marked out of scope. Parent specs cover vocabulary and boundaries; behavior-bearing items get child coverage or a report note explaining the parent-owned behavior.
+Backfill is complete when relevant inventory items are mapped to acceptable slices, covered by child behavior specs where needed, parent-mapped with an explicit reason, blocked by a named human decision, or marked out of scope. Parent specs cover vocabulary and boundaries; behavior-bearing items get child coverage or a report note explaining the parent-owned behavior.
