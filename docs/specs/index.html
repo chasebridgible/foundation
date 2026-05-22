@@ -1074,7 +1074,7 @@
     },
     {
       "id": "foundation.backfill-file-registry.technical",
-      "title": "Foundation Backfill File Registry Technical Spec",
+      "title": "Foundation File Registry Technical Spec",
       "type": "technical",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
@@ -1144,18 +1144,31 @@
             "foundation.backfill-file-registry.technical#contracts"
           ],
           "evidence": "Test spec will verify registry schema, coverage, freshness, and eval quality requirements."
+        },
+        {
+          "id": "BFR-T-2",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "mapsTo": [
+            "foundation.backfill-file-registry.technical#graph-links",
+            "foundation.backfill-file-registry.technical#lifecycle-modes"
+          ],
+          "evidence": "Test spec will verify graph-link integrity and changed-file lifecycle behavior when implementation commands exist."
         }
       ],
       "tags": [
         "technical",
         "foundation",
         "backfill",
-        "file-registry"
+        "file-registry",
+        "substrate",
+        "agent-index"
       ]
     },
     {
       "id": "foundation.backfill-file-registry.test",
-      "title": "Foundation Backfill File Registry Test Spec",
+      "title": "Foundation File Registry Test Spec",
       "type": "test",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
@@ -1241,6 +1254,17 @@
             "foundation.backfill-file-registry.descriptive#ux-contracts"
           ],
           "evidence": "Planned small-repo gold comparison verifies discovery quality before large-repo use."
+        },
+        {
+          "id": "BFR-E-3",
+          "level": "integration",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "mapsTo": [
+            "foundation.backfill-file-registry.descriptive#system-relationship",
+            "foundation.backfill-file-registry.technical#graph-links"
+          ],
+          "evidence": "Planned graph-link checker verifies file-to-spec, file-to-capability, and file-to-verification relationships."
         }
       ],
       "tags": [
@@ -1248,12 +1272,14 @@
         "foundation",
         "backfill",
         "file-registry",
-        "eval"
+        "eval",
+        "substrate",
+        "agent-index"
       ]
     },
     {
       "id": "foundation.backfill-file-registry.descriptive",
-      "title": "Foundation Backfill File Registry",
+      "title": "Foundation File Registry",
       "type": "descriptive",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-file-registry.html",
@@ -1335,13 +1361,25 @@
             "foundation.backfill-file-registry.descriptive#ux-contracts"
           ],
           "evidence": "Test spec will define deterministic registry checks and LLM quality evaluation."
+        },
+        {
+          "id": "BFR-D-2",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "mapsTo": [
+            "foundation.backfill-file-registry.descriptive#system-relationship"
+          ],
+          "evidence": "Test spec will verify file-to-spec, file-to-capability, and file-to-verification graph links once implementation commands exist."
         }
       ],
       "tags": [
         "descriptive",
         "foundation",
         "backfill",
-        "file-registry"
+        "file-registry",
+        "substrate",
+        "agent-index"
       ]
     },
     {
