@@ -7,13 +7,13 @@
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="draft">
 <meta name="spec:last-updated" content="2026-05-22">
-<title>Foundation Backfill File Registry Technical Spec</title>
+<title>Foundation File Registry Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-file-registry.technical",
-  "title": "Foundation Backfill File Registry Technical Spec",
+  "title": "Foundation File Registry Technical Spec",
   "type": "technical",
   "status": "draft",
   "lastUpdated": "2026-05-22",
@@ -41,9 +41,17 @@
       "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
       "mapsTo": ["foundation.backfill-file-registry.technical#data-model", "foundation.backfill-file-registry.technical#contracts"],
       "evidence": "Test spec will verify registry schema, coverage, freshness, and eval quality requirements."
+    },
+    {
+      "id": "BFR-T-2",
+      "level": "static",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "mapsTo": ["foundation.backfill-file-registry.technical#graph-links", "foundation.backfill-file-registry.technical#lifecycle-modes"],
+      "evidence": "Test spec will verify graph-link integrity and changed-file lifecycle behavior when implementation commands exist."
     }
   ],
-  "tags": ["technical", "foundation", "backfill", "file-registry"]
+  "tags": ["technical", "foundation", "backfill", "file-registry", "substrate", "agent-index"]
 }
 </script>
 </head>
@@ -63,24 +71,26 @@
     <a class="nav-item" href="#internal-sequence"><span class="nav-num">03</span>Sequence</a>
     <a class="nav-item" href="#data-model"><span class="nav-num">04</span>Data</a>
     <a class="nav-item" href="#contracts"><span class="nav-num">05</span>Contracts</a>
-    <a class="nav-item" href="#concurrency-and-timing"><span class="nav-num">06</span>Timing</a>
-    <a class="nav-item" href="#failure-modes"><span class="nav-num">07</span>Failures</a>
-    <a class="nav-item" href="#boundaries"><span class="nav-num">08</span>Boundaries</a>
-    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">09</span>Coverage</a>
+    <a class="nav-item" href="#graph-links"><span class="nav-num">06</span>Graph</a>
+    <a class="nav-item" href="#lifecycle-modes"><span class="nav-num">07</span>Lifecycle</a>
+    <a class="nav-item" href="#concurrency-and-timing"><span class="nav-num">08</span>Timing</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">09</span>Failures</a>
+    <a class="nav-item" href="#boundaries"><span class="nav-num">10</span>Boundaries</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">11</span>Coverage</a>
   </div>
 </nav>
 
 <main class="main">
   <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-file-registry-technical.html</div>
-    <h1>Backfill File Registry Technical Spec</h1>
-    <p class="lede">The file registry layer is a deterministic-plus-agentic indexing system: commands create complete file rows, and the agent fills semantic meaning in bounded, resumable batches.</p>
+    <h1>Foundation File Registry Technical Spec</h1>
+    <p class="lede">The file registry is a deterministic-plus-agentic indexing subsystem: commands create complete file rows, agents fill semantic meaning in bounded batches, and graph checks connect files to specs, capabilities, and verification.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> draft</div>
       <div><strong>Updated:</strong> 2026-05-22</div>
       <div><strong>Parent:</strong> foundation.backfill-file-registry.descriptive</div>
     </div>
-    <p>This is a T5-level Foundation workflow because every later backfill layer depends on its completeness. The implementation should prefer scripts for enumeration/checking and agent judgment for semantic row filling and quality evaluation.</p>
+    <p>This is a T5-level Foundation workflow because later backfill layers and steady-state build agents depend on its completeness. The implementation should prefer scripts for enumeration/checking, durable artifacts for graph state, and agent judgment for semantic row filling and quality evaluation.</p>
   </section>
 
   <article class="doc-body">
@@ -94,6 +104,9 @@
           <tr><td>Semantic fill</td><td>Agent maps file meaning in bounded batches and stores results on disk.</td><td>required contract</td><td>Resume and row quality eval.</td></tr>
           <tr><td>Complete classification</td><td>Files may be classified as supporting, generated, asset, stale, doc, config, or fixture, and each classification remains represented by a registry row.</td><td>required contract</td><td>Status enum check.</td></tr>
           <tr><td>Canonical storage</td><td>Manifest is JSON, registry is JSONL, and evaluation report is HTML. SQLite, HTML tables, or other views may be derived caches only.</td><td>required contract</td><td>Artifact shape check.</td></tr>
+          <tr><td>Graph linkage</td><td>Rows can link files to spec section IDs, capability IDs, verification targets, and explicit gaps.</td><td>required contract</td><td>Graph-link check.</td></tr>
+          <tr><td>Steady-state refresh</td><td>Changed files invalidate or refresh their registry rows during normal build workflow, not only during backfill.</td><td>required contract</td><td>Changed-file lifecycle check.</td></tr>
+          <tr><td>Backfill bootstrap</td><td>Backfill invokes the same file-registry commands with a dated run ID, then uses the registry as the evidence source for surfaces, capabilities, specs, and evals.</td><td>required contract</td><td>Backfill report and run-log checks.</td></tr>
         </tbody>
       </table>
     </section>
@@ -109,7 +122,9 @@
         <li><strong>Validate:</strong> run the registry checker after batch updates. Batch mode may report remaining pending rows; handoff mode requires zero pending rows.</li>
         <li><strong>Evaluate:</strong> run a file-registry quality eval on deterministic risk-based samples before advancing to surface registry.</li>
         <li><strong>Calibrate:</strong> run a small known-answer gold comparison before large-repo use and after schema or rubric changes.</li>
+        <li><strong>Link graph:</strong> after the spec and capability layers exist, attach behavior-bearing rows to capability IDs, spec section IDs, and verification targets or explicit gaps.</li>
         <li><strong>Resume:</strong> after context compaction, interruption, or a new agent session, reread target <code>AGENTS.md</code>, Foundation <code>AGENTS.md</code>, the active skill, report, registry, and run log, then continue from pending or stale rows.</li>
+        <li><strong>Refresh:</strong> during steady-state build work, recompute changed-file rows, check graph links, and route affected specs/tests before handoff.</li>
       </ol>
     </section>
 
@@ -121,7 +136,10 @@
           <tr><td>File manifest artifact</td><td>runId, targetRepo, repoRoot, generatedAt, manifestRules, files</td><td><code>docs/specs/backfill/file-manifest-YYYYMMDD-NN.json</code> is the canonical file universe for the run.</td><td>manifest command</td></tr>
           <tr><td>File manifest entry</td><td>runId, path, fileId, sizeBytes, contentHash, extension, detectedLanguage, sourceStatus</td><td>Every repo-owned file has exactly one manifest entry.</td><td>manifest command</td></tr>
           <tr><td>File registry artifact</td><td>One JSON object per line, one line per manifest file.</td><td><code>docs/specs/backfill/file-registry-YYYYMMDD-NN.jsonl</code> is the canonical semantic map.</td><td>fill loop</td></tr>
-          <tr><td>File registry row</td><td>runId, fileId, path, contentHash, sizeBytes, extension, detectedLanguage, sourceStatus, kind, domain, evidenceValue, role, responsibilities, importantSymbols, entryPoints, exports, imports, dataObjects, externalSystems, relatedFiles, reviewFlags, status, confidence, mappedAt</td><td>Every manifest file has exactly one current registry row with status <code>pending</code> or <code>mapped</code>.</td><td>fill loop</td></tr>
+          <tr><td>File registry row</td><td>runId, fileId, path, contentHash, sizeBytes, extension, detectedLanguage, sourceStatus, kind, domain, evidenceValue, role, responsibilities, importantSymbols, entryPoints, exports, imports, dataObjects, externalSystems, relatedFiles, specLinks, capabilityIds, verificationTargets, testGaps, reviewFlags, status, confidence, mappedAt, graphLinkedAt</td><td>Every manifest file has exactly one current registry row with status <code>pending</code> or <code>mapped</code>. Behavior-bearing mapped rows require graph links once the spec/capability layers exist.</td><td>fill loop and graph-link command</td></tr>
+          <tr><td>Spec link</td><td>specId, sectionId, relationship, evidence</td><td>The referenced spec ID and section ID resolve in <code>docs/specs/index.html</code>; relationship is one of <code>implements</code>, <code>documents</code>, <code>configures</code>, <code>verifies</code>, <code>supports</code>, or <code>generated-by</code>.</td><td>graph-link command</td></tr>
+          <tr><td>Capability link</td><td>capabilityId, relationship, source</td><td>The referenced capability exists in the active capability matrix or is recorded as an unresolved hint during bootstrap.</td><td>graph-link command</td></tr>
+          <tr><td>Verification target</td><td>id, path, command, mapsTo, status</td><td>Behavior-bearing rows name automated, manual, eval, or explicit-gap evidence that protects the linked behavior.</td><td>graph-link command and test spec</td></tr>
           <tr><td>Responsibility row</td><td>label, description, symbols, lineHints, relatedFiles, evidenceValue</td><td>Large or multi-role files have enough structure for later agents to find behavior.</td><td>fill loop</td></tr>
           <tr><td>Review flag</td><td>severity, reason, evidence, nextAction</td><td>Severity is <code>info</code>, <code>warning</code>, or <code>blocking</code>; blocking flags prevent handoff.</td><td>fill loop/eval layer</td></tr>
           <tr><td>Batch checkpoint</td><td>runId, batchId, selectedPaths, startedAt, completedAt, result, nextAction</td><td>A new agent can resume without chat memory.</td><td>run log/report</td></tr>
@@ -162,6 +180,15 @@
   "entryPoints": ["web login route"],
   "dataObjects": ["session", "user"],
   "relatedFiles": ["services/auth/login.ts"],
+  "specLinks": [
+    {
+      "specId": "product.identity-login.descriptive",
+      "sectionId": "flow-map",
+      "relationship": "implements"
+    }
+  ],
+  "capabilityIds": ["identity-login-capability"],
+  "verificationTargets": ["npm test -- login"],
   "reviewFlags": [],
   "status": "mapped",
   "confidence": "medium"
@@ -181,6 +208,38 @@
           <tr><td>Structured meaning</td><td>Mapped rows use structured fields over prose-only summaries; <code>unknown</code> classifications are pending-only.</td><td>Surface/capability extraction needs queryable evidence.</td></tr>
           <tr><td>Batch resumability</td><td>Pending rows and batch checkpoints define the next action.</td><td>Long runs survive compaction, interruption, and handoff.</td></tr>
           <tr><td>Handoff gate</td><td>Surface registry work begins only after zero pending rows, checker pass, quality eval pass, no blocking review flags, and current gold calibration.</td><td>Bad file maps should not become capability gaps.</td></tr>
+          <tr><td>Graph-link gate</td><td>After specs and capabilities exist, every behavior-bearing mapped row links to at least one capability, one spec section, and one verification target or explicit test gap.</td><td>Agents need a direct path from implementation files to intended behavior and done evidence.</td></tr>
+          <tr><td>Self-reference policy</td><td>The command input snapshot excludes current-run generated manifest, registry, and evaluation artifacts unless a future implementation defines a stable self-entry convention. Prior committed registry artifacts can be mapped as generated/support rows in later runs.</td><td>Manifests cannot hash themselves without an explicit convention.</td></tr>
+          <tr><td>Backfill command reuse</td><td>Backfill does not own bespoke enumeration logic; it invokes the Foundation file-registry generation, check, eval, and graph-link commands with the active run ID.</td><td>The bootstrap path and steady-state path should not drift.</td></tr>
+          <tr><td>Steady-state invalidation</td><td>Changed files are detected by hash/size mismatch and routed to remap or graph-link refresh before handoff.</td><td>The registry remains useful after initial backfill.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="graph-links" data-spec-section="graph-links" data-section-type="graph-contract">
+      <h2>Graph links</h2>
+      <p>File-registry rows are the bridge from implementation evidence to durable intent. Links are allowed to mature over time: bootstrap rows may start with inferred domains and unresolved capability hints, but steady-state rows must resolve to the spec registry and capability matrix when those artifacts exist.</p>
+      <table class="status-table">
+        <thead><tr><th>Link</th><th>Required for</th><th>Valid target</th><th>Failure behavior</th></tr></thead>
+        <tbody>
+          <tr><td>File to spec section</td><td>Behavior-bearing files, behavior-defining docs, config with behavior impact, and tests.</td><td><code>specId#sectionId</code> present in the generated spec registry.</td><td>Graph checker fails or records an unresolved bootstrap flag.</td></tr>
+          <tr><td>File to capability</td><td>Behavior-bearing implementation, tests, workflows, jobs, and operator surfaces.</td><td>Capability ID in the active backfill or steady-state capability matrix.</td><td>Capability inference/eval routes the row to review.</td></tr>
+          <tr><td>File to verification</td><td>Behavior-bearing files after capability/spec coverage exists.</td><td>Command, test path, eval ID, manual evidence, or explicit test gap mapped to the same spec/capability.</td><td>Handoff reports a test-gap or verification-link finding.</td></tr>
+          <tr><td>Related files</td><td>Every mapped row when useful evidence exists.</td><td>Other manifest paths, external system labels, or generated/support references.</td><td>Quality eval can route vague or missing relationships back to the fill loop.</td></tr>
+        </tbody>
+      </table>
+      <p>The graph checker should support both bootstrap mode and strict mode. Bootstrap mode permits unresolved capability/spec/test links when the downstream artifact does not yet exist and requires review flags. Strict mode requires all behavior-bearing rows to resolve.</p>
+    </section>
+
+    <section id="lifecycle-modes" data-spec-section="lifecycle-modes" data-section-type="lifecycle">
+      <h2>Lifecycle modes</h2>
+      <table class="status-table">
+        <thead><tr><th>Mode</th><th>When used</th><th>Required commands</th><th>Exit condition</th></tr></thead>
+        <tbody>
+          <tr><td>Bootstrap backfill</td><td>A repo is being adopted into Foundation and lacks registry/spec/capability coverage.</td><td>Generate manifest, initialize registry, fill rows, check, eval, graph-link as downstream artifacts appear.</td><td>Zero pending rows, no blocking flags, passing eval, and bootstrap graph links or explicit unresolved flags.</td></tr>
+          <tr><td>Steady-state build</td><td>A repo already has Foundation specs and a file registry.</td><td>Refresh changed rows, check stale hashes, validate graph links, route spec/test updates.</td><td>Changed files are mapped and behavior-bearing rows have current spec/capability/verification links.</td></tr>
+          <tr><td>Review</td><td>An agent is auditing a change, PR, or repo area.</td><td>Query registry by paths, capabilities, specs, or review flags; run targeted graph checks.</td><td>Findings include affected capabilities, spec sections, files, and tests.</td></tr>
+          <tr><td>Rebuild or migration</td><td>Architecture changes or large refactors need durable evidence.</td><td>Use registry clusters and graph links to define work slices and verification coverage.</td><td>Moved or replaced files preserve graph coverage or produce explicit gaps.</td></tr>
         </tbody>
       </table>
     </section>
@@ -191,6 +250,7 @@
         <li><strong>Single-agent baseline:</strong> correctness cannot depend on multiple agents. Parallelization may be an optimization only if rows are disjoint and merged through the same checker.</li>
         <li><strong>Batch size:</strong> choose batches small enough for the agent to inspect accurately and update rows before losing context.</li>
         <li><strong>Change handling:</strong> changed files invalidate affected rows and downstream surfaces/capabilities derived from them.</li>
+        <li><strong>Graph drift:</strong> changed specs, capability rows, or verification targets can invalidate registry links even when file hashes are unchanged.</li>
       </ul>
     </section>
 
@@ -205,6 +265,8 @@
           <tr><td>Large file needs deeper mapping</td><td>Eval routes row specificity or behavior-bearing detection back to the fill loop.</td><td>Agent adds responsibility rows.</td><td>Source sample and registry row.</td></tr>
           <tr><td>Canonical artifact drift</td><td>Checker fails when manifest, registry, report, or run ID paths disagree.</td><td>Agent repairs artifact naming and links before continuing.</td><td>Checker output and report links.</td></tr>
           <tr><td>Blocking review flag</td><td>Handoff gate fails until the flag is resolved or converted into a non-blocking note with evidence.</td><td>Agent revisits the source file and updates the row.</td><td>Registry row and eval report.</td></tr>
+          <tr><td>Broken graph link</td><td>Graph checker reports missing spec sections, capability IDs, or verification targets.</td><td>Agent updates the row, spec metadata, capability matrix, or test mapping.</td><td>Registry row and generated spec registry.</td></tr>
+          <tr><td>Generated artifact self-reference</td><td>Current-run generated artifacts are excluded from the input snapshot unless a self-entry convention exists.</td><td>Agent records the exclusion rule in manifest metadata and maps prior registry artifacts in later snapshots if present.</td><td>Manifest rules and checker output.</td></tr>
           <tr><td>Context compaction or handoff</td><td>Agent reads pending rows and latest run-log checkpoint after rereading the instruction chain.</td><td>Work resumes without restarting discovery.</td><td>AGENTS, active skill, registry, report, and run log.</td></tr>
         </tbody>
       </table>
@@ -213,8 +275,9 @@
     <section id="boundaries" data-spec-section="boundaries" data-section-type="boundaries">
       <h2>Boundaries and abstraction level</h2>
       <ul>
-        <li><strong>Owns:</strong> file manifest, file registry schema, fill loop, registry checker, registry quality eval contract.</li>
+        <li><strong>Owns:</strong> file manifest, file registry schema, fill loop, graph-link model, registry checker, registry quality eval contract.</li>
         <li><strong>Feeds:</strong> surface registry, capability matrix, spec authoring, stale-doc review, cleanup planning.</li>
+        <li><strong>Consumes:</strong> generated spec registry, capability matrix, test/eval metadata, and run-log/report state.</li>
         <li><strong>Does not own:</strong> capability clustering, final spec graph evaluation, or code/document cleanup.</li>
       </ul>
     </section>
@@ -229,6 +292,7 @@
         <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>
         <tbody>
           <tr><td>BFR-T-1</td><td><code>#data-model</code>, <code>#contracts</code></td><td>Test spec defines the planned deterministic and eval gates.</td><td>planned</td></tr>
+          <tr><td>BFR-T-2</td><td><code>#graph-links</code>, <code>#lifecycle-modes</code></td><td>Test spec defines planned graph-link and steady-state lifecycle checks.</td><td>planned</td></tr>
         </tbody>
       </table>
     </section>
