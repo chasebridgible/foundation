@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-file-registry.test">
+<meta name="spec:type" content="test">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-05-22">
+<title>Foundation Backfill File Registry Test Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-file-registry.test",
+  "title": "Foundation Backfill File Registry Test Spec",
+  "type": "test",
+  "status": "draft",
+  "lastUpdated": "2026-05-22",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-file-registry.descriptive",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.backfill-file-registry.descriptive", "relationship": "parent", "sections": ["product-intent", "states-and-rules", "ux-contracts"] },
+    { "id": "foundation.backfill-file-registry.technical", "relationship": "sibling", "sections": ["data-model", "contracts", "failure-modes"] },
+    { "id": "foundation.backfill-evaluation.process", "relationship": "sibling", "sections": ["scoring-rubric", "acceptability-gate"] },
+    { "id": "foundation.backfill-golden-example", "relationship": "sibling", "sections": ["evaluator-scorecard"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "implementationPaths": [
+    { "path": "foundation/docs/specs/foundation-backfill-file-registry.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive intent for the file registry layer." },
+    { "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html", "kind": "doc", "ownership": "reference", "notes": "Technical contract this test spec verifies." }
+  ],
+  "coverage": [
+    {
+      "id": "BFR-E-1",
+      "level": "unit",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "mapsTo": ["foundation.backfill-file-registry.technical#contracts"],
+      "evidence": "Planned deterministic checker verifies manifest and registry invariants."
+    },
+    {
+      "id": "BFR-E-2",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "mapsTo": ["foundation.backfill-file-registry.descriptive#ux-contracts"],
+      "evidence": "Planned small-repo gold comparison verifies discovery quality before large-repo use."
+    }
+  ],
+  "tags": ["test", "foundation", "backfill", "file-registry", "eval"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">V</div>
+    <div>
+      <div class="sidebar-title">File Registry Eval</div>
+      <div class="sidebar-sub">test spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#verification-contract"><span class="nav-num">01</span>Contract</a>
+    <a class="nav-item" href="#acceptance-mapping"><span class="nav-num">02</span>Acceptance</a>
+    <a class="nav-item" href="#coverage-plan"><span class="nav-num">03</span>Coverage</a>
+    <a class="nav-item" href="#commands-and-evidence"><span class="nav-num">04</span>Evidence</a>
+    <a class="nav-item" href="#risk-based-signal-choice"><span class="nav-num">05</span>Risk signal</a>
+    <a class="nav-item" href="#gaps-and-followups"><span class="nav-num">06</span>Gaps</a>
+    <a class="nav-item" href="#coevolution-rule"><span class="nav-num">07</span>Co-evolution</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-file-registry-test.html</div>
+    <h1>Backfill File Registry Test Spec</h1>
+    <p class="lede">The test layer is the eval system for file-registry backfill: deterministic checks prove complete current coverage, and quality evals prove the rows are accurate enough to support surface and capability discovery.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> draft</div>
+      <div><strong>Updated:</strong> 2026-05-22</div>
+      <div><strong>Parent:</strong> foundation.backfill-file-registry.descriptive</div>
+    </div>
+    <p>If this evidence passes, a reviewer can trust that every repo-owned file has a current registry row and that sampled rows describe source files accurately enough for downstream surface/capability inference at rebuild-grade depth.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
+      <h2>Acceptance conditions mapped to specs</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Condition</th><th>Maps to</th><th>Must prove</th></tr></thead>
+        <tbody>
+          <tr><td>AC-1</td><td>The repo-owned file set is deterministic.</td><td><code>foundation.backfill-file-registry.descriptive#capability-contract</code></td><td>Manifest rules define tracked, untracked non-ignored, and explicitly included files before semantic mapping begins.</td></tr>
+          <tr><td>AC-2</td><td>Every repo-owned file appears in the manifest and registry exactly once.</td><td><code>foundation.backfill-file-registry.descriptive#states-and-rules</code></td><td>No missing paths, duplicate paths, or unregistered manifest entries.</td></tr>
+          <tr><td>AC-3</td><td>Canonical artifacts exist for the run.</td><td><code>foundation.backfill-file-registry.technical#data-model</code></td><td>Manifest JSON, registry JSONL, checker output, and eval HTML use the same dated run ID.</td></tr>
+          <tr><td>AC-4</td><td>Registry status remains minimal.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Status enum allows only <code>pending</code> and <code>mapped</code>.</td></tr>
+          <tr><td>AC-5</td><td>Mapped rows are fresh.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Registry hash and size match the current file.</td></tr>
+          <tr><td>AC-6</td><td>Mapped rows have enough structured meaning.</td><td><code>foundation.backfill-file-registry.technical#data-model</code></td><td>Required fields are present; mapped rows do not rely on <code>unknown</code> classifications or vague summaries.</td></tr>
+          <tr><td>AC-7</td><td>Large or multi-role files are described thoroughly.</td><td><code>foundation.backfill-file-registry.descriptive#states-and-rules</code></td><td>Rows include responsibilities or sections for behavior-bearing large files.</td></tr>
+          <tr><td>AC-8</td><td>The loop is resumable.</td><td><code>foundation.backfill-file-registry.technical#concurrency-and-timing</code></td><td>Pending rows and checkpoint state identify the next batch after compaction, interruption, or handoff.</td></tr>
+          <tr><td>AC-9</td><td>Handoff is gated.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Surface registry work starts only after zero pending rows, checker pass, eval pass, no blocking review flags, and current gold calibration.</td></tr>
+          <tr><td>AC-10</td><td>Small-repo gold comparison detects inventory misses.</td><td><code>foundation.backfill-file-registry.descriptive#ux-contracts</code></td><td>Cold backfill output is compared against a manually authored gold registry before large-repo use.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
+      <h2>Unit, integration, e2e, and manual coverage</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Level</th><th>Path or evidence</th><th>Status</th><th>Why this level</th></tr></thead>
+        <tbody>
+          <tr><td>T-1</td><td>unit</td><td><code>backfill:file-registry:init</code> fixture tests</td><td>planned</td><td>Manifest include rules, canonical file naming, and skeleton row creation are deterministic.</td></tr>
+          <tr><td>T-2</td><td>unit</td><td><code>backfill:file-registry:check</code> fixture tests</td><td>planned</td><td>Missing, duplicate, stale, pending, invalid rows, invalid statuses, invalid enums, and artifact path drift fail mechanically.</td></tr>
+          <tr><td>T-3</td><td>eval</td><td>LLM judge over sampled file rows and source content</td><td>planned</td><td>Row accuracy, specificity, behavior-bearing detection, and large-file handling require semantic judgment.</td></tr>
+          <tr><td>T-4</td><td>manual/eval</td><td>Small repo gold registry comparison</td><td>planned</td><td>End-to-end discovery quality needs a known-answer fixture before MatchCoach-scale runs.</td></tr>
+          <tr><td>T-5</td><td>integration</td><td>Surface registry consumes file registry output</td><td>planned</td><td>Downstream layers must be able to query behavior-bearing files and related evidence.</td></tr>
+          <tr><td>T-6</td><td>e2e</td><td>Backfill run reaches handoff gate on fixture repo</td><td>planned</td><td>The full loop should prove zero pending rows, no blocking flags, passing eval, and current gold calibration.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">
+      <h2>Commands or evidence required</h2>
+      <ul class="path-list">
+        <li><code>npm run backfill:file-registry:init -- --repo /path/to/repo --run-id YYYYMMDD-NN</code> - planned command that creates <code>file-manifest-YYYYMMDD-NN.json</code> and skeleton <code>file-registry-YYYYMMDD-NN.jsonl</code>.</li>
+        <li><code>npm run backfill:file-registry:check -- /path/to/repo/docs/specs/backfill/file-registry-YYYYMMDD-NN.jsonl</code> - planned command that verifies deterministic invariants and handoff gate conditions.</li>
+        <li><code>npm run backfill:file-registry:eval -- --repo /path/to/repo --run-id YYYYMMDD-NN</code> - planned command or skill wrapper that runs semantic row-quality evaluation.</li>
+        <li>Gold fixture report - a small repo with manually authored file registry and expected surface/capability hints.</li>
+      </ul>
+    </section>
+
+    <section id="risk-based-signal-choice" data-spec-section="risk-based-signal-choice" data-section-type="risk">
+      <h2>Risk-based signal choice</h2>
+      <p>Use deterministic checks for completeness and freshness. Use evals for semantic correctness.</p>
+      <table class="status-table">
+        <thead><tr><th>Risk</th><th>Signal</th><th>Why not cheaper?</th><th>Why not broader?</th></tr></thead>
+        <tbody>
+          <tr><td>File omitted from registry</td><td>deterministic checker</td><td>Not needed; manifest comparison is exact.</td><td>LLM review would be weaker than set comparison.</td></tr>
+          <tr><td>Row is vague or wrong</td><td>LLM judge with source sample</td><td>Schema checks cannot know whether the row describes the file.</td><td>Full human review is too expensive for every file.</td></tr>
+          <tr><td>Behavior-bearing file marked as support-only</td><td>stratified eval sample plus gold fixture</td><td>Static heuristics miss project-specific behavior.</td><td>Full repo human review does not scale.</td></tr>
+          <tr><td>Discovery process looks complete but misses a domain</td><td>small-repo gold comparison before large-repo use</td><td>Single-row samples miss system-level omissions.</td><td>Large-repo golds are too expensive for early validation.</td></tr>
+        </tbody>
+      </table>
+      <h3>Registry eval rubric</h3>
+      <table class="status-table">
+        <thead><tr><th>Category</th><th>Points</th><th>Excellent means</th></tr></thead>
+        <tbody>
+          <tr><td>Completeness and freshness</td><td>20</td><td>Manifest and registry match exactly; hashes/sizes are current.</td></tr>
+          <tr><td>Kind/domain/evidence classification</td><td>15</td><td>Rows classify file purpose and evidence value accurately.</td></tr>
+          <tr><td>Role and responsibilities</td><td>20</td><td>Rows explain what the file does with enough detail for later discovery.</td></tr>
+          <tr><td>Behavior-bearing detection</td><td>15</td><td>Routes, services, models, jobs, tests, docs, and infra with behavior implications are not downplayed.</td></tr>
+          <tr><td>Related-file usefulness</td><td>10</td><td>Related paths help future agents navigate evidence clusters.</td></tr>
+          <tr><td>Large-file handling</td><td>10</td><td>Large or multi-role files include responsibilities or sections.</td></tr>
+          <tr><td>Resume and review state</td><td>10</td><td>Pending rows, review flags, and next actions are explicit.</td></tr>
+        </tbody>
+      </table>
+      <h3>Sampling contract</h3>
+      <ul>
+        <li>Repos with 100 or fewer manifest files evaluate every mapped row.</li>
+        <li>Large repos evaluate every row with a blocking review flag, every large or multi-role file, every entry point, and every behavior-bearing file identified by static signals.</li>
+        <li>Large repos also include a deterministic stratified sample across <code>kind</code>, <code>domain</code>, <code>evidenceValue</code>, source status, docs, tests, config, infra, generated files, assets, and support files.</li>
+        <li>When a sampled row fails, the next eval expands that stratum until the failure pattern is resolved.</li>
+      </ul>
+      <h3>Gold comparison gate</h3>
+      <ul>
+        <li>The small fixture repo must have a manually authored manifest, registry, behavior-bearing file list, and expected surface/capability hints.</li>
+        <li>Gold manifest recall must be <code>100</code>. Critical behavior-bearing recall must be <code>100</code>.</li>
+        <li>Gold row-quality score must be at least <code>96</code>, with no normalized category below <code>9/10</code>.</li>
+      </ul>
+      <p>Acceptable means deterministic checks pass, total eval score is at least <code>96</code>, no category is below <code>9/10</code> when normalized, no pending rows remain, no blocking review flags remain, current gold calibration passes, and no critical behavior-bearing file is materially misclassified.</p>
+    </section>
+
+    <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
+      <h2>Gaps and follow-up tests</h2>
+      <table class="status-table">
+        <thead><tr><th>Gap</th><th>Risk</th><th>Follow-up trigger</th></tr></thead>
+        <tbody>
+          <tr><td>Implementation scripts do not exist yet.</td><td>high</td><td>Before this layer is used in target repo backfills.</td></tr>
+          <tr><td>No gold fixture repo has been selected.</td><td>high</td><td>Before evaluating registry discovery quality.</td></tr>
+          <tr><td>Surface registry derivation is not yet specified.</td><td>medium</td><td>After file registry spec is accepted.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coevolution-rule" data-spec-section="coevolution-rule" data-section-type="maintenance">
+      <h2>Co-evolution rule</h2>
+      <div class="callout warning"><strong>Required:</strong> changes to file registry schema, status model, manifest definition, checker behavior, or eval rubric must update the descriptive, technical, and test specs together.</div>
+      <p>When implementation exists, fixture outputs and the gold comparison must be updated in the same change as schema or rubric changes.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation Backfill File Registry Test Spec · draft eval contract</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

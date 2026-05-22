@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-template.descriptive">
 <meta name="spec:type" content="template">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-20">
+<meta name="spec:last-updated" content="2026-05-21">
 <title>Descriptive Spec Template</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,13 +16,13 @@
   "title": "Descriptive Spec Template",
   "type": "template",
   "status": "active",
-  "lastUpdated": "2026-05-20",
+  "lastUpdated": "2026-05-21",
   "reviewCadence": "quarterly",
   "confidence": "high",
   "parent": "foundation.spec-system",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.spec-template.technical", "relationship": "sibling", "sections": ["required-depth"] },
+    { "id": "foundation.spec-template.technical", "relationship": "sibling", "sections": ["required-depth", "capability-contract"] },
     { "id": "foundation.spec-template.test", "relationship": "sibling", "sections": ["verification-contract"] }
   ],
   "ownedPaths": [
@@ -46,14 +46,15 @@
   <div class="nav-section">
     <div class="nav-label">Required</div>
     <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Product intent</a>
-    <a class="nav-item" href="#user-model"><span class="nav-num">02</span>User model</a>
-    <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Interface journey</a>
-    <a class="nav-item" href="#states-and-rules"><span class="nav-num">04</span>States and rules</a>
-    <a class="nav-item" href="#edge-cases"><span class="nav-num">05</span>Edge cases</a>
-    <a class="nav-item" href="#ux-contracts"><span class="nav-num">06</span>UX contracts</a>
-    <a class="nav-item" href="#links-and-paths"><span class="nav-num">07</span>Links and paths</a>
-    <a class="nav-item" href="#design-placeholders"><span class="nav-num">08</span>Rendered experience</a>
-    <a class="nav-item" href="#test-coverage"><span class="nav-num">09</span>Test coverage</a>
+    <a class="nav-item" href="#capability-contract"><span class="nav-num">02</span>Capability contract</a>
+    <a class="nav-item" href="#user-model"><span class="nav-num">03</span>User model</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">04</span>Interface journey</a>
+    <a class="nav-item" href="#states-and-rules"><span class="nav-num">05</span>States and rules</a>
+    <a class="nav-item" href="#edge-cases"><span class="nav-num">06</span>Edge cases</a>
+    <a class="nav-item" href="#ux-contracts"><span class="nav-num">07</span>UX contracts</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">08</span>Links and paths</a>
+    <a class="nav-item" href="#design-placeholders"><span class="nav-num">09</span>Rendered experience</a>
+    <a class="nav-item" href="#test-coverage"><span class="nav-num">10</span>Test coverage</a>
   </div>
 </nav>
 
@@ -64,7 +65,7 @@
     <p class="lede">Replace this with the product outcome in user language. A descriptive spec defines what should exist from the user's side. It should be precise enough that a test spec can verify it.</p>
     <div class="meta-row">
       <div><strong>Template status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Updated:</strong> 2026-05-21</div>
     </div>
     <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace the new file's <code>spec-metadata</code>, meta tags, visible placeholders, related spec IDs, owned paths, and coverage entries before using it to drive work.</div>
     <h3>Intent</h3>
@@ -74,6 +75,23 @@
   </section>
 
   <article class="doc-body">
+    <section id="capability-contract" data-spec-section="capability-contract" data-section-type="contracts">
+      <h2>Capability contract</h2>
+      <p>For backfilled capability specs, define the behavior unit this spec owns. For high-level parent specs, state that the section is parent-level and link child capability specs instead of claiming child behavior.</p>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Actor</td><td>[user, operator, admin, external system, scheduled system]</td><td>[evidence]</td></tr>
+          <tr><td>Intended outcome</td><td>[what becomes true for the actor]</td><td>[evidence]</td></tr>
+          <tr><td>Domain object</td><td>[product or system object]</td><td>[evidence]</td></tr>
+          <tr><td>Actions</td><td>[supported actions in user/operator language]</td><td>[evidence]</td></tr>
+          <tr><td>States</td><td>[ready, loading, empty, partial, success, error, permission, completed, or domain states]</td><td>[evidence]</td></tr>
+          <tr><td>Rules</td><td>[permissions, ownership, entitlement, timing, policy]</td><td>[evidence]</td></tr>
+          <tr><td>Surfaces</td><td>[routes, screens, admin surfaces, notifications, imports, jobs, or reports]</td><td>[evidence]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <section id="user-model" data-spec-section="user-model" data-section-type="user-model">
       <h2>User model</h2>
       <p>Define who uses this, what they are trying to accomplish, what they know before entering the flow, and what language they would use. Use product/user language, not implementation language.</p>
@@ -142,14 +160,14 @@
 
     <section id="design-placeholders" data-spec-section="design-placeholders" data-section-type="design">
       <h2>Rendered experience and design evidence</h2>
-      <p>If this spec owns user-facing UI or UX-visible behavior, include a rendered HTML-native experience directly in the spec. Show the intended layout, representative states, and lightweight interactions such as open/closed panels, selected rows, filters, tabs, menus, inline editing, comment submission, retries, or approval actions. This is a spec-native intent prototype, not production implementation.</p>
+      <p>If this spec owns user-facing UI or UX-visible behavior, include a rendered HTML-native experience directly in the spec. Show the intended layout, representative states, role or state toggles where useful, and lightweight interactions such as open/closed panels, selected rows, filters, tabs, menus, inline editing, comment submission, retries, or approval actions. This is a spec-native intent prototype, not production implementation.</p>
       <div data-spec-demo="[feature-demo]">
         <button type="button" data-demo-toggle="[state-name]">[state-changing action]</button>
         <div data-demo-state="[default-state]">[rendered default UI state]</div>
         <div data-demo-state="[alternate-state]" hidden>[rendered alternate UI state]</div>
       </div>
       <ul>
-        <li><strong>[rendered state]:</strong> [ready, empty, loading, error, permission, completed, or other state represented in HTML].</li>
+        <li><strong>[rendered state]:</strong> [ready, empty, loading, error, permission, partial, success, completed, or other state represented in HTML].</li>
         <li><strong>[interaction]:</strong> [what the user can click/type/select in the spec demo and what state changes].</li>
         <li><strong>[design artifact]:</strong> [path or URL] - [screenshot, Figma frame, browser capture, or existing UI evidence].</li>
       </ul>

@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-template.technical">
 <meta name="spec:type" content="template">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-11">
+<meta name="spec:last-updated" content="2026-05-21">
 <title>Technical Spec Template</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,13 +16,13 @@
   "title": "Technical Spec Template",
   "type": "template",
   "status": "active",
-  "lastUpdated": "2026-05-11",
+  "lastUpdated": "2026-05-21",
   "reviewCadence": "quarterly",
   "confidence": "high",
   "parent": "foundation.spec-system",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.spec-template.descriptive", "relationship": "sibling", "sections": ["product-intent", "states-and-rules"] },
+    { "id": "foundation.spec-template.descriptive", "relationship": "sibling", "sections": ["product-intent", "capability-contract", "states-and-rules"] },
     { "id": "foundation.spec-template.test", "relationship": "sibling", "sections": ["risk-based-signal-choice"] }
   ],
   "ownedPaths": [
@@ -46,14 +46,15 @@
   <div class="nav-section">
     <div class="nav-label">Required</div>
     <a class="nav-item active" href="#required-depth"><span class="nav-num">01</span>Required depth</a>
-    <a class="nav-item" href="#internal-sequence"><span class="nav-num">02</span>Sequence</a>
-    <a class="nav-item" href="#data-model"><span class="nav-num">03</span>Data model</a>
-    <a class="nav-item" href="#contracts"><span class="nav-num">04</span>Contracts</a>
-    <a class="nav-item" href="#concurrency-and-timing"><span class="nav-num">05</span>Timing</a>
-    <a class="nav-item" href="#failure-modes"><span class="nav-num">06</span>Failures</a>
-    <a class="nav-item" href="#boundaries"><span class="nav-num">07</span>Boundaries</a>
-    <a class="nav-item" href="#migrations-and-adrs"><span class="nav-num">08</span>Migrations/ADRs</a>
-    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">09</span>Paths/coverage</a>
+    <a class="nav-item" href="#capability-contract"><span class="nav-num">02</span>Capability contract</a>
+    <a class="nav-item" href="#internal-sequence"><span class="nav-num">03</span>Sequence</a>
+    <a class="nav-item" href="#data-model"><span class="nav-num">04</span>Data model</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">05</span>Contracts</a>
+    <a class="nav-item" href="#concurrency-and-timing"><span class="nav-num">06</span>Timing</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">07</span>Failures</a>
+    <a class="nav-item" href="#boundaries"><span class="nav-num">08</span>Boundaries</a>
+    <a class="nav-item" href="#migrations-and-adrs"><span class="nav-num">09</span>Migrations/ADRs</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">10</span>Paths/coverage</a>
   </div>
 </nav>
 
@@ -65,7 +66,7 @@
     <div class="meta-row">
       <div><strong>Template status:</strong> active</div>
       <div><strong>Parent:</strong> foundation.spec-system</div>
-      <div><strong>Updated:</strong> 2026-05-11</div>
+      <div><strong>Updated:</strong> 2026-05-21</div>
     </div>
     <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace the new file's <code>spec-metadata</code>, meta tags, visible placeholders, related spec IDs, owned paths, and coverage entries before using it to drive work.</div>
     <h3>Depth calibration</h3>
@@ -75,6 +76,20 @@
   </section>
 
   <article class="doc-body">
+    <section id="capability-contract" data-spec-section="capability-contract" data-section-type="contracts">
+      <h2>Capability contract</h2>
+      <p>For backfilled technical specs, map the capability to required contracts while keeping implementation latitude explicit.</p>
+      <table class="status-table">
+        <thead><tr><th>Capability field</th><th>Technical contract</th><th>Classification</th><th>Verification target</th></tr></thead>
+        <tbody>
+          <tr><td>Outcome</td><td>[durable state, event, side effect, or observable result]</td><td>required contract</td><td>[test/eval target]</td></tr>
+          <tr><td>Current evidence</td><td>[how the repo currently implements or implies the contract]</td><td>current evidence</td><td>[source/sample]</td></tr>
+          <tr><td>Architecture constraint</td><td>[implementation choice that must remain and why]</td><td>constraint</td><td>[migration/security/platform/ops check]</td></tr>
+          <tr><td>Implementation latitude</td><td>[transport, framework, storage, provider, or module choice that may change]</td><td>latitude</td><td>[contract-level check]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
       <h2>Internal sequence</h2>
       <p>Describe the system sequence from trigger to durable state change to emitted side effects. Include retries, ordering, and idempotency rules.</p>
@@ -100,6 +115,7 @@
     <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
       <h2>Contracts and integrations</h2>
       <p>Define API shapes, event names, payloads, external service contracts, and versioning rules. Use structured examples when shape matters.</p>
+      <p>Classify each important contract as required behavior, current evidence, architecture constraint, or implementation latitude.</p>
       <pre><code>{
   "event": "replace.event.name",
   "payload": {

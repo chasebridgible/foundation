@@ -1,55 +1,36 @@
 ---
 name: backfill-spec-adequacy-review
-description: Review a backfilled slice for adequacy before it can be marked drafted. Use inside Backfill Specs after descriptive, rendered UX, and technical specs are written to verify coverage, specificity, traceability, contract preservation, architecture flexibility, and whether a future build agent could implement intended behavior from the specs.
+description: Review a backfilled capability slice before evaluator scoring. Use inside Backfill Specs after descriptive, rendered UX, and technical specs are written to verify coverage, split boundaries, specificity, traceability, contract preservation, architecture flexibility, and spec-only rebuild readiness.
 ---
 
 # Backfill Spec Adequacy Review
 
-Use this skill inside `backfill-specs` before a slice can be sent to strict evaluator scoring.
+Use inside `backfill-specs` before `evaluate-backfill-specs`.
 
-## Review Question
+## Core Question
 
-Could a future build agent implement this intended behavior from the specs while preserving required contracts and using implementation latitude where architecture is flexible?
+Could a future build agent implement the intended behavior from the specs while preserving required contracts and using implementation latitude where flexible?
 
-Answer with evidence. If the answer is weak, revise the specs before moving to the next slice.
+## Check
 
-## Adequacy Checks
+- capability rows have descriptive spec sections, technical spec sections, evidence, verification targets, status
+- no attached row remains `needs-split`
+- evidence surfaces are owned, parent-owned with reason, out of scope, or blocked by human decision
+- visible/operator entry points map to concrete flows
+- descriptive specs cover intent, actors, journeys, states, rules, edge cases, recovery, and evidence
+- visible behavior includes rendered HTML-native UX or a nonvisual explanation
+- technical specs cover data, APIs, services/jobs, permissions, integrations, timing, failures, observability, boundaries
+- technical specs separate required contracts, current evidence, constraints, and latitude
+- parent specs define vocabulary/graph; child specs carry behavior
+- vague nouns, unsupported claims, summary-only prose, and missing state/rule tables are revised
+- report/queue names owner skill, next action, exit criterion, capability IDs, and blocking gaps
+- observed behavior, inferred intent, required future contract, and human decisions are separated
+- spec-only rebuild probe lists source files still needed; source needed for core behavior means revision
 
-Review the slice against its inventory and evidence:
+## Output
 
-- every relevant inventory item has an owning spec or out-of-scope reason
-- every user-facing entry point maps to concrete user flows
-- descriptive specs state intent, users, journeys, visible states, rules, edge cases, recovery, and evidence
-- visual or UX-visible behavior includes rendered, interactive HTML-native examples or a nonvisual explanation
-- technical specs define data, APIs, services, jobs, permissions, integrations, timing, failures, observability, and boundaries
-- descriptive specs include architecture details in the intent layer when they are user-visible or product constraints
-- technical specs separate required contracts, current implementation evidence, architecture constraints, and implementation latitude
-- architecture constraints include a reason grounded in production data, external contracts, platform requirements, security/compliance, operational needs, performance, or human direction
-- parent specs define vocabulary and graph structure, while child specs carry behavior
-- vague nouns, unsupported claims, summary-only prose, and missing state/rule tables have been revised
-- major claims are backed by evidence paths or marked as inferred/review-needed
-- the durable queue names the slice, owner skill, current status, next action, and exit criterion
-- observed behavior, inferred intent, required future contract, and unresolved human decisions are separated
-- the slice is small enough to score strictly; parent-level summaries do not stand in for child behavior
+Append an adequacy row/table to the dated report with slice ID, capability IDs, spec IDs, coverage results, revision actions, remaining questions, evaluator readiness, and status.
 
-## Report Output
+## Done
 
-Append an adequacy table to the dated report:
-
-- slice ID
-- descriptive spec ID
-- technical spec ID
-- inventory coverage result
-- user-flow coverage result
-- rendered UX result
-- technical contract result
-- architecture flexibility result
-- traceability result
-- revision actions taken
-- remaining review questions
-- evaluator readiness: ready-for-evaluation or needs-revision
-- status: needs-revision, revision-ready, or ready-for-evaluation
-
-## Completion Rule
-
-Mark a slice `ready-for-evaluation` after revising the specs to satisfy the checks. A slice with unresolved human review questions may proceed only when the intended behavior is drafted clearly and the questions are isolated as non-blocking decisions. The slice becomes `acceptable` only after `evaluate-backfill-specs` scores it at the required threshold.
+Mark `ready-for-evaluation` only after checks pass and the capability matrix is updated. Human questions may remain only when the intended behavior is clear and the questions are non-blocking.
