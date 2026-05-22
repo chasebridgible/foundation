@@ -55,7 +55,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-05-21",
+  "lastUpdated": "2026-05-22",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -302,7 +302,7 @@
       "status": "active",
       "file": "foundation/docs/specs/templates/descriptive-spec-template.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-20",
+      "lastUpdated": "2026-05-21",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -312,7 +312,8 @@
           "id": "foundation.spec-template.technical",
           "relationship": "sibling",
           "sections": [
-            "required-depth"
+            "required-depth",
+            "capability-contract"
           ]
         },
         {
@@ -344,7 +345,7 @@
       "status": "active",
       "file": "foundation/docs/specs/templates/technical-spec-template.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-11",
+      "lastUpdated": "2026-05-21",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -355,6 +356,7 @@
           "relationship": "sibling",
           "sections": [
             "product-intent",
+            "capability-contract",
             "states-and-rules"
           ]
         },
@@ -1049,6 +1051,17 @@
             "foundation.backfill-evaluation.process#paths-and-coverage"
           ],
           "evidence": "Doctor fixtures include evaluate-backfill-specs as a required Foundation skill."
+        },
+        {
+          "id": "FBE-4",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "mapsTo": [
+            "foundation.backfill-evaluation.process#scoring-rubric",
+            "foundation.backfill-evaluation.process#acceptability-gate"
+          ],
+          "evidence": "Evaluation skill requires capability coverage, split-boundary checks, and spec-only rebuild probes."
         }
       ],
       "tags": [
@@ -1057,6 +1070,278 @@
         "backfill",
         "evaluation",
         "llm-judge"
+      ]
+    },
+    {
+      "id": "foundation.backfill-file-registry.technical",
+      "title": "Foundation Backfill File Registry Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-22",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-file-registry.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-file-registry.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-file-registry.test",
+          "relationship": "sibling",
+          "sections": [
+            "acceptance-mapping",
+            "coverage-plan",
+            "risk-based-signal-choice"
+          ]
+        },
+        {
+          "id": "foundation.backfill-orchestration.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Descriptive intent for this technical layer."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Verification and eval contract for this layer."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFR-T-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "mapsTo": [
+            "foundation.backfill-file-registry.technical#data-model",
+            "foundation.backfill-file-registry.technical#contracts"
+          ],
+          "evidence": "Test spec will verify registry schema, coverage, freshness, and eval quality requirements."
+        }
+      ],
+      "tags": [
+        "technical",
+        "foundation",
+        "backfill",
+        "file-registry"
+      ]
+    },
+    {
+      "id": "foundation.backfill-file-registry.test",
+      "title": "Foundation Backfill File Registry Test Spec",
+      "type": "test",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-22",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-file-registry.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-file-registry.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-file-registry.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts",
+            "failure-modes"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evaluation.process",
+          "relationship": "sibling",
+          "sections": [
+            "scoring-rubric",
+            "acceptability-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-golden-example",
+          "relationship": "sibling",
+          "sections": [
+            "evaluator-scorecard"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Descriptive intent for the file registry layer."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Technical contract this test spec verifies."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFR-E-1",
+          "level": "unit",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "mapsTo": [
+            "foundation.backfill-file-registry.technical#contracts"
+          ],
+          "evidence": "Planned deterministic checker verifies manifest and registry invariants."
+        },
+        {
+          "id": "BFR-E-2",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "mapsTo": [
+            "foundation.backfill-file-registry.descriptive#ux-contracts"
+          ],
+          "evidence": "Planned small-repo gold comparison verifies discovery quality before large-repo use."
+        }
+      ],
+      "tags": [
+        "test",
+        "foundation",
+        "backfill",
+        "file-registry",
+        "eval"
+      ]
+    },
+    {
+      "id": "foundation.backfill-file-registry.descriptive",
+      "title": "Foundation Backfill File Registry",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-file-registry.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-22",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-file-registry.technical",
+        "foundation.backfill-file-registry.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "interface-journey",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-file-registry.technical",
+          "relationship": "child",
+          "sections": [
+            "required-depth",
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-file-registry.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping",
+            "risk-based-signal-choice"
+          ]
+        },
+        {
+          "id": "foundation.backfill-orchestration.technical",
+          "relationship": "sibling",
+          "sections": [
+            "internal-sequence",
+            "data-model"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow this file-registry layer feeds."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Backfill orchestration contract that will incorporate this layer."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFR-D-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "mapsTo": [
+            "foundation.backfill-file-registry.descriptive#states-and-rules",
+            "foundation.backfill-file-registry.descriptive#ux-contracts"
+          ],
+          "evidence": "Test spec will define deterministic registry checks and LLM quality evaluation."
+        }
+      ],
+      "tags": [
+        "descriptive",
+        "foundation",
+        "backfill",
+        "file-registry"
       ]
     },
     {
@@ -1283,7 +1568,7 @@
           "mapsTo": [
             "foundation.backfill-orchestration.technical#failure-modes"
           ],
-          "evidence": "Run a large target repo backfill and verify the report marks complete after relevant inventory items are mapped to acceptable slices, parent-covered, blocked by a named human decision, or out of scope."
+          "evidence": "Run a large target repo backfill and verify the report marks complete after relevant capability rows are acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope, and evidence surfaces map to capability rows."
         },
         {
           "id": "FBO-5",
@@ -1304,7 +1589,7 @@
             "foundation.backfill-orchestration.technical#data-model",
             "foundation.backfill-orchestration.technical#failure-modes"
           ],
-          "evidence": "Backfill queue checker tests validate embedded queue presence, parsing, status shape, and acceptable-score threshold."
+          "evidence": "Backfill queue checker tests validate embedded capability matrix and durable queue presence, parsing, status shape, capability references, and acceptable-score threshold."
         },
         {
           "id": "FBO-7",
@@ -1316,6 +1601,17 @@
             "foundation.backfill-orchestration.technical#failure-modes"
           ],
           "evidence": "Backfill run log checker tests validate JSONL execution event shape, ordered sequences, run identity, and complete-event requirements."
+        },
+        {
+          "id": "FBO-8",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/backfill-repo-inventory/SKILL.md",
+          "mapsTo": [
+            "foundation.backfill-orchestration.technical#data-model",
+            "foundation.backfill-orchestration.technical#contracts"
+          ],
+          "evidence": "Inventory and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass."
         }
       ],
       "tags": [
@@ -1339,7 +1635,8 @@
       "parent": "foundation.workspace-model.descriptive",
       "children": [
         "foundation.backfill-orchestration.technical",
-        "foundation.backfill-evaluation.process"
+        "foundation.backfill-evaluation.process",
+        "foundation.backfill-file-registry.descriptive"
       ],
       "relatedSpecs": [
         {
@@ -1367,6 +1664,15 @@
             "evaluator-journey",
             "scoring-rubric",
             "acceptability-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-file-registry.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "states-and-rules",
+            "ux-contracts"
           ]
         },
         {
@@ -1451,6 +1757,12 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Evaluation process and strict acceptability gate."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Draft file-registry layer for mapping every repo-owned file before surface and capability synthesis."
         },
         {
           "path": "foundation/docs/specs/examples/backfill-golden-example.html",
@@ -1625,6 +1937,17 @@
             "foundation.backfill-specs.descriptive#ux-contracts"
           ],
           "evidence": "Run log checker tests validate JSONL parsing, run identity, event shape, ordered sequences, complete-event duration, and result fields."
+        },
+        {
+          "id": "FBS-9",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "mapsTo": [
+            "foundation.backfill-specs.descriptive#interface-journey",
+            "foundation.backfill-specs.descriptive#ux-contracts"
+          ],
+          "evidence": "Backfill Specs defines the capability matrix, capability split rule, and capability-backed completion rule."
         }
       ],
       "tags": [

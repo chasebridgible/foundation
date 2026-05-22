@@ -86,7 +86,7 @@
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
       "mapsTo": ["foundation.backfill-orchestration.technical#failure-modes"],
-      "evidence": "Run a large target repo backfill and verify the report marks complete after relevant inventory items are mapped to acceptable slices, parent-covered, blocked by a named human decision, or out of scope."
+      "evidence": "Run a large target repo backfill and verify the report marks complete after relevant capability rows are acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope, and evidence surfaces map to capability rows."
     },
     {
       "id": "FBO-5",
@@ -102,7 +102,7 @@
       "status": "existing",
       "path": "foundation/scripts/backfill-queue-check.test.mjs",
       "mapsTo": ["foundation.backfill-orchestration.technical#data-model", "foundation.backfill-orchestration.technical#failure-modes"],
-      "evidence": "Backfill queue checker tests validate embedded queue presence, parsing, status shape, and acceptable-score threshold."
+      "evidence": "Backfill queue checker tests validate embedded capability matrix and durable queue presence, parsing, status shape, capability references, and acceptable-score threshold."
     },
     {
       "id": "FBO-7",
@@ -111,6 +111,14 @@
       "path": "foundation/scripts/backfill-run-log-check.test.mjs",
       "mapsTo": ["foundation.backfill-orchestration.technical#data-model", "foundation.backfill-orchestration.technical#failure-modes"],
       "evidence": "Backfill run log checker tests validate JSONL execution event shape, ordered sequences, run identity, and complete-event requirements."
+    },
+    {
+      "id": "FBO-8",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/backfill-repo-inventory/SKILL.md",
+      "mapsTo": ["foundation.backfill-orchestration.technical#data-model", "foundation.backfill-orchestration.technical#contracts"],
+      "evidence": "Inventory and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass."
     }
   ],
   "tags": ["technical", "foundation", "backfill", "orchestration", "skills"]
@@ -157,15 +165,16 @@
       <h1>Required depth</h1>
       <p>The backfill system extracts intended behavior from repo evidence. Code is the strongest available evidence, but the durable output is a spec graph that states what the system is meant to do for users, operators, and future implementers.</p>
       <p>The orchestrated output is intent-rigid and architecture-flexible. Descriptive specs carry architecture-agnostic intent. Technical specs carry required contracts, current implementation evidence, justified architecture constraints, and implementation latitude.</p>
-      <p>Backfill completion depends on coverage, adequacy, and strict evaluation. A complete run has a durable queue where every relevant inventory item is mapped to an acceptable slice, intentionally covered by a parent section, blocked by a named human decision, or explicitly marked out of scope.</p>
+      <p>Backfill completion depends on capability coverage, adequacy, and strict evaluation. A complete run has a capability matrix where every relevant behavior-bearing capability is acceptable, intentionally parent-owned with a precise reason, blocked by a named human decision, or explicitly marked out of scope. The durable queue is the execution order for that matrix.</p>
     </section>
 
     <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
       <h2>Internal sequence</h2>
       <ol>
         <li><strong>Connect:</strong> use Foundation setup and doctor to confirm the target repo can consume Foundation.</li>
-        <li><strong>Inventory:</strong> run <code>backfill-repo-inventory</code> to build or refresh the coverage ledger.</li>
-        <li><strong>Queue:</strong> create or refresh the embedded durable queue and choose the next slice awaiting owner specs, child behavior coverage, revision, or strict evaluation.</li>
+        <li><strong>Inventory:</strong> run <code>backfill-repo-inventory</code> to build or refresh the evidence inventory, surface ledger, capability matrix, and coverage ledger.</li>
+        <li><strong>Split:</strong> apply the split rule so broad rows become parent maps and behavior-bearing rows are small enough to evaluate strictly.</li>
+        <li><strong>Queue:</strong> create or refresh the embedded durable queue from capability rows and choose the next slice awaiting owner specs, child behavior coverage, revision, or strict evaluation.</li>
         <li><strong>Observe:</strong> append JSONL run-log events when phases start, finish, checkpoint, validate, evaluate, revise, block, or hand off.</li>
         <li><strong>Extract flows:</strong> run <code>backfill-user-flow-extraction</code> for user-facing inventory items.</li>
         <li><strong>Draft descriptive:</strong> run <code>backfill-descriptive-spec-author</code> and create or update draft descriptive specs.</li>
@@ -174,7 +183,7 @@
         <li><strong>Review adequacy:</strong> run <code>backfill-spec-adequacy-review</code>, revise layers that need more detail, and mark the slice ready for evaluator scoring after it passes.</li>
         <li><strong>Evaluate slice:</strong> run <code>evaluate-backfill-specs</code>, revise category gaps below threshold, and re-evaluate until the slice is acceptable or blocked by a named human decision.</li>
         <li><strong>Validate:</strong> check the durable queue, check the execution run log, regenerate registry, and run spec checks.</li>
-        <li><strong>Continue:</strong> update the report and start the next queued slice until inventory coverage is complete.</li>
+        <li><strong>Continue:</strong> update the report and start the next queued capability-backed slice until capability coverage is complete.</li>
         <li><strong>Evaluate graph:</strong> run <code>evaluate-backfill-specs</code> against the completed graph, golden example, and rubric before final handoff.</li>
       </ol>
     </section>
@@ -186,8 +195,9 @@
         <tbody>
           <tr><td>Backfill report</td><td>run ID, date, target repo, Foundation revision, top-level spec, embedded durable queue, review queue, evaluation status, validation results</td><td>Can resume the run from durable files.</td><td><code>backfill-specs</code></td></tr>
           <tr><td>Execution run log</td><td>run ID, sequence, timestamp, slice, phase, event, summary, artifacts read/changed, commands, checks, duration, result, next action</td><td>Append-only JSONL events describe what happened without replacing the queue as canonical state.</td><td><code>backfill-specs</code></td></tr>
-          <tr><td>Durable queue slice</td><td>ID, scope, status, owner skill, descriptive spec, technical spec, score, next action, exit criterion, blocking gaps, evidence rows</td><td>Every slice has exactly one current next action unless it is acceptable, out of scope, or blocked by human decision.</td><td><code>backfill-specs</code></td></tr>
-          <tr><td>Inventory row</td><td>ID, category, label, evidence path, owning spec, coverage layer, missing detail, notes</td><td>Every relevant row reaches an acceptable slice, parent-covered reason, blocked human decision, or out-of-scope status by completion.</td><td><code>backfill-repo-inventory</code></td></tr>
+          <tr><td>Capability matrix row</td><td>ID, actor, outcome, domain object, actions, states, permissions/rules, surfaces, backing contracts, failure/recovery, evidence, spec owners, verification targets, status, split state</td><td>Every behavior-bearing capability has a coverage status and either owner specs, a parent-owned reason, a human decision, or an out-of-scope reason.</td><td><code>backfill-repo-inventory</code></td></tr>
+          <tr><td>Durable queue slice</td><td>ID, scope, capability IDs, status, owner skill, descriptive spec, technical spec, score, next action, exit criterion, blocking gaps, evidence rows</td><td>Every slice has exactly one current next action unless it is acceptable, out of scope, or blocked by human decision.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Inventory row</td><td>ID, category, label, evidence path, owning spec, coverage layer, missing detail, notes</td><td>Every relevant row maps to a capability row, non-behavioral support note, parent-owned reason, blocked human decision, or out-of-scope status by completion.</td><td><code>backfill-repo-inventory</code></td></tr>
           <tr><td>User flow row</td><td>user, entry point, intent, actions, states, success, failure/recovery, evidence, owning spec</td><td>Every user-facing entry point maps to a concrete flow.</td><td><code>backfill-user-flow-extraction</code></td></tr>
           <tr><td>Adequacy row</td><td>slice, specs, inventory result, flow result, rendered UX result, technical result, architecture flexibility result, traceability result, revisions, evaluator readiness</td><td>A slice advances to strict evaluation after adequacy review passes or records isolated non-blocking human questions.</td><td><code>backfill-spec-adequacy-review</code></td></tr>
           <tr><td>Evaluation row</td><td>slice, total score, category scores, citations, revision owner, next action, queue status</td><td>A slice advances to acceptable only when it reaches the strict 100-point threshold.</td><td><code>evaluate-backfill-specs</code></td></tr>
@@ -201,6 +211,8 @@
         <thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead>
         <tbody>
           <tr><td>Intent extraction</td><td>Specs state intended behavior supported by evidence.</td><td>Specs are durable product and system contracts.</td></tr>
+          <tr><td>Capability coverage</td><td>Coverage is measured by capability rows that combine actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, owner specs, and verification targets.</td><td>This is the coverage formula that defines what a whole-repo backfill must complete.</td></tr>
+          <tr><td>Split rule</td><td>Capability rows split when they combine materially different actors, outcomes, domain objects, state machines, permission models, backing contracts, recovery behavior, or verification targets.</td><td>Strict evaluation needs bounded behavior units instead of broad domain summaries.</td></tr>
           <tr><td>Descriptive/technical split</td><td>Descriptive specs define architecture-agnostic user/operator intent; technical specs define contract-level system requirements.</td><td>The spec graph preserves intent while allowing implementation improvement.</td></tr>
           <tr><td>Architecture classification</td><td>Technical specs classify required contracts, current implementation evidence, architecture constraints, and implementation latitude.</td><td>Future build agents know what must remain true and where architecture may change.</td></tr>
           <tr><td>Layered workflow</td><td>Inventory, flow extraction, descriptive drafting, rendered UX, technical drafting, and adequacy review are separate steps.</td><td>Focused steps reduce context loss and make completion testable.</td></tr>
@@ -231,11 +243,14 @@
         <tbody>
           <tr><td>Durable queue</td><td>Inventory rows awaiting owner specs, child behavior coverage, revision, evaluation, or human decision remain in the slice queue.</td><td>User sees the remaining slice queue until coverage is complete.</td><td>Embedded queue and visible table</td></tr>
           <tr><td>Execution run log missing or malformed</td><td>Run-log validation fails and the agent repairs JSONL shape or appends the missing phase evidence before handoff.</td><td>User receives an inspectable record of phase progress, commands, checks, and next action.</td><td>Run log checker</td></tr>
+          <tr><td>Capability matrix missing or shallow</td><td>Adequacy review and evaluator route the run back to inventory before additional slice closure.</td><td>User sees which capabilities are unmapped, too broad, missing owner specs, or missing verification targets.</td><td>Capability matrix and evaluation report</td></tr>
+          <tr><td>Broad slice compression</td><td>The split rule marks the row <code>needs-split</code> and prevents acceptable status until behavior-bearing child capabilities exist.</td><td>User receives smaller specs that can describe state, contracts, and recovery in rebuild-useful detail.</td><td>Capability matrix split state</td></tr>
           <tr><td>Adequacy loop</td><td>Adequacy review marks flows, rules, UX, or technical contracts for revision and loops to the owning skill.</td><td>User receives specs that have passed the review gate before evaluator scoring.</td><td>Adequacy table</td></tr>
           <tr><td>Evaluation loop</td><td>Evaluator category scores below threshold route the slice back to the owner skill with exit criteria.</td><td>User receives acceptable slices rather than passable summaries.</td><td>Evaluation report and queue update</td></tr>
           <tr><td>Context reset</td><td>Next agent resumes from report, embedded queue, inventory, current specs, and skill chain.</td><td>User continues from durable state.</td><td>Dated report</td></tr>
           <tr><td>Evidence conflict</td><td>Report records the contradiction and the spec states evidence-backed intended behavior with review notes.</td><td>User can adjudicate high-value questions after full coverage exists.</td><td>Review queue</td></tr>
           <tr><td>Architecture classification gap</td><td>Adequacy review sends current implementation details back for classification as required contracts, current evidence, justified constraints, or implementation latitude.</td><td>User receives specs that preserve necessary contracts and keep flexible implementation choices available.</td><td>Architecture flexibility result</td></tr>
+          <tr><td>Spec-only rebuild gap</td><td>The evaluator lists source files still needed for core behavior and routes missing behavior to descriptive, technical, inventory, or flow authoring.</td><td>User receives specs that reduce source-code dependency before the graph is called complete.</td><td>Spec-only rebuild probe</td></tr>
         </tbody>
       </table>
     </section>
@@ -277,10 +292,11 @@
           <tr><td>FBO-1</td><td><code>#internal-sequence</code></td><td>Backfill orchestrator names the skill chain and resumable loop.</td><td>existing</td></tr>
           <tr><td>FBO-2</td><td><code>#contracts</code></td><td>Adequacy review skill defines the evaluator-readiness gate.</td><td>existing</td></tr>
           <tr><td>FBO-3</td><td><code>#paths-and-coverage</code></td><td>Doctor fixtures include required backfill sub-skills.</td><td>existing</td></tr>
-          <tr><td>FBO-4</td><td><code>#failure-modes</code></td><td>Manual large-repo pilot for inventory coverage, strict evaluation, and queue-resume behavior.</td><td>planned</td></tr>
+          <tr><td>FBO-4</td><td><code>#failure-modes</code></td><td>Manual large-repo pilot for capability coverage, strict evaluation, and queue-resume behavior.</td><td>planned</td></tr>
           <tr><td>FBO-5</td><td><code>#contracts</code></td><td>Technical authoring skill requires architecture classification.</td><td>existing</td></tr>
-          <tr><td>FBO-6</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill queue checker validates embedded durable queue structure.</td><td>existing</td></tr>
+          <tr><td>FBO-6</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill queue checker validates embedded capability matrix and durable queue structure.</td><td>existing</td></tr>
           <tr><td>FBO-7</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill run log checker validates JSONL execution event structure.</td><td>existing</td></tr>
+          <tr><td>FBO-8</td><td><code>#data-model</code>, <code>#contracts</code></td><td>Inventory and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass.</td><td>existing</td></tr>
         </tbody>
       </table>
     </section>

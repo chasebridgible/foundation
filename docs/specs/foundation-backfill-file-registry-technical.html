@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-file-registry.technical">
+<meta name="spec:type" content="technical">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-05-22">
+<title>Foundation Backfill File Registry Technical Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-file-registry.technical",
+  "title": "Foundation Backfill File Registry Technical Spec",
+  "type": "technical",
+  "status": "draft",
+  "lastUpdated": "2026-05-22",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-file-registry.descriptive",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.backfill-file-registry.descriptive", "relationship": "parent", "sections": ["product-intent", "states-and-rules", "ux-contracts"] },
+    { "id": "foundation.backfill-file-registry.test", "relationship": "sibling", "sections": ["acceptance-mapping", "coverage-plan", "risk-based-signal-choice"] },
+    { "id": "foundation.backfill-orchestration.technical", "relationship": "sibling", "sections": ["data-model", "contracts"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "implementationPaths": [
+    { "path": "foundation/docs/specs/foundation-backfill-file-registry.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive intent for this technical layer." },
+    { "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html", "kind": "doc", "ownership": "reference", "notes": "Verification and eval contract for this layer." }
+  ],
+  "coverage": [
+    {
+      "id": "BFR-T-1",
+      "level": "static",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "mapsTo": ["foundation.backfill-file-registry.technical#data-model", "foundation.backfill-file-registry.technical#contracts"],
+      "evidence": "Test spec will verify registry schema, coverage, freshness, and eval quality requirements."
+    }
+  ],
+  "tags": ["technical", "foundation", "backfill", "file-registry"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+    <div>
+      <div class="sidebar-title">File Registry</div>
+      <div class="sidebar-sub">technical spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#required-depth"><span class="nav-num">01</span>Depth</a>
+    <a class="nav-item" href="#capability-contract"><span class="nav-num">02</span>Capability</a>
+    <a class="nav-item" href="#internal-sequence"><span class="nav-num">03</span>Sequence</a>
+    <a class="nav-item" href="#data-model"><span class="nav-num">04</span>Data</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">05</span>Contracts</a>
+    <a class="nav-item" href="#concurrency-and-timing"><span class="nav-num">06</span>Timing</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">07</span>Failures</a>
+    <a class="nav-item" href="#boundaries"><span class="nav-num">08</span>Boundaries</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">09</span>Coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-file-registry-technical.html</div>
+    <h1>Backfill File Registry Technical Spec</h1>
+    <p class="lede">The file registry layer is a deterministic-plus-agentic indexing system: commands create complete file rows, and the agent fills semantic meaning in bounded, resumable batches.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> draft</div>
+      <div><strong>Updated:</strong> 2026-05-22</div>
+      <div><strong>Parent:</strong> foundation.backfill-file-registry.descriptive</div>
+    </div>
+    <p>This is a T5-level Foundation workflow because every later backfill layer depends on its completeness. The implementation should prefer scripts for enumeration/checking and agent judgment for semantic row filling and quality evaluation.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-contract" data-spec-section="capability-contract" data-section-type="contracts">
+      <h2>Capability contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Capability field</th><th>Technical contract</th><th>Classification</th><th>Verification target</th></tr></thead>
+        <tbody>
+          <tr><td>Manifest</td><td>Enumerate tracked and untracked non-ignored repo files, plus explicit include rules, into a complete canonical manifest JSON artifact.</td><td>required contract</td><td>Manifest coverage check.</td></tr>
+          <tr><td>Registry row</td><td>One current row exists for every manifest file.</td><td>required contract</td><td>Registry coverage check.</td></tr>
+          <tr><td>Semantic fill</td><td>Agent maps file meaning in bounded batches and stores results on disk.</td><td>required contract</td><td>Resume and row quality eval.</td></tr>
+          <tr><td>Complete classification</td><td>Files may be classified as supporting, generated, asset, stale, doc, config, or fixture, and each classification remains represented by a registry row.</td><td>required contract</td><td>Status enum check.</td></tr>
+          <tr><td>Canonical storage</td><td>Manifest is JSON, registry is JSONL, and evaluation report is HTML. SQLite, HTML tables, or other views may be derived caches only.</td><td>required contract</td><td>Artifact shape check.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
+      <h2>Internal sequence</h2>
+      <ol>
+        <li><strong>Enumerate:</strong> generate <code>docs/specs/backfill/file-manifest-YYYYMMDD-NN.json</code> from repo-owned files. Default source is tracked files plus untracked non-ignored files. Git ignored files are outside the repo-owned set unless explicitly included.</li>
+        <li><strong>Initialize:</strong> create <code>docs/specs/backfill/file-registry-YYYYMMDD-NN.jsonl</code> with one row for every manifest file, mechanical fields populated, semantic fields empty, and status <code>pending</code>.</li>
+        <li><strong>Select batch:</strong> choose pending rows by deterministic order plus priority hints: entry points, routes, schemas, services, jobs, tests, docs, then support files.</li>
+        <li><strong>Inspect:</strong> read a bounded batch and any immediately related files needed to understand each row.</li>
+        <li><strong>Fill:</strong> update semantic fields, status, confidence, related paths, and review flags.</li>
+        <li><strong>Validate:</strong> run the registry checker after batch updates. Batch mode may report remaining pending rows; handoff mode requires zero pending rows.</li>
+        <li><strong>Evaluate:</strong> run a file-registry quality eval on deterministic risk-based samples before advancing to surface registry.</li>
+        <li><strong>Calibrate:</strong> run a small known-answer gold comparison before large-repo use and after schema or rubric changes.</li>
+        <li><strong>Resume:</strong> after context compaction, interruption, or a new agent session, reread target <code>AGENTS.md</code>, Foundation <code>AGENTS.md</code>, the active skill, report, registry, and run log, then continue from pending or stale rows.</li>
+      </ol>
+    </section>
+
+    <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
+      <h2>Data model</h2>
+      <table class="status-table">
+        <thead><tr><th>Object</th><th>Fields</th><th>Invariant</th><th>Owner</th></tr></thead>
+        <tbody>
+          <tr><td>File manifest artifact</td><td>runId, targetRepo, repoRoot, generatedAt, manifestRules, files</td><td><code>docs/specs/backfill/file-manifest-YYYYMMDD-NN.json</code> is the canonical file universe for the run.</td><td>manifest command</td></tr>
+          <tr><td>File manifest entry</td><td>runId, path, fileId, sizeBytes, contentHash, extension, detectedLanguage, sourceStatus</td><td>Every repo-owned file has exactly one manifest entry.</td><td>manifest command</td></tr>
+          <tr><td>File registry artifact</td><td>One JSON object per line, one line per manifest file.</td><td><code>docs/specs/backfill/file-registry-YYYYMMDD-NN.jsonl</code> is the canonical semantic map.</td><td>fill loop</td></tr>
+          <tr><td>File registry row</td><td>runId, fileId, path, contentHash, sizeBytes, extension, detectedLanguage, sourceStatus, kind, domain, evidenceValue, role, responsibilities, importantSymbols, entryPoints, exports, imports, dataObjects, externalSystems, relatedFiles, reviewFlags, status, confidence, mappedAt</td><td>Every manifest file has exactly one current registry row with status <code>pending</code> or <code>mapped</code>.</td><td>fill loop</td></tr>
+          <tr><td>Responsibility row</td><td>label, description, symbols, lineHints, relatedFiles, evidenceValue</td><td>Large or multi-role files have enough structure for later agents to find behavior.</td><td>fill loop</td></tr>
+          <tr><td>Review flag</td><td>severity, reason, evidence, nextAction</td><td>Severity is <code>info</code>, <code>warning</code>, or <code>blocking</code>; blocking flags prevent handoff.</td><td>fill loop/eval layer</td></tr>
+          <tr><td>Batch checkpoint</td><td>runId, batchId, selectedPaths, startedAt, completedAt, result, nextAction</td><td>A new agent can resume without chat memory.</td><td>run log/report</td></tr>
+          <tr><td>Quality eval report</td><td>runId, samplePlan, sampleRows, categoryScores, findings, revisionTargets, acceptabilityGate</td><td><code>docs/specs/backfill/file-registry-evaluation-YYYYMMDD-NN.html</code> routes eval failures back to registry rows.</td><td>test/eval layer</td></tr>
+        </tbody>
+      </table>
+      <h3>Required enums</h3>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Allowed values</th><th>Rule</th></tr></thead>
+        <tbody>
+          <tr><td><code>status</code></td><td><code>pending</code>, <code>mapped</code></td><td><code>mapped</code> rows must satisfy semantic required fields.</td></tr>
+          <tr><td><code>kind</code></td><td><code>route</code>, <code>component</code>, <code>service</code>, <code>model</code>, <code>migration</code>, <code>test</code>, <code>doc</code>, <code>config</code>, <code>infra</code>, <code>script</code>, <code>asset</code>, <code>fixture</code>, <code>generated</code>, <code>package</code>, <code>unknown</code></td><td><code>unknown</code> is allowed only while the row is <code>pending</code>.</td></tr>
+          <tr><td><code>evidenceValue</code></td><td><code>behavior-bearing</code>, <code>support</code>, <code>test-evidence</code>, <code>documentation-evidence</code>, <code>configuration</code>, <code>asset</code>, <code>generated</code>, <code>unknown</code></td><td><code>unknown</code> is allowed only while the row is <code>pending</code>.</td></tr>
+          <tr><td><code>confidence</code></td><td><code>low</code>, <code>medium</code>, <code>high</code></td><td>Low confidence mapped rows require a review flag.</td></tr>
+        </tbody>
+      </table>
+      <h3>Registry row sketch</h3>
+      <pre><code>{
+  "runId": "20260522-01",
+  "path": "apps/web/routes/login.tsx",
+  "fileId": "sha256:path-or-stable-id",
+  "contentHash": "sha256:...",
+  "sizeBytes": 12432,
+  "extension": ".tsx",
+  "detectedLanguage": "typescript-react",
+  "sourceStatus": "tracked",
+  "kind": "route",
+  "domain": "identity",
+  "evidenceValue": "behavior-bearing",
+  "role": "Authenticates workspace users and exposes failed-login recovery.",
+  "responsibilities": [
+    {
+      "label": "Login form",
+      "description": "Renders credential entry and submission states.",
+      "symbols": ["LoginRoute", "handleSubmit"]
+    }
+  ],
+  "entryPoints": ["web login route"],
+  "dataObjects": ["session", "user"],
+  "relatedFiles": ["services/auth/login.ts"],
+  "reviewFlags": [],
+  "status": "mapped",
+  "confidence": "medium"
+}</code></pre>
+    </section>
+
+    <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
+      <h2>Contracts</h2>
+      <table class="status-table">
+        <thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Completeness</td><td>The registry cannot omit repo-owned files.</td><td>Later layers need a reliable evidence base.</td></tr>
+          <tr><td>Canonical artifact shape</td><td>Manifest JSON, registry JSONL, checker output, and eval HTML use the dated run ID.</td><td>Agents, checks, and handoffs need stable paths and parsable formats.</td></tr>
+          <tr><td>Repo-owned set</td><td>Manifest rules define inclusion before semantic judgment begins.</td><td>The agent cannot shrink the file universe to make mapping easier.</td></tr>
+          <tr><td>Minimal status enum</td><td>Status is limited to <code>pending</code> and <code>mapped</code>. Low-value files are mapped and classified.</td><td>Extra statuses create loopholes and make the loop harder to resume.</td></tr>
+          <tr><td>Freshness</td><td>Hash or size mismatch invalidates the row until remapped.</td><td>Registry meaning must track current code.</td></tr>
+          <tr><td>Structured meaning</td><td>Mapped rows use structured fields over prose-only summaries; <code>unknown</code> classifications are pending-only.</td><td>Surface/capability extraction needs queryable evidence.</td></tr>
+          <tr><td>Batch resumability</td><td>Pending rows and batch checkpoints define the next action.</td><td>Long runs survive compaction, interruption, and handoff.</td></tr>
+          <tr><td>Handoff gate</td><td>Surface registry work begins only after zero pending rows, checker pass, quality eval pass, no blocking review flags, and current gold calibration.</td><td>Bad file maps should not become capability gaps.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="concurrency-and-timing" data-spec-section="concurrency-and-timing" data-section-type="concurrency">
+      <h2>Timing, concurrency, and ordering</h2>
+      <ul>
+        <li><strong>Single-agent baseline:</strong> correctness cannot depend on multiple agents. Parallelization may be an optimization only if rows are disjoint and merged through the same checker.</li>
+        <li><strong>Batch size:</strong> choose batches small enough for the agent to inspect accurately and update rows before losing context.</li>
+        <li><strong>Change handling:</strong> changed files invalidate affected rows and downstream surfaces/capabilities derived from them.</li>
+      </ul>
+    </section>
+
+    <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+      <h2>Failure modes</h2>
+      <table class="status-table">
+        <thead><tr><th>Failure</th><th>System behavior</th><th>User behavior</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Missing registry row</td><td>Checker fails and reports missing paths.</td><td>User sees that backfill cannot advance.</td><td>Registry check output.</td></tr>
+          <tr><td>Stale hash</td><td>Checker marks row stale or fails freshness.</td><td>Agent remaps changed file.</td><td>Manifest vs registry.</td></tr>
+          <tr><td>Vague row</td><td>Quality eval routes row back to fill loop.</td><td>Agent writes specific responsibilities and related evidence.</td><td>Eval report.</td></tr>
+          <tr><td>Large file needs deeper mapping</td><td>Eval routes row specificity or behavior-bearing detection back to the fill loop.</td><td>Agent adds responsibility rows.</td><td>Source sample and registry row.</td></tr>
+          <tr><td>Canonical artifact drift</td><td>Checker fails when manifest, registry, report, or run ID paths disagree.</td><td>Agent repairs artifact naming and links before continuing.</td><td>Checker output and report links.</td></tr>
+          <tr><td>Blocking review flag</td><td>Handoff gate fails until the flag is resolved or converted into a non-blocking note with evidence.</td><td>Agent revisits the source file and updates the row.</td><td>Registry row and eval report.</td></tr>
+          <tr><td>Context compaction or handoff</td><td>Agent reads pending rows and latest run-log checkpoint after rereading the instruction chain.</td><td>Work resumes without restarting discovery.</td><td>AGENTS, active skill, registry, report, and run log.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="boundaries" data-spec-section="boundaries" data-section-type="boundaries">
+      <h2>Boundaries and abstraction level</h2>
+      <ul>
+        <li><strong>Owns:</strong> file manifest, file registry schema, fill loop, registry checker, registry quality eval contract.</li>
+        <li><strong>Feeds:</strong> surface registry, capability matrix, spec authoring, stale-doc review, cleanup planning.</li>
+        <li><strong>Does not own:</strong> capability clustering, final spec graph evaluation, or code/document cleanup.</li>
+      </ul>
+    </section>
+
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Related paths and coverage</h2>
+      <ul class="path-list">
+        <li data-implementation-path="foundation/docs/specs/foundation-backfill-file-registry-technical.html"><code>foundation/docs/specs/foundation-backfill-file-registry-technical.html</code> - technical contract for the file registry layer.</li>
+        <li><code>foundation/docs/specs/foundation-backfill-file-registry-test.html</code> - planned check/eval contract.</li>
+      </ul>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>BFR-T-1</td><td><code>#data-model</code>, <code>#contracts</code></td><td>Test spec defines the planned deterministic and eval gates.</td><td>planned</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation Backfill File Registry Technical Spec · draft</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

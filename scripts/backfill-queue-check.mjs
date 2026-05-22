@@ -15,6 +15,22 @@ const VALID_STATUSES = new Set([
   "blocked-by-human"
 ]);
 
+const VALID_CAPABILITY_STATUSES = new Set([
+  "unmapped",
+  "mapped",
+  "needs-split",
+  "queued",
+  "in-progress",
+  "needs-descriptive",
+  "needs-technical",
+  "needs-evaluation",
+  "needs-revision",
+  "acceptable",
+  "parent-owned",
+  "blocked-by-human",
+  "out-of-scope"
+]);
+
 const VALID_OWNER_SKILLS = new Set([
   "backfill-repo-inventory",
   "backfill-user-flow-extraction",
@@ -91,7 +107,106 @@ function isNullableString(value) {
   return value === null || value === undefined || typeof value === "string";
 }
 
-function validateQueue(queue) {
+function isStringArray(value) {
+  return Array.isArray(value) && value.every(isString);
+}
+
+function validateCapabilityMatrix(matrix) {
+  const results = [];
+
+  results.push(isString(matrix.runId)
+    ? pass("capability-run-id", "Capability matrix has a run ID")
+    : fail("capability-run-id", "Capability matrix must include non-empty runId"));
+
+  results.push(isString(matrix.targetRepo)
+    ? pass("capability-target-repo", "Capability matrix has a target repo")
+    : fail("capability-target-repo", "Capability matrix must include non-empty targetRepo"));
+
+  results.push(Array.isArray(matrix.capabilities) && matrix.capabilities.length > 0
+    ? pass("capabilities-present", `Capability matrix has ${matrix.capabilities?.length || 0} row(s)`)
+    : fail("capabilities-present", "Capability matrix must include at least one capability row"));
+
+  if (!Array.isArray(matrix.capabilities)) return results;
+
+  const ids = new Set();
+  const duplicates = [];
+  for (const capability of matrix.capabilities) {
+    if (isString(capability?.id)) {
+      if (ids.has(capability.id)) duplicates.push(capability.id);
+      ids.add(capability.id);
+    }
+  }
+
+  results.push(duplicates.length === 0
+    ? pass("unique-capability-ids", "Capability IDs are unique")
+    : fail("unique-capability-ids", "Capability IDs must be unique", { duplicates }));
+
+  for (const [index, capability] of matrix.capabilities.entries()) {
+    const label = isString(capability?.id) ? capability.id : `capability-${index + 1}`;
+    const prefix = `capability:${label}`;
+
+    if (!isString(capability?.id)) results.push(fail(`${prefix}:id`, "Capability must have a non-empty id"));
+    if (!isString(capability?.name)) results.push(fail(`${prefix}:name`, "Capability must have a non-empty name"));
+    if (!isString(capability?.actor)) results.push(fail(`${prefix}:actor`, "Capability must have a non-empty actor"));
+    if (!isString(capability?.intendedOutcome)) results.push(fail(`${prefix}:intended-outcome`, "Capability must have a non-empty intendedOutcome"));
+    if (!isString(capability?.domainObject)) results.push(fail(`${prefix}:domain-object`, "Capability must have a non-empty domainObject"));
+
+    for (const field of [
+      "actions",
+      "states",
+      "permissionsAndRules",
+      "surfaces",
+      "backingContracts",
+      "failureAndRecovery",
+      "evidence",
+      "descriptiveSections",
+      "technicalSections",
+      "verificationTargets",
+      "blockingGaps",
+      "humanDecisions"
+    ]) {
+      if (!isStringArray(capability?.[field])) {
+        results.push(fail(`${prefix}:${field}`, `${field} must be an array of non-empty strings`));
+      }
+    }
+
+    if (!isNullableString(capability?.descriptiveSpec)) {
+      results.push(fail(`${prefix}:descriptive-spec`, "descriptiveSpec must be a string, null, or omitted"));
+    }
+    if (!isNullableString(capability?.technicalSpec)) {
+      results.push(fail(`${prefix}:technical-spec`, "technicalSpec must be a string, null, or omitted"));
+    }
+
+    if (!VALID_CAPABILITY_STATUSES.has(capability?.status)) {
+      results.push(fail(`${prefix}:status`, "Capability status is not in the capability matrix enum", {
+        status: capability?.status,
+        validStatuses: [...VALID_CAPABILITY_STATUSES]
+      }));
+    } else {
+      results.push(pass(`${prefix}:status`, `Capability status is ${capability.status}`));
+    }
+
+    if (capability?.splitNeeded !== undefined && typeof capability.splitNeeded !== "boolean") {
+      results.push(fail(`${prefix}:split-needed`, "splitNeeded must be a boolean when present", { splitNeeded: capability?.splitNeeded }));
+    }
+
+    if (capability?.status === "acceptable") {
+      if (capability?.splitNeeded === true || capability?.status === "needs-split") {
+        results.push(fail(`${prefix}:acceptable-split`, "Acceptable capabilities cannot need split"));
+      }
+      if (!isString(capability?.descriptiveSpec)) results.push(fail(`${prefix}:acceptable-descriptive-spec`, "Acceptable capabilities must name a descriptiveSpec"));
+      if (!isString(capability?.technicalSpec)) results.push(fail(`${prefix}:acceptable-technical-spec`, "Acceptable capabilities must name a technicalSpec"));
+      if (!isStringArray(capability?.descriptiveSections) || capability.descriptiveSections.length === 0) results.push(fail(`${prefix}:acceptable-descriptive-sections`, "Acceptable capabilities must include descriptiveSections"));
+      if (!isStringArray(capability?.technicalSections) || capability.technicalSections.length === 0) results.push(fail(`${prefix}:acceptable-technical-sections`, "Acceptable capabilities must include technicalSections"));
+      if (!isStringArray(capability?.verificationTargets) || capability.verificationTargets.length === 0) results.push(fail(`${prefix}:acceptable-verification-targets`, "Acceptable capabilities must include verificationTargets"));
+      if (!isStringArray(capability?.evidence) || capability.evidence.length === 0) results.push(fail(`${prefix}:acceptable-evidence`, "Acceptable capabilities must include evidence"));
+    }
+  }
+
+  return results;
+}
+
+function validateQueue(queue, capabilityIds = null) {
   const results = [];
 
   results.push(isString(queue.runId)
@@ -138,6 +253,17 @@ function validateQueue(queue) {
 
     if (!isString(slice?.id)) results.push(fail(`${prefix}:id`, "Slice must have a non-empty id"));
     if (!isString(slice?.scope)) results.push(fail(`${prefix}:scope`, "Slice must have a non-empty scope"));
+
+    if (!isStringArray(slice?.capabilityIds) || slice.capabilityIds.length === 0) {
+      results.push(fail(`${prefix}:capability-ids`, "Slice must list at least one capabilityIds entry"));
+    } else if (capabilityIds) {
+      const unknown = slice.capabilityIds.filter(id => !capabilityIds.has(id));
+      if (unknown.length > 0) {
+        results.push(fail(`${prefix}:capability-refs`, "Slice capabilityIds must refer to capability matrix rows", { unknown }));
+      } else {
+        results.push(pass(`${prefix}:capability-refs`, "Slice capabilityIds refer to capability matrix rows"));
+      }
+    }
 
     if (!VALID_STATUSES.has(slice?.status)) {
       results.push(fail(`${prefix}:status`, "Slice status is not in the durable queue enum", {
@@ -205,22 +331,45 @@ function validateReport(reportPath) {
   }
 
   const html = fs.readFileSync(reportPath, "utf8");
+  const results = [];
+
+  const matrixText = extractJsonScript(html, "backfill-capability-matrix");
+  let capabilityIds = null;
+  if (!matrixText) {
+    results.push(fail("capability-script", "Report must include <script type=\"application/json\" id=\"backfill-capability-matrix\">"));
+  } else {
+    try {
+      const matrix = JSON.parse(matrixText);
+      results.push(pass("capability-script", "Report includes embedded capability matrix"));
+      results.push(pass("capability-json", "Backfill capability matrix JSON parses"));
+      results.push(...validateCapabilityMatrix(matrix));
+      if (Array.isArray(matrix.capabilities)) {
+        capabilityIds = new Set(matrix.capabilities.map(capability => capability?.id).filter(isString));
+      }
+    } catch (error) {
+      results.push(fail("capability-json", "Backfill capability matrix JSON must parse", { error: error.message }));
+    }
+  }
+
   const jsonText = extractJsonScript(html, "backfill-slice-queue");
   if (!jsonText) {
-    return [fail("queue-script", "Report must include <script type=\"application/json\" id=\"backfill-slice-queue\">")];
+    results.push(fail("queue-script", "Report must include <script type=\"application/json\" id=\"backfill-slice-queue\">"));
+    return results;
   }
 
   let queue;
   try {
     queue = JSON.parse(jsonText);
   } catch (error) {
-    return [fail("queue-json", "Backfill slice queue JSON must parse", { error: error.message })];
+    results.push(fail("queue-json", "Backfill slice queue JSON must parse", { error: error.message }));
+    return results;
   }
 
   return [
+    ...results,
     pass("queue-script", "Report includes embedded durable queue"),
     pass("queue-json", "Backfill slice queue JSON parses"),
-    ...validateQueue(queue)
+    ...validateQueue(queue, capabilityIds)
   ];
 }
 
@@ -269,4 +418,4 @@ if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) {
   main();
 }
 
-export { parseArgs, validateQueue, validateReport, renderText };
+export { parseArgs, validateCapabilityMatrix, validateQueue, validateReport, renderText };
