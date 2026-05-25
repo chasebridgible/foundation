@@ -13,10 +13,12 @@ const groupOrder = [
     order: [
       "compounding-systems.html",
       "principles/core-principles.html",
+      "principles/business-principles.html",
       "principles/sw-dev-principles.html",
       "principles/ai-evals-principles.html",
       "principles/sw-design-principles.html",
       "general/operating-spec.html",
+      "general/business-os.html",
       "definitions/sw-definitions.html"
     ]
   },
@@ -73,7 +75,7 @@ function readPage(file) {
   const html = fs.readFileSync(path.join(docsDir, file), "utf8");
   const title = html.match(/<title>([^<]+)<\/title>/)?.[1]?.trim() || file;
   const specId = html.match(/<meta name="spec:id" content="([^"]+)">/)?.[1];
-  const cleanTitle = title.replace(/ \u2014 Core Concepts$/, "");
+  const cleanTitle = title.replace(/ (?:\u2014|-) Core Concepts$/, "");
   return { title: cleanTitle, path: file, ...(specId ? { specId } : {}) };
 }
 

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Business OS: A Working Spec - Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --amber: #d4a72c;
+    --emerald: #4ec9b0;
+    --red: #f48771;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 18px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .logo-mark {
+    width: 24px; height: 24px;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; color: var(--fg); font-size: 12px;
+  }
+  .sidebar-title { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .sidebar-sub {
+    font-size: 11px; color: var(--fg-3); margin-top: 1px;
+    font-family: var(--font-mono);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px;
+  }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    font-size: 10px; font-weight: 500;
+    color: var(--fg-3);
+    padding: 10px 10px 4px;
+    font-family: var(--font-mono);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition), color var(--transition);
+    min-width: 0;
+  }
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-item:not(.doc-link) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nav-num {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--fg-3);
+    flex-shrink: 0;
+    width: 18px;
+    text-align: right;
+    padding-top: 1px;
+  }
+  .nav-item.active .nav-num, .nav-item.current .nav-num { color: var(--fg-2); }
+
+  .main {
+    flex: 1; min-width: 0;
+    padding: 56px 72px 120px;
+    max-width: 980px;
+  }
+
+  .spec-eyebrow {
+    font-size: 11px; font-weight: 500;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+  }
+  h1 {
+    font-size: 30px; font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    color: var(--fg);
+  }
+  .lede {
+    font-size: 15px; color: var(--fg-2);
+    line-height: 1.65; max-width: 680px;
+    margin-bottom: 28px;
+  }
+  .meta-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding: 10px 0;
+    font-size: 12px; color: var(--fg-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+
+  .doc-body { margin-top: 42px; }
+  .doc-body section { margin-top: 54px; }
+  .doc-body section:first-child { margin-top: 0; }
+  section { scroll-margin-top: 24px; }
+
+  h2 {
+    font-size: 19px; font-weight: 600;
+    margin-top: 56px; margin-bottom: 8px;
+    color: var(--fg);
+  }
+  .doc-body section > h2:first-child { margin-top: 0; }
+  h2 + p, h2 + .lede-2 { margin-top: 6px; }
+  h3 { font-size: 14px; font-weight: 600; margin-top: 28px; margin-bottom: 8px; color: var(--fg); }
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+  p strong, li strong { color: var(--fg); font-weight: 600; }
+  em { color: var(--fg); font-style: italic; }
+
+  ul, ol { color: var(--fg-2); padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 5px; line-height: 1.6; }
+
+  a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--fg-3); }
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--bg-3);
+    color: var(--fg-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .visual-block {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin: 18px 0 24px;
+    overflow: hidden;
+  }
+  .visual-header {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+  .visual-title { font-size: 12px; font-weight: 600; color: var(--fg); font-family: var(--font-mono); }
+  .visual-kicker { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); }
+  .loop-flow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .loop-node {
+    background: var(--bg-2);
+    padding: 16px;
+    min-height: 136px;
+    position: relative;
+  }
+  .loop-node.accent { background: var(--bg-3); }
+  .loop-node:not(:last-child)::after {
+    content: '->';
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .loop-num { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; }
+  .loop-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+  .loop-copy { font-size: 12px; color: var(--fg-2); line-height: 1.55; padding-right: 12px; }
+  .actor-chain { display: flex; align-items: stretch; gap: 8px; flex-wrap: wrap; }
+  .actor-card {
+    flex: 1 1 150px;
+    min-width: 140px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 12px 13px;
+  }
+  .actor-card.human { border-left-color: var(--emerald); }
+  .actor-card.queue { border-left-color: var(--amber); }
+  .actor-card.agent { border-left-color: var(--primary); }
+  .actor-card.system { border-left-color: var(--red); }
+  .actor-label {
+    font-family: var(--font-mono); font-size: 10px; color: var(--fg-3);
+    margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .actor-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
+  .actor-copy { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .matrix-cell { background: var(--bg-2); padding: 16px; }
+  .matrix-cell.accent { background: var(--bg-3); }
+  .matrix-label {
+    font-family: var(--font-mono); font-size: 10px; color: var(--fg-3);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+  }
+  .matrix-value { font-size: 13px; color: var(--fg); font-weight: 600; margin-bottom: 6px; }
+  .matrix-copy { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+  .status-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0 22px;
+    font-size: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .status-table th {
+    text-align: left;
+    padding: 9px 14px;
+    background: var(--bg);
+    color: var(--fg-3);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+  }
+  .status-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-2);
+    vertical-align: top;
+  }
+  .status-table tr:last-child td { border-bottom: none; }
+  .related-section { margin-top: 64px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .related-card {
+    background: var(--bg-2);
+    padding: 14px 16px;
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition);
+  }
+  .related-card:hover { background: var(--bg-3); }
+  .related-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .related-name::after { content: '->'; color: var(--fg-3); font-weight: 400; margin-left: auto; }
+  .related-card:hover .related-name::after { color: var(--fg); }
+  .related-desc { font-size: 12px; color: var(--fg-3); line-height: 1.5; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .footer-note { text-align: center; color: var(--fg-3); font-size: 12px; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--fg-3); }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 36px 22px 72px; }
+    .related-grid, .loop-flow, .matrix-grid { grid-template-columns: 1fr; }
+    .loop-node:not(:last-child)::after { content: 'v'; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Core Concepts</div>
+      <div class="sidebar-sub">The Business OS: A Working Spec</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#how-to-read-this"><span class="nav-num">01</span>How to read this</a>
+    <a class="nav-item" href="#1-the-business-is-the-system"><span class="nav-num">02</span>1. The business is the system.</a>
+    <a class="nav-item" href="#2-the-loop-define-decide-act-learn"><span class="nav-num">03</span>2. The loop: define, decide, act, learn.</a>
+    <a class="nav-item" href="#3-what-a-business-os-is"><span class="nav-num">04</span>3. What a Business OS is.</a>
+    <a class="nav-item" href="#4-jobs-are-the-unit-of-change"><span class="nav-num">05</span>4. Jobs are the unit of change.</a>
+    <a class="nav-item" href="#5-data-is-the-operating-signal"><span class="nav-num">06</span>5. Data is the operating signal.</a>
+    <a class="nav-item" href="#6-the-operating-shape"><span class="nav-num">07</span>6. The operating shape.</a>
+    <a class="nav-item" href="#7-the-business-performance-firm"><span class="nav-num">08</span>7. The business performance firm.</a>
+    <a class="nav-item" href="#8-the-orderly-systems-offer"><span class="nav-num">09</span>8. The Orderly Systems offer.</a>
+    <a class="nav-item" href="#what-is-settled-vs-what-is-iterating"><span class="nav-num">10</span>What is settled vs. what is iterating</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · business-os.html</div>
+    <h1>The Business OS:<br>A Working Spec</h1>
+    <p class="lede">For building businesses whose operating knowledge, process quality, data, and delegation improve with every cycle instead of being rediscovered by every person.</p>
+    <div class="meta-row">
+      <div><strong>Format:</strong> HTML-native</div>
+      <div><strong>Authoring:</strong> edit this HTML file</div>
+      <div><strong>Status:</strong> Draft working spec</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+<section class="level1 generated-root">
+<section id="how-to-read-this" class="level2 spec-section">
+<h2>How to read this</h2>
+<p>This document applies the compounding-system framework to business operations. It asks one question: if software can be improved over time by making intent explicit, running work through a loop, and updating the substrate, what is the equivalent system for a business?</p>
+<p>The answer is a <strong>Business OS</strong>: the durable operating layer that describes what the business is trying to do, which jobs produce the outcomes, who or what performs those jobs, what data tells us whether the system is working, and how the whole thing updates after reality teaches us something.</p>
+<p>The core loop is simple enough to read early and repeat often: <strong>Define -&gt; Decide -&gt; Act -&gt; Learn.</strong> Learn is the compounding step: measured reality enters the data layer, gets interpreted against intent, and changes the next definition, decision, or action.</p>
+<p>Two kinds of claim show up here. <strong>Principles</strong> are the parts I expect to survive changes in tools, models, teams, and markets. <strong>Operating choices</strong> are the current best implementation of those principles. The choices will change. The loop is what keeps those changes from becoming drift.</p>
+<hr />
+</section>
+
+<section id="1-the-business-is-the-system" class="level2 spec-section">
+<h2>1. The business is the system.</h2>
+<p>The entirety of a business can be described in tasks, decisions, actions, and outcomes. That does not mean every business is simple. It means the complexity can be made legible. Every company has work that needs to happen, decisions that need to be made, actors who do the work, standards that define success, and evidence that tells the owner whether the system is improving.</p>
+<p>The leverage move is to stop treating the business as a set of departments and start treating it as a set of jobs. A cashier, marketer, designer, coder, operator, manager, and CEO all have jobs to be done. Some are physical. Some are judgment-heavy. Some are mostly information routing. Some can be done by software, by an agent, by a person, or by a person using an agent.</p>
+<p>This is why the "AI CEO" idea matters even when the business is not run by an AI. A useful public example is the 2026 reporting that Mark Zuckerberg was building a CEO agent to help him retrieve information and assist with CEO work. The point is not that the agent becomes the accountable CEO. The point is sharper: even the CEO role can be decomposed into jobs, decisions, context retrieval, recommendations, and actions where an agent can help. If that is true at the top of Meta, it is also true for a cashier, marketer, designer, coder, operator, or owner.</p>
+<p><strong>A job is the core unit of business intent.</strong> A job is a named body of work meant to produce a defined outcome under real constraints. In this definition, a job can include decision work, relationship work, strategy work, physical work, creative work, or operational work. If the job is clear, the business owner can decide whether it belongs to a person, an agent, a workflow, a software system, or a hybrid. If the job is not clear, delegation becomes guessing with a better interface.</p>
+<hr />
+</section>
+
+<section id="2-the-loop-define-decide-act-learn" class="level2 spec-section">
+<h2>2. The loop: define, decide, act, learn.</h2>
+<p>Every improvement to the Business OS runs the same cycle.</p>
+<div class="loop-flow">
+  <div class="loop-node accent">
+    <div class="loop-num">01</div>
+    <div class="loop-title">Define</div>
+    <div class="loop-copy">Write down the job, actor, process, constraints, and success criteria.</div>
+  </div>
+  <div class="loop-node">
+    <div class="loop-num">02</div>
+    <div class="loop-title">Decide</div>
+    <div class="loop-copy">Choose the next intervention, actor, standard, and evidence.</div>
+  </div>
+  <div class="loop-node">
+    <div class="loop-num">03</div>
+    <div class="loop-title">Act</div>
+    <div class="loop-copy">Implement the process, software, agent, checklist, recommendation, or handoff.</div>
+  </div>
+  <div class="loop-node">
+    <div class="loop-num">04</div>
+    <div class="loop-title">Learn</div>
+    <div class="loop-copy">Move measured reality into the data layer and update future work.</div>
+  </div>
+</div>
+<p><strong>Define.</strong> Capture the work in a form both humans and agents can understand. That may mean writing down a process, standardizing an existing document, sitting in on a meeting, interviewing an employee, or turning a messy conversation into a job record.</p>
+<p><strong>Decide.</strong> Use the job record, business context, and available data to choose what needs to be done and why. The decision names the intended action, the actor, the expected outcome, and the evidence that will decide whether the action worked.</p>
+<p><strong>Act.</strong> Implement the chosen intervention. Sometimes that is a checklist. Sometimes it is a spreadsheet. Sometimes it is an app, automation, agent skill, operating cadence, training artifact, or recommendation the business implements itself. The actor is selected after the job is understood, not before.</p>
+<p><strong>Learn.</strong> The loop compounds only when measured reality enters the data layer, gets interpreted against intent, and changes the next definition, decision, or action. Measurement can be data, manager review, customer response, audit trail, task completion, error rate, revenue, margin, cycle time, or any other signal tied to the job. Measurement without OS update is reporting. Measurement with OS update is compounding.</p>
+<p>When a step fails, go back to the smallest correction. If the actor did the wrong thing, inspect the job definition. If the metric did not answer the question, revise the data capture. If the process worked once but cannot be repeated, turn the successful path into a checklist or skill. The loop is the recovery mechanism and the learning mechanism.</p>
+<hr />
+</section>
+
+<section id="3-what-a-business-os-is" class="level2 spec-section">
+<h2>3. What a Business OS is.</h2>
+<p>A Business OS is a living system for defining work, assigning actors, measuring outcomes, and updating how the business operates. It contains the operating memory of the business: jobs, decisions, actors, processes, data, measures, update rules, and the evidence behind revisions.</p>
+<p>The knowledge layer is one part of that system. It stores durable context. The Business OS turns that context into routed work, assigned responsibility, measured outcomes, and revised future defaults.</p>
+<div class="matrix-grid">
+  <div class="matrix-cell">
+    <div class="matrix-label">Knowledge layer</div>
+    <div class="matrix-value">What the business knows</div>
+    <div class="matrix-copy">Offers, customers, roles, documents, constraints, history, decisions, and reference context.</div>
+  </div>
+  <div class="matrix-cell accent">
+    <div class="matrix-label">Business OS</div>
+    <div class="matrix-value">How the business runs and updates</div>
+    <div class="matrix-copy">Jobs, actors, queues, data flows, SOPs, checklists, measures, reviews, and revision rules.</div>
+  </div>
+  <div class="matrix-cell">
+    <div class="matrix-label">GBrain-style access</div>
+    <div class="matrix-value">Retrieval surface</div>
+    <div class="matrix-copy">Useful when the question is "what do we know about this?" Not sufficient by itself for routing or accountability.</div>
+  </div>
+  <div class="matrix-cell">
+    <div class="matrix-label">Update protocol</div>
+    <div class="matrix-value">Compounding surface</div>
+    <div class="matrix-copy">Defines where new artifacts go, who approves changes, when processes revise, and how lessons become future default behavior.</div>
+  </div>
+</div>
+<p>A GBrain-style setup may be enough for information access. The Business OS adds the operating protocol around that access: where work starts, who owns it, how it is measured, and how lessons become future default behavior. With update rules, the business gets an operating memory that changes how future work is done.</p>
+<p>File placement matters less than retrieval and maintenance discipline, but it still matters. The system needs canonical homes for jobs, processes, roles, metrics, offers, decisions, and incidents. If employees can add documents anywhere, the business accumulates content. If employees complete guided intake that creates or updates the right artifact, the business accumulates substrate.</p>
+<hr />
+</section>
+
+<section id="4-jobs-are-the-unit-of-change" class="level2 spec-section">
+<h2>4. Jobs are the unit of change.</h2>
+<p>A job record is the business equivalent of a spec. It says what needs to happen, why it matters, how it is currently done, who owns it, what inputs it needs, what output it creates, and how success is verified. Because a job carries intent, the record can describe strategy work, relationship work, decision work, creative work, physical work, or routine operational work without changing shape.</p>
+<p>A complete job record should answer:</p>
+<ul>
+<li><strong>Purpose:</strong> what business outcome this job protects or creates.</li>
+<li><strong>Trigger:</strong> when the job starts.</li>
+<li><strong>Actor:</strong> who or what currently does it: person, agent, software, vendor, or hybrid.</li>
+<li><strong>Inputs:</strong> what information, materials, approvals, or system access are required.</li>
+<li><strong>Process:</strong> the steps, checklist, decision tree, or workflow.</li>
+<li><strong>Success criteria:</strong> what "done" means and what quality bar applies.</li>
+<li><strong>Measurement:</strong> which signal proves the job is working or failing.</li>
+<li><strong>Escalation:</strong> what happens when the actor cannot complete the job safely.</li>
+<li><strong>Revision history:</strong> what changed, when, why, and what evidence justified the change.</li>
+</ul>
+<p>Once the job is legible, the business can ask better questions. Should this stay human? Should an agent advise the human? Should software automate the whole thing? Should a checklist reduce variance? Should the job disappear because another process makes it unnecessary?</p>
+<p>The pilot turbulence example makes the point. "Turn on the fasten seatbelt sign and make an announcement when turbulence matters" is one job. The current actor may be the pilot. The future actor may be flight-data software, onboard sensors, and an automated announcement system. The deeper job, flying the plane, requires a much more serious system before it can be delegated to autopilot. Same structure, different stakes.</p>
+<p>Orderly Systems exists in that question: identify the jobs, understand the value and risk of changing the actor, then build or recommend the system that puts the right work on autopilot without pretending every job should be automated.</p>
+<hr />
+</section>
+
+<section id="5-data-is-the-operating-signal" class="level2 spec-section">
+<h2>5. Data is the operating signal.</h2>
+<p>The Business OS needs a data layer because the owner needs to know what is happening before deciding what should happen next. A process document can say how work is intended to happen. Data says whether it is happening, how often it fails, where it is slow, and which outcomes are improving.</p>
+<p>This is the Learn step in concrete form: measured reality enters the data layer, gets interpreted against intent, and changes the next definition, decision, or action. If the data does not change future work, the loop has not learned.</p>
+<p>The data layer is not just a dashboard. It is the accumulating history of business events, decisions, outcomes, and exceptions, labeled well enough that humans and agents can reason about them later. Clean labels matter because they preserve the context that is cheap to capture now and expensive to reconstruct later.</p>
+<p>Better business context plus better business data means better recommendations. An agent that knows the job list, offer map, customer promises, constraints, metrics, current bottlenecks, and recent outcomes can help decide what should be done and why. An agent without that context gives generic advice with confident language.</p>
+<p>The durable data questions are simple:</p>
+<ul>
+<li>What events must be captured for this business to understand itself?</li>
+<li>Which jobs produce or depend on those events?</li>
+<li>Which metrics prove the business, role, or job is improving?</li>
+<li>Where does each metric come from, and who trusts it?</li>
+<li>What decision becomes easier when this data is available?</li>
+</ul>
+<p>A metric that does not change a decision is decoration. A metric tied to a job becomes operating signal.</p>
+<hr />
+</section>
+
+<section id="6-the-operating-shape" class="level2 spec-section">
+<h2>6. The operating shape.</h2>
+<p>The Business OS is maintained by a small routing surface and a clear ownership model.</p>
+<div class="visual-block">
+  <div class="visual-header">
+    <div class="visual-title">Business OS operating shape</div>
+    <div class="visual-kicker">small owner surface · large system surface</div>
+  </div>
+  <div class="actor-chain">
+    <div class="actor-card human"><div class="actor-label">intent</div><div class="actor-name">Owner</div><div class="actor-copy">Defines outcomes, approves priorities, accepts major changes.</div></div>
+    <div class="actor-card queue"><div class="actor-label">operator</div><div class="actor-name">OS Steward</div><div class="actor-copy">Maintains jobs, processes, data definitions, and revision rules.</div></div>
+    <div class="actor-card queue"><div class="actor-label">routing</div><div class="actor-name">Job Board</div><div class="actor-copy">Shows what needs to be done, who owns it, and what is blocked.</div></div>
+    <div class="actor-card agent"><div class="actor-label">labor</div><div class="actor-name">Actor</div><div class="actor-copy">Person, agent, software, vendor, or hybrid performs the job.</div></div>
+    <div class="actor-card system"><div class="actor-label">evidence</div><div class="actor-name">Learn</div><div class="actor-copy">Outcome data updates the OS and shapes the next cycle.</div></div>
+  </div>
+</div>
+<p><strong>Owner.</strong> The business owner holds intent and accountability. The owner decides what matters, which tradeoffs are acceptable, and when a major change is good enough to become the new default.</p>
+<p><strong>OS steward.</strong> The steward maintains the operating substrate. This can be a consultant, operator, internal employee, or agent-assisted role. The steward does not need to do every job. The steward makes sure every important job is defined, assigned, measurable, and updated when reality changes.</p>
+<p><strong>Job board.</strong> The board is the current task surface. It answers: what jobs exist, what tasks are active, who owns them, what is blocked, what evidence is missing, and what changed recently. Business owners should be able to see all jobs and how they are handled without manually interviewing the whole company.</p>
+<p><strong>Actor.</strong> The actor does the job. Sometimes the actor is an employee following a checklist. Sometimes it is an agent that drafts a recommendation. Sometimes it is software that automates the action. Sometimes it is a human approving an agent's work. The OS should name the actor explicitly instead of hiding delegation inside informal habits.</p>
+<p><strong>Learn.</strong> The learning layer closes the loop. It decides whether the job is healthy, whether the actor is appropriate, whether the process needs revision, and whether new work should be created.</p>
+<p>The key interface is guided intake. Employees should not have to understand the entire OS to update it. They should be able to answer structured questions about what happened, what changed, what failed, or what process they followed. The system turns those answers into updates to jobs, tasks, SOPs, decision records, and metrics.</p>
+<hr />
+</section>
+
+<section id="7-the-business-performance-firm" class="level2 spec-section">
+<h2>7. The business performance firm.</h2>
+<p>Operations and technology are merging. The role is not traditional consulting, not just software development, not just automation, and not just process documentation. The work is to define the business system, find the gaps, route the jobs, build the tools, and keep the operating layer improving over time.</p>
+<p>The company category is something like a <strong>business performance firm</strong>. The work is performed by <strong>business performance specialists</strong>: people who build systems to drive business growth by improving how jobs are defined, assigned, executed, measured, and updated.</p>
+<p>The promise is not "we will do every task for you." The promise is sharper: we will identify the jobs that drive the business, understand how they are currently handled, determine where better process, data, software, agents, or human delegation would improve performance, and help implement the system.</p>
+<p>The limits matter. A business performance specialist may not stock the shelves. But they can define the shelf-stocking job, build the checklist, choose the data capture, design the exception flow, train the employee, create the dashboard, and set up the review loop that shows whether the process is working.</p>
+<p>The offer becomes: <strong>we build and maintain the operating systems that make businesses easier to understand, easier to improve, and easier to scale.</strong></p>
+<hr />
+</section>
+
+<section id="8-the-orderly-systems-offer" class="level2 spec-section">
+<h2>8. The Orderly Systems offer.</h2>
+<p>Orderly Systems builds Business OS infrastructure for companies that need clearer operations, better data, and more leverage from people, software, and agents.</p>
+<p><strong>The offer:</strong> we turn the operating reality of a business into a living system of jobs, actors, processes, data, measures, and update rules, then use that system to improve performance over time.</p>
+<p><strong>What we do for a business:</strong></p>
+<ul>
+<li><strong>Define the business.</strong> Clarify the offers, customer promises, constraints, roles, systems, and outcomes that matter.</li>
+<li><strong>Map the jobs.</strong> Identify the work the business must do to fulfill its offers, grow, avoid failure, and improve margins.</li>
+<li><strong>Write the job records.</strong> Capture purpose, trigger, actor, inputs, process, success criteria, measurement, escalation, and revision history.</li>
+<li><strong>Find the gaps.</strong> Identify unowned jobs, unclear decisions, weak handoffs, missing data, broken processes, and places where the actor no longer fits the work.</li>
+<li><strong>Design the operating system.</strong> Create the job board, SOPs, checklists, data definitions, dashboards, decision rules, and intake paths the business needs.</li>
+<li><strong>Implement the right intervention.</strong> Build or recommend processes, software, automations, agent workflows, training artifacts, or human handoffs.</li>
+<li><strong>Set up the data layer.</strong> Route the events, metrics, outcomes, and exceptions needed to understand whether the business is working.</li>
+<li><strong>Close the Learn loop.</strong> Turn measured reality into updates to job definitions, decisions, processes, actor assignments, and future actions.</li>
+<li><strong>Maintain the OS.</strong> Keep the business operating memory current as offers, people, tools, constraints, and market conditions change.</li>
+</ul>
+<p><strong>What we do not promise:</strong> we do not personally perform every job inside the business. We do not stock shelves, run every sales call, or replace accountable owners. We define the work, design the system, implement the right leverage, and make sure measured reality updates how the business operates.</p>
+<p>The result is a company that can answer: what needs to be done, who or what is doing it, how we know it is handled, what is failing, and what should change next.</p>
+<hr />
+</section>
+
+<section id="what-is-settled-vs-what-is-iterating" class="level2 spec-section">
+<h2>What is settled vs. what is iterating</h2>
+<p><strong>Settled</strong> (will not change as tools improve):</p>
+<ul>
+<li>A business becomes improvable when its jobs, decisions, actions, outcomes, constraints, and evidence are legible.</li>
+<li>A job is the core unit of business intent: a named body of work meant to produce a defined outcome under real constraints.</li>
+<li>Offers define what the business promises; jobs define what the business must do to fulfill those promises.</li>
+<li>Define the job before choosing the actor.</li>
+<li>A Business OS is a living system for defining work, assigning actors, measuring outcomes, and updating how the business operates.</li>
+<li>Measurement without operating-memory update is reporting; measurement with update is compounding.</li>
+<li>Accountability stays with the responsible owner even when execution is delegated.</li>
+<li>The operating loop is Define -&gt; Decide -&gt; Act -&gt; Learn.</li>
+</ul>
+<p><strong>Iterating</strong> (current best implementation):</p>
+<ul>
+<li>The exact document structure for a job registry, SOP library, decision log, metric dictionary, and offer map.</li>
+<li>Whether the interface starts as files, sheets, a custom app, a GBrain-style knowledge surface, or a hybrid.</li>
+<li>Which agent skills handle intake, job updates, process drafting, data interpretation, and owner reporting.</li>
+<li>The precise title for the company category: business performance firm, business systems firm, operations intelligence firm, or something sharper.</li>
+<li>The first client-facing offer and delivery cadence for Orderly Systems.</li>
+</ul>
+<p>This document should be updated every time the Business OS gains a better artifact, a better loop, or a clearer boundary.</p>
+</section>
+</section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede">Sibling HTML-native documents in this folder.</p>
+    <div class="related-grid">
+      <a class="related-card" href="./operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">The software-development operating spec this document mirrors.</div></a>
+      <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. The Business OS is one instance of it.</div></a>
+      <a class="related-card" href="../principles/business-principles.html"><div class="related-name">Business Principles</div><div class="related-desc">Domain-specific principles for building and maintaining a Business OS.</div></a>
+      <a class="related-card" href="../principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems in any field.</div></a>
+      <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across the substrate.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · HTML-native document</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Principles - Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --amber: #d4a72c;
+    --emerald: #4ec9b0;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 18px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .logo-mark {
+    width: 24px; height: 24px;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; color: var(--fg); font-size: 12px;
+  }
+  .sidebar-title { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .sidebar-sub {
+    font-size: 11px; color: var(--fg-3); margin-top: 1px;
+    font-family: var(--font-mono);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px;
+  }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    font-size: 10px; font-weight: 500;
+    color: var(--fg-3);
+    padding: 10px 10px 4px;
+    font-family: var(--font-mono);
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition), color var(--transition);
+    min-width: 0;
+  }
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-item:not(.doc-link) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nav-num {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--fg-3);
+    flex-shrink: 0;
+    width: 18px;
+    text-align: right;
+    padding-top: 1px;
+  }
+  .nav-item.active .nav-num, .nav-item.current .nav-num { color: var(--fg-2); }
+
+  .main {
+    flex: 1; min-width: 0;
+    padding: 56px 72px 120px;
+    max-width: 980px;
+  }
+  .spec-eyebrow {
+    font-size: 11px; font-weight: 500;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+  }
+  h1 {
+    font-size: 30px; font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    color: var(--fg);
+  }
+  .lede {
+    font-size: 15px; color: var(--fg-2);
+    line-height: 1.65; max-width: 680px;
+    margin-bottom: 28px;
+  }
+  .meta-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding: 10px 0;
+    font-size: 12px; color: var(--fg-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+
+  .doc-body { margin-top: 42px; }
+  .doc-body section { margin-top: 54px; }
+  .doc-body section:first-child { margin-top: 0; }
+  section { scroll-margin-top: 24px; }
+  h2 {
+    font-size: 19px; font-weight: 600;
+    margin-top: 56px; margin-bottom: 8px;
+    color: var(--fg);
+  }
+  .doc-body section > h2:first-child { margin-top: 0; }
+  h3 { font-size: 14px; font-weight: 600; margin-top: 28px; margin-bottom: 8px; color: var(--fg); }
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+  p strong, li strong { color: var(--fg); font-weight: 600; }
+  ul { color: var(--fg-2); padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 5px; line-height: 1.6; }
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--bg-3);
+    color: var(--fg-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  pre code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  .loop-flow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .loop-node {
+    background: var(--bg-2);
+    padding: 16px;
+    min-height: 128px;
+    position: relative;
+  }
+  .loop-node.accent { background: var(--bg-3); }
+  .loop-node:not(:last-child)::after {
+    content: '->';
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+  .loop-num { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; }
+  .loop-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+  .loop-copy { font-size: 12px; color: var(--fg-2); line-height: 1.55; padding-right: 12px; }
+  .principle-map {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .principle-card {
+    background: var(--bg-2);
+    min-height: 140px;
+    padding: 16px;
+    border-top: 2px solid var(--border-2);
+  }
+  .principle-card.intent { border-top-color: var(--primary); }
+  .principle-card.data { border-top-color: var(--amber); }
+  .principle-card.knowledge { border-top-color: var(--emerald); }
+  .principle-card.boundary { border-top-color: var(--emerald); }
+  .principle-card.system { border-top-color: var(--primary); background: var(--bg-3); }
+  .principle-card.loop { border-top-color: var(--primary); background: var(--bg-3); }
+  .principle-num { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; }
+  .principle-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+  .principle-copy { font-size: 12px; color: var(--fg-2); line-height: 1.55; }
+  .related-section { margin-top: 64px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .related-card {
+    background: var(--bg-2);
+    padding: 14px 16px;
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition);
+  }
+  .related-card:hover { background: var(--bg-3); }
+  .related-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .related-name::after { content: '->'; color: var(--fg-3); font-weight: 400; margin-left: auto; }
+  .related-desc { font-size: 12px; color: var(--fg-3); line-height: 1.5; }
+  a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--fg-3); }
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .footer-note { text-align: center; color: var(--fg-3); font-size: 12px; }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 36px 22px 72px; }
+    .related-grid, .loop-flow, .principle-map { grid-template-columns: 1fr; }
+    .loop-node:not(:last-child)::after { content: 'v'; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Core Concepts</div>
+      <div class="sidebar-sub">Business Principles</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#core-claim"><span class="nav-num">01</span>Core claim</a>
+    <a class="nav-item" href="#business-legibility"><span class="nav-num">02</span>Business legibility</a>
+    <a class="nav-item" href="#jobs-and-offers"><span class="nav-num">03</span>Jobs and offers</a>
+    <a class="nav-item" href="#actors-and-accountability"><span class="nav-num">04</span>Actors and accountability</a>
+    <a class="nav-item" href="#operating-memory-and-learning"><span class="nav-num">05</span>Operating memory and learning</a>
+    <a class="nav-item" href="#the-learn-rule"><span class="nav-num">06</span>The Learn rule</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · business-principles.html</div>
+    <h1>Business Principles</h1>
+    <p class="lede">Business-specific principles for building companies whose operating knowledge, process quality, data, and delegation improve over time.</p>
+    <div class="meta-row">
+      <div><strong>Format:</strong> HTML-native</div>
+      <div><strong>Authoring:</strong> edit this HTML file</div>
+      <div><strong>Status:</strong> Draft</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="core-claim" class="level2 spec-section">
+      <h2>Core claim</h2>
+      <p>This document inherits the Foundation core principles and adds business-specific rules on top. A principle belongs here only if it stays useful after the current tools, agents, apps, dashboards, and tactics change.</p>
+      <p><strong>A business becomes improvable when its work, decisions, constraints, evidence, and operating memory are legible enough to be updated by reality.</strong></p>
+      <p>The durable loop is:</p>
+      <div class="loop-flow">
+        <div class="loop-node accent"><div class="loop-num">01</div><div class="loop-title">Define</div><div class="loop-copy">Name the job, intent, constraints, actor candidates, and success criteria.</div></div>
+        <div class="loop-node"><div class="loop-num">02</div><div class="loop-title">Decide</div><div class="loop-copy">Choose what should happen next, by whom or what, and what evidence will matter.</div></div>
+        <div class="loop-node"><div class="loop-num">03</div><div class="loop-title">Act</div><div class="loop-copy">Run the work through a person, agent, process, software system, or hybrid.</div></div>
+        <div class="loop-node"><div class="loop-num">04</div><div class="loop-title">Learn</div><div class="loop-copy">Turn measured outcomes into updated data, revised definitions, better decisions, and new actions.</div></div>
+      </div>
+      <p>The important word is <code>Learn</code>. Learning is not reflection and it is not reporting. Learning means measured reality enters the data layer, gets interpreted against intent, and changes the next definition, decision, or action.</p>
+      <div class="principle-map">
+        <div class="principle-card intent"><div class="principle-num">01</div><div class="principle-title">Legibility</div><div class="principle-copy">Businesses improve when jobs, decisions, actions, outcomes, constraints, and evidence are visible.</div></div>
+        <div class="principle-card intent"><div class="principle-num">02</div><div class="principle-title">Jobs</div><div class="principle-copy">A job is the core unit of business intent: work meant to produce a defined outcome.</div></div>
+        <div class="principle-card system"><div class="principle-num">03</div><div class="principle-title">Offers</div><div class="principle-copy">Offers define the promise; jobs define what must happen to fulfill it.</div></div>
+        <div class="principle-card boundary"><div class="principle-num">04</div><div class="principle-title">Actors</div><div class="principle-copy">Define the job before assigning it to a person, agent, system, vendor, or hybrid.</div></div>
+        <div class="principle-card data"><div class="principle-num">05</div><div class="principle-title">Memory</div><div class="principle-copy">A Business OS is operating memory: work, actors, measures, update rules, and evidence.</div></div>
+        <div class="principle-card loop"><div class="principle-num">06</div><div class="principle-title">Learning</div><div class="principle-copy">Measurement compounds only when it updates future definitions, decisions, or actions.</div></div>
+      </div>
+      <hr />
+    </section>
+
+    <section id="business-legibility" class="level2 spec-section">
+      <h2>Business legibility</h2>
+      <p><strong>A business becomes improvable when its jobs, decisions, actions, outcomes, constraints, and evidence are legible.</strong> Legibility is what makes improvement possible. If the business cannot describe what work exists, which decisions matter, what actions are being taken, what outcomes they produce, what constraints apply, and what evidence is trusted, then the business can still operate but it cannot reliably improve itself.</p>
+      <p><strong>A Business OS is a living system for defining work, assigning actors, measuring outcomes, and updating how the business operates.</strong> It is more than stored knowledge and more than a task board. It is the operating memory of the business: jobs, decisions, actors, processes, data, measures, update rules, and the evidence behind revisions.</p>
+    </section>
+
+    <section id="jobs-and-offers" class="level2 spec-section">
+      <h2>Jobs and offers</h2>
+      <p><strong>A job is the core unit of business intent.</strong> A job is a named body of work meant to produce a defined outcome under real constraints. A job can include decision work, relationship work, strategy work, physical work, creative work, or routine operational work. The point is not that every job is a simple task. The point is that every job carries intent: something is meant to be accomplished.</p>
+      <p><strong>Offers define what the business promises; jobs define what the business must do to fulfill those promises.</strong> Offer language describes the external promise. Job language describes the internal work required to make the promise true. A Business OS needs both because a company can only improve delivery when it can connect what it sells to what it must repeatedly do.</p>
+    </section>
+
+    <section id="actors-and-accountability" class="level2 spec-section">
+      <h2>Actors and accountability</h2>
+      <p><strong>Define the job before choosing the actor.</strong> The business should understand the work before deciding whether it belongs to a person, agent, software system, vendor, process, checklist, or hybrid. Choosing the actor first turns delegation into guessing. Defining the job first makes delegation a design decision.</p>
+      <p><strong>Accountability stays with the responsible owner even when execution is delegated.</strong> Delegation can move labor to people, agents, software, vendors, or hybrid systems. It does not move accountability unless the business explicitly transfers ownership. The owner keeps intent, judgment, priority, and acceptance of major changes.</p>
+    </section>
+
+    <section id="operating-memory-and-learning" class="level2 spec-section">
+      <h2>Operating memory and learning</h2>
+      <p><strong>Measurement without operating-memory update is reporting; measurement with update is compounding.</strong> A dashboard that does not change future definitions, decisions, or actions is passive. A measured outcome that updates a job record, SOP, decision rule, checklist, offer, metric, or actor assignment becomes compounding business substrate.</p>
+      <p><strong>The operating loop is Define -&gt; Decide -&gt; Act -&gt; Learn.</strong> Define the job, intent, constraints, actor candidates, and success criteria. Decide what should be done next, by whom or what, and what evidence will matter. Act through a person, agent, process, software system, or hybrid. Learn by turning measured outcomes into updated data, revised job definitions, better decisions, and new actions.</p>
+    </section>
+
+    <section id="the-learn-rule" class="level2 spec-section">
+      <h2>The Learn rule</h2>
+      <p>The Learn step is the compounding mechanism:</p>
+      <pre><code>Measured reality -> data layer -> interpretation against intent -> updated definition, decision, or action</code></pre>
+      <p>If reality is measured but the operating memory does not change, the system has observed but not learned.</p>
+      <p>If reality changes the operating memory, the next cycle starts smarter.</p>
+    </section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede">Sibling HTML-native documents in this folder.</p>
+    <div class="related-grid">
+      <a class="related-card" href="../general/business-os.html"><div class="related-name">The Business OS: A Working Spec</div><div class="related-desc">The operating-spec article these principles support.</div></a>
+      <a class="related-card" href="./core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles inherited by this business-specific layer.</div></a>
+      <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework behind durable operating systems.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · HTML-native document</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

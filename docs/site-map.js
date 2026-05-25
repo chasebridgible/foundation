@@ -11,11 +11,15 @@ window.SubstrateSiteMap = [
         "path": "principles/core-principles.html"
       },
       {
+        "title": "Business Principles",
+        "path": "principles/business-principles.html"
+      },
+      {
         "title": "Software Development Principles",
         "path": "principles/sw-dev-principles.html"
       },
       {
-        "title": "AI Evals Principles - Core Concepts",
+        "title": "AI Evals Principles",
         "path": "principles/ai-evals-principles.html"
       },
       {
@@ -25,6 +29,10 @@ window.SubstrateSiteMap = [
       {
         "title": "Building Software with Agents: A Working Spec",
         "path": "general/operating-spec.html"
+      },
+      {
+        "title": "The Business OS: A Working Spec",
+        "path": "general/business-os.html"
       },
       {
         "title": "Definitions",
@@ -89,6 +97,21 @@ window.SubstrateSiteMap = [
         "title": "Foundation Workspace Doctor Test Spec",
         "path": "specs/foundation-workspace-doctor-test.html",
         "specId": "foundation.workspace-doctor.test"
+      },
+      {
+        "title": "Foundation File Registry Technical Spec",
+        "path": "specs/foundation-backfill-file-registry-technical.html",
+        "specId": "foundation.backfill-file-registry.technical"
+      },
+      {
+        "title": "Foundation File Registry Test Spec",
+        "path": "specs/foundation-backfill-file-registry-test.html",
+        "specId": "foundation.backfill-file-registry.test"
+      },
+      {
+        "title": "Foundation File Registry",
+        "path": "specs/foundation-backfill-file-registry.html",
+        "specId": "foundation.backfill-file-registry.descriptive"
       }
     ]
   },
