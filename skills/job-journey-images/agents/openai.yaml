@@ -1,4 +1,4 @@
 interface:
   display_name: "Job Journey Images"
-  short_description: "Generate process images and canvases"
-  default_prompt: "Use $job-journey-images to turn a source process document into wordless instructional images and a one-slide process canvas saved in the target repo."
+  short_description: "Queue process images and canvases"
+  default_prompt: "Use $job-journey-images to turn a source process document into a queued run of wordless instructional images and one-slide process canvases saved in the target repo."
