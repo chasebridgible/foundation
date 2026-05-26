@@ -37,6 +37,10 @@ window.SubstrateSiteMap = [
       {
         "title": "Definitions",
         "path": "definitions/sw-definitions.html"
+      },
+      {
+        "title": "GBrain Mechanics for Foundation Backfill",
+        "path": "gbrain-backfill-mechanics.html"
       }
     ]
   },

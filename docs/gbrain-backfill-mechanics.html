@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GBrain Mechanics for Foundation Backfill</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --amber: #d4a72c;
+    --emerald: #4ec9b0;
+    --red: #f48771;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    padding: 56px 72px 120px;
+  }
+  main { max-width: 920px; }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: 30px;
+    line-height: 1.15;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .lede {
+    color: var(--fg-2);
+    font-size: 15px;
+    max-width: 760px;
+    margin-bottom: 28px;
+  }
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-3);
+    font-size: 12px;
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+  section { margin-top: 52px; scroll-margin-top: 24px; }
+  h2 {
+    color: var(--fg);
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  h3 {
+    color: var(--fg);
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  p strong, li strong { color: var(--fg); font-weight: 600; }
+  ul, ol { color: var(--fg-2); padding-left: 22px; margin-bottom: 16px; }
+  li { margin-bottom: 6px; }
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--bg-3);
+    color: var(--fg-2);
+    padding: 1px 6px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  .note {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin: 18px 0;
+  }
+  .warning { border-left-color: var(--amber); }
+  .danger { border-left-color: var(--red); }
+  .good { border-left-color: var(--emerald); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .cell {
+    background: var(--bg-2);
+    padding: 16px;
+    min-height: 128px;
+  }
+  .cell:nth-child(4n + 1), .cell:nth-child(4n + 4) { background: var(--bg-3); }
+  .cell-label {
+    font-family: var(--font-mono);
+    color: var(--fg-3);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+  .cell-title {
+    color: var(--fg);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .cell-copy {
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 18px 0 24px;
+    font-size: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  th {
+    text-align: left;
+    padding: 9px 12px;
+    color: var(--fg-3);
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  td {
+    padding: 10px 12px;
+    color: var(--fg-2);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  a { color: var(--fg); text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+  @media (max-width: 760px) {
+    body { padding: 32px 20px 80px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Foundation analysis note</div>
+  <h1>GBrain Mechanics for Foundation Backfill</h1>
+  <p class="lede">This note extracts reusable mechanics from Garry Tan's GBrain for the Foundation backfill and development substrate. It is not a formal spec. It is a working analysis of what should guide the file registry, surface registry, capability matrix, queue, evidence pack, and evaluation layers.</p>
+  <div class="meta-row">
+    <div><strong>Status:</strong> analysis draft</div>
+    <div><strong>Created:</strong> 2026-05-25</div>
+    <div><strong>Source reviewed:</strong> local clone of <code>garrytan/gbrain</code></div>
+  </div>
+
+  <section id="core-read">
+    <h2>Core Read</h2>
+    <p>GBrain should be treated as a compounding system, but not because it is a magic memory product. It compounds because new inputs can update durable knowledge, derived indexes, graph links, skills, eval baselines, and operational procedures. Model improvement then makes the latent parts better while the deterministic substrate keeps the system stable.</p>
+    <p>For Foundation, the important lesson is not "install GBrain." The lesson is that a good knowledge layer separates canonical durable artifacts from derived retrieval structures, routes every read and write through explicit boundaries, and makes improvement measurable with replayable gates.</p>
+    <div class="note good">
+      <p><strong>The shortest translation:</strong> GBrain is useful as a reference implementation for how a knowledge substrate can evolve. Foundation should copy the mechanics that make evolution safe, not the whole product surface.</p>
+    </div>
+  </section>
+
+  <section id="files-read">
+    <h2>GBrain Files Read</h2>
+    <p>The most relevant files for this analysis were:</p>
+    <ul>
+      <li><code>AGENTS.md</code>, <code>INSTALL_FOR_AGENTS.md</code>, <code>CLAUDE.md</code>, and <code>skills/RESOLVER.md</code> for agent operating protocol and context routing.</li>
+      <li><code>docs/architecture/system-of-record.md</code>, <code>docs/architecture/brains-and-sources.md</code>, <code>docs/architecture/topologies.md</code>, and <code>skills/conventions/brain-routing.md</code> for source-of-truth and routing boundaries.</li>
+      <li><code>docs/architecture/RETRIEVAL.md</code>, <code>docs/eval-bench.md</code>, and <code>docs/eval/SEARCH_MODE_METHODOLOGY.md</code> for retrieval and eval loop design.</li>
+      <li><code>docs/ethos/THIN_HARNESS_FAT_SKILLS.md</code> for the harness, skill, resolver, deterministic/latent split.</li>
+      <li><code>src/core/operations.ts</code>, <code>src/mcp/dispatch.ts</code>, <code>src/commands/serve-http.ts</code>, <code>src/core/eval-capture.ts</code>, <code>src/schema.sql</code>, <code>src/commands/sync.ts</code>, and Minions queue/handler files for concrete implementation patterns.</li>
+      <li><code>scripts/check-system-of-record.sh</code>, <code>scripts/check-operations-filter-bypass.sh</code>, <code>scripts/check-gateway-routed-no-direct-anthropic.sh</code>, and <code>scripts/run-verify-parallel.sh</code> for deterministic guards.</li>
+    </ul>
+  </section>
+
+  <section id="mechanics">
+    <h2>Reusable Mechanics</h2>
+    <div class="grid">
+      <div class="cell">
+        <div class="cell-label">Mechanic 01</div>
+        <div class="cell-title">Canonical files, derived indexes</div>
+        <div class="cell-copy">GBrain's markdown repo is the system of record; the DB is a derived cache. Foundation should make backfill JSONL/HTML artifacts canonical and treat any DB/search/vector index as rebuildable.</div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">Mechanic 02</div>
+        <div class="cell-title">Explicit source boundaries</div>
+        <div class="cell-copy">GBrain's brain/source axes prevent silent context mixing. Foundation needs analogous repo/run/source/slice boundaries so a backfill row can always cite where it came from and where it is allowed to write.</div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">Mechanic 03</div>
+        <div class="cell-title">Operation contracts</div>
+        <div class="cell-copy">GBrain routes CLI, MCP, HTTP, and subagent calls through shared operations. Foundation backfill should expose each layer as a small set of deterministic operations plus skills, not as one long prompt.</div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">Mechanic 04</div>
+        <div class="cell-title">Resolvers over giant manuals</div>
+        <div class="cell-copy">GBrain uses resolver tables to load the right skill at the right time. Foundation should keep AGENTS files small and route layer work through resolver/skill entries keyed by artifact and failure mode.</div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">Mechanic 05</div>
+        <div class="cell-title">Deterministic where possible</div>
+        <div class="cell-copy">GBrain uses zero-LLM link extraction, check scripts, schema validation, and source scoping for trust. Foundation should use latent judgment only after deterministic inventory, parsing, hashing, and coverage checks are exhausted.</div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">Mechanic 06</div>
+        <div class="cell-title">Capture and replay</div>
+        <div class="cell-copy">GBrain captures retrieval candidates and replays against baselines. Foundation should capture backfill decisions and replay/evaluate them when skills, rubrics, or models change.</div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">Mechanic 07</div>
+        <div class="cell-title">Trust boundary as data</div>
+        <div class="cell-copy">GBrain distinguishes trusted local callers from remote/untrusted callers. Foundation should distinguish deterministic checker output, agent draft output, human-reviewed output, and promoted canonical state.</div>
+      </div>
+      <div class="cell">
+        <div class="cell-label">Mechanic 08</div>
+        <div class="cell-title">Queues with resumable state</div>
+        <div class="cell-copy">GBrain's Minions queue is durable, idempotent, bounded, and audited. Foundation's split/queue layer should become a real state model, not just prose inside the report.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="layer-implications">
+    <h2>Layer Implications</h2>
+
+    <h3>File Registry</h3>
+    <p>The file registry should follow GBrain's source-of-record pattern. The JSONL registry is canonical. Hashes, sizes, language detection, and generated-file classification are deterministic facts. Any search index, graph, or UI is derived and must be rebuildable from the registry plus repo files.</p>
+    <p>The registry rows should probably carry more than the proposed V1 fields. Add <code>registry_version</code>, <code>repo_id</code>, <code>run_id</code>, <code>path_kind</code>, <code>language</code>, <code>is_generated</code>, <code>source_status</code>, <code>mapping_status</code>, <code>responsibilities</code>, <code>surface_refs</code>, <code>review_flags</code>, <code>confidence</code>, <code>mapped_by</code>, <code>mapped_at</code>, and <code>evidence</code>. This makes later layers less dependent on re-reading raw files.</p>
+
+    <h3>Surface Registry</h3>
+    <p>GBrain's retrieval system shows the value of layering cheap deterministic extractors before model judgment. The surface registry should first use deterministic detectors for routes, commands, screens, tables, workflows, tests, docs, generated artifacts, jobs, and infra resources. Latent extraction should fill gaps, classify intent, and flag ambiguity.</p>
+    <p>Every surface should cite the file registry rows that produced it. That creates a chain from file -> surface -> capability -> spec -> test. Without that chain, the backfill system will know it read files but will not know which files prove which user-facing behavior.</p>
+
+    <h3>Capability Matrix</h3>
+    <p>GBrain's graph and source-aware citations are more relevant than its embeddings here. A capability is a graph node with evidence edges, not just a paragraph. The row should carry actor, outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence links back to surfaces and files.</p>
+    <p>The capability matrix should also include negative evidence: files inspected that looked relevant but did not prove the capability. This helps future agents avoid rediscovering the same dead ends.</p>
+
+    <h3>Split And Queue</h3>
+    <p>This is where GBrain's job queue is most useful. Broad capability rows let agents escape. A durable queue should include slice id, parent capability id, acceptance boundary, required artifact outputs, evidence pack id, status, attempts, blocked reason, reviewer state, budget, and last checker/eval result.</p>
+    <p>Use deterministic split checks before semantic review: row too broad, too many actors, too many unrelated surfaces, no backing contracts, no failure modes, no evidence, or no observable done condition.</p>
+
+    <h3>Evidence Pack</h3>
+    <p>GBrain's retrieval modes and token budgets suggest the evidence pack should be a scoped retrieval product, not a dump. It should gather the smallest sufficient set of file rows, surface rows, code excerpts, docs, tests, and prior decisions for one slice. It should include why each item was included and what question it answers.</p>
+    <p>Make evidence packs reproducible. A future agent should be able to re-run pack generation from the queue row and get a comparable result, then inspect differences.</p>
+
+    <h3>User And Operator Flow Extraction</h3>
+    <p>GBrain's diarization pattern matters here: read many documents, produce one structured judgment artifact. Flow extraction should read the evidence pack and produce states, rules, permissions, edge cases, empty/loading/error behavior, and visible/operator behavior. The output should be structured enough to evaluate and specific enough to author descriptive specs.</p>
+
+    <h3>Descriptive And Technical Spec Authoring</h3>
+    <p>GBrain's thin-harness/fat-skills split says spec authoring should live mostly in skills, while the harness only manages artifacts and gates. Keep the descriptive spec skill architecture-agnostic. Keep the technical spec skill contract-first. Use deterministic validators to enforce metadata, owned paths, related specs, evidence links, and coverage.</p>
+
+    <h3>Slice Evaluation And Revision</h3>
+    <p>GBrain's eval gate is a better pattern than one-time judging. Foundation should require create -> evaluate -> revise -> acceptable. The evaluator should write structured receipts that include scores, findings, sampled evidence, model/rubric versions, and what changed after revision.</p>
+
+    <h3>Graph Evaluation</h3>
+    <p>GBrain's rebuild promise is the hard version of the final question. Foundation's graph evaluation should ask whether the spec graph can rebuild the system's intent without source access. The practical test is: hide the source, give a future agent the specs and evidence summaries, and see whether it can describe the system, generate tests, and identify implementation boundaries.</p>
+  </section>
+
+  <section id="implementation-guidance">
+    <h2>Implementation Guidance</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Foundation need</th>
+          <th>GBrain pattern</th>
+          <th>Suggested implementation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Canonical state</td>
+          <td>Markdown repo is source of truth; DB is derived cache.</td>
+          <td>Make JSONL/HTML artifacts canonical. If a SQLite/vector/graph index is added later, it must be rebuildable from artifacts and repo files.</td>
+        </tr>
+        <tr>
+          <td>Routing</td>
+          <td>Brain/source axes with explicit citations.</td>
+          <td>Add repo/run/source/slice identifiers to every row. Require downstream artifacts to cite upstream row ids.</td>
+        </tr>
+        <tr>
+          <td>Layer execution</td>
+          <td>Shared operation contracts serve CLI/MCP/HTTP.</td>
+          <td>Define operations like <code>file_registry_init</code>, <code>surface_extract</code>, <code>capability_split</code>, and <code>evidence_pack_build</code>. Wrap them with skills rather than embedding logic only in prompts.</td>
+        </tr>
+        <tr>
+          <td>Quality gates</td>
+          <td>Check scripts enforce invariants before semantic review.</td>
+          <td>For each layer, ship a deterministic checker before an LLM evaluator. The checker proves structure/currentness; the evaluator judges meaning.</td>
+        </tr>
+        <tr>
+          <td>Semantic regression</td>
+          <td>Capture, publish baseline, replay, gate.</td>
+          <td>Capture mapped rows and evaluator receipts. Replay representative slices when models, prompts, or rubrics change.</td>
+        </tr>
+        <tr>
+          <td>Cost control</td>
+          <td>Search modes and explicit user confirmation for expensive defaults.</td>
+          <td>Every layer that can spend model tokens should have mode, budget, batch size, and stop conditions recorded in the run log.</td>
+        </tr>
+        <tr>
+          <td>Agent context</td>
+          <td>Resolver loads the right skill; large manuals are compressed to pointers.</td>
+          <td>Use a backfill resolver keyed by layer and failure mode. Keep the active report concise and move state into machine-checkable artifacts.</td>
+        </tr>
+        <tr>
+          <td>Durable work</td>
+          <td>Minions queue has bounded, resumable job state.</td>
+          <td>Move split/queue out of prose and into durable queue rows. Treat attempts, blocks, and approvals as first-class state.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="what-not-to-copy">
+    <h2>What Not To Copy</h2>
+    <ul>
+      <li><strong>Do not make a DB canonical by accident.</strong> GBrain is careful that the DB is a cache. Foundation should keep that discipline if it adds indexes, embeddings, or a local service.</li>
+      <li><strong>Do not build the orchestration layer first.</strong> GBrain's job queue is useful because it sits on top of clear operations and state. Foundation should finish file/surface/capability/checker contracts before adding heavy orchestration.</li>
+      <li><strong>Do not let the active report become the database.</strong> The report should summarize state. Registries, queues, run logs, and eval receipts should carry state.</li>
+      <li><strong>Do not copy GBrain's complexity wholesale.</strong> Brain/source routing, OAuth, MCP, minions, schema packs, and hybrid retrieval solve GBrain's product constraints. Foundation needs the mechanics, not all surfaces.</li>
+      <li><strong>Do not let giant memory files become the resolver.</strong> GBrain's own ethos warns against huge CLAUDE-style manuals. Foundation should keep context load progressive and route to narrow skills/specs.</li>
+    </ul>
+  </section>
+
+  <section id="knowledge-base-extension">
+    <h2>Knowledge Base Extension</h2>
+    <p>The same mechanics apply to Business OS knowledge bases. Canonical business artifacts should be files or structured records: offer map, job records, role records, SOPs, metric dictionary, decision log, incidents, customer promises, and update rules. Search, graph traversal, dashboards, and recommendations should be derived from those artifacts.</p>
+    <p>GBrain's source boundaries map naturally to clients, departments, functions, or operating domains. Foundation's job records can become the business equivalent of capabilities. Evidence packs can gather the facts needed to improve one job. Eval/replay can test whether recommendations still improve causal drivers rather than vanity metrics.</p>
+    <div class="note">
+      <p><strong>Business OS translation:</strong> a company compounds when measured reality updates durable operating memory. GBrain shows one way to make the memory retrievable. Foundation still needs the operating protocol that turns retrieval into better definitions, decisions, actions, and learning.</p>
+    </div>
+  </section>
+
+  <section id="recommended-order">
+    <h2>Recommended Order</h2>
+    <ol>
+      <li>Finalize the file registry artifact and checker as source-of-record infrastructure.</li>
+      <li>Add artifact category rules: canonical, derived, and runtime-only exceptions.</li>
+      <li>Build the surface registry with deterministic detectors first, LLM fill second.</li>
+      <li>Make row ids and evidence edges mandatory across file, surface, capability, queue, evidence pack, and spec artifacts.</li>
+      <li>Add semantic eval receipts and replay before the capability matrix becomes too large.</li>
+      <li>Move split/queue into durable JSONL state with explicit acceptance boundaries.</li>
+      <li>Add evidence pack generation with token budgets and reproducibility receipts.</li>
+      <li>Only then consider a GBrain-like retrieval/index layer for faster context assembly.</li>
+    </ol>
+  </section>
+
+  <section id="bottom-line">
+    <h2>Bottom Line</h2>
+    <p>GBrain supports the direction of the Foundation backfill system. It suggests that the right V1 is not a smarter one-shot backfill prompt. The right V1 is a stack of durable, source-cited, machine-checkable artifacts with deterministic gates, semantic eval receipts, and replayable improvement loops.</p>
+    <p>The file registry is the bottom of that stack. It proves the repo was seen. The surface registry, capability matrix, queue, evidence pack, specs, and graph evaluation prove the system was understood. GBrain's most useful contribution is showing how to keep those layers canonical, scoped, routed, indexed, and improvable over time.</p>
+  </section>
+</main>
+</body>
+</html>
