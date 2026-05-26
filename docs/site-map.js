@@ -88,6 +88,156 @@ window.SubstrateSiteMap = [
         "specId": "foundation.backfill-evaluation.process"
       },
       {
+        "title": "Foundation File Registry",
+        "path": "specs/foundation-backfill-file-registry.html",
+        "specId": "foundation.backfill-file-registry.descriptive"
+      },
+      {
+        "title": "Foundation File Registry Technical Spec",
+        "path": "specs/foundation-backfill-file-registry-technical.html",
+        "specId": "foundation.backfill-file-registry.technical"
+      },
+      {
+        "title": "Foundation File Registry Test Spec",
+        "path": "specs/foundation-backfill-file-registry-test.html",
+        "specId": "foundation.backfill-file-registry.test"
+      },
+      {
+        "title": "Foundation Backfill Surface Registry",
+        "path": "specs/foundation-backfill-surface-registry.html",
+        "specId": "foundation.backfill-surface-registry.descriptive"
+      },
+      {
+        "title": "Foundation Backfill Surface Registry Technical Spec",
+        "path": "specs/foundation-backfill-surface-registry-technical.html",
+        "specId": "foundation.backfill-surface-registry.technical"
+      },
+      {
+        "title": "Foundation Backfill Surface Registry Test Spec",
+        "path": "specs/foundation-backfill-surface-registry-test.html",
+        "specId": "foundation.backfill-surface-registry.test"
+      },
+      {
+        "title": "Foundation Backfill Capability Matrix",
+        "path": "specs/foundation-backfill-capability-matrix.html",
+        "specId": "foundation.backfill-capability-matrix.descriptive"
+      },
+      {
+        "title": "Foundation Backfill Capability Matrix Technical Spec",
+        "path": "specs/foundation-backfill-capability-matrix-technical.html",
+        "specId": "foundation.backfill-capability-matrix.technical"
+      },
+      {
+        "title": "Foundation Backfill Capability Matrix Test Spec",
+        "path": "specs/foundation-backfill-capability-matrix-test.html",
+        "specId": "foundation.backfill-capability-matrix.test"
+      },
+      {
+        "title": "Foundation Backfill Split And Queue",
+        "path": "specs/foundation-backfill-split-queue.html",
+        "specId": "foundation.backfill-split-queue.descriptive"
+      },
+      {
+        "title": "Foundation Backfill Split And Queue Technical Spec",
+        "path": "specs/foundation-backfill-split-queue-technical.html",
+        "specId": "foundation.backfill-split-queue.technical"
+      },
+      {
+        "title": "Foundation Backfill Split And Queue Test Spec",
+        "path": "specs/foundation-backfill-split-queue-test.html",
+        "specId": "foundation.backfill-split-queue.test"
+      },
+      {
+        "title": "Foundation Backfill Evidence Pack",
+        "path": "specs/foundation-backfill-evidence-pack.html",
+        "specId": "foundation.backfill-evidence-pack.descriptive"
+      },
+      {
+        "title": "Foundation Backfill Evidence Pack Technical Spec",
+        "path": "specs/foundation-backfill-evidence-pack-technical.html",
+        "specId": "foundation.backfill-evidence-pack.technical"
+      },
+      {
+        "title": "Foundation Backfill Evidence Pack Test Spec",
+        "path": "specs/foundation-backfill-evidence-pack-test.html",
+        "specId": "foundation.backfill-evidence-pack.test"
+      },
+      {
+        "title": "Foundation Backfill User Operator Flow Extraction",
+        "path": "specs/foundation-backfill-flow-extraction.html",
+        "specId": "foundation.backfill-flow-extraction.descriptive"
+      },
+      {
+        "title": "Foundation Backfill User Operator Flow Extraction Technical Spec",
+        "path": "specs/foundation-backfill-flow-extraction-technical.html",
+        "specId": "foundation.backfill-flow-extraction.technical"
+      },
+      {
+        "title": "Foundation Backfill User Operator Flow Extraction Test Spec",
+        "path": "specs/foundation-backfill-flow-extraction-test.html",
+        "specId": "foundation.backfill-flow-extraction.test"
+      },
+      {
+        "title": "Foundation Backfill Spec Authoring",
+        "path": "specs/foundation-backfill-spec-authoring.html",
+        "specId": "foundation.backfill-spec-authoring.descriptive"
+      },
+      {
+        "title": "Foundation Backfill Spec Authoring Technical Spec",
+        "path": "specs/foundation-backfill-spec-authoring-technical.html",
+        "specId": "foundation.backfill-spec-authoring.technical"
+      },
+      {
+        "title": "Foundation Backfill Spec Authoring Test Spec",
+        "path": "specs/foundation-backfill-spec-authoring-test.html",
+        "specId": "foundation.backfill-spec-authoring.test"
+      },
+      {
+        "title": "Foundation Backfill Slice Evaluation",
+        "path": "specs/foundation-backfill-slice-evaluation.html",
+        "specId": "foundation.backfill-slice-evaluation.descriptive"
+      },
+      {
+        "title": "Foundation Backfill Slice Evaluation Technical Spec",
+        "path": "specs/foundation-backfill-slice-evaluation-technical.html",
+        "specId": "foundation.backfill-slice-evaluation.technical"
+      },
+      {
+        "title": "Foundation Backfill Slice Evaluation Test Spec",
+        "path": "specs/foundation-backfill-slice-evaluation-test.html",
+        "specId": "foundation.backfill-slice-evaluation.test"
+      },
+      {
+        "title": "Foundation Backfill Graph Evaluation",
+        "path": "specs/foundation-backfill-graph-evaluation.html",
+        "specId": "foundation.backfill-graph-evaluation.descriptive"
+      },
+      {
+        "title": "Foundation Backfill Graph Evaluation Technical Spec",
+        "path": "specs/foundation-backfill-graph-evaluation-technical.html",
+        "specId": "foundation.backfill-graph-evaluation.technical"
+      },
+      {
+        "title": "Foundation Backfill Graph Evaluation Test Spec",
+        "path": "specs/foundation-backfill-graph-evaluation-test.html",
+        "specId": "foundation.backfill-graph-evaluation.test"
+      },
+      {
+        "title": "Foundation Backfill Handoff",
+        "path": "specs/foundation-backfill-handoff.html",
+        "specId": "foundation.backfill-handoff.descriptive"
+      },
+      {
+        "title": "Foundation Backfill Handoff Technical Spec",
+        "path": "specs/foundation-backfill-handoff-technical.html",
+        "specId": "foundation.backfill-handoff.technical"
+      },
+      {
+        "title": "Foundation Backfill Handoff Test Spec",
+        "path": "specs/foundation-backfill-handoff-test.html",
+        "specId": "foundation.backfill-handoff.test"
+      },
+      {
         "title": "Foundation AGENTS Load Canary Test",
         "path": "specs/foundation-agents-load-canary-test.html",
         "specId": "foundation.agents-load-canary.test"
@@ -101,21 +251,6 @@ window.SubstrateSiteMap = [
         "title": "Foundation Workspace Doctor Test Spec",
         "path": "specs/foundation-workspace-doctor-test.html",
         "specId": "foundation.workspace-doctor.test"
-      },
-      {
-        "title": "Foundation File Registry Technical Spec",
-        "path": "specs/foundation-backfill-file-registry-technical.html",
-        "specId": "foundation.backfill-file-registry.technical"
-      },
-      {
-        "title": "Foundation File Registry Test Spec",
-        "path": "specs/foundation-backfill-file-registry-test.html",
-        "specId": "foundation.backfill-file-registry.test"
-      },
-      {
-        "title": "Foundation File Registry",
-        "path": "specs/foundation-backfill-file-registry.html",
-        "specId": "foundation.backfill-file-registry.descriptive"
       }
     ]
   },

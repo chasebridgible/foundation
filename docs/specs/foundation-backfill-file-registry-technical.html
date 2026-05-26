@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-file-registry.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-22">
+<meta name="spec:last-updated" content="2026-05-26">
 <title>Foundation File Registry Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,22 +16,59 @@
   "title": "Foundation File Registry Technical Spec",
   "type": "technical",
   "status": "draft",
-  "lastUpdated": "2026-05-22",
+  "lastUpdated": "2026-05-26",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-file-registry.descriptive",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.backfill-file-registry.descriptive", "relationship": "parent", "sections": ["product-intent", "states-and-rules", "ux-contracts"] },
-    { "id": "foundation.backfill-file-registry.test", "relationship": "sibling", "sections": ["acceptance-mapping", "coverage-plan", "risk-based-signal-choice"] },
-    { "id": "foundation.backfill-orchestration.technical", "relationship": "sibling", "sections": ["data-model", "contracts"] }
+    {
+      "id": "foundation.backfill-file-registry.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "product-intent",
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-file-registry.test",
+      "relationship": "sibling",
+      "sections": [
+        "acceptance-mapping",
+        "coverage-plan",
+        "risk-based-signal-choice"
+      ]
+    },
+    {
+      "id": "foundation.backfill-orchestration.technical",
+      "relationship": "sibling",
+      "sections": [
+        "data-model",
+        "contracts"
+      ]
+    }
   ],
   "ownedPaths": [
-    { "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html", "kind": "doc", "ownership": "direct" }
+    {
+      "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
   ],
   "implementationPaths": [
-    { "path": "foundation/docs/specs/foundation-backfill-file-registry.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive intent for this technical layer." },
-    { "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html", "kind": "doc", "ownership": "reference", "notes": "Verification and eval contract for this layer." }
+    {
+      "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Descriptive intent for this technical layer."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Verification and eval contract for this layer."
+    }
   ],
   "coverage": [
     {
@@ -39,7 +76,10 @@
       "level": "static",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
-      "mapsTo": ["foundation.backfill-file-registry.technical#data-model", "foundation.backfill-file-registry.technical#contracts"],
+      "mapsTo": [
+        "foundation.backfill-file-registry.technical#data-model",
+        "foundation.backfill-file-registry.technical#contracts"
+      ],
       "evidence": "Test spec will verify registry schema, coverage, freshness, and eval quality requirements."
     },
     {
@@ -47,11 +87,21 @@
       "level": "static",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
-      "mapsTo": ["foundation.backfill-file-registry.technical#graph-links", "foundation.backfill-file-registry.technical#lifecycle-modes"],
+      "mapsTo": [
+        "foundation.backfill-file-registry.technical#graph-links",
+        "foundation.backfill-file-registry.technical#lifecycle-modes"
+      ],
       "evidence": "Test spec will verify graph-link integrity and changed-file lifecycle behavior when implementation commands exist."
     }
   ],
-  "tags": ["technical", "foundation", "backfill", "file-registry", "substrate", "agent-index"]
+  "tags": [
+    "technical",
+    "foundation",
+    "backfill",
+    "file-registry",
+    "substrate",
+    "agent-index"
+  ]
 }
 </script>
 </head>
@@ -87,7 +137,7 @@
     <p class="lede">The file registry is a deterministic-plus-agentic indexing subsystem: commands create complete file rows, agents fill semantic meaning in bounded batches, and graph checks connect files to specs, capabilities, and verification.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> draft</div>
-      <div><strong>Updated:</strong> 2026-05-22</div>
+      <div><strong>Updated:</strong> 2026-05-26</div>
       <div><strong>Parent:</strong> foundation.backfill-file-registry.descriptive</div>
     </div>
     <p>This is a T5-level Foundation workflow because later backfill layers and steady-state build agents depend on its completeness. The implementation should prefer scripts for enumeration/checking, durable artifacts for graph state, and agent judgment for semantic row filling and quality evaluation.</p>
@@ -103,7 +153,7 @@
           <tr><td>Registry row</td><td>One current row exists for every manifest file.</td><td>required contract</td><td>Registry coverage check.</td></tr>
           <tr><td>Semantic fill</td><td>Agent maps file meaning in bounded batches and stores results on disk.</td><td>required contract</td><td>Resume and row quality eval.</td></tr>
           <tr><td>Complete classification</td><td>Files may be classified as supporting, generated, asset, stale, doc, config, or fixture, and each classification remains represented by a registry row.</td><td>required contract</td><td>Status enum check.</td></tr>
-          <tr><td>Canonical storage</td><td>Manifest is JSON, registry is JSONL, and evaluation report is HTML. SQLite, HTML tables, or other views may be derived caches only.</td><td>required contract</td><td>Artifact shape check.</td></tr>
+          <tr><td>Canonical storage</td><td>Manifest is JSON, registry is JSONL, and eval output is canonical JSONL. HTML summaries, SQLite tables, dashboards, or other views are derived caches only.</td><td>required contract</td><td>Artifact shape check.</td></tr>
           <tr><td>Graph linkage</td><td>Rows can link files to spec section IDs, capability IDs, verification targets, and explicit gaps.</td><td>required contract</td><td>Graph-link check.</td></tr>
           <tr><td>Steady-state refresh</td><td>Changed files invalidate or refresh their registry rows during normal build workflow, not only during backfill.</td><td>required contract</td><td>Changed-file lifecycle check.</td></tr>
           <tr><td>Backfill bootstrap</td><td>Backfill invokes the same file-registry commands with a dated run ID, then uses the registry as the evidence source for surfaces, capabilities, specs, and evals.</td><td>required contract</td><td>Backfill report and run-log checks.</td></tr>
@@ -121,7 +171,7 @@
         <li><strong>Fill:</strong> update semantic fields, status, confidence, related paths, and review flags.</li>
         <li><strong>Validate:</strong> run the registry checker after batch updates. Batch mode may report remaining pending rows; handoff mode requires zero pending rows.</li>
         <li><strong>Evaluate:</strong> run a file-registry quality eval on deterministic risk-based samples before advancing to surface registry.</li>
-        <li><strong>Calibrate:</strong> run a small known-answer gold comparison before large-repo use and after schema or rubric changes.</li>
+        <li><strong>Calibrate:</strong> run Sandia Oil as the first tractable calibration repo before large-repo use and after schema or rubric changes. Compare to human-authored expected rows only after that fixture exists.</li>
         <li><strong>Link graph:</strong> after the spec and capability layers exist, attach behavior-bearing rows to capability IDs, spec section IDs, and verification targets or explicit gaps.</li>
         <li><strong>Resume:</strong> after context compaction, interruption, or a new agent session, reread target <code>AGENTS.md</code>, Foundation <code>AGENTS.md</code>, the active skill, report, registry, and run log, then continue from pending or stale rows.</li>
         <li><strong>Refresh:</strong> during steady-state build work, recompute changed-file rows, check graph links, and route affected specs/tests before handoff.</li>
@@ -143,7 +193,7 @@
           <tr><td>Responsibility row</td><td>label, description, symbols, lineHints, relatedFiles, evidenceValue</td><td>Large or multi-role files have enough structure for later agents to find behavior.</td><td>fill loop</td></tr>
           <tr><td>Review flag</td><td>severity, reason, evidence, nextAction</td><td>Severity is <code>info</code>, <code>warning</code>, or <code>blocking</code>; blocking flags prevent handoff.</td><td>fill loop/eval layer</td></tr>
           <tr><td>Batch checkpoint</td><td>runId, batchId, selectedPaths, startedAt, completedAt, result, nextAction</td><td>A new agent can resume without chat memory.</td><td>run log/report</td></tr>
-          <tr><td>Quality eval report</td><td>runId, samplePlan, sampleRows, categoryScores, findings, revisionTargets, acceptabilityGate</td><td><code>docs/specs/backfill/file-registry-evaluation-YYYYMMDD-NN.html</code> routes eval failures back to registry rows.</td><td>test/eval layer</td></tr>
+          <tr><td>Quality eval receipt</td><td>runId, sequence, subjectRowId, samplePlan, sampleRows, categoryScores, findings, revisionTargets, acceptabilityGate, htmlSummaryPath</td><td><code>docs/specs/backfill/file-registry-eval-YYYYMMDD-NN.jsonl</code> is canonical and routes eval failures back to registry rows. <code>file-registry-eval-summary-YYYYMMDD-NN.html</code> is a derived human-readable summary.</td><td>test/eval layer</td></tr>
         </tbody>
       </table>
       <h3>Required enums</h3>
@@ -201,13 +251,13 @@
         <thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead>
         <tbody>
           <tr><td>Completeness</td><td>The registry cannot omit repo-owned files.</td><td>Later layers need a reliable evidence base.</td></tr>
-          <tr><td>Canonical artifact shape</td><td>Manifest JSON, registry JSONL, checker output, and eval HTML use the dated run ID.</td><td>Agents, checks, and handoffs need stable paths and parsable formats.</td></tr>
+          <tr><td>Canonical artifact shape</td><td>Manifest JSON, registry JSONL, checker output, and eval JSONL receipt and HTML summary use the dated run ID.</td><td>Agents, checks, and handoffs need stable paths and parsable formats.</td></tr>
           <tr><td>Repo-owned set</td><td>Manifest rules define inclusion before semantic judgment begins.</td><td>The agent cannot shrink the file universe to make mapping easier.</td></tr>
           <tr><td>Minimal status enum</td><td>Status is limited to <code>pending</code> and <code>mapped</code>. Low-value files are mapped and classified.</td><td>Extra statuses create loopholes and make the loop harder to resume.</td></tr>
           <tr><td>Freshness</td><td>Hash or size mismatch invalidates the row until remapped.</td><td>Registry meaning must track current code.</td></tr>
           <tr><td>Structured meaning</td><td>Mapped rows use structured fields over prose-only summaries; <code>unknown</code> classifications are pending-only.</td><td>Surface/capability extraction needs queryable evidence.</td></tr>
           <tr><td>Batch resumability</td><td>Pending rows and batch checkpoints define the next action.</td><td>Long runs survive compaction, interruption, and handoff.</td></tr>
-          <tr><td>Handoff gate</td><td>Surface registry work begins only after zero pending rows, checker pass, quality eval pass, no blocking review flags, and current gold calibration.</td><td>Bad file maps should not become capability gaps.</td></tr>
+          <tr><td>Handoff gate</td><td>Surface registry work begins only after zero pending rows, checker pass, quality eval pass, no blocking review flags, and current Sandia Oil calibration evidence or a human-authored expected registry when available.</td><td>Bad file maps should not become capability gaps.</td></tr>
           <tr><td>Graph-link gate</td><td>After specs and capabilities exist, every behavior-bearing mapped row links to at least one capability, one spec section, and one verification target or explicit test gap.</td><td>Agents need a direct path from implementation files to intended behavior and done evidence.</td></tr>
           <tr><td>Self-reference policy</td><td>The command input snapshot excludes current-run generated manifest, registry, and evaluation artifacts unless a future implementation defines a stable self-entry convention. Prior committed registry artifacts can be mapped as generated/support rows in later runs.</td><td>Manifests cannot hash themselves without an explicit convention.</td></tr>
           <tr><td>Backfill command reuse</td><td>Backfill does not own bespoke enumeration logic; it invokes the Foundation file-registry generation, check, eval, and graph-link commands with the active run ID.</td><td>The bootstrap path and steady-state path should not drift.</td></tr>

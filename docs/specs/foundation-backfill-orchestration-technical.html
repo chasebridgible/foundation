@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-orchestration.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-21">
+<meta name="spec:last-updated" content="2026-05-26">
 <title>Foundation Backfill Orchestration Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,44 +16,417 @@
   "title": "Foundation Backfill Orchestration Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-05-21",
+  "lastUpdated": "2026-05-26",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-specs.descriptive",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.backfill-specs.descriptive", "relationship": "parent", "sections": ["product-intent", "interface-journey", "states-and-rules", "ux-contracts"] },
-    { "id": "foundation.backfill-evaluation.process", "relationship": "sibling", "sections": ["evaluator-journey", "acceptability-gate"] },
-    { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["spec-authoring", "semantic-review"] },
-    { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["html-native-metadata", "path-update-loop"] }
+    {
+      "id": "foundation.backfill-specs.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "product-intent",
+        "interface-journey",
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-evaluation.process",
+      "relationship": "sibling",
+      "sections": [
+        "evaluator-journey",
+        "acceptability-gate"
+      ]
+    },
+    {
+      "id": "foundation.spec-process",
+      "relationship": "sibling",
+      "sections": [
+        "spec-authoring",
+        "semantic-review"
+      ]
+    },
+    {
+      "id": "foundation.spec-linking",
+      "relationship": "sibling",
+      "sections": [
+        "html-native-metadata",
+        "path-update-loop"
+      ]
+    },
+    {
+      "id": "foundation.backfill-surface-registry.descriptive",
+      "relationship": "sibling",
+      "sections": [
+        "interface-journey",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-capability-matrix.descriptive",
+      "relationship": "sibling",
+      "sections": [
+        "interface-journey",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-split-queue.descriptive",
+      "relationship": "sibling",
+      "sections": [
+        "interface-journey",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-evidence-pack.descriptive",
+      "relationship": "sibling",
+      "sections": [
+        "interface-journey",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-flow-extraction.descriptive",
+      "relationship": "sibling",
+      "sections": [
+        "interface-journey",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-spec-authoring.descriptive",
+      "relationship": "sibling",
+      "sections": [
+        "interface-journey",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-slice-evaluation.descriptive",
+      "relationship": "sibling",
+      "sections": [
+        "interface-journey",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-graph-evaluation.descriptive",
+      "relationship": "sibling",
+      "sections": [
+        "interface-journey",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-handoff.descriptive",
+      "relationship": "sibling",
+      "sections": [
+        "interface-journey",
+        "handoff-gate"
+      ]
+    }
   ],
   "ownedPaths": [
-    { "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html", "kind": "doc", "ownership": "direct" },
-    { "path": "foundation/skills/backfill-repo-inventory/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/backfill-user-flow-extraction/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/backfill-rendered-ux-spec/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/backfill-technical-spec-author/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/scripts/backfill-queue-check.mjs", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/scripts/backfill-queue-check.test.mjs", "kind": "test", "ownership": "direct" },
-    { "path": "foundation/scripts/backfill-run-log-check.mjs", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/scripts/backfill-run-log-check.test.mjs", "kind": "test", "ownership": "direct" }
+    {
+      "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/backfill-repo-inventory/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/backfill-user-flow-extraction/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/backfill-rendered-ux-spec/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/backfill-queue-check.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/backfill-queue-check.test.mjs",
+      "kind": "test",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/backfill-run-log-check.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+      "kind": "test",
+      "ownership": "direct"
+    }
   ],
   "implementationPaths": [
-    { "path": "foundation/skills/backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Orchestrator skill that sequences the layer skills." },
-    { "path": "foundation/docs/specs/foundation-backfill-specs.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive contract for the backfill workflow." },
-    { "path": "foundation/docs/specs/foundation-backfill-evaluation.html", "kind": "doc", "ownership": "reference", "notes": "Evaluation process and acceptability gate." },
-    { "path": "foundation/docs/specs/examples/backfill-golden-example.html", "kind": "example", "ownership": "reference", "notes": "Golden example for evaluator calibration." },
-    { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Slice and graph semantic evaluation workflow." },
-    { "path": "foundation/scripts/backfill-queue-check.mjs", "kind": "workflow", "ownership": "direct", "notes": "Durable queue validation command." },
-    { "path": "foundation/scripts/backfill-queue-check.test.mjs", "kind": "test", "ownership": "direct", "notes": "Automated coverage for durable queue validation." },
-    { "path": "foundation/scripts/backfill-run-log-check.mjs", "kind": "workflow", "ownership": "direct", "notes": "Execution run log validation command." },
-    { "path": "foundation/scripts/backfill-run-log-check.test.mjs", "kind": "test", "ownership": "direct", "notes": "Automated coverage for execution run log validation." },
-    { "path": "foundation/docs/specs/templates/descriptive-spec-template.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive spec structure used by backfill authoring." },
-    { "path": "foundation/docs/specs/templates/technical-spec-template.html", "kind": "doc", "ownership": "reference", "notes": "Technical spec structure used by backfill authoring." },
-    { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "Required-skill validation for Foundation setup." },
-    { "path": "foundation/scripts/foundation-doctor.test.mjs", "kind": "test", "ownership": "reference", "notes": "Doctor fixtures include all required backfill skills." }
+    {
+      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Orchestrator skill that sequences the layer skills."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Descriptive contract for the backfill workflow."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-evaluation.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Evaluation process and acceptability gate."
+    },
+    {
+      "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+      "kind": "example",
+      "ownership": "reference",
+      "notes": "Golden example for evaluator calibration."
+    },
+    {
+      "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Slice and graph semantic evaluation workflow."
+    },
+    {
+      "path": "foundation/scripts/backfill-queue-check.mjs",
+      "kind": "workflow",
+      "ownership": "direct",
+      "notes": "Durable queue validation command."
+    },
+    {
+      "path": "foundation/scripts/backfill-queue-check.test.mjs",
+      "kind": "test",
+      "ownership": "direct",
+      "notes": "Automated coverage for durable queue validation."
+    },
+    {
+      "path": "foundation/scripts/backfill-run-log-check.mjs",
+      "kind": "workflow",
+      "ownership": "direct",
+      "notes": "Execution run log validation command."
+    },
+    {
+      "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+      "kind": "test",
+      "ownership": "direct",
+      "notes": "Automated coverage for execution run log validation."
+    },
+    {
+      "path": "foundation/docs/specs/templates/descriptive-spec-template.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Descriptive spec structure used by backfill authoring."
+    },
+    {
+      "path": "foundation/docs/specs/templates/technical-spec-template.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Technical spec structure used by backfill authoring."
+    },
+    {
+      "path": "foundation/scripts/foundation-doctor.mjs",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Required-skill validation for Foundation setup."
+    },
+    {
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "kind": "test",
+      "ownership": "reference",
+      "notes": "Doctor fixtures include all required backfill skills."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-surface-registry.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-surface-registry-test.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-capability-matrix.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-capability-matrix-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-capability-matrix-test.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-split-queue.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-split-queue-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-split-queue-test.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-evidence-pack.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-evidence-pack-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-evidence-pack-test.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-flow-extraction.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-flow-extraction-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-flow-extraction-test.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-spec-authoring.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-spec-authoring-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-spec-authoring-test.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-slice-evaluation.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-test.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-graph-evaluation.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-graph-evaluation-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-graph-evaluation-test.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-handoff.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-handoff-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-handoff-test.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Layer contract coordinated by the backfill orchestrator."
+    }
   ],
   "coverage": [
     {
@@ -61,7 +434,9 @@
       "level": "static",
       "status": "existing",
       "path": "foundation/skills/backfill-specs/SKILL.md",
-      "mapsTo": ["foundation.backfill-orchestration.technical#internal-sequence"],
+      "mapsTo": [
+        "foundation.backfill-orchestration.technical#internal-sequence"
+      ],
       "evidence": "Backfill orchestrator names the skill chain and resumable loop."
     },
     {
@@ -69,7 +444,9 @@
       "level": "static",
       "status": "existing",
       "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
-      "mapsTo": ["foundation.backfill-orchestration.technical#contracts"],
+      "mapsTo": [
+        "foundation.backfill-orchestration.technical#contracts"
+      ],
       "evidence": "Adequacy review skill defines the evaluator-readiness gate."
     },
     {
@@ -77,7 +454,9 @@
       "level": "unit",
       "status": "existing",
       "path": "foundation/scripts/foundation-doctor.test.mjs",
-      "mapsTo": ["foundation.backfill-orchestration.technical#paths-and-coverage"],
+      "mapsTo": [
+        "foundation.backfill-orchestration.technical#paths-and-coverage"
+      ],
       "evidence": "Doctor fixtures include required backfill sub-skills."
     },
     {
@@ -85,7 +464,9 @@
       "level": "manual",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
-      "mapsTo": ["foundation.backfill-orchestration.technical#failure-modes"],
+      "mapsTo": [
+        "foundation.backfill-orchestration.technical#failure-modes"
+      ],
       "evidence": "Run a large target repo backfill and verify the report marks complete after relevant capability rows are acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope, and evidence surfaces map to capability rows."
     },
     {
@@ -93,7 +474,9 @@
       "level": "static",
       "status": "existing",
       "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
-      "mapsTo": ["foundation.backfill-orchestration.technical#contracts"],
+      "mapsTo": [
+        "foundation.backfill-orchestration.technical#contracts"
+      ],
       "evidence": "Technical authoring requires required contracts, current evidence, architecture constraints, and implementation latitude."
     },
     {
@@ -101,7 +484,10 @@
       "level": "unit",
       "status": "existing",
       "path": "foundation/scripts/backfill-queue-check.test.mjs",
-      "mapsTo": ["foundation.backfill-orchestration.technical#data-model", "foundation.backfill-orchestration.technical#failure-modes"],
+      "mapsTo": [
+        "foundation.backfill-orchestration.technical#data-model",
+        "foundation.backfill-orchestration.technical#failure-modes"
+      ],
       "evidence": "Backfill queue checker tests validate embedded capability matrix and durable queue presence, parsing, status shape, capability references, and acceptable-score threshold."
     },
     {
@@ -109,7 +495,10 @@
       "level": "unit",
       "status": "existing",
       "path": "foundation/scripts/backfill-run-log-check.test.mjs",
-      "mapsTo": ["foundation.backfill-orchestration.technical#data-model", "foundation.backfill-orchestration.technical#failure-modes"],
+      "mapsTo": [
+        "foundation.backfill-orchestration.technical#data-model",
+        "foundation.backfill-orchestration.technical#failure-modes"
+      ],
       "evidence": "Backfill run log checker tests validate JSONL execution event shape, ordered sequences, run identity, and complete-event requirements."
     },
     {
@@ -117,11 +506,20 @@
       "level": "static",
       "status": "existing",
       "path": "foundation/skills/backfill-repo-inventory/SKILL.md",
-      "mapsTo": ["foundation.backfill-orchestration.technical#data-model", "foundation.backfill-orchestration.technical#contracts"],
+      "mapsTo": [
+        "foundation.backfill-orchestration.technical#data-model",
+        "foundation.backfill-orchestration.technical#contracts"
+      ],
       "evidence": "Inventory and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass."
     }
   ],
-  "tags": ["technical", "foundation", "backfill", "orchestration", "skills"]
+  "tags": [
+    "technical",
+    "foundation",
+    "backfill",
+    "orchestration",
+    "skills"
+  ]
 }
 </script>
 </head>
@@ -155,7 +553,7 @@
     <p class="lede">The backfill orchestrator is a resumable workflow that delegates each layer of repo intent extraction to focused skills and only advances a slice after adequacy review and strict evaluation.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-21</div>
+      <div><strong>Updated:</strong> 2026-05-26</div>
       <div><strong>Canonical section:</strong> <a href="#required-depth">#required-depth</a></div>
     </div>
   </section>
@@ -172,19 +570,21 @@
       <h2>Internal sequence</h2>
       <ol>
         <li><strong>Connect:</strong> use Foundation setup and doctor to confirm the target repo can consume Foundation.</li>
-        <li><strong>Inventory:</strong> run <code>backfill-repo-inventory</code> to build or refresh the evidence inventory, surface ledger, capability matrix, and coverage ledger.</li>
-        <li><strong>Split:</strong> apply the split rule so broad rows become parent maps and behavior-bearing rows are small enough to evaluate strictly.</li>
-        <li><strong>Queue:</strong> create or refresh the embedded durable queue from capability rows and choose the next slice awaiting owner specs, child behavior coverage, revision, or strict evaluation.</li>
+        <li><strong>File registry:</strong> create or refresh the manifest and file registry with one row per repo-owned file. This V1 layer includes steady-state changed-file refresh, not only bootstrap backfill.</li>
+        <li><strong>Surface registry:</strong> convert mapped file rows into evidence surfaces: routes, screens, APIs, commands, jobs, tables, workflows, infra resources, docs, tests, generated artifacts, and external dependencies.</li>
+        <li><strong>Capability matrix:</strong> convert surfaces into capability rows using actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
+        <li><strong>Split and queue:</strong> split broad capability rows before closure and create a durable queue with exact slice scope, owner layer, exit criteria, status, score, blockers, evidence rows, and next action.</li>
+        <li><strong>Evidence pack:</strong> gather only the files, surfaces, capabilities, tests, docs, schemas, and snippets needed for the current queued slice.</li>
         <li><strong>Observe:</strong> append JSONL run-log events when phases start, finish, checkpoint, validate, evaluate, revise, block, or hand off.</li>
-        <li><strong>Extract flows:</strong> run <code>backfill-user-flow-extraction</code> for user-facing inventory items.</li>
-        <li><strong>Draft descriptive:</strong> run <code>backfill-descriptive-spec-author</code> and create or update draft descriptive specs.</li>
+        <li><strong>Extract flows:</strong> extract user and operator flows, state transitions, permissions, validations, empty/loading/error states, recovery behavior, and visible/operator behavior.</li>
+        <li><strong>Draft descriptive:</strong> create or update architecture-agnostic descriptive specs from the queued slice, evidence pack, and flow rows.</li>
         <li><strong>Render UX:</strong> run <code>backfill-rendered-ux-spec</code> when the descriptive slice has visual or UX-visible behavior.</li>
-        <li><strong>Draft technical:</strong> run <code>backfill-technical-spec-author</code> and create or update draft technical specs that classify required contracts, current evidence, architecture constraints, and implementation latitude.</li>
-        <li><strong>Review adequacy:</strong> run <code>backfill-spec-adequacy-review</code>, revise layers that need more detail, and mark the slice ready for evaluator scoring after it passes.</li>
-        <li><strong>Evaluate slice:</strong> run <code>evaluate-backfill-specs</code>, revise category gaps below threshold, and re-evaluate until the slice is acceptable or blocked by a named human decision.</li>
-        <li><strong>Validate:</strong> check the durable queue, check the execution run log, regenerate registry, and run spec checks.</li>
-        <li><strong>Continue:</strong> update the report and start the next queued capability-backed slice until capability coverage is complete.</li>
-        <li><strong>Evaluate graph:</strong> run <code>evaluate-backfill-specs</code> against the completed graph, golden example, and rubric before final handoff.</li>
+        <li><strong>Draft technical:</strong> create or update contract-first technical specs that classify required contracts, current evidence, architecture constraints, and implementation latitude.</li>
+        <li><strong>Evaluate slice:</strong> run the hard loop for each queued slice: check, evaluate, revise category gaps, re-evaluate, and mark acceptable only after the gate passes or a named human decision blocks progress.</li>
+        <li><strong>Validate:</strong> check layer artifacts, check the durable queue, check the execution run log, regenerate the spec registry, and run spec checks.</li>
+        <li><strong>Continue:</strong> update the report and start the next queued slice until every capability is acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope.</li>
+        <li><strong>Evaluate graph:</strong> evaluate the completed spec graph for rebuild-grade intent preservation before final handoff.</li>
+        <li><strong>Handoff:</strong> produce the final report with coverage, artifact paths, ready/draft specs, blockers, uncertainties, stale/conflicting evidence, and next actions.</li>
       </ol>
     </section>
 
@@ -195,8 +595,11 @@
         <tbody>
           <tr><td>Backfill report</td><td>run ID, date, target repo, Foundation revision, top-level spec, embedded durable queue, review queue, evaluation status, validation results</td><td>Can resume the run from durable files.</td><td><code>backfill-specs</code></td></tr>
           <tr><td>Execution run log</td><td>run ID, sequence, timestamp, slice, phase, event, summary, artifacts read/changed, commands, checks, duration, result, next action</td><td>Append-only JSONL events describe what happened without replacing the queue as canonical state.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Layer artifact row</td><td>layer ID, run ID, canonical JSONL path, eval JSONL path, HTML summary path, checker result, eval result, pending count, next layer</td><td>Every durable layer can hand off through machine-readable state and human-readable summaries.</td><td>owning layer spec</td></tr>
+          <tr><td>Surface registry row</td><td>ID, kind, upstream file rows, evidence paths, exposed/dependent object, operation, consumer/actor hints, rules/states, review flags</td><td>Every behavior-bearing file row is resolved to surfaces, support classification, or review.</td><td><code>foundation.backfill-surface-registry</code></td></tr>
           <tr><td>Capability matrix row</td><td>ID, actor, outcome, domain object, actions, states, permissions/rules, surfaces, backing contracts, failure/recovery, evidence, spec owners, verification targets, status, split state</td><td>Every behavior-bearing capability has a coverage status and either owner specs, a parent-owned reason, a human decision, or an out-of-scope reason.</td><td><code>backfill-repo-inventory</code></td></tr>
           <tr><td>Durable queue slice</td><td>ID, scope, capability IDs, status, owner skill, descriptive spec, technical spec, score, next action, exit criterion, blocking gaps, evidence rows</td><td>Every slice has exactly one current next action unless it is acceptable, out of scope, or blocked by human decision.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Evidence pack row</td><td>slice ID, file rows, surface rows, capability rows, tests, docs, schemas, snippets, excluded near-misses, sufficiency rationale</td><td>Slice work loads bounded evidence instead of rediscovering the repo.</td><td><code>foundation.backfill-evidence-pack</code></td></tr>
           <tr><td>Inventory row</td><td>ID, category, label, evidence path, owning spec, coverage layer, missing detail, notes</td><td>Every relevant row maps to a capability row, non-behavioral support note, parent-owned reason, blocked human decision, or out-of-scope status by completion.</td><td><code>backfill-repo-inventory</code></td></tr>
           <tr><td>User flow row</td><td>user, entry point, intent, actions, states, success, failure/recovery, evidence, owning spec</td><td>Every user-facing entry point maps to a concrete flow.</td><td><code>backfill-user-flow-extraction</code></td></tr>
           <tr><td>Adequacy row</td><td>slice, specs, inventory result, flow result, rendered UX result, technical result, architecture flexibility result, traceability result, revisions, evaluator readiness</td><td>A slice advances to strict evaluation after adequacy review passes or records isolated non-blocking human questions.</td><td><code>backfill-spec-adequacy-review</code></td></tr>
@@ -215,7 +618,9 @@
           <tr><td>Split rule</td><td>Capability rows split when they combine materially different actors, outcomes, domain objects, state machines, permission models, backing contracts, recovery behavior, or verification targets.</td><td>Strict evaluation needs bounded behavior units instead of broad domain summaries.</td></tr>
           <tr><td>Descriptive/technical split</td><td>Descriptive specs define architecture-agnostic user/operator intent; technical specs define contract-level system requirements.</td><td>The spec graph preserves intent while allowing implementation improvement.</td></tr>
           <tr><td>Architecture classification</td><td>Technical specs classify required contracts, current implementation evidence, architecture constraints, and implementation latitude.</td><td>Future build agents know what must remain true and where architecture may change.</td></tr>
-          <tr><td>Layered workflow</td><td>Inventory, flow extraction, descriptive drafting, rendered UX, technical drafting, and adequacy review are separate steps.</td><td>Focused steps reduce context loss and make completion testable.</td></tr>
+          <tr><td>Layered workflow</td><td>File registry, surface registry, capability matrix, split/queue, evidence pack, flow extraction, spec authoring, slice evaluation, graph evaluation, and handoff are separate artifact-owning units when they own state.</td><td>Focused steps reduce context loss and make completion testable.</td></tr>
+          <tr><td>Layer handoff gate</td><td>Each layer advances only after its canonical JSONL artifact, eval JSONL receipt, derived HTML summary, deterministic checker result, semantic eval result, report entry, and run-log sequence are current or explicitly blocked.</td><td>The next layer consumes proven substrate instead of inherited chat assumptions.</td></tr>
+          <tr><td>No direct jump</td><td>The orchestrator must not allow spec authoring, slice acceptance, or graph completion to start directly from raw files when Surface Registry, Capability Matrix, Split/Queue, Evidence Pack, or Flow Extraction artifacts are missing. Missing upstream artifacts are blockers, not shortcuts.</td><td>"We saw files" and "we understood the system" are separate claims with separate proof.</td></tr>
           <tr><td>State and observability split</td><td>The report and embedded queue own durable run state; the JSONL run log owns execution observability.</td><td>Agents can resume from state while users can inspect how work proceeded.</td></tr>
           <tr><td>User flow depth</td><td>User-facing behavior is sliced by concrete user flows where possible.</td><td>Flow-sized specs can carry specific states, rules, and rendered examples.</td></tr>
           <tr><td>Parent/child graph</td><td>Parent specs define vocabulary and boundaries; child specs carry behavior.</td><td>Behavior coverage has an explicit owner.</td></tr>
