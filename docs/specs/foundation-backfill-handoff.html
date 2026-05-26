@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-handoff.descriptive">
+<meta name="spec:type" content="descriptive">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-05-26">
+<title>Foundation Backfill Handoff</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-handoff.descriptive",
+  "title": "Foundation Backfill Handoff",
+  "type": "descriptive",
+  "status": "draft",
+  "lastUpdated": "2026-05-26",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-specs.descriptive",
+  "children": [
+    "foundation.backfill-handoff.technical",
+    "foundation.backfill-handoff.test"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.backfill-specs.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "interface-journey",
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-handoff.technical",
+      "relationship": "child",
+      "sections": [
+        "data-model",
+        "contracts",
+        "checker-and-fill-loop"
+      ]
+    },
+    {
+      "id": "foundation.backfill-handoff.test",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping",
+        "eval-contract"
+      ]
+    },
+    {
+      "id": "foundation.backfill-graph-evaluation.descriptive",
+      "relationship": "depends-on",
+      "sections": [
+        "artifacts-and-state",
+        "handoff-gate"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-handoff.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Parent backfill workflow."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Model for canonical layer artifacts and handoff gates."
+    },
+    {
+      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "BFL-HANDOFF-D-1",
+      "level": "static",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-handoff.html",
+      "mapsTo": [
+        "foundation.backfill-handoff.descriptive#handoff-gate"
+      ],
+      "evidence": "Planned Foundation Backfill Handoff descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+    }
+  ],
+  "tags": [
+    "foundation",
+    "backfill",
+    "handoff",
+    "descriptive",
+    "substrate"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Foundation Backfill Handoff</div>
+      <div class="sidebar-sub">descriptive spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#artifacts-and-state"><span class="nav-num">02</span>Artifacts</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Loop</a>
+    <a class="nav-item" href="#checker-eval"><span class="nav-num">04</span>Checker/eval</a>
+    <a class="nav-item" href="#handoff-gate"><span class="nav-num">05</span>Handoff</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">06</span>Links</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-handoff.html</div>
+    <h1>Foundation Backfill Handoff</h1>
+    <p class="lede">Handoff produces the final reviewable report for a backfill run: covered layers, artifact paths, accepted slices, blockers, uncertainties, stale docs, draft versus ready specs, and next implementation or review decisions. This layer answers: <strong>What was covered, what remains uncertain, and what should a human or next agent do?</strong></p>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Graph Evaluation</div><div><strong>Next:</strong> Human Review</div></div>
+    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
+    <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="artifacts-and-state" data-spec-section="artifacts-and-state" data-section-type="state-model">
+      <h2>Artifacts and state</h2>
+      <table class="status-table"><thead><tr><th>Category</th><th>Contract</th></tr></thead><tbody>
+        <tr><td>Canonical artifacts</td><td><ul><li><code>handoff-report-YYYYMMDD-NN.jsonl</code></li>
+<li><code>handoff-eval-YYYYMMDD-NN.jsonl</code></li></ul></td></tr>
+        <tr><td>Derived artifacts</td><td><ul><li><code>handoff-summary-YYYYMMDD-NN.html</code></li>
+<li><code>final review report</code></li></ul></td></tr>
+        <tr><td>State model</td><td><ul><li><code>pending</code></li>
+<li><code>ready-for-human-review</code></li>
+<li><code>blocked</code></li>
+<li><code>complete</code></li></ul></td></tr>
+        <tr><td>Core row</td><td>handoff row with stable row ID, run ID, upstream row IDs, evidence links, status, confidence, review flags, checker result, and eval result.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Small-loop journey</h2>
+      <ol>
+        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Handoff artifact from Graph Evaluation handoff output.</li>
+        <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
+        <li><strong>Fill:</strong> agent compiles layer receipts, checker/eval status, accepted slices, unresolved human questions, stale/conflicting evidence, draft specs, ready specs, and next recommended Foundation work.</li>
+        <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
+        <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>
+        <li><strong>Revise:</strong> route failed rows back to the fill loop with row IDs and findings.</li>
+        <li><strong>Handoff:</strong> advance only when the handoff gate passes or named human decisions block the layer.</li>
+      </ol>
+    </section>
+
+    <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
+      <h2>Checker and eval contract</h2>
+      <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
+        <tr><td>Checker</td><td>validates every upstream layer has a terminal receipt, artifact paths resolve, run-log sequence is current, blockers are named, and report state does not claim completion with unresolved structural failures.</td></tr>
+        <tr><td>Eval receipt</td><td>judges whether the handoff lets the user decide what to trust, what to review, what to implement next, and what remains uncertain without replaying the entire run. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
+        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected registry is created; it is used to catch obvious misses while context is tractable.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
+      <h2>Handoff gate</h2>
+      <p>final report is ready for human review; all layer receipts are linked; no hidden pending work remains outside explicit blockers or review questions.</p>
+      <ul>
+        <li>Canonical artifacts exist and share a run ID.</li>
+        <li>All rows are in valid terminal or explicitly blocked states.</li>
+        <li>Checker passes for structure, references, currentness, and required fields.</li>
+        <li>Eval JSONL and HTML summary exist or an explicit planned-gap risk is recorded.</li>
+        <li>Active report records counts, artifact paths, checker/eval status, run-log sequence, and next layer.</li>
+      </ul>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="linking">
+      <h2>Related specs and paths</h2>
+      <ul>
+        <li><a data-spec-link="foundation.backfill-handoff.technical" href="./foundation-backfill-handoff-technical.html">foundation.backfill-handoff.technical</a></li>
+        <li><a data-spec-link="foundation.backfill-handoff.test" href="./foundation-backfill-handoff-test.html">foundation.backfill-handoff.test</a></li>
+        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a></li>
+      </ul>
+    </section>
+  </article>
+  <hr>
+  <p class="footer-note">Foundation Backfill Handoff · draft</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

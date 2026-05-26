@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-file-registry.test">
 <meta name="spec:type" content="test">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-22">
+<meta name="spec:last-updated" content="2026-05-26">
 <title>Foundation File Registry Test Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,23 +16,66 @@
   "title": "Foundation File Registry Test Spec",
   "type": "test",
   "status": "draft",
-  "lastUpdated": "2026-05-22",
+  "lastUpdated": "2026-05-26",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-file-registry.descriptive",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.backfill-file-registry.descriptive", "relationship": "parent", "sections": ["product-intent", "states-and-rules", "ux-contracts"] },
-    { "id": "foundation.backfill-file-registry.technical", "relationship": "sibling", "sections": ["data-model", "contracts", "failure-modes"] },
-    { "id": "foundation.backfill-evaluation.process", "relationship": "sibling", "sections": ["scoring-rubric", "acceptability-gate"] },
-    { "id": "foundation.backfill-golden-example", "relationship": "sibling", "sections": ["evaluator-scorecard"] }
+    {
+      "id": "foundation.backfill-file-registry.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "product-intent",
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-file-registry.technical",
+      "relationship": "sibling",
+      "sections": [
+        "data-model",
+        "contracts",
+        "failure-modes"
+      ]
+    },
+    {
+      "id": "foundation.backfill-evaluation.process",
+      "relationship": "sibling",
+      "sections": [
+        "scoring-rubric",
+        "acceptability-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-golden-example",
+      "relationship": "sibling",
+      "sections": [
+        "evaluator-scorecard"
+      ]
+    }
   ],
   "ownedPaths": [
-    { "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html", "kind": "doc", "ownership": "direct" }
+    {
+      "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
   ],
   "implementationPaths": [
-    { "path": "foundation/docs/specs/foundation-backfill-file-registry.html", "kind": "doc", "ownership": "reference", "notes": "Descriptive intent for the file registry layer." },
-    { "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html", "kind": "doc", "ownership": "reference", "notes": "Technical contract this test spec verifies." }
+    {
+      "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Descriptive intent for the file registry layer."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Technical contract this test spec verifies."
+    }
   ],
   "coverage": [
     {
@@ -40,7 +83,9 @@
       "level": "unit",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
-      "mapsTo": ["foundation.backfill-file-registry.technical#contracts"],
+      "mapsTo": [
+        "foundation.backfill-file-registry.technical#contracts"
+      ],
       "evidence": "Planned deterministic checker verifies manifest and registry invariants."
     },
     {
@@ -48,19 +93,32 @@
       "level": "manual",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
-      "mapsTo": ["foundation.backfill-file-registry.descriptive#ux-contracts"],
-      "evidence": "Planned small-repo gold comparison verifies discovery quality before large-repo use."
+      "mapsTo": [
+        "foundation.backfill-file-registry.descriptive#ux-contracts"
+      ],
+      "evidence": "Planned Sandia Oil calibration verifies discovery quality before large-repo use; human-authored expected rows can later harden this into a fixture."
     },
     {
       "id": "BFR-E-3",
       "level": "integration",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
-      "mapsTo": ["foundation.backfill-file-registry.descriptive#system-relationship", "foundation.backfill-file-registry.technical#graph-links"],
+      "mapsTo": [
+        "foundation.backfill-file-registry.descriptive#system-relationship",
+        "foundation.backfill-file-registry.technical#graph-links"
+      ],
       "evidence": "Planned graph-link checker verifies file-to-spec, file-to-capability, and file-to-verification relationships."
     }
   ],
-  "tags": ["test", "foundation", "backfill", "file-registry", "eval", "substrate", "agent-index"]
+  "tags": [
+    "test",
+    "foundation",
+    "backfill",
+    "file-registry",
+    "eval",
+    "substrate",
+    "agent-index"
+  ]
 }
 </script>
 </head>
@@ -92,7 +150,7 @@
     <p class="lede">The test layer is the eval system for the Foundation file registry: deterministic checks prove complete current coverage, graph checks prove links resolve, and quality evals prove rows are accurate enough to support agents during both backfill and steady-state build work.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> draft</div>
-      <div><strong>Updated:</strong> 2026-05-22</div>
+      <div><strong>Updated:</strong> 2026-05-26</div>
       <div><strong>Parent:</strong> foundation.backfill-file-registry.descriptive</div>
     </div>
     <p>If this evidence passes, a reviewer can trust that every repo-owned file has a current registry row, sampled rows describe source files accurately enough for downstream surface/capability inference, and behavior-bearing rows connect to the intended specs, capabilities, and verification evidence once those artifacts exist.</p>
@@ -106,14 +164,14 @@
         <tbody>
           <tr><td>AC-1</td><td>The repo-owned file set is deterministic.</td><td><code>foundation.backfill-file-registry.descriptive#capability-contract</code></td><td>Manifest rules define tracked, untracked non-ignored, and explicitly included files before semantic mapping begins.</td></tr>
           <tr><td>AC-2</td><td>Every repo-owned file appears in the manifest and registry exactly once.</td><td><code>foundation.backfill-file-registry.descriptive#states-and-rules</code></td><td>No missing paths, duplicate paths, or unregistered manifest entries.</td></tr>
-          <tr><td>AC-3</td><td>Canonical artifacts exist for the run.</td><td><code>foundation.backfill-file-registry.technical#data-model</code></td><td>Manifest JSON, registry JSONL, checker output, and eval HTML use the same dated run ID.</td></tr>
+          <tr><td>AC-3</td><td>Canonical artifacts exist for the run.</td><td><code>foundation.backfill-file-registry.technical#data-model</code></td><td>Manifest JSON, registry JSONL, checker output, and eval JSONL receipt and HTML summary use the same dated run ID.</td></tr>
           <tr><td>AC-4</td><td>Registry status remains minimal.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Status enum allows only <code>pending</code> and <code>mapped</code>.</td></tr>
           <tr><td>AC-5</td><td>Mapped rows are fresh.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Registry hash and size match the current file.</td></tr>
           <tr><td>AC-6</td><td>Mapped rows have enough structured meaning.</td><td><code>foundation.backfill-file-registry.technical#data-model</code></td><td>Required fields are present; mapped rows do not rely on <code>unknown</code> classifications or vague summaries.</td></tr>
           <tr><td>AC-7</td><td>Large or multi-role files are described thoroughly.</td><td><code>foundation.backfill-file-registry.descriptive#states-and-rules</code></td><td>Rows include responsibilities or sections for behavior-bearing large files.</td></tr>
           <tr><td>AC-8</td><td>The loop is resumable.</td><td><code>foundation.backfill-file-registry.technical#concurrency-and-timing</code></td><td>Pending rows and checkpoint state identify the next batch after compaction, interruption, or handoff.</td></tr>
-          <tr><td>AC-9</td><td>Handoff is gated.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Surface registry work starts only after zero pending rows, checker pass, eval pass, no blocking review flags, and current gold calibration.</td></tr>
-          <tr><td>AC-10</td><td>Small-repo gold comparison detects inventory misses.</td><td><code>foundation.backfill-file-registry.descriptive#ux-contracts</code></td><td>Cold backfill output is compared against a manually authored gold registry before large-repo use.</td></tr>
+          <tr><td>AC-9</td><td>Handoff is gated.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Surface registry work starts only after zero pending rows, checker pass, eval pass, no blocking review flags, and current Sandia Oil calibration evidence or a human-authored expected registry when available.</td></tr>
+          <tr><td>AC-10</td><td>Sandia Oil calibration detects obvious inventory misses.</td><td><code>foundation.backfill-file-registry.descriptive#ux-contracts</code></td><td>Cold backfill output is inspected against a tractable repo before large-repo use; it becomes a fixture only after expected rows are human-authored.</td></tr>
           <tr><td>AC-11</td><td>Behavior-bearing files link to the intent graph.</td><td><code>foundation.backfill-file-registry.descriptive#system-relationship</code>, <code>foundation.backfill-file-registry.technical#graph-links</code></td><td>Strict mode requires each behavior-bearing mapped row to resolve to a capability, spec section, and verification target or explicit test gap.</td></tr>
           <tr><td>AC-12</td><td>Steady-state changes keep the registry current.</td><td><code>foundation.backfill-file-registry.technical#lifecycle-modes</code></td><td>Changed files are invalidated or refreshed, and broken graph links are reported before build handoff.</td></tr>
           <tr><td>AC-13</td><td>Generated registry artifacts do not create recursive hashes.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Current-run generated manifest, registry, and evaluation files are excluded from the input snapshot or represented by an explicitly defined self-entry convention.</td></tr>
@@ -129,9 +187,9 @@
           <tr><td>T-1</td><td>unit</td><td><code>backfill:file-registry:init</code> fixture tests</td><td>planned</td><td>Manifest include rules, canonical file naming, and skeleton row creation are deterministic.</td></tr>
           <tr><td>T-2</td><td>unit</td><td><code>backfill:file-registry:check</code> fixture tests</td><td>planned</td><td>Missing, duplicate, stale, pending, invalid rows, invalid statuses, invalid enums, and artifact path drift fail mechanically.</td></tr>
           <tr><td>T-3</td><td>eval</td><td>LLM judge over sampled file rows and source content</td><td>planned</td><td>Row accuracy, specificity, behavior-bearing detection, and large-file handling require semantic judgment.</td></tr>
-          <tr><td>T-4</td><td>manual/eval</td><td>Small repo gold registry comparison</td><td>planned</td><td>End-to-end discovery quality needs a known-answer fixture before MatchCoach-scale runs.</td></tr>
+          <tr><td>T-4</td><td>manual/eval</td><td>Sandia Oil calibration review</td><td>planned</td><td>End-to-end discovery quality should be observed on a tractable real repo before larger runs; expected-row fixtures can be added later.</td></tr>
           <tr><td>T-5</td><td>integration</td><td>Surface registry consumes file registry output</td><td>planned</td><td>Downstream layers must be able to query behavior-bearing files and related evidence.</td></tr>
-          <tr><td>T-6</td><td>e2e</td><td>Backfill run reaches handoff gate on fixture repo</td><td>planned</td><td>The full loop should prove zero pending rows, no blocking flags, passing eval, and current gold calibration.</td></tr>
+          <tr><td>T-6</td><td>e2e</td><td>Backfill run reaches handoff gate on calibration repo</td><td>planned</td><td>The full loop should prove zero pending rows, no blocking flags, passing eval, and current Sandia Oil calibration evidence or a human-authored expected registry when available.</td></tr>
           <tr><td>T-7</td><td>integration</td><td><code>foundation:file-registry:graph-check</code> fixture tests</td><td>planned</td><td>File-to-spec, file-to-capability, and file-to-verification links need machine-resolvable checks.</td></tr>
           <tr><td>T-8</td><td>integration</td><td><code>foundation:file-registry:refresh</code> changed-file fixture tests</td><td>planned</td><td>The registry must remain useful after initial backfill, so changed-file invalidation and remapping need direct coverage.</td></tr>
         </tbody>
@@ -146,7 +204,7 @@
         <li><code>npm run foundation:file-registry:eval -- --repo /path/to/repo --run-id YYYYMMDD-NN</code> - planned command or skill wrapper that runs semantic row-quality evaluation.</li>
         <li><code>npm run foundation:file-registry:graph-check -- --repo /path/to/repo --run-id YYYYMMDD-NN</code> - planned command that resolves spec section IDs, capability IDs, verification targets, and explicit test gaps.</li>
         <li><code>npm run foundation:file-registry:refresh -- --repo /path/to/repo --changed-only</code> - planned steady-state command that refreshes changed rows and reports affected specs, capabilities, and tests.</li>
-        <li>Gold fixture report - a small repo with manually authored file registry and expected surface/capability hints.</li>
+        <li>Calibration report - Sandia Oil run output, manual review notes, and optional human-authored expected file rows when a fixture is created.</li>
       </ul>
     </section>
 
@@ -158,8 +216,8 @@
         <tbody>
           <tr><td>File omitted from registry</td><td>deterministic checker</td><td>Not needed; manifest comparison is exact.</td><td>LLM review would be weaker than set comparison.</td></tr>
           <tr><td>Row is vague or wrong</td><td>LLM judge with source sample</td><td>Schema checks cannot know whether the row describes the file.</td><td>Full human review is too expensive for every file.</td></tr>
-          <tr><td>Behavior-bearing file marked as support-only</td><td>stratified eval sample plus gold fixture</td><td>Static heuristics miss project-specific behavior.</td><td>Full repo human review does not scale.</td></tr>
-          <tr><td>Discovery process looks complete but misses a domain</td><td>small-repo gold comparison before large-repo use</td><td>Single-row samples miss system-level omissions.</td><td>Large-repo golds are too expensive for early validation.</td></tr>
+          <tr><td>Behavior-bearing file marked as support-only</td><td>stratified eval sample plus Sandia Oil calibration review</td><td>Static heuristics miss project-specific behavior.</td><td>Full repo human review does not scale.</td></tr>
+          <tr><td>Discovery process looks complete but misses a domain</td><td>Sandia Oil calibration before large-repo use</td><td>Single-row samples miss system-level omissions.</td><td>Large-repo fixtures are too expensive for early validation.</td></tr>
           <tr><td>Behavior-bearing file has no intent or test path</td><td>graph-link checker plus semantic eval</td><td>Schema checks can see missing fields but not whether the right spec/capability was chosen.</td><td>Full manual graph review does not scale for every change.</td></tr>
           <tr><td>Registry is useful during backfill but decays during builds</td><td>changed-file refresh fixture</td><td>Backfill-only checks do not prove steady-state value.</td><td>A full repo backfill on every change would be too expensive.</td></tr>
         </tbody>
@@ -184,13 +242,13 @@
         <li>Large repos also include a deterministic stratified sample across <code>kind</code>, <code>domain</code>, <code>evidenceValue</code>, source status, docs, tests, config, infra, generated files, assets, and support files.</li>
         <li>When a sampled row fails, the next eval expands that stratum until the failure pattern is resolved.</li>
       </ul>
-      <h3>Gold comparison gate</h3>
+      <h3>Sandia Oil calibration gate</h3>
       <ul>
-        <li>The small fixture repo must have a manually authored manifest, registry, behavior-bearing file list, and expected surface/capability hints.</li>
-        <li>Gold manifest recall must be <code>100</code>. Critical behavior-bearing recall must be <code>100</code>.</li>
-        <li>Gold row-quality score must be at least <code>96</code>, with no normalized category below <code>9/10</code>.</li>
+        <li>Sandia Oil is the first real calibration target because it is small enough for manual inspection while still carrying production-shaped behavior.</li>
+        <li>Calibration must identify obvious missed files, under-described behavior-bearing files, stale classifications, and downstream surface/capability hints before larger repo use.</li>
+        <li>When human-authored expected rows exist, manifest recall and critical behavior-bearing recall must be <code>100</code>; row-quality score must be at least <code>96</code>, with no normalized category below <code>9/10</code>.</li>
       </ul>
-      <p>Acceptable means deterministic checks pass, total eval score is at least <code>96</code>, no category is below <code>9/10</code> when normalized, no pending rows remain, no blocking review flags remain, current gold calibration passes, and no critical behavior-bearing file is materially misclassified.</p>
+      <p>Acceptable means deterministic checks pass, total eval score is at least <code>96</code>, no category is below <code>9/10</code> when normalized, no pending rows remain, no blocking review flags remain, current Sandia Oil calibration evidence exists, and no critical behavior-bearing file is materially misclassified. When a human-authored expected registry exists, it becomes an additional hard gate.</p>
       <p>Strict-mode acceptable additionally means behavior-bearing rows resolve to capability IDs, spec section IDs, and verification targets or explicit test gaps. Bootstrap-mode acceptable may carry unresolved graph links only when downstream artifacts do not exist yet and review flags make the gap visible.</p>
     </section>
 
@@ -200,8 +258,8 @@
         <thead><tr><th>Gap</th><th>Risk</th><th>Follow-up trigger</th></tr></thead>
         <tbody>
           <tr><td>Implementation scripts do not exist yet.</td><td>high</td><td>Before this layer is used in target repo backfills.</td></tr>
-          <tr><td>No gold fixture repo has been selected.</td><td>high</td><td>Before evaluating registry discovery quality.</td></tr>
-          <tr><td>Surface registry derivation is not yet specified.</td><td>medium</td><td>After file registry spec is accepted.</td></tr>
+          <tr><td>No human-authored expected registry exists yet.</td><td>medium</td><td>Before promoting Sandia Oil calibration from review evidence into a hard fixture gate.</td></tr>
+          <tr><td>Surface registry derivation has specs but no implementation yet.</td><td>medium</td><td>Before advancing a real backfill beyond file registry.</td></tr>
           <tr><td>Graph-link checks do not exist yet.</td><td>high</td><td>Before treating the file registry as a steady-state build subsystem.</td></tr>
           <tr><td>Changed-file refresh is not implemented yet.</td><td>high</td><td>Before requiring the registry in normal development workflows.</td></tr>
         </tbody>
@@ -211,7 +269,7 @@
     <section id="coevolution-rule" data-spec-section="coevolution-rule" data-section-type="maintenance">
       <h2>Co-evolution rule</h2>
       <div class="callout warning"><strong>Required:</strong> changes to file registry schema, status model, manifest definition, graph-link model, lifecycle modes, checker behavior, or eval rubric must update the descriptive, technical, and test specs together.</div>
-      <p>When implementation exists, fixture outputs and the gold comparison must be updated in the same change as schema or rubric changes.</p>
+      <p>When implementation exists, fixture outputs, Sandia Oil calibration evidence, and any human-authored expected registry must be updated in the same change as schema or rubric changes.</p>
     </section>
   </article>
 

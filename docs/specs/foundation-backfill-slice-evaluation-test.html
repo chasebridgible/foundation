@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-slice-evaluation.test">
+<meta name="spec:type" content="test">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-05-26">
+<title>Foundation Backfill Slice Evaluation Test Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-slice-evaluation.test",
+  "title": "Foundation Backfill Slice Evaluation Test Spec",
+  "type": "test",
+  "status": "draft",
+  "lastUpdated": "2026-05-26",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-slice-evaluation.descriptive",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.backfill-slice-evaluation.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "product-intent",
+        "artifacts-and-state",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-slice-evaluation.technical",
+      "relationship": "sibling",
+      "sections": [
+        "data-model",
+        "contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-spec-authoring.descriptive",
+      "relationship": "depends-on",
+      "sections": [
+        "artifacts-and-state",
+        "handoff-gate"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-test.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Parent backfill workflow."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Model for canonical layer artifacts and handoff gates."
+    },
+    {
+      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "BFL-SLICE_EVALUATION-E-1",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-test.html",
+      "mapsTo": [
+        "foundation.backfill-slice-evaluation.test#eval-contract"
+      ],
+      "evidence": "Planned Foundation Backfill Slice Evaluation test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+    }
+  ],
+  "tags": [
+    "foundation",
+    "backfill",
+    "slice-evaluation",
+    "test",
+    "substrate"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">V</div>
+    <div>
+      <div class="sidebar-title">Foundation Backfill Slice Evaluation Test Spec</div>
+      <div class="sidebar-sub">test spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#verification-contract"><span class="nav-num">01</span>Contract</a>
+    <a class="nav-item" href="#acceptance-mapping"><span class="nav-num">02</span>Acceptance</a>
+    <a class="nav-item" href="#coverage-plan"><span class="nav-num">03</span>Coverage</a>
+    <a class="nav-item" href="#eval-contract"><span class="nav-num">04</span>Eval</a>
+    <a class="nav-item" href="#gaps-and-followups"><span class="nav-num">05</span>Gaps</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-slice-evaluation-test.html</div>
+    <h1>Foundation Backfill Slice Evaluation Test Spec</h1>
+    <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Slice Evaluation can hand off safely.</p>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-slice-evaluation.descriptive</div></div>
+    <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through eval receipts, and the HTML summary is a derived review surface.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
+      <h2>Acceptance mapping</h2>
+      <table class="status-table"><thead><tr><th>ID</th><th>Condition</th><th>Must prove</th></tr></thead><tbody>
+        <tr><td>AC-1</td><td>Canonical artifacts exist.</td><td>slice-evaluation-YYYYMMDD-NN.jsonl, slice-revision-queue-YYYYMMDD-NN.jsonl exist and share the active run ID.</td></tr>
+        <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites valid upstream IDs from Spec Authoring or records a blocker.</td></tr>
+        <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, evaluating, needs-revision, acceptable, blocked.</td></tr>
+        <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, and report drift fail.</td></tr>
+        <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, or under-evidenced rows produce revision targets.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>every queued slice is acceptable, blocked by a named human decision, parent-owned with precise reason, out of scope, or has an active revision target; checker passes; HTML summary exists; report names next layer as Graph Evaluation when all slices are terminal.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
+      <h2>Coverage plan</h2>
+      <table class="status-table"><thead><tr><th>ID</th><th>Level</th><th>Signal</th><th>Status</th></tr></thead><tbody>
+        <tr><td>T-1</td><td>unit</td><td>Schema, enum, duplicate, and reference fixtures for the checker.</td><td>planned</td></tr>
+        <tr><td>T-2</td><td>integration</td><td>Previous layer handoff consumed by this layer and this layer handoff consumed by next layer.</td><td>planned</td></tr>
+        <tr><td>T-3</td><td>manual</td><td>Risk-based semantic eval sample with canonical JSONL receipt and HTML summary.</td><td>planned</td></tr>
+        <tr><td>T-4</td><td>manual</td><td>Sandia Oil calibration run before larger repo use.</td><td>planned</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="eval-contract" data-spec-section="eval-contract" data-section-type="eval-contract">
+      <h2>Eval contract</h2>
+      <p>uses strict semantic scoring to decide whether future agents could preserve the intended behavior without rereading the whole source slice. The canonical output is JSONL with one receipt per evaluated row or finding. The HTML summary is generated from JSONL so humans can read counts, failures, revision targets, and examples.</p>
+      <ul>
+        <li>Every blocking finding names the row ID, evidence source, failure category, and revision target.</li>
+        <li>Rows with severe uncertainty must remain non-terminal or carry a named human decision.</li>
+        <li>Calibration against Sandia Oil is required before using the layer as a large-repo gate.</li>
+      </ul>
+    </section>
+
+    <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
+      <h2>Gaps and follow-ups</h2>
+      <ul>
+        <li>Implementation commands are planned unless a target repo already provides them.</li>
+        <li>Sandia Oil starts as calibration evidence, not a perfect gold fixture.</li>
+        <li>Schema or rubric changes must update descriptive, technical, and test specs together.</li>
+      </ul>
+    </section>
+  </article>
+  <hr>
+  <p class="footer-note">Foundation Backfill Slice Evaluation Test Spec · draft</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

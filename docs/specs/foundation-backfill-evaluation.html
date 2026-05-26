@@ -20,23 +20,85 @@
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-specs.descriptive",
-  "children": ["foundation.backfill-golden-example"],
+  "children": [
+    "foundation.backfill-golden-example"
+  ],
   "relatedSpecs": [
-    { "id": "foundation.backfill-specs.descriptive", "relationship": "parent", "sections": ["product-intent", "ux-contracts", "test-coverage"] },
-    { "id": "foundation.backfill-orchestration.technical", "relationship": "sibling", "sections": ["contracts", "failure-modes"] },
-    { "id": "foundation.backfill-golden-example", "relationship": "child", "sections": ["golden-report", "golden-technical", "evaluator-scorecard"] }
+    {
+      "id": "foundation.backfill-specs.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "product-intent",
+        "ux-contracts",
+        "test-coverage"
+      ]
+    },
+    {
+      "id": "foundation.backfill-orchestration.technical",
+      "relationship": "sibling",
+      "sections": [
+        "contracts",
+        "failure-modes"
+      ]
+    },
+    {
+      "id": "foundation.backfill-golden-example",
+      "relationship": "child",
+      "sections": [
+        "golden-report",
+        "golden-technical",
+        "evaluator-scorecard"
+      ]
+    }
   ],
   "ownedPaths": [
-    { "path": "foundation/docs/specs/foundation-backfill-evaluation.html", "kind": "doc", "ownership": "direct" },
-    { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/evaluate-backfill-specs/agents/openai.yaml", "kind": "config", "ownership": "direct" }
+    {
+      "path": "foundation/docs/specs/foundation-backfill-evaluation.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/evaluate-backfill-specs/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
   ],
   "implementationPaths": [
-    { "path": "foundation/docs/principles/ai-evals-principles.html", "kind": "doc", "ownership": "reference", "notes": "Evaluator stance: outcomes over trajectories, complementary signals, judge meta-evaluation, and failure-to-dataset loop." },
-    { "path": "foundation/docs/specs/examples/backfill-golden-example.html", "kind": "example", "ownership": "reference", "notes": "Golden example for evaluator calibration." },
-    { "path": "foundation/skills/backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Backfill orchestrator invokes this evaluation per slice and again after graph coverage is complete." },
-    { "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Per-slice adequacy review feeds the final evaluation." },
-    { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "Required-skill validation includes the evaluator." }
+    {
+      "path": "foundation/docs/principles/ai-evals-principles.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Evaluator stance: outcomes over trajectories, complementary signals, judge meta-evaluation, and failure-to-dataset loop."
+    },
+    {
+      "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+      "kind": "example",
+      "ownership": "reference",
+      "notes": "Golden example for evaluator calibration."
+    },
+    {
+      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Backfill orchestrator invokes this evaluation per slice and again after graph coverage is complete."
+    },
+    {
+      "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Per-slice adequacy review feeds the final evaluation."
+    },
+    {
+      "path": "foundation/scripts/foundation-doctor.mjs",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Required-skill validation includes the evaluator."
+    }
   ],
   "coverage": [
     {
@@ -44,7 +106,10 @@
       "level": "static",
       "status": "existing",
       "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
-      "mapsTo": ["foundation.backfill-evaluation.process#evaluator-journey", "foundation.backfill-evaluation.process#output-contract"],
+      "mapsTo": [
+        "foundation.backfill-evaluation.process#evaluator-journey",
+        "foundation.backfill-evaluation.process#output-contract"
+      ],
       "evidence": "Evaluation skill defines the scoring workflow and report contract."
     },
     {
@@ -52,7 +117,9 @@
       "level": "static",
       "status": "existing",
       "path": "foundation/docs/specs/examples/backfill-golden-example.html",
-      "mapsTo": ["foundation.backfill-evaluation.process#scoring-rubric"],
+      "mapsTo": [
+        "foundation.backfill-evaluation.process#scoring-rubric"
+      ],
       "evidence": "Golden example provides calibration for report, descriptive, technical, and scorecard quality."
     },
     {
@@ -60,7 +127,9 @@
       "level": "unit",
       "status": "existing",
       "path": "foundation/scripts/foundation-doctor.test.mjs",
-      "mapsTo": ["foundation.backfill-evaluation.process#paths-and-coverage"],
+      "mapsTo": [
+        "foundation.backfill-evaluation.process#paths-and-coverage"
+      ],
       "evidence": "Doctor fixtures include evaluate-backfill-specs as a required Foundation skill."
     },
     {
@@ -68,11 +137,20 @@
       "level": "static",
       "status": "existing",
       "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
-      "mapsTo": ["foundation.backfill-evaluation.process#scoring-rubric", "foundation.backfill-evaluation.process#acceptability-gate"],
+      "mapsTo": [
+        "foundation.backfill-evaluation.process#scoring-rubric",
+        "foundation.backfill-evaluation.process#acceptability-gate"
+      ],
       "evidence": "Evaluation skill requires capability coverage, split-boundary checks, and spec-only rebuild probes."
     }
   ],
-  "tags": ["process", "foundation", "backfill", "evaluation", "llm-judge"]
+  "tags": [
+    "process",
+    "foundation",
+    "backfill",
+    "evaluation",
+    "llm-judge"
+  ]
 }
 </script>
 </head>

@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-file-registry.descriptive">
 <meta name="spec:type" content="descriptive">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-22">
+<meta name="spec:last-updated" content="2026-05-26">
 <title>Foundation File Registry</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,23 +16,71 @@
   "title": "Foundation File Registry",
   "type": "descriptive",
   "status": "draft",
-  "lastUpdated": "2026-05-22",
+  "lastUpdated": "2026-05-26",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-specs.descriptive",
-  "children": ["foundation.backfill-file-registry.technical", "foundation.backfill-file-registry.test"],
+  "children": [
+    "foundation.backfill-file-registry.technical",
+    "foundation.backfill-file-registry.test"
+  ],
   "relatedSpecs": [
-    { "id": "foundation.backfill-specs.descriptive", "relationship": "parent", "sections": ["product-intent", "interface-journey", "ux-contracts"] },
-    { "id": "foundation.backfill-file-registry.technical", "relationship": "child", "sections": ["required-depth", "data-model", "contracts"] },
-    { "id": "foundation.backfill-file-registry.test", "relationship": "child", "sections": ["verification-contract", "acceptance-mapping", "risk-based-signal-choice"] },
-    { "id": "foundation.backfill-orchestration.technical", "relationship": "sibling", "sections": ["internal-sequence", "data-model"] }
+    {
+      "id": "foundation.backfill-specs.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "product-intent",
+        "interface-journey",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-file-registry.technical",
+      "relationship": "child",
+      "sections": [
+        "required-depth",
+        "data-model",
+        "contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-file-registry.test",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping",
+        "risk-based-signal-choice"
+      ]
+    },
+    {
+      "id": "foundation.backfill-orchestration.technical",
+      "relationship": "sibling",
+      "sections": [
+        "internal-sequence",
+        "data-model"
+      ]
+    }
   ],
   "ownedPaths": [
-    { "path": "foundation/docs/specs/foundation-backfill-file-registry.html", "kind": "doc", "ownership": "direct" }
+    {
+      "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
   ],
   "implementationPaths": [
-    { "path": "foundation/docs/specs/foundation-backfill-specs.html", "kind": "doc", "ownership": "reference", "notes": "Parent backfill workflow this file-registry layer feeds." },
-    { "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html", "kind": "doc", "ownership": "reference", "notes": "Backfill orchestration contract that will incorporate this layer." }
+    {
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Parent backfill workflow this file-registry layer feeds."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Backfill orchestration contract that will incorporate this layer."
+    }
   ],
   "coverage": [
     {
@@ -40,7 +88,10 @@
       "level": "static",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
-      "mapsTo": ["foundation.backfill-file-registry.descriptive#states-and-rules", "foundation.backfill-file-registry.descriptive#ux-contracts"],
+      "mapsTo": [
+        "foundation.backfill-file-registry.descriptive#states-and-rules",
+        "foundation.backfill-file-registry.descriptive#ux-contracts"
+      ],
       "evidence": "Test spec will define deterministic registry checks and LLM quality evaluation."
     },
     {
@@ -48,11 +99,20 @@
       "level": "static",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
-      "mapsTo": ["foundation.backfill-file-registry.descriptive#system-relationship"],
+      "mapsTo": [
+        "foundation.backfill-file-registry.descriptive#system-relationship"
+      ],
       "evidence": "Test spec will verify file-to-spec, file-to-capability, and file-to-verification graph links once implementation commands exist."
     }
   ],
-  "tags": ["descriptive", "foundation", "backfill", "file-registry", "substrate", "agent-index"]
+  "tags": [
+    "descriptive",
+    "foundation",
+    "backfill",
+    "file-registry",
+    "substrate",
+    "agent-index"
+  ]
 }
 </script>
 </head>
@@ -87,12 +147,12 @@
     <p class="lede">Foundation needs a durable map of every repo-owned file, what that file contributes, which capabilities it supports, which specs define its intent, and what verification protects it.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> draft</div>
-      <div><strong>Updated:</strong> 2026-05-22</div>
+      <div><strong>Updated:</strong> 2026-05-26</div>
       <div><strong>Parent:</strong> foundation.backfill-specs.descriptive</div>
     </div>
     <h3>Intent</h3>
     <p>The file registry fill loop turns raw repository files into a complete, structured evidence index. The agent should not rely on memory to understand the repo. It should generate a file manifest, create a registry row for every repo-owned file, inspect bounded batches, update rows, run checks, and resume from the registry until all files are mapped.</p>
-    <p>The file registry is a core Foundation substrate, not only a one-time backfill artifact. Backfill uses it as the bootstrap path when a target repo does not yet have registry state. Normal build work uses it as the implementation index that keeps files, specs, capabilities, and verification targets connected as the repo changes.</p>
+    <p>The file registry is a core Foundation substrate, not only a one-time backfill artifact. V1 includes both bootstrap backfill and steady-state changed-file refresh from the start. Backfill uses it as the bootstrap path when a target repo does not yet have registry state. Normal build work uses it as the implementation index that keeps files, specs, capabilities, and verification targets connected as the repo changes.</p>
     <p>The target is rebuild-grade evidence: downstream agents should be able to ask which files implement a capability, which spec sections define intended behavior, which tests or evals protect the behavior, and which registry rows are stale or low-confidence without rediscovering the whole repo.</p>
     <h3>Out of scope</h3>
     <p>This spec does not define capability clustering, descriptive spec authoring, or code cleanup. It defines the file-level substrate those workflows consume. Backfill, spec workflow, and future build agents may call the same file-registry commands for different lifecycle phases.</p>
@@ -111,7 +171,7 @@
           <tr><td>States</td><td><code>pending</code> and <code>mapped</code>.</td><td>States and rules.</td></tr>
           <tr><td>Repo-owned set</td><td>The manifest uses a deterministic file rule: tracked files plus untracked non-ignored files from the target repo, plus explicit include rules. Dependency installs, build outputs, caches, logs, and <code>.git/</code> are outside the set unless explicitly included.</td><td>Manifest rule.</td></tr>
           <tr><td>Rules</td><td>Every repo-owned file is mapped. Non-behavioral, generated, stale, asset, fixture, config, and doc files are classified through row fields.</td><td>Mapping rule.</td></tr>
-          <tr><td>Surfaces</td><td>Canonical artifacts: durable file manifest, durable file registry JSONL, registry evaluation report, report summary, run log events, and checker output. Backfill stores dated snapshots under <code>docs/specs/backfill/</code>; steady-state repositories may maintain a current registry view under a Foundation-defined file-registry path.</td><td>Backfill artifacts and steady-state registry artifacts.</td></tr>
+          <tr><td>Surfaces</td><td>Canonical artifacts: durable file manifest, durable file registry JSONL, canonical registry eval JSONL receipt, report summary, run log events, and checker output. Each HTML summary is derived from JSONL for human reading. Backfill stores dated snapshots under <code>docs/specs/backfill/</code>; steady-state repositories may maintain a current registry view under a Foundation-defined file-registry path.</td><td>Backfill artifacts and steady-state registry artifacts.</td></tr>
         </tbody>
       </table>
     </section>
@@ -155,10 +215,10 @@
         <li><strong>Registry update:</strong> the agent updates rows to <code>mapped</code>. Review uncertainty is recorded in row fields, not in a separate status.</li>
         <li><strong>Check:</strong> the deterministic checker proves every manifest file has exactly one current registry row, no registry row exists outside the manifest, mapped rows satisfy the schema, and final handoff has zero pending rows.</li>
         <li><strong>Eval:</strong> the evaluation layer samples mapped rows against source files and scores accuracy, specificity, behavior-bearing detection, navigability, and large-file handling.</li>
-        <li><strong>Gold calibration:</strong> before using the layer for large-repo backfill or after schema/rubric changes, run the file-registry loop against a small known-answer repo and compare it to a manually authored gold registry.</li>
+        <li><strong>Sandia Oil calibration:</strong> before using the layer for large-repo backfill or after schema/rubric changes, run the file-registry loop against Sandia Oil while the repo is small enough to inspect. Treat this as calibration evidence until a human-authored expected registry exists.</li>
         <li><strong>Resume:</strong> after context compaction, interruption, or a new agent session, the agent rereads target <code>AGENTS.md</code>, Foundation <code>AGENTS.md</code>, the active skill, report, registry, and run log, then continues from pending rows.</li>
         <li><strong>Graph linking:</strong> once the spec and capability layers exist, behavior-bearing mapped rows are linked to capability IDs, spec section IDs, and verification targets or explicit gaps.</li>
-        <li><strong>Handoff:</strong> when the bootstrap registry has zero pending rows, no blocking review flags, passing check/eval evidence, and current gold calibration, the report records the registry path, checker result, eval result, latest run-log sequence, pending count, and next layer. The surface/capability layers start from that recorded state.</li>
+        <li><strong>Handoff:</strong> when the bootstrap registry has zero pending rows, no blocking review flags, passing check/eval evidence, and current Sandia Oil calibration evidence or a human-authored expected registry when available, the report records the registry path, checker result, eval result, latest run-log sequence, pending count, and next layer. The surface/capability layers start from that recorded state.</li>
         <li><strong>Steady-state refresh:</strong> after bootstrap, normal build workflow refreshes or invalidates registry rows for changed files and checks graph links before handoff.</li>
       </ol>
     </section>

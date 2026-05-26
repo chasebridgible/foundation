@@ -55,7 +55,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-05-22",
+  "lastUpdated": "2026-05-26",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -930,6 +930,277 @@
       ]
     },
     {
+      "id": "foundation.backfill-capability-matrix.technical",
+      "title": "Foundation Backfill Capability Matrix Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-capability-matrix-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-capability-matrix.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-capability-matrix.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-matrix.test",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.backfill-surface-registry.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-CAPABILITY_MATRIX-T-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix-technical.html",
+          "mapsTo": [
+            "foundation.backfill-capability-matrix.technical#contracts"
+          ],
+          "evidence": "Planned Foundation Backfill Capability Matrix technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "capability-matrix",
+        "technical",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-capability-matrix.test",
+      "title": "Foundation Backfill Capability Matrix Test Spec",
+      "type": "test",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-capability-matrix-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-capability-matrix.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-capability-matrix.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-matrix.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-surface-registry.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-CAPABILITY_MATRIX-E-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix-test.html",
+          "mapsTo": [
+            "foundation.backfill-capability-matrix.test#eval-contract"
+          ],
+          "evidence": "Planned Foundation Backfill Capability Matrix test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "capability-matrix",
+        "test",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-capability-matrix.descriptive",
+      "title": "Foundation Backfill Capability Matrix",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-capability-matrix.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-capability-matrix.technical",
+        "foundation.backfill-capability-matrix.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "interface-journey",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-matrix.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "checker-and-fill-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-matrix.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping",
+            "eval-contract"
+          ]
+        },
+        {
+          "id": "foundation.backfill-surface-registry.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-CAPABILITY_MATRIX-D-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix.html",
+          "mapsTo": [
+            "foundation.backfill-capability-matrix.descriptive#handoff-gate"
+          ],
+          "evidence": "Planned Foundation Backfill Capability Matrix descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "capability-matrix",
+        "descriptive",
+        "substrate"
+      ]
+    },
+    {
       "id": "foundation.backfill-evaluation.process",
       "title": "Foundation Backfill Evaluation Process",
       "type": "process",
@@ -1073,13 +1344,284 @@
       ]
     },
     {
+      "id": "foundation.backfill-evidence-pack.technical",
+      "title": "Foundation Backfill Evidence Pack Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-evidence-pack-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-evidence-pack.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-evidence-pack.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evidence-pack.test",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.backfill-split-queue.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-EVIDENCE_PACK-T-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack-technical.html",
+          "mapsTo": [
+            "foundation.backfill-evidence-pack.technical#contracts"
+          ],
+          "evidence": "Planned Foundation Backfill Evidence Pack technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "evidence-pack",
+        "technical",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-evidence-pack.test",
+      "title": "Foundation Backfill Evidence Pack Test Spec",
+      "type": "test",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-evidence-pack-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-evidence-pack.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-evidence-pack.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evidence-pack.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-split-queue.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-EVIDENCE_PACK-E-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack-test.html",
+          "mapsTo": [
+            "foundation.backfill-evidence-pack.test#eval-contract"
+          ],
+          "evidence": "Planned Foundation Backfill Evidence Pack test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "evidence-pack",
+        "test",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-evidence-pack.descriptive",
+      "title": "Foundation Backfill Evidence Pack",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-evidence-pack.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-evidence-pack.technical",
+        "foundation.backfill-evidence-pack.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "interface-journey",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evidence-pack.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "checker-and-fill-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evidence-pack.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping",
+            "eval-contract"
+          ]
+        },
+        {
+          "id": "foundation.backfill-split-queue.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-EVIDENCE_PACK-D-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack.html",
+          "mapsTo": [
+            "foundation.backfill-evidence-pack.descriptive#handoff-gate"
+          ],
+          "evidence": "Planned Foundation Backfill Evidence Pack descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "evidence-pack",
+        "descriptive",
+        "substrate"
+      ]
+    },
+    {
       "id": "foundation.backfill-file-registry.technical",
       "title": "Foundation File Registry Technical Spec",
       "type": "technical",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-22",
+      "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-file-registry.descriptive",
@@ -1173,7 +1715,7 @@
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-22",
+      "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-file-registry.descriptive",
@@ -1253,7 +1795,7 @@
           "mapsTo": [
             "foundation.backfill-file-registry.descriptive#ux-contracts"
           ],
-          "evidence": "Planned small-repo gold comparison verifies discovery quality before large-repo use."
+          "evidence": "Planned Sandia Oil calibration verifies discovery quality before large-repo use; human-authored expected rows can later harden this into a fixture."
         },
         {
           "id": "BFR-E-3",
@@ -1284,7 +1826,7 @@
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-file-registry.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-22",
+      "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-specs.descriptive",
@@ -1383,13 +1925,826 @@
       ]
     },
     {
+      "id": "foundation.backfill-flow-extraction.technical",
+      "title": "Foundation Backfill User Operator Flow Extraction Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-flow-extraction-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-flow-extraction.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-flow-extraction.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-flow-extraction.test",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evidence-pack.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-FLOW_EXTRACTION-T-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction-technical.html",
+          "mapsTo": [
+            "foundation.backfill-flow-extraction.technical#contracts"
+          ],
+          "evidence": "Planned Foundation Backfill User Operator Flow Extraction technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "flow-extraction",
+        "technical",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-flow-extraction.test",
+      "title": "Foundation Backfill User Operator Flow Extraction Test Spec",
+      "type": "test",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-flow-extraction-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-flow-extraction.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-flow-extraction.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-flow-extraction.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evidence-pack.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-FLOW_EXTRACTION-E-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction-test.html",
+          "mapsTo": [
+            "foundation.backfill-flow-extraction.test#eval-contract"
+          ],
+          "evidence": "Planned Foundation Backfill User Operator Flow Extraction test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "flow-extraction",
+        "test",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-flow-extraction.descriptive",
+      "title": "Foundation Backfill User Operator Flow Extraction",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-flow-extraction.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-flow-extraction.technical",
+        "foundation.backfill-flow-extraction.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "interface-journey",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-flow-extraction.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "checker-and-fill-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-flow-extraction.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping",
+            "eval-contract"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evidence-pack.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-FLOW_EXTRACTION-D-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction.html",
+          "mapsTo": [
+            "foundation.backfill-flow-extraction.descriptive#handoff-gate"
+          ],
+          "evidence": "Planned Foundation Backfill User Operator Flow Extraction descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "flow-extraction",
+        "descriptive",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-graph-evaluation.technical",
+      "title": "Foundation Backfill Graph Evaluation Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-graph-evaluation-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-graph-evaluation.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-graph-evaluation.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-graph-evaluation.test",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.backfill-slice-evaluation.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-GRAPH_EVALUATION-T-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation-technical.html",
+          "mapsTo": [
+            "foundation.backfill-graph-evaluation.technical#contracts"
+          ],
+          "evidence": "Planned Foundation Backfill Graph Evaluation technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "graph-evaluation",
+        "technical",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-graph-evaluation.test",
+      "title": "Foundation Backfill Graph Evaluation Test Spec",
+      "type": "test",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-graph-evaluation-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-graph-evaluation.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-graph-evaluation.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-graph-evaluation.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-slice-evaluation.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-GRAPH_EVALUATION-E-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation-test.html",
+          "mapsTo": [
+            "foundation.backfill-graph-evaluation.test#eval-contract"
+          ],
+          "evidence": "Planned Foundation Backfill Graph Evaluation test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "graph-evaluation",
+        "test",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-graph-evaluation.descriptive",
+      "title": "Foundation Backfill Graph Evaluation",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-graph-evaluation.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-graph-evaluation.technical",
+        "foundation.backfill-graph-evaluation.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "interface-journey",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-graph-evaluation.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "checker-and-fill-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-graph-evaluation.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping",
+            "eval-contract"
+          ]
+        },
+        {
+          "id": "foundation.backfill-slice-evaluation.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-GRAPH_EVALUATION-D-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation.html",
+          "mapsTo": [
+            "foundation.backfill-graph-evaluation.descriptive#handoff-gate"
+          ],
+          "evidence": "Planned Foundation Backfill Graph Evaluation descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "graph-evaluation",
+        "descriptive",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-handoff.technical",
+      "title": "Foundation Backfill Handoff Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-handoff-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-handoff.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-handoff.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-handoff.test",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.backfill-graph-evaluation.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-handoff-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-HANDOFF-T-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-handoff-technical.html",
+          "mapsTo": [
+            "foundation.backfill-handoff.technical#contracts"
+          ],
+          "evidence": "Planned Foundation Backfill Handoff technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "handoff",
+        "technical",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-handoff.test",
+      "title": "Foundation Backfill Handoff Test Spec",
+      "type": "test",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-handoff-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-handoff.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-handoff.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-handoff.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-graph-evaluation.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-handoff-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-HANDOFF-E-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-handoff-test.html",
+          "mapsTo": [
+            "foundation.backfill-handoff.test#eval-contract"
+          ],
+          "evidence": "Planned Foundation Backfill Handoff test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "handoff",
+        "test",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-handoff.descriptive",
+      "title": "Foundation Backfill Handoff",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-handoff.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-handoff.technical",
+        "foundation.backfill-handoff.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "interface-journey",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-handoff.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "checker-and-fill-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-handoff.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping",
+            "eval-contract"
+          ]
+        },
+        {
+          "id": "foundation.backfill-graph-evaluation.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-handoff.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-HANDOFF-D-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-handoff.html",
+          "mapsTo": [
+            "foundation.backfill-handoff.descriptive#handoff-gate"
+          ],
+          "evidence": "Planned Foundation Backfill Handoff descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "handoff",
+        "descriptive",
+        "substrate"
+      ]
+    },
+    {
       "id": "foundation.backfill-orchestration.technical",
       "title": "Foundation Backfill Orchestration Technical Spec",
       "type": "technical",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-21",
+      "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-specs.descriptive",
@@ -1427,6 +2782,78 @@
           "sections": [
             "html-native-metadata",
             "path-update-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-surface-registry.descriptive",
+          "relationship": "sibling",
+          "sections": [
+            "interface-journey",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-matrix.descriptive",
+          "relationship": "sibling",
+          "sections": [
+            "interface-journey",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-split-queue.descriptive",
+          "relationship": "sibling",
+          "sections": [
+            "interface-journey",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evidence-pack.descriptive",
+          "relationship": "sibling",
+          "sections": [
+            "interface-journey",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-flow-extraction.descriptive",
+          "relationship": "sibling",
+          "sections": [
+            "interface-journey",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-spec-authoring.descriptive",
+          "relationship": "sibling",
+          "sections": [
+            "interface-journey",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-slice-evaluation.descriptive",
+          "relationship": "sibling",
+          "sections": [
+            "interface-journey",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-graph-evaluation.descriptive",
+          "relationship": "sibling",
+          "sections": [
+            "interface-journey",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-handoff.descriptive",
+          "relationship": "sibling",
+          "sections": [
+            "interface-journey",
+            "handoff-gate"
           ]
         }
       ],
@@ -1565,6 +2992,168 @@
           "kind": "test",
           "ownership": "reference",
           "notes": "Doctor fixtures include all required backfill skills."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-split-queue.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-split-queue-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-split-queue-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-handoff.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-handoff-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-handoff-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer contract coordinated by the backfill orchestrator."
         }
       ],
       "coverage": [
@@ -1661,20 +3250,571 @@
       ]
     },
     {
+      "id": "foundation.backfill-slice-evaluation.technical",
+      "title": "Foundation Backfill Slice Evaluation Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-slice-evaluation-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-slice-evaluation.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-slice-evaluation.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-slice-evaluation.test",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.backfill-spec-authoring.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SLICE_EVALUATION-T-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-technical.html",
+          "mapsTo": [
+            "foundation.backfill-slice-evaluation.technical#contracts"
+          ],
+          "evidence": "Planned Foundation Backfill Slice Evaluation technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "slice-evaluation",
+        "technical",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-slice-evaluation.test",
+      "title": "Foundation Backfill Slice Evaluation Test Spec",
+      "type": "test",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-slice-evaluation-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-slice-evaluation.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-slice-evaluation.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-slice-evaluation.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-spec-authoring.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SLICE_EVALUATION-E-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-test.html",
+          "mapsTo": [
+            "foundation.backfill-slice-evaluation.test#eval-contract"
+          ],
+          "evidence": "Planned Foundation Backfill Slice Evaluation test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "slice-evaluation",
+        "test",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-slice-evaluation.descriptive",
+      "title": "Foundation Backfill Slice Evaluation",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-slice-evaluation.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-slice-evaluation.technical",
+        "foundation.backfill-slice-evaluation.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "interface-journey",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-slice-evaluation.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "checker-and-fill-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-slice-evaluation.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping",
+            "eval-contract"
+          ]
+        },
+        {
+          "id": "foundation.backfill-spec-authoring.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SLICE_EVALUATION-D-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation.html",
+          "mapsTo": [
+            "foundation.backfill-slice-evaluation.descriptive#handoff-gate"
+          ],
+          "evidence": "Planned Foundation Backfill Slice Evaluation descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "slice-evaluation",
+        "descriptive",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-spec-authoring.technical",
+      "title": "Foundation Backfill Spec Authoring Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-spec-authoring-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-spec-authoring.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-spec-authoring.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-spec-authoring.test",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.backfill-flow-extraction.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SPEC_AUTHORING-T-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring-technical.html",
+          "mapsTo": [
+            "foundation.backfill-spec-authoring.technical#contracts"
+          ],
+          "evidence": "Planned Foundation Backfill Spec Authoring technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "spec-authoring",
+        "technical",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-spec-authoring.test",
+      "title": "Foundation Backfill Spec Authoring Test Spec",
+      "type": "test",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-spec-authoring-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-spec-authoring.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-spec-authoring.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-spec-authoring.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-flow-extraction.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SPEC_AUTHORING-E-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring-test.html",
+          "mapsTo": [
+            "foundation.backfill-spec-authoring.test#eval-contract"
+          ],
+          "evidence": "Planned Foundation Backfill Spec Authoring test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "spec-authoring",
+        "test",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-spec-authoring.descriptive",
+      "title": "Foundation Backfill Spec Authoring",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-spec-authoring.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-spec-authoring.technical",
+        "foundation.backfill-spec-authoring.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "interface-journey",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-spec-authoring.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "checker-and-fill-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-spec-authoring.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping",
+            "eval-contract"
+          ]
+        },
+        {
+          "id": "foundation.backfill-flow-extraction.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SPEC_AUTHORING-D-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring.html",
+          "mapsTo": [
+            "foundation.backfill-spec-authoring.descriptive#handoff-gate"
+          ],
+          "evidence": "Planned Foundation Backfill Spec Authoring descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "spec-authoring",
+        "descriptive",
+        "substrate"
+      ]
+    },
+    {
       "id": "foundation.backfill-specs.descriptive",
       "title": "Foundation Backfill Specs",
       "type": "descriptive",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-specs.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-21",
+      "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.descriptive",
       "children": [
         "foundation.backfill-orchestration.technical",
         "foundation.backfill-evaluation.process",
-        "foundation.backfill-file-registry.descriptive"
+        "foundation.backfill-file-registry.descriptive",
+        "foundation.backfill-surface-registry.descriptive",
+        "foundation.backfill-capability-matrix.descriptive",
+        "foundation.backfill-split-queue.descriptive",
+        "foundation.backfill-evidence-pack.descriptive",
+        "foundation.backfill-flow-extraction.descriptive",
+        "foundation.backfill-spec-authoring.descriptive",
+        "foundation.backfill-slice-evaluation.descriptive",
+        "foundation.backfill-graph-evaluation.descriptive",
+        "foundation.backfill-handoff.descriptive"
       ],
       "relatedSpecs": [
         {
@@ -1711,6 +3851,78 @@
             "product-intent",
             "states-and-rules",
             "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-surface-registry.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-matrix.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-split-queue.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-evidence-pack.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-flow-extraction.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-spec-authoring.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-slice-evaluation.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-graph-evaluation.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-handoff.descriptive",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "handoff-gate"
           ]
         },
         {
@@ -1891,6 +4103,168 @@
           "kind": "test",
           "ownership": "reference",
           "notes": "Covers required-skill discovery for Foundation doctor fixtures."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-capability-matrix-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-split-queue.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-split-queue-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-split-queue-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-evidence-pack-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-flow-extraction-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-spec-authoring-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-slice-evaluation-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-graph-evaluation-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-handoff.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-handoff-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-handoff-test.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Layer spec in the durable backfill substrate sequence."
         }
       ],
       "coverage": [
@@ -1994,6 +4368,548 @@
         "backfill",
         "specs",
         "adoption"
+      ]
+    },
+    {
+      "id": "foundation.backfill-split-queue.technical",
+      "title": "Foundation Backfill Split And Queue Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-split-queue-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-split-queue.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-split-queue.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-split-queue.test",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-matrix.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-split-queue-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SPLIT_QUEUE-T-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-split-queue-technical.html",
+          "mapsTo": [
+            "foundation.backfill-split-queue.technical#contracts"
+          ],
+          "evidence": "Planned Foundation Backfill Split And Queue technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "split-queue",
+        "technical",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-split-queue.test",
+      "title": "Foundation Backfill Split And Queue Test Spec",
+      "type": "test",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-split-queue-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-split-queue.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-split-queue.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-split-queue.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-matrix.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-split-queue-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SPLIT_QUEUE-E-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-split-queue-test.html",
+          "mapsTo": [
+            "foundation.backfill-split-queue.test#eval-contract"
+          ],
+          "evidence": "Planned Foundation Backfill Split And Queue test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "split-queue",
+        "test",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-split-queue.descriptive",
+      "title": "Foundation Backfill Split And Queue",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-split-queue.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-split-queue.technical",
+        "foundation.backfill-split-queue.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "interface-journey",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-split-queue.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "checker-and-fill-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-split-queue.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping",
+            "eval-contract"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-matrix.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-split-queue.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SPLIT_QUEUE-D-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-split-queue.html",
+          "mapsTo": [
+            "foundation.backfill-split-queue.descriptive#handoff-gate"
+          ],
+          "evidence": "Planned Foundation Backfill Split And Queue descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "split-queue",
+        "descriptive",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-surface-registry.technical",
+      "title": "Foundation Backfill Surface Registry Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-surface-registry.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-surface-registry.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-surface-registry.test",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.backfill-file-registry.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SURFACE_REGISTRY-T-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
+          "mapsTo": [
+            "foundation.backfill-surface-registry.technical#contracts"
+          ],
+          "evidence": "Planned Foundation Backfill Surface Registry technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "surface-registry",
+        "technical",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-surface-registry.test",
+      "title": "Foundation Backfill Surface Registry Test Spec",
+      "type": "test",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-surface-registry-test.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-surface-registry.descriptive",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-surface-registry.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-surface-registry.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-file-registry.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry-test.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SURFACE_REGISTRY-E-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry-test.html",
+          "mapsTo": [
+            "foundation.backfill-surface-registry.test#eval-contract"
+          ],
+          "evidence": "Planned Foundation Backfill Surface Registry test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "surface-registry",
+        "test",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-surface-registry.descriptive",
+      "title": "Foundation Backfill Surface Registry",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-backfill-surface-registry.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-26",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.backfill-specs.descriptive",
+      "children": [
+        "foundation.backfill-surface-registry.technical",
+        "foundation.backfill-surface-registry.test"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "parent",
+          "sections": [
+            "interface-journey",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.backfill-surface-registry.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "checker-and-fill-loop"
+          ]
+        },
+        {
+          "id": "foundation.backfill-surface-registry.test",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping",
+            "eval-contract"
+          ]
+        },
+        {
+          "id": "foundation.backfill-file-registry.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-backfill-specs.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Parent backfill workflow."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Model for canonical layer artifacts and handoff gates."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BFL-SURFACE_REGISTRY-D-1",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/docs/specs/foundation-backfill-surface-registry.html",
+          "mapsTo": [
+            "foundation.backfill-surface-registry.descriptive#handoff-gate"
+          ],
+          "evidence": "Planned Foundation Backfill Surface Registry descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+        }
+      ],
+      "tags": [
+        "foundation",
+        "backfill",
+        "surface-registry",
+        "descriptive",
+        "substrate"
       ]
     },
     {
