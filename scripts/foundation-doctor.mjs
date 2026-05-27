@@ -9,6 +9,7 @@ const repoRoot = path.dirname(path.dirname(scriptPath));
 const requiredSkills = [
   "descriptive-spec-interview",
   "backfill-specs",
+  "file-registry-fill-loop",
   "backfill-repo-inventory",
   "backfill-user-flow-extraction",
   "backfill-descriptive-spec-author",

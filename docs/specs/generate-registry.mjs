@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const specsDir = path.dirname(fileURLToPath(import.meta.url));
@@ -23,6 +24,46 @@ const preferredOrder = [
   "docs/specs/examples/test-spec-example.html"
 ];
 const preferredOrderByPath = new Map(preferredOrder.map((file, index) => [file, index]));
+let gitReadContext;
+let existingRegistryByFile;
+
+function gitOutput(args, { timeoutMs = 0 } = {}) {
+  return execFileSync("git", args, {
+    cwd: repoRoot,
+    encoding: "utf8",
+    maxBuffer: 50 * 1024 * 1024,
+    timeout: timeoutMs
+  });
+}
+
+function splitNull(value) {
+  return value.split("\0").filter(Boolean);
+}
+
+function readGitContext() {
+  if (gitReadContext) return gitReadContext;
+  const context = { blobByPath: new Map(), workingTreePaths: new Set() };
+
+  try {
+    gitOutput(["rev-parse", "--is-inside-work-tree"]);
+    for (const entry of splitNull(gitOutput(["ls-files", "-s", "-z", "--", "docs/specs"]))) {
+      const match = entry.match(/^\d+ ([0-9a-f]+) (\d)\t(.+)$/);
+      if (match && match[2] === "0") context.blobByPath.set(match[3], match[1]);
+    }
+  } catch {
+    context.blobByPath.clear();
+  }
+  try {
+    for (const file of splitNull(gitOutput(["ls-files", "-m", "-z", "--", "docs/specs"], { timeoutMs: 1000 }))) {
+      context.workingTreePaths.add(file);
+    }
+  } catch {
+    context.workingTreePaths.clear();
+  }
+
+  gitReadContext = context;
+  return gitReadContext;
+}
 
 function walk(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
@@ -35,6 +76,37 @@ function walk(dir) {
 
 function relativeSpecPath(file) {
   return path.relative(repoRoot, file).split(path.sep).join("/");
+}
+
+function isGeneratedNonSpecHtml(file) {
+  const relativeFile = relativeSpecPath(file);
+  return /^docs\/specs\/backfill\/file-registry-(eval-summary|handoff)-\d{8}-\d{2}\.html$/.test(relativeFile);
+}
+
+function readSpecText(file) {
+  return fs.readFileSync(file, "utf8");
+}
+
+function isCleanTrackedSpec(file) {
+  const relativeFile = relativeSpecPath(file);
+  const context = readGitContext();
+  const blob = context.blobByPath.get(relativeFile);
+  return Boolean(blob && !context.workingTreePaths.has(relativeFile));
+}
+
+function existingRegistryEntriesByFile() {
+  if (existingRegistryByFile) return existingRegistryByFile;
+  existingRegistryByFile = new Map();
+  try {
+    const indexHtml = fs.readFileSync(indexPath, "utf8");
+    const match = indexHtml.match(registryPattern);
+    if (!match) return existingRegistryByFile;
+    const registry = JSON.parse(match[0].replace(/^<script[^>]*>/, "").replace(/<\/script>$/, ""));
+    for (const spec of registry.specs || []) existingRegistryByFile.set(spec.file, spec);
+  } catch {
+    existingRegistryByFile.clear();
+  }
+  return existingRegistryByFile;
 }
 
 function registryPathFor(file) {
@@ -81,7 +153,7 @@ function canonicalSection(html, file) {
 }
 
 function orderedSpecFiles() {
-  return walk(specsDir).sort((left, right) => {
+  return walk(specsDir).filter(file => !isGeneratedNonSpecHtml(file)).sort((left, right) => {
     const leftPath = relativeSpecPath(left);
     const rightPath = relativeSpecPath(right);
     const leftRank = preferredOrderByPath.get(leftPath) ?? Number.MAX_SAFE_INTEGER;
@@ -97,7 +169,9 @@ function addIfPresent(entry, metadata, key) {
 
 function registryEntry(file) {
   const relativeFile = relativeSpecPath(file);
-  const html = fs.readFileSync(file, "utf8");
+  const existing = existingRegistryEntriesByFile().get(registryPathFor(file));
+  if (existing && isCleanTrackedSpec(file)) return existing;
+  const html = readSpecText(file);
   const metadata = extractJson(html, "spec-metadata", relativeFile);
   const entry = {
     id: metadata.id,

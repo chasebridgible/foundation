@@ -55,7 +55,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-05-26",
+  "lastUpdated": "2026-05-27",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -1618,10 +1618,10 @@
       "id": "foundation.backfill-file-registry.technical",
       "title": "Foundation File Registry Technical Spec",
       "type": "technical",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-27",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-file-registry.descriptive",
@@ -1659,6 +1659,46 @@
           "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/file-registry-core.mjs",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/file-registry-init.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/file-registry-fill.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/file-registry-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/file-registry-eval.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/file-registry-graph-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/file-registry-refresh.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/file-registry-report.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -1679,24 +1719,24 @@
         {
           "id": "BFR-T-1",
           "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "status": "existing",
+          "path": "foundation/scripts/file-registry.test.mjs",
           "mapsTo": [
             "foundation.backfill-file-registry.technical#data-model",
             "foundation.backfill-file-registry.technical#contracts"
           ],
-          "evidence": "Test spec will verify registry schema, coverage, freshness, and eval quality requirements."
+          "evidence": "File registry tests verify registry schema, coverage, freshness, pending/mapped status gates, check receipts, and eval quality artifacts."
         },
         {
           "id": "BFR-T-2",
           "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "status": "existing",
+          "path": "foundation/scripts/file-registry.test.mjs",
           "mapsTo": [
             "foundation.backfill-file-registry.technical#graph-links",
             "foundation.backfill-file-registry.technical#lifecycle-modes"
           ],
-          "evidence": "Test spec will verify graph-link integrity and changed-file lifecycle behavior when implementation commands exist."
+          "evidence": "File registry tests verify strict graph-link integrity and changed-file refresh behavior."
         }
       ],
       "tags": [
@@ -1712,10 +1752,10 @@
       "id": "foundation.backfill-file-registry.test",
       "title": "Foundation File Registry Test Spec",
       "type": "test",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-27",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-file-registry.descriptive",
@@ -1760,6 +1800,11 @@
           "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/file-registry.test.mjs",
+          "kind": "test",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -1780,33 +1825,33 @@
         {
           "id": "BFR-E-1",
           "level": "unit",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "status": "existing",
+          "path": "foundation/scripts/file-registry.test.mjs",
           "mapsTo": [
             "foundation.backfill-file-registry.technical#contracts"
           ],
-          "evidence": "Planned deterministic checker verifies manifest and registry invariants."
+          "evidence": "Unit tests verify manifest and registry invariants, duplicate rows, stale content identities, pending handoff gates, invalid statuses, and mapped row shape."
         },
         {
           "id": "BFR-E-2",
-          "level": "manual",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "level": "e2e",
+          "status": "existing",
+          "path": "foundation/scripts/file-registry.test.mjs",
           "mapsTo": [
             "foundation.backfill-file-registry.descriptive#ux-contracts"
           ],
-          "evidence": "Planned Sandia Oil calibration verifies discovery quality before large-repo use; human-authored expected rows can later harden this into a fixture."
+          "evidence": "File registry tests prove JSONL eval receipts, derived HTML summaries, report handoff state, and full-run acceptability mechanics; Sandia Oil calibration remains the real-repo proof target."
         },
         {
           "id": "BFR-E-3",
           "level": "integration",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "status": "existing",
+          "path": "foundation/scripts/file-registry.test.mjs",
           "mapsTo": [
             "foundation.backfill-file-registry.descriptive#system-relationship",
             "foundation.backfill-file-registry.technical#graph-links"
           ],
-          "evidence": "Planned graph-link checker verifies file-to-spec, file-to-capability, and file-to-verification relationships."
+          "evidence": "Strict graph-link tests verify file-to-spec, file-to-capability, and file-to-verification-or-explicit-gap relationships."
         }
       ],
       "tags": [
@@ -1823,10 +1868,10 @@
       "id": "foundation.backfill-file-registry.descriptive",
       "title": "Foundation File Registry",
       "type": "descriptive",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-file-registry.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-27",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-specs.descriptive",
@@ -1876,6 +1921,16 @@
           "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/file-registry-fill-loop/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/file-registry-fill-loop/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -1896,23 +1951,23 @@
         {
           "id": "BFR-D-1",
           "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "status": "existing",
+          "path": "foundation/scripts/file-registry.test.mjs",
           "mapsTo": [
             "foundation.backfill-file-registry.descriptive#states-and-rules",
             "foundation.backfill-file-registry.descriptive#ux-contracts"
           ],
-          "evidence": "Test spec will define deterministic registry checks and LLM quality evaluation."
+          "evidence": "File registry tests cover deterministic init, handoff checks, JSONL eval receipts, derived HTML summaries, report state, and changed-file refresh."
         },
         {
           "id": "BFR-D-2",
           "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+          "status": "existing",
+          "path": "foundation/scripts/file-registry.test.mjs",
           "mapsTo": [
             "foundation.backfill-file-registry.descriptive#system-relationship"
           ],
-          "evidence": "Test spec will verify file-to-spec, file-to-capability, and file-to-verification graph links once implementation commands exist."
+          "evidence": "File registry graph-check tests verify file-to-spec, file-to-capability, and file-to-verification-or-gap links."
         }
       ],
       "tags": [
