@@ -20,6 +20,7 @@ function makeFoundation(root) {
   for (const skill of [
     "descriptive-spec-interview",
     "backfill-specs",
+    "file-registry-fill-loop",
     "backfill-repo-inventory",
     "backfill-user-flow-extraction",
     "backfill-descriptive-spec-author",

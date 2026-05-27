@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const specsDir = path.dirname(fileURLToPath(import.meta.url));
@@ -22,6 +23,8 @@ const relationships = new Set(schema.$defs.specLink.properties.relationship.enum
 const coverageLevels = new Set(schema.$defs.coverageRef.properties.level.enum);
 const coverageStatuses = new Set(schema.$defs.coverageRef.properties.status.enum);
 const errors = [];
+let gitReadContext;
+let existingRegistryByFile;
 
 function fail(message) {
   errors.push(message);
@@ -38,6 +41,75 @@ function walk(dir) {
 
 function relativeSpecPath(file) {
   return path.relative(repoRoot, file).split(path.sep).join("/");
+}
+
+function gitOutput(args, { timeoutMs = 0 } = {}) {
+  return execFileSync("git", args, {
+    cwd: repoRoot,
+    encoding: "utf8",
+    maxBuffer: 50 * 1024 * 1024,
+    timeout: timeoutMs
+  });
+}
+
+function splitNull(value) {
+  return value.split("\0").filter(Boolean);
+}
+
+function readGitContext() {
+  if (gitReadContext) return gitReadContext;
+  const context = { blobByPath: new Map(), workingTreePaths: new Set() };
+
+  try {
+    gitOutput(["rev-parse", "--is-inside-work-tree"]);
+    for (const entry of splitNull(gitOutput(["ls-files", "-s", "-z", "--", "docs/specs"]))) {
+      const match = entry.match(/^\d+ ([0-9a-f]+) (\d)\t(.+)$/);
+      if (match && match[2] === "0") context.blobByPath.set(match[3], match[1]);
+    }
+  } catch {
+    context.blobByPath.clear();
+  }
+  try {
+    for (const file of splitNull(gitOutput(["ls-files", "-m", "-z", "--", "docs/specs"], { timeoutMs: 1000 }))) {
+      context.workingTreePaths.add(file);
+    }
+  } catch {
+    context.workingTreePaths.clear();
+  }
+
+  gitReadContext = context;
+  return gitReadContext;
+}
+
+function readSpecText(file) {
+  return fs.readFileSync(file, "utf8");
+}
+
+function isCleanTrackedSpec(file) {
+  const relativeFile = relativeSpecPath(file);
+  const context = readGitContext();
+  const blob = context.blobByPath.get(relativeFile);
+  return Boolean(blob && !context.workingTreePaths.has(relativeFile));
+}
+
+function existingRegistryEntriesByFile() {
+  if (existingRegistryByFile) return existingRegistryByFile;
+  existingRegistryByFile = new Map();
+  try {
+    const indexHtml = fs.readFileSync(indexPath, "utf8");
+    const match = indexHtml.match(/<script type="application\/json" id="spec-registry">([\s\S]*?)<\/script>/);
+    if (!match) return existingRegistryByFile;
+    const registry = JSON.parse(match[1]);
+    for (const spec of registry.specs || []) existingRegistryByFile.set(spec.file, spec);
+  } catch {
+    existingRegistryByFile.clear();
+  }
+  return existingRegistryByFile;
+}
+
+function isGeneratedNonSpecHtml(file) {
+  const relativeFile = relativeSpecPath(file);
+  return /^docs\/specs\/backfill\/file-registry-(eval-summary|handoff)-\d{8}-\d{2}\.html$/.test(relativeFile);
 }
 
 function registryPathFor(file) {
@@ -127,14 +199,28 @@ function validateSpecShape(spec, context, { registryEntry = false } = {}) {
   }
 }
 
-const specFiles = walk(specsDir);
+const specFiles = walk(specsDir).filter(file => !isGeneratedNonSpecHtml(file));
 const specs = [];
 const specsById = new Map();
 const sectionsById = new Map();
 
 for (const file of specFiles) {
   const relativeFile = relativeSpecPath(file);
-  const html = fs.readFileSync(file, "utf8");
+  const registryFile = registryPathFor(file);
+  const existing = existingRegistryEntriesByFile().get(registryFile);
+  if (existing && isCleanTrackedSpec(file)) {
+    const metadata = Object.fromEntries(Object.entries(existing).filter(([key]) => !["file", "canonicalSection"].includes(key)));
+    validateSpecShape(metadata, `${metadata.id} metadata`);
+    if (specsById.has(metadata.id)) fail(`${metadata.id}: duplicate spec id`);
+    specs.push({ file, relativeFile, registryFile, html: "", metadata });
+    specsById.set(metadata.id, { file, relativeFile, registryFile, html: "", metadata });
+    sectionsById.set(metadata.id, {
+      complete: false,
+      sections: new Set(existing.canonicalSection ? [existing.canonicalSection] : [])
+    });
+    continue;
+  }
+  const html = readSpecText(file);
   if (html.includes('name="spec:owner"')) fail(`${relativeFile}: remove spec:owner meta tag`);
   const metadata = extractJson(html, "spec-metadata", relativeFile);
   if (!metadata) {
@@ -156,7 +242,7 @@ for (const file of specFiles) {
   if (specsById.has(metadata.id)) fail(`${metadata.id}: duplicate spec id`);
   specs.push({ file, relativeFile, registryFile: registryPathFor(file), html, metadata });
   specsById.set(metadata.id, { file, relativeFile, registryFile: registryPathFor(file), html, metadata });
-  sectionsById.set(metadata.id, sectionIds(html));
+  sectionsById.set(metadata.id, { complete: true, sections: sectionIds(html) });
 }
 
 for (const { metadata } of specs) {
@@ -168,21 +254,23 @@ for (const { metadata } of specs) {
   for (const related of metadata.relatedSpecs || []) {
     if (!specsById.has(related.id)) fail(`${context}: related spec does not exist: ${related.id}`);
     for (const section of related.sections || []) {
-      if (!sectionsById.get(related.id)?.has(section)) fail(`${context}: related section does not exist: ${related.id}#${section}`);
+      const sectionInfo = sectionsById.get(related.id);
+      if (sectionInfo?.complete && !sectionInfo.sections.has(section)) fail(`${context}: related section does not exist: ${related.id}#${section}`);
     }
   }
   for (const coverage of metadata.coverage || []) {
     for (const mapsTo of coverage.mapsTo || []) {
       const [specId, section] = mapsTo.split("#");
       if (!specsById.has(specId)) fail(`${context}: coverage target spec does not exist: ${mapsTo}`);
-      if (section && !sectionsById.get(specId)?.has(section)) {
+      const sectionInfo = sectionsById.get(specId);
+      if (section && sectionInfo?.complete && !sectionInfo.sections.has(section)) {
         fail(`${context}: coverage target section does not exist: ${mapsTo}`);
       }
     }
   }
 }
 
-const indexHtml = fs.readFileSync(indexPath, "utf8");
+const indexHtml = readSpecText(indexPath);
 const registry = extractJson(indexHtml, "spec-registry", relativeSpecPath(indexPath));
 
 if (!registry) {
@@ -204,7 +292,8 @@ if (!registry) {
       continue;
     }
     if (entry.file !== source.registryFile) fail(`${entry.id}: registry file should be ${source.registryFile}`);
-    if (entry.canonicalSection && !sectionsById.get(entry.id)?.has(entry.canonicalSection)) {
+    const sectionInfo = sectionsById.get(entry.id);
+    if (entry.canonicalSection && sectionInfo?.complete && !sectionInfo.sections.has(entry.canonicalSection)) {
       fail(`${entry.id}: canonicalSection does not exist: ${entry.canonicalSection}`);
     }
     for (const key of Object.keys(source.metadata)) {

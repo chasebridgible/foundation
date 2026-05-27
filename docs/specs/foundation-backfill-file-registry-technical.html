@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-file-registry.technical">
 <meta name="spec:type" content="technical">
-<meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-27">
 <title>Foundation File Registry Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -15,8 +15,8 @@
   "id": "foundation.backfill-file-registry.technical",
   "title": "Foundation File Registry Technical Spec",
   "type": "technical",
-  "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "status": "active",
+  "lastUpdated": "2026-05-27",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-file-registry.descriptive",
@@ -54,6 +54,46 @@
       "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
       "kind": "doc",
       "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/file-registry-core.mjs",
+      "kind": "source",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/file-registry-init.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/file-registry-fill.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/file-registry-check.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/file-registry-eval.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/file-registry-graph-check.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/file-registry-refresh.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/file-registry-report.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
     }
   ],
   "implementationPaths": [
@@ -74,24 +114,24 @@
     {
       "id": "BFR-T-1",
       "level": "static",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "status": "existing",
+      "path": "foundation/scripts/file-registry.test.mjs",
       "mapsTo": [
         "foundation.backfill-file-registry.technical#data-model",
         "foundation.backfill-file-registry.technical#contracts"
       ],
-      "evidence": "Test spec will verify registry schema, coverage, freshness, and eval quality requirements."
+      "evidence": "File registry tests verify registry schema, coverage, freshness, pending/mapped status gates, check receipts, and eval quality artifacts."
     },
     {
       "id": "BFR-T-2",
       "level": "static",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "status": "existing",
+      "path": "foundation/scripts/file-registry.test.mjs",
       "mapsTo": [
         "foundation.backfill-file-registry.technical#graph-links",
         "foundation.backfill-file-registry.technical#lifecycle-modes"
       ],
-      "evidence": "Test spec will verify graph-link integrity and changed-file lifecycle behavior when implementation commands exist."
+      "evidence": "File registry tests verify strict graph-link integrity and changed-file refresh behavior."
     }
   ],
   "tags": [
@@ -136,8 +176,8 @@
     <h1>Foundation File Registry Technical Spec</h1>
     <p class="lede">The file registry is a deterministic-plus-agentic indexing subsystem: commands create complete file rows, agents fill semantic meaning in bounded batches, and graph checks connect files to specs, capabilities, and verification.</p>
     <div class="meta-row">
-      <div><strong>Status:</strong> draft</div>
-      <div><strong>Updated:</strong> 2026-05-26</div>
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-27</div>
       <div><strong>Parent:</strong> foundation.backfill-file-registry.descriptive</div>
     </div>
     <p>This is a T5-level Foundation workflow because later backfill layers and steady-state build agents depend on its completeness. The implementation should prefer scripts for enumeration/checking, durable artifacts for graph state, and agent judgment for semantic row filling and quality evaluation.</p>
@@ -166,6 +206,7 @@
       <ol>
         <li><strong>Enumerate:</strong> generate <code>docs/specs/backfill/file-manifest-YYYYMMDD-NN.json</code> from repo-owned files. Default source is tracked files plus untracked non-ignored files. Git ignored files are outside the repo-owned set unless explicitly included.</li>
         <li><strong>Initialize:</strong> create <code>docs/specs/backfill/file-registry-YYYYMMDD-NN.jsonl</code> with one row for every manifest file, mechanical fields populated, semantic fields empty, and status <code>pending</code>.</li>
+        <li><strong>Seed or fill:</strong> use the file-registry fill loop or deterministic V1 fill helper to update bounded pending batches. The helper is a first-pass mapping assistant and eval can still route weak rows back to the agent loop.</li>
         <li><strong>Select batch:</strong> choose pending rows by deterministic order plus priority hints: entry points, routes, schemas, services, jobs, tests, docs, then support files.</li>
         <li><strong>Inspect:</strong> read a bounded batch and any immediately related files needed to understand each row.</li>
         <li><strong>Fill:</strong> update semantic fields, status, confidence, related paths, and review flags.</li>
@@ -211,7 +252,7 @@
   "runId": "20260522-01",
   "path": "apps/web/routes/login.tsx",
   "fileId": "sha256:path-or-stable-id",
-  "contentHash": "sha256:...",
+  "contentHash": "sha256-or-gitblob:...",
   "sizeBytes": 12432,
   "extension": ".tsx",
   "detectedLanguage": "typescript-react",
@@ -254,14 +295,14 @@
           <tr><td>Canonical artifact shape</td><td>Manifest JSON, registry JSONL, checker output, and eval JSONL receipt and HTML summary use the dated run ID.</td><td>Agents, checks, and handoffs need stable paths and parsable formats.</td></tr>
           <tr><td>Repo-owned set</td><td>Manifest rules define inclusion before semantic judgment begins.</td><td>The agent cannot shrink the file universe to make mapping easier.</td></tr>
           <tr><td>Minimal status enum</td><td>Status is limited to <code>pending</code> and <code>mapped</code>. Low-value files are mapped and classified.</td><td>Extra statuses create loopholes and make the loop harder to resume.</td></tr>
-          <tr><td>Freshness</td><td>Hash or size mismatch invalidates the row until remapped.</td><td>Registry meaning must track current code.</td></tr>
+          <tr><td>Freshness</td><td>Content identity or size mismatch invalidates the row until remapped. Content identities are algorithm-prefixed; implementations may use <code>sha256:</code> for working-tree reads and <code>gitblob:</code> for clean tracked Git objects.</td><td>Registry meaning must track current code without forcing agents to read every binary or cloud-backed file.</td></tr>
           <tr><td>Structured meaning</td><td>Mapped rows use structured fields over prose-only summaries; <code>unknown</code> classifications are pending-only.</td><td>Surface/capability extraction needs queryable evidence.</td></tr>
           <tr><td>Batch resumability</td><td>Pending rows and batch checkpoints define the next action.</td><td>Long runs survive compaction, interruption, and handoff.</td></tr>
           <tr><td>Handoff gate</td><td>Surface registry work begins only after zero pending rows, checker pass, quality eval pass, no blocking review flags, and current Sandia Oil calibration evidence or a human-authored expected registry when available.</td><td>Bad file maps should not become capability gaps.</td></tr>
           <tr><td>Graph-link gate</td><td>After specs and capabilities exist, every behavior-bearing mapped row links to at least one capability, one spec section, and one verification target or explicit test gap.</td><td>Agents need a direct path from implementation files to intended behavior and done evidence.</td></tr>
           <tr><td>Self-reference policy</td><td>The command input snapshot excludes current-run generated manifest, registry, and evaluation artifacts unless a future implementation defines a stable self-entry convention. Prior committed registry artifacts can be mapped as generated/support rows in later runs.</td><td>Manifests cannot hash themselves without an explicit convention.</td></tr>
           <tr><td>Backfill command reuse</td><td>Backfill does not own bespoke enumeration logic; it invokes the Foundation file-registry generation, check, eval, and graph-link commands with the active run ID.</td><td>The bootstrap path and steady-state path should not drift.</td></tr>
-          <tr><td>Steady-state invalidation</td><td>Changed files are detected by hash/size mismatch and routed to remap or graph-link refresh before handoff.</td><td>The registry remains useful after initial backfill.</td></tr>
+          <tr><td>Steady-state invalidation</td><td>Changed files are detected by content-identity or size mismatch and routed to remap or graph-link refresh before handoff.</td><td>The registry remains useful after initial backfill.</td></tr>
         </tbody>
       </table>
     </section>
@@ -336,13 +377,21 @@
       <h2>Related paths and coverage</h2>
       <ul class="path-list">
         <li data-implementation-path="foundation/docs/specs/foundation-backfill-file-registry-technical.html"><code>foundation/docs/specs/foundation-backfill-file-registry-technical.html</code> - technical contract for the file registry layer.</li>
-        <li><code>foundation/docs/specs/foundation-backfill-file-registry-test.html</code> - planned check/eval contract.</li>
+        <li><code>foundation/docs/specs/foundation-backfill-file-registry-test.html</code> - check/eval contract.</li>
+        <li><code>foundation/scripts/file-registry-core.mjs</code> - shared manifest, row, check, graph, refresh, and mapping utilities.</li>
+        <li><code>foundation/scripts/file-registry-init.mjs</code> - manifest and pending skeleton generator.</li>
+        <li><code>foundation/scripts/file-registry-fill.mjs</code> - deterministic V1 batch fill helper.</li>
+        <li><code>foundation/scripts/file-registry-check.mjs</code> - deterministic checker and handoff gate.</li>
+        <li><code>foundation/scripts/file-registry-eval.mjs</code> - JSONL eval receipt and HTML summary generator.</li>
+        <li><code>foundation/scripts/file-registry-graph-check.mjs</code> - graph-link checker.</li>
+        <li><code>foundation/scripts/file-registry-refresh.mjs</code> - steady-state changed-file refresh.</li>
+        <li><code>foundation/scripts/file-registry-report.mjs</code> - backfill report state integration.</li>
       </ul>
       <table class="status-table">
         <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>BFR-T-1</td><td><code>#data-model</code>, <code>#contracts</code></td><td>Test spec defines the planned deterministic and eval gates.</td><td>planned</td></tr>
-          <tr><td>BFR-T-2</td><td><code>#graph-links</code>, <code>#lifecycle-modes</code></td><td>Test spec defines planned graph-link and steady-state lifecycle checks.</td><td>planned</td></tr>
+          <tr><td>BFR-T-1</td><td><code>#data-model</code>, <code>#contracts</code></td><td><code>foundation/scripts/file-registry.test.mjs</code> verifies deterministic init, check, mapped row shape, eval artifacts, and report handoff state.</td><td>existing</td></tr>
+          <tr><td>BFR-T-2</td><td><code>#graph-links</code>, <code>#lifecycle-modes</code></td><td><code>foundation/scripts/file-registry.test.mjs</code> verifies strict graph links and changed-file refresh.</td><td>existing</td></tr>
         </tbody>
       </table>
     </section>

@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-file-registry.descriptive">
 <meta name="spec:type" content="descriptive">
-<meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-27">
 <title>Foundation File Registry</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -15,8 +15,8 @@
   "id": "foundation.backfill-file-registry.descriptive",
   "title": "Foundation File Registry",
   "type": "descriptive",
-  "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "status": "active",
+  "lastUpdated": "2026-05-27",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-specs.descriptive",
@@ -66,6 +66,16 @@
       "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
       "kind": "doc",
       "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/file-registry-fill-loop/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/file-registry-fill-loop/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
     }
   ],
   "implementationPaths": [
@@ -86,23 +96,23 @@
     {
       "id": "BFR-D-1",
       "level": "static",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "status": "existing",
+      "path": "foundation/scripts/file-registry.test.mjs",
       "mapsTo": [
         "foundation.backfill-file-registry.descriptive#states-and-rules",
         "foundation.backfill-file-registry.descriptive#ux-contracts"
       ],
-      "evidence": "Test spec will define deterministic registry checks and LLM quality evaluation."
+      "evidence": "File registry tests cover deterministic init, handoff checks, JSONL eval receipts, derived HTML summaries, report state, and changed-file refresh."
     },
     {
       "id": "BFR-D-2",
       "level": "static",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
+      "status": "existing",
+      "path": "foundation/scripts/file-registry.test.mjs",
       "mapsTo": [
         "foundation.backfill-file-registry.descriptive#system-relationship"
       ],
-      "evidence": "Test spec will verify file-to-spec, file-to-capability, and file-to-verification graph links once implementation commands exist."
+      "evidence": "File registry graph-check tests verify file-to-spec, file-to-capability, and file-to-verification-or-gap links."
     }
   ],
   "tags": [
@@ -146,8 +156,8 @@
     <h1>Foundation File Registry</h1>
     <p class="lede">Foundation needs a durable map of every repo-owned file, what that file contributes, which capabilities it supports, which specs define its intent, and what verification protects it.</p>
     <div class="meta-row">
-      <div><strong>Status:</strong> draft</div>
-      <div><strong>Updated:</strong> 2026-05-26</div>
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-27</div>
       <div><strong>Parent:</strong> foundation.backfill-specs.descriptive</div>
     </div>
     <h3>Intent</h3>
@@ -208,7 +218,7 @@
     <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
       <h2>Interface journey</h2>
       <ol>
-        <li><strong>Manifest:</strong> a deterministic command enumerates repo-owned files from the manifest rule and records path, size, hash, extension, detected language, and source status.</li>
+        <li><strong>Manifest:</strong> a deterministic command enumerates repo-owned files from the manifest rule and records path, size, algorithm-prefixed content identity, extension, detected language, and source status.</li>
         <li><strong>Skeleton:</strong> the registry is initialized with one row for every manifest file. Every row starts <code>pending</code>.</li>
         <li><strong>Batch selection:</strong> the agent reads the registry, picks the next bounded pending batch, and records a run-log start event.</li>
         <li><strong>File inspection:</strong> the agent reads the batch, identifies each file's role, kind, domain, evidence value, responsibilities, important symbols, related files, and review flags.</li>
@@ -233,7 +243,7 @@
           <tr><td>Repo-owned file set</td><td>The manifest is the canonical file universe for the run.</td><td>Manifest rules, not agent discretion, decide what is inside the file-registry layer.</td></tr>
           <tr><td>Review flags</td><td>Mapped rows can carry uncertainty, stale-doc, risk, or follow-up fields.</td><td>Flags name severity, reason, evidence, and next action. Blocking flags prevent handoff while the row remains visible as <code>mapped</code>.</td></tr>
           <tr><td>Every manifest file is mapped</td><td>Every manifest file receives a current registry row.</td><td>Generated, stale, asset, fixture, config, and doc files are classified, not skipped.</td></tr>
-          <tr><td>Freshness</td><td>Registry row hash and size match the current file.</td><td>Changed files return to <code>pending</code> or require remapping.</td></tr>
+          <tr><td>Freshness</td><td>Registry row content identity and size match the current file.</td><td>Changed files return to <code>pending</code> or require remapping.</td></tr>
           <tr><td>Batch boundedness</td><td>The agent inspects files in batches sized for available context.</td><td>The registry records enough state for the next batch without relying on chat memory.</td></tr>
           <tr><td>Large file handling</td><td>Large or multi-role files include structured section or responsibility entries.</td><td>Behavior-bearing large files are navigable without rereading the whole file.</td></tr>
           <tr><td>Graph linkage</td><td>Files can be linked to spec sections, capability IDs, and verification targets.</td><td>After those layers exist, behavior-bearing files without links are checker or eval findings.</td></tr>
@@ -291,8 +301,8 @@
       <table class="status-table">
         <thead><tr><th>ID</th><th>Spec section</th><th>Coverage</th><th>Status</th><th>Gap</th></tr></thead>
         <tbody>
-          <tr><td>BFR-D-1</td><td><code>#states-and-rules</code>, <code>#ux-contracts</code></td><td>File registry test spec defines checks and evals for completeness, freshness, row quality, and resume state.</td><td>planned</td><td>Implementation scripts and fixtures are not built yet.</td></tr>
-          <tr><td>BFR-D-2</td><td><code>#system-relationship</code></td><td>File registry test spec defines graph-link checks for file-to-spec, file-to-capability, and file-to-verification relationships.</td><td>planned</td><td>Capability/spec/test graph checks are specified but not implemented.</td></tr>
+          <tr><td>BFR-D-1</td><td><code>#states-and-rules</code>, <code>#ux-contracts</code></td><td><code>foundation/scripts/file-registry.test.mjs</code> covers deterministic init, handoff checks, JSONL eval receipts, HTML summaries, report state, and changed-file refresh.</td><td>existing</td><td>Human-authored expected-row fixtures can later harden calibration.</td></tr>
+          <tr><td>BFR-D-2</td><td><code>#system-relationship</code></td><td><code>foundation/scripts/file-registry.test.mjs</code> covers strict graph checks for file-to-spec, file-to-capability, and verification-or-gap links.</td><td>existing</td><td>Downstream surface/capability implementations will consume the registry in a later layer.</td></tr>
         </tbody>
       </table>
     </section>

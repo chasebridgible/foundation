@@ -39,7 +39,8 @@ In the target repo:
 - draft descriptive and technical specs in `docs/specs/`
 - `docs/specs/backfill/file-manifest-YYYYMMDD-NN.json`
 - `docs/specs/backfill/file-registry-YYYYMMDD-NN.jsonl`
-- `docs/specs/backfill/file-registry-evaluation-YYYYMMDD-NN.html`
+- `docs/specs/backfill/file-registry-eval-YYYYMMDD-NN.jsonl`
+- `docs/specs/backfill/file-registry-eval-summary-YYYYMMDD-NN.html`
 
 The report must contain:
 
