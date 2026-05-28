@@ -53,6 +53,27 @@ test("accepts a structurally valid run log", () => {
   assert.equal(validateRunLog(file).some(result => result.status === "fail"), false);
 });
 
+test("accepts surface registry phase events", () => {
+  const file = writeRunLog([
+    JSON.stringify({
+      ts: "2026-05-28T04:00:00.000Z",
+      runId: "20260527-01",
+      sequence: 1,
+      slice: null,
+      phase: "surface-registry",
+      event: "checkpoint",
+      summary: "Filled Surface Registry rows.",
+      artifactsRead: ["docs/specs/backfill/file-registry-20260527-01.jsonl"],
+      artifactsChanged: ["docs/specs/backfill/surface-registry-20260527-01.jsonl"],
+      commands: ["foundation:surface-registry:fill"],
+      checks: [],
+      nextAction: "Run Surface Registry checker."
+    })
+  ]);
+
+  assert.equal(validateRunLog(file).some(result => result.status === "fail"), false);
+});
+
 test("rejects missing run log files", () => {
   const results = validateRunLog(path.join(os.tmpdir(), "missing-run-log.jsonl"));
   assert.equal(hasFailure(results, "log-exists"), true);

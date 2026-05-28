@@ -10,6 +10,7 @@ const requiredSkills = [
   "descriptive-spec-interview",
   "backfill-specs",
   "file-registry-fill-loop",
+  "surface-registry-fill-loop",
   "backfill-repo-inventory",
   "backfill-user-flow-extraction",
   "backfill-descriptive-spec-author",
