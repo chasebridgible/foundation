@@ -55,7 +55,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-05-27",
+  "lastUpdated": "2026-05-28",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -4700,10 +4700,10 @@
       "id": "foundation.backfill-surface-registry.technical",
       "title": "Foundation Backfill Surface Registry Technical Spec",
       "type": "technical",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-28",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-surface-registry.descriptive",
@@ -4740,6 +4740,41 @@
           "path": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/surface-registry-core.mjs",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/surface-registry-init.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/surface-registry-fill.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/surface-registry-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/surface-registry-eval.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/surface-registry-refresh.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/surface-registry-report.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -4765,13 +4800,14 @@
       "coverage": [
         {
           "id": "BFL-SURFACE_REGISTRY-T-1",
-          "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/surface-registry.test.mjs",
           "mapsTo": [
+            "foundation.backfill-surface-registry.technical#data-model",
             "foundation.backfill-surface-registry.technical#contracts"
           ],
-          "evidence": "Planned Foundation Backfill Surface Registry technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Surface Registry tests verify upstream handoff enforcement, scope exclusion for inert files, one-file full-read marking for eligible files, row schema, enums, duplicate surface IDs, stale upstream hashes, eligible-file coverage, report drift, eval receipts, and refresh invalidation."
         }
       ],
       "tags": [
@@ -4786,10 +4822,10 @@
       "id": "foundation.backfill-surface-registry.test",
       "title": "Foundation Backfill Surface Registry Test Spec",
       "type": "test",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-surface-registry-test.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-28",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-surface-registry.descriptive",
@@ -4826,6 +4862,11 @@
           "path": "foundation/docs/specs/foundation-backfill-surface-registry-test.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/surface-registry.test.mjs",
+          "kind": "test",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -4851,13 +4892,14 @@
       "coverage": [
         {
           "id": "BFL-SURFACE_REGISTRY-E-1",
-          "level": "manual",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-surface-registry-test.html",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/surface-registry.test.mjs",
           "mapsTo": [
+            "foundation.backfill-surface-registry.test#acceptance-mapping",
             "foundation.backfill-surface-registry.test#eval-contract"
           ],
-          "evidence": "Planned Foundation Backfill Surface Registry test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Surface Registry tests cover init, scope exclusion for inert files, one-file full-read fill for eligible files, deterministic check failures, eval JSONL/HTML artifacts, refresh invalidation, report state, and report drift."
         }
       ],
       "tags": [
@@ -4872,10 +4914,10 @@
       "id": "foundation.backfill-surface-registry.descriptive",
       "title": "Foundation Backfill Surface Registry",
       "type": "descriptive",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-surface-registry.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-28",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-specs.descriptive",
@@ -4951,12 +4993,13 @@
         {
           "id": "BFL-SURFACE_REGISTRY-D-1",
           "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-surface-registry.html",
+          "status": "existing",
+          "path": "foundation/scripts/surface-registry.test.mjs",
           "mapsTo": [
+            "foundation.backfill-surface-registry.descriptive#artifacts-and-state",
             "foundation.backfill-surface-registry.descriptive#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Surface Registry descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Surface Registry tests cover canonical JSONL artifacts, scope exclusion for inert files, one-file full-read fill for eligible files, deterministic handoff checks, eval receipts, report state, and Sandia Oil-compatible calibration mechanics."
         }
       ],
       "tags": [

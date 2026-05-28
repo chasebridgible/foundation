@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-surface-registry.technical">
 <meta name="spec:type" content="technical">
-<meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-28">
 <title>Foundation Backfill Surface Registry Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -15,8 +15,8 @@
   "id": "foundation.backfill-surface-registry.technical",
   "title": "Foundation Backfill Surface Registry Technical Spec",
   "type": "technical",
-  "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "status": "active",
+  "lastUpdated": "2026-05-28",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-surface-registry.descriptive",
@@ -53,6 +53,41 @@
       "path": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
       "kind": "doc",
       "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/surface-registry-core.mjs",
+      "kind": "source",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/surface-registry-init.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/surface-registry-fill.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/surface-registry-check.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/surface-registry-eval.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/surface-registry-refresh.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/surface-registry-report.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
     }
   ],
   "implementationPaths": [
@@ -78,13 +113,14 @@
   "coverage": [
     {
       "id": "BFL-SURFACE_REGISTRY-T-1",
-      "level": "static",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/surface-registry.test.mjs",
       "mapsTo": [
+        "foundation.backfill-surface-registry.technical#data-model",
         "foundation.backfill-surface-registry.technical#contracts"
       ],
-      "evidence": "Planned Foundation Backfill Surface Registry technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+      "evidence": "Surface Registry tests verify upstream handoff enforcement, scope exclusion for inert files, one-file full-read marking for eligible files, row schema, enums, duplicate surface IDs, stale upstream hashes, eligible-file coverage, report drift, eval receipts, and refresh invalidation."
     }
   ],
   "tags": [
@@ -121,19 +157,26 @@
   <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-surface-registry-technical.html</div>
     <h1>Foundation Backfill Surface Registry Technical Spec</h1>
-    <p class="lede">This technical layer makes Foundation Backfill Surface Registry deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-surface-registry.descriptive</div></div>
-    <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
+    <p class="lede">This technical layer makes Foundation Backfill Surface Registry deterministic enough for checks and structured enough for agent judgment.</p>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-28</div><div><strong>Parent:</strong> foundation.backfill-surface-registry.descriptive</div></div>
+    <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory. Surface Registry is scoped to files that can define capability surfaces; File Registry remains the exhaustive repo inventory.</p>
   </section>
 
   <article class="doc-body">
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
-        <tr><td>Layer row</td><td>runId, rowId, upstreamIds, status, confidence, evidenceRefs, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity and traceable upstream evidence.</td></tr>
-        <tr><td>Canonical artifact</td><td>surface-registry-YYYYMMDD-NN.jsonl, surface-registry-eval-YYYYMMDD-NN.jsonl</td><td>JSONL files are append-friendly and machine-parseable; each line is one receipt or row.</td></tr>
-        <tr><td>Derived artifact</td><td>surface-registry-summary-YYYYMMDD-NN.html, surface graph views, report tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
-        <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts.</td></tr>
+        <tr><td>Scope selector</td><td>Surface Registry-eligible File Registry rows include routes, services, scripts, migrations, models, components, package manifests, deployment/runtime infrastructure, runtime configuration, and active behavior-defining docs. Inert artifacts, fixtures, generated files, lockfiles, tests, archives, delete-candidate docs, screenshots, images, PPTX exports, spreadsheets, RTF/CSV samples, and support-only docs are skipped.</td><td>Capability Matrix consumes behavior surfaces, not every file in the repo.</td></tr>
+        <tr><td>Layer row</td><td>schema, runId, surfaceId, surfaceKind, sourceCategory, label, upstreamFileIds, upstreamPaths, upstreamContentHashes, evidenceRefs, exposedObject, operation, consumerHints, actorHints, stateHints, ruleHints, dataObjects, externalSystems, supportReason, reviewFlags, status, confidence, createdAt, updatedAt</td><td>Every terminal row has stable identity, current upstream hashes, <code>agent-read-full-file</code> evidence, and no capability IDs.</td></tr>
+        <tr><td>Canonical artifact</td><td>surface-registry-YYYYMMDD-NN.jsonl, surface-registry-check-YYYYMMDD-NN.json, surface-registry-eval-YYYYMMDD-NN.jsonl</td><td>JSONL/JSON files are machine-parseable source-of-record artifacts for the layer.</td></tr>
+        <tr><td>Derived artifact</td><td>surface-registry-eval-summary-YYYYMMDD-NN.html, surface graph views, report tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
+        <tr><td>Report entry</td><td>artifact paths, eligible and skipped upstream counts, row counts by state, support count, checker result, eval result, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts and can see that skipped files are intentionally outside this layer.</td></tr>
+      </tbody></table>
+      <h3>Required enums</h3>
+      <table class="status-table"><thead><tr><th>Field</th><th>Allowed values</th><th>Rule</th></tr></thead><tbody>
+        <tr><td><code>status</code></td><td><code>pending</code>, <code>mapped</code>, <code>needs-evidence</code>, <code>ready-for-capability</code></td><td>Handoff allows no <code>pending</code>, <code>needs-evidence</code>, or blocking flags.</td></tr>
+        <tr><td><code>surfaceKind</code></td><td><code>route</code>, <code>screen</code>, <code>api</code>, <code>command</code>, <code>job</code>, <code>table</code>, <code>workflow</code>, <code>infra-resource</code>, <code>doc</code>, <code>test</code>, <code>generated-artifact</code>, <code>external-dependency</code>, <code>support-classification</code></td><td>Only non-support rows may be <code>ready-for-capability</code>.</td></tr>
+        <tr><td><code>sourceCategory</code></td><td><code>exposed</code>, <code>dependent</code>, <code>evidence</code>, <code>support</code>, <code>review</code></td><td>Categories state whether the row exposes behavior, depends on something, provides evidence, is support, or needs review.</td></tr>
       </tbody></table>
     </section>
 
@@ -142,21 +185,24 @@
       <table class="status-table"><thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead><tbody>
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
-        <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
-        <tr><td>Deterministic checker</td><td>validates every behavior-bearing file row is represented by at least one surface row, intentionally classified as non-surface support, or flagged for review; validates surface kind enums, upstream file row references, duplicate surface IDs, and current upstream hashes.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
-        <tr><td>Semantic eval</td><td>samples surface rows against file registry rows and source snippets to judge whether exposed and dependent surfaces were missed, over-merged, mislabeled, or detached from evidence.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Handoff gate</td><td>all behavior-bearing file rows are resolved to surfaces or explicit support/review classifications; checker passes; eval receipt and HTML summary exist; report names next layer as Capability Matrix.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>One-file fill loop</td><td>Agents process exactly one eligible upstream file per mark command: select next target, read the complete file, mark every surface for that file with inline JSON, then move on. The fill command rejects generated surface files, batch options, and all-file fill modes. Ineligible rows never enter the queue.</td><td>Surface rows come from source review rather than path, File Registry metadata, grep output, generated summaries, or helper-script inference, while inert artifacts do not consume context.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates upstream File Registry check/eval handoff, every Surface Registry-eligible file row represented by at least one surface row/support classification/review blocker, no surface rows attached to ineligible files, surface kind/source/status enums, upstream references, duplicate surface IDs, required fields, stale upstream hashes, handoff states, and optional report drift.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
+        <tr><td>Semantic eval</td><td>samples surface rows against file registry rows to judge whether exposed and dependent surfaces were missed, over-merged, mislabeled, weakly supported, vague, or detached from full-file evidence.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
+        <tr><td>Refresh</td><td>When upstream File Registry rows change, matching Surface Registry rows are preserved only if stored upstream hashes still match. Changed/new upstream rows return to <code>pending</code> and must be read and marked again one file at a time.</td><td>The layer participates in steady-state changed-file refresh instead of only bootstrap backfill.</td></tr>
+        <tr><td>Handoff gate</td><td>all Surface Registry-eligible file rows are resolved to surfaces or explicit support/review classifications; skipped File Registry rows are counted as outside scope; checker passes; eval receipt and HTML summary exist; report names next layer as Capability Matrix.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 
     <section id="checker-and-fill-loop" data-spec-section="checker-and-fill-loop" data-section-type="sequence">
       <h2>Checker and fill loop</h2>
       <ol>
-        <li>Read active report, run log, upstream artifacts, and current layer artifact.</li>
-        <li>Select next pending or failed batch by deterministic order plus risk priority.</li>
-        <li>Inspect only the evidence needed for the batch and update canonical JSONL rows.</li>
+        <li>Read active report, run log, upstream File Registry artifacts, and current Surface Registry artifact.</li>
+        <li>Select the next pending or failed eligible upstream file with <code>foundation:surface-registry:fill -- --next</code>.</li>
+        <li>Read the complete eligible source file. Do not classify from path, File Registry kind, imports, grep output, generated summaries, helper-script output, or any summary without full-file reading. Do not read skipped artifacts just to prove they are skipped.</li>
+        <li>Write every surface for that one file with <code>foundation:surface-registry:fill -- --path &lt;file&gt; --surfaces-json ...</code>. The command replaces prior rows for only that upstream file and records <code>agent-read-full-file</code> evidence. It must not accept <code>--surfaces-file</code>, <code>--all</code>, <code>--batch-size</code>, or equivalent bulk-generation paths.</li>
         <li>Run the checker; repair structural failures before semantic eval.</li>
         <li>Run or append eval receipts; generate HTML summary from JSONL.</li>
+        <li>Record report state with <code>nextLayer</code> set to <code>capability matrix</code> only after check and eval pass.</li>
         <li>Revise failed rows until the gate passes or a named human decision blocks progress.</li>
       </ol>
     </section>
@@ -167,17 +213,29 @@
         <tr><td>Missing upstream row</td><td>Checker fails and names the missing upstream ID.</td><td>Checker JSON output and report entry.</td></tr>
         <tr><td>Vague or unsupported row</td><td>Eval routes the row back to the fill loop.</td><td>Eval JSONL receipt with revision target.</td></tr>
         <tr><td>Report drift</td><td>Checker fails when report paths/counts do not match artifacts.</td><td>Report check result.</td></tr>
+        <tr><td>Inert artifact included</td><td>Checker fails when a surface row references an out-of-scope File Registry row such as a fixture, asset, generated file, lockfile, or support-only doc.</td><td>Checker JSON names the surface row and skipped upstream path.</td></tr>
+        <tr><td>Generated or batch fill attempted</td><td>Fill command fails before writing when rows are supplied from a generated surface file or an all-file/batch option is requested.</td><td>CLI error names the rejected shortcut.</td></tr>
         <tr><td>Context reset</td><td>Next agent resumes from report, run log, current artifacts, and pending rows.</td><td>Run-log checkpoint.</td></tr>
+        <tr><td>Premature Capability Matrix start</td><td>Report state remains <code>surface registry revision</code> until checker and eval pass.</td><td>Report JSON and visible handoff table.</td></tr>
       </tbody></table>
     </section>
 
     <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
       <h2>Related paths and coverage</h2>
-      <ul class="path-list"><li data-implementation-path="foundation/docs/specs/foundation-backfill-surface-registry-technical.html"><code>foundation/docs/specs/foundation-backfill-surface-registry-technical.html</code> - technical contract for this layer.</li></ul>
+      <ul class="path-list">
+        <li data-implementation-path="foundation/docs/specs/foundation-backfill-surface-registry-technical.html"><code>foundation/docs/specs/foundation-backfill-surface-registry-technical.html</code> - technical contract for this layer.</li>
+        <li data-implementation-path="foundation/scripts/surface-registry-core.mjs"><code>foundation/scripts/surface-registry-core.mjs</code> - shared row model, one-file mark logic, checks, eval helpers, and refresh logic.</li>
+        <li data-implementation-path="foundation/scripts/surface-registry-init.mjs"><code>foundation/scripts/surface-registry-init.mjs</code> - initializes pending rows from File Registry handoff.</li>
+        <li data-implementation-path="foundation/scripts/surface-registry-fill.mjs"><code>foundation/scripts/surface-registry-fill.mjs</code> - selects the next pending file and marks one full-read upstream file at a time.</li>
+        <li data-implementation-path="foundation/scripts/surface-registry-check.mjs"><code>foundation/scripts/surface-registry-check.mjs</code> - deterministic checker.</li>
+        <li data-implementation-path="foundation/scripts/surface-registry-eval.mjs"><code>foundation/scripts/surface-registry-eval.mjs</code> - canonical JSONL eval receipts and derived HTML summary.</li>
+        <li data-implementation-path="foundation/scripts/surface-registry-report.mjs"><code>foundation/scripts/surface-registry-report.mjs</code> - report handoff state.</li>
+        <li data-implementation-path="foundation/scripts/surface-registry-refresh.mjs"><code>foundation/scripts/surface-registry-refresh.mjs</code> - upstream changed-row invalidation.</li>
+      </ul>
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Surface Registry Technical Spec · draft</p>
+  <p class="footer-note">Foundation Backfill Surface Registry Technical Spec · active V1</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

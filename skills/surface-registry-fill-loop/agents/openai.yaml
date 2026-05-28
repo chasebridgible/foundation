@@ -1,0 +1,3 @@
+name: Surface Registry Fill Loop
+description: Read one complete target-repo file at a time, mark its Surface Registry rows, and run check/eval gates.
+entrypoint: SKILL.md

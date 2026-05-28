@@ -8,6 +8,7 @@ const scriptPath = fileURLToPath(import.meta.url);
 const VALID_PHASES = new Set([
   "setup",
   "inventory",
+  "surface-registry",
   "queue",
   "user-flow",
   "descriptive",

@@ -80,7 +80,7 @@ function relativeSpecPath(file) {
 
 function isGeneratedNonSpecHtml(file) {
   const relativeFile = relativeSpecPath(file);
-  return /^docs\/specs\/backfill\/file-registry-(eval-summary|handoff)-\d{8}-\d{2}\.html$/.test(relativeFile);
+  return /^docs\/specs\/backfill\/(?:file|surface)-registry-(eval-summary|handoff)-\d{8}-\d{2}\.html$/.test(relativeFile);
 }
 
 function readSpecText(file) {
