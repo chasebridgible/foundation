@@ -13,10 +13,13 @@ Detailed contracts live in:
 - `docs/specs/foundation-backfill-orchestration-technical.html`
 - `docs/specs/foundation-backfill-evaluation.html`
 - `docs/specs/foundation-backfill-file-registry.html` plus its technical and test specs
+- `docs/specs/foundation-backfill-surface-registry.html` plus its technical and test specs
+- `docs/specs/foundation-backfill-capability-matrix.html` plus its technical and test specs
 - `docs/specs/examples/backfill-golden-example.html`
 
 Read those only when changing the workflow, resolving ambiguity, or calibrating quality.
 Read the file-registry specs before starting or resuming that layer.
+Read the surface-registry or capability-matrix specs before starting or resuming those layers.
 
 ## Non-Negotiables
 
@@ -41,6 +44,12 @@ In the target repo:
 - `docs/specs/backfill/file-registry-YYYYMMDD-NN.jsonl`
 - `docs/specs/backfill/file-registry-eval-YYYYMMDD-NN.jsonl`
 - `docs/specs/backfill/file-registry-eval-summary-YYYYMMDD-NN.html`
+- `docs/specs/backfill/surface-registry-YYYYMMDD-NN.jsonl`
+- `docs/specs/backfill/surface-registry-eval-YYYYMMDD-NN.jsonl`
+- `docs/specs/backfill/surface-registry-eval-summary-YYYYMMDD-NN.html`
+- `docs/specs/backfill/capability-matrix-YYYYMMDD-NN.jsonl`
+- `docs/specs/backfill/capability-matrix-eval-YYYYMMDD-NN.jsonl`
+- `docs/specs/backfill/capability-matrix-summary-YYYYMMDD-NN.html`
 
 The report must contain:
 
@@ -68,30 +77,34 @@ Repeat until capability coverage is closed:
 
 1. Create or resume the dated report and run log.
 2. Complete or resume the file-registry layer before capability inference: every repo-owned file must be mapped in the canonical registry and pass the file-registry check/eval gate.
-3. Use `backfill-repo-inventory` to derive evidence inventory and capability matrix from the file registry.
-4. Apply the split rule; rows needing split cannot close.
-5. Refresh the slice queue from capability rows.
-6. Pick the next capability-backed slice that is queued, in progress, needs split, needs descriptive, needs technical, needs evaluation, needs revision, or revision-ready.
-7. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
-8. Use `backfill-user-flow-extraction` for user/operator-visible capability slices.
-9. Use `backfill-descriptive-spec-author`.
-10. Use `backfill-rendered-ux-spec` when the capability has visible UX.
-11. Use `backfill-technical-spec-author`.
-12. Use `backfill-spec-adequacy-review`; revise before evaluator scoring if it fails.
-13. Use `evaluate-backfill-specs`.
-14. If below threshold, mark `needs-revision`, route the gap to the owning skill, revise, and re-evaluate.
-15. If acceptable, mark the slice and attached capability rows acceptable.
-16. Run validation after meaningful report/log/spec changes:
+3. Complete or resume the surface-registry layer before capability inference: every eligible file row must resolve to ready surfaces, support classifications, or review blockers.
+4. Complete or resume the capability-matrix layer: every ready surface must map to a `ready-for-queue` or `needs-split` capability row.
+5. Apply the split rule; rows needing split cannot close.
+6. Refresh the slice queue from capability rows.
+7. Pick the next capability-backed slice that is queued, in progress, needs split, needs descriptive, needs technical, needs evaluation, needs revision, or revision-ready.
+8. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
+9. Use `backfill-user-flow-extraction` for user/operator-visible capability slices.
+10. Use `backfill-descriptive-spec-author`.
+11. Use `backfill-rendered-ux-spec` when the capability has visible UX.
+12. Use `backfill-technical-spec-author`.
+13. Use `backfill-spec-adequacy-review`; revise before evaluator scoring if it fails.
+14. Use `evaluate-backfill-specs`.
+15. If below threshold, mark `needs-revision`, route the gap to the owning skill, revise, and re-evaluate.
+16. If acceptable, mark the slice and attached capability rows acceptable.
+17. Run validation after meaningful report/log/spec changes:
     - `npm run backfill:queue:check -- <target-repo>/docs/specs/backfill/review-report-YYYYMMDD-NN.html`
     - `npm run backfill:run-log:check -- <target-repo>/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl`
     - target registry/spec checks required by its `AGENTS.md`
-17. Update report status, capability matrix, remaining queue, run-log sequence, and next action.
+18. Update report status, capability matrix, remaining queue, run-log sequence, and next action.
 
 After all capability rows are acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope, run `evaluate-backfill-specs` on the full graph. If graph evaluation needs revision, route it back through the loop.
 
 ## Skill Chain
 
 - `skills/backfill-repo-inventory/SKILL.md`
+- `skills/file-registry-fill-loop/SKILL.md`
+- `skills/surface-registry-fill-loop/SKILL.md`
+- `skills/capability-matrix-fill-loop/SKILL.md`
 - `skills/backfill-user-flow-extraction/SKILL.md`
 - `skills/backfill-descriptive-spec-author/SKILL.md`
 - `skills/backfill-rendered-ux-spec/SKILL.md`

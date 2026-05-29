@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-specs.descriptive">
 <meta name="spec:type" content="descriptive">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:last-updated" content="2026-05-29">
 <title>Foundation Backfill Specs</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Specs",
   "type": "descriptive",
   "status": "active",
-  "lastUpdated": "2026-05-26",
+  "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.workspace-model.descriptive",
@@ -577,7 +577,7 @@
         "foundation.backfill-specs.descriptive#interface-journey",
         "foundation.backfill-specs.descriptive#ux-contracts"
       ],
-      "evidence": "Backfill Specs defines the capability matrix, capability split rule, and capability-backed completion rule."
+      "evidence": "Backfill Specs defines the Surface Registry to Capability Matrix handoff, capability matrix layer, capability split rule, and capability-backed completion rule."
     }
   ],
   "tags": [
@@ -620,7 +620,7 @@
     <p class="lede">Backfill Specs is the Foundation workflow for meeting an existing repository where it is, reading the built system as evidence, and creating a complete draft descriptive and technical spec graph that becomes the repo's intended contract from here forward while preserving implementation flexibility.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-26</div>
+      <div><strong>Updated:</strong> 2026-05-29</div>
       <div><strong>Canonical section:</strong> <a href="#product-intent">#product-intent</a></div>
     </div>
   </section>
@@ -659,8 +659,8 @@
         <li><strong>Backfill start:</strong> the agent reads target <code>AGENTS.md</code>, Foundation <code>AGENTS.md</code>, the Backfill Specs skill, any existing dated report, and the top-level system/app spec if present.</li>
         <li><strong>Run identity:</strong> the agent creates or continues a dated report such as <code>docs/specs/backfill/review-report-20260521-01.html</code> and matching run log such as <code>docs/specs/backfill/run-log-20260521-01.jsonl</code>. If a target repo adapter names the current report, that file is canonical for the run.</li>
         <li><strong>File registry:</strong> the agent creates or refreshes the manifest and file registry so every repo-owned file has exactly one current row. V1 includes both bootstrap backfill and steady-state changed-file refresh.</li>
-        <li><strong>Surface registry:</strong> mapped file rows become evidence surfaces such as routes, screens, APIs, commands, jobs, tables, workflows, infra resources, docs, tests, generated artifacts, and dependencies.</li>
-        <li><strong>Capability matrix:</strong> surfaces become capability rows using the full formula: actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
+        <li><strong>Surface registry:</strong> eligible mapped file rows become evidence surfaces such as routes, screens, APIs, commands, jobs, tables, workflows, infra resources, active behavior docs, and dependencies; inert rows remain File Registry evidence.</li>
+        <li><strong>Capability matrix:</strong> ready surfaces become capability rows using the full formula: actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
         <li><strong>Split and queue:</strong> broad capability rows are split before closure, and a durable queue names exact slices, owner layer, exit criteria, status, score, blockers, and next action.</li>
         <li><strong>Evidence pack:</strong> each queued slice receives only the files, surfaces, capabilities, tests, docs, schemas, and snippets needed for that slice.</li>
         <li><strong>Flow extraction:</strong> user and operator flows, states, rules, permissions, empty/loading/error states, recovery paths, and visible behavior are extracted before spec authoring.</li>
@@ -685,7 +685,7 @@
           <tr><td>File registry active</td><td>Every repo-owned file has exactly one current row, and changed-file refresh is supported from V1.</td><td>The repo has been seen before later layers claim it has been understood.</td></tr>
           <tr><td>Surface registry active</td><td>Every behavior-bearing file row becomes an exposed or dependent surface, support classification, or review flag.</td><td>The user can inspect what the repo exposes or depends on before capability synthesis.</td></tr>
           <tr><td>Top-level spec needed</td><td>Create the top-level system/app draft early and use it as parent or spine for child specs.</td><td>Slice specs have a shared product context.</td></tr>
-          <tr><td>Capability matrix active</td><td>Every behavior-bearing row states actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, spec owners, verification targets, status, and split state.</td><td>The user can see what the whole repo means before trusting queue closure.</td></tr>
+          <tr><td>Capability matrix active</td><td>Every ready Surface Registry row maps to a capability row that states actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, status, and split state.</td><td>The user can see what the whole repo means before trusting queue closure.</td></tr>
           <tr><td>Split required</td><td>A capability row that combines different actors, outcomes, state models, permission models, backing contracts, recovery behavior, or verification targets becomes <code>needs-split</code>.</td><td>The agent creates smaller capability rows before marking coverage complete.</td></tr>
           <tr><td>Slice in progress</td><td>Load the files needed to understand the current capability-backed slice and list evidence paths in the report.</td><td>The agent can keep moving in large repos with bounded context.</td></tr>
           <tr><td>Slice evaluated</td><td>After checks pass, evaluator score is acceptable, capability rows are covered, and the durable queue is updated, the next queued slice becomes the current slice.</td><td>The agent keeps moving through the remaining slice queue without lowering quality.</td></tr>
@@ -725,7 +725,7 @@
           <tr><td>Evidence hierarchy</td><td>Specs are based primarily on current code, schemas, tests, and observed behavior, with docs used as supporting evidence.</td><td>When evidence conflicts, the agent records the conflict and drafts the best evidence-backed intent.</td></tr>
           <tr><td>Intent and architecture split</td><td>Descriptive specs own architecture-agnostic intent. Technical specs own required contracts, current evidence, architecture constraints, and implementation latitude.</td><td>A rebuild can preserve intended behavior while improving implementation choices that are flexible.</td></tr>
           <tr><td>Durable queue</td><td>The dated report embeds a machine-readable slice queue with status, owner skill, score, next action, exit criterion, and blocking gaps.</td><td>After context reset, the next agent resumes from queue state rather than inventing a new plan.</td></tr>
-          <tr><td>Capability matrix</td><td>The dated report embeds a machine-readable capability matrix that defines coverage by actor, outcome, object, action, state, rule, surface, backing contract, recovery behavior, evidence, owner specs, verification target, and status.</td><td>Queue closure is judged against capability coverage, not against broad domains or file counts.</td></tr>
+          <tr><td>Capability matrix</td><td>The dated report embeds a machine-readable capability matrix derived from canonical JSONL that defines coverage by actor, outcome, object, action, state, rule, surface, backing contract, recovery behavior, evidence, status, and split requirement.</td><td>Queue closure is judged against capability coverage, not against broad domains or file counts.</td></tr>
           <tr><td>Split rule</td><td>Capability rows split when they contain materially different actors, outcomes, objects, state models, permission rules, contracts, recovery behavior, or verification targets.</td><td>Broad parent specs can organize the graph while child specs carry behavior.</td></tr>
           <tr><td>Execution run log</td><td>The dated JSONL run log records phase starts, completions, checkpoints, artifacts read/changed, commands, checks, results, and next actions.</td><td>When the user reviews a long backfill, they can see the work pattern separately from the durable queue state.</td></tr>
           <tr><td>Progressive disclosure</td><td>The agent works slice by slice and keeps the full repo map in the report.</td><td>When the next slice is unclear, the agent infers the next best slice from the repo map and records the ambiguity in the report.</td></tr>
@@ -825,7 +825,7 @@
           <tr><td>FBS-6</td><td><code>#ux-contracts</code></td><td>Static skill review: Backfill Specs requires intent-rigid, architecture-flexible output.</td><td>existing</td><td>Full repo pilots confirm semantic behavior.</td></tr>
           <tr><td>FBS-7</td><td><code>#test-coverage</code></td><td>Static skill review: Evaluate Backfill Specs defines the semantic quality gate.</td><td>existing</td><td>Target repo pilots confirm scoring calibration.</td></tr>
           <tr><td>FBS-8</td><td><code>#states-and-rules</code>, <code>#ux-contracts</code></td><td>Unit coverage: run-log checker validates JSONL event shape, run identity, sequence ordering, complete-event timing, and result fields.</td><td>existing</td><td>Target repo pilots confirm agents maintain logs during long-running backfills.</td></tr>
-          <tr><td>FBS-9</td><td><code>#interface-journey</code>, <code>#ux-contracts</code></td><td>Static skill review: Backfill Specs defines capability matrix, split rule, and capability-backed completion.</td><td>existing</td><td>Target repo pilots confirm agents use capability coverage instead of broad slices.</td></tr>
+          <tr><td>FBS-9</td><td><code>#interface-journey</code>, <code>#ux-contracts</code></td><td>Static skill review: Backfill Specs defines Surface Registry to Capability Matrix handoff, split rule, and capability-backed completion.</td><td>existing</td><td>Target repo pilots confirm agents use capability coverage instead of broad slices.</td></tr>
         </tbody>
       </table>
     </section>

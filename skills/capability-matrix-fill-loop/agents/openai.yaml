@@ -1,0 +1,3 @@
+name: Capability Matrix Fill Loop
+description: Group target-repo Surface Registry rows into Foundation capability rows and run check/eval gates.
+entrypoint: SKILL.md

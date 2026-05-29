@@ -6,6 +6,7 @@
 - Use the Backfill Specs skill at `skills/backfill-specs/SKILL.md` when converting an existing repo into a capability-covered, intent-rigid, architecture-flexible spec graph with dated report and JSONL run log.
 - Use the File Registry Fill Loop skill at `skills/file-registry-fill-loop/SKILL.md` when creating, filling, refreshing, checking, or evaluating a target repo file registry.
 - Use the Surface Registry Fill Loop skill at `skills/surface-registry-fill-loop/SKILL.md` when creating, filling, refreshing, checking, evaluating, or revising a target repo surface registry; keep its read-one-file, mark-that-file-immediately loop intact.
+- Use the Capability Matrix Fill Loop skill at `skills/capability-matrix-fill-loop/SKILL.md` when creating, filling, refreshing, checking, evaluating, or revising a target repo capability matrix from Surface Registry handoff output.
 - Use the Evaluate Backfill Specs skill at `skills/evaluate-backfill-specs/SKILL.md` when judging whether generated backfill specs meet the strict acceptable-quality gate.
 - Use `docs/principles/ai-evals-principles.html` before creating or changing LLM judge rubrics, eval workflows, or backfill quality gates.
 - Use the Spec workflow skill at `skills/spec-workflow/SKILL.md` when creating or updating specs, mapping tests, or keeping code/spec/test changes aligned.

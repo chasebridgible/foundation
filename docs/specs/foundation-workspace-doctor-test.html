@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.workspace-doctor.test">
 <meta name="spec:type" content="test">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-20">
+<meta name="spec:last-updated" content="2026-05-29">
 <title>Foundation Workspace Doctor Test Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Workspace Doctor Test Spec",
   "type": "test",
   "status": "active",
-  "lastUpdated": "2026-05-20",
+  "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.workspace-model.descriptive",
@@ -49,7 +49,7 @@
       "status": "existing",
       "path": "foundation/scripts/foundation-doctor.test.mjs",
       "mapsTo": ["foundation.workspace-doctor.test#acceptance-mapping", "foundation.workspace-doctor.technical#contracts"],
-      "evidence": "machine setup passes when global pointer and required skills exist"
+      "evidence": "machine setup passes when global pointer and required skills, including the file, surface, and capability matrix registry loops, exist"
     },
     {
       "id": "FWD-A2",
@@ -120,7 +120,7 @@
     <p class="lede">The Foundation doctor test suite verifies that the setup diagnostic accepts a correctly connected Foundation workspace and rejects the target repo shapes that create drift.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Updated:</strong> 2026-05-29</div>
       <div><strong>Canonical section:</strong> <a href="#verification-contract">#verification-contract</a></div>
     </div>
   </section>
@@ -137,7 +137,7 @@
       <table class="status-table">
         <thead><tr><th>ID</th><th>Acceptance condition</th><th>Mapped sections</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>FWD-A1</td><td>A Foundation checkout with required skills, including <code>file-registry-fill-loop</code>, and a valid global Codex pointer reports no failures when spec check is skipped for the fixture.</td><td><code>foundation.workspace-doctor.technical#contracts</code></td><td>existing</td></tr>
+          <tr><td>FWD-A1</td><td>A Foundation checkout with required skills, including <code>file-registry-fill-loop</code>, <code>surface-registry-fill-loop</code>, and <code>capability-matrix-fill-loop</code>, and a valid global Codex pointer reports no failures when spec check is skipped for the fixture.</td><td><code>foundation.workspace-doctor.technical#contracts</code></td><td>existing</td></tr>
           <tr><td>FWD-A2</td><td>A target repo whose adapter points to Foundation passes the adapter checks.</td><td><code>foundation.workspace-doctor.technical#contracts</code></td><td>existing</td></tr>
           <tr><td>FWD-A3</td><td>A target repo adapter that copies Foundation-owned rules fails with a duplicated-rule report.</td><td><code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>
           <tr><td>FWD-A4</td><td>A target repo spec using a <code>foundation.*</code> ID fails namespace validation.</td><td><code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>

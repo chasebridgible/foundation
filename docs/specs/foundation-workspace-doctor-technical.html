@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.workspace-doctor.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-20">
+<meta name="spec:last-updated" content="2026-05-29">
 <title>Foundation Workspace Doctor Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Workspace Doctor Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-05-20",
+  "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.workspace-model.descriptive",
@@ -51,7 +51,7 @@
       "status": "existing",
       "path": "foundation/scripts/foundation-doctor.test.mjs",
       "mapsTo": ["foundation.workspace-doctor.technical#contracts"],
-      "evidence": "machine setup passes when global pointer and required skills exist"
+      "evidence": "machine setup passes when global pointer and required skills, including the file, surface, and capability matrix registry loops, exist"
     },
     {
       "id": "FWD-T2",
@@ -113,7 +113,7 @@
     <p class="lede">The Foundation doctor is an on-demand diagnostic command that tells a user whether the canonical Foundation repo, global Codex pointer, target repo adapter, target spec namespace, and target CI pinning are shaped correctly for the workspace model.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Updated:</strong> 2026-05-29</div>
       <div><strong>Canonical section:</strong> <a href="#required-depth">#required-depth</a></div>
     </div>
   </section>
@@ -144,7 +144,7 @@
         <tbody>
           <tr><td>Canonical Foundation path</td><td>Fail when missing or not a Git repo.</td><td>Agents and CI need a durable shared substrate location.</td></tr>
           <tr><td>Foundation <code>AGENTS.md</code></td><td>Fail when missing.</td><td>The shared rulebook is the entry point for Foundation behavior.</td></tr>
-          <tr><td>Required skills</td><td>Fail when descriptive spec interview, backfill orchestrator/sub-skills, backfill evaluator, spec workflow, or target repo setup skills are missing.</td><td>The workspace model depends on skills as executable process.</td></tr>
+          <tr><td>Required skills</td><td>Fail when descriptive spec interview, backfill orchestrator/sub-skills, file registry fill loop, surface registry fill loop, capability matrix fill loop, backfill evaluator, spec workflow, or target repo setup skills are missing.</td><td>The workspace model depends on skills as executable process.</td></tr>
           <tr><td>Global Codex pointer</td><td>Fail when missing or not pointing to the canonical Foundation path and Foundation <code>AGENTS.md</code>.</td><td>Starting in a target repo should still discover Foundation.</td></tr>
           <tr><td>Foundation spec check</td><td>Fail when registry or spec metadata checks fail; warn only when skipped by flag.</td><td>Foundation cannot be canonical if its own registry is stale or invalid.</td></tr>
           <tr><td>Target repo adapter</td><td>Fail when missing, not pointing to Foundation, or duplicating Foundation-owned rules.</td><td>Local instructions should refine project context, not fork shared process.</td></tr>
@@ -183,7 +183,7 @@
       <table class="status-table">
         <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>FWD-T1</td><td><code>#contracts</code></td><td>Machine setup passes when global pointer and required skills, including <code>file-registry-fill-loop</code>, exist.</td><td>existing</td></tr>
+          <tr><td>FWD-T1</td><td><code>#contracts</code></td><td>Machine setup passes when global pointer and required skills, including <code>file-registry-fill-loop</code>, <code>surface-registry-fill-loop</code>, and <code>capability-matrix-fill-loop</code>, exist.</td><td>existing</td></tr>
           <tr><td>FWD-T2</td><td><code>#contracts</code></td><td>Target repo adapter passes when it points to Foundation.</td><td>existing</td></tr>
           <tr><td>FWD-T3</td><td><code>#failure-modes</code></td><td>Target repo AGENTS fails when it duplicates Foundation-owned rules.</td><td>existing</td></tr>
           <tr><td>FWD-T4</td><td><code>#failure-modes</code></td><td>Target repo specs fail when product specs use Foundation namespace.</td><td>existing</td></tr>

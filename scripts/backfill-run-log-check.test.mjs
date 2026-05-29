@@ -74,6 +74,28 @@ test("accepts surface registry phase events", () => {
   assert.equal(validateRunLog(file).some(result => result.status === "fail"), false);
 });
 
+test("accepts capability matrix phase events", () => {
+  const file = writeRunLog([
+    JSON.stringify({
+      ts: "2026-05-29T15:00:00.000Z",
+      runId: "20260529-01",
+      sequence: 1,
+      slice: null,
+      phase: "capability-matrix",
+      event: "checkpoint",
+      summary: "Marked Capability Matrix rows.",
+      artifactsRead: ["docs/specs/backfill/surface-registry-20260529-01.jsonl"],
+      artifactsChanged: ["docs/specs/backfill/capability-matrix-20260529-01.jsonl"],
+      commands: ["foundation:capability-matrix:fill"],
+      checks: [],
+      result: "2 capability row(s) written.",
+      nextAction: "Run Capability Matrix checker."
+    })
+  ]);
+
+  assert.equal(validateRunLog(file).some(result => result.status === "fail"), false);
+});
+
 test("rejects missing run log files", () => {
   const results = validateRunLog(path.join(os.tmpdir(), "missing-run-log.jsonl"));
   assert.equal(hasFailure(results, "log-exists"), true);
