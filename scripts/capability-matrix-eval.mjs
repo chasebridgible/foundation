@@ -97,6 +97,7 @@ function main() {
     ...finding,
     subjectRowId: receipt.subjectRowId
   })));
+  const revisionTargets = [...new Set(findings.map(finding => finding.subjectRowId))];
   const receiptPath = capabilityEvalReceiptPathFor(repoRoot, runId, outDir);
   const summaryPath = capabilitySummaryPathFor(repoRoot, runId, outDir);
   const summaryReceipt = {
@@ -116,7 +117,7 @@ function main() {
     categoryScores: aggregate.categoryScores,
     totalScore: aggregate.totalScore,
     findings,
-    revisionTargets: [...new Set(findings.map(finding => finding.subjectRowId))],
+    revisionTargets,
     acceptabilityGate: {
       acceptable: aggregate.acceptable,
       threshold: "total >= 96, every normalized category >= 9, deterministic check passes, no blocking row findings"
@@ -163,13 +164,14 @@ function main() {
     commands: ["foundation:capability-matrix:eval"],
     checks: [{ name: "capability-matrix-eval", result: aggregate.acceptable ? "passed" : "failed" }],
     result: aggregate.acceptable ? `Capability Matrix eval passed with score ${aggregate.totalScore}.` : `Capability Matrix eval failed with score ${aggregate.totalScore}.`,
-    nextAction: aggregate.acceptable ? "Record handoff to Split And Queue gate." : "Revise Capability Matrix rows named in revisionTargets."
+    nextAction: revisionTargets.length > 0 ? "Revise Capability Matrix rows named in revisionTargets before report handoff." : (aggregate.acceptable ? "Record handoff to Split And Queue gate." : "Revise Capability Matrix rows named in revisionTargets.")
   });
 
   console.log(`Capability Matrix eval
 Score: ${aggregate.totalScore}
 Minimum normalized category: ${aggregate.normalizedMinimum.toFixed(1)}
 Acceptable: ${aggregate.acceptable ? "yes" : "no"}
+Revision targets: ${revisionTargets.length}
 Receipt: ${path.relative(repoRoot, receiptPath)}
 Summary: ${path.relative(repoRoot, summaryPath)}`);
   if (!aggregate.acceptable) process.exit(1);

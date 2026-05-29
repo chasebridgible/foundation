@@ -41,7 +41,9 @@ Load only the context needed for the current step:
 5. Do not read ahead into other pending files before marking this file. The atomic unit is: select one file, read one file, mark one file, then repeat.
 6. Run the batch checker often enough that structure failures are fixed before many more files are marked.
 7. Repeat until no pending or failed eligible rows remain.
-8. Run handoff check, eval, and report once the layer is terminal.
+8. Run handoff check and eval once the layer is terminal.
+9. Revise every row named in eval `revisionTargets`; warnings are not handoff-ready.
+10. Rerun check and eval until `revisionTargets` is empty, then record report state.
 
 ## Row Decisions
 
@@ -61,7 +63,7 @@ The File Registry row is a hint, not the authority. For eligible rows, the full 
 - Infrastructure files split when resources represent distinct durable runtime, network, identity, storage, job, or deployment surfaces. Keep one row only when resources are tightly coupled into one boundary.
 - Internal services are not automatically `api`/`exposed`: mark dormant, legacy, helper, or route-internal modules as `support-classification` unless the file itself exposes a durable API/tool/client boundary or direct external dependency.
 - Helpers, UI primitives, type-only files, constants, local utilities, and inert evidence artifacts usually resolve to support or remain skipped by scope.
-- Evidence stays short but concrete: name the handlers, resources, tables, commands, dependencies, or rules seen in the full-file read. Do not use generic evidence text that only says the file was read.
+- Evidence stays short but concrete: name the handlers, resources, tables, commands, dependencies, rules, or spec sections seen in the full-file read. The fill command rejects missing evidence and generic evidence text that only says the file was read.
 
 ## Surface JSON Shape
 

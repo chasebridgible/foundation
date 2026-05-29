@@ -98,6 +98,7 @@ function main() {
     subjectRowId: receipt.subjectRowId,
     path: receipt.upstreamPaths?.[0] || ""
   })));
+  const revisionTargets = [...new Set(findings.map(finding => finding.subjectRowId))];
   const receiptPath = surfaceEvalReceiptPathFor(repoRoot, runId, outDir);
   const summaryPath = surfaceEvalSummaryPathFor(repoRoot, runId, outDir);
   const summaryReceipt = {
@@ -117,7 +118,7 @@ function main() {
     categoryScores: aggregate.categoryScores,
     totalScore: aggregate.totalScore,
     findings,
-    revisionTargets: [...new Set(findings.map(finding => finding.subjectRowId))],
+    revisionTargets,
     acceptabilityGate: {
       acceptable: aggregate.acceptable,
       threshold: "total >= 96, every normalized category >= 9, deterministic check passes, no blocking row findings"
@@ -164,10 +165,10 @@ function main() {
     commands: ["foundation:surface-registry:eval"],
     checks: [{ name: "surface-registry-eval", result: aggregate.acceptable ? "passed" : "failed" }],
     result: aggregate.acceptable ? `Surface Registry eval passed with score ${aggregate.totalScore}.` : `Surface Registry eval failed with score ${aggregate.totalScore}.`,
-    nextAction: aggregate.acceptable ? "Record handoff to Capability Matrix gate." : "Revise Surface Registry rows named in revisionTargets."
+    nextAction: revisionTargets.length > 0 ? "Revise Surface Registry rows named in revisionTargets before report handoff." : (aggregate.acceptable ? "Record handoff to Capability Matrix gate." : "Revise Surface Registry rows named in revisionTargets.")
   });
 
-  console.log(`Surface registry eval\nScore: ${aggregate.totalScore}\nMinimum normalized category: ${aggregate.normalizedMinimum.toFixed(1)}\nAcceptable: ${aggregate.acceptable ? "yes" : "no"}\nReceipt: ${path.relative(repoRoot, receiptPath)}\nSummary: ${path.relative(repoRoot, summaryPath)}`);
+  console.log(`Surface registry eval\nScore: ${aggregate.totalScore}\nMinimum normalized category: ${aggregate.normalizedMinimum.toFixed(1)}\nAcceptable: ${aggregate.acceptable ? "yes" : "no"}\nRevision targets: ${revisionTargets.length}\nReceipt: ${path.relative(repoRoot, receiptPath)}\nSummary: ${path.relative(repoRoot, summaryPath)}`);
   if (!aggregate.acceptable) process.exit(1);
 }
 

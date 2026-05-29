@@ -169,7 +169,7 @@
         <tr><td>Layer row</td><td>schema, runId, capabilityId, name, upstreamSurfaceIds, upstreamSurfaceRefs, surfaceRefs, evidenceRefs, actor, intendedOutcome, domainObject, actions, states, rules, experience, backingContracts, failureAndRecovery, evidence, spec hints, verificationTargets, blockingGaps, humanDecisions, reviewFlags, splitNeeded, splitReason, splitCriteria, status, confidence, createdAt, updatedAt</td><td>Every terminal row has stable identity, current upstream surface fingerprints, complete formula fields, and traceable evidence.</td></tr>
         <tr><td>Canonical artifact</td><td>capability-matrix-YYYYMMDD-NN.jsonl, capability-matrix-check-YYYYMMDD-NN.json, capability-matrix-eval-YYYYMMDD-NN.jsonl</td><td>JSONL/JSON files are machine-parseable source-of-record artifacts for the layer.</td></tr>
         <tr><td>Derived artifact</td><td>capability-matrix-summary-YYYYMMDD-NN.html, capability graph views, report tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
-        <tr><td>Report entry</td><td>artifact paths, ready surface count, row counts by status, checker result, eval result, latest run-log sequence, embedded <code>backfill-capability-matrix</code> JSON, next layer</td><td>A new agent can resume from report plus artifacts, and Split And Queue can consume a report-embedded capability matrix view derived from canonical JSONL.</td></tr>
+        <tr><td>Report entry</td><td>artifact paths, ready surface count, row counts by status, checker result, eval result, eval revision-target count, latest run-log sequence, embedded <code>backfill-capability-matrix</code> JSON, next layer</td><td>A new agent can resume from report plus artifacts, and Split And Queue can consume a report-embedded capability matrix view derived from canonical JSONL only after eval revision targets are resolved.</td></tr>
       </tbody></table>
     </section>
 
@@ -182,7 +182,7 @@
         <tr><td>Deterministic checker</td><td>validates upstream Surface Registry check/eval handoff, every ready Surface Registry row represented by at least one terminal capability row, no capability rows attached to support/pending surface rows, capability status enums, upstream references, duplicate capability IDs, required formula fields, stale upstream surface fingerprints, split flags, handoff states, and optional report drift.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>samples capabilities against surfaces and source evidence to detect vague outcomes, missing actors, missing state/rule contracts, over-merged domains, and unsupported capability claims.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
         <tr><td>Refresh</td><td>When upstream Surface Registry rows change, matching Capability Matrix rows are preserved only if stored upstream surface fingerprints still match. Changed/new ready surfaces return to <code>pending</code> and must be grouped again by an agent.</td><td>The layer participates in steady-state changed-surface refresh instead of only bootstrap backfill.</td></tr>
-        <tr><td>Handoff gate</td><td>all ready surfaces are capability-owned, broad rows are flagged <code>needs-split</code>, checker passes, eval receipt and HTML summary exist, and report names next layer as Split And Queue.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Handoff gate</td><td>all ready surfaces are capability-owned, broad rows are flagged <code>needs-split</code>, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Split And Queue only after warnings are resolved.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 
@@ -195,7 +195,7 @@
         <li>Write capability rows for that reviewed surface group with <code>foundation:capability-matrix:fill -- --surface-ids ... --capabilities-json ...</code>. The command replaces prior rows overlapping the reviewed surface IDs and records upstream surface fingerprints.</li>
         <li>Run the checker; repair structural failures before semantic eval.</li>
         <li>Run or append eval receipts; generate HTML summary from JSONL.</li>
-        <li>Record report state with <code>nextLayer</code> set to <code>split and queue</code> only after check and eval pass.</li>
+        <li>Revise every row named in eval <code>revisionTargets</code>, rerun eval, and record report state with <code>nextLayer</code> set to <code>split and queue</code> only after check and eval pass with zero revision targets.</li>
         <li>Revise failed rows until the gate passes or a named human decision blocks progress.</li>
       </ol>
     </section>

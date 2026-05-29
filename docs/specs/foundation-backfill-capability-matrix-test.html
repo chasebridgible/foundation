@@ -140,7 +140,7 @@
         <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, mapped, needs-split, ready-for-queue; handoff allows only ready-for-queue and needs-split.</td></tr>
         <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, uncovered ready surfaces, missing split criteria, and report drift fail.</td></tr>
         <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, or under-evidenced rows produce revision targets.</td></tr>
-        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>all ready surfaces are capability-owned, broad rows are flagged for split, checker passes, eval receipt and HTML summary exist, embedded report matrix exists, and report names next layer as Split And Queue.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>all ready surfaces are capability-owned, broad rows are flagged for split, checker passes, eval receipt and HTML summary exist with zero revision targets, embedded report matrix exists, and report names next layer as Split And Queue only after warnings are resolved.</td></tr>
         <tr><td>AC-7</td><td>The fill loop cannot be replaced by generated or batch rows.</td><td>the fill command rejects generated capability-row files, all-file fill modes, and batch-size options; accepted rows must arrive inline for a reviewed surface group.</td></tr>
         <tr><td>AC-8</td><td>Changed upstream surfaces invalidate dependent capabilities.</td><td>Refresh preserves unchanged capability rows and returns changed/new ready surface rows to pending for semantic regrouping.</td></tr>
       </tbody></table>

@@ -163,11 +163,11 @@ function prepareCapabilitySkeleton(repoRoot, runId = "20260529-01", runLog = nul
 
 function capabilitySpec(surfaceIds, overrides = {}) {
   return [{
-    name: "Authenticated dashboard review",
+    name: "Authenticated dashboard workspace review",
     actor: "Authenticated workspace user",
     intendedOutcome: "Review current dashboard metrics and supporting event context.",
-    domainObject: "Dashboard workspace",
-    actions: ["Open dashboard", "Request dashboard API data", "Review dashboard event context"],
+    domainObject: "Authenticated dashboard workspace review",
+    actions: ["Open authenticated dashboard workspace", "Request dashboard API stores payload", "Review persisted dashboard event context"],
     states: ["loading", "loaded", "empty", "error"],
     rules: ["Dashboard data must come from authenticated app/API surfaces", "Database event rows back the dashboard context"],
     experience: "The user sees dashboard content or a bounded loading, empty, or error state.",
@@ -201,11 +201,11 @@ function prepareCapabilityMatrix(repoRoot, runId = "20260529-01", runLog = null)
     "--run-id", runId,
     "--surface-ids", packageSurfaceIds.join(","),
     "--capabilities-json", JSON.stringify([{
-      name: "Developer validation command",
+      name: "Developer test command execution",
       actor: "Repository developer",
       intendedOutcome: "Run the project test suite from the package script.",
-      domainObject: "Package test command",
-      actions: ["Run npm test", "Inspect test results"],
+      domainObject: "Repository package test script boundary",
+      actions: ["Execute npm test package script", "Inspect terminal test pass or fail output"],
       states: ["command available", "tests running", "tests passed", "tests failed"],
       rules: ["The package script is the command boundary for project test execution"],
       experience: "The developer invokes the test command and receives terminal pass or fail output.",
@@ -233,6 +233,33 @@ test("init requires passing Surface Registry handoff and creates pending capabil
   assert.equal(rows.length > 0, true);
   assert.equal(rows.every(row => row.status === "pending"), true);
   assert.equal(rows.every(row => row.upstreamSurfaceRefs[0].surfaceFingerprint.startsWith("sha256:")), true);
+});
+
+test("init rejects Surface Registry handoff with unresolved eval revision targets", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260529-01";
+  prepareSurfaceRegistry(repoRoot, runId);
+  const receiptPath = path.join(defaultBackfillDir(repoRoot), `surface-registry-eval-${runId}.jsonl`);
+  const receipts = readJsonl(receiptPath).rows;
+  receipts[0] = {
+    ...receipts[0],
+    findings: [{
+      category: "evidenceTraceability",
+      severity: "warning",
+      message: "Fixture warning requiring revision.",
+      subjectRowId: "surface:fixture"
+    }],
+    revisionTargets: ["surface:fixture"]
+  };
+  writeJsonl(receiptPath, receipts);
+
+  assert.throws(
+    () => runNode(capabilityInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot),
+    error => {
+      assert.match(`${error.stdout || ""}${error.stderr || ""}${error.message}`, /revision targets must be resolved/);
+      return true;
+    }
+  );
 });
 
 test("checker rejects pending rows at handoff and allows them during batch phase", () => {
@@ -266,7 +293,7 @@ test("fill groups reviewed surfaces and checker passes handoff", () => {
   const output = runNode(capabilityCheckScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   assert.match(output, /Summary: .* 0 fail/);
   const rows = readJsonl(capabilityMatrixPathFor(repoRoot, runId)).rows;
-  assert.equal(rows.some(row => row.name === "Authenticated dashboard review"), true);
+  assert.equal(rows.some(row => row.name === "Authenticated dashboard workspace review"), true);
   assert.equal(rows.every(row => row.status === "ready-for-queue"), true);
 });
 
@@ -403,6 +430,33 @@ test("report command embeds matrix state and checker can detect report drift", (
   fs.writeFileSync(reportPath, drifted, "utf8");
   const drift = validateCapabilityMatrix({ repoRoot, runId, reportPath }).results;
   assert.equal(hasFailure(drift, "capability-report-state-current"), true);
+});
+
+test("report keeps Capability Matrix in revision when eval revision targets remain", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260529-01";
+  prepareCapabilityMatrix(repoRoot, runId);
+  runNode(capabilityCheckScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
+  runNode(capabilityEvalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
+
+  const receiptPath = capabilityEvalReceiptPathFor(repoRoot, runId);
+  const receipts = readJsonl(receiptPath).rows;
+  receipts[0] = {
+    ...receipts[0],
+    findings: [{
+      category: "specificity",
+      severity: "warning",
+      message: "Fixture warning requiring revision.",
+      subjectRowId: "cap:fixture"
+    }],
+    revisionTargets: ["cap:fixture"]
+  };
+  writeJsonl(receiptPath, receipts);
+
+  const report = JSON.parse(runNode(capabilityReportScript, ["--repo", repoRoot, "--run-id", runId], repoRoot));
+  assert.equal(report.state.evalResult, "pass-with-revisions");
+  assert.equal(report.state.evalRevisionTargetCount, 1);
+  assert.equal(report.state.nextLayer, "capability matrix revision");
 });
 
 test("check command writes check artifact", () => {

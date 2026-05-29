@@ -239,6 +239,10 @@ function validateSurfaceRegistryHandoff(repoRoot, runId, outDir = defaultBackfil
   results.push(evalSummary?.acceptabilityGate?.acceptable
     ? pass("upstream-surface-registry-eval", "Surface Registry eval artifact passes")
     : fail("upstream-surface-registry-eval", "Passing Surface Registry eval receipt is required before Capability Matrix"));
+  const revisionTargets = Array.isArray(evalSummary?.revisionTargets) ? evalSummary.revisionTargets : [];
+  results.push(revisionTargets.length === 0
+    ? pass("upstream-surface-registry-eval-revisions", "Surface Registry eval has no revision targets")
+    : fail("upstream-surface-registry-eval-revisions", "Surface Registry eval revision targets must be resolved before Capability Matrix", { revisionTargets }));
 
   if (reportPath) {
     if (!fs.existsSync(reportPath)) {
@@ -640,16 +644,38 @@ function validateCapabilityReportState({ repoRoot, runId, outDir, reportPath, su
   const html = fs.readFileSync(reportPath, "utf8");
   const state = parseJsonScript(html, "backfill-capability-matrix-state");
   if (!state) return [fail("capability-report-state", "Report is missing backfill-capability-matrix-state JSON script")];
+  const evalSummary = readEvalSummary(capabilityEvalReceiptPathFor(repoRoot, runId, outDir));
+  const evalRevisionTargetCount = Array.isArray(evalSummary?.revisionTargets) ? evalSummary.revisionTargets.length : 0;
+  const evalFindings = Array.isArray(evalSummary?.findings) ? evalSummary.findings : [];
+  const checkPath = capabilityCheckPathFor(repoRoot, runId, outDir);
+  const check = fs.existsSync(checkPath) ? readJson(checkPath) : null;
+  const checkerPass = check?.summary?.fail === 0;
+  const evalPass = Boolean(evalSummary?.acceptabilityGate?.acceptable);
+  const evalHandoffReady = evalPass && evalRevisionTargetCount === 0;
+  const pendingCount = capabilityRows.filter(row => row.status === "pending").length;
+  const mappedCount = capabilityRows.filter(row => row.status === "mapped").length;
+  const blockingFlagCount = capabilityRows.filter(row => (row.reviewFlags || []).some(flag => flag.severity === "blocking")).length;
   const expected = {
     registryPath: path.relative(repoRoot, capabilityMatrixPathFor(repoRoot, runId, outDir)),
-    checkerPath: path.relative(repoRoot, capabilityCheckPathFor(repoRoot, runId, outDir)),
+    checkerPath: path.relative(repoRoot, checkPath),
+    checkerResult: checkerPass ? "pass" : "fail-or-missing",
     evalReceiptPath: path.relative(repoRoot, capabilityEvalReceiptPathFor(repoRoot, runId, outDir)),
     summaryPath: path.relative(repoRoot, capabilitySummaryPathFor(repoRoot, runId, outDir)),
+    evalResult: evalHandoffReady ? "pass" : (evalPass ? "pass-with-revisions" : "fail-or-missing"),
+    evalScore: evalSummary?.totalScore ?? null,
+    evalRevisionTargetCount,
+    evalWarningCount: evalFindings.filter(finding => finding?.severity === "warning").length,
+    evalBlockingFindingCount: evalFindings.filter(finding => finding?.severity === "blocking").length,
     readySurfaceCount: readySurfaceRows(surfaceRows).length,
-    pendingCount: capabilityRows.filter(row => row.status === "pending").length,
-    mappedCount: capabilityRows.filter(row => row.status === "mapped").length,
+    pendingCount,
+    mappedCount,
     readyForQueueCount: capabilityRows.filter(row => row.status === "ready-for-queue").length,
-    needsSplitCount: capabilityRows.filter(row => row.status === "needs-split").length
+    needsSplitCount: capabilityRows.filter(row => row.status === "needs-split").length,
+    blockingFlagCount,
+    capabilityCount: capabilityRows.length,
+    nextLayer: pendingCount === 0 && mappedCount === 0 && blockingFlagCount === 0 && checkerPass && evalHandoffReady
+      ? "split and queue"
+      : "capability matrix revision"
   };
   const drift = [];
   for (const [field, value] of Object.entries(expected)) {

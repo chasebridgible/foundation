@@ -178,7 +178,7 @@
     <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
       <h2>Checker and eval contract</h2>
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
-        <tr><td>Checker</td><td>validates the upstream File Registry handoff, surface JSONL parsing, surface kind/source/status enums, stable surface ID uniqueness, upstream file row references, upstream content hashes, scope eligibility, required fields, eligible file coverage, terminal handoff states, blocking flags, and optional report state drift.</td></tr>
+        <tr><td>Checker</td><td>validates the upstream File Registry handoff, surface JSONL parsing, surface kind/source/status enums, stable surface ID uniqueness, upstream file row references, upstream content hashes, concrete full-file evidence, scope eligibility, required fields, eligible file coverage, terminal handoff states, blocking flags, and optional report state drift.</td></tr>
         <tr><td>Eval receipt</td><td>samples surface rows against file registry rows to judge whether exposed and dependent surfaces were missed, over-merged, mislabeled, weakly supported, too vague for Capability Matrix, or detached from full-file evidence. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
         <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected registry is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
@@ -186,13 +186,13 @@
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>All Surface Registry-eligible file rows are resolved to surfaces, explicit support classifications, or blocking review rows; inert File Registry rows are skipped; checker passes; eval receipt and HTML summary exist; report names next layer as Capability Matrix.</p>
+      <p>All Surface Registry-eligible file rows are resolved to surfaces, explicit support classifications, or blocking review rows; inert File Registry rows are skipped; checker passes; eval receipt and HTML summary exist with no revision targets; report names next layer as Capability Matrix.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
-        <li>Every terminal row has <code>agent-read-full-file</code> evidence for its upstream file; no separate line-anchor, summary, or rationale evidence gate is required.</li>
+        <li>Every terminal row has concrete <code>agent-read-full-file</code> evidence for its upstream file; generic evidence that only says the file was read is not accepted.</li>
         <li>All Surface Registry rows are in valid terminal states: <code>ready-for-capability</code> for surfaces and <code>mapped</code> for support classifications.</li>
         <li>Checker passes for structure, references, currentness, and required fields.</li>
-        <li>Eval JSONL and HTML summary exist, score at least <code>96</code>, and have no normalized category below <code>9/10</code>.</li>
+        <li>Eval JSONL and HTML summary exist, score at least <code>96</code>, have no normalized category below <code>9/10</code>, and list zero revision targets.</li>
         <li>Active report records counts, artifact paths, checker/eval status, run-log sequence, and next layer.</li>
         <li>Capability Matrix does not start unless the report state says <code>capability matrix</code> or a named human decision blocks or defers the layer.</li>
       </ul>
