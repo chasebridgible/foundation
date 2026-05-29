@@ -11,6 +11,7 @@ const VALID_PHASES = new Set([
   "surface-registry",
   "capability-matrix",
   "split-queue",
+  "evidence-pack",
   "queue",
   "user-flow",
   "descriptive",
