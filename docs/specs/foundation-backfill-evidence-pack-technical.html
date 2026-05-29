@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-evidence-pack.technical">
 <meta name="spec:type" content="technical">
-<meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-29">
 <title>Foundation Backfill Evidence Pack Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -15,8 +15,8 @@
   "id": "foundation.backfill-evidence-pack.technical",
   "title": "Foundation Backfill Evidence Pack Technical Spec",
   "type": "technical",
-  "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "status": "active",
+  "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-evidence-pack.descriptive",
@@ -73,18 +73,62 @@
       "kind": "doc",
       "ownership": "reference",
       "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    },
+    {
+      "path": "foundation/scripts/evidence-pack-core.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Defines row schema, upstream freshness, exact evidence specificity, handoff state, checker rules, eval scoring, refresh merge, and report payloads."
+    },
+    {
+      "path": "foundation/scripts/evidence-pack-init.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Creates evidence-pack JSONL from passing Split And Queue artifacts."
+    },
+    {
+      "path": "foundation/scripts/evidence-pack-fill.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Rejects generated files and coarse shortcuts while writing reviewed pack specs."
+    },
+    {
+      "path": "foundation/scripts/evidence-pack-check.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Writes evidence-pack-check JSON and fails structural drift."
+    },
+    {
+      "path": "foundation/scripts/evidence-pack-eval.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Writes evidence-pack-eval JSONL receipts and evidence-pack-summary HTML."
+    },
+    {
+      "path": "foundation/scripts/evidence-pack-refresh.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Invalidates stale packs when Split And Queue rows change."
+    },
+    {
+      "path": "foundation/scripts/evidence-pack-report.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Embeds canonical Evidence Pack payloads plus handoff state in reports."
     }
   ],
   "coverage": [
     {
       "id": "BFL-EVIDENCE_PACK-T-1",
       "level": "static",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-evidence-pack-technical.html",
+      "status": "existing",
+      "path": "foundation/scripts/evidence-pack.test.mjs",
       "mapsTo": [
-        "foundation.backfill-evidence-pack.technical#contracts"
+        "foundation.backfill-evidence-pack.technical#contracts",
+        "foundation.backfill-evidence-pack.technical#checker-and-fill-loop",
+        "foundation.backfill-evidence-pack.technical#failure-modes"
       ],
-      "evidence": "Planned Foundation Backfill Evidence Pack technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+      "evidence": "Evidence Pack tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, exact evidence specificity, eval scoring, refresh invalidation, and report drift."
     }
   ],
   "tags": [
@@ -122,7 +166,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-evidence-pack-technical.html</div>
     <h1>Foundation Backfill Evidence Pack Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Evidence Pack deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-evidence-pack.descriptive</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-evidence-pack.descriptive</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -130,7 +174,7 @@
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
-        <tr><td>Layer row</td><td>runId, rowId, upstreamIds, status, confidence, evidenceRefs, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity and traceable upstream evidence.</td></tr>
+        <tr><td>Layer row</td><td>runId, packId, upstreamSliceId, upstreamSliceRef, upstreamCapabilityIds, upstreamSurfaceIds, upstreamFileIds, status, confidence, evidenceRefs, excludedRefs, explicitGaps, sufficiencyRationale, tokenBudget, estimatedTokens, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity, traceable upstream evidence, exact source anchors, and a bounded context budget.</td></tr>
         <tr><td>Canonical artifact</td><td>evidence-pack-YYYYMMDD-NN.jsonl, evidence-pack-eval-YYYYMMDD-NN.jsonl</td><td>JSONL files are append-friendly and machine-parseable; each line is one receipt or row.</td></tr>
         <tr><td>Derived artifact</td><td>evidence-pack-summary-YYYYMMDD-NN.html, slice evidence tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
         <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts.</td></tr>
@@ -143,9 +187,9 @@
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
         <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
-        <tr><td>Deterministic checker</td><td>validates each evidence pack references valid queue slices and upstream row IDs, all required evidence categories have entries or explicit gaps, and pack size stays within configured limits.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
-        <tr><td>Semantic eval</td><td>samples packs against queue slices to judge whether necessary files or surfaces were omitted, irrelevant evidence is bloating context, or the pack cannot support spec authoring.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Handoff gate</td><td>each active queued slice has a bounded evidence pack or explicit blocker; checker passes; eval receipt and HTML summary exist; report names next layer as Flow Extraction.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates each evidence pack references valid queue slices and upstream row IDs, all required evidence categories have entries or explicit gaps, file-like evidence has exact paths plus line ranges, snippets, or symbols, generic full-file evidence is rejected, and pack size stays within configured limits.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
+        <tr><td>Semantic eval</td><td>samples packs against queue slices to judge whether necessary files or surfaces were omitted, irrelevant evidence is bloating context, specificity is weak, or the pack cannot support flow extraction and later spec authoring.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
+        <tr><td>Handoff gate</td><td>each active queued slice has a bounded evidence pack or explicit blocker; checker artifact passes for the current pack fingerprint; eval receipt and HTML summary exist for the current pack fingerprint; eval revision targets are zero; report names next layer as Flow Extraction.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 
@@ -173,11 +217,11 @@
 
     <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
       <h2>Related paths and coverage</h2>
-      <ul class="path-list"><li data-implementation-path="foundation/docs/specs/foundation-backfill-evidence-pack-technical.html"><code>foundation/docs/specs/foundation-backfill-evidence-pack-technical.html</code> - technical contract for this layer.</li></ul>
+      <ul class="path-list"><li data-implementation-path="foundation/scripts/evidence-pack-core.mjs"><code>foundation/scripts/evidence-pack-core.mjs</code> - canonical Evidence Pack implementation.</li><li data-implementation-path="foundation/scripts/evidence-pack.test.mjs"><code>foundation/scripts/evidence-pack.test.mjs</code> - command and gate coverage.</li><li data-implementation-path="foundation/docs/specs/foundation-backfill-evidence-pack-technical.html"><code>foundation/docs/specs/foundation-backfill-evidence-pack-technical.html</code> - technical contract for this layer.</li></ul>
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Evidence Pack Technical Spec · draft</p>
+  <p class="footer-note">Foundation Backfill Evidence Pack Technical Spec · active</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>
