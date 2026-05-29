@@ -55,7 +55,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-05-28",
+  "lastUpdated": "2026-05-29",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -933,10 +933,10 @@
       "id": "foundation.backfill-capability-matrix.technical",
       "title": "Foundation Backfill Capability Matrix Technical Spec",
       "type": "technical",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-matrix-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-capability-matrix.descriptive",
@@ -973,6 +973,41 @@
           "path": "foundation/docs/specs/foundation-backfill-capability-matrix-technical.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/capability-matrix-core.mjs",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/capability-matrix-init.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/capability-matrix-fill.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/capability-matrix-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/capability-matrix-eval.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/capability-matrix-refresh.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/capability-matrix-report.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -998,13 +1033,14 @@
       "coverage": [
         {
           "id": "BFL-CAPABILITY_MATRIX-T-1",
-          "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-capability-matrix-technical.html",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/capability-matrix.test.mjs",
           "mapsTo": [
+            "foundation.backfill-capability-matrix.technical#data-model",
             "foundation.backfill-capability-matrix.technical#contracts"
           ],
-          "evidence": "Planned Foundation Backfill Capability Matrix technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Capability Matrix tests verify upstream Surface Registry handoff enforcement, inline reviewed-surface grouping, row schema, enums, duplicate and stale upstream checks, ready-surface coverage, split discipline, report drift, eval receipts, and refresh invalidation."
         }
       ],
       "tags": [
@@ -1019,10 +1055,10 @@
       "id": "foundation.backfill-capability-matrix.test",
       "title": "Foundation Backfill Capability Matrix Test Spec",
       "type": "test",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-matrix-test.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-capability-matrix.descriptive",
@@ -1059,6 +1095,11 @@
           "path": "foundation/docs/specs/foundation-backfill-capability-matrix-test.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/capability-matrix.test.mjs",
+          "kind": "test",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -1084,13 +1125,14 @@
       "coverage": [
         {
           "id": "BFL-CAPABILITY_MATRIX-E-1",
-          "level": "manual",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-capability-matrix-test.html",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/capability-matrix.test.mjs",
           "mapsTo": [
+            "foundation.backfill-capability-matrix.test#acceptance-mapping",
             "foundation.backfill-capability-matrix.test#eval-contract"
           ],
-          "evidence": "Planned Foundation Backfill Capability Matrix test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Capability Matrix tests cover Surface Registry handoff consumption, pending and terminal handoff states, reviewed surface grouping, deterministic check failures, eval JSONL/HTML artifacts, refresh invalidation, report state, and report drift."
         }
       ],
       "tags": [
@@ -1105,10 +1147,10 @@
       "id": "foundation.backfill-capability-matrix.descriptive",
       "title": "Foundation Backfill Capability Matrix",
       "type": "descriptive",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-matrix.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-specs.descriptive",
@@ -1158,6 +1200,16 @@
           "path": "foundation/docs/specs/foundation-backfill-capability-matrix.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/capability-matrix-fill-loop/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/capability-matrix-fill-loop/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -1184,12 +1236,13 @@
         {
           "id": "BFL-CAPABILITY_MATRIX-D-1",
           "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-capability-matrix.html",
+          "status": "existing",
+          "path": "foundation/scripts/capability-matrix.test.mjs",
           "mapsTo": [
+            "foundation.backfill-capability-matrix.descriptive#artifacts-and-state",
             "foundation.backfill-capability-matrix.descriptive#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Capability Matrix descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Capability Matrix tests cover initialization from Surface Registry handoff, pending and terminal states, coverage of ready surfaces, split flags, checker output, eval receipts, HTML summary, refresh invalidation, and report handoff state."
         }
       ],
       "tags": [
@@ -2799,7 +2852,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-specs.descriptive",
@@ -3293,7 +3346,7 @@
             "foundation.backfill-orchestration.technical#data-model",
             "foundation.backfill-orchestration.technical#contracts"
           ],
-          "evidence": "Inventory and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass."
+          "evidence": "Capability Matrix, inventory, and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass."
         }
       ],
       "tags": [
@@ -3853,7 +3906,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-specs.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.descriptive",
@@ -4414,7 +4467,7 @@
             "foundation.backfill-specs.descriptive#interface-journey",
             "foundation.backfill-specs.descriptive#ux-contracts"
           ],
-          "evidence": "Backfill Specs defines the capability matrix, capability split rule, and capability-backed completion rule."
+          "evidence": "Backfill Specs defines the Surface Registry to Capability Matrix handoff, capability matrix layer, capability split rule, and capability-backed completion rule."
         }
       ],
       "tags": [
@@ -5017,7 +5070,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-doctor-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-20",
+      "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.descriptive",
@@ -5095,7 +5148,7 @@
           "mapsTo": [
             "foundation.workspace-doctor.technical#contracts"
           ],
-          "evidence": "machine setup passes when global pointer and required skills exist"
+          "evidence": "machine setup passes when global pointer and required skills, including the file, surface, and capability matrix registry loops, exist"
         },
         {
           "id": "FWD-T2",
@@ -5142,7 +5195,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-doctor-test.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-20",
+      "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.descriptive",
@@ -5209,7 +5262,7 @@
             "foundation.workspace-doctor.test#acceptance-mapping",
             "foundation.workspace-doctor.technical#contracts"
           ],
-          "evidence": "machine setup passes when global pointer and required skills exist"
+          "evidence": "machine setup passes when global pointer and required skills, including the file, surface, and capability matrix registry loops, exist"
         },
         {
           "id": "FWD-A2",

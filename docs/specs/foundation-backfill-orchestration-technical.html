@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-orchestration.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:last-updated" content="2026-05-29">
 <title>Foundation Backfill Orchestration Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Orchestration Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-05-26",
+  "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-specs.descriptive",
@@ -510,7 +510,7 @@
         "foundation.backfill-orchestration.technical#data-model",
         "foundation.backfill-orchestration.technical#contracts"
       ],
-      "evidence": "Inventory and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass."
+      "evidence": "Capability Matrix, inventory, and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass."
     }
   ],
   "tags": [
@@ -553,7 +553,7 @@
     <p class="lede">The backfill orchestrator is a resumable workflow that delegates each layer of repo intent extraction to focused skills and only advances a slice after adequacy review and strict evaluation.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-26</div>
+      <div><strong>Updated:</strong> 2026-05-29</div>
       <div><strong>Canonical section:</strong> <a href="#required-depth">#required-depth</a></div>
     </div>
   </section>
@@ -571,8 +571,8 @@
       <ol>
         <li><strong>Connect:</strong> use Foundation setup and doctor to confirm the target repo can consume Foundation.</li>
         <li><strong>File registry:</strong> create or refresh the manifest and file registry with one row per repo-owned file. This V1 layer includes steady-state changed-file refresh, not only bootstrap backfill.</li>
-        <li><strong>Surface registry:</strong> convert mapped file rows into evidence surfaces: routes, screens, APIs, commands, jobs, tables, workflows, infra resources, docs, tests, generated artifacts, and external dependencies.</li>
-        <li><strong>Capability matrix:</strong> convert surfaces into capability rows using actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
+        <li><strong>Surface registry:</strong> convert eligible mapped file rows into evidence surfaces: routes, screens, APIs, commands, jobs, tables, workflows, infra resources, active behavior docs, and external dependencies.</li>
+        <li><strong>Capability matrix:</strong> convert reviewed ready surfaces into capability rows using actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
         <li><strong>Split and queue:</strong> split broad capability rows before closure and create a durable queue with exact slice scope, owner layer, exit criteria, status, score, blockers, evidence rows, and next action.</li>
         <li><strong>Evidence pack:</strong> gather only the files, surfaces, capabilities, tests, docs, schemas, and snippets needed for the current queued slice.</li>
         <li><strong>Observe:</strong> append JSONL run-log events when phases start, finish, checkpoint, validate, evaluate, revise, block, or hand off.</li>
@@ -597,7 +597,7 @@
           <tr><td>Execution run log</td><td>run ID, sequence, timestamp, slice, phase, event, summary, artifacts read/changed, commands, checks, duration, result, next action</td><td>Append-only JSONL events describe what happened without replacing the queue as canonical state.</td><td><code>backfill-specs</code></td></tr>
           <tr><td>Layer artifact row</td><td>layer ID, run ID, canonical JSONL path, eval JSONL path, HTML summary path, checker result, eval result, pending count, next layer</td><td>Every durable layer can hand off through machine-readable state and human-readable summaries.</td><td>owning layer spec</td></tr>
           <tr><td>Surface registry row</td><td>ID, kind, upstream file rows, evidence paths, exposed/dependent object, operation, consumer/actor hints, rules/states, review flags</td><td>Every behavior-bearing file row is resolved to surfaces, support classification, or review.</td><td><code>foundation.backfill-surface-registry</code></td></tr>
-          <tr><td>Capability matrix row</td><td>ID, actor, outcome, domain object, actions, states, permissions/rules, surfaces, backing contracts, failure/recovery, evidence, spec owners, verification targets, status, split state</td><td>Every behavior-bearing capability has a coverage status and either owner specs, a parent-owned reason, a human decision, or an out-of-scope reason.</td><td><code>backfill-repo-inventory</code></td></tr>
+          <tr><td>Capability matrix row</td><td>ID, actor, outcome, domain object, actions, states, permissions/rules, surfaces, backing contracts, failure/recovery, evidence, status, split state, upstream surface refs</td><td>Every ready surface is represented by a terminal capability row before Split And Queue consumes it.</td><td><code>foundation.backfill-capability-matrix</code></td></tr>
           <tr><td>Durable queue slice</td><td>ID, scope, capability IDs, status, owner skill, descriptive spec, technical spec, score, next action, exit criterion, blocking gaps, evidence rows</td><td>Every slice has exactly one current next action unless it is acceptable, out of scope, or blocked by human decision.</td><td><code>backfill-specs</code></td></tr>
           <tr><td>Evidence pack row</td><td>slice ID, file rows, surface rows, capability rows, tests, docs, schemas, snippets, excluded near-misses, sufficiency rationale</td><td>Slice work loads bounded evidence instead of rediscovering the repo.</td><td><code>foundation.backfill-evidence-pack</code></td></tr>
           <tr><td>Inventory row</td><td>ID, category, label, evidence path, owning spec, coverage layer, missing detail, notes</td><td>Every relevant row maps to a capability row, non-behavioral support note, parent-owned reason, blocked human decision, or out-of-scope status by completion.</td><td><code>backfill-repo-inventory</code></td></tr>
@@ -701,7 +701,7 @@
           <tr><td>FBO-5</td><td><code>#contracts</code></td><td>Technical authoring skill requires architecture classification.</td><td>existing</td></tr>
           <tr><td>FBO-6</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill queue checker validates embedded capability matrix and durable queue structure.</td><td>existing</td></tr>
           <tr><td>FBO-7</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill run log checker validates JSONL execution event structure.</td><td>existing</td></tr>
-          <tr><td>FBO-8</td><td><code>#data-model</code>, <code>#contracts</code></td><td>Inventory and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass.</td><td>existing</td></tr>
+          <tr><td>FBO-8</td><td><code>#data-model</code>, <code>#contracts</code></td><td>Capability Matrix, inventory, and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass.</td><td>existing</td></tr>
         </tbody>
       </table>
     </section>

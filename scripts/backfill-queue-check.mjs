@@ -19,6 +19,7 @@ const VALID_CAPABILITY_STATUSES = new Set([
   "unmapped",
   "mapped",
   "needs-split",
+  "ready-for-queue",
   "queued",
   "in-progress",
   "needs-descriptive",

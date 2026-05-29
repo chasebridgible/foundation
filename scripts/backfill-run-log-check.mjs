@@ -9,6 +9,7 @@ const VALID_PHASES = new Set([
   "setup",
   "inventory",
   "surface-registry",
+  "capability-matrix",
   "queue",
   "user-flow",
   "descriptive",
