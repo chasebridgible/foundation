@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-split-queue.technical">
 <meta name="spec:type" content="technical">
-<meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-29">
 <title>Foundation Backfill Split And Queue Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -15,8 +15,8 @@
   "id": "foundation.backfill-split-queue.technical",
   "title": "Foundation Backfill Split And Queue Technical Spec",
   "type": "technical",
-  "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "status": "active",
+  "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-split-queue.descriptive",
@@ -73,18 +73,62 @@
       "kind": "doc",
       "ownership": "reference",
       "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    },
+    {
+      "path": "foundation/scripts/split-queue-core.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Defines row schema, upstream freshness, handoff state, checker rules, eval scoring, refresh merge, and report payloads."
+    },
+    {
+      "path": "foundation/scripts/split-queue-init.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Creates backfill-queue JSONL from passing Capability Matrix artifacts."
+    },
+    {
+      "path": "foundation/scripts/split-queue-fill.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Rejects generated files and coarse shortcuts while writing reviewed slice specs."
+    },
+    {
+      "path": "foundation/scripts/split-queue-check.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Writes split-queue-check JSON and fails structural drift."
+    },
+    {
+      "path": "foundation/scripts/split-queue-eval.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Writes split-queue-eval JSONL receipts and split-queue-summary HTML."
+    },
+    {
+      "path": "foundation/scripts/split-queue-refresh.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Invalidates stale slices when Capability Matrix rows change."
+    },
+    {
+      "path": "foundation/scripts/split-queue-report.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Embeds canonical and legacy queue payloads plus handoff state in reports."
     }
   ],
   "coverage": [
     {
       "id": "BFL-SPLIT_QUEUE-T-1",
-      "level": "static",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-split-queue-technical.html",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/split-queue.test.mjs",
       "mapsTo": [
-        "foundation.backfill-split-queue.technical#contracts"
+        "foundation.backfill-split-queue.technical#contracts",
+        "foundation.backfill-split-queue.technical#checker-and-fill-loop",
+        "foundation.backfill-split-queue.technical#failure-modes"
       ],
-      "evidence": "Planned Foundation Backfill Split And Queue technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+      "evidence": "Split And Queue tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, needs-split child-slice coverage, eval scoring, refresh invalidation, and report drift."
     }
   ],
   "tags": [
@@ -122,7 +166,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-split-queue-technical.html</div>
     <h1>Foundation Backfill Split And Queue Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Split And Queue deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-split-queue.descriptive</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-split-queue.descriptive</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -130,7 +174,7 @@
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
-        <tr><td>Layer row</td><td>runId, rowId, upstreamIds, status, confidence, evidenceRefs, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity and traceable upstream evidence.</td></tr>
+        <tr><td>Layer row</td><td>runId, sliceId, upstreamCapabilityIds, upstreamCapabilityRefs, name, ownerSkill, scope, includedBehaviors, excludedBehaviors, exitCriterion, nextAction, verificationTargets, status, confidence, evidenceRefs, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity, current upstream fingerprints, objective completion criteria, and traceable evidence.</td></tr>
         <tr><td>Canonical artifact</td><td>backfill-queue-YYYYMMDD-NN.jsonl, split-queue-eval-YYYYMMDD-NN.jsonl</td><td>JSONL files are append-friendly and machine-parseable; each line is one receipt or row.</td></tr>
         <tr><td>Derived artifact</td><td>split-queue-summary-YYYYMMDD-NN.html, report embedded queue table</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
         <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts.</td></tr>
@@ -143,8 +187,8 @@
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
         <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
-        <tr><td>Deterministic checker</td><td>validates every non-terminal capability has a queue slice, every slice references valid capability IDs, broad capabilities cannot be acceptable, terminal statuses require evidence, and exactly one current next action exists per active slice.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
-        <tr><td>Semantic eval</td><td>samples slices against capability rows to judge whether the slice is small enough, exit criteria are objective, and no hidden behavior is parked inside a parent summary.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates every terminal capability has queue coverage, every slice references valid and current capability IDs, needs-split capabilities have multiple child slices or an explicit blocker, terminal statuses require evidence, and active slices carry exactly one current next action.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
+        <tr><td>Semantic eval</td><td>samples slices against capability rows to judge whether the slice is small enough, exit criteria are objective, evidence references are specific, and no hidden behavior is parked inside a parent summary. Findings at warning or blocking severity become revision targets.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
         <tr><td>Handoff gate</td><td>durable queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist, and report names next layer as Evidence Pack.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
@@ -173,11 +217,11 @@
 
     <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
       <h2>Related paths and coverage</h2>
-      <ul class="path-list"><li data-implementation-path="foundation/docs/specs/foundation-backfill-split-queue-technical.html"><code>foundation/docs/specs/foundation-backfill-split-queue-technical.html</code> - technical contract for this layer.</li></ul>
+      <ul class="path-list"><li data-implementation-path="foundation/scripts/split-queue-core.mjs"><code>foundation/scripts/split-queue-core.mjs</code> - canonical Split And Queue implementation.</li><li data-implementation-path="foundation/scripts/split-queue.test.mjs"><code>foundation/scripts/split-queue.test.mjs</code> - command and gate coverage.</li><li data-implementation-path="foundation/docs/specs/foundation-backfill-split-queue-technical.html"><code>foundation/docs/specs/foundation-backfill-split-queue-technical.html</code> - technical contract for this layer.</li></ul>
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Split And Queue Technical Spec · draft</p>
+  <p class="footer-note">Foundation Backfill Split And Queue Technical Spec · active</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

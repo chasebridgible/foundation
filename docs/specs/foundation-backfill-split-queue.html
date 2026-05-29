@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-split-queue.descriptive">
 <meta name="spec:type" content="descriptive">
-<meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-29">
 <title>Foundation Backfill Split And Queue</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -15,8 +15,8 @@
   "id": "foundation.backfill-split-queue.descriptive",
   "title": "Foundation Backfill Split And Queue",
   "type": "descriptive",
-  "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "status": "active",
+  "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-specs.descriptive",
@@ -86,18 +86,55 @@
       "kind": "doc",
       "ownership": "reference",
       "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    },
+    {
+      "path": "foundation/scripts/split-queue-core.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Canonical Split And Queue schema, handoff, checker, eval, refresh, and report state logic."
+    },
+    {
+      "path": "foundation/scripts/split-queue-init.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Initializes queue slices from passing Capability Matrix handoff."
+    },
+    {
+      "path": "foundation/scripts/split-queue-fill.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Writes reviewed child slices from selected capability rows."
+    },
+    {
+      "path": "foundation/scripts/split-queue-check.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Runs deterministic Split And Queue validation."
+    },
+    {
+      "path": "foundation/scripts/split-queue-eval.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Writes canonical eval receipts and derived HTML summary."
+    },
+    {
+      "path": "foundation/scripts/split-queue-report.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Embeds handoff state and queue payloads in the backfill report."
     }
   ],
   "coverage": [
     {
       "id": "BFL-SPLIT_QUEUE-D-1",
       "level": "static",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-split-queue.html",
+      "status": "existing",
+      "path": "foundation/scripts/split-queue.test.mjs",
       "mapsTo": [
+        "foundation.backfill-split-queue.descriptive#artifacts-and-state",
         "foundation.backfill-split-queue.descriptive#handoff-gate"
       ],
-      "evidence": "Planned Foundation Backfill Split And Queue descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+      "evidence": "Split And Queue tests cover initialization from Capability Matrix handoff, durable queue artifacts, needs-split child slice enforcement, eval receipts, refresh invalidation, and report handoff state."
     }
   ],
   "tags": [
@@ -135,7 +172,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-split-queue.html</div>
     <h1>Foundation Backfill Split And Queue</h1>
     <p class="lede">Split And Queue decides whether capability rows are too broad and creates the durable work queue that prevents agents from closing coarse slices prematurely. This layer answers: <strong>What exact slice should the agent work on next, and when is it complete?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Capability Matrix</div><div><strong>Next:</strong> Evidence Pack</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Upstream:</strong> Capability Matrix</div><div><strong>Next:</strong> Evidence Pack</div></div>
     <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
@@ -174,8 +211,8 @@
     <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
       <h2>Checker and eval contract</h2>
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
-        <tr><td>Checker</td><td>validates every non-terminal capability has a queue slice, every slice references valid capability IDs, broad capabilities cannot be acceptable, terminal statuses require evidence, and exactly one current next action exists per active slice.</td></tr>
-        <tr><td>Eval receipt</td><td>samples slices against capability rows to judge whether the slice is small enough, exit criteria are objective, and no hidden behavior is parked inside a parent summary. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
+        <tr><td>Checker</td><td>validates every terminal capability has queue coverage, every slice references valid and current capability IDs, needs-split capabilities have multiple child slices or an explicit blocker, terminal statuses require evidence, and active slices carry exactly one current next action.</td></tr>
+        <tr><td>Eval receipt</td><td>samples slices against capability rows to judge whether the slice is small enough, exit criteria are objective, evidence is specific, and no hidden behavior is parked inside a parent summary. Warnings produce revision targets; report handoff is blocked until those targets are resolved.</td></tr>
         <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected registry is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
     </section>
@@ -202,7 +239,7 @@
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Split And Queue · draft</p>
+  <p class="footer-note">Foundation Backfill Split And Queue · active</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

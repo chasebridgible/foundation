@@ -4482,10 +4482,10 @@
       "id": "foundation.backfill-split-queue.technical",
       "title": "Foundation Backfill Split And Queue Technical Spec",
       "type": "technical",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-split-queue-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-split-queue.descriptive",
@@ -4542,18 +4542,62 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        },
+        {
+          "path": "foundation/scripts/split-queue-core.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Defines row schema, upstream freshness, handoff state, checker rules, eval scoring, refresh merge, and report payloads."
+        },
+        {
+          "path": "foundation/scripts/split-queue-init.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Creates backfill-queue JSONL from passing Capability Matrix artifacts."
+        },
+        {
+          "path": "foundation/scripts/split-queue-fill.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Rejects generated files and coarse shortcuts while writing reviewed slice specs."
+        },
+        {
+          "path": "foundation/scripts/split-queue-check.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes split-queue-check JSON and fails structural drift."
+        },
+        {
+          "path": "foundation/scripts/split-queue-eval.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes split-queue-eval JSONL receipts and split-queue-summary HTML."
+        },
+        {
+          "path": "foundation/scripts/split-queue-refresh.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Invalidates stale slices when Capability Matrix rows change."
+        },
+        {
+          "path": "foundation/scripts/split-queue-report.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Embeds canonical and legacy queue payloads plus handoff state in reports."
         }
       ],
       "coverage": [
         {
           "id": "BFL-SPLIT_QUEUE-T-1",
-          "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-split-queue-technical.html",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/split-queue.test.mjs",
           "mapsTo": [
-            "foundation.backfill-split-queue.technical#contracts"
+            "foundation.backfill-split-queue.technical#contracts",
+            "foundation.backfill-split-queue.technical#checker-and-fill-loop",
+            "foundation.backfill-split-queue.technical#failure-modes"
           ],
-          "evidence": "Planned Foundation Backfill Split And Queue technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Split And Queue tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, needs-split child-slice coverage, eval scoring, refresh invalidation, and report drift."
         }
       ],
       "tags": [
@@ -4568,10 +4612,10 @@
       "id": "foundation.backfill-split-queue.test",
       "title": "Foundation Backfill Split And Queue Test Spec",
       "type": "test",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-split-queue-test.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-split-queue.descriptive",
@@ -4608,6 +4652,11 @@
           "path": "foundation/docs/specs/foundation-backfill-split-queue-test.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/split-queue.test.mjs",
+          "kind": "test",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -4628,18 +4677,31 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        },
+        {
+          "path": "foundation/scripts/split-queue.test.mjs",
+          "kind": "test",
+          "ownership": "direct",
+          "notes": "Executable test coverage for the Split And Queue acceptance map."
+        },
+        {
+          "path": "foundation/scripts/split-queue-core.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Code under test for checker, eval, refresh, and report state behavior."
         }
       ],
       "coverage": [
         {
           "id": "BFL-SPLIT_QUEUE-E-1",
-          "level": "manual",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-split-queue-test.html",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/split-queue.test.mjs",
           "mapsTo": [
+            "foundation.backfill-split-queue.test#acceptance-mapping",
             "foundation.backfill-split-queue.test#eval-contract"
           ],
-          "evidence": "Planned Foundation Backfill Split And Queue test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Split And Queue tests cover artifact creation, upstream reference resolution, valid states, structural drift failures, weak semantic eval findings, explicit handoff state, and report drift."
         }
       ],
       "tags": [
@@ -4654,10 +4716,10 @@
       "id": "foundation.backfill-split-queue.descriptive",
       "title": "Foundation Backfill Split And Queue",
       "type": "descriptive",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-split-queue.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-specs.descriptive",
@@ -4727,18 +4789,55 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        },
+        {
+          "path": "foundation/scripts/split-queue-core.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Canonical Split And Queue schema, handoff, checker, eval, refresh, and report state logic."
+        },
+        {
+          "path": "foundation/scripts/split-queue-init.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Initializes queue slices from passing Capability Matrix handoff."
+        },
+        {
+          "path": "foundation/scripts/split-queue-fill.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes reviewed child slices from selected capability rows."
+        },
+        {
+          "path": "foundation/scripts/split-queue-check.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Runs deterministic Split And Queue validation."
+        },
+        {
+          "path": "foundation/scripts/split-queue-eval.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes canonical eval receipts and derived HTML summary."
+        },
+        {
+          "path": "foundation/scripts/split-queue-report.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Embeds handoff state and queue payloads in the backfill report."
         }
       ],
       "coverage": [
         {
           "id": "BFL-SPLIT_QUEUE-D-1",
           "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-split-queue.html",
+          "status": "existing",
+          "path": "foundation/scripts/split-queue.test.mjs",
           "mapsTo": [
+            "foundation.backfill-split-queue.descriptive#artifacts-and-state",
             "foundation.backfill-split-queue.descriptive#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Split And Queue descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Split And Queue tests cover initialization from Capability Matrix handoff, durable queue artifacts, needs-split child slice enforcement, eval receipts, refresh invalidation, and report handoff state."
         }
       ],
       "tags": [
