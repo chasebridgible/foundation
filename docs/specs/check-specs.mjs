@@ -110,7 +110,8 @@ function existingRegistryEntriesByFile() {
 function isGeneratedNonSpecHtml(file) {
   const relativeFile = relativeSpecPath(file);
   return /^docs\/specs\/backfill\/(?:file|surface)-registry-(eval-summary|handoff)-\d{8}-\d{2}\.html$/.test(relativeFile) ||
-    /^docs\/specs\/backfill\/capability-matrix-summary-\d{8}-\d{2}\.html$/.test(relativeFile);
+    /^docs\/specs\/backfill\/capability-matrix-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
+    /^docs\/specs\/backfill\/split-queue-summary-\d{8}-\d{2}\.html$/.test(relativeFile);
 }
 
 function registryPathFor(file) {

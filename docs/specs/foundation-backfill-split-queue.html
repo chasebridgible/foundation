@@ -199,6 +199,7 @@
       <h2>Small-loop journey</h2>
       <ol>
         <li><strong>Initialize:</strong> create the canonical Foundation Backfill Split And Queue artifact from Capability Matrix handoff output.</li>
+        <li><strong>Semantic audit:</strong> before child slices can be accepted, verify terminal capability rows have usable identity anchors and needs-split rows have concrete splitCriteria anchors.</li>
         <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
         <li><strong>Fill:</strong> agent applies split criteria to capability rows, creates child slices where actors/outcomes/states/rules/contracts/recovery differ, writes exact exit criteria, owner spec targets, next action, and blocking questions.</li>
         <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
@@ -211,20 +212,20 @@
     <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
       <h2>Checker and eval contract</h2>
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
-        <tr><td>Checker</td><td>validates every terminal capability has queue coverage, every slice references valid and current capability IDs, needs-split capabilities have multiple child slices or an explicit blocker, terminal statuses require evidence, and active slices carry exactly one current next action.</td></tr>
-        <tr><td>Eval receipt</td><td>samples slices against capability rows to judge whether the slice is small enough, exit criteria are objective, evidence is specific, and no hidden behavior is parked inside a parent summary. Warnings produce revision targets; report handoff is blocked until those targets are resolved.</td></tr>
+        <tr><td>Checker</td><td>validates every terminal capability has queue coverage, every slice references valid and current capability IDs, needs-split capabilities have multiple child slices or an explicit blocker, terminal statuses require evidence, active slices carry exactly one current next action, child slices align to capability identity and splitCriteria rather than incidental source paths, and any existing eval receipt matches the current queue fingerprint.</td></tr>
+        <tr><td>Eval receipt</td><td>samples slices against capability rows to judge whether the slice is small enough, aligned to the capability identity, matched to splitCriteria, exit criteria are objective, evidence is specific, and no hidden behavior is parked inside a parent summary. Warnings produce revision targets; report handoff is blocked until those targets are resolved.</td></tr>
         <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected registry is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
     </section>
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>durable queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist, and report names next layer as Evidence Pack.</p>
+      <p>durable queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue artifact, and report names next layer as Evidence Pack.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
         <li>All rows are in valid terminal or explicitly blocked states.</li>
         <li>Checker passes for structure, references, currentness, and required fields.</li>
-        <li>Eval JSONL and HTML summary exist or an explicit planned-gap risk is recorded.</li>
+        <li>Eval JSONL and HTML summary exist, carry the current queue fingerprint, and have zero revision targets.</li>
         <li>Active report records counts, artifact paths, checker/eval status, run-log sequence, and next layer.</li>
       </ul>
     </section>

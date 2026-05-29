@@ -6,6 +6,7 @@ import {
   defaultBackfillDir,
   parseCliArgs,
   renderResultsText,
+  splitQueueArtifactFingerprint,
   splitQueueCheckPathFor,
   summarizeResults,
   validateSplitQueue,
@@ -44,6 +45,7 @@ function main() {
     generatedAt: new Date().toISOString(),
     capabilityMatrixPath: path.relative(repoRoot, check.capabilityMatrixPath || ""),
     queuePath: path.relative(repoRoot, check.queuePath),
+    queueFingerprint: splitQueueArtifactFingerprint(repoRoot, runId, outDir),
     reportPath: reportPath ? path.relative(repoRoot, reportPath) : null,
     summary,
     results: check.results

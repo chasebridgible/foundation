@@ -174,7 +174,7 @@
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
-        <tr><td>Layer row</td><td>runId, sliceId, upstreamCapabilityIds, upstreamCapabilityRefs, name, ownerSkill, scope, includedBehaviors, excludedBehaviors, exitCriterion, nextAction, verificationTargets, status, confidence, evidenceRefs, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity, current upstream fingerprints, objective completion criteria, and traceable evidence.</td></tr>
+        <tr><td>Layer row</td><td>runId, sliceId, upstreamCapabilityIds, upstreamCapabilityRefs, name, ownerSkill, scope, includedBehaviors, excludedBehaviors, exitCriterion, nextAction, verificationTargets, status, confidence, evidenceRefs, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity, current upstream fingerprints, objective completion criteria, traceable evidence, and semantic anchors that match upstream capability identity.</td></tr>
         <tr><td>Canonical artifact</td><td>backfill-queue-YYYYMMDD-NN.jsonl, split-queue-eval-YYYYMMDD-NN.jsonl</td><td>JSONL files are append-friendly and machine-parseable; each line is one receipt or row.</td></tr>
         <tr><td>Derived artifact</td><td>split-queue-summary-YYYYMMDD-NN.html, report embedded queue table</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
         <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts.</td></tr>
@@ -187,9 +187,9 @@
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
         <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
-        <tr><td>Deterministic checker</td><td>validates every terminal capability has queue coverage, every slice references valid and current capability IDs, needs-split capabilities have multiple child slices or an explicit blocker, terminal statuses require evidence, and active slices carry exactly one current next action.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
-        <tr><td>Semantic eval</td><td>samples slices against capability rows to judge whether the slice is small enough, exit criteria are objective, evidence references are specific, and no hidden behavior is parked inside a parent summary. Findings at warning or blocking severity become revision targets.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Handoff gate</td><td>durable queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist, and report names next layer as Evidence Pack.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates every terminal capability has queue coverage, every slice references valid and current capability IDs, needs-split capabilities have multiple child slices or an explicit blocker, terminal statuses require evidence, active slices carry exactly one current next action, and child-slice name/scope/included behaviors/rationale align with capability identity and splitCriteria rather than incidental source paths.</td><td>Structural and mechanically detectable semantic drift should fail before eval or handoff.</td></tr>
+        <tr><td>Semantic eval</td><td>samples slices against capability rows to judge whether the slice is small enough, aligned to capability identity and splitCriteria, exit criteria are objective, evidence references are specific, and no hidden behavior is parked inside a parent summary. Findings at warning or blocking severity become revision targets.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
+        <tr><td>Handoff gate</td><td>durable queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue fingerprint, and report names next layer as Evidence Pack.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 
@@ -197,10 +197,11 @@
       <h2>Checker and fill loop</h2>
       <ol>
         <li>Read active report, run log, upstream artifacts, and current layer artifact.</li>
+        <li>Run the upstream semantic audit: terminal capabilities must have identity anchors, and needs-split capabilities must have concrete splitCriteria anchors before queue work proceeds.</li>
         <li>Select next pending or failed batch by deterministic order plus risk priority.</li>
         <li>Inspect only the evidence needed for the batch and update canonical JSONL rows.</li>
         <li>Run the checker; repair structural failures before semantic eval.</li>
-        <li>Run or append eval receipts; generate HTML summary from JSONL.</li>
+        <li>Run or append eval receipts; generate HTML summary from JSONL and store the queue artifact fingerprint in the eval receipt.</li>
         <li>Revise failed rows until the gate passes or a named human decision blocks progress.</li>
       </ol>
     </section>
@@ -210,6 +211,8 @@
       <table class="status-table"><thead><tr><th>Failure</th><th>System behavior</th><th>Evidence</th></tr></thead><tbody>
         <tr><td>Missing upstream row</td><td>Checker fails and names the missing upstream ID.</td><td>Checker JSON output and report entry.</td></tr>
         <tr><td>Vague or unsupported row</td><td>Eval routes the row back to the fill loop.</td><td>Eval JSONL receipt with revision target.</td></tr>
+        <tr><td>Wrong child-slice taxonomy</td><td>Fill and checker fail when a slice label, scope, included behavior, or split rationale does not match capability identity or splitCriteria.</td><td>Checker JSON output and fill command failure.</td></tr>
+        <tr><td>Stale eval receipt</td><td>Checker and report handoff fail when the eval receipt fingerprint does not match the current queue artifact.</td><td>Check result and report state.</td></tr>
         <tr><td>Report drift</td><td>Checker fails when report paths/counts do not match artifacts.</td><td>Report check result.</td></tr>
         <tr><td>Context reset</td><td>Next agent resumes from report, run log, current artifacts, and pending rows.</td><td>Run-log checkpoint.</td></tr>
       </tbody></table>

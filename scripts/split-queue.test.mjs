@@ -413,6 +413,68 @@ test("fill --next is read-only and fill rejects coarse shortcuts", () => {
   );
 });
 
+test("semantic alignment gate rejects unrelated child-slice taxonomy", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260529-01";
+  prepareSplitQueueSkeleton(repoRoot, runId);
+  const splitId = capabilityIdsByStatus(repoRoot, runId, "needs-split")[0];
+  const unrelatedSlices = [
+    {
+      name: "OpenClaw SQL validation evidence slice",
+      upstreamCapabilityIds: [splitId],
+      ownerSkill: "backfill-evidence-pack",
+      scope: "Capture OpenClaw SQL parser validation and generated query receipt evidence",
+      includedBehaviors: ["OpenClaw SQL validation query parsing and database syntax evidence"],
+      excludedBehaviors: ["Dashboard screen and API payload behavior stay outside this SQL slice"],
+      exitCriterion: `Evidence pack receipt cites ${splitId} and verifies OpenClaw SQL validation.`,
+      nextAction: "Collect OpenClaw SQL validation evidence and write the receipt row.",
+      verificationTargets: [`${splitId} OpenClaw SQL validation receipt`],
+      childSliceRationale: "SQL validation is one child slice.",
+      status: "ready",
+      confidence: "high"
+    },
+    {
+      name: "OpenClaw SQL migration evidence slice",
+      upstreamCapabilityIds: [splitId],
+      ownerSkill: "backfill-evidence-pack",
+      scope: "Capture OpenClaw SQL migration execution and database schema receipt evidence",
+      includedBehaviors: ["OpenClaw SQL migration execution and schema validation evidence"],
+      excludedBehaviors: ["Dashboard screen and API payload behavior stay outside this migration slice"],
+      exitCriterion: `Evidence pack receipt cites ${splitId} and verifies OpenClaw SQL migration behavior.`,
+      nextAction: "Collect OpenClaw SQL migration evidence and write the receipt row.",
+      verificationTargets: [`${splitId} OpenClaw SQL migration receipt`],
+      childSliceRationale: "SQL migration is one child slice.",
+      status: "ready",
+      confidence: "high"
+    }
+  ];
+
+  assert.throws(
+    () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", splitId, "--slices-json", JSON.stringify(unrelatedSlices)], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /semantic alignment failed/);
+      return true;
+    }
+  );
+
+  const queuePath = splitQueuePathFor(repoRoot, runId);
+  const rows = readJsonl(queuePath).rows;
+  const pendingSplit = rows.find(row => row.upstreamCapabilityIds.includes(splitId));
+  writeJsonl(queuePath, [
+    ...rows.filter(row => row.sliceId !== pendingSplit.sliceId),
+    ...unrelatedSlices.map((slice, index) => ({
+      ...pendingSplit,
+      ...slice,
+      sliceId: `slice-unrelated-${index + 1}`,
+      evidenceRefs: pendingSplit.evidenceRefs,
+      upstreamCapabilityRefs: pendingSplit.upstreamCapabilityRefs,
+      capabilityRefs: pendingSplit.capabilityRefs
+    }))
+  ]);
+  const results = validateSplitQueue({ repoRoot, runId }).results;
+  assert.equal(hasFailure(results, "split-queue-semantic-alignment"), true);
+});
+
 test("filled child slices pass check and eval writes canonical receipts", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
@@ -425,6 +487,8 @@ test("filled child slices pass check and eval writes canonical receipts", () => 
   const receipts = readJsonl(splitQueueEvalReceiptPathFor(repoRoot, runId));
   assert.equal(receipts.errors.length, 0);
   assert.equal(receipts.rows[0].receiptType, "summary");
+  assert.equal(typeof receipts.rows[0].queueFingerprint, "string");
+  assert.equal(receipts.rows[0].queueRowCount, 3);
   assert.equal(fs.existsSync(splitQueueSummaryPathFor(repoRoot, runId)), true);
 });
 
@@ -455,6 +519,25 @@ test("eval flags broad vague slices and generic evidence", () => {
   assert.equal(receipt.findings.some(finding => finding.category === "sliceSpecificity" && finding.severity === "blocking"), true);
   assert.equal(receipt.findings.some(finding => finding.category === "evidenceSupport" && finding.severity === "blocking"), true);
   assert.equal(receipt.findings.some(finding => finding.category === "splitDiscipline" && finding.severity === "blocking"), true);
+  assert.equal(receipt.findings.some(finding => finding.category === "semanticAlignment" && finding.severity === "blocking"), true);
+});
+
+test("checker blocks stale split-queue eval receipts after queue changes", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260529-01";
+  preparePassingSplitQueue(repoRoot, runId);
+  runNode(splitEvalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
+  const queuePath = splitQueuePathFor(repoRoot, runId);
+  const rows = readJsonl(queuePath).rows;
+  writeJsonl(queuePath, rows.map((row, index) => index === 0
+    ? { ...row, scope: `${row.scope} with refreshed evidence boundary` }
+    : row));
+  const results = validateSplitQueue({ repoRoot, runId }).results;
+  assert.equal(hasFailure(results, "split-queue-eval-current"), true);
+  const checkOutput = runNode(splitEvalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
+  assert.match(checkOutput, /Acceptable: yes/);
+  const refreshed = validateSplitQueue({ repoRoot, runId }).results;
+  assert.equal(hasFailure(refreshed, "split-queue-eval-current"), false);
 });
 
 test("refresh invalidates slices when upstream Capability Matrix rows change", () => {
@@ -486,6 +569,7 @@ test("report embeds split queue state and checker detects report drift", () => {
   const report = JSON.parse(reportOutput);
   assert.equal(report.state.checkerResult, "pass");
   assert.equal(report.state.evalResult, "pass");
+  assert.equal(report.state.evalQueueFresh, true);
   assert.equal(report.state.nextLayer, "evidence pack");
 
   const checkOutput = runNode(splitCheckScript, ["--repo", repoRoot, "--run-id", runId, "--report", report.reportPath], repoRoot);

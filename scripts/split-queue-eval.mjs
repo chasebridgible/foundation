@@ -11,6 +11,7 @@ import {
   scoreSplitQueueRow,
   selectSplitQueueEvalSample,
   siblingRowsByCapabilityId,
+  splitQueueArtifactFingerprint,
   splitQueueEvalReceiptPathFor,
   splitQueuePathFor,
   splitQueueSummaryPathFor,
@@ -27,7 +28,7 @@ function usage() {
 Writes canonical JSONL Split And Queue eval receipts and a derived HTML summary.`;
 }
 
-function renderHtmlSummary({ runId, repoRoot, queuePath, receiptPath, summaryPath, sampleRows, aggregate, findings }) {
+function renderHtmlSummary({ runId, repoRoot, queuePath, queueFingerprint, receiptPath, summaryPath, sampleRows, aggregate, findings }) {
   const scoreRows = Object.entries(aggregate.categoryScores)
     .map(([category, score]) => `<tr><td><code>${category}</code></td><td>${score}</td></tr>`)
     .join("\n");
@@ -57,6 +58,7 @@ function renderHtmlSummary({ runId, repoRoot, queuePath, receiptPath, summaryPat
     </div>
     <ul>
       <li><strong>Queue:</strong> <code>${path.relative(repoRoot, queuePath)}</code></li>
+      <li><strong>Queue fingerprint:</strong> <code>${queueFingerprint}</code></li>
       <li><strong>Canonical receipt:</strong> <code>${path.relative(repoRoot, receiptPath)}</code></li>
       <li><strong>Gate note:</strong> warnings produce revision targets; the report may hand off only after all revision targets are resolved.</li>
     </ul>
@@ -89,7 +91,7 @@ function main() {
   const repoRoot = path.resolve(options.repo);
   const runId = options["run-id"];
   const outDir = options["out-dir"] ? path.resolve(repoRoot, options["out-dir"]) : defaultBackfillDir(repoRoot);
-  const check = validateSplitQueue({ repoRoot, runId, outDir, phase: "handoff" });
+  const check = validateSplitQueue({ repoRoot, runId, outDir, phase: "handoff", skipEvalFreshness: true });
   const capabilityById = new Map(check.capabilityRows.map(row => [row.capabilityId, row]));
   const siblings = siblingRowsByCapabilityId(check.queueRows);
   const sampleRows = selectSplitQueueEvalSample(check.queueRows, options.sample || "risk");
@@ -100,6 +102,8 @@ function main() {
     subjectRowId: receipt.subjectRowId
   })));
   const revisionTargets = [...new Set(findings.map(finding => finding.subjectRowId))];
+  const queuePath = splitQueuePathFor(repoRoot, runId, outDir);
+  const queueFingerprint = splitQueueArtifactFingerprint(repoRoot, runId, outDir);
   const receiptPath = splitQueueEvalReceiptPathFor(repoRoot, runId, outDir);
   const summaryPath = splitQueueSummaryPathFor(repoRoot, runId, outDir);
   const summaryReceipt = {
@@ -116,6 +120,9 @@ function main() {
       rule: check.queueRows.length <= 120 ? "all rows because queue has 120 or fewer slices" : "all risk rows plus deterministic owner/status/upstream strata"
     },
     sampleRows: sampleRows.map(row => row.sliceId),
+    queuePath: path.relative(repoRoot, queuePath),
+    queueFingerprint,
+    queueRowCount: check.queueRows.length,
     categoryScores: aggregate.categoryScores,
     totalScore: aggregate.totalScore,
     findings,
@@ -133,6 +140,7 @@ function main() {
       receiptType: "row",
       runId,
       sequence: index + 2,
+      queueFingerprint,
       ...receipt,
       htmlSummaryPath: path.relative(repoRoot, summaryPath)
     }))
@@ -142,7 +150,8 @@ function main() {
   fs.writeFileSync(summaryPath, renderHtmlSummary({
     runId,
     repoRoot,
-    queuePath: splitQueuePathFor(repoRoot, runId, outDir),
+    queuePath,
+    queueFingerprint,
     receiptPath,
     summaryPath,
     sampleRows,
