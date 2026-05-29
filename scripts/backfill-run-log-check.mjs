@@ -10,6 +10,7 @@ const VALID_PHASES = new Set([
   "inventory",
   "surface-registry",
   "capability-matrix",
+  "split-queue",
   "queue",
   "user-flow",
   "descriptive",

@@ -71,9 +71,80 @@ const OBJECTIVE_EXIT_WORDS = new Set([
   "row",
   "section"
 ]);
+const SEMANTIC_STOPWORDS = new Set([
+  "a",
+  "an",
+  "and",
+  "are",
+  "as",
+  "at",
+  "be",
+  "by",
+  "for",
+  "from",
+  "in",
+  "into",
+  "is",
+  "it",
+  "of",
+  "on",
+  "or",
+  "the",
+  "this",
+  "to",
+  "with",
+  "about",
+  "against",
+  "backfill",
+  "behavior",
+  "behaviors",
+  "capability",
+  "capture",
+  "child",
+  "collect",
+  "current",
+  "descriptive",
+  "detail",
+  "details",
+  "doc",
+  "docs",
+  "document",
+  "evidence",
+  "file",
+  "files",
+  "foundation",
+  "handoff",
+  "pack",
+  "proof",
+  "queue",
+  "receipt",
+  "receipts",
+  "record",
+  "row",
+  "rows",
+  "slice",
+  "slices",
+  "spec",
+  "specs",
+  "system",
+  "target",
+  "targets",
+  "technical",
+  "upstream",
+  "verification",
+  "verify",
+  "verifies",
+  "verified",
+  "write"
+]);
 
 function sha256Text(value) {
   return crypto.createHash("sha256").update(value).digest("hex");
+}
+
+function fileFingerprint(filePath) {
+  if (!fs.existsSync(filePath)) return null;
+  return `sha256:${sha256Text(fs.readFileSync(filePath, "utf8"))}`;
 }
 
 function nowIso() {
@@ -98,6 +169,10 @@ function splitQueueSummaryPathFor(repoRoot, runId, outDir = defaultBackfillDir(r
 
 function splitQueueRefreshPathFor(repoRoot, runId, outDir = defaultBackfillDir(repoRoot)) {
   return path.join(outDir, `split-queue-refresh-${runId}.json`);
+}
+
+function splitQueueArtifactFingerprint(repoRoot, runId, outDir = defaultBackfillDir(repoRoot)) {
+  return fileFingerprint(splitQueuePathFor(repoRoot, runId, outDir));
 }
 
 function isNonEmptyString(value) {
@@ -189,6 +264,8 @@ function validateCapabilityMatrixHandoff(repoRoot, runId, outDir = defaultBackfi
   results.push(fs.existsSync(summaryPath)
     ? pass("upstream-capability-matrix-eval-summary", "Capability Matrix HTML eval summary exists")
     : fail("upstream-capability-matrix-eval-summary", "Capability Matrix HTML eval summary is required before Split And Queue", { summaryPath: path.relative(repoRoot, summaryPath) }));
+
+  results.push(...validateSplitQueueStartSemanticAudit(validation.capabilityRows));
 
   return {
     capabilityMatrixPath: validation.registryPath,
@@ -385,6 +462,17 @@ function markSplitQueueRowsForCapabilities({ capabilityRows, queueRows, capabili
   const missing = selectedCapabilityIds.filter(capabilityId => !covered.has(capabilityId));
   if (missing.length > 0) {
     throw new Error(`Split queue slice specs did not cover selected capability ID(s): ${missing.join(", ")}`);
+  }
+  const alignmentIssues = auditSplitQueueSemanticAlignment({
+    capabilityRows: selectedCapabilityIds.map(capabilityId => capabilityById.get(capabilityId)).filter(Boolean),
+    queueRows: nextRows
+  });
+  if (alignmentIssues.length > 0) {
+    const details = alignmentIssues
+      .slice(0, 5)
+      .map(issue => `${issue.sliceId}: ${issue.message}`)
+      .join("; ");
+    throw new Error(`Split queue semantic alignment failed; revise child slice names, scopes, includedBehaviors, or split rationales to match capability identity and splitCriteria. ${details}`);
   }
 
   const selected = new Set(selectedCapabilityIds);
@@ -622,6 +710,11 @@ function validateSplitQueueRows({ capabilityRows, queueRows, phase = "handoff" }
     ? pass("split-queue-needs-split-child-slices", "Every needs-split capability has child slices or an explicit blocker")
     : fail("split-queue-needs-split-child-slices", "needs-split capability rows require multiple child slices before handoff", { unsplit }));
 
+  const semanticAlignmentIssues = auditSplitQueueSemanticAlignment({ capabilityRows, queueRows });
+  results.push(semanticAlignmentIssues.length === 0
+    ? pass("split-queue-semantic-alignment", "Queue slices align with capability identity and splitCriteria")
+    : fail("split-queue-semantic-alignment", "Queue slices must be semantically aligned to upstream capability identity, not incidental source paths or unrelated domains", { issues: semanticAlignmentIssues }));
+
   if (phase === "handoff") {
     results.push(pending.length === 0
       ? pass("handoff-no-pending-slices", "No pending queue slices remain")
@@ -638,6 +731,25 @@ function validateSplitQueueRows({ capabilityRows, queueRows, phase = "handoff" }
 
 function readSplitQueueEvalSummary(repoRoot, runId, outDir) {
   return readEvalSummary(splitQueueEvalReceiptPathFor(repoRoot, runId, outDir));
+}
+
+function validateSplitQueueEvalFreshness({ repoRoot, runId, outDir, queueRows }) {
+  const evalSummary = readSplitQueueEvalSummary(repoRoot, runId, outDir);
+  if (!evalSummary) return [];
+  const currentFingerprint = splitQueueArtifactFingerprint(repoRoot, runId, outDir);
+  const expectedRowCount = queueRows.length;
+  const actualRowCount = Number.isInteger(evalSummary.queueRowCount) ? evalSummary.queueRowCount : null;
+  const fresh = Boolean(evalSummary.queueFingerprint) &&
+    evalSummary.queueFingerprint === currentFingerprint &&
+    actualRowCount === expectedRowCount;
+  return fresh
+    ? [pass("split-queue-eval-current", "Split And Queue eval receipt matches the current queue artifact")]
+    : [fail("split-queue-eval-current", "Split And Queue eval must be regenerated after queue artifact changes", {
+      expectedQueueFingerprint: currentFingerprint,
+      actualQueueFingerprint: evalSummary.queueFingerprint || null,
+      expectedRowCount,
+      actualRowCount
+    })];
 }
 
 function validateSplitQueueReportState({ repoRoot, runId, outDir, reportPath, capabilityRows, queueRows }) {
@@ -657,7 +769,7 @@ function validateSplitQueueReportState({ repoRoot, runId, outDir, reportPath, ca
     : [fail("split-queue-report-state-current", "Split And Queue report state must match canonical artifacts", { drift })];
 }
 
-function validateSplitQueue({ repoRoot, runId, outDir = defaultBackfillDir(repoRoot), phase = "handoff", reportPath = null }) {
+function validateSplitQueue({ repoRoot, runId, outDir = defaultBackfillDir(repoRoot), phase = "handoff", reportPath = null, skipEvalFreshness = false }) {
   const upstream = validateCapabilityMatrixHandoff(repoRoot, runId, outDir);
   const results = [...upstream.results];
   const queuePath = splitQueuePathFor(repoRoot, runId, outDir);
@@ -678,6 +790,9 @@ function validateSplitQueue({ repoRoot, runId, outDir = defaultBackfillDir(repoR
   }
   results.push(pass("split-queue-jsonl", "Every Split And Queue line parses as JSON"));
   results.push(...validateSplitQueueRows({ capabilityRows: upstream.capabilityRows, queueRows: parsed.rows, phase }));
+  if (!skipEvalFreshness) {
+    results.push(...validateSplitQueueEvalFreshness({ repoRoot, runId, outDir, queueRows: parsed.rows }));
+  }
   results.push(...validateSplitQueueReportState({ repoRoot, runId, outDir, reportPath, capabilityRows: upstream.capabilityRows, queueRows: parsed.rows }));
   return {
     queuePath,
@@ -707,6 +822,163 @@ function selectSplitQueueEvalSample(queueRows, mode = "risk") {
 
 function textWords(value) {
   return isNonEmptyString(value) ? (value.toLowerCase().match(/[a-z0-9]+/g) || []) : [];
+}
+
+function semanticStem(word) {
+  if (word.length > 5 && word.endsWith("ing")) return word.slice(0, -3);
+  if (word.length > 4 && word.endsWith("ed")) return word.slice(0, -2);
+  if (word.length > 4 && word.endsWith("s")) return word.slice(0, -1);
+  return word;
+}
+
+function semanticTokensFromText(value) {
+  return new Set(textWords(Array.isArray(value) ? value.join(" ") : value)
+    .map(semanticStem)
+    .filter(word => word.length >= 3)
+    .filter(word => !SEMANTIC_STOPWORDS.has(word)));
+}
+
+function tokenIntersection(left, right) {
+  const matches = [];
+  for (const token of left) {
+    if (right.has(token)) matches.push(token);
+  }
+  return matches.sort();
+}
+
+function capabilitySemanticText(capability) {
+  return [
+    capability?.name,
+    capability?.actor,
+    capability?.intendedOutcome,
+    capability?.domainObject,
+    capability?.experience,
+    ...(capability?.actions || []),
+    ...(capability?.states || []),
+    ...(capability?.rules || []),
+    ...(capability?.backingContracts || []),
+    ...(capability?.failureAndRecovery || []),
+    capability?.splitReason,
+    ...(capability?.splitCriteria || [])
+  ].filter(Boolean).join(" ");
+}
+
+function capabilitySemanticTokens(capability) {
+  return semanticTokensFromText(capabilitySemanticText(capability));
+}
+
+function sliceSemanticText(row) {
+  return [
+    row?.name,
+    row?.scope,
+    ...(row?.includedBehaviors || []),
+    row?.childSliceRationale
+  ].filter(Boolean).join(" ");
+}
+
+function sliceSemanticTokens(row) {
+  return semanticTokensFromText(sliceSemanticText(row));
+}
+
+function splitCriteriaSemanticTokens(capability) {
+  return semanticTokensFromText(capability?.splitCriteria || []);
+}
+
+function splitQueueSemanticAlignmentFindings(row, capabilities) {
+  const findings = [];
+  if (row?.status === "pending" || row?.status === "blocked" || row?.status === "out-of-scope") return findings;
+  const rowTokens = sliceSemanticTokens(row);
+  if (rowTokens.size === 0) {
+    findings.push({
+      category: "semanticAlignment",
+      severity: "blocking",
+      message: "Queue slice name, scope, included behaviors, or rationale carry no capability-specific semantic anchors."
+    });
+    return findings;
+  }
+
+  for (const capability of capabilities) {
+    const capabilityTokens = capabilitySemanticTokens(capability);
+    if (capabilityTokens.size === 0) {
+      findings.push({
+        category: "semanticAlignment",
+        severity: "blocking",
+        message: `Upstream capability ${capability.capabilityId} has no usable semantic anchors for split queue alignment.`
+      });
+      continue;
+    }
+
+    const identityMatches = tokenIntersection(rowTokens, capabilityTokens);
+    const minimumIdentityMatches = capability.status === "needs-split" ? 2 : 1;
+    if (identityMatches.length < minimumIdentityMatches) {
+      findings.push({
+        category: "semanticAlignment",
+        severity: "blocking",
+        message: `Queue slice does not align with upstream capability identity: ${capability.capabilityId}.`
+      });
+    }
+
+    if (capability.status === "needs-split") {
+      const criteriaTokens = splitCriteriaSemanticTokens(capability);
+      const criteriaMatches = tokenIntersection(rowTokens, criteriaTokens);
+      if (criteriaTokens.size > 0 && criteriaMatches.length === 0) {
+        findings.push({
+          category: "semanticAlignment",
+          severity: "blocking",
+          message: `Child slice does not align with the splitCriteria for needs-split capability ${capability.capabilityId}.`
+        });
+      }
+    }
+  }
+
+  return findings;
+}
+
+function validateSplitQueueStartSemanticAudit(capabilityRows) {
+  const auditIssues = [];
+  for (const capability of terminalCapabilityRows(capabilityRows)) {
+    const tokens = capabilitySemanticTokens(capability);
+    if (tokens.size < 2) {
+      auditIssues.push({
+        capabilityId: capability.capabilityId,
+        name: capability.name,
+        reason: "Capability identity is too semantically thin for durable split queue classification."
+      });
+      continue;
+    }
+    if (capability.status === "needs-split") {
+      const weakCriteria = (capability.splitCriteria || []).filter(criterion => semanticTokensFromText(criterion).size < 2);
+      if (weakCriteria.length > 0) {
+        auditIssues.push({
+          capabilityId: capability.capabilityId,
+          name: capability.name,
+          reason: "needs-split capability has weak splitCriteria that cannot anchor child-slice taxonomy.",
+          weakCriteria
+        });
+      }
+    }
+  }
+  return auditIssues.length === 0
+    ? [pass("split-queue-upstream-semantic-audit", "Terminal Capability Matrix rows have semantic anchors for Split And Queue")]
+    : [fail("split-queue-upstream-semantic-audit", "Split And Queue requires capability identity and splitCriteria anchors before queue initialization", { auditIssues })];
+}
+
+function auditSplitQueueSemanticAlignment({ capabilityRows, queueRows }) {
+  const capabilityById = new Map(capabilityRows.map(row => [row.capabilityId, row]));
+  const issues = [];
+  for (const row of queueRows) {
+    const capabilities = (row.upstreamCapabilityIds || []).map(id => capabilityById.get(id)).filter(Boolean);
+    const findings = splitQueueSemanticAlignmentFindings(row, capabilities);
+    for (const finding of findings) {
+      issues.push({
+        sliceId: row.sliceId,
+        name: row.name,
+        upstreamCapabilityIds: row.upstreamCapabilityIds || [],
+        message: finding.message
+      });
+    }
+  }
+  return issues;
 }
 
 function textIsVague(value) {
@@ -772,6 +1044,11 @@ function scoreSplitQueueRow(row, capabilityById, siblingRowsByCapabilityId = new
   if (stale) {
     findings.push({ category: "upstreamTraceability", severity: "blocking", message: "Queue slice has stale upstream capability fingerprints." });
     categoryScores.upstreamTraceability = 0;
+  }
+  const semanticAlignmentFindings = splitQueueSemanticAlignmentFindings(row, capabilities);
+  if (semanticAlignmentFindings.length > 0) {
+    findings.push(...semanticAlignmentFindings);
+    categoryScores.splitDiscipline = 0;
   }
 
   if (textIsVague(row.name) || textIsVague(row.scope)) {
@@ -988,10 +1265,12 @@ function buildLegacySliceQueuePayload({ runId, repoRoot, queueRows }) {
     schema: "foundation.backfill.slice-queue.v1",
     runId,
     targetRepo: path.basename(repoRoot),
+    currentSlice: nextSlice?.sliceId || null,
     nextSlice: nextSlice?.sliceId || null,
-    queue: queueRows.map(row => ({
+    slices: queueRows.map(row => ({
       id: row.sliceId,
       title: row.name,
+      scope: row.scope,
       capabilityIds: row.upstreamCapabilityIds,
       ownerSkill: row.ownerSkill || "backfill-evidence-pack",
       status: statusMap[row.status] || row.status,
@@ -999,7 +1278,9 @@ function buildLegacySliceQueuePayload({ runId, repoRoot, queueRows }) {
       exitCriterion: row.exitCriterion,
       nextAction: row.nextAction,
       evidence: (row.evidenceRefs || []).map(ref => ref.detail || ref.capabilityId).filter(Boolean),
-      blockers: [...(row.blockingQuestions || []), ...(row.blockingGaps || [])],
+      blockingGaps: [...(row.blockingQuestions || []), ...(row.blockingGaps || [])],
+      descriptiveSpec: row.descriptiveSpec,
+      technicalSpec: row.technicalSpec,
       specTargets: [
         row.descriptiveSpec,
         row.technicalSpec,
@@ -1015,6 +1296,9 @@ function buildSplitQueueReportState({ repoRoot, runId, outDir, capabilityRows, q
   const check = fs.existsSync(checkPath) ? readJson(checkPath) : null;
   const evalReceiptPath = splitQueueEvalReceiptPathFor(repoRoot, runId, outDir);
   const evalSummary = readSplitQueueEvalSummary(repoRoot, runId, outDir);
+  const queueFingerprint = splitQueueArtifactFingerprint(repoRoot, runId, outDir);
+  const evalQueueFingerprint = evalSummary?.queueFingerprint || null;
+  const evalQueueRowCount = Number.isInteger(evalSummary?.queueRowCount) ? evalSummary.queueRowCount : null;
   const checkerPass = check?.summary?.fail === 0;
   const evalPass = Boolean(evalSummary?.acceptabilityGate?.acceptable);
   const evalRevisionTargets = Array.isArray(evalSummary?.revisionTargets) ? evalSummary.revisionTargets : [];
@@ -1041,7 +1325,10 @@ function buildSplitQueueReportState({ repoRoot, runId, outDir, capabilityRows, q
     const sequences = parsed.rows.map(row => row.sequence).filter(Number.isInteger);
     return sequences.length > 0 ? Math.max(...sequences) : null;
   })();
-  const evalHandoffReady = evalPass && evalRevisionTargets.length === 0;
+  const evalQueueFresh = Boolean(evalQueueFingerprint) &&
+    evalQueueFingerprint === queueFingerprint &&
+    evalQueueRowCount === queueRows.length;
+  const evalHandoffReady = evalPass && evalRevisionTargets.length === 0 && evalQueueFresh;
   const nextTarget = nextSplitQueueTarget({ capabilityRows, queueRows });
 
   return {
@@ -1049,12 +1336,15 @@ function buildSplitQueueReportState({ repoRoot, runId, outDir, capabilityRows, q
     runId,
     generatedAt: new Date().toISOString(),
     queuePath: path.relative(repoRoot, splitQueuePathFor(repoRoot, runId, outDir)),
+    queueFingerprint,
     checkerPath: path.relative(repoRoot, checkPath),
     checkerResult: checkerPass ? "pass" : "fail-or-missing",
     evalReceiptPath: path.relative(repoRoot, evalReceiptPath),
     summaryPath: path.relative(repoRoot, splitQueueSummaryPathFor(repoRoot, runId, outDir)),
     evalResult: evalHandoffReady ? "pass" : (evalPass ? "pass-with-revisions" : "fail-or-missing"),
     evalScore: evalSummary?.totalScore ?? null,
+    evalQueueFingerprint,
+    evalQueueFresh,
     evalRevisionTargetCount: evalRevisionTargets.length,
     evalWarningCount: evalFindings.filter(finding => finding?.severity === "warning").length,
     evalBlockingFindingCount: evalFindings.filter(finding => finding?.severity === "blocking").length,
@@ -1105,6 +1395,7 @@ export {
   scoreSplitQueueRow,
   selectSplitQueueEvalSample,
   siblingRowsByCapabilityId,
+  splitQueueArtifactFingerprint,
   splitQueueCheckPathFor,
   splitQueueEvalReceiptPathFor,
   splitQueuePathFor,

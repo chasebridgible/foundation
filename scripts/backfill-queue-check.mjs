@@ -39,6 +39,7 @@ const VALID_OWNER_SKILLS = new Set([
   "backfill-rendered-ux-spec",
   "backfill-technical-spec-author",
   "backfill-spec-adequacy-review",
+  "backfill-evidence-pack",
   "evaluate-backfill-specs"
 ]);
 

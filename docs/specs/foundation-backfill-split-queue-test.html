@@ -150,9 +150,9 @@
         <tr><td>AC-1</td><td>Canonical artifacts exist.</td><td>backfill-queue-YYYYMMDD-NN.jsonl, split-queue-eval-YYYYMMDD-NN.jsonl exist and share the active run ID.</td></tr>
         <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites valid upstream IDs from Capability Matrix or records a blocker.</td></tr>
         <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, ready, in-progress, acceptable, blocked, out-of-scope.</td></tr>
-        <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, missing needs-split child slices, generated-fill shortcuts, and report drift fail.</td></tr>
-        <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, under-evidenced, or generic evidence rows produce revision targets; report handoff requires zero revision targets.</td></tr>
-        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>durable queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist, and report names next layer as Evidence Pack.</td></tr>
+        <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, missing needs-split child slices, generated-fill shortcuts, wrong child-slice taxonomy, stale eval receipts, and report drift fail.</td></tr>
+        <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, under-evidenced, generic evidence, or semantically misaligned rows produce revision targets; report handoff requires zero revision targets.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>durable queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue fingerprint, and report names next layer as Evidence Pack.</td></tr>
       </tbody></table>
     </section>
 
@@ -168,9 +168,11 @@
 
     <section id="eval-contract" data-spec-section="eval-contract" data-section-type="eval-contract">
       <h2>Eval contract</h2>
-      <p>samples slices against capability rows to judge whether the slice is small enough, exit criteria are objective, and no hidden behavior is parked inside a parent summary. The canonical output is JSONL with one receipt per evaluated row or finding. The HTML summary is generated from JSONL so humans can read counts, failures, revision targets, and examples.</p>
+      <p>samples slices against capability rows to judge whether the slice is small enough, aligned to capability identity and splitCriteria, exit criteria are objective, and no hidden behavior is parked inside a parent summary. The canonical output is JSONL with one receipt per evaluated row or finding plus the queue fingerprint that was evaluated. The HTML summary is generated from JSONL so humans can read counts, failures, revision targets, and examples.</p>
       <ul>
         <li>Every blocking finding names the row ID, evidence source, failure category, and revision target.</li>
+        <li>Semantic alignment failures are revision targets when a child-slice name, scope, included behavior, or rationale points at an unrelated domain or incidental source path.</li>
+        <li>A passing eval is not reusable after the queue artifact changes; the checker must require regeneration against the current queue fingerprint.</li>
         <li>Rows with severe uncertainty must remain non-terminal or carry a named human decision.</li>
         <li>Calibration against Sandia Oil is required before using the layer as a large-repo gate.</li>
       </ul>

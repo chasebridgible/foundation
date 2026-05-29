@@ -30,6 +30,7 @@ function renderSection(state) {
   <table class="status-table">
     <tbody>
       <tr><td>Queue</td><td><code>${state.queuePath}</code></td></tr>
+      <tr><td>Queue fingerprint</td><td><code>${state.queueFingerprint || "missing"}</code></td></tr>
       <tr><td>Capability rows</td><td>${state.capabilityCount}</td></tr>
       <tr><td>Needs-split capabilities</td><td>${state.needsSplitCount}</td></tr>
       <tr><td>Unresolved needs-split capabilities</td><td>${state.unresolvedNeedsSplitCount}</td></tr>
@@ -43,6 +44,8 @@ function renderSection(state) {
       <tr><td>Current slice</td><td>${state.currentSliceId ? `<code>${state.currentSliceId}</code>` : "none"}</td></tr>
       <tr><td>Checker result</td><td>${state.checkerResult}</td></tr>
       <tr><td>Eval result</td><td>${state.evalResult}${state.evalScore === null ? "" : `, score ${state.evalScore}`}</td></tr>
+      <tr><td>Eval queue freshness</td><td>${state.evalQueueFresh ? "current" : "stale or missing"}</td></tr>
+      <tr><td>Eval queue fingerprint</td><td><code>${state.evalQueueFingerprint || "missing"}</code></td></tr>
       <tr><td>Eval revision targets</td><td>${state.evalRevisionTargetCount}</td></tr>
       <tr><td>Eval warnings</td><td>${state.evalWarningCount}</td></tr>
       <tr><td>Eval blocking findings</td><td>${state.evalBlockingFindingCount}</td></tr>
