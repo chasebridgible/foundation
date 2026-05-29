@@ -332,6 +332,9 @@ function createAgentMarkedSurfaceRow(fileRow, spec) {
   const externalSystems = normalizeStringList(spec.externalSystems).length > 0
     ? normalizeStringList(spec.externalSystems)
     : (surfaceKind === "external-dependency" ? [exposedObject] : []);
+  if (hasGenericEvidenceDetail(spec.evidence)) {
+    throw new Error(`Surface spec for ${fileRow.path} requires concrete evidence naming handlers, resources, tables, commands, dependencies, rules, or spec sections`);
+  }
 
   return {
     schema: "foundation.backfill.surface-registry-row.v1",
@@ -348,9 +351,7 @@ function createAgentMarkedSurfaceRow(fileRow, spec) {
         fileId: fileRow.fileId,
         path: fileRow.path,
         relationship: "agent-read-full-file",
-        detail: isNonEmptyString(spec.evidence)
-          ? spec.evidence.trim()
-          : "Agent read the complete upstream file before marking this surface row.",
+        detail: spec.evidence.trim(),
         fullFileRead: true
       },
       ...asObjectArray(spec.evidenceRefs)
@@ -448,6 +449,13 @@ function readFileRegistryEvalSummary(repoRoot, runId, outDir = defaultBackfillDi
   return parsed.rows.find(row => row.receiptType === "summary") || null;
 }
 
+function readSurfaceEvalSummary(repoRoot, runId, outDir = defaultBackfillDir(repoRoot)) {
+  const receiptPath = surfaceEvalReceiptPathFor(repoRoot, runId, outDir);
+  if (!fs.existsSync(receiptPath)) return null;
+  const parsed = readJsonl(receiptPath);
+  return parsed.rows.find(row => row.receiptType === "summary") || null;
+}
+
 function validateFileRegistryHandoff(repoRoot, runId, outDir = defaultBackfillDir(repoRoot)) {
   const results = [];
   const registry = readFileRegistryRows(repoRoot, runId, outDir);
@@ -499,8 +507,19 @@ function hasGenericFullFileEvidence(row, fileRow = null) {
   return fullFileEvidenceRefs(row, fileRow).some(ref => {
     const detail = isNonEmptyString(ref.detail) ? ref.detail.trim() : "";
     return detail === "Agent read the complete upstream file before marking this surface row." ||
-      /^agent read the complete upstream file\b/i.test(detail);
+      /^agent read the complete upstream file\b/i.test(detail) ||
+      /^agent read the (full|complete) file\b/i.test(detail) ||
+      /^agent-read-the-file\b/i.test(detail);
   });
+}
+
+function hasGenericEvidenceDetail(detail) {
+  if (!isNonEmptyString(detail)) return true;
+  const value = detail.trim();
+  return value === "Agent read the complete upstream file before marking this surface row." ||
+    /^agent read the complete upstream file\b/i.test(value) ||
+    /^agent read the (full|complete) file\b/i.test(value) ||
+    /^agent-read-the-file\b/i.test(value);
 }
 
 function readRepoFileText(repoRoot, filePath) {
@@ -540,7 +559,7 @@ function cappedDetailList(field, values, limit = 25) {
   return details;
 }
 
-function surfaceQualityWarnings({ repoRoot, fileRows, rowsByUpstream }) {
+function surfaceQualityWarnings({ repoRoot, fileRows, rowsByUpstream, phase = "handoff" }) {
   const genericEvidenceRows = [];
   const routeOverMerge = [];
   const infraOverMerge = [];
@@ -584,7 +603,10 @@ function surfaceQualityWarnings({ repoRoot, fileRows, rowsByUpstream }) {
 
   const results = [];
   if (genericEvidenceRows.length > 0) {
-    results.push(warn("surface-evidence-specificity", "Some surface rows use generic full-file-read evidence; evidence should name concrete handlers, resources, tables, commands, dependencies, or rules.", cappedDetailList("rows", genericEvidenceRows)));
+    const message = "Some surface rows use generic full-file-read evidence; evidence must name concrete handlers, resources, tables, commands, dependencies, rules, or spec sections.";
+    results.push(phase === "handoff"
+      ? fail("surface-evidence-specificity", message, cappedDetailList("rows", genericEvidenceRows))
+      : warn("surface-evidence-specificity", message, cappedDetailList("rows", genericEvidenceRows)));
   }
   if (routeOverMerge.length > 0) {
     results.push(warn("surface-route-overmerge-heuristic", "Some route files appear to expose multiple handlers but have one route/API surface row.", cappedDetailList("files", routeOverMerge)));
@@ -734,7 +756,7 @@ function validateSurfaceRows({ repoRoot = null, fileRows, surfaceRows, phase = "
     results.push(warn("batch-pending-surfaces-allowed", `${pending.length} pending surface row(s) remain in batch phase`, { pendingCount: pending.length }));
   }
 
-  results.push(...surfaceQualityWarnings({ repoRoot, fileRows, rowsByUpstream }));
+  results.push(...surfaceQualityWarnings({ repoRoot, fileRows, rowsByUpstream, phase }));
 
   return results;
 }
@@ -762,17 +784,38 @@ function validateSurfaceReportState({ repoRoot, runId, outDir, reportPath, fileR
   const html = fs.readFileSync(reportPath, "utf8");
   const state = parseJsonScript(html, "backfill-surface-registry-state");
   if (!state) return [fail("surface-report-state", "Report is missing backfill-surface-registry-state JSON script")];
+  const evalSummary = readSurfaceEvalSummary(repoRoot, runId, outDir);
+  const evalRevisionTargetCount = Array.isArray(evalSummary?.revisionTargets) ? evalSummary.revisionTargets.length : 0;
+  const evalFindings = Array.isArray(evalSummary?.findings) ? evalSummary.findings : [];
+  const checkPath = surfaceCheckPathFor(repoRoot, runId, outDir);
+  const check = fs.existsSync(checkPath) ? readJson(checkPath) : null;
+  const checkerPass = check?.summary?.fail === 0;
+  const evalPass = Boolean(evalSummary?.acceptabilityGate?.acceptable);
+  const evalHandoffReady = evalPass && evalRevisionTargetCount === 0;
+  const pendingCount = surfaceRows.filter(row => row.status === "pending").length;
+  const needsEvidenceCount = surfaceRows.filter(row => row.status === "needs-evidence").length;
+  const blockingFlagCount = surfaceRows.filter(row => (row.reviewFlags || []).some(flag => flag.severity === "blocking")).length;
   const expected = {
     registryPath: path.relative(repoRoot, surfaceRegistryPathFor(repoRoot, runId, outDir)),
-    checkerPath: path.relative(repoRoot, surfaceCheckPathFor(repoRoot, runId, outDir)),
+    checkerPath: path.relative(repoRoot, checkPath),
+    checkerResult: checkerPass ? "pass" : "fail-or-missing",
     evalReceiptPath: path.relative(repoRoot, surfaceEvalReceiptPathFor(repoRoot, runId, outDir)),
     evalSummaryPath: path.relative(repoRoot, surfaceEvalSummaryPathFor(repoRoot, runId, outDir)),
+    evalResult: evalHandoffReady ? "pass" : (evalPass ? "pass-with-revisions" : "fail-or-missing"),
+    evalScore: evalSummary?.totalScore ?? null,
+    evalRevisionTargetCount,
+    evalWarningCount: evalFindings.filter(finding => finding?.severity === "warning").length,
+    evalBlockingFindingCount: evalFindings.filter(finding => finding?.severity === "blocking").length,
     eligibleFileCount: surfaceRegistryScopeCounts(fileRows).eligible.length,
     skippedFileCount: surfaceRegistryScopeCounts(fileRows).skipped.length,
-    pendingCount: surfaceRows.filter(row => row.status === "pending").length,
-    needsEvidenceCount: surfaceRows.filter(row => row.status === "needs-evidence").length,
+    pendingCount,
+    needsEvidenceCount,
     readyForCapabilityCount: surfaceRows.filter(row => row.status === "ready-for-capability").length,
-    supportCount: surfaceRows.filter(row => row.surfaceKind === "support-classification").length
+    supportCount: surfaceRows.filter(row => row.surfaceKind === "support-classification").length,
+    blockingFlagCount,
+    nextLayer: pendingCount === 0 && needsEvidenceCount === 0 && blockingFlagCount === 0 && checkerPass && evalHandoffReady
+      ? "capability matrix"
+      : "surface registry revision"
   };
   const drift = [];
   for (const [field, value] of Object.entries(expected)) {
@@ -875,8 +918,8 @@ function scoreSurfaceRow(row, fileById) {
     findings.push({ category: "evidenceTraceability", severity: "blocking", message: "Surface row was not marked with full-file-read evidence." });
     categoryScores.evidenceTraceability = 0;
   } else if (hasGenericFullFileEvidence(row, fileRow)) {
-    findings.push({ category: "evidenceTraceability", severity: "warning", message: "Full-file-read evidence is generic; name concrete handlers, resources, tables, commands, dependencies, or rules." });
-    categoryScores.evidenceTraceability = Math.min(categoryScores.evidenceTraceability, 18);
+    findings.push({ category: "evidenceTraceability", severity: "blocking", message: "Full-file-read evidence is generic; name concrete handlers, resources, tables, commands, dependencies, rules, or spec sections." });
+    categoryScores.evidenceTraceability = 0;
   }
   if (!isNonEmptyString(row.label) || row.label.length < 8 || row.label.includes("undefined")) {
     findings.push({ category: "specificity", severity: "blocking", message: "Surface label is too vague." });

@@ -41,7 +41,9 @@ Load only the context needed for the current step:
 5. Do not rely on generated capability files, all-file fill modes, or broad path/domain summaries. The fill command rejects those shortcuts.
 6. Run the batch checker often enough that missing formula fields, uncovered surfaces, stale upstream refs, and split issues are fixed before many more rows are marked.
 7. Repeat until every ready surface is owned by a `ready-for-queue` or `needs-split` capability row.
-8. Run handoff check, eval, and report once the layer is terminal.
+8. Run handoff check and eval once the layer is terminal.
+9. Revise every row named in eval `revisionTargets`; warnings are not handoff-ready.
+10. Rerun check and eval until `revisionTargets` is empty, then record report state.
 
 ## Capability JSON Shape
 

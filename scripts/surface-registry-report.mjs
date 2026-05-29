@@ -55,6 +55,12 @@ function buildState({ repoRoot, runId, outDir, runLogPath }) {
   const supportCount = registry.rows.filter(row => row.surfaceKind === "support-classification").length;
   const checkerPass = check?.summary?.fail === 0;
   const evalPass = Boolean(evalSummary?.acceptabilityGate?.acceptable);
+  const evalRevisionTargets = Array.isArray(evalSummary?.revisionTargets) ? evalSummary.revisionTargets : [];
+  const evalFindings = Array.isArray(evalSummary?.findings) ? evalSummary.findings : [];
+  const evalRevisionTargetCount = evalRevisionTargets.length;
+  const evalWarningCount = evalFindings.filter(finding => finding?.severity === "warning").length;
+  const evalBlockingFindingCount = evalFindings.filter(finding => finding?.severity === "blocking").length;
+  const evalHandoffReady = evalPass && evalRevisionTargetCount === 0;
 
   return {
     schema: "foundation.backfill.surface-registry-report-state.v1",
@@ -65,8 +71,11 @@ function buildState({ repoRoot, runId, outDir, runLogPath }) {
     checkerResult: checkerPass ? "pass" : "fail-or-missing",
     evalReceiptPath: path.relative(repoRoot, evalReceiptPath),
     evalSummaryPath: path.relative(repoRoot, surfaceEvalSummaryPathFor(repoRoot, runId, outDir)),
-    evalResult: evalPass ? "pass" : "fail-or-missing",
+    evalResult: evalHandoffReady ? "pass" : (evalPass ? "pass-with-revisions" : "fail-or-missing"),
     evalScore: evalSummary?.totalScore ?? null,
+    evalRevisionTargetCount,
+    evalWarningCount,
+    evalBlockingFindingCount,
     eligibleFileCount: scope.eligible.length,
     skippedFileCount: scope.skipped.length,
     pendingCount,
@@ -76,7 +85,7 @@ function buildState({ repoRoot, runId, outDir, runLogPath }) {
     supportCount,
     blockingFlagCount,
     latestRunLogSequence: latestRunLogSequence(runLogPath),
-    nextLayer: pendingCount === 0 && needsEvidenceCount === 0 && blockingFlagCount === 0 && checkerPass && evalPass
+    nextLayer: pendingCount === 0 && needsEvidenceCount === 0 && blockingFlagCount === 0 && checkerPass && evalHandoffReady
       ? "capability matrix"
       : "surface registry revision"
   };
@@ -98,6 +107,9 @@ function renderSection(state) {
       <tr><td>Blocking flags</td><td>${state.blockingFlagCount}</td></tr>
       <tr><td>Checker result</td><td>${state.checkerResult}</td></tr>
       <tr><td>Eval result</td><td>${state.evalResult}${state.evalScore === null ? "" : `, score ${state.evalScore}`}</td></tr>
+      <tr><td>Eval revision targets</td><td>${state.evalRevisionTargetCount}</td></tr>
+      <tr><td>Eval warnings</td><td>${state.evalWarningCount}</td></tr>
+      <tr><td>Eval blocking findings</td><td>${state.evalBlockingFindingCount}</td></tr>
       <tr><td>Eval receipt</td><td><code>${state.evalReceiptPath}</code></td></tr>
       <tr><td>Eval summary</td><td><code>${state.evalSummaryPath}</code></td></tr>
       <tr><td>Latest run-log sequence</td><td>${state.latestRunLogSequence ?? "not recorded"}</td></tr>

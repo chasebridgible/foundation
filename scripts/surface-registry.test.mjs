@@ -95,7 +95,7 @@ function supportSpec(filePath, reason = "Full-file review found no exposed or de
     consumerHints: ["developer"],
     supportReason: reason,
     confidence: "high",
-    evidence: "Agent read the full file and classified it as support for Surface Registry."
+    evidence: `Full ${filePath} read supports the support-classification because it exposes no capability-bearing route, screen, API, command, job, table, workflow, infra resource, or direct external dependency.`
   }];
 }
 
@@ -401,6 +401,44 @@ test("fill rejects generated surface files and batch shortcuts", () => {
   );
 });
 
+test("fill rejects missing or generic full-file evidence", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260527-01";
+  prepareFileRegistry(repoRoot, runId);
+  runNode(surfaceInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
+
+  assert.throws(
+    () => markSurface(repoRoot, runId, "scripts/deploy.mjs", [{
+      surfaceKind: "command",
+      label: "deploy command module",
+      exposedObject: "deploy",
+      operation: "executes deployment command behavior",
+      consumerHints: ["developer", "operator"],
+      confidence: "high"
+    }]),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /requires concrete evidence/);
+      return true;
+    }
+  );
+
+  assert.throws(
+    () => markSurface(repoRoot, runId, "scripts/deploy.mjs", [{
+      surfaceKind: "command",
+      label: "deploy command module",
+      exposedObject: "deploy",
+      operation: "executes deployment command behavior",
+      consumerHints: ["developer", "operator"],
+      confidence: "high",
+      evidence: "Agent read the complete upstream file before marking this surface row."
+    }]),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /requires concrete evidence/);
+      return true;
+    }
+  );
+});
+
 test("checker rejects rows attached to out-of-scope upstream files", () => {
   const repoRoot = makeRepo();
   const runId = "20260527-01";
@@ -434,7 +472,7 @@ test("checker rejects rows attached to out-of-scope upstream files", () => {
   assert.equal(hasFailure(results, "surface-scope-eligible"), true);
 });
 
-test("checker warns for generic evidence and likely over-merged route or Terraform files", () => {
+test("checker rejects generic evidence at handoff and warns during batch", () => {
   const repoRoot = makeRepo();
   const runId = "20260527-01";
   fs.mkdirSync(path.join(repoRoot, "infrastructure", "applications", "ecs"), { recursive: true });
@@ -470,7 +508,8 @@ resource "aws_ecs_service" "api" {
         exposedObject: "/alpha and /beta",
         operation: "handles alpha and beta route handlers",
         consumerHints: ["client"],
-        confidence: "medium"
+        confidence: "medium",
+        evidence: "Full multi.ts read shows fastify.get('/alpha') and fastify.post('/beta') route handlers."
       }]);
     } else if (filePath === "infrastructure/applications/ecs/main.tf") {
       markSurface(repoRoot, runId, filePath, [{
@@ -486,14 +525,30 @@ resource "aws_ecs_service" "api" {
       markSurface(repoRoot, runId, filePath, surfaceSpecsForPath(filePath));
     }
   }
+  const surfacePath = surfaceRegistryPathFor(repoRoot, runId);
+  const surfaces = readJsonl(surfacePath).rows.map(row => {
+    if (row.upstreamPaths.includes("web-app/backend/src/routes/multi.ts")) {
+      return {
+        ...row,
+        evidenceRefs: row.evidenceRefs.map(ref => ref.relationship === "agent-read-full-file"
+          ? { ...ref, detail: "Agent read the complete upstream file before marking this surface row." }
+          : ref)
+      };
+    }
+    return row;
+  });
+  writeJsonl(surfacePath, surfaces);
 
   const results = validateSurfaceRegistry({ repoRoot, runId, phase: "batch" }).results;
   assert.equal(hasWarning(results, "surface-evidence-specificity"), true);
   assert.equal(hasWarning(results, "surface-route-overmerge-heuristic"), true);
   assert.equal(hasWarning(results, "surface-infra-overmerge-heuristic"), true);
+
+  const handoff = validateSurfaceRegistry({ repoRoot, runId, phase: "handoff" }).results;
+  assert.equal(hasFailure(handoff, "surface-evidence-specificity"), true);
 });
 
-test("eval flags generic evidence and exposed internal service classification as warnings", () => {
+test("eval blocks generic evidence and warns for exposed internal service classification", () => {
   const fileRow = {
     fileId: "file:service",
     path: "web-app/backend/src/services/bedrock.ts",
@@ -522,9 +577,9 @@ test("eval flags generic evidence and exposed internal service classification as
   };
 
   const receipt = scoreSurfaceRow(row, new Map([[fileRow.fileId, fileRow]]));
-  assert.equal(receipt.findings.some(finding => finding.severity === "warning" && finding.category === "evidenceTraceability"), true);
+  assert.equal(receipt.findings.some(finding => finding.severity === "blocking" && finding.category === "evidenceTraceability"), true);
   assert.equal(receipt.findings.some(finding => finding.severity === "warning" && finding.category === "kindAndBoundary"), true);
-  assert.equal(receipt.acceptabilityGate.acceptable, true);
+  assert.equal(receipt.acceptabilityGate.acceptable, false);
 });
 
 test("eval writes canonical JSONL receipts and derived HTML summary", () => {
@@ -580,6 +635,33 @@ test("report command records handoff state and checker can detect report drift",
   fs.writeFileSync(reportPath, drifted, "utf8");
   const drift = validateSurfaceRegistry({ repoRoot, runId, reportPath }).results;
   assert.equal(hasFailure(drift, "surface-report-state-current"), true);
+});
+
+test("report keeps Surface Registry in revision when eval revision targets remain", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260527-01";
+  prepareSurfaceRegistry(repoRoot, runId);
+  runNode(surfaceCheckScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
+  runNode(surfaceEvalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
+
+  const receiptPath = surfaceEvalReceiptPathFor(repoRoot, runId);
+  const receipts = readJsonl(receiptPath).rows;
+  receipts[0] = {
+    ...receipts[0],
+    findings: [{
+      category: "evidenceTraceability",
+      severity: "warning",
+      message: "Fixture warning requiring revision.",
+      subjectRowId: "surface:fixture"
+    }],
+    revisionTargets: ["surface:fixture"]
+  };
+  writeJsonl(receiptPath, receipts);
+
+  const report = JSON.parse(runNode(surfaceReportScript, ["--repo", repoRoot, "--run-id", runId], repoRoot));
+  assert.equal(report.state.evalResult, "pass-with-revisions");
+  assert.equal(report.state.evalRevisionTargetCount, 1);
+  assert.equal(report.state.nextLayer, "surface registry revision");
 });
 
 test("surface check command writes check artifact", () => {

@@ -193,12 +193,12 @@
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>all ready Surface Registry rows are capability-owned, broad rows are flagged for split, checker passes, eval receipt and HTML summary exist, and report names next layer as Split And Queue.</p>
+      <p>all ready Surface Registry rows are capability-owned, broad rows are flagged for split, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Split And Queue.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
         <li>All rows are in valid terminal states: <code>ready-for-queue</code> or <code>needs-split</code>.</li>
         <li>Checker passes for structure, references, currentness, and required fields.</li>
-        <li>Eval JSONL and HTML summary exist.</li>
+        <li>Eval JSONL and HTML summary exist and list zero revision targets.</li>
         <li>Active report records counts, artifact paths, checker/eval status, run-log sequence, embedded <code>backfill-capability-matrix</code> JSON, and next layer.</li>
       </ul>
     </section>
