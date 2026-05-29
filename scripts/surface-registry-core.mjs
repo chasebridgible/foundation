@@ -488,6 +488,113 @@ function rowHasBlockingFlag(row) {
   return Array.isArray(row.reviewFlags) && row.reviewFlags.some(flag => flag.severity === "blocking");
 }
 
+function fullFileEvidenceRefs(row, fileRow = null) {
+  return (row.evidenceRefs || []).filter(ref => (
+    ref?.relationship === "agent-read-full-file" &&
+    (!fileRow || ref.fileId === fileRow.fileId)
+  ));
+}
+
+function hasGenericFullFileEvidence(row, fileRow = null) {
+  return fullFileEvidenceRefs(row, fileRow).some(ref => {
+    const detail = isNonEmptyString(ref.detail) ? ref.detail.trim() : "";
+    return detail === "Agent read the complete upstream file before marking this surface row." ||
+      /^agent read the complete upstream file\b/i.test(detail);
+  });
+}
+
+function readRepoFileText(repoRoot, filePath) {
+  if (!repoRoot || !isNonEmptyString(filePath)) return "";
+  try {
+    return fs.readFileSync(path.join(repoRoot, filePath), "utf8");
+  } catch {
+    return "";
+  }
+}
+
+function countRouteBoundaries(source) {
+  if (!isNonEmptyString(source)) return 0;
+  const patterns = [
+    /\b(?:fastify|server|app|router)\s*\.\s*(?:get|post|put|patch|delete|options|head|all)\s*(?:<[^>]+>)?\s*\(/g,
+    /\b(?:fastify|server|app|router)\s*\.\s*route\s*(?:<[^>]+>)?\s*\(/g,
+    /\bexport\s+async\s+function\s+(?:GET|POST|PUT|PATCH|DELETE|OPTIONS|HEAD)\s*\(/g
+  ];
+  return patterns.reduce((count, pattern) => count + [...source.matchAll(pattern)].length, 0);
+}
+
+function terraformResourceBlocks(source) {
+  if (!isNonEmptyString(source)) return [];
+  return [...source.matchAll(/(?:^|\n)\s*resource\s+"([^"]+)"\s+"([^"]+)"/g)]
+    .map(match => ({ type: match[1], name: match[2] }));
+}
+
+function isRouteFileRow(fileRow) {
+  const filePath = normalizeRepoPathForScope(fileRow?.path).toLowerCase();
+  return fileRow?.kind === "route" || /(^|\/)routes?\//.test(filePath);
+}
+
+function cappedDetailList(field, values, limit = 25) {
+  const capped = values.slice(0, limit);
+  const details = { [field]: capped, totalCount: values.length };
+  if (values.length > limit) details.omittedCount = values.length - limit;
+  return details;
+}
+
+function surfaceQualityWarnings({ repoRoot, fileRows, rowsByUpstream }) {
+  const genericEvidenceRows = [];
+  const routeOverMerge = [];
+  const infraOverMerge = [];
+
+  for (const fileRow of fileRows.filter(isSurfaceRegistryEligibleRow)) {
+    const attached = rowsByUpstream.get(fileRow.fileId) || [];
+    if (attached.length === 0) continue;
+
+    for (const row of attached) {
+      if (row.status !== "pending" && hasGenericFullFileEvidence(row, fileRow)) {
+        genericEvidenceRows.push({
+          surfaceId: row.surfaceId,
+          path: fileRow.path,
+          label: row.label
+        });
+      }
+    }
+
+    const source = readRepoFileText(repoRoot, fileRow.path);
+    if (isRouteFileRow(fileRow)) {
+      const handlerCount = countRouteBoundaries(source);
+      const routeSurfaceCount = attached.filter(row => ["api", "route"].includes(row.surfaceKind)).length;
+      if (handlerCount > 1 && routeSurfaceCount <= 1) {
+        routeOverMerge.push({ path: fileRow.path, handlerCount, routeSurfaceCount });
+      }
+    }
+
+    const normalizedPath = normalizeRepoPathForScope(fileRow.path).toLowerCase();
+    if (normalizedPath.endsWith(".tf")) {
+      const resourceBlocks = terraformResourceBlocks(source);
+      const infraSurfaceCount = attached.filter(row => row.surfaceKind === "infra-resource").length;
+      if (resourceBlocks.length > 1 && infraSurfaceCount <= 1) {
+        infraOverMerge.push({
+          path: fileRow.path,
+          resourceCount: resourceBlocks.length,
+          resourceTypes: [...new Set(resourceBlocks.map(block => block.type))]
+        });
+      }
+    }
+  }
+
+  const results = [];
+  if (genericEvidenceRows.length > 0) {
+    results.push(warn("surface-evidence-specificity", "Some surface rows use generic full-file-read evidence; evidence should name concrete handlers, resources, tables, commands, dependencies, or rules.", cappedDetailList("rows", genericEvidenceRows)));
+  }
+  if (routeOverMerge.length > 0) {
+    results.push(warn("surface-route-overmerge-heuristic", "Some route files appear to expose multiple handlers but have one route/API surface row.", cappedDetailList("files", routeOverMerge)));
+  }
+  if (infraOverMerge.length > 0) {
+    results.push(warn("surface-infra-overmerge-heuristic", "Some Terraform files appear to define multiple resource blocks but have one infra-resource surface row.", cappedDetailList("files", infraOverMerge)));
+  }
+  return results;
+}
+
 function validateSurfaceRowShape(row, prefix, results) {
   if (row?.schema !== "foundation.backfill.surface-registry-row.v1") {
     results.push(fail(`${prefix}:schema`, "Surface row schema is invalid", { schema: row?.schema }));
@@ -551,7 +658,7 @@ function validateUnique(rows, field, label) {
     : fail(`${label}-${field}-unique`, `${label} ${field} values must be unique`, { duplicates });
 }
 
-function validateSurfaceRows({ fileRows, surfaceRows, phase = "handoff" }) {
+function validateSurfaceRows({ repoRoot = null, fileRows, surfaceRows, phase = "handoff" }) {
   const results = [];
   const fileById = new Map(fileRows.map(row => [row.fileId, row]));
   const rowsByUpstream = new Map();
@@ -627,6 +734,8 @@ function validateSurfaceRows({ fileRows, surfaceRows, phase = "handoff" }) {
     results.push(warn("batch-pending-surfaces-allowed", `${pending.length} pending surface row(s) remain in batch phase`, { pendingCount: pending.length }));
   }
 
+  results.push(...surfaceQualityWarnings({ repoRoot, fileRows, rowsByUpstream }));
+
   return results;
 }
 
@@ -695,7 +804,7 @@ function validateSurfaceRegistry({ repoRoot, runId, outDir = defaultBackfillDir(
     return { registryPath: surfacePath, fileRows: upstream.registry.rows, surfaceRows: parsed.rows, results };
   }
   results.push(pass("surface-jsonl", "Every surface registry line parses as JSON"));
-  results.push(...validateSurfaceRows({ fileRows: upstream.registry.rows, surfaceRows: parsed.rows, phase }));
+  results.push(...validateSurfaceRows({ repoRoot, fileRows: upstream.registry.rows, surfaceRows: parsed.rows, phase }));
   results.push(...validateSurfaceReportState({ repoRoot, runId, outDir, reportPath, fileRows: upstream.registry.rows, surfaceRows: parsed.rows }));
   return {
     registryPath: surfacePath,
@@ -765,6 +874,9 @@ function scoreSurfaceRow(row, fileById) {
   } else if (!row.evidenceRefs.some(ref => ref?.relationship === "agent-read-full-file" && ref?.fileId === fileRow.fileId)) {
     findings.push({ category: "evidenceTraceability", severity: "blocking", message: "Surface row was not marked with full-file-read evidence." });
     categoryScores.evidenceTraceability = 0;
+  } else if (hasGenericFullFileEvidence(row, fileRow)) {
+    findings.push({ category: "evidenceTraceability", severity: "warning", message: "Full-file-read evidence is generic; name concrete handlers, resources, tables, commands, dependencies, or rules." });
+    categoryScores.evidenceTraceability = Math.min(categoryScores.evidenceTraceability, 18);
   }
   if (!isNonEmptyString(row.label) || row.label.length < 8 || row.label.includes("undefined")) {
     findings.push({ category: "specificity", severity: "blocking", message: "Surface label is too vague." });
@@ -781,6 +893,17 @@ function scoreSurfaceRow(row, fileById) {
   if (row.upstreamFileIds?.length > 5) {
     findings.push({ category: "kindAndBoundary", severity: "warning", message: "Surface row may be over-merged across too many upstream files." });
     categoryScores.kindAndBoundary = Math.min(categoryScores.kindAndBoundary, 12);
+  }
+  const filePath = normalizeRepoPathForScope(fileRow?.path).toLowerCase();
+  const serviceText = `${row.label || ""} ${row.exposedObject || ""} ${row.operation || ""}`;
+  if (
+    filePath.includes("/services/") &&
+    row.surfaceKind === "api" &&
+    row.sourceCategory === "exposed" &&
+    !/\b(client|tool|plugin|sdk)\b/i.test(serviceText)
+  ) {
+    findings.push({ category: "kindAndBoundary", severity: "warning", message: "Internal service module is marked as exposed API; verify it is not dormant, legacy, helper, or only route-internal support." });
+    categoryScores.kindAndBoundary = Math.min(categoryScores.kindAndBoundary, 18);
   }
   if (row.status === "pending" || row.status === "needs-evidence" || rowHasBlockingFlag(row)) {
     findings.push({ category: "revisionState", severity: "blocking", message: "Surface row is not in terminal handoff state." });

@@ -8,6 +8,7 @@ import {
   defaultBackfillDir,
   readJson,
   readJsonl,
+  scoreSurfaceRow,
   surfaceCheckPathFor,
   surfaceEvalReceiptPathFor,
   surfaceEvalSummaryPathFor,
@@ -232,6 +233,10 @@ function hasFailure(results, id) {
   return results.some(result => result.id === id && result.status === "fail");
 }
 
+function hasWarning(results, id) {
+  return results.some(result => result.id === id && result.status === "warn");
+}
+
 test("init requires passing File Registry handoff and creates pending surface rows", () => {
   const repoRoot = makeRepo();
   const runId = "20260527-01";
@@ -427,6 +432,99 @@ test("checker rejects rows attached to out-of-scope upstream files", () => {
 
   const results = validateSurfaceRegistry({ repoRoot, runId }).results;
   assert.equal(hasFailure(results, "surface-scope-eligible"), true);
+});
+
+test("checker warns for generic evidence and likely over-merged route or Terraform files", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260527-01";
+  fs.mkdirSync(path.join(repoRoot, "infrastructure", "applications", "ecs"), { recursive: true });
+  fs.writeFileSync(path.join(repoRoot, "web-app", "backend", "src", "routes", "multi.ts"), `
+export async function multiRoutes(fastify) {
+  fastify.get("/alpha", async () => ({ ok: true }));
+  fastify.post("/beta", async () => ({ ok: true }));
+}
+`, "utf8");
+  fs.writeFileSync(path.join(repoRoot, "infrastructure", "applications", "ecs", "main.tf"), `
+resource "aws_ecs_cluster" "main" {
+  name = "test"
+}
+
+resource "aws_ecs_task_definition" "api" {
+  family = "api"
+}
+
+resource "aws_ecs_service" "api" {
+  name = "api"
+}
+`, "utf8");
+  execFileSync("git", ["add", "."], { cwd: repoRoot });
+
+  prepareFileRegistry(repoRoot, runId);
+  runNode(surfaceInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
+  const pendingPaths = [...new Set(readJsonl(surfaceRegistryPathFor(repoRoot, runId)).rows.map(row => row.upstreamPaths[0]))];
+  for (const filePath of pendingPaths) {
+    if (filePath === "web-app/backend/src/routes/multi.ts") {
+      markSurface(repoRoot, runId, filePath, [{
+        surfaceKind: "api",
+        label: "multi route family API",
+        exposedObject: "/alpha and /beta",
+        operation: "handles alpha and beta route handlers",
+        consumerHints: ["client"],
+        confidence: "medium"
+      }]);
+    } else if (filePath === "infrastructure/applications/ecs/main.tf") {
+      markSurface(repoRoot, runId, filePath, [{
+        surfaceKind: "infra-resource",
+        label: "ECS application infrastructure",
+        exposedObject: "ecs application resources",
+        operation: "creates ECS cluster, task definition, and service",
+        consumerHints: ["operator"],
+        confidence: "medium",
+        evidence: "Full Terraform read shows ECS cluster, task definition, and service resources."
+      }]);
+    } else {
+      markSurface(repoRoot, runId, filePath, surfaceSpecsForPath(filePath));
+    }
+  }
+
+  const results = validateSurfaceRegistry({ repoRoot, runId, phase: "batch" }).results;
+  assert.equal(hasWarning(results, "surface-evidence-specificity"), true);
+  assert.equal(hasWarning(results, "surface-route-overmerge-heuristic"), true);
+  assert.equal(hasWarning(results, "surface-infra-overmerge-heuristic"), true);
+});
+
+test("eval flags generic evidence and exposed internal service classification as warnings", () => {
+  const fileRow = {
+    fileId: "file:service",
+    path: "web-app/backend/src/services/bedrock.ts",
+    kind: "service"
+  };
+  const row = {
+    surfaceId: "surface:service",
+    surfaceKind: "api",
+    sourceCategory: "exposed",
+    label: "Bedrock SQL generation service",
+    upstreamFileIds: [fileRow.fileId],
+    upstreamPaths: [fileRow.path],
+    evidenceRefs: [{
+      fileId: fileRow.fileId,
+      path: fileRow.path,
+      relationship: "agent-read-full-file",
+      detail: "Agent read the complete upstream file before marking this surface row.",
+      fullFileRead: true
+    }],
+    exposedObject: "generateSQL and formatResponse",
+    operation: "invokes Bedrock to generate SQL and format results",
+    supportReason: "",
+    reviewFlags: [],
+    status: "ready-for-capability",
+    confidence: "medium"
+  };
+
+  const receipt = scoreSurfaceRow(row, new Map([[fileRow.fileId, fileRow]]));
+  assert.equal(receipt.findings.some(finding => finding.severity === "warning" && finding.category === "evidenceTraceability"), true);
+  assert.equal(receipt.findings.some(finding => finding.severity === "warning" && finding.category === "kindAndBoundary"), true);
+  assert.equal(receipt.acceptabilityGate.acceptable, true);
 });
 
 test("eval writes canonical JSONL receipts and derived HTML summary", () => {
