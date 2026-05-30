@@ -7,13 +7,13 @@
 <meta name="spec:type" content="test">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
-<title>Foundation Backfill Evidence Pack Test Spec</title>
+<title>Foundation Backfill Context Pack Test Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-evidence-pack.test",
-  "title": "Foundation Backfill Evidence Pack Test Spec",
+  "title": "Foundation Backfill Context Pack Test Spec",
   "type": "test",
   "status": "active",
   "lastUpdated": "2026-05-29",
@@ -83,7 +83,7 @@
       "path": "foundation/scripts/evidence-pack.test.mjs",
       "kind": "test",
       "ownership": "direct",
-      "notes": "Executable test coverage for the Evidence Pack acceptance map."
+      "notes": "Executable test coverage for the Context Pack acceptance map."
     },
     {
       "path": "foundation/scripts/evidence-pack-core.mjs",
@@ -102,7 +102,7 @@
         "foundation.backfill-evidence-pack.test#acceptance-mapping",
         "foundation.backfill-evidence-pack.test#eval-contract"
       ],
-      "evidence": "Evidence Pack tests cover artifact creation, upstream reference resolution, valid states, structural drift failures, weak semantic eval findings, explicit handoff state, eval freshness, refresh invalidation, and report drift."
+      "evidence": "Context Pack tests cover artifact creation, upstream reference resolution, valid states, structural drift failures, weak semantic eval findings, explicit handoff state, eval freshness, refresh invalidation, and report drift."
     }
   ],
   "tags": [
@@ -120,7 +120,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">V</div>
     <div>
-      <div class="sidebar-title">Foundation Backfill Evidence Pack Test Spec</div>
+      <div class="sidebar-title">Foundation Backfill Context Pack Test Spec</div>
       <div class="sidebar-sub">test spec</div>
     </div>
   </div>
@@ -137,8 +137,8 @@
 <main class="main">
   <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-evidence-pack-test.html</div>
-    <h1>Foundation Backfill Evidence Pack Test Spec</h1>
-    <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Evidence Pack can hand off safely.</p>
+    <h1>Foundation Backfill Context Pack Test Spec</h1>
+    <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Context Pack can hand off safely.</p>
     <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-evidence-pack.descriptive</div></div>
     <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through eval receipts, and the HTML summary is a derived review surface.</p>
   </section>
@@ -148,11 +148,11 @@
       <h2>Acceptance mapping</h2>
       <table class="status-table"><thead><tr><th>ID</th><th>Condition</th><th>Must prove</th></tr></thead><tbody>
         <tr><td>AC-1</td><td>Canonical artifacts exist.</td><td>evidence-pack-YYYYMMDD-NN.jsonl, evidence-pack-eval-YYYYMMDD-NN.jsonl exist and share the active run ID.</td></tr>
-        <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites valid upstream IDs from Split And Queue or records a blocker.</td></tr>
-        <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, packed, needs-evidence, ready-for-flow; needs-evidence handoff rows require explicit blocker detail.</td></tr>
+        <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites valid upstream IDs from Define Spec Jobs or records a blocker.</td></tr>
+        <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, packed, needs-evidence, ready-for-process-map; needs-evidence handoff rows require explicit blocker detail.</td></tr>
         <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, generic full-file evidence, stale checker artifacts, stale eval receipts, and report drift fail.</td></tr>
         <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, generic, oversized, or under-evidenced rows produce revision targets.</td></tr>
-        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>each active queued slice has a bounded evidence pack or explicit blocker; checker artifact passes for the current pack fingerprint; eval receipt and HTML summary exist for the current pack fingerprint; revision targets are zero; report names next layer as Flow Extraction.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>each active queued slice has a bounded Context Pack or explicit blocker; checker artifact passes for the current pack fingerprint; eval receipt and HTML summary exist for the current pack fingerprint; revision targets are zero; report names next layer as Process / Action Map.</td></tr>
       </tbody></table>
     </section>
 
@@ -160,7 +160,7 @@
       <h2>Coverage plan</h2>
       <table class="status-table"><thead><tr><th>ID</th><th>Level</th><th>Signal</th><th>Status</th></tr></thead><tbody>
         <tr><td>T-1</td><td>unit</td><td>Schema, enum, duplicate, specificity, freshness, and reference fixtures for the checker.</td><td>existing</td></tr>
-        <tr><td>T-2</td><td>integration</td><td>Previous layer handoff consumed by this layer and this layer handoff recorded for Flow Extraction.</td><td>existing</td></tr>
+        <tr><td>T-2</td><td>integration</td><td>Previous layer handoff consumed by this layer and this layer handoff recorded for Process / Action Map.</td><td>existing</td></tr>
         <tr><td>T-3</td><td>unit</td><td>Risk-based semantic eval sample with canonical JSONL receipt and HTML summary.</td><td>existing</td></tr>
         <tr><td>T-4</td><td>manual</td><td>Sandia Oil calibration run before larger repo use.</td><td>planned</td></tr>
       </tbody></table>
@@ -168,7 +168,7 @@
 
     <section id="eval-contract" data-spec-section="eval-contract" data-section-type="eval-contract">
       <h2>Eval contract</h2>
-      <p>samples packs against queue slices to judge whether necessary files or surfaces were omitted, irrelevant evidence is bloating context, evidence is generic or full-file, or the pack cannot support flow extraction and later spec authoring. The canonical output is JSONL with one receipt per evaluated row or finding and the current pack fingerprint. The HTML summary is generated from JSONL so humans can read counts, failures, revision targets, and examples.</p>
+      <p>samples packs against queue slices to judge whether necessary files or surfaces were omitted, irrelevant evidence is bloating context, evidence is generic or full-file, or the pack cannot support Process / Action Map and later Author Specs. The canonical output is JSONL with one receipt per evaluated row or finding and the current pack fingerprint. The HTML summary is generated from JSONL so humans can read counts, failures, revision targets, and examples.</p>
       <ul>
         <li>Every blocking finding names the row ID, evidence source, failure category, and revision target.</li>
         <li>Every warning becomes a revision target; report handoff requires zero revision targets.</li>
@@ -186,7 +186,7 @@
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Evidence Pack Test Spec · active</p>
+  <p class="footer-note">Foundation Backfill Context Pack Test Spec · active</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

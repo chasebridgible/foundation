@@ -1,11 +1,11 @@
 ---
 name: file-registry-fill-loop
-description: Fill or resume the Foundation File Registry layer for a target repo by reading the active report, manifest, registry, run log, and source files; mapping bounded pending batches; running deterministic checks; and producing eval receipts before handoff.
+description: Fill or resume the Foundation Artifact Inventory layer for a target repo by reading the active report, manifest, legacy file-registry artifact, run log, and source files; mapping bounded pending batches; running deterministic checks; and producing eval receipts before handoff.
 ---
 
-# File Registry Fill Loop
+# Artifact Inventory Fill Loop
 
-Use this skill when a target repo is creating, refreshing, or resuming a Foundation file registry.
+Use this skill when a target repo is creating, refreshing, or resuming a Foundation Artifact Inventory. Legacy file names, spec IDs, and commands still use `file-registry`.
 
 ## Source Of Truth
 
@@ -20,14 +20,16 @@ Read these before changing rows:
 
 ## Commands
 
-- Initialize: `npm run foundation:file-registry:init -- --repo <repo> --run-id <run-id>`
-- Fill a bounded batch: `npm run foundation:file-registry:fill -- --repo <repo> --run-id <run-id> --batch-size 25`
-- Check during a batch: `npm run foundation:file-registry:check -- --repo <repo> --run-id <run-id> --phase batch`
-- Check handoff: `npm run foundation:file-registry:check -- --repo <repo> --run-id <run-id> --phase handoff`
-- Evaluate: `npm run foundation:file-registry:eval -- --repo <repo> --run-id <run-id>`
-- Graph check when specs/capabilities exist: `npm run foundation:file-registry:graph-check -- --repo <repo> --run-id <run-id> --mode strict`
-- Refresh changed files: `npm run foundation:file-registry:refresh -- --repo <repo> --run-id <run-id>`
-- Record report state: `npm run foundation:file-registry:report -- --repo <repo> --run-id <run-id> --report <active-report>`
+- Initialize: `npm run foundation:artifact-inventory:init -- --repo <repo> --run-id <run-id>`
+- Fill a bounded batch: `npm run foundation:artifact-inventory:fill -- --repo <repo> --run-id <run-id> --batch-size 25`
+- Check during a batch: `npm run foundation:artifact-inventory:check -- --repo <repo> --run-id <run-id> --phase batch`
+- Check handoff: `npm run foundation:artifact-inventory:check -- --repo <repo> --run-id <run-id> --phase handoff`
+- Evaluate: `npm run foundation:artifact-inventory:eval -- --repo <repo> --run-id <run-id>`
+- Graph check when specs/capabilities exist: `npm run foundation:artifact-inventory:graph-check -- --repo <repo> --run-id <run-id> --mode strict`
+- Refresh changed files: `npm run foundation:artifact-inventory:refresh -- --repo <repo> --run-id <run-id>`
+- Record report state: `npm run foundation:artifact-inventory:report -- --repo <repo> --run-id <run-id> --report <active-report>`
+
+The older `foundation:file-registry:*` commands remain valid aliases for compatibility.
 
 ## Loop
 

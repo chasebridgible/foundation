@@ -178,7 +178,7 @@ test("report command records registry handoff state", () => {
   assert.equal(report.state.pendingCount, 0);
   assert.equal(report.state.checkerResult, "pass");
   assert.equal(report.state.evalResult, "pass");
-  assert.equal(report.state.nextLayer, "surface registry");
+  assert.equal(report.state.nextLayer, "Surface / Function Map");
   assert.equal(fs.existsSync(path.join(repoRoot, report.reportPath)), true);
 });
 

@@ -7,13 +7,13 @@
 <meta name="spec:type" content="descriptive">
 <meta name="spec:status" content="draft">
 <meta name="spec:last-updated" content="2026-05-26">
-<title>Foundation Backfill User Operator Flow Extraction</title>
+<title>Foundation Backfill Process / Action Map</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-flow-extraction.descriptive",
-  "title": "Foundation Backfill User Operator Flow Extraction",
+  "title": "Foundation Backfill Process / Action Map",
   "type": "descriptive",
   "status": "draft",
   "lastUpdated": "2026-05-26",
@@ -97,7 +97,7 @@
       "mapsTo": [
         "foundation.backfill-flow-extraction.descriptive#handoff-gate"
       ],
-      "evidence": "Planned Foundation Backfill User Operator Flow Extraction descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+      "evidence": "Planned Foundation Backfill Process / Action Map descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
     }
   ],
   "tags": [
@@ -115,7 +115,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">D</div>
     <div>
-      <div class="sidebar-title">Foundation Backfill User Operator Flow Extraction</div>
+      <div class="sidebar-title">Foundation Backfill Process / Action Map</div>
       <div class="sidebar-sub">descriptive spec</div>
     </div>
   </div>
@@ -133,9 +133,9 @@
 <main class="main">
   <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-flow-extraction.html</div>
-    <h1>Foundation Backfill User Operator Flow Extraction</h1>
-    <p class="lede">User/Operator Flow Extraction turns evidence packs into concrete flows, states, permissions, rules, empty/loading/error states, recovery behavior, and visible or operator behavior. This layer answers: <strong>What visible user/operator behavior, states, rules, and edge cases must specs preserve?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Evidence Pack</div><div><strong>Next:</strong> Spec Authoring</div></div>
+    <h1>Foundation Backfill Process / Action Map</h1>
+    <p class="lede">Process / Action Map turns Context Packs into concrete actor processes, actions, states, permissions, rules, empty/loading/error states, recovery behavior, and visible or operator behavior. This layer answers: <strong>What behavior, states, rules, and edge cases must specs preserve?</strong></p>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Context Pack</div><div><strong>Next:</strong> Author Specs</div></div>
     <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
@@ -147,22 +147,22 @@
         <tr><td>Canonical artifacts</td><td><ul><li><code>flow-extraction-YYYYMMDD-NN.jsonl</code></li>
 <li><code>flow-extraction-eval-YYYYMMDD-NN.jsonl</code></li></ul></td></tr>
         <tr><td>Derived artifacts</td><td><ul><li><code>flow-extraction-summary-YYYYMMDD-NN.html</code></li>
-<li><code>flow maps</code></li>
+<li><code>process/action maps</code></li>
 <li><code>state tables</code></li></ul></td></tr>
         <tr><td>State model</td><td><ul><li><code>pending</code></li>
 <li><code>extracted</code></li>
 <li><code>needs-evidence</code></li>
 <li><code>ready-for-specs</code></li></ul></td></tr>
-        <tr><td>Core row</td><td>flow row with stable row ID, run ID, upstream row IDs, evidence links, status, confidence, review flags, checker result, and eval result.</td></tr>
+        <tr><td>Core row</td><td>process/action row with stable row ID, run ID, upstream row IDs, evidence links, status, confidence, review flags, checker result, and eval result.</td></tr>
       </tbody></table>
     </section>
 
     <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
       <h2>Small-loop journey</h2>
       <ol>
-        <li><strong>Initialize:</strong> create the canonical Foundation Backfill User Operator Flow Extraction artifact from Evidence Pack handoff output.</li>
+        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Process / Action Map artifact from Context Pack handoff output.</li>
         <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
-        <li><strong>Fill:</strong> agent extracts entry points, actors, goals, ordered steps, state transitions, permissions, validations, empty/loading/error states, recovery paths, and unresolved intent questions from each evidence pack.</li>
+        <li><strong>Fill:</strong> agent extracts entry points, actors, goals, ordered steps, state transitions, permissions, validations, empty/loading/error states, recovery paths, and unresolved intent questions from each Context Pack.</li>
         <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
         <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>
         <li><strong>Revise:</strong> route failed rows back to the fill loop with row IDs and findings.</li>
@@ -173,15 +173,15 @@
     <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
       <h2>Checker and eval contract</h2>
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
-        <tr><td>Checker</td><td>validates every user-facing or operator-facing queued slice has flow rows or explicit non-UI/operator classification; validates flow rows link back to evidence packs and capability IDs.</td></tr>
-        <tr><td>Eval receipt</td><td>samples flows against evidence packs to detect missing states, hidden permissions, unmodeled errors, architecture leakage, and under-described visible behavior. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
-        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected registry is created; it is used to catch obvious misses while context is tractable.</td></tr>
+        <tr><td>Checker</td><td>validates every user-facing or operator-facing queued slice has process/action rows or explicit non-UI/operator classification; validates process/action rows link back to Context Packs and capability IDs.</td></tr>
+        <tr><td>Eval receipt</td><td>samples process/action rows against Context Packs to detect missing states, hidden permissions, unmodeled errors, architecture leakage, and under-described visible behavior. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
+        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
     </section>
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>all queued slices that need flow material have acceptable flow rows; checker passes; eval receipt and HTML summary exist; report names next layer as Spec Authoring.</p>
+      <p>all queued slices that need process/action detail have acceptable process/action rows; checker passes; eval receipt and HTML summary exist; report names next layer as Author Specs.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
         <li>All rows are in valid terminal or explicitly blocked states.</li>
@@ -201,7 +201,7 @@
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill User Operator Flow Extraction · draft</p>
+  <p class="footer-note">Foundation Backfill Process / Action Map · draft</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

@@ -67,7 +67,7 @@ export async function deploy() {
   return "deployed";
 }
 `, "utf8");
-  fs.writeFileSync(path.join(repoRoot, "README.md"), "# Surface registry test repo\n", "utf8");
+  fs.writeFileSync(path.join(repoRoot, "README.md"), "# Surface / Function Map test repo\n", "utf8");
   fs.writeFileSync(path.join(repoRoot, ".gitignore"), "node_modules\n.env\n", "utf8");
   fs.writeFileSync(path.join(repoRoot, "data_loaders", "sample_files", "sample_report.rtf"), "{\\rtf1 sample fixture report}", "utf8");
   fs.writeFileSync(path.join(repoRoot, "docs", "knowledge", "inventory", "visuals", "sample.png"), Buffer.from([0x89, 0x50, 0x4e, 0x47]));
@@ -197,7 +197,7 @@ function surfaceSpecsForPath(filePath) {
   if (filePath === "README.md") {
     return [{
       surfaceKind: "doc",
-      label: "Surface registry test repo README",
+      label: "Surface / Function Map test repo README",
       exposedObject: "README.md",
       operation: "documents the test repo",
       consumerHints: ["developer"],
@@ -209,7 +209,7 @@ function surfaceSpecsForPath(filePath) {
   if (filePath === ".gitignore") {
     return supportSpec(filePath, "Full .gitignore read shows ignore patterns only; it exposes no route, screen, API, command, job, table, workflow, infra resource, doc, test, generated artifact, or direct external dependency.");
   }
-  return supportSpec(filePath, "Full-file review found this is a generated or support artifact for the backfill run, not a repo surface to feed Capability Matrix.");
+  return supportSpec(filePath, "Full-file review found this is a generated or support artifact for the backfill run, not a repo surface to feed Capability Map.");
 }
 
 function markSurface(repoRoot, runId, filePath, specs = surfaceSpecsForPath(filePath), runLog = null) {
@@ -237,7 +237,7 @@ function hasWarning(results, id) {
   return results.some(result => result.id === id && result.status === "warn");
 }
 
-test("init requires passing File Registry handoff and creates pending surface rows", () => {
+test("init requires passing Artifact Inventory handoff and creates pending surface rows", () => {
   const repoRoot = makeRepo();
   const runId = "20260527-01";
   prepareFileRegistry(repoRoot, runId);
@@ -353,7 +353,7 @@ test("checker fails duplicate IDs, stale upstream hashes, and unresolved eligibl
   assert.equal(hasFailure(results, "surface-covers-eligible-files"), true);
 });
 
-test("fill rejects inert fixture rows outside Surface Registry scope", () => {
+test("fill rejects inert fixture rows outside Surface / Function Map scope", () => {
   const repoRoot = makeRepo();
   const runId = "20260527-01";
   prepareFileRegistry(repoRoot, runId);
@@ -362,7 +362,7 @@ test("fill rejects inert fixture rows outside Surface Registry scope", () => {
   assert.throws(
     () => markSurface(repoRoot, runId, "data_loaders/sample_files/sample_report.rtf", supportSpec("data_loaders/sample_files/sample_report.rtf")),
     error => {
-      assert.match(`${error.stderr || ""}${error.message}`, /outside Surface Registry scope/);
+      assert.match(`${error.stderr || ""}${error.message}`, /outside Surface \/ Function Map scope/);
       return true;
     }
   );
@@ -596,7 +596,7 @@ test("eval writes canonical JSONL receipts and derived HTML summary", () => {
   assert.equal(fs.existsSync(surfaceEvalSummaryPathFor(repoRoot, runId)), true);
 });
 
-test("refresh invalidates surfaces when upstream File Registry rows change", () => {
+test("refresh invalidates surfaces when upstream Artifact Inventory rows change", () => {
   const repoRoot = makeRepo();
   const runId = "20260527-01";
   prepareSurfaceRegistry(repoRoot, runId);
@@ -625,7 +625,7 @@ test("report command records handoff state and checker can detect report drift",
   const report = JSON.parse(reportOutput);
   assert.equal(report.state.checkerResult, "pass");
   assert.equal(report.state.evalResult, "pass");
-  assert.equal(report.state.nextLayer, "capability matrix");
+  assert.equal(report.state.nextLayer, "Capability Map");
 
   const checkOutput = runNode(surfaceCheckScript, ["--repo", repoRoot, "--run-id", runId, "--report", report.reportPath], repoRoot);
   assert.match(checkOutput, /surface-report-state-current/);
@@ -637,7 +637,7 @@ test("report command records handoff state and checker can detect report drift",
   assert.equal(hasFailure(drift, "surface-report-state-current"), true);
 });
 
-test("report keeps Surface Registry in revision when eval revision targets remain", () => {
+test("report keeps Surface / Function Map in revision when eval revision targets remain", () => {
   const repoRoot = makeRepo();
   const runId = "20260527-01";
   prepareSurfaceRegistry(repoRoot, runId);
@@ -661,7 +661,7 @@ test("report keeps Surface Registry in revision when eval revision targets remai
   const report = JSON.parse(runNode(surfaceReportScript, ["--repo", repoRoot, "--run-id", runId], repoRoot));
   assert.equal(report.state.evalResult, "pass-with-revisions");
   assert.equal(report.state.evalRevisionTargetCount, 1);
-  assert.equal(report.state.nextLayer, "surface registry revision");
+  assert.equal(report.state.nextLayer, "Surface / Function Map revision");
 });
 
 test("surface check command writes check artifact", () => {

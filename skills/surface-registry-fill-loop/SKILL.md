@@ -1,11 +1,11 @@
 ---
 name: surface-registry-fill-loop
-description: Fill or resume the Foundation Surface Registry layer by reading one complete Surface Registry-eligible upstream file, marking that file's canonical surface rows, checking, and repeating until eligible File Registry rows are covered.
+description: Fill or resume the Foundation Surface / Function Map layer by reading one complete surface-map-eligible upstream file, marking that file's canonical surface rows, checking, and repeating until eligible Artifact Inventory rows are covered.
 ---
 
-# Surface Registry Fill Loop
+# Surface / Function Map Fill Loop
 
-Use this skill when a target repo is creating, refreshing, revising, checking, evaluating, or resuming a Foundation Surface Registry.
+Use this skill when a target repo is creating, refreshing, revising, checking, evaluating, or resuming a Foundation Surface / Function Map. Legacy file names, spec IDs, and commands still use `surface-registry`.
 
 ## Source Of Truth
 
@@ -16,21 +16,23 @@ Load only the context needed for the current step:
 - active target report and run log named by the target repo
 - current target `file-registry-<run-id>.jsonl`
 - current target `surface-registry-<run-id>.jsonl`
-- Surface Registry specs when changing the process/schema or resolving checker/eval ambiguity:
+- Surface / Function Map specs when changing the process/schema or resolving checker/eval ambiguity:
   - `docs/specs/foundation-backfill-surface-registry.html`
   - `docs/specs/foundation-backfill-surface-registry-technical.html`
   - `docs/specs/foundation-backfill-surface-registry-test.html`
 
 ## Commands
 
-- Initialize: `npm run foundation:surface-registry:init -- --repo <repo> --run-id <run-id>`
-- Get next target: `npm run foundation:surface-registry:fill -- --repo <repo> --run-id <run-id> --next`
-- Mark one file: `npm run foundation:surface-registry:fill -- --repo <repo> --run-id <run-id> --path <repo-relative-file> --surfaces-json '<json-array>'`
-- Check during work: `npm run foundation:surface-registry:check -- --repo <repo> --run-id <run-id> --phase batch`
-- Check handoff: `npm run foundation:surface-registry:check -- --repo <repo> --run-id <run-id> --phase handoff`
-- Evaluate: `npm run foundation:surface-registry:eval -- --repo <repo> --run-id <run-id>`
-- Refresh changed upstream files: `npm run foundation:surface-registry:refresh -- --repo <repo> --run-id <run-id>`
-- Record report state: `npm run foundation:surface-registry:report -- --repo <repo> --run-id <run-id> --report <active-report>`
+- Initialize: `npm run foundation:surface-map:init -- --repo <repo> --run-id <run-id>`
+- Get next target: `npm run foundation:surface-map:fill -- --repo <repo> --run-id <run-id> --next`
+- Mark one file: `npm run foundation:surface-map:fill -- --repo <repo> --run-id <run-id> --path <repo-relative-file> --surfaces-json '<json-array>'`
+- Check during work: `npm run foundation:surface-map:check -- --repo <repo> --run-id <run-id> --phase batch`
+- Check handoff: `npm run foundation:surface-map:check -- --repo <repo> --run-id <run-id> --phase handoff`
+- Evaluate: `npm run foundation:surface-map:eval -- --repo <repo> --run-id <run-id>`
+- Refresh changed upstream files: `npm run foundation:surface-map:refresh -- --repo <repo> --run-id <run-id>`
+- Record report state: `npm run foundation:surface-map:report -- --repo <repo> --run-id <run-id> --report <active-report>`
+
+The older `foundation:surface-registry:*` commands remain valid aliases for compatibility.
 
 ## Required Loop
 
@@ -47,13 +49,13 @@ Load only the context needed for the current step:
 
 ## Row Decisions
 
-File Registry is exhaustive; Surface Registry is not. The Surface Registry queue is limited to files that can plausibly define, expose, configure, or materially document capabilities:
+Artifact Inventory is exhaustive; Surface / Function Map is not. The Surface / Function Map queue is limited to files that can plausibly define, expose, configure, or materially document capabilities:
 
 - code entry points and code modules: routes, services, scripts, migrations, models, components
 - runtime/operator definition: package manifests, deployment workflows, infrastructure, runtime configuration
 - active product/spec documentation that defines intended behavior
 
-The File Registry row is a hint, not the authority. For eligible rows, the full file read decides the Surface Registry row.
+The Artifact Inventory row is a hint, not the authority. For eligible rows, the full file read decides the Surface / Function Map row.
 
 - Use multiple rows when one file exposes multiple durable surfaces, such as several API endpoints, package scripts, tables, views, commands, jobs, or direct external dependencies.
 - Use `support-classification` when the full file read shows no route, screen, API, command, job, table, workflow, infra resource, active behavior doc, or direct external dependency for this layer.
@@ -83,4 +85,4 @@ The File Registry row is a hint, not the authority. For eligible rows, the full 
 ]
 ```
 
-The fill command writes stable row IDs, upstream IDs, upstream hashes, and `agent-read-full-file` evidence. It replaces all prior Surface Registry rows for that one upstream file, so include every surface for that file in the same mark command.
+The fill command writes stable row IDs, upstream IDs, upstream hashes, and `agent-read-full-file` evidence. It replaces all prior Surface / Function Map rows for that one upstream file, so include every surface for that file in the same mark command.

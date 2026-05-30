@@ -7,13 +7,13 @@
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
-<title>Foundation Backfill Evidence Pack Technical Spec</title>
+<title>Foundation Backfill Context Pack Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-evidence-pack.technical",
-  "title": "Foundation Backfill Evidence Pack Technical Spec",
+  "title": "Foundation Backfill Context Pack Technical Spec",
   "type": "technical",
   "status": "active",
   "lastUpdated": "2026-05-29",
@@ -84,7 +84,7 @@
       "path": "foundation/scripts/evidence-pack-init.mjs",
       "kind": "source",
       "ownership": "direct",
-      "notes": "Creates evidence-pack JSONL from passing Split And Queue artifacts."
+      "notes": "Creates evidence-pack JSONL from passing Define Spec Jobs artifacts."
     },
     {
       "path": "foundation/scripts/evidence-pack-fill.mjs",
@@ -108,13 +108,13 @@
       "path": "foundation/scripts/evidence-pack-refresh.mjs",
       "kind": "source",
       "ownership": "direct",
-      "notes": "Invalidates stale packs when Split And Queue rows change."
+      "notes": "Invalidates stale packs when Define Spec Jobs rows change."
     },
     {
       "path": "foundation/scripts/evidence-pack-report.mjs",
       "kind": "source",
       "ownership": "direct",
-      "notes": "Embeds canonical Evidence Pack payloads plus handoff state in reports."
+      "notes": "Embeds canonical Context Pack payloads plus handoff state in reports."
     }
   ],
   "coverage": [
@@ -128,7 +128,7 @@
         "foundation.backfill-evidence-pack.technical#checker-and-fill-loop",
         "foundation.backfill-evidence-pack.technical#failure-modes"
       ],
-      "evidence": "Evidence Pack tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, exact evidence specificity, eval scoring, refresh invalidation, and report drift."
+      "evidence": "Context Pack tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, exact evidence specificity, eval scoring, refresh invalidation, and report drift."
     }
   ],
   "tags": [
@@ -146,7 +146,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">T</div>
     <div>
-      <div class="sidebar-title">Foundation Backfill Evidence Pack Technical Spec</div>
+      <div class="sidebar-title">Foundation Backfill Context Pack Technical Spec</div>
       <div class="sidebar-sub">technical spec</div>
     </div>
   </div>
@@ -164,8 +164,8 @@
 <main class="main">
   <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-evidence-pack-technical.html</div>
-    <h1>Foundation Backfill Evidence Pack Technical Spec</h1>
-    <p class="lede">This technical layer makes Foundation Backfill Evidence Pack deterministic enough for scripts and structured enough for agent judgment.</p>
+    <h1>Foundation Backfill Context Pack Technical Spec</h1>
+    <p class="lede">This technical layer makes Foundation Backfill Context Pack deterministic enough for scripts and structured enough for agent judgment.</p>
     <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-evidence-pack.descriptive</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
@@ -187,9 +187,9 @@
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
         <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
-        <tr><td>Deterministic checker</td><td>validates each evidence pack references valid queue slices and upstream row IDs, all required evidence categories have entries or explicit gaps, file-like evidence has exact paths plus line ranges, snippets, or symbols, generic full-file evidence is rejected, and pack size stays within configured limits.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
-        <tr><td>Semantic eval</td><td>samples packs against queue slices to judge whether necessary files or surfaces were omitted, irrelevant evidence is bloating context, specificity is weak, or the pack cannot support flow extraction and later spec authoring.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Handoff gate</td><td>each active queued slice has a bounded evidence pack or explicit blocker; checker artifact passes for the current pack fingerprint; eval receipt and HTML summary exist for the current pack fingerprint; eval revision targets are zero; report names next layer as Flow Extraction.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates each Context Pack references valid queue slices and upstream row IDs, all required evidence categories have entries or explicit gaps, file-like evidence has exact paths plus line ranges, snippets, or symbols, generic full-file evidence is rejected, and pack size stays within configured limits.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
+        <tr><td>Semantic eval</td><td>samples packs against queue slices to judge whether necessary files or surfaces were omitted, irrelevant evidence is bloating context, specificity is weak, or the pack cannot support Process / Action Map and later Author Specs.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
+        <tr><td>Handoff gate</td><td>each active queued slice has a bounded Context Pack or explicit blocker; checker artifact passes for the current pack fingerprint; eval receipt and HTML summary exist for the current pack fingerprint; eval revision targets are zero; report names next layer as Process / Action Map.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 
@@ -217,11 +217,11 @@
 
     <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
       <h2>Related paths and coverage</h2>
-      <ul class="path-list"><li data-implementation-path="foundation/scripts/evidence-pack-core.mjs"><code>foundation/scripts/evidence-pack-core.mjs</code> - canonical Evidence Pack implementation.</li><li data-implementation-path="foundation/scripts/evidence-pack.test.mjs"><code>foundation/scripts/evidence-pack.test.mjs</code> - command and gate coverage.</li><li data-implementation-path="foundation/docs/specs/foundation-backfill-evidence-pack-technical.html"><code>foundation/docs/specs/foundation-backfill-evidence-pack-technical.html</code> - technical contract for this layer.</li></ul>
+      <ul class="path-list"><li data-implementation-path="foundation/scripts/evidence-pack-core.mjs"><code>foundation/scripts/evidence-pack-core.mjs</code> - canonical Context Pack implementation.</li><li data-implementation-path="foundation/scripts/evidence-pack.test.mjs"><code>foundation/scripts/evidence-pack.test.mjs</code> - command and gate coverage.</li><li data-implementation-path="foundation/docs/specs/foundation-backfill-evidence-pack-technical.html"><code>foundation/docs/specs/foundation-backfill-evidence-pack-technical.html</code> - technical contract for this layer.</li></ul>
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Evidence Pack Technical Spec · active</p>
+  <p class="footer-note">Foundation Backfill Context Pack Technical Spec · active</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

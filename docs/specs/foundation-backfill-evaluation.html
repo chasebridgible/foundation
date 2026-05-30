@@ -91,7 +91,7 @@
       "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
       "kind": "workflow",
       "ownership": "reference",
-      "notes": "Per-slice adequacy review feeds the final evaluation."
+      "notes": "Per-slice Review Spec Adequacy feeds the final evaluation."
     },
     {
       "path": "foundation/scripts/foundation-doctor.mjs",
@@ -178,7 +178,7 @@
   <section id="purpose" data-spec-section="purpose" data-section-type="product-intent" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-evaluation.html</div>
     <h1>Backfill evaluation process</h1>
-    <p class="lede">Foundation evaluates backfill results with an LLM judge workflow that compares generated artifacts to a golden example, scores semantic quality on a strict 100-point scale, updates the durable queue, and routes revisions before the work is called acceptable.</p>
+    <p class="lede">Foundation evaluates backfill results with an LLM judge workflow that compares generated artifacts to a golden example, scores semantic quality on a strict 100-point scale, updates the Job / Spec Queue, and routes revisions before the work is called acceptable.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
       <div><strong>Updated:</strong> 2026-05-21</div>
@@ -192,13 +192,13 @@
       <h2>Evaluator journey</h2>
       <ol>
         <li><strong>Calibrate:</strong> read <a data-spec-link="foundation.backfill-golden-example" href="./examples/backfill-golden-example.html">the golden example</a> and this process spec.</li>
-        <li><strong>Load artifacts:</strong> read target <code>AGENTS.md</code>, the dated backfill report, capability matrix, inventory ledger, durable queue, top-level app spec, and current slice specs.</li>
+        <li><strong>Load artifacts:</strong> read target <code>AGENTS.md</code>, the dated backfill report, Capability Map, Artifact Inventory, Job / Spec Queue, top-level app spec, and current slice specs.</li>
         <li><strong>Select scope:</strong> evaluate the current slice or repo-wide graph and record its queue status before scoring.</li>
         <li><strong>Spec-only pass:</strong> review generated specs first and judge what a future build agent could understand from the specs alone, including which source files would still be needed for core behavior.</li>
         <li><strong>Evidence audit:</strong> sample original evidence for high-risk claims, UX-visible behavior, permissions, data contracts, architecture constraints, integrations, and unresolved questions.</li>
         <li><strong>Score:</strong> assign <code>0-10</code> category scores with citations to report rows, spec sections, and evidence paths.</li>
         <li><strong>Report:</strong> create or update <code>docs/specs/backfill/evaluation-report-YYYYMMDD-NN.html</code> using the same run ID as the backfill report.</li>
-        <li><strong>Route revisions:</strong> append the evaluation result to the backfill report, update the durable queue, and route each revision item to the owning backfill skill layer.</li>
+        <li><strong>Route revisions:</strong> append the evaluation result to the backfill report, update the Job / Spec Queue, and route each revision item to the owning backfill skill layer.</li>
       </ol>
     </section>
 
@@ -208,11 +208,11 @@
       <table class="status-table">
         <thead><tr><th>Category</th><th>10 means</th><th>Primary evidence</th></tr></thead>
         <tbody>
-          <tr><td>Durable queue and resumability</td><td>The run can resume from target AGENTS, report, inventory, queue status, owner skill, next action, and exit criterion.</td><td>Backfill report, queue table, target AGENTS.</td></tr>
-          <tr><td>Capability coverage, inventory coverage, and slice boundaries</td><td>Relevant capabilities map to correctly sized owner slices, parent coverage, acceptable evaluated slices, out-of-scope notes, or explicit human decisions; evidence surfaces map to capability rows.</td><td>Capability matrix, inventory ledger, and slice map.</td></tr>
+          <tr><td>Job / Spec Queue and resumability</td><td>The run can resume from target AGENTS, report, inventory, queue status, owner skill, next action, and exit criterion.</td><td>Backfill report, queue table, target AGENTS.</td></tr>
+          <tr><td>Capability coverage, inventory coverage, and slice boundaries</td><td>Relevant capabilities map to correctly sized owner slices, parent coverage, acceptable evaluated slices, out-of-scope notes, or explicit human decisions; evidence surfaces map to capability rows.</td><td>Capability Map, Artifact Inventory, and slice map.</td></tr>
           <tr><td>Evidence traceability</td><td>Material claims cite source paths, spec sections, report rows, or labeled inference, with high-risk claims sampled against source evidence.</td><td>Report and evidence audit.</td></tr>
-          <tr><td>Descriptive intent</td><td>Specs define intended user/operator behavior, roles, flows, states, rules, outcomes, recovery, and product language at an architecture-agnostic level.</td><td>Descriptive specs.</td></tr>
-          <tr><td>User-flow and state specificity</td><td>Each user-facing entry point maps to concrete journeys with entry conditions, state transitions, success, partial success, error, permission, and recovery behavior.</td><td>Flow rows and descriptive specs.</td></tr>
+          <tr><td>Descriptive intent</td><td>Specs define intended user/operator behavior, roles, processes, actions, states, rules, outcomes, recovery, and product language at an architecture-agnostic level.</td><td>Descriptive specs.</td></tr>
+          <tr><td>Process/action and state specificity</td><td>Each user-facing or operator-facing entry point maps to concrete process/action rows with entry conditions, state transitions, success, partial success, error, permission, and recovery behavior.</td><td>Process/action rows and descriptive specs.</td></tr>
           <tr><td>Rendered UX</td><td>User-facing slices include inspectable HTML-native examples for important states, hierarchy, copy, responsive behavior, and interactions.</td><td>Rendered sections.</td></tr>
           <tr><td>Technical contracts</td><td>Technical specs define data, APIs, permissions, services, integrations, timing, failures, idempotency, observability, and boundaries.</td><td>Technical specs.</td></tr>
           <tr><td>Architecture flexibility</td><td>Technical specs clearly separate required contracts, current evidence, architecture constraints, and implementation latitude.</td><td>Architecture classification tables.</td></tr>
@@ -227,12 +227,12 @@
       <ul>
         <li><strong>Header:</strong> run ID, target repo, evaluator date, evaluated report path, spec graph summary, and overall result.</li>
         <li><strong>Scorecard:</strong> category scores from <code>0</code> to <code>10</code>, total score out of <code>100</code>, citations, and category-level revision status.</li>
-        <li><strong>Capability findings:</strong> matrix rows still unmapped, too broad, missing descriptive sections, missing technical sections, missing verification targets, or needing evaluation.</li>
-        <li><strong>Slice findings:</strong> findings grouped by slice and routed to inventory, user-flow, descriptive, rendered UX, technical, or adequacy skills.</li>
+        <li><strong>Capability findings:</strong> Capability Map rows still unmapped, too broad, missing descriptive sections, missing technical sections, missing verification targets, or needing evaluation.</li>
+        <li><strong>Slice findings:</strong> findings grouped by slice and routed to Artifact Inventory, Process / Action Map, descriptive, rendered UX, technical, or Review Spec Adequacy skills.</li>
         <li><strong>Architecture flexibility:</strong> findings on required contracts, current evidence, architecture constraints, and implementation latitude.</li>
         <li><strong>Spec-only rebuild probe:</strong> what a future build agent could build or would still need to know from specs alone, including source files still required for core behavior.</li>
         <li><strong>Revision queue:</strong> concrete next actions with owner skill, affected artifacts, blocking gap, and exit criterion.</li>
-        <li><strong>Durable queue update:</strong> slice status, score, owner skill, next action, and whether the slice is <code>needs-revision</code>, <code>revision-ready</code>, <code>acceptable</code>, or <code>blocked by human decision</code>.</li>
+        <li><strong>Job / Spec Queue update:</strong> slice status, score, owner skill, next action, and whether the slice is <code>needs-revision</code>, <code>revision-ready</code>, <code>acceptable</code>, or <code>blocked by human decision</code>.</li>
       </ul>
     </section>
 

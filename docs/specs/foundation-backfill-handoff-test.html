@@ -130,7 +130,7 @@
       <h2>Acceptance mapping</h2>
       <table class="status-table"><thead><tr><th>ID</th><th>Condition</th><th>Must prove</th></tr></thead><tbody>
         <tr><td>AC-1</td><td>Canonical artifacts exist.</td><td>handoff-report-YYYYMMDD-NN.jsonl, handoff-eval-YYYYMMDD-NN.jsonl exist and share the active run ID.</td></tr>
-        <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites valid upstream IDs from Graph Evaluation or records a blocker.</td></tr>
+        <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites valid upstream IDs from Evaluate System Coherence or records a blocker.</td></tr>
         <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, ready-for-human-review, blocked, complete.</td></tr>
         <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, and report drift fail.</td></tr>
         <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, or under-evidenced rows produce revision targets.</td></tr>

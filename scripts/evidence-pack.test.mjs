@@ -81,7 +81,7 @@ CREATE TABLE dashboard_events (
   label text not null
 );
 `, "utf8");
-  fs.writeFileSync(path.join(repoRoot, "README.md"), "# Evidence pack fixture\n", "utf8");
+  fs.writeFileSync(path.join(repoRoot, "README.md"), "# Context Pack fixture\n", "utf8");
   fs.writeFileSync(path.join(repoRoot, ".gitignore"), "node_modules\n", "utf8");
   execFileSync("git", ["add", "."], { cwd: repoRoot });
   return repoRoot;
@@ -206,7 +206,7 @@ function prepareCapabilityMatrix(repoRoot, runId = "20260529-01") {
       evidence: dashboardSurfaceIds.map(surfaceId => `${surfaceId} reviewed and mapped to dashboard behavior`),
       status: "needs-split",
       splitNeeded: true,
-      splitReason: "Screen rendering, API payload, and persistence contracts need separate evidence pack slices before spec authoring.",
+      splitReason: "Screen rendering, API payload, and persistence contracts need separate Context Pack slices before spec authoring.",
       splitCriteria: [
         "Screen rendering behavior is separated from API payload verification.",
         "API payload verification is separated from database persistence contract coverage."
@@ -246,7 +246,7 @@ function readyPackageSlice(capabilityId) {
     scope: "Capture package test command execution evidence for receipt",
     includedBehaviors: ["Package script command invocation and terminal result capture"],
     excludedBehaviors: ["Dashboard runtime behavior stays outside this command slice"],
-    exitCriterion: `Evidence pack receipt cites ${capabilityId} and verifies package script command execution.`,
+    exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies package script command execution.`,
     nextAction: "Collect package script command evidence and write the receipt row.",
     verificationTargets: [`${capabilityId} package script execution receipt`],
     status: "ready",
@@ -257,13 +257,13 @@ function readyPackageSlice(capabilityId) {
 function dashboardSlices(capabilityId) {
   return [
     {
-      name: "Dashboard screen evidence pack slice",
+      name: "Dashboard screen Context Pack slice",
       upstreamCapabilityIds: [capabilityId],
       ownerSkill: "backfill-evidence-pack",
       scope: "Capture dashboard screen rendering states for evidence receipt",
       includedBehaviors: ["Dashboard screen loading loaded empty and error state evidence"],
       excludedBehaviors: ["API payload contract proof stays outside this screen slice"],
-      exitCriterion: `Evidence pack receipt cites ${capabilityId} and verifies dashboard screen rendering states.`,
+      exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies dashboard screen rendering states.`,
       nextAction: "Collect dashboard screen evidence and write the receipt row.",
       verificationTargets: [`${capabilityId} dashboard screen rendering receipt`],
       childSliceRationale: "Screen rendering is one child of the broader dashboard capability.",
@@ -271,13 +271,13 @@ function dashboardSlices(capabilityId) {
       confidence: "high"
     },
     {
-      name: "Dashboard API evidence pack slice",
+      name: "Dashboard API Context Pack slice",
       upstreamCapabilityIds: [capabilityId],
       ownerSkill: "backfill-evidence-pack",
       scope: "Capture dashboard API payload behavior for evidence receipt",
       includedBehaviors: ["Dashboard API request response payload and failure evidence"],
       excludedBehaviors: ["Screen rendering proof stays outside this API slice"],
-      exitCriterion: `Evidence pack receipt cites ${capabilityId} and verifies dashboard API payload behavior.`,
+      exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies dashboard API payload behavior.`,
       nextAction: "Collect dashboard API evidence and write the receipt row.",
       verificationTargets: [`${capabilityId} dashboard API payload receipt`],
       childSliceRationale: "API payload behavior is one child of the broader dashboard capability.",
@@ -347,7 +347,7 @@ function packSpecForSlice(repoRoot, runId, slice) {
         reason: "Dashboard screen rendering belongs to a separate queued slice and should not expand this command pack."
       }],
       sufficiencyRationale: "The package command pack is sufficient because it ties the queued command slice to the exact package script line, the package command surface, and the upstream capability trace without loading dashboard runtime files.",
-      status: "ready-for-flow",
+      status: "ready-for-process-map",
       confidence: "high"
     };
   }
@@ -367,7 +367,7 @@ function packSpecForSlice(repoRoot, runId, slice) {
           surfaceId: screenSurfaceId,
           lineRange: "L2-L4",
           snippet: "export default function DashboardPage() { return <main>Dashboard</main>; }",
-          detail: "DashboardPage export and main element provide the exact source anchor for dashboard screen flow extraction.",
+          detail: "DashboardPage export and main element provide the exact source anchor for dashboard screen Process / Action Map.",
           questionAnswered: "Which source lines define the dashboard screen behavior?"
         },
         {
@@ -384,10 +384,10 @@ function packSpecForSlice(repoRoot, runId, slice) {
       ],
       excludedRefs: [{
         path: "backend/src/routes/dashboard.ts",
-        reason: "Dashboard API payload proof belongs to the API evidence pack slice."
+        reason: "Dashboard API payload proof belongs to the API Context Pack slice."
       }],
       sufficiencyRationale: "The dashboard screen pack is sufficient because it includes the exact screen source line, the test command boundary, and the upstream capability trace while excluding API payload and persistence evidence from this screen-only slice.",
-      status: "ready-for-flow",
+      status: "ready-for-process-map",
       confidence: "high"
     };
   }
@@ -408,7 +408,7 @@ function packSpecForSlice(repoRoot, runId, slice) {
         surfaceId: apiSurfaceId,
         lineRange: "L2-L4",
         snippet: "fastify.get(\"/dashboard\", async () => ({ stores: [] }));",
-        detail: "Fastify GET dashboard route line anchors the API payload behavior for flow extraction.",
+        detail: "Fastify GET dashboard route line anchors the API payload behavior for Process / Action Map.",
         questionAnswered: "Which source line defines the dashboard API payload?"
       },
       {
@@ -436,10 +436,10 @@ function packSpecForSlice(repoRoot, runId, slice) {
     ],
     excludedRefs: [{
       path: "web/app/dashboard/page.tsx",
-      reason: "Dashboard screen rendering proof belongs to the screen evidence pack slice."
+      reason: "Dashboard screen rendering proof belongs to the screen Context Pack slice."
     }],
     sufficiencyRationale: "The dashboard API pack is sufficient because it includes the exact route source, related persistence schema context, the test command boundary, and the upstream capability trace while excluding the screen rendering slice.",
-    status: "ready-for-flow",
+    status: "ready-for-process-map",
     confidence: "high"
   };
 }
@@ -463,7 +463,7 @@ function hasFailure(results, id) {
   return results.some(result => result.id === id && result.status === "fail");
 }
 
-test("init requires current Split And Queue eval with resolved revision targets and creates pending packs", () => {
+test("init requires current Define Spec Jobs eval with resolved revision targets and creates pending packs", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   preparePassingSplitQueueHandoff(repoRoot, runId);
@@ -550,12 +550,12 @@ test("filled packs pass check, eval writes receipts, and report drift is detecte
   assert.equal(report.state.checkerResult, "pass");
   assert.equal(report.state.evalResult, "pass");
   assert.equal(report.state.evalPackFresh, true);
-  assert.equal(report.state.nextLayer, "flow extraction");
+  assert.equal(report.state.nextLayer, "Process / Action Map");
 
   const checkWithReport = runNode(evidenceCheckScript, ["--repo", repoRoot, "--run-id", runId, "--report", report.reportPath], repoRoot);
   assert.match(checkWithReport, /evidence-pack-report-state-current/);
   const reportPath = path.join(repoRoot, report.reportPath);
-  const drifted = fs.readFileSync(reportPath, "utf8").replace(`"readyForFlowCount": 3`, `"readyForFlowCount": 99`);
+  const drifted = fs.readFileSync(reportPath, "utf8").replace(`"readyForProcessMapCount": 3`, `"readyForProcessMapCount": 99`);
   fs.writeFileSync(reportPath, drifted, "utf8");
   const drift = validateEvidencePack({ repoRoot, runId, reportPath }).results;
   assert.equal(hasFailure(drift, "evidence-pack-report-state-current"), true);
@@ -564,11 +564,11 @@ test("filled packs pass check, eval writes receipts, and report drift is detecte
 test("eval flags generic full-file evidence and missing category coverage", () => {
   const queueRow = {
     sliceId: "slice-dashboard-screen",
-    name: "Dashboard screen evidence pack slice",
+    name: "Dashboard screen Context Pack slice",
     status: "ready",
     upstreamCapabilityIds: ["cap-dashboard"],
     scope: "Capture dashboard screen rendering states",
-    exitCriterion: "Evidence pack receipt cites cap-dashboard and verifies dashboard screen rendering states."
+    exitCriterion: "Context Pack receipt cites cap-dashboard and verifies dashboard screen rendering states."
   };
   const row = {
     schema: "foundation.backfill.evidence-pack-row.v1",
@@ -593,13 +593,13 @@ test("eval flags generic full-file evidence and missing category coverage", () =
     reviewFlags: [],
     tokenBudget: 100,
     estimatedTokens: 10,
-    status: "ready-for-flow",
+    status: "ready-for-process-map",
     confidence: "medium"
   };
   const receipt = scoreEvidencePackRow(row, new Map([["slice-dashboard-screen", queueRow]]));
   assert.equal(receipt.findings.some(finding => finding.category === "evidenceSpecificity" && finding.severity === "blocking"), true);
   assert.equal(receipt.findings.some(finding => finding.category === "categoryCoverage" && finding.severity === "blocking"), true);
-  assert.equal(receipt.findings.some(finding => finding.category === "flowReadiness" && finding.severity === "blocking"), true);
+  assert.equal(receipt.findings.some(finding => finding.category === "processActionReadiness" && finding.severity === "blocking"), true);
   assert.equal(receipt.findings.some(finding => finding.category === "upstreamTraceability" && finding.severity === "blocking"), true);
 });
 
@@ -624,13 +624,13 @@ test("checker rejects generic full-file evidence refs", () => {
       {
         category: "queue-slice",
         sliceId: "slice-package",
-        detail: "Evidence pack is derived from Split And Queue slice slice-package.",
-        questionAnswered: "Which queued slice does this evidence pack support?"
+        detail: "Context Pack is derived from Define Spec Jobs slice slice-package.",
+        questionAnswered: "Which queued slice does this Context Pack support?"
       },
       {
         category: "capability",
         capabilityId: "cap-package",
-        detail: "Evidence pack preserves upstream Capability Matrix row cap-package.",
+        detail: "Context Pack preserves upstream Capability Map row cap-package.",
         questionAnswered: "Which upstream capability must this pack support?"
       },
       {
@@ -652,7 +652,7 @@ test("checker rejects generic full-file evidence refs", () => {
     reviewFlags: [],
     tokenBudget: 12000,
     estimatedTokens: 200,
-    status: "ready-for-flow",
+    status: "ready-for-process-map",
     confidence: "high"
   };
   const results = validateEvidencePackRows({

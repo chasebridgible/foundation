@@ -7,13 +7,13 @@
 <meta name="spec:type" content="descriptive">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
-<title>Foundation Backfill Split And Queue</title>
+<title>Foundation Backfill Define Spec Jobs</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-split-queue.descriptive",
-  "title": "Foundation Backfill Split And Queue",
+  "title": "Foundation Backfill Define Spec Jobs",
   "type": "descriptive",
   "status": "active",
   "lastUpdated": "2026-05-29",
@@ -91,13 +91,13 @@
       "path": "foundation/scripts/split-queue-core.mjs",
       "kind": "source",
       "ownership": "direct",
-      "notes": "Canonical Split And Queue schema, handoff, checker, eval, refresh, and report state logic."
+      "notes": "Canonical Define Spec Jobs schema, handoff, checker, eval, refresh, and report state logic."
     },
     {
       "path": "foundation/scripts/split-queue-init.mjs",
       "kind": "source",
       "ownership": "direct",
-      "notes": "Initializes queue slices from passing Capability Matrix handoff."
+      "notes": "Initializes queue slices from passing Capability Map handoff."
     },
     {
       "path": "foundation/scripts/split-queue-fill.mjs",
@@ -109,7 +109,7 @@
       "path": "foundation/scripts/split-queue-check.mjs",
       "kind": "source",
       "ownership": "direct",
-      "notes": "Runs deterministic Split And Queue validation."
+      "notes": "Runs deterministic Define Spec Jobs validation."
     },
     {
       "path": "foundation/scripts/split-queue-eval.mjs",
@@ -134,7 +134,7 @@
         "foundation.backfill-split-queue.descriptive#artifacts-and-state",
         "foundation.backfill-split-queue.descriptive#handoff-gate"
       ],
-      "evidence": "Split And Queue tests cover initialization from Capability Matrix handoff, durable queue artifacts, needs-split child slice enforcement, eval receipts, refresh invalidation, and report handoff state."
+      "evidence": "Define Spec Jobs tests cover initialization from Capability Map handoff, Job / Spec Queue artifacts, needs-split child slice enforcement, eval receipts, refresh invalidation, and report handoff state."
     }
   ],
   "tags": [
@@ -152,7 +152,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">D</div>
     <div>
-      <div class="sidebar-title">Foundation Backfill Split And Queue</div>
+      <div class="sidebar-title">Foundation Backfill Define Spec Jobs</div>
       <div class="sidebar-sub">descriptive spec</div>
     </div>
   </div>
@@ -170,9 +170,9 @@
 <main class="main">
   <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-split-queue.html</div>
-    <h1>Foundation Backfill Split And Queue</h1>
-    <p class="lede">Split And Queue decides whether capability rows are too broad and creates the durable work queue that prevents agents from closing coarse slices prematurely. This layer answers: <strong>What exact slice should the agent work on next, and when is it complete?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Upstream:</strong> Capability Matrix</div><div><strong>Next:</strong> Evidence Pack</div></div>
+    <h1>Foundation Backfill Define Spec Jobs</h1>
+    <p class="lede">Define Spec Jobs decides whether capability rows are too broad and creates the durable work queue that prevents agents from closing coarse slices prematurely. This layer answers: <strong>What exact slice should the agent work on next, and when is it complete?</strong></p>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Upstream:</strong> Capability Map</div><div><strong>Next:</strong> Context Pack</div></div>
     <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
@@ -198,7 +198,7 @@
     <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
       <h2>Small-loop journey</h2>
       <ol>
-        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Split And Queue artifact from Capability Matrix handoff output.</li>
+        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Define Spec Jobs artifact from Capability Map handoff output.</li>
         <li><strong>Semantic audit:</strong> before child slices can be accepted, verify terminal capability rows have usable identity anchors and needs-split rows have concrete splitCriteria anchors.</li>
         <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
         <li><strong>Fill:</strong> agent applies split criteria to capability rows, creates child slices where actors/outcomes/states/rules/contracts/recovery differ, writes exact exit criteria, owner spec targets, next action, and blocking questions.</li>
@@ -214,13 +214,13 @@
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
         <tr><td>Checker</td><td>validates every terminal capability has queue coverage, every slice references valid and current capability IDs, needs-split capabilities have multiple child slices or an explicit blocker, terminal statuses require evidence, active slices carry exactly one current next action, child slices align to capability identity and splitCriteria rather than incidental source paths, and any existing eval receipt matches the current queue fingerprint.</td></tr>
         <tr><td>Eval receipt</td><td>samples slices against capability rows to judge whether the slice is small enough, aligned to the capability identity, matched to splitCriteria, exit criteria are objective, evidence is specific, and no hidden behavior is parked inside a parent summary. Warnings produce revision targets; report handoff is blocked until those targets are resolved.</td></tr>
-        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected registry is created; it is used to catch obvious misses while context is tractable.</td></tr>
+        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
     </section>
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>durable queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue artifact, and report names next layer as Evidence Pack.</p>
+      <p>Job / Spec Queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue artifact, and report names next layer as Context Pack.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
         <li>All rows are in valid terminal or explicitly blocked states.</li>
@@ -240,7 +240,7 @@
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Split And Queue · active</p>
+  <p class="footer-note">Foundation Backfill Define Spec Jobs · active</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

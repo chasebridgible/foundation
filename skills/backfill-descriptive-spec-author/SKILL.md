@@ -1,6 +1,6 @@
 ---
 name: backfill-descriptive-spec-author
-description: Author architecture-agnostic, intent-grade descriptive specs from capability rows, repo evidence, and extracted flows during a Foundation backfill. Use inside Backfill Specs after inventory and flow extraction, before rendered UX and adequacy review.
+description: Author architecture-agnostic, intent-grade descriptive specs from capability rows, Context Packs, and the Process / Action Map during a Foundation backfill. Use inside Backfill Specs after Gather Context and Map Processes, before rendered UX and Review Spec Adequacy.
 ---
 
 # Backfill Descriptive Spec Author
@@ -9,8 +9,8 @@ Use inside `backfill-specs` to write what the system is intended to make possibl
 
 ## Inputs
 
-- capability matrix rows for the slice
-- extracted flows and state transitions
+- Capability Map rows for the slice
+- extracted process/action rows and state transitions
 - evidence paths
 - parent spec and sibling technical spec, if present
 - dated backfill report

@@ -7,13 +7,13 @@
 <meta name="spec:type" content="test">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
-<title>Foundation Backfill Split And Queue Test Spec</title>
+<title>Foundation Backfill Define Spec Jobs Test Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-split-queue.test",
-  "title": "Foundation Backfill Split And Queue Test Spec",
+  "title": "Foundation Backfill Define Spec Jobs Test Spec",
   "type": "test",
   "status": "active",
   "lastUpdated": "2026-05-29",
@@ -83,7 +83,7 @@
       "path": "foundation/scripts/split-queue.test.mjs",
       "kind": "test",
       "ownership": "direct",
-      "notes": "Executable test coverage for the Split And Queue acceptance map."
+      "notes": "Executable test coverage for the Define Spec Jobs acceptance map."
     },
     {
       "path": "foundation/scripts/split-queue-core.mjs",
@@ -102,7 +102,7 @@
         "foundation.backfill-split-queue.test#acceptance-mapping",
         "foundation.backfill-split-queue.test#eval-contract"
       ],
-      "evidence": "Split And Queue tests cover artifact creation, upstream reference resolution, valid states, structural drift failures, weak semantic eval findings, explicit handoff state, and report drift."
+      "evidence": "Define Spec Jobs tests cover artifact creation, upstream reference resolution, valid states, structural drift failures, weak semantic eval findings, explicit handoff state, and report drift."
     }
   ],
   "tags": [
@@ -120,7 +120,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">V</div>
     <div>
-      <div class="sidebar-title">Foundation Backfill Split And Queue Test Spec</div>
+      <div class="sidebar-title">Foundation Backfill Define Spec Jobs Test Spec</div>
       <div class="sidebar-sub">test spec</div>
     </div>
   </div>
@@ -137,8 +137,8 @@
 <main class="main">
   <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-split-queue-test.html</div>
-    <h1>Foundation Backfill Split And Queue Test Spec</h1>
-    <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Split And Queue can hand off safely.</p>
+    <h1>Foundation Backfill Define Spec Jobs Test Spec</h1>
+    <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Define Spec Jobs can hand off safely.</p>
     <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-split-queue.descriptive</div></div>
     <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through eval receipts, and the HTML summary is a derived review surface.</p>
   </section>
@@ -148,11 +148,11 @@
       <h2>Acceptance mapping</h2>
       <table class="status-table"><thead><tr><th>ID</th><th>Condition</th><th>Must prove</th></tr></thead><tbody>
         <tr><td>AC-1</td><td>Canonical artifacts exist.</td><td>backfill-queue-YYYYMMDD-NN.jsonl, split-queue-eval-YYYYMMDD-NN.jsonl exist and share the active run ID.</td></tr>
-        <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites valid upstream IDs from Capability Matrix or records a blocker.</td></tr>
+        <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites valid upstream IDs from Capability Map or records a blocker.</td></tr>
         <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, ready, in-progress, acceptable, blocked, out-of-scope.</td></tr>
         <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, missing needs-split child slices, generated-fill shortcuts, wrong child-slice taxonomy, stale eval receipts, and report drift fail.</td></tr>
         <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, under-evidenced, generic evidence, or semantically misaligned rows produce revision targets; report handoff requires zero revision targets.</td></tr>
-        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>durable queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue fingerprint, and report names next layer as Evidence Pack.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>Job / Spec Queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue fingerprint, and report names next layer as Context Pack.</td></tr>
       </tbody></table>
     </section>
 
@@ -181,14 +181,14 @@
     <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
       <h2>Gaps and follow-ups</h2>
       <ul>
-        <li>Implementation commands exist in Foundation; Sandia Oil can now calibrate the layer from Capability Matrix handoff.</li>
+        <li>Implementation commands exist in Foundation; Sandia Oil can now calibrate the layer from Capability Map handoff.</li>
         <li>Sandia Oil starts as calibration evidence, not a perfect gold fixture.</li>
         <li>Schema or rubric changes must update descriptive, technical, and test specs together.</li>
       </ul>
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Split And Queue Test Spec · active</p>
+  <p class="footer-note">Foundation Backfill Define Spec Jobs Test Spec · active</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

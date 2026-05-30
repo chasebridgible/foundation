@@ -1,4 +1,4 @@
 interface:
-  display_name: "Backfill Repo Inventory"
-  short_description: "Map repo evidence into coverage ledger"
-  default_prompt: "Use $backfill-repo-inventory to map this repo's evidence into a coverage ledger before drafting backfill specs."
+  display_name: "Backfill Artifact Inventory"
+  short_description: "Map artifacts into the coverage ledger"
+  default_prompt: "Use $backfill-repo-inventory to map this repo's artifacts into a coverage ledger before drafting backfill specs."

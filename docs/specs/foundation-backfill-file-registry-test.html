@@ -7,13 +7,13 @@
 <meta name="spec:type" content="test">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-27">
-<title>Foundation File Registry Test Spec</title>
+<title>Foundation Artifact Inventory Test Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-file-registry.test",
-  "title": "Foundation File Registry Test Spec",
+  "title": "Foundation Artifact Inventory Test Spec",
   "type": "test",
   "status": "active",
   "lastUpdated": "2026-05-27",
@@ -73,7 +73,7 @@
       "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
       "kind": "doc",
       "ownership": "reference",
-      "notes": "Descriptive intent for the file registry layer."
+      "notes": "Descriptive intent for the Artifact Inventory layer."
     },
     {
       "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
@@ -101,7 +101,7 @@
       "mapsTo": [
         "foundation.backfill-file-registry.descriptive#ux-contracts"
       ],
-      "evidence": "File registry tests prove JSONL eval receipts, derived HTML summaries, report handoff state, and full-run acceptability mechanics; Sandia Oil calibration remains the real-repo proof target."
+      "evidence": "Artifact Inventory tests prove JSONL eval receipts, derived HTML summaries, report handoff state, and full-run acceptability mechanics; Sandia Oil calibration remains the real-repo proof target."
     },
     {
       "id": "BFR-E-3",
@@ -132,7 +132,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">V</div>
     <div>
-      <div class="sidebar-title">File Registry Eval</div>
+      <div class="sidebar-title">Artifact Inventory Eval</div>
       <div class="sidebar-sub">test spec</div>
     </div>
   </div>
@@ -151,14 +151,14 @@
 <main class="main">
   <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-file-registry-test.html</div>
-    <h1>Foundation File Registry Test Spec</h1>
-    <p class="lede">The test layer is the eval system for the Foundation file registry: deterministic checks prove complete current coverage, graph checks prove links resolve, and quality evals prove rows are accurate enough to support agents during both backfill and steady-state build work.</p>
+    <h1>Foundation Artifact Inventory Test Spec</h1>
+    <p class="lede">The test layer is the eval system for the Foundation Artifact Inventory: deterministic checks prove complete current coverage, graph checks prove links resolve, and quality evals prove rows are accurate enough to support agents during both backfill and steady-state build work.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
       <div><strong>Updated:</strong> 2026-05-27</div>
       <div><strong>Parent:</strong> foundation.backfill-file-registry.descriptive</div>
     </div>
-    <p>If this evidence passes, a reviewer can trust that every repo-owned file has a current registry row, sampled rows describe source files accurately enough for downstream surface/capability inference, and behavior-bearing rows connect to the intended specs, capabilities, and verification evidence once those artifacts exist.</p>
+    <p>If this evidence passes, a reviewer can trust that every repo-owned file has a current inventory row, sampled rows describe source files accurately enough for downstream surface/capability inference, and behavior-bearing rows connect to the intended specs, capabilities, and verification evidence once those artifacts exist.</p>
   </section>
 
   <article class="doc-body">
@@ -168,18 +168,18 @@
         <thead><tr><th>ID</th><th>Condition</th><th>Maps to</th><th>Must prove</th></tr></thead>
         <tbody>
           <tr><td>AC-1</td><td>The repo-owned file set is deterministic.</td><td><code>foundation.backfill-file-registry.descriptive#capability-contract</code></td><td>Manifest rules define tracked, untracked non-ignored, and explicitly included files before semantic mapping begins.</td></tr>
-          <tr><td>AC-2</td><td>Every repo-owned file appears in the manifest and registry exactly once.</td><td><code>foundation.backfill-file-registry.descriptive#states-and-rules</code></td><td>No missing paths, duplicate paths, or unregistered manifest entries.</td></tr>
-          <tr><td>AC-3</td><td>Canonical artifacts exist for the run.</td><td><code>foundation.backfill-file-registry.technical#data-model</code></td><td>Manifest JSON, registry JSONL, checker output, and eval JSONL receipt and HTML summary use the same dated run ID.</td></tr>
-          <tr><td>AC-4</td><td>Registry status remains minimal.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Status enum allows only <code>pending</code> and <code>mapped</code>.</td></tr>
-          <tr><td>AC-5</td><td>Mapped rows are fresh.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Registry content identity and size match the current file.</td></tr>
+          <tr><td>AC-2</td><td>Every repo-owned file appears in the manifest and Artifact Inventory exactly once.</td><td><code>foundation.backfill-file-registry.descriptive#states-and-rules</code></td><td>No missing paths, duplicate paths, or unregistered manifest entries.</td></tr>
+          <tr><td>AC-3</td><td>Canonical artifacts exist for the run.</td><td><code>foundation.backfill-file-registry.technical#data-model</code></td><td>Manifest JSON, Artifact Inventory JSONL, checker output, and eval JSONL receipt and HTML summary use the same dated run ID.</td></tr>
+          <tr><td>AC-4</td><td>Inventory status remains minimal.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Status enum allows only <code>pending</code> and <code>mapped</code>.</td></tr>
+          <tr><td>AC-5</td><td>Mapped rows are fresh.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Inventory content identity and size match the current file.</td></tr>
           <tr><td>AC-6</td><td>Mapped rows have enough structured meaning.</td><td><code>foundation.backfill-file-registry.technical#data-model</code></td><td>Required fields are present; mapped rows do not rely on <code>unknown</code> classifications or vague summaries.</td></tr>
           <tr><td>AC-7</td><td>Large or multi-role files are described thoroughly.</td><td><code>foundation.backfill-file-registry.descriptive#states-and-rules</code></td><td>Rows include responsibilities or sections for behavior-bearing large files.</td></tr>
           <tr><td>AC-8</td><td>The loop is resumable.</td><td><code>foundation.backfill-file-registry.technical#concurrency-and-timing</code></td><td>Pending rows and checkpoint state identify the next batch after compaction, interruption, or handoff.</td></tr>
-          <tr><td>AC-9</td><td>Handoff is gated.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Surface registry work starts only after zero pending rows, checker pass, eval pass, no blocking review flags, and current Sandia Oil calibration evidence or a human-authored expected registry when available.</td></tr>
+          <tr><td>AC-9</td><td>Handoff is gated.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Surface / Function Map work starts only after zero pending rows, checker pass, eval pass, no blocking review flags, and current Sandia Oil calibration evidence or a human-authored expected Artifact Inventory when available.</td></tr>
           <tr><td>AC-10</td><td>Sandia Oil calibration detects obvious inventory misses.</td><td><code>foundation.backfill-file-registry.descriptive#ux-contracts</code></td><td>Cold backfill output is inspected against a tractable repo before large-repo use; it becomes a fixture only after expected rows are human-authored.</td></tr>
           <tr><td>AC-11</td><td>Behavior-bearing files link to the intent graph.</td><td><code>foundation.backfill-file-registry.descriptive#system-relationship</code>, <code>foundation.backfill-file-registry.technical#graph-links</code></td><td>Strict mode requires each behavior-bearing mapped row to resolve to a capability, spec section, and verification target or explicit test gap.</td></tr>
           <tr><td>AC-12</td><td>Steady-state changes keep the registry current.</td><td><code>foundation.backfill-file-registry.technical#lifecycle-modes</code></td><td>Changed files are invalidated or refreshed, and broken graph links are reported before build handoff.</td></tr>
-          <tr><td>AC-13</td><td>Generated registry artifacts do not create recursive hashes.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Current-run generated manifest, registry, and evaluation files are excluded from the input snapshot or represented by an explicitly defined self-entry convention.</td></tr>
+          <tr><td>AC-13</td><td>Generated inventory artifacts do not create recursive hashes.</td><td><code>foundation.backfill-file-registry.technical#contracts</code></td><td>Current-run generated manifest, Artifact Inventory, and evaluation files are excluded from the input snapshot or represented by an explicitly defined self-entry convention.</td></tr>
         </tbody>
       </table>
     </section>
@@ -193,8 +193,8 @@
           <tr><td>T-2</td><td>unit</td><td><code>foundation:file-registry:check</code> fixture tests in <code>foundation/scripts/file-registry.test.mjs</code></td><td>existing</td><td>Missing, duplicate, stale, pending, invalid rows, invalid statuses, invalid enums, and artifact path drift fail mechanically.</td></tr>
           <tr><td>T-3</td><td>eval</td><td><code>foundation:file-registry:eval</code> fixture tests in <code>foundation/scripts/file-registry.test.mjs</code></td><td>existing</td><td>Row specificity, behavior-bearing detection, and large-file handling are scored through canonical JSONL receipts and a derived HTML summary.</td></tr>
           <tr><td>T-4</td><td>manual/eval</td><td>Sandia Oil calibration review</td><td>planned</td><td>End-to-end discovery quality should be observed on a tractable real repo before larger runs; expected-row fixtures can be added later.</td></tr>
-          <tr><td>T-5</td><td>integration</td><td>Surface registry consumes file registry output</td><td>planned</td><td>Downstream layers must be able to query behavior-bearing files and related evidence.</td></tr>
-          <tr><td>T-6</td><td>e2e</td><td>Backfill run reaches handoff gate on calibration repo</td><td>planned</td><td>The full loop should prove zero pending rows, no blocking flags, passing eval, and current Sandia Oil calibration evidence or a human-authored expected registry when available.</td></tr>
+          <tr><td>T-5</td><td>integration</td><td>Surface / Function Map consumes Artifact Inventory output</td><td>planned</td><td>Downstream layers must be able to query behavior-bearing files and related evidence.</td></tr>
+          <tr><td>T-6</td><td>e2e</td><td>Backfill run reaches handoff gate on calibration repo</td><td>planned</td><td>The full loop should prove zero pending rows, no blocking flags, passing eval, and current Sandia Oil calibration evidence or a human-authored expected Artifact Inventory when available.</td></tr>
           <tr><td>T-7</td><td>integration</td><td><code>foundation:file-registry:graph-check</code> fixture tests</td><td>existing</td><td>File-to-spec, file-to-capability, and file-to-verification-or-gap links are machine-resolvable.</td></tr>
           <tr><td>T-8</td><td>integration</td><td><code>foundation:file-registry:refresh</code> changed-file fixture tests</td><td>existing</td><td>The registry remains useful after initial backfill, so changed-file invalidation and remapping have direct coverage.</td></tr>
         </tbody>
@@ -204,13 +204,13 @@
     <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">
       <h2>Commands or evidence required</h2>
       <ul class="path-list">
-        <li><code>npm run foundation:file-registry:init -- --repo /path/to/repo --run-id YYYYMMDD-NN --mode backfill</code> - command that creates a manifest and skeleton registry. Backfill aliases may call this command but should not duplicate its logic.</li>
+        <li><code>npm run foundation:file-registry:init -- --repo /path/to/repo --run-id YYYYMMDD-NN --mode backfill</code> - legacy command that creates a manifest and skeleton Artifact Inventory. New aliases may call this command but should not duplicate its logic.</li>
         <li><code>npm run foundation:file-registry:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --batch-size 25</code> - deterministic V1 fill helper for bounded pending batches; agents still revise rows when eval finds weak evidence.</li>
         <li><code>npm run foundation:file-registry:check -- --repo /path/to/repo --run-id YYYYMMDD-NN --mode bootstrap|strict --phase batch|handoff</code> - command that verifies deterministic invariants, freshness, graph links, and handoff gate conditions.</li>
         <li><code>npm run foundation:file-registry:eval -- --repo /path/to/repo --run-id YYYYMMDD-NN</code> - command that writes canonical JSONL row-quality receipts and a derived HTML summary.</li>
         <li><code>npm run foundation:file-registry:graph-check -- --repo /path/to/repo --run-id YYYYMMDD-NN --mode bootstrap|strict</code> - command that resolves spec section IDs, capability IDs, verification targets, and explicit test gaps.</li>
         <li><code>npm run foundation:file-registry:refresh -- --repo /path/to/repo --run-id YYYYMMDD-NN</code> - steady-state command that refreshes changed rows and reports affected files before remap.</li>
-        <li><code>npm run foundation:file-registry:report -- --repo /path/to/repo --run-id YYYYMMDD-NN --report docs/specs/backfill/review-report-YYYYMMDD-NN.html</code> - report integration command that records registry path, pending count, checker result, eval result, latest run-log sequence, and next layer.</li>
+        <li><code>npm run foundation:file-registry:report -- --repo /path/to/repo --run-id YYYYMMDD-NN --report docs/specs/backfill/review-report-YYYYMMDD-NN.html</code> - legacy report integration command that records inventory path, pending count, checker result, eval result, latest run-log sequence, and next layer.</li>
         <li>Calibration report - Sandia Oil run output, manual review notes, and optional human-authored expected file rows when a fixture is created.</li>
       </ul>
     </section>
@@ -221,15 +221,15 @@
       <table class="status-table">
         <thead><tr><th>Risk</th><th>Signal</th><th>Why not cheaper?</th><th>Why not broader?</th></tr></thead>
         <tbody>
-          <tr><td>File omitted from registry</td><td>deterministic checker</td><td>Not needed; manifest comparison is exact.</td><td>Semantic review would be weaker than set comparison.</td></tr>
+          <tr><td>File omitted from Artifact Inventory</td><td>deterministic checker</td><td>Not needed; manifest comparison is exact.</td><td>Semantic review would be weaker than set comparison.</td></tr>
           <tr><td>Row is vague or wrong</td><td>semantic eval over sampled file rows and source-derived row structure</td><td>Schema checks alone cannot know whether the row is useful to future agents.</td><td>Full human review is too expensive for every file.</td></tr>
           <tr><td>Behavior-bearing file marked as support-only</td><td>stratified eval sample plus Sandia Oil calibration review</td><td>Static heuristics miss project-specific behavior.</td><td>Full repo human review does not scale.</td></tr>
           <tr><td>Discovery process looks complete but misses a domain</td><td>Sandia Oil calibration before large-repo use</td><td>Single-row samples miss system-level omissions.</td><td>Large-repo fixtures are too expensive for early validation.</td></tr>
           <tr><td>Behavior-bearing file has no intent or test path</td><td>graph-link checker plus semantic eval</td><td>Schema checks can see missing fields but not whether the right spec/capability was chosen.</td><td>Full manual graph review does not scale for every change.</td></tr>
-          <tr><td>Registry is useful during backfill but decays during builds</td><td>changed-file refresh fixture</td><td>Backfill-only checks do not prove steady-state value.</td><td>A full repo backfill on every change would be too expensive.</td></tr>
+          <tr><td>Artifact Inventory is useful during backfill but decays during builds</td><td>changed-file refresh fixture</td><td>Backfill-only checks do not prove steady-state value.</td><td>A full repo backfill on every change would be too expensive.</td></tr>
         </tbody>
       </table>
-      <h3>Registry eval rubric</h3>
+      <h3>Artifact Inventory eval rubric</h3>
       <table class="status-table">
         <thead><tr><th>Category</th><th>Points</th><th>Excellent means</th></tr></thead>
         <tbody>
@@ -255,7 +255,7 @@
         <li>Calibration must identify obvious missed files, under-described behavior-bearing files, stale classifications, and downstream surface/capability hints before larger repo use.</li>
         <li>When human-authored expected rows exist, manifest recall and critical behavior-bearing recall must be <code>100</code>; row-quality score must be at least <code>96</code>, with no normalized category below <code>9/10</code>.</li>
       </ul>
-      <p>Acceptable means deterministic checks pass, total eval score is at least <code>96</code>, no category is below <code>9/10</code> when normalized, no pending rows remain, no blocking review flags remain, current Sandia Oil calibration evidence exists, and no critical behavior-bearing file is materially misclassified. When a human-authored expected registry exists, it becomes an additional hard gate.</p>
+      <p>Acceptable means deterministic checks pass, total eval score is at least <code>96</code>, no category is below <code>9/10</code> when normalized, no pending rows remain, no blocking review flags remain, current Sandia Oil calibration evidence exists, and no critical behavior-bearing file is materially misclassified. When a human-authored expected Artifact Inventory exists, it becomes an additional hard gate.</p>
       <p>Strict-mode acceptable additionally means behavior-bearing rows resolve to capability IDs, spec section IDs, and verification targets or explicit test gaps. Bootstrap-mode acceptable may carry unresolved graph links only when downstream artifacts do not exist yet and review flags make the gap visible.</p>
     </section>
 
@@ -265,9 +265,9 @@
         <thead><tr><th>Gap</th><th>Risk</th><th>Follow-up trigger</th></tr></thead>
         <tbody>
           <tr><td>Implementation scripts exist, but more real-repo pilots are needed before relying on fully automatic row meaning in large repos.</td><td>medium</td><td>Before using heuristic fill output without agent review.</td></tr>
-          <tr><td>No human-authored expected registry exists yet.</td><td>medium</td><td>Before promoting Sandia Oil calibration from review evidence into a hard fixture gate.</td></tr>
-          <tr><td>Surface registry derivation has specs but no implementation yet.</td><td>medium</td><td>Before advancing a real backfill beyond file registry.</td></tr>
-          <tr><td>Graph-link checks exist for registry rows; downstream surface and capability implementations do not exist yet.</td><td>medium</td><td>Before advancing beyond file registry into surface registry.</td></tr>
+          <tr><td>No human-authored expected Artifact Inventory exists yet.</td><td>medium</td><td>Before promoting Sandia Oil calibration from review evidence into a hard fixture gate.</td></tr>
+          <tr><td>Surface / Function Map derivation has specs but no implementation yet.</td><td>medium</td><td>Before advancing a real backfill beyond Artifact Inventory.</td></tr>
+          <tr><td>Graph-link checks exist for inventory rows; downstream surface and capability implementations do not exist yet.</td><td>medium</td><td>Before advancing beyond Artifact Inventory into Surface / Function Map.</td></tr>
           <tr><td>Changed-file refresh exists for file rows; downstream surface/capability invalidation is still future-layer work.</td><td>medium</td><td>Before requiring full graph invalidation in normal development workflows.</td></tr>
         </tbody>
       </table>
@@ -275,13 +275,13 @@
 
     <section id="coevolution-rule" data-spec-section="coevolution-rule" data-section-type="maintenance">
       <h2>Co-evolution rule</h2>
-      <div class="callout warning"><strong>Required:</strong> changes to file registry schema, status model, manifest definition, graph-link model, lifecycle modes, checker behavior, or eval rubric must update the descriptive, technical, and test specs together.</div>
-      <p>When implementation exists, fixture outputs, Sandia Oil calibration evidence, and any human-authored expected registry must be updated in the same change as schema or rubric changes.</p>
+      <div class="callout warning"><strong>Required:</strong> changes to Artifact Inventory schema, status model, manifest definition, graph-link model, lifecycle modes, checker behavior, or eval rubric must update the descriptive, technical, and test specs together.</div>
+      <p>When implementation exists, fixture outputs, Sandia Oil calibration evidence, and any human-authored expected Artifact Inventory must be updated in the same change as schema or rubric changes.</p>
     </section>
   </article>
 
   <hr>
-  <p class="footer-note">Foundation Backfill File Registry Test Spec · draft eval contract</p>
+  <p class="footer-note">Foundation Backfill Artifact Inventory Test Spec · draft eval contract</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

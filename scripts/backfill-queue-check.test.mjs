@@ -87,7 +87,7 @@ test("rejects a report without an embedded durable queue", () => {
   assert.equal(results.some(result => result.id === "queue-script" && result.status === "fail"), true);
 });
 
-test("rejects a report without an embedded capability matrix", () => {
+test("rejects a report without an embedded Capability Map", () => {
   const file = writeReport(`<!DOCTYPE html>
 <script type="application/json" id="backfill-slice-queue">
 {

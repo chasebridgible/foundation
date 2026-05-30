@@ -340,7 +340,7 @@
     <div class="nav-label">On this page</div>
     <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
     <a class="nav-item" href="#how-to-read-this"><span class="nav-num">01</span>How to read this</a>
-    <a class="nav-item" href="#1-the-business-is-the-system"><span class="nav-num">02</span>1. The business is the system.</a>
+    <a class="nav-item" href="#1-the-business-is-the-system"><span class="nav-num">02</span>1. Business mapping.</a>
     <a class="nav-item" href="#2-the-loop-define-decide-act-learn"><span class="nav-num">03</span>2. The loop: define, decide, act, learn.</a>
     <a class="nav-item" href="#3-what-a-business-os-is"><span class="nav-num">04</span>3. What a Business OS is.</a>
     <a class="nav-item" href="#4-jobs-are-the-unit-of-change"><span class="nav-num">05</span>4. Jobs are the unit of change.</a>
@@ -368,7 +368,7 @@
 <section class="level1 generated-root">
 <section id="how-to-read-this" class="level2 spec-section">
 <h2>How to read this</h2>
-<p>This document applies the compounding-system framework to business operations. It asks one question: if software can be improved over time by making intent explicit, running work through a loop, and updating the substrate, what is the equivalent system for a business?</p>
+<p>This document applies <code>system-philosophy.html</code> and the compounding-system framework to business operations. It asks one question: if goals require intent-driven systems, what does that system look like for a business whose recurring goal is to build value, deliver value, and capture money?</p>
 <p>The answer is a <strong>Business OS</strong>: the durable operating layer that describes what the business is trying to do, which jobs produce the outcomes, who or what performs those jobs, what data tells us whether the system is working, and how the whole thing updates after reality teaches us something.</p>
 <p>The core loop is simple enough to read early and repeat often: <strong>Define -&gt; Decide -&gt; Act -&gt; Learn.</strong> Learn is the compounding step: measured reality enters the data layer, gets interpreted against intent, and changes the next definition, decision, or action.</p>
 <p>Two kinds of claim show up here. <strong>Principles</strong> are the parts I expect to survive changes in tools, models, teams, and markets. <strong>Operating choices</strong> are the current best implementation of those principles. The choices will change. The loop is what keeps those changes from becoming drift.</p>
@@ -376,10 +376,10 @@
 </section>
 
 <section id="1-the-business-is-the-system" class="level2 spec-section">
-<h2>1. The business is the system.</h2>
+<h2>1. The business is a mapping of the system.</h2>
 <p>The entirety of a business can be described in tasks, decisions, actions, and outcomes. That does not mean every business is simple. It means the complexity can be made legible. Every company has work that needs to happen, decisions that need to be made, actors who do the work, standards that define success, and evidence that tells the owner whether the system is improving.</p>
 <p>The leverage move is to stop treating the business as a set of departments and start treating it as a set of jobs. A cashier, marketer, designer, coder, operator, manager, and CEO all have jobs to be done. Some are physical. Some are judgment-heavy. Some are mostly information routing. Some can be done by software, by an agent, by a person, or by a person using an agent.</p>
-<p>This is why the "AI CEO" idea matters even when the business is not run by an AI. A useful public example is the 2026 reporting that Mark Zuckerberg was building a CEO agent to help him retrieve information and assist with CEO work. The point is not that the agent becomes the accountable CEO. The point is sharper: even the CEO role can be decomposed into jobs, decisions, context retrieval, recommendations, and actions where an agent can help. If that is true at the top of Meta, it is also true for a cashier, marketer, designer, coder, operator, or owner.</p>
+<p>This is why the "AI CEO" idea matters even when the business is not run by an AI. The point is not that an agent becomes the accountable CEO. The point is sharper: even the CEO role can be decomposed into jobs, decisions, context retrieval, recommendations, and actions where an agent can help. If that is true at the top of a company, it is also true for a cashier, marketer, designer, coder, operator, or owner.</p>
 <p><strong>A job is the core unit of business intent.</strong> A job is a named body of work meant to produce a defined outcome under real constraints. In this definition, a job can include decision work, relationship work, strategy work, physical work, creative work, or operational work. If the job is clear, the business owner can decide whether it belongs to a person, an agent, a workflow, a software system, or a hybrid. If the job is not clear, delegation becomes guessing with a better interface.</p>
 <hr />
 </section>
@@ -419,8 +419,8 @@
 
 <section id="3-what-a-business-os-is" class="level2 spec-section">
 <h2>3. What a Business OS is.</h2>
-<p>A Business OS is a living system for defining work, assigning actors, measuring outcomes, and updating how the business operates. It contains the operating memory of the business: jobs, decisions, actors, processes, data, measures, update rules, and the evidence behind revisions.</p>
-<p>The knowledge layer is one part of that system. It stores durable context. The Business OS turns that context into routed work, assigned responsibility, measured outcomes, and revised future defaults.</p>
+<p>A Business OS is a living context and spec system for defining work, assigning actors, measuring outcomes, and updating how the business operates. It contains the operating memory of the business: jobs, decisions, actors, processes, data, measures, update rules, and the evidence behind revisions.</p>
+<p>The knowledge layer is one part of that system and one implementation of context substrate. The Business OS turns that context into routed work, assigned responsibility, measured outcomes, and revised future defaults.</p>
 <div class="matrix-grid">
   <div class="matrix-cell">
     <div class="matrix-label">Knowledge layer</div>
@@ -450,7 +450,7 @@
 
 <section id="4-jobs-are-the-unit-of-change" class="level2 spec-section">
 <h2>4. Jobs are the unit of change.</h2>
-<p>A job record is the business equivalent of a spec. It says what needs to happen, why it matters, how it is currently done, who owns it, what inputs it needs, what output it creates, and how success is verified. Because a job carries intent, the record can describe strategy work, relationship work, decision work, creative work, physical work, or routine operational work without changing shape.</p>
+<p>A job record is a job spec, even when the business-facing name is "job record." It says what needs to happen, why it matters, how it is currently done, who owns it, what inputs it needs, what output it creates, and how success is verified. Because a job carries intent, the record can describe strategy work, relationship work, decision work, creative work, physical work, or routine operational work without changing shape.</p>
 <p>A complete job record should answer:</p>
 <ul>
 <li><strong>Purpose:</strong> what business outcome this job protects or creates.</li>
@@ -463,6 +463,7 @@
 <li><strong>Escalation:</strong> what happens when the actor cannot complete the job safely.</li>
 <li><strong>Revision history:</strong> what changed, when, why, and what evidence justified the change.</li>
 </ul>
+<p>A job can have a test spec. In business language that may be an eval, acceptance criteria, scorecard, audit, quality gate, or metric definition. The point is not the label. The point is that evidence must be named before the system can improve the job.</p>
 <p>Once the job is legible, the business can ask better questions. Should this stay human? Should an agent advise the human? Should software automate the whole thing? Should a checklist reduce variance? Should the job disappear because another process makes it unnecessary?</p>
 <p>The pilot turbulence example makes the point. "Turn on the fasten seatbelt sign and make an announcement when turbulence matters" is one job. The current actor may be the pilot. The future actor may be flight-data software, onboard sensors, and an automated announcement system. The deeper job, flying the plane, requires a much more serious system before it can be delegated to autopilot. Same structure, different stakes.</p>
 <p>Orderly Systems exists in that question: identify the jobs, understand the value and risk of changing the actor, then build or recommend the system that puts the right work on autopilot without pretending every job should be automated.</p>
@@ -525,12 +526,12 @@
 <section id="8-the-orderly-systems-offer" class="level2 spec-section">
 <h2>8. The Orderly Systems offer.</h2>
 <p>Orderly Systems builds Business OS infrastructure for companies that need clearer operations, better data, and more leverage from people, software, and agents.</p>
-<p><strong>The offer:</strong> we turn the operating reality of a business into a living system of jobs, actors, processes, data, measures, and update rules, then use that system to improve performance over time.</p>
+<p><strong>The offer:</strong> we turn the operating reality of a business into a living context and spec system of jobs, actors, processes, data, measures, and update rules, then use that system to improve performance over time.</p>
 <p><strong>What we do for a business:</strong></p>
 <ul>
 <li><strong>Define the business.</strong> Clarify the offers, customer promises, constraints, roles, systems, and outcomes that matter.</li>
 <li><strong>Map the jobs.</strong> Identify the work the business must do to fulfill its offers, grow, avoid failure, and improve margins.</li>
-<li><strong>Write the job records.</strong> Capture purpose, trigger, actor, inputs, process, success criteria, measurement, escalation, and revision history.</li>
+<li><strong>Write the job specs.</strong> Capture purpose, trigger, actor, inputs, process, success criteria, measurement, escalation, and revision history.</li>
 <li><strong>Find the gaps.</strong> Identify unowned jobs, unclear decisions, weak handoffs, missing data, broken processes, and places where the actor no longer fits the work.</li>
 <li><strong>Design the operating system.</strong> Create the job board, SOPs, checklists, data definitions, dashboards, decision rules, and intake paths the business needs.</li>
 <li><strong>Implement the right intervention.</strong> Build or recommend processes, software, automations, agent workflows, training artifacts, or human handoffs.</li>
@@ -573,6 +574,7 @@
     <h2>Related core concept docs</h2>
     <p class="lede">Sibling HTML-native documents in this folder.</p>
     <div class="related-grid">
+      <a class="related-card" href="./system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root philosophy for intent-driven business systems, context, action, evidence, and compounding substrate.</div></a>
       <a class="related-card" href="./operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">The software-development operating spec this document mirrors.</div></a>
       <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. The Business OS is one instance of it.</div></a>
       <a class="related-card" href="../principles/business-principles.html"><div class="related-name">Business Principles</div><div class="related-desc">Domain-specific principles for building and maintaining a Business OS.</div></a>

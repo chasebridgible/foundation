@@ -40,7 +40,7 @@ function main() {
   if (options.json) {
     console.log(JSON.stringify({ schema: "foundation.backfill.file-registry-graph-check.v1", runId, summary, results }, null, 2));
   } else {
-    console.log(renderResultsText("File registry graph check", results));
+    console.log(renderResultsText("Artifact Inventory graph check", results));
   }
   if (summary.fail > 0) process.exit(1);
 }

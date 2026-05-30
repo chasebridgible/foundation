@@ -23,7 +23,7 @@ function usage() {
   return `Usage:
   npm run foundation:surface-registry:eval -- --repo /path/to/repo --run-id YYYYMMDD-NN [--sample all|risk] [--run-log path]
 
-Writes canonical JSONL Surface Registry eval receipts and a derived HTML summary.`;
+Writes canonical JSONL Surface / Function Map eval receipts and a derived HTML summary.`;
 }
 
 function renderHtmlSummary({ runId, repoRoot, registryPath, receiptPath, summaryPath, sampleRows, aggregate, findings }) {
@@ -38,15 +38,15 @@ function renderHtmlSummary({ runId, repoRoot, registryPath, receiptPath, summary
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surface Registry Eval ${runId}</title>
+<title>Surface / Function Map Eval ${runId}</title>
 <link rel="stylesheet" href="../spec-system.css">
 </head>
 <body>
 <main class="main">
   <section id="summary">
     <div class="spec-eyebrow">docs/specs/backfill/${path.basename(summaryPath)}</div>
-    <h1>Surface Registry Eval ${runId}</h1>
-    <p class="lede">Derived human summary for canonical JSONL Surface Registry eval receipts.</p>
+    <h1>Surface / Function Map Eval ${runId}</h1>
+    <p class="lede">Derived human summary for canonical JSONL Surface / Function Map eval receipts.</p>
     <div class="meta-row">
       <div><strong>Run ID:</strong> ${runId}</div>
       <div><strong>Total score:</strong> ${aggregate.totalScore}</div>
@@ -55,7 +55,7 @@ function renderHtmlSummary({ runId, repoRoot, registryPath, receiptPath, summary
       <div><strong>Rows sampled:</strong> ${sampleRows.length}</div>
     </div>
     <ul>
-      <li><strong>Registry:</strong> <code>${path.relative(repoRoot, registryPath)}</code></li>
+      <li><strong>Artifact Inventory:</strong> <code>${path.relative(repoRoot, registryPath)}</code></li>
       <li><strong>Canonical receipt:</strong> <code>${path.relative(repoRoot, receiptPath)}</code></li>
       <li><strong>Calibration note:</strong> Sandia Oil is calibration evidence, not a gold benchmark unless human-authored expected surface rows are added.</li>
     </ul>
@@ -159,16 +159,16 @@ function main() {
     slice: null,
     phase: "evaluation",
     event: "evaluation",
-    summary: `Surface Registry eval ${aggregate.acceptable ? "passed" : "failed"} with score ${aggregate.totalScore}.`,
+    summary: `Surface / Function Map eval ${aggregate.acceptable ? "passed" : "failed"} with score ${aggregate.totalScore}.`,
     artifactsRead: [path.relative(repoRoot, surfaceRegistryPathFor(repoRoot, runId, outDir))],
     artifactsChanged: [path.relative(repoRoot, receiptPath), path.relative(repoRoot, summaryPath)],
     commands: ["foundation:surface-registry:eval"],
     checks: [{ name: "surface-registry-eval", result: aggregate.acceptable ? "passed" : "failed" }],
-    result: aggregate.acceptable ? `Surface Registry eval passed with score ${aggregate.totalScore}.` : `Surface Registry eval failed with score ${aggregate.totalScore}.`,
-    nextAction: revisionTargets.length > 0 ? "Revise Surface Registry rows named in revisionTargets before report handoff." : (aggregate.acceptable ? "Record handoff to Capability Matrix gate." : "Revise Surface Registry rows named in revisionTargets.")
+    result: aggregate.acceptable ? `Surface / Function Map eval passed with score ${aggregate.totalScore}.` : `Surface / Function Map eval failed with score ${aggregate.totalScore}.`,
+    nextAction: revisionTargets.length > 0 ? "Revise Surface / Function Map rows named in revisionTargets before report handoff." : (aggregate.acceptable ? "Record handoff to Capability Map gate." : "Revise Surface / Function Map rows named in revisionTargets.")
   });
 
-  console.log(`Surface registry eval\nScore: ${aggregate.totalScore}\nMinimum normalized category: ${aggregate.normalizedMinimum.toFixed(1)}\nAcceptable: ${aggregate.acceptable ? "yes" : "no"}\nRevision targets: ${revisionTargets.length}\nReceipt: ${path.relative(repoRoot, receiptPath)}\nSummary: ${path.relative(repoRoot, summaryPath)}`);
+  console.log(`Surface / Function Map eval\nScore: ${aggregate.totalScore}\nMinimum normalized category: ${aggregate.normalizedMinimum.toFixed(1)}\nAcceptable: ${aggregate.acceptable ? "yes" : "no"}\nRevision targets: ${revisionTargets.length}\nReceipt: ${path.relative(repoRoot, receiptPath)}\nSummary: ${path.relative(repoRoot, summaryPath)}`);
   if (!aggregate.acceptable) process.exit(1);
 }
 

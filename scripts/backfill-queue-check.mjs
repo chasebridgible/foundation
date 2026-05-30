@@ -117,16 +117,16 @@ function validateCapabilityMatrix(matrix) {
   const results = [];
 
   results.push(isString(matrix.runId)
-    ? pass("capability-run-id", "Capability matrix has a run ID")
-    : fail("capability-run-id", "Capability matrix must include non-empty runId"));
+    ? pass("capability-run-id", "Capability Map has a run ID")
+    : fail("capability-run-id", "Capability Map must include non-empty runId"));
 
   results.push(isString(matrix.targetRepo)
-    ? pass("capability-target-repo", "Capability matrix has a target repo")
-    : fail("capability-target-repo", "Capability matrix must include non-empty targetRepo"));
+    ? pass("capability-target-repo", "Capability Map has a target repo")
+    : fail("capability-target-repo", "Capability Map must include non-empty targetRepo"));
 
   results.push(Array.isArray(matrix.capabilities) && matrix.capabilities.length > 0
-    ? pass("capabilities-present", `Capability matrix has ${matrix.capabilities?.length || 0} row(s)`)
-    : fail("capabilities-present", "Capability matrix must include at least one capability row"));
+    ? pass("capabilities-present", `Capability Map has ${matrix.capabilities?.length || 0} row(s)`)
+    : fail("capabilities-present", "Capability Map must include at least one capability row"));
 
   if (!Array.isArray(matrix.capabilities)) return results;
 
@@ -180,7 +180,7 @@ function validateCapabilityMatrix(matrix) {
     }
 
     if (!VALID_CAPABILITY_STATUSES.has(capability?.status)) {
-      results.push(fail(`${prefix}:status`, "Capability status is not in the capability matrix enum", {
+      results.push(fail(`${prefix}:status`, "Capability status is not in the Capability Map enum", {
         status: capability?.status,
         validStatuses: [...VALID_CAPABILITY_STATUSES]
       }));
@@ -261,9 +261,9 @@ function validateQueue(queue, capabilityIds = null) {
     } else if (capabilityIds) {
       const unknown = slice.capabilityIds.filter(id => !capabilityIds.has(id));
       if (unknown.length > 0) {
-        results.push(fail(`${prefix}:capability-refs`, "Slice capabilityIds must refer to capability matrix rows", { unknown }));
+        results.push(fail(`${prefix}:capability-refs`, "Slice capabilityIds must refer to Capability Map rows", { unknown }));
       } else {
-        results.push(pass(`${prefix}:capability-refs`, "Slice capabilityIds refer to capability matrix rows"));
+        results.push(pass(`${prefix}:capability-refs`, "Slice capabilityIds refer to Capability Map rows"));
       }
     }
 
@@ -342,14 +342,14 @@ function validateReport(reportPath) {
   } else {
     try {
       const matrix = JSON.parse(matrixText);
-      results.push(pass("capability-script", "Report includes embedded capability matrix"));
-      results.push(pass("capability-json", "Backfill capability matrix JSON parses"));
+      results.push(pass("capability-script", "Report includes embedded Capability Map"));
+      results.push(pass("capability-json", "Backfill Capability Map JSON parses"));
       results.push(...validateCapabilityMatrix(matrix));
       if (Array.isArray(matrix.capabilities)) {
         capabilityIds = new Set(matrix.capabilities.map(capability => capability?.id).filter(isString));
       }
     } catch (error) {
-      results.push(fail("capability-json", "Backfill capability matrix JSON must parse", { error: error.message }));
+      results.push(fail("capability-json", "Backfill Capability Map JSON must parse", { error: error.message }));
     }
   }
 

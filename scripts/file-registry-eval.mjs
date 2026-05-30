@@ -148,15 +148,15 @@ function renderHtmlSummary({ runId, repoRoot, registryPath, receiptPath, summary
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>File Registry Eval ${runId}</title>
+<title>Artifact Inventory Eval ${runId}</title>
 <link rel="stylesheet" href="../spec-system.css">
 </head>
 <body>
 <main class="main">
   <section id="summary">
     <div class="spec-eyebrow">docs/specs/backfill/${path.basename(summaryPath)}</div>
-    <h1>File Registry Eval ${runId}</h1>
-    <p class="lede">Derived human summary for canonical JSONL file-registry eval receipts.</p>
+    <h1>Artifact Inventory Eval ${runId}</h1>
+    <p class="lede">Derived human summary for canonical JSONL Artifact Inventory eval receipts.</p>
     <div class="meta-row">
       <div><strong>Run ID:</strong> ${runId}</div>
       <div><strong>Total score:</strong> ${aggregate.totalScore}</div>
@@ -165,7 +165,7 @@ function renderHtmlSummary({ runId, repoRoot, registryPath, receiptPath, summary
       <div><strong>Rows sampled:</strong> ${sampleRows.length}</div>
     </div>
     <ul>
-      <li><strong>Registry:</strong> <code>${path.relative(repoRoot, registryPath)}</code></li>
+      <li><strong>Artifact Inventory:</strong> <code>${path.relative(repoRoot, registryPath)}</code></li>
       <li><strong>Canonical receipt:</strong> <code>${path.relative(repoRoot, receiptPath)}</code></li>
     </ul>
   </section>
@@ -261,16 +261,16 @@ function main() {
     slice: null,
     phase: "evaluation",
     event: "evaluation",
-    summary: `File registry eval ${aggregate.acceptable ? "passed" : "failed"} with score ${aggregate.totalScore}.`,
+    summary: `Artifact Inventory eval ${aggregate.acceptable ? "passed" : "failed"} with score ${aggregate.totalScore}.`,
     artifactsRead: [path.relative(repoRoot, registryPathFor(repoRoot, runId, outDir))],
     artifactsChanged: [path.relative(repoRoot, receiptPath), path.relative(repoRoot, summaryPath)],
     commands: ["foundation:file-registry:eval"],
     checks: [{ name: "file-registry-eval", result: aggregate.acceptable ? "passed" : "failed" }],
-    result: aggregate.acceptable ? `File registry eval passed with score ${aggregate.totalScore}.` : `File registry eval failed with score ${aggregate.totalScore}.`,
-    nextAction: aggregate.acceptable ? "Record handoff to surface registry." : "Revise registry rows named in revisionTargets."
+    result: aggregate.acceptable ? `Artifact Inventory eval passed with score ${aggregate.totalScore}.` : `Artifact Inventory eval failed with score ${aggregate.totalScore}.`,
+    nextAction: aggregate.acceptable ? "Record handoff to Surface / Function Map." : "Revise inventory rows named in revisionTargets."
   });
 
-  console.log(`File registry eval\nScore: ${aggregate.totalScore}\nMinimum normalized category: ${aggregate.normalizedMinimum.toFixed(1)}\nAcceptable: ${aggregate.acceptable ? "yes" : "no"}\nReceipt: ${path.relative(repoRoot, receiptPath)}\nSummary: ${path.relative(repoRoot, summaryPath)}`);
+  console.log(`Artifact Inventory eval\nScore: ${aggregate.totalScore}\nMinimum normalized category: ${aggregate.normalizedMinimum.toFixed(1)}\nAcceptable: ${aggregate.acceptable ? "yes" : "no"}\nReceipt: ${path.relative(repoRoot, receiptPath)}\nSummary: ${path.relative(repoRoot, summaryPath)}`);
   if (!aggregate.acceptable) process.exit(1);
 }
 

@@ -19,7 +19,7 @@ function usage() {
   return `Usage:
   npm run foundation:split-queue:check -- --repo /path/to/repo --run-id YYYYMMDD-NN [--phase batch|handoff] [--report path] [--json] [--no-write]
 
-Validates Split And Queue structure, upstream Capability Matrix references, freshness, child-slice coverage, current next actions, and optional report state.`;
+Validates Define Spec Jobs structure, upstream Capability Map references, freshness, child-slice coverage, current next actions, and optional report state.`;
 }
 
 function main() {
@@ -58,19 +58,19 @@ function main() {
     slice: null,
     phase: "validation",
     event: "validation",
-    summary: `Split And Queue check ${summary.fail === 0 ? "passed" : "failed"}.`,
+    summary: `Define Spec Jobs check ${summary.fail === 0 ? "passed" : "failed"}.`,
     artifactsRead: [payload.capabilityMatrixPath, payload.queuePath].filter(Boolean),
     artifactsChanged: options["no-write"] ? [] : [path.relative(repoRoot, checkPath)],
     commands: ["foundation:split-queue:check"],
     checks: [{ name: "split-queue-check", result: summary.fail === 0 ? "passed" : "failed" }],
-    result: summary.fail === 0 ? "Split And Queue check passed." : "Split And Queue check failed.",
-    nextAction: summary.fail === 0 ? "Run Split And Queue eval or record handoff." : "Fix Split And Queue check failures."
+    result: summary.fail === 0 ? "Define Spec Jobs check passed." : "Define Spec Jobs check failed.",
+    nextAction: summary.fail === 0 ? "Run Define Spec Jobs eval or record handoff." : "Fix Define Spec Jobs check failures."
   });
 
   if (options.json) {
     console.log(JSON.stringify(payload, null, 2));
   } else {
-    console.log(renderResultsText("Split And Queue check", check.results));
+    console.log(renderResultsText("Define Spec Jobs check", check.results));
   }
   if (summary.fail > 0) process.exit(1);
 }

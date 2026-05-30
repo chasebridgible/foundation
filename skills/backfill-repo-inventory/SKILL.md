@@ -1,34 +1,34 @@
 ---
 name: backfill-repo-inventory
-description: Build and maintain the evidence inventory, capability matrix, split signals, and coverage ledger for a Foundation repo backfill. Use inside Backfill Specs before drafting, when resuming, or when coverage is unclear.
+description: Build and maintain the Artifact Inventory, Capability Map, split signals, and coverage ledger for a Foundation backfill. Use inside Backfill Specs before drafting, when resuming, or when coverage is unclear.
 ---
 
-# Backfill Repo Inventory
+# Backfill Artifact Inventory
 
 Use inside `backfill-specs`. Do not draft specs here.
 
 ## Inputs
 
 - dated backfill report, if present
-- file manifest and file registry artifacts for the active run
-- existing capability matrix and slice queue, if present
+- file manifest and Artifact Inventory artifacts for the active run
+- existing Capability Map and Job / Spec Queue, if present
 - repo structure, routes/screens, APIs, schemas, services/jobs, integrations, infra, tests, docs
 
 ## Produce
 
 1. Evidence inventory: stable ID, category, label, evidence path, finding, confidence, proposed owner, notes.
-2. Capability matrix rows using the Backfill Specs formula:
+2. Capability Map rows using the Backfill Specs formula:
    actor + outcome + object + actions + states + rules + surfaces + contracts + failure/recovery + evidence.
 3. Split signals for rows that are too broad.
 4. Slice queue candidates derived from capability rows.
 
 ## Inventory Scope
 
-Derive evidence surfaces from the mapped file registry first, then inspect source files only to resolve ambiguity. Cover:
+Derive evidence surfaces from the mapped Artifact Inventory first, then inspect source files only to resolve ambiguity. Cover:
 
 - apps, packages, deployables, source roots
 - routes, pages, screens, navigation, commands, public entry points
-- components, flows, forms, menus, empty states, permission surfaces
+- components, process paths, forms, menus, empty states, permission surfaces
 - APIs, endpoint groups, controllers, handlers, external contracts
 - tables, models, migrations, schemas, fixtures, seed data
 - services, workers, jobs, queues, schedulers, webhooks, event handlers
@@ -43,4 +43,4 @@ Split capability rows when actors, outcomes, objects, actions, states, permissio
 
 ## Done
 
-The layer is done when every mapped file-registry row contributes to a capability row, non-behavioral support note, parent-owned reason, out-of-scope reason, or named human decision.
+The layer is done when every mapped Artifact Inventory row contributes to a capability row, non-behavioral support note, parent-owned reason, out-of-scope reason, or named human decision.

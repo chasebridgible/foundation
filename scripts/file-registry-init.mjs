@@ -21,7 +21,7 @@ function usage() {
   return `Usage:
   npm run foundation:file-registry:init -- --repo /path/to/repo --run-id YYYYMMDD-NN [--mode backfill|steady-state] [--out-dir path] [--run-log path]
 
-Creates the canonical manifest JSON and pending registry JSONL skeleton.`;
+Creates the canonical manifest JSON and pending Artifact Inventory JSONL skeleton.`;
 }
 
 function main() {
@@ -50,20 +50,20 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "inventory",
+    phase: "artifact-inventory",
     event: "complete",
-    summary: "Initialized file registry manifest and pending skeleton.",
+    summary: "Initialized Artifact Inventory manifest and pending skeleton.",
     artifactsRead: [],
     artifactsChanged: [path.relative(repoRoot, manifestPath), path.relative(repoRoot, registryPath)],
     commands: ["foundation:file-registry:init"],
     checks: [{ name: "manifest-shape", result: "passed" }],
     durationSeconds: 0,
-    result: `${rows.length} pending registry row(s) created.`,
+    result: `${rows.length} pending inventory row(s) created.`,
     nextAction: "Fill pending rows in deterministic batches."
   });
 
   const results = validateManifest(manifest, runId);
-  console.log(renderResultsText("File registry init", [
+  console.log(renderResultsText("Artifact Inventory init", [
     ...results,
     { id: "registry-skeleton", status: "pass", message: `Created ${rows.length} pending row(s)` }
   ]));

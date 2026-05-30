@@ -1,4 +1,4 @@
 interface:
-  display_name: "Backfill Adequacy Review"
+  display_name: "Backfill Review Spec Adequacy"
   short_description: "Review spec adequacy and latitude"
   default_prompt: "Use $backfill-spec-adequacy-review to verify this backfill slice is specific, covered, contract-preserving, architecture-flexible, and implementable from the specs."

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Philosophy - Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --primary-dim: rgba(79,142,255,0.10);
+    --amber: #d4a72c;
+    --amber-dim: rgba(212,167,44,0.12);
+    --emerald: #4ec9b0;
+    --emerald-dim: rgba(78,201,176,0.12);
+    --red: #f48771;
+    --red-dim: rgba(244,135,113,0.12);
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    display: flex;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    width: var(--sidebar-w);
+  }
+
+  .sidebar-logo {
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 0 18px 16px;
+  }
+
+  .logo-mark {
+    align-items: center;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    color: var(--fg);
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    height: 24px;
+    justify-content: center;
+    width: 24px;
+  }
+
+  .sidebar-title { color: var(--fg); font-size: 13px; font-weight: 500; }
+  .sidebar-sub {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-top: 1px;
+    max-width: 172px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 10px 10px 4px;
+  }
+
+  .nav-item {
+    align-items: center;
+    border-bottom: none;
+    border-radius: 4px;
+    color: var(--fg-2);
+    display: flex;
+    font-size: 12px;
+    gap: 8px;
+    min-width: 0;
+    overflow: hidden;
+    padding: 4px 10px;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    transition: background var(--transition), color var(--transition);
+    white-space: nowrap;
+  }
+
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-num {
+    color: var(--fg-3);
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding-top: 1px;
+    text-align: right;
+    width: 18px;
+  }
+
+  .main {
+    flex: 1;
+    max-width: 980px;
+    min-width: 0;
+    padding: 56px 72px 120px;
+  }
+
+  .spec-eyebrow {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    color: var(--fg);
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.12;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    color: var(--fg);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0;
+    margin: 0 0 14px;
+  }
+
+  h3 {
+    color: var(--fg);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 22px 0 8px;
+  }
+
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  strong { color: var(--fg); font-weight: 600; }
+  em { color: var(--fg-2); }
+  code {
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--fg);
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+    padding: 1px 4px;
+  }
+
+  pre {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.55;
+    margin: 16px 0 22px;
+    overflow-x: auto;
+    padding: 16px;
+  }
+
+  ol, ul { color: var(--fg-2); margin: 0 0 16px 20px; }
+  li { margin-bottom: 8px; padding-left: 2px; }
+  hr { border: 0; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  .lede {
+    color: var(--fg-2);
+    font-size: 16px;
+    line-height: 1.65;
+    margin-bottom: 22px;
+    max-width: 760px;
+  }
+
+  .meta-row {
+    border-top: 1px solid var(--border);
+    color: var(--fg-3);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 12px;
+    gap: 18px;
+    margin-top: 22px;
+    padding-top: 14px;
+  }
+
+  .overview-section { margin-bottom: 46px; }
+  .spec-section { scroll-margin-top: 40px; }
+
+  .visual-block {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin: 18px 0 24px;
+    overflow: hidden;
+  }
+
+  .visual-header {
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    padding: 14px 16px;
+  }
+
+  .visual-title { color: var(--fg); font-size: 13px; font-weight: 600; }
+  .visual-kicker { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; }
+
+  .stack {
+    display: grid;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .stack-row {
+    align-items: center;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 120px 1fr 160px;
+    padding: 12px 14px;
+  }
+
+  .stack-row.accent {
+    background: var(--primary-dim);
+    border-color: rgba(79,142,255,0.28);
+  }
+
+  .stack-name { color: var(--fg); font-size: 13px; font-weight: 600; }
+  .stack-copy { color: var(--fg-2); font-size: 12px; line-height: 1.45; }
+  .stack-rule { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; text-align: right; }
+
+  .loop-flow {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 18px 0 22px;
+  }
+
+  .loop-node {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    min-height: 142px;
+    padding: 14px;
+  }
+
+  .loop-node.accent { background: var(--emerald-dim); border-color: rgba(78,201,176,0.28); }
+  .loop-num { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; margin-bottom: 20px; }
+  .loop-title { color: var(--fg); font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .loop-copy { color: var(--fg-2); font-size: 12px; line-height: 1.5; }
+
+  .matrix-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 18px 0 22px;
+  }
+
+  .matrix-cell {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 15px;
+  }
+
+  .matrix-cell.accent { background: var(--amber-dim); border-color: rgba(212,167,44,0.28); }
+  .matrix-label {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+  .matrix-value { color: var(--fg); font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .matrix-copy { color: var(--fg-2); font-size: 13px; line-height: 1.5; }
+
+  .table-wrap {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 18px 0 24px;
+    overflow-x: auto;
+  }
+
+  table { border-collapse: collapse; width: 100%; }
+  th, td {
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-2);
+    font-size: 13px;
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-2);
+    color: var(--fg);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  tr:last-child td { border-bottom: 0; }
+
+  .callout {
+    background: var(--bg-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--primary);
+    border-radius: 8px;
+    margin: 18px 0 22px;
+    padding: 14px 16px;
+  }
+
+  .related-section {
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+    padding-top: 28px;
+  }
+
+  .related-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 16px;
+  }
+
+  .related-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: inherit;
+    display: block;
+    padding: 14px;
+    text-decoration: none;
+    transition: background var(--transition), border-color var(--transition);
+  }
+
+  .related-card:hover { background: var(--bg-3); border-color: var(--border-2); }
+  .related-name { color: var(--fg); font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .related-desc { color: var(--fg-3); font-size: 12px; line-height: 1.45; }
+
+  .footer-note {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-top: 36px;
+  }
+
+  @media (max-width: 900px) {
+    body { display: block; }
+    .sidebar { height: auto; position: relative; width: 100%; }
+    .main { padding: 32px 22px 80px; }
+    h1 { font-size: 30px; }
+    .loop-flow, .matrix-grid, .related-grid { grid-template-columns: 1fr; }
+    .stack-row { grid-template-columns: 1fr; }
+    .stack-rule { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">F</div>
+    <div>
+      <div class="sidebar-title">Foundation</div>
+      <div class="sidebar-sub">System Philosophy</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">On This Page</div>
+    <a class="nav-item active" href="#how-to-read-this"><span class="nav-num">01</span>How to read this</a>
+    <a class="nav-item" href="#1-the-root-claim"><span class="nav-num">02</span>1. The root claim</a>
+    <a class="nav-item" href="#2-intent-context-action-evidence"><span class="nav-num">03</span>2. Intent, context, action, evidence</a>
+    <a class="nav-item" href="#3-the-stack"><span class="nav-num">04</span>3. The stack</a>
+    <a class="nav-item" href="#4-business-is-a-recurring-mapping"><span class="nav-num">05</span>4. Business mapping</a>
+    <a class="nav-item" href="#5-software-development-is-a-mapping"><span class="nav-num">06</span>5. Software mapping</a>
+    <a class="nav-item" href="#6-capability-is-the-unit-of-performance"><span class="nav-num">07</span>6. Capability</a>
+    <a class="nav-item" href="#7-processes-are-skills"><span class="nav-num">08</span>7. Processes are skills</a>
+    <a class="nav-item" href="#8-context-and-intake"><span class="nav-num">09</span>8. Context and intake</a>
+    <a class="nav-item" href="#9-learning-is-a-job"><span class="nav-num">10</span>9. Learning is a job</a>
+    <a class="nav-item" href="#10-backfill-translated"><span class="nav-num">11</span>10. Backfill translated</a>
+    <a class="nav-item" href="#11-principles"><span class="nav-num">12</span>11. Principles</a>
+    <a class="nav-item" href="#what-is-settled-vs-what-is-iterating"><span class="nav-num">13</span>Settled vs. iterating</a>
+  </div>
+</aside>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · system-philosophy.html</div>
+    <h1>System Philosophy</h1>
+    <p class="lede">Chapter one: the highest-level description of how intent becomes results through systems, context, actors, evidence, and revision.</p>
+    <div class="meta-row">
+      <div><strong>Format:</strong> HTML-native</div>
+      <div><strong>Authoring:</strong> edit this HTML file</div>
+      <div><strong>Status:</strong> Draft working spec</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="how-to-read-this" class="level2 spec-section">
+      <h2>How to read this</h2>
+      <p>This document is the root description of the thing Foundation is trying to make explicit. It is not a software-development document first and a business document second. It is the system philosophy underneath goal-directed work itself.</p>
+      <p>The audience is founders. A founder is responsible for turning intent into reality through people, agents, software, tools, processes, offers, distribution, fulfillment, data, and money. A technical founder happens to meet that responsibility through software sooner than most, but the deeper problem is not coding. The deeper problem is learning how to see, describe, operate, and improve intent-driven systems.</p>
+      <p>Software development has already made some of this discipline visible through specs, tests, skills, CI, code review, and deployment. Business has the same underlying structure, but the vocabulary is less settled. This document names the shared structure first. The software operating spec, Business OS, context substrate, backfill process, and Orderly Systems offer are mappings of this root philosophy.</p>
+      <p>Two kinds of claim show up here. <strong>Principles</strong> are the parts I expect to survive changes in tools, models, teams, companies, and markets. <strong>Operating choices</strong> are the current best way to express those principles inside Foundation. The words will sharpen. The structure is the thing.</p>
+      <hr>
+    </section>
+
+    <section id="1-the-root-claim" class="level2 spec-section">
+      <h2>1. The root claim</h2>
+      <p><strong>Goals require intent-driven systems.</strong></p>
+      <p>A goal does not become real because it is wanted. It becomes real when intent is clear enough to guide action, context is available to the actors doing the work, capabilities exist to produce the outcome, jobs are defined, processes make the jobs repeatable, actions and decisions touch reality, and evidence tells the system whether reality matched intent.</p>
+      <p>This is the core of the philosophy. Everything else is a mapping. Business is one durable mapping: a business is an intent-driven system for building value, delivering value, and capturing money. Software development is another mapping: it builds value through software, whether that value is internal leverage or an external product. The context substrate, spec system, Business OS, backfill process, and Orderly Systems offer are all expressions of the same root pattern.</p>
+      <p>The first failure mode is invisibility. Work happens behind closed doors, inside heads, inside tools, inside meetings, inside customer conversations, inside code, inside dashboards, and inside habits. The engineer does not see sales. The salesperson does not see design. The founder does not see every process clearly enough to improve it. The system still runs, but it runs as hidden machinery.</p>
+      <p>The leverage move is to make the machinery legible: what goal is being pursued, which capability is missing, which job creates it, which process performs the job, who or what acts, what context they need, which decisions matter, and what evidence proves improvement.</p>
+      <div class="callout">
+        <strong>Operating rule</strong>
+        <p>When a goal is not being achieved, do not first ask for more effort. Decompose the system until the missing capability, job, process, action, decision, context, actor, or evidence becomes visible.</p>
+      </div>
+      <hr>
+    </section>
+
+    <section id="2-intent-context-action-evidence" class="level2 spec-section">
+      <h2>2. Intent, context, action, evidence</h2>
+      <p>The deep loop is simple:</p>
+      <pre><code>Intent -> context -> execution -> evidence -> revision</code></pre>
+      <p><strong>Intent</strong> names what should be true. It can be a product behavior, customer outcome, business result, offer promise, process standard, or founder goal. Intent is not useful until it is clear enough that another actor can act on it.</p>
+      <p><strong>Context</strong> is the operating information the actor needs to make the right move: goals, constraints, history, customer promises, domain facts, prior decisions, data, examples, definitions, principles, standards, and known failure modes. Everything is context-driven because actors act from what they can see.</p>
+      <p><strong>Execution</strong> is where the system touches reality through actions and decisions. A person sends the email. An agent edits the code. Software routes the event. A founder chooses the offer. A customer buys or does not. Until an actor acts or decides, the system is still potential.</p>
+      <p><strong>Evidence</strong> is reality answering back. Tests pass or fail. Revenue appears or does not. A customer gets the promised outcome or does not. A handoff succeeds or breaks. A dashboard changes. A reviewer accepts the work. Evidence without update is reporting. Evidence with update is learning.</p>
+      <p>In this system, a <strong>spec</strong> is any artifact that captures intent, context, and evidence well enough that a person, agent, software system, or team can act against it. The word may or may not appear in business-facing language. A system can have a spec. A capability can have a spec. A job can have a spec. A process can have a spec. An action or decision can have a spec when the stakes justify it.</p>
+      <p>A job can also have a test spec. In business language that may be called an eval, acceptance criteria, a quality gate, an audit, a scorecard, or a metric definition. The name should fit the domain. The function is the same: define how the system will know whether intent became reality.</p>
+      <hr>
+    </section>
+
+    <section id="3-the-stack" class="level2 spec-section">
+      <h2>3. The stack</h2>
+      <p>The useful vocabulary is a stack. Each layer exists because the layer above it needs a reliable way to happen.</p>
+      <div class="visual-block">
+        <div class="visual-header">
+          <div class="visual-title">The system philosophy stack</div>
+          <div class="visual-kicker">from reality to outcome</div>
+        </div>
+        <div class="stack">
+          <div class="stack-row accent">
+            <div class="stack-name">Goal</div>
+            <div class="stack-copy">The desired outcome the system is trying to produce.</div>
+            <div class="stack-rule">why work exists</div>
+          </div>
+          <div class="stack-row">
+            <div class="stack-name">Capability</div>
+            <div class="stack-copy">The system's ability to reliably produce a class of outcome under real constraints.</div>
+            <div class="stack-rule">what the system can do</div>
+          </div>
+          <div class="stack-row">
+            <div class="stack-name">Job</div>
+            <div class="stack-copy">A named body of work that creates, protects, or improves a capability.</div>
+            <div class="stack-rule">unit of intent</div>
+          </div>
+          <div class="stack-row">
+            <div class="stack-name">Process / skill</div>
+            <div class="stack-copy">A repeatable sequence of actions, decisions, checks, and handoffs that performs a job.</div>
+            <div class="stack-rule">unit of repeatability</div>
+          </div>
+          <div class="stack-row">
+            <div class="stack-name">Action / decision</div>
+            <div class="stack-copy">The concrete thing an actor does, or the choice an actor makes, in the real world or in a system.</div>
+            <div class="stack-rule">unit of execution</div>
+          </div>
+          <div class="stack-row">
+            <div class="stack-name">Actor / tool</div>
+            <div class="stack-copy">A person, agent, software system, vendor, workflow, or hybrid that can perform the action.</div>
+            <div class="stack-rule">who or what acts</div>
+          </div>
+          <div class="stack-row">
+            <div class="stack-name">Evidence</div>
+            <div class="stack-copy">The observable signal that tells the system whether the action, process, job, or capability worked.</div>
+            <div class="stack-rule">how reality answers</div>
+          </div>
+        </div>
+      </div>
+      <p>The stack is not a bureaucracy. It is a diagnostic tool. If a goal is not being reached, the system gives you somewhere smaller to look. The missing piece might be capability, job ownership, process clarity, action quality, decision criteria, actor fit, context, tooling, or evidence.</p>
+      <p><strong>Spec is not a single layer.</strong> Spec is the intent-and-evidence artifact that can attach to any layer where clarity matters. A system spec, capability spec, job spec, process spec, action spec, and test spec all do the same deeper work at different scopes.</p>
+      <p><strong>Surface is not action.</strong> A surface is where a behavior is exposed or observed: a screen, route, command, workflow file, schema, document, dashboard, or physical station. A surface tells you where action can happen. The action itself is named later, inside the process or Process / Action Map. Calling surface identification "action identification" is close, but it skips one layer: first name the place where behavior exists; then name what actors do there.</p>
+      <hr>
+    </section>
+
+    <section id="4-business-is-a-recurring-mapping" class="level2 spec-section">
+      <h2>4. Business is a recurring mapping</h2>
+      <p>The right split is not business versus software. The root system is goal-to-result work. Business is a recurring application of that system with a durable top-level goal: build value, deliver value, and capture money.</p>
+      <p>A founder's job is to improve the business system. That can mean creating an offer, clarifying positioning, building distribution, selling, fulfilling, hiring, designing operations, managing cash, building software, deploying agents, creating context substrate, or learning the fundamentals required to do the next job better. These are not separate philosophical categories. They are jobs and capabilities inside one intent-driven system.</p>
+      <p>That is why the same vocabulary should apply across Orderly Systems, software development, context-substrate work, and business operations. The business has goals. Goals require capabilities. Capabilities are made real by jobs. Jobs are performed by processes. Processes require actors, actions, decisions, context, and evidence. The business learns when evidence updates the system.</p>
+      <div class="matrix-grid">
+        <div class="matrix-cell accent">
+          <div class="matrix-label">Business system</div>
+          <div class="matrix-value">Intent becomes value and money</div>
+          <div class="matrix-copy">Goals, capabilities, jobs, processes, actors, context, and evidence turn founder intent into customer outcomes and economic results.</div>
+        </div>
+        <div class="matrix-cell">
+          <div class="matrix-label">Software development</div>
+          <div class="matrix-value">One value-building mapping</div>
+          <div class="matrix-copy">Specs, tests, skills, agents, tools, reviews, and deployment are the software-development mapping of the same intent/context/evidence/revision loop.</div>
+        </div>
+      </div>
+      <p>This is why language matters. A founder cannot improve a system they cannot describe. The more precise the vocabulary, the smaller the unit of improvement becomes.</p>
+      <hr>
+    </section>
+
+    <section id="5-software-development-is-a-mapping" class="level2 spec-section">
+      <h2>5. Software development is a mapping</h2>
+      <p>Software development is valuable because it builds value through software. Sometimes the value is external: a product behavior a customer pays for. Sometimes it is internal: leverage, automation, reliability, speed, data, or operating clarity. Either way, software is built because someone expects the system to produce a better result afterward.</p>
+      <p>The software-development system makes the general philosophy executable. A software spec says what is intended and how the system will know whether the result works. A test gives executable evidence. A skill gives a repeatable process. A repo gives context. A codebase exposes surfaces. A PR packages the work for review. CI supplies automated evidence. A deployment turns candidate work into operating reality. A backfill process turns existing code into legible substrate.</p>
+      <p>Those ideas should not stay trapped in software because they were never software-only ideas. They teach any intent-driven system how to operate: write intent clearly, give actors the right context, define the job, run the process, verify with evidence, and update the substrate.</p>
+      <pre><code>Business goal: build value, deliver value, and capture money
+Software-development capability: build value through software
+Job: turn intent into shipped software value
+Process: spec -> test -> prompt -> execute -> review -> deploy -> learn
+Actors: founder, agent, subagent, tests, browser, CI, reviewer, users
+Context: principles, definitions, specs, code, context substrate, prior decisions
+Evidence: tests, screenshots, traces, diffs, customer behavior, production signals
+Learning: update specs, skills, capability inventory, definitions, and decisions</code></pre>
+      <p>The practical result is that specs are agnostic. The file may be called <code>job-spec.html</code>, <code>process-spec.html</code>, <code>offer-map.html</code>, or something else. The name should be clear enough for the people using it. The function is stable: preserve intent and context well enough that a capable actor can act, then name the evidence that decides whether the action worked.</p>
+      <hr>
+    </section>
+
+    <section id="6-capability-is-the-unit-of-performance" class="level2 spec-section">
+      <h2>6. Capability is the unit of performance</h2>
+      <p><strong>A capability is the ability to reliably produce an outcome.</strong> In software delivery, a capability is often a portable vertical slice: schema, API, types, UI, and tests traveling together. In business, a capability is broader: the organization's ability to create an offer, reach buyers, sell, fulfill, retain, hire, measure, or improve. The software definition is not wrong. It is a domain-specific instance of the broader definition.</p>
+      <p>A business can build something valuable and still fail because it lacks the capability to distribute it, sell it, package it, price it, fulfill it repeatedly, or capture money from it. A founder can work hard and still fail because the work is not creating the missing capability. Effort is real, but capability is what changes the system's ability to win.</p>
+      <p>The primary business capability is not just "create value." A more complete statement is: <strong>build value, deliver value, and capture money.</strong> That top-level capability decomposes into at least three subordinate capabilities:</p>
+      <ol>
+        <li><strong>Value creation:</strong> identify a painful or valuable problem and create something that improves the customer's reality.</li>
+        <li><strong>Value delivery:</strong> get the value to the customer reliably, repeatedly, and at a quality level that fulfills the promise.</li>
+        <li><strong>Value capture:</strong> package, price, sell, collect, retain, and expand the exchange so the business makes money.</li>
+      </ol>
+      <p>Distribution likely sits above sales. Distribution is the capability of making the offer reachable, visible, credible, and available to the right market. Sales is one job family inside that larger capability: turning qualified attention into a buying decision. Marketing, partnerships, channels, audience, content, outbound, referrals, product-led motion, and reputation can all be distribution mechanisms.</p>
+      <p>An offer is the promise that connects value to money. Offer principles therefore belong in the capability system: who the promise is for, what outcome it names, what pain it removes, what proof supports it, what risk reversal exists, what urgency or scarcity is real, how it is priced, and how fulfillment makes the promise true.</p>
+      <hr>
+    </section>
+
+    <section id="7-processes-are-skills" class="level2 spec-section">
+      <h2>7. Processes are skills</h2>
+      <p>In agent development, a skill is a workflow the agent can follow when a trigger appears. In business, a process or SOP is the same shape. In human work, a checklist is the same shape. Different names, same structure: when this situation appears, follow these steps, make these decisions, use these tools, produce this output, and verify it this way.</p>
+      <p>This reframes agent instruction. A prompt is not just a request. It is the current way the human gives the actor a job, the process for doing it, the context needed to act, and the evidence required to stop. A weak prompt asks for an outcome while hiding the job. A strong skill names the job and gives the actor enough process to perform it.</p>
+      <p>The old failure mode was describing the desired app behavior in the language available at the time, then watching the agent take invisible engineering actions that were not understood, constrained, or verified. The way forward is not to become every kind of engineer at implementation depth. The way forward is to understand the job structure at the level needed to give better intent: what decisions must be made, which actions must happen, what risks matter, what evidence proves the work, and which pieces belong in reusable substrate.</p>
+      <pre><code>Goal: working video-player experience
+Capability: user can open, control, recover, and exit playback
+Job: define and implement the open-player process
+Process / skill: inspect current player surfaces, define states, implement behavior, verify rendered UX
+Actions: read files, identify state model, edit component, run tests, capture screenshots
+Evidence: tests pass, playback states render, gestures work, errors recover, spec matches behavior</code></pre>
+      <p>That is why specs, tests, and skills are tightly connected at the systems level. They are not identical artifacts, but they form one process substrate. The spec names intent. The test or eval names evidence. The skill names the workflow. Together they tell an actor how to do a job in pursuit of a capability.</p>
+      <hr>
+    </section>
+
+    <section id="8-context-and-intake" class="level2 spec-section">
+      <h2>8. Context and intake</h2>
+      <p>Context is higher than knowledge. Knowledge is what the system knows. Context is what an actor needs in order to act well: goals, constraints, promises, history, data, examples, taste, standards, permissions, definitions, tools, current state, and known failure modes.</p>
+      <p>A knowledge base is one implementation of context substrate. Its job is to preserve the operating mind of the business so future actors can act with the right goals, promises, constraints, standards, history, decisions, and examples in view.</p>
+      <p>Orderly Systems starts by asking questions because intake is how hidden work becomes visible. The intake process discovers the business system: what the owner is trying to accomplish, what the business promises, which capabilities matter, which jobs produce them, who does the jobs today, what process is followed, what context is missing, what decisions happen, what evidence is trusted, and where the system fails.</p>
+      <p>That discovery process should not end as a pile of notes. It should become operating substrate: capability maps, job records, process maps, decision rules, metric definitions, offer context, actor assignments, evidence requirements, and update rules. The exact artifact names should fit the business domain. The function is stable: make context reusable so the next human, agent, or system performs better.</p>
+      <p>A document entry is useful when it changes future action. A metric is useful when it changes a decision. An intake answer is useful when it updates a job, process, actor assignment, offer, or capability map. Otherwise the business has collected information without improving the system.</p>
+      <hr>
+    </section>
+
+    <section id="9-learning-is-a-job" class="level2 spec-section">
+      <h2>9. Learning is a job</h2>
+      <p>There is a personal version of the same system. To build better software systems, business systems, and agent systems, the operator has to learn the fundamentals of each domain well enough to connect them. That learning is not background activity. It is a job in the system.</p>
+      <p>The job is not "read more." The job is: identify missing vocabulary, learn the principles, observe real work, decompose jobs, write definitions, create process artifacts, test them in execution, and revise the substrate when reality teaches something. Learning compounds only when it updates future action.</p>
+      <p>This matters because the limiting factor was not grit, effort, suffering, pain tolerance, or perseverance. Those can keep a system running, but they do not make the system correct. The missing piece was fundamentals: knowing what is real, what matters, what work actually has to happen, and what evidence would prove it.</p>
+      <p>There may not always be one objectively correct choice. But real constraints, real actions, real outcomes, and real consequences exist. A system succeeds or fails in the world, not in the story told about it. The operator's job is to keep improving the match between thought, language, action, and reality.</p>
+      <div class="loop-flow">
+        <div class="loop-node accent">
+          <div class="loop-num">01</div>
+          <div class="loop-title">Name</div>
+          <div class="loop-copy">Find the missing word, boundary, principle, or job that is making the system hard to see.</div>
+        </div>
+        <div class="loop-node">
+          <div class="loop-num">02</div>
+          <div class="loop-title">Learn</div>
+          <div class="loop-copy">Study the domain until the real actions, constraints, and evidence become legible.</div>
+        </div>
+        <div class="loop-node">
+          <div class="loop-num">03</div>
+          <div class="loop-title">Codify</div>
+          <div class="loop-copy">Write the definition, principle, spec, checklist, job record, skill, or decision record.</div>
+        </div>
+        <div class="loop-node">
+          <div class="loop-num">04</div>
+          <div class="loop-title">Run</div>
+          <div class="loop-copy">Use the artifact in real work, collect evidence, and revise the substrate.</div>
+        </div>
+      </div>
+      <p>Documenting the process is therefore part of the process. The system learns when the operator's improved understanding becomes an artifact another human or agent can use next time.</p>
+      <hr>
+    </section>
+
+    <section id="10-backfill-translated" class="level2 spec-section">
+      <h2>10. Backfill translated</h2>
+      <p>The Foundation backfill process already follows this vocabulary, even where the names are still software-specific. The building analogy is useful because it makes invisible structure visible, but the durable output should be clear operating vocabulary.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Legacy implementation key</th>
+              <th>Canonical process name</th>
+              <th>Artifact produced</th>
+              <th>Clarified meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>file-registry</code></td>
+              <td>Inventory Artifacts</td>
+              <td>Artifact Inventory</td>
+              <td>Walk every room. List every code file, document, artifact, record, or source object before interpreting what it does.</td>
+            </tr>
+            <tr>
+              <td><code>surface-registry</code></td>
+              <td>Map Surfaces</td>
+              <td>Surface / Function Map</td>
+              <td>Identify where behavior or meaning is exposed: screens, routes, commands, schemas, jobs, docs, workflows, dashboards, and decision surfaces. This is not yet action identification; it names the places where action can happen.</td>
+            </tr>
+            <tr>
+              <td><code>capability-matrix</code></td>
+              <td>Map Capabilities</td>
+              <td>Capability Map</td>
+              <td>Group surfaces by the outcome they support, who uses them, what objects they affect, what rules apply, and what evidence matters.</td>
+            </tr>
+            <tr>
+              <td><code>split-queue</code></td>
+              <td>Define Spec Jobs</td>
+              <td>Job / Spec Queue</td>
+              <td>Break broad capability work into slices small enough to specify, execute, review, evaluate, and revise.</td>
+            </tr>
+            <tr>
+              <td><code>evidence-pack</code></td>
+              <td>Gather Context</td>
+              <td>Context Pack</td>
+              <td>Gather the exact files, snippets, surface refs, capability refs, near misses, gaps, and rationale the actor needs. Leave unrelated rooms out.</td>
+            </tr>
+            <tr>
+              <td><code>flow-extraction</code></td>
+              <td>Map Processes</td>
+              <td>Process / Action Map</td>
+              <td>Describe how users, operators, systems, and agents actually move through the job: states, permissions, failures, recovery, loading, empty, and edge cases.</td>
+            </tr>
+            <tr>
+              <td><code>spec-authoring</code></td>
+              <td>Author Specs</td>
+              <td>Specs</td>
+              <td>Turn context and process/action maps into system, capability, job, process, descriptive, technical, rendered-UX, and test specs that preserve intent while allowing implementation latitude.</td>
+            </tr>
+            <tr>
+              <td><code>adequacy-review</code></td>
+              <td>Review Spec Adequacy</td>
+              <td>Spec Adequacy Review</td>
+              <td>Check whether the spec is clear, evidence-backed, architecture-flexible where appropriate, and strong enough to rebuild from.</td>
+            </tr>
+            <tr>
+              <td><code>slice-evaluation</code></td>
+              <td>Evaluate Job Slices</td>
+              <td>Job / Capability Eval</td>
+              <td>Score the slice against capability, evidence, process/action rows, specs, and verification targets. Route concrete revisions when the job package is weak.</td>
+            </tr>
+            <tr>
+              <td><code>graph-evaluation</code></td>
+              <td>Evaluate System Coherence</td>
+              <td>System Eval</td>
+              <td>Verify that the capabilities, slices, contracts, and evidence fit together as one coherent system.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The naming rule is simple: use verbs for process steps and nouns for artifacts. Inventory before interpretation, surfaces before actions, capabilities before jobs, context before execution, and verification before acceptance. Current executable backfill specs, file paths, and scripts can keep legacy implementation keys for compatibility; durable prose, skill routing, and user-facing workflow language should use the canonical process and artifact names.</p>
+      <hr>
+    </section>
+
+    <section id="11-principles" class="level2 spec-section">
+      <h2>11. Principles</h2>
+      <p><strong>Goals require intent-driven systems.</strong> A meaningful goal needs intent, context, capabilities, jobs, processes, actors, actions, decisions, evidence, and revision. Otherwise it is a wish with effort attached.</p>
+      <p><strong>Name things as clearly as possible.</strong> Name a thing as if you were explaining the real work to a capable person with no hidden context. Prefer words that expose the job, actor, action, decision, evidence, and outcome. If a sentence sounds impressive but cannot change what someone does next, it is not yet operating language.</p>
+      <p><strong>Use analogies to reveal structure, then translate them back into operating language.</strong> Analogies help people understand invisible systems. "Walk every room" makes file inventory intuitive. But the durable artifact should eventually use precise names the system can execute against.</p>
+      <p><strong>Specs live wherever intent lives.</strong> A system, capability, job, process, action, decision, and test can all have specs. The artifact name can change by domain, but the function stays the same: preserve intent, context, and evidence so actors can execute and improve.</p>
+      <p><strong>Context is higher than knowledge.</strong> Knowledge is what the system knows. Context is what the actor needs to act well. A knowledge base is useful when it becomes context substrate for future decisions and actions.</p>
+      <p><strong>Define the job before choosing the actor.</strong> A human, agent, software system, vendor, or hybrid can only be chosen intelligently after the work is understood. Choosing the actor first turns delegation into guessing.</p>
+      <p><strong>Actions happen in reality, not in abstractions.</strong> Every process eventually becomes someone or something doing something: opening a file, making a call, changing a value, approving a decision, sending a message, shipping a product, collecting money, handling an exception. If the action cannot be named, the process is not fully understood.</p>
+      <p><strong>Capabilities are built from jobs.</strong> A capability is not a slogan. It is the system's repeatable ability to produce an outcome because the underlying jobs, processes, actors, tools, and evidence are strong enough.</p>
+      <p><strong>Titles are not jobs.</strong> CEO, founder, engineer, designer, operator, and salesperson are titles or roles. Each contains jobs. Performance improves when the role is decomposed into the jobs and capabilities it is accountable for.</p>
+      <p><strong>Software is a job-solving tool.</strong> A tech stack is not the business system. It is one layer of tools that perform or support jobs. The business stack is broader: offers, capabilities, jobs, actors, tools, data, processes, distribution, money, and learning.</p>
+      <p><strong>Humans and agents both stop short unless the process closes the loop.</strong> A capable actor can still be lazy, overloaded, under-contexted, or satisfied too early. The process must force evidence, review, and revision instead of relying on effort or confidence.</p>
+      <p><strong>What can be measured against intent can be improved.</strong> Measurement is useful when it is tied to the goal, the job, and the decision it should change. A metric detached from intent becomes decoration or distortion.</p>
+      <p><strong>The context layer has jobs.</strong> It preserves operating context, makes work retrievable, reduces rediscovery, improves recommendations, routes decisions, and helps the owner see what the system knows and how it runs. If it does not change future work, it is storage rather than operating memory.</p>
+      <p><strong>Learning must update substrate.</strong> Reading, thinking, and discussion are inputs. The compounding output is a sharper definition, principle, skill, spec, job record, offer, checklist, metric, decision record, or capability.</p>
+      <p><strong>Verification closes every layer.</strong> An action needs evidence. A process needs an exit criterion. A job needs acceptance. A capability needs performance signal. A business needs money and value delivered. A learning system needs changed future behavior.</p>
+      <hr>
+    </section>
+
+    <section id="what-is-settled-vs-what-is-iterating" class="level2 spec-section">
+      <h2>What is settled vs. what is iterating</h2>
+      <p><strong>Settled</strong> (the foundation of the model):</p>
+      <ul>
+        <li>Goals require intent-driven systems; they do not become real through desire alone.</li>
+        <li>Real systems produce outcomes through real actions and decisions.</li>
+        <li>The useful decomposition is goal, capability, job, process/skill, action/decision, actor/tool, context, and evidence.</li>
+        <li>Business is a recurring mapping of the root system: build value, deliver value, and capture money.</li>
+        <li>Software development is a value-building mapping of the root system; it builds internal or external value through software.</li>
+        <li>Specs are layer-agnostic intent-and-evidence artifacts; a system, capability, job, process, action, decision, or test can have a spec.</li>
+        <li>A capability is the ability to reliably produce an outcome; a software vertical slice is one domain-specific form of capability.</li>
+        <li>A process, workflow, SOP, checklist, and agent skill are the same kind of thing at the systems level.</li>
+        <li>Context is higher than knowledge and is the condition for correct execution; actors perform better when the system gives them better context.</li>
+        <li>Humans and agents are both actors that need enough context, process, evidence, and revision pressure to avoid stopping short.</li>
+        <li>Document and artifact mapping applies beyond codebases; business document sets can be inventoried, surfaced, grouped into capabilities, and turned into context packs and specs.</li>
+        <li>Learning compounds only when it updates future action through substrate.</li>
+        <li>Surface identification is not action identification; surfaces expose behavior, while process/action maps name actions.</li>
+      </ul>
+      <p><strong>Iterating</strong> (current best implementation):</p>
+      <ul>
+        <li>The exact names for stack-layer artifacts, especially where to use <code>spec</code> directly versus a business-facing synonym.</li>
+        <li>The final vocabulary for distribution, sales, marketing, offer creation, value capture, and business performance capabilities.</li>
+        <li>The document structure for job specs, process specs, capability maps, offer artifacts, distribution artifacts, learning logs, and business-stack registries.</li>
+        <li>How much of this vocabulary should move into <code>sw-definitions.html</code>, Business OS specs, and future skills.</li>
+        <li>Which executable backfill step names should migrate now, and which should keep their implementation names until a deliberate compatibility pass.</li>
+        <li>The first practical workflow that turns System Philosophy into daily learning and daily execution.</li>
+      </ul>
+      <p>This document should be updated whenever the vocabulary becomes clearer, a new domain maps cleanly onto the stack, or real execution proves that one of the layer boundaries is wrong.</p>
+    </section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede">Sibling HTML-native documents that this meta layer connects.</p>
+    <div class="related-grid">
+      <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The five-layer durability framework that explains how substrate, intake, operational shape, and loops compound.</div></a>
+      <a class="related-card" href="./operating-spec.html"><div class="related-name">Building Software with Agents</div><div class="related-desc">The software-development mapping of this system philosophy.</div></a>
+      <a class="related-card" href="./business-os.html"><div class="related-name">The Business OS</div><div class="related-desc">The business-operations mapping of this system philosophy.</div></a>
+      <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Shared vocabulary for substrate, harnesses, specs, skills, registries, and system terms.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · HTML-native document</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

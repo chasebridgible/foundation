@@ -20,7 +20,7 @@ function usage() {
   return `Usage:
   npm run foundation:split-queue:refresh -- --repo /path/to/repo --run-id YYYYMMDD-NN [--out-dir path] [--run-log path]
 
-Refreshes Split And Queue rows from the current Capability Matrix. Changed or new terminal capabilities return to pending and must be split or queued again.`;
+Refreshes Define Spec Jobs rows from the current Capability Map. Changed or new terminal capabilities return to pending and must be split or queued again.`;
 }
 
 function main() {
@@ -36,10 +36,10 @@ function main() {
   const runId = options["run-id"];
   const outDir = options["out-dir"] ? path.resolve(repoRoot, options["out-dir"]) : defaultBackfillDir(repoRoot);
   const capabilityMatrix = readCapabilityMatrixRows(repoRoot, runId, outDir);
-  if (capabilityMatrix.errors.length > 0) throw new Error(`Capability Matrix JSONL has parse errors: ${JSON.stringify(capabilityMatrix.errors)}`);
+  if (capabilityMatrix.errors.length > 0) throw new Error(`Capability Map JSONL has parse errors: ${JSON.stringify(capabilityMatrix.errors)}`);
   const queuePath = splitQueuePathFor(repoRoot, runId, outDir);
   const existing = readJsonl(queuePath);
-  if (existing.errors.length > 0) throw new Error(`Split And Queue JSONL has parse errors: ${JSON.stringify(existing.errors)}`);
+  if (existing.errors.length > 0) throw new Error(`Define Spec Jobs JSONL has parse errors: ${JSON.stringify(existing.errors)}`);
 
   const merged = mergeSplitQueueRowsForRefresh({
     capabilityRows: capabilityMatrix.rows,
@@ -62,14 +62,14 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "split-queue",
+    phase: "spec-job-queue",
     event: "checkpoint",
-    summary: `Refreshed Split And Queue: ${payload.changedCount} changed/new upstream capabilities, ${payload.removedCount} removed queue slices.`,
+    summary: `Refreshed Define Spec Jobs: ${payload.changedCount} changed/new upstream capabilities, ${payload.removedCount} removed queue slices.`,
     artifactsRead: [path.relative(repoRoot, capabilityMatrix.registryPath), path.relative(repoRoot, queuePath)],
     artifactsChanged: [path.relative(repoRoot, queuePath), path.relative(repoRoot, refreshPath)],
     commands: ["foundation:split-queue:refresh"],
     checks: [],
-    nextAction: payload.pendingCount > 0 ? "Split and mark pending Split And Queue rows." : "Run Split And Queue check."
+    nextAction: payload.pendingCount > 0 ? "Split and mark pending Define Spec Jobs rows." : "Run Define Spec Jobs check."
   });
 
   console.log(JSON.stringify(payload, null, 2));

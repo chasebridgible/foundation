@@ -200,7 +200,7 @@ function prepareCapabilityMatrix(repoRoot, runId = "20260529-01") {
       evidence: dashboardSurfaceIds.map(surfaceId => `${surfaceId} reviewed and mapped to dashboard behavior`),
       status: "needs-split",
       splitNeeded: true,
-      splitReason: "Screen rendering, API payload, and persistence contracts need separate evidence pack slices before spec authoring.",
+      splitReason: "Screen rendering, API payload, and persistence contracts need separate Context Pack slices before spec authoring.",
       splitCriteria: [
         "Screen rendering behavior is separated from API payload verification.",
         "API payload verification is separated from database persistence contract coverage."
@@ -251,7 +251,7 @@ function readyPackageSlice(capabilityId) {
     scope: "Capture package test command execution evidence for receipt",
     includedBehaviors: ["Package script command invocation and terminal result capture"],
     excludedBehaviors: ["Dashboard runtime behavior stays outside this command slice"],
-    exitCriterion: `Evidence pack receipt cites ${capabilityId} and verifies package script command execution.`,
+    exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies package script command execution.`,
     nextAction: "Collect package script command evidence and write the receipt row.",
     verificationTargets: [`${capabilityId} package script execution receipt`],
     status: "ready",
@@ -262,13 +262,13 @@ function readyPackageSlice(capabilityId) {
 function dashboardSlices(capabilityId) {
   return [
     {
-      name: "Dashboard screen evidence pack slice",
+      name: "Dashboard screen Context Pack slice",
       upstreamCapabilityIds: [capabilityId],
       ownerSkill: "backfill-evidence-pack",
       scope: "Capture dashboard screen rendering states for evidence receipt",
       includedBehaviors: ["Dashboard screen loading loaded empty and error state evidence"],
       excludedBehaviors: ["API payload contract proof stays outside this screen slice"],
-      exitCriterion: `Evidence pack receipt cites ${capabilityId} and verifies dashboard screen rendering states.`,
+      exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies dashboard screen rendering states.`,
       nextAction: "Collect dashboard screen evidence and write the receipt row.",
       verificationTargets: [`${capabilityId} dashboard screen rendering receipt`],
       childSliceRationale: "Screen rendering is one child of the broader dashboard capability.",
@@ -276,13 +276,13 @@ function dashboardSlices(capabilityId) {
       confidence: "high"
     },
     {
-      name: "Dashboard API evidence pack slice",
+      name: "Dashboard API Context Pack slice",
       upstreamCapabilityIds: [capabilityId],
       ownerSkill: "backfill-evidence-pack",
       scope: "Capture dashboard API payload behavior for evidence receipt",
       includedBehaviors: ["Dashboard API request response payload and failure evidence"],
       excludedBehaviors: ["Screen rendering proof stays outside this API slice"],
-      exitCriterion: `Evidence pack receipt cites ${capabilityId} and verifies dashboard API payload behavior.`,
+      exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies dashboard API payload behavior.`,
       nextAction: "Collect dashboard API evidence and write the receipt row.",
       verificationTargets: [`${capabilityId} dashboard API payload receipt`],
       childSliceRationale: "API payload behavior is one child of the broader dashboard capability.",
@@ -316,7 +316,7 @@ function hasFailure(results, id) {
   return results.some(result => result.id === id && result.status === "fail");
 }
 
-test("init requires Capability Matrix eval with resolved revision targets and creates pending slices", () => {
+test("init requires Capability Map eval with resolved revision targets and creates pending slices", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   prepareCapabilityMatrix(repoRoot, runId);
@@ -371,7 +371,7 @@ test("checker rejects pending handoff and requires needs-split child slices", ()
   const rows = readJsonl(queuePath).rows;
   const pendingSplit = rows.find(row => row.upstreamCapabilityIds.includes(splitIds[0]));
   writeJsonl(queuePath, rows.map(row => row.sliceId === pendingSplit.sliceId
-    ? { ...row, status: "ready", ownerSkill: "backfill-evidence-pack", scope: "Capture dashboard parent behavior for evidence receipt", includedBehaviors: ["Dashboard screen API and persistence evidence together"], excludedBehaviors: ["No separate child slice evidence recorded"], exitCriterion: `Evidence pack receipt cites ${splitIds[0]} and verifies dashboard parent behavior.`, nextAction: "Collect broad dashboard evidence and write one receipt.", verificationTargets: [`${splitIds[0]} broad dashboard receipt`] }
+    ? { ...row, status: "ready", ownerSkill: "backfill-evidence-pack", scope: "Capture dashboard parent behavior for evidence receipt", includedBehaviors: ["Dashboard screen API and persistence evidence together"], excludedBehaviors: ["No separate child slice evidence recorded"], exitCriterion: `Context Pack receipt cites ${splitIds[0]} and verifies dashboard parent behavior.`, nextAction: "Collect broad dashboard evidence and write one receipt.", verificationTargets: [`${splitIds[0]} broad dashboard receipt`] }
     : row));
   const results = validateSplitQueue({ repoRoot, runId }).results;
   assert.equal(hasFailure(results, "split-queue-needs-split-child-slices"), true);
@@ -426,7 +426,7 @@ test("semantic alignment gate rejects unrelated child-slice taxonomy", () => {
       scope: "Capture OpenClaw SQL parser validation and generated query receipt evidence",
       includedBehaviors: ["OpenClaw SQL validation query parsing and database syntax evidence"],
       excludedBehaviors: ["Dashboard screen and API payload behavior stay outside this SQL slice"],
-      exitCriterion: `Evidence pack receipt cites ${splitId} and verifies OpenClaw SQL validation.`,
+      exitCriterion: `Context Pack receipt cites ${splitId} and verifies OpenClaw SQL validation.`,
       nextAction: "Collect OpenClaw SQL validation evidence and write the receipt row.",
       verificationTargets: [`${splitId} OpenClaw SQL validation receipt`],
       childSliceRationale: "SQL validation is one child slice.",
@@ -440,7 +440,7 @@ test("semantic alignment gate rejects unrelated child-slice taxonomy", () => {
       scope: "Capture OpenClaw SQL migration execution and database schema receipt evidence",
       includedBehaviors: ["OpenClaw SQL migration execution and schema validation evidence"],
       excludedBehaviors: ["Dashboard screen and API payload behavior stay outside this migration slice"],
-      exitCriterion: `Evidence pack receipt cites ${splitId} and verifies OpenClaw SQL migration behavior.`,
+      exitCriterion: `Context Pack receipt cites ${splitId} and verifies OpenClaw SQL migration behavior.`,
       nextAction: "Collect OpenClaw SQL migration evidence and write the receipt row.",
       verificationTargets: [`${splitId} OpenClaw SQL migration receipt`],
       childSliceRationale: "SQL migration is one child slice.",
@@ -540,7 +540,7 @@ test("checker blocks stale split-queue eval receipts after queue changes", () =>
   assert.equal(hasFailure(refreshed, "split-queue-eval-current"), false);
 });
 
-test("refresh invalidates slices when upstream Capability Matrix rows change", () => {
+test("refresh invalidates slices when upstream Capability Map rows change", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   preparePassingSplitQueue(repoRoot, runId);
@@ -558,7 +558,7 @@ test("refresh invalidates slices when upstream Capability Matrix rows change", (
   assert.equal(rows.some(row => row.status === "pending"), true);
 });
 
-test("report embeds split queue state and checker detects report drift", () => {
+test("report embeds Job / Spec Queue state and checker detects report drift", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   const runLog = path.join("docs", "specs", "backfill", `run-log-${runId}.jsonl`);
@@ -570,7 +570,7 @@ test("report embeds split queue state and checker detects report drift", () => {
   assert.equal(report.state.checkerResult, "pass");
   assert.equal(report.state.evalResult, "pass");
   assert.equal(report.state.evalQueueFresh, true);
-  assert.equal(report.state.nextLayer, "evidence pack");
+  assert.equal(report.state.nextLayer, "Context Pack");
 
   const checkOutput = runNode(splitCheckScript, ["--repo", repoRoot, "--run-id", runId, "--report", report.reportPath], repoRoot);
   assert.match(checkOutput, /split-queue-report-state-current/);

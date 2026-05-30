@@ -7,13 +7,13 @@
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
-<title>Foundation Backfill Capability Matrix Technical Spec</title>
+<title>Foundation Backfill Capability Map Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-capability-matrix.technical",
-  "title": "Foundation Backfill Capability Matrix Technical Spec",
+  "title": "Foundation Backfill Capability Map Technical Spec",
   "type": "technical",
   "status": "active",
   "lastUpdated": "2026-05-29",
@@ -120,7 +120,7 @@
         "foundation.backfill-capability-matrix.technical#data-model",
         "foundation.backfill-capability-matrix.technical#contracts"
       ],
-      "evidence": "Capability Matrix tests verify upstream Surface Registry handoff enforcement, inline reviewed-surface grouping, row schema, enums, duplicate and stale upstream checks, ready-surface coverage, split discipline, report drift, eval receipts, and refresh invalidation."
+      "evidence": "Capability Map tests verify upstream Surface / Function Map handoff enforcement, inline reviewed-surface grouping, row schema, enums, duplicate and stale upstream checks, ready-surface coverage, split discipline, report drift, eval receipts, and refresh invalidation."
     }
   ],
   "tags": [
@@ -138,7 +138,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">T</div>
     <div>
-      <div class="sidebar-title">Foundation Backfill Capability Matrix Technical Spec</div>
+      <div class="sidebar-title">Foundation Backfill Capability Map Technical Spec</div>
       <div class="sidebar-sub">technical spec</div>
     </div>
   </div>
@@ -156,10 +156,10 @@
 <main class="main">
   <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-capability-matrix-technical.html</div>
-    <h1>Foundation Backfill Capability Matrix Technical Spec</h1>
-    <p class="lede">This technical layer makes Foundation Backfill Capability Matrix deterministic enough for scripts and structured enough for agent judgment.</p>
+    <h1>Foundation Backfill Capability Map Technical Spec</h1>
+    <p class="lede">This technical layer makes Foundation Backfill Capability Map deterministic enough for scripts and structured enough for agent judgment.</p>
     <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-capability-matrix.descriptive</div></div>
-    <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory. Capability rows are semantic groupings of reviewed Surface Registry rows, not generated path summaries.</p>
+    <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory. Capability rows are semantic groupings of reviewed Surface / Function Map rows, not generated path summaries.</p>
   </section>
 
   <article class="doc-body">
@@ -169,7 +169,7 @@
         <tr><td>Layer row</td><td>schema, runId, capabilityId, name, upstreamSurfaceIds, upstreamSurfaceRefs, surfaceRefs, evidenceRefs, actor, intendedOutcome, domainObject, actions, states, rules, experience, backingContracts, failureAndRecovery, evidence, spec hints, verificationTargets, blockingGaps, humanDecisions, reviewFlags, splitNeeded, splitReason, splitCriteria, status, confidence, createdAt, updatedAt</td><td>Every terminal row has stable identity, current upstream surface fingerprints, complete formula fields, and traceable evidence.</td></tr>
         <tr><td>Canonical artifact</td><td>capability-matrix-YYYYMMDD-NN.jsonl, capability-matrix-check-YYYYMMDD-NN.json, capability-matrix-eval-YYYYMMDD-NN.jsonl</td><td>JSONL/JSON files are machine-parseable source-of-record artifacts for the layer.</td></tr>
         <tr><td>Derived artifact</td><td>capability-matrix-summary-YYYYMMDD-NN.html, capability graph views, report tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
-        <tr><td>Report entry</td><td>artifact paths, ready surface count, row counts by status, checker result, eval result, eval revision-target count, latest run-log sequence, embedded <code>backfill-capability-matrix</code> JSON, next layer</td><td>A new agent can resume from report plus artifacts, and Split And Queue can consume a report-embedded capability matrix view derived from canonical JSONL only after eval revision targets are resolved.</td></tr>
+        <tr><td>Report entry</td><td>artifact paths, ready surface count, row counts by status, checker result, eval result, eval revision-target count, latest run-log sequence, embedded <code>backfill-capability-matrix</code> JSON, next layer</td><td>A new agent can resume from report plus artifacts, and Define Spec Jobs can consume a report-embedded Capability Map view derived from canonical JSONL only after eval revision targets are resolved.</td></tr>
       </tbody></table>
     </section>
 
@@ -178,24 +178,24 @@
       <table class="status-table"><thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead><tbody>
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
-        <tr><td>Reviewed-surface fill loop</td><td>Agents select the next pending target, review the selected Surface Registry row and enough nearby ready rows to decide grouping, then pass inline capability JSON for that reviewed surface set. The fill command rejects generated capability files, all-file fill modes, and batch-size shortcuts.</td><td>Capability rows require semantic judgment about actors, outcomes, states, rules, contracts, and recovery; path-derived bulk synthesis is too weak to be the source of record.</td></tr>
-        <tr><td>Deterministic checker</td><td>validates upstream Surface Registry check/eval handoff, every ready Surface Registry row represented by at least one terminal capability row, no capability rows attached to support/pending surface rows, capability status enums, upstream references, duplicate capability IDs, required formula fields, stale upstream surface fingerprints, split flags, handoff states, and optional report drift.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
+        <tr><td>Reviewed-surface fill loop</td><td>Agents select the next pending target, review the selected Surface / Function Map row and enough nearby ready rows to decide grouping, then pass inline capability JSON for that reviewed surface set. The fill command rejects generated capability files, all-file fill modes, and batch-size shortcuts.</td><td>Capability rows require semantic judgment about actors, outcomes, states, rules, contracts, and recovery; path-derived bulk synthesis is too weak to be the source of record.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates upstream Surface / Function Map check/eval handoff, every ready Surface / Function Map row represented by at least one terminal capability row, no capability rows attached to support/pending surface rows, capability status enums, upstream references, duplicate capability IDs, required formula fields, stale upstream surface fingerprints, split flags, handoff states, and optional report drift.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>samples capabilities against surfaces and source evidence to detect vague outcomes, missing actors, missing state/rule contracts, over-merged domains, and unsupported capability claims.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Refresh</td><td>When upstream Surface Registry rows change, matching Capability Matrix rows are preserved only if stored upstream surface fingerprints still match. Changed/new ready surfaces return to <code>pending</code> and must be grouped again by an agent.</td><td>The layer participates in steady-state changed-surface refresh instead of only bootstrap backfill.</td></tr>
-        <tr><td>Handoff gate</td><td>all ready surfaces are capability-owned, broad rows are flagged <code>needs-split</code>, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Split And Queue only after warnings are resolved.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Refresh</td><td>When upstream Surface / Function Map rows change, matching Capability Map rows are preserved only if stored upstream surface fingerprints still match. Changed/new ready surfaces return to <code>pending</code> and must be grouped again by an agent.</td><td>The layer participates in steady-state changed-surface refresh instead of only bootstrap backfill.</td></tr>
+        <tr><td>Handoff gate</td><td>all ready surfaces are capability-owned, broad rows are flagged <code>needs-split</code>, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Define Spec Jobs only after warnings are resolved.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 
     <section id="checker-and-fill-loop" data-spec-section="checker-and-fill-loop" data-section-type="sequence">
       <h2>Checker and fill loop</h2>
       <ol>
-        <li>Read active report, run log, upstream Surface Registry artifacts, and current Capability Matrix artifact.</li>
+        <li>Read active report, run log, upstream Surface / Function Map artifacts, and current Capability Map artifact.</li>
         <li>Select the next pending or failed ready surface with <code>foundation:capability-matrix:fill -- --next</code>.</li>
-        <li>Review the selected Surface Registry row and enough nearby ready rows to decide actor/outcome grouping. Support classifications may inform evidence but do not become upstream capability rows.</li>
+        <li>Review the selected Surface / Function Map row and enough nearby ready rows to decide actor/outcome grouping. Support classifications may inform evidence but do not become upstream capability rows.</li>
         <li>Write capability rows for that reviewed surface group with <code>foundation:capability-matrix:fill -- --surface-ids ... --capabilities-json ...</code>. The command replaces prior rows overlapping the reviewed surface IDs and records upstream surface fingerprints.</li>
         <li>Run the checker; repair structural failures before semantic eval.</li>
         <li>Run or append eval receipts; generate HTML summary from JSONL.</li>
-        <li>Revise every row named in eval <code>revisionTargets</code>, rerun eval, and record report state with <code>nextLayer</code> set to <code>split and queue</code> only after check and eval pass with zero revision targets.</li>
+        <li>Revise every row named in eval <code>revisionTargets</code>, rerun eval, and record report state with <code>nextLayer</code> set to <code>Define Spec Jobs</code> only after check and eval pass with zero revision targets.</li>
         <li>Revise failed rows until the gate passes or a named human decision blocks progress.</li>
       </ol>
     </section>
@@ -217,7 +217,7 @@
       <ul class="path-list">
         <li data-implementation-path="foundation/docs/specs/foundation-backfill-capability-matrix-technical.html"><code>foundation/docs/specs/foundation-backfill-capability-matrix-technical.html</code> - technical contract for this layer.</li>
         <li data-implementation-path="foundation/scripts/capability-matrix-core.mjs"><code>foundation/scripts/capability-matrix-core.mjs</code> - shared row model, surface grouping, checks, eval helpers, report payloads, and refresh logic.</li>
-        <li data-implementation-path="foundation/scripts/capability-matrix-init.mjs"><code>foundation/scripts/capability-matrix-init.mjs</code> - initializes pending rows from Surface Registry handoff.</li>
+        <li data-implementation-path="foundation/scripts/capability-matrix-init.mjs"><code>foundation/scripts/capability-matrix-init.mjs</code> - initializes pending rows from Surface / Function Map handoff.</li>
         <li data-implementation-path="foundation/scripts/capability-matrix-fill.mjs"><code>foundation/scripts/capability-matrix-fill.mjs</code> - selects pending targets and marks reviewed surface groups.</li>
         <li data-implementation-path="foundation/scripts/capability-matrix-check.mjs"><code>foundation/scripts/capability-matrix-check.mjs</code> - deterministic checker.</li>
         <li data-implementation-path="foundation/scripts/capability-matrix-eval.mjs"><code>foundation/scripts/capability-matrix-eval.mjs</code> - canonical JSONL eval receipts and derived HTML summary.</li>
@@ -227,7 +227,7 @@
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Capability Matrix Technical Spec · active V1</p>
+  <p class="footer-note">Foundation Backfill Capability Map Technical Spec · active V1</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

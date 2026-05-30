@@ -156,7 +156,7 @@ function createPendingCapabilityRow(surfaceRow) {
       surfaceId: surfaceRow.surfaceId,
       path: surfaceDisplayPath(surfaceRow),
       relationship: "pending-capability-mapping",
-      detail: "Initialized from ready-for-capability Surface Registry row."
+      detail: "Initialized from ready-for-capability Surface / Function Map row."
     }],
     actor: "",
     intendedOutcome: "",
@@ -227,31 +227,31 @@ function validateSurfaceRegistryHandoff(repoRoot, runId, outDir = defaultBackfil
 
   const checkPath = surfaceCheckPathFor(repoRoot, runId, outDir);
   if (!fs.existsSync(checkPath)) {
-    results.push(fail("upstream-surface-registry-check-artifact", "Passing Surface Registry check artifact is required before Capability Matrix"));
+    results.push(fail("upstream-surface-registry-check-artifact", "Passing Surface / Function Map check artifact is required before Capability Map"));
   } else {
     const check = readJson(checkPath);
     results.push(check?.summary?.fail === 0
-      ? pass("upstream-surface-registry-check-artifact", "Surface Registry check artifact passes")
-      : fail("upstream-surface-registry-check-artifact", "Surface Registry check artifact must pass", { summary: check?.summary || null }));
+      ? pass("upstream-surface-registry-check-artifact", "Surface / Function Map check artifact passes")
+      : fail("upstream-surface-registry-check-artifact", "Surface / Function Map check artifact must pass", { summary: check?.summary || null }));
   }
 
   const evalSummary = readEvalSummary(surfaceEvalReceiptPathFor(repoRoot, runId, outDir));
   results.push(evalSummary?.acceptabilityGate?.acceptable
-    ? pass("upstream-surface-registry-eval", "Surface Registry eval artifact passes")
-    : fail("upstream-surface-registry-eval", "Passing Surface Registry eval receipt is required before Capability Matrix"));
+    ? pass("upstream-surface-registry-eval", "Surface / Function Map eval artifact passes")
+    : fail("upstream-surface-registry-eval", "Passing Surface / Function Map eval receipt is required before Capability Map"));
   const revisionTargets = Array.isArray(evalSummary?.revisionTargets) ? evalSummary.revisionTargets : [];
   results.push(revisionTargets.length === 0
-    ? pass("upstream-surface-registry-eval-revisions", "Surface Registry eval has no revision targets")
-    : fail("upstream-surface-registry-eval-revisions", "Surface Registry eval revision targets must be resolved before Capability Matrix", { revisionTargets }));
+    ? pass("upstream-surface-registry-eval-revisions", "Surface / Function Map eval has no revision targets")
+    : fail("upstream-surface-registry-eval-revisions", "Surface / Function Map eval revision targets must be resolved before Capability Map", { revisionTargets }));
 
   if (reportPath) {
     if (!fs.existsSync(reportPath)) {
-      results.push(fail("upstream-surface-report-exists", "Surface Registry report path does not exist", { reportPath }));
+      results.push(fail("upstream-surface-report-exists", "Surface / Function Map report path does not exist", { reportPath }));
     } else {
       const state = parseJsonScript(fs.readFileSync(reportPath, "utf8"), "backfill-surface-registry-state");
-      results.push(state?.nextLayer === "capability matrix"
-        ? pass("upstream-surface-report-next-layer", "Surface Registry report names Capability Matrix as next layer")
-        : fail("upstream-surface-report-next-layer", "Surface Registry report must name Capability Matrix as next layer", { nextLayer: state?.nextLayer || null }));
+      results.push(state?.nextLayer === "Capability Map"
+        ? pass("upstream-surface-report-next-layer", "Surface / Function Map report names Capability Map as next layer")
+        : fail("upstream-surface-report-next-layer", "Surface / Function Map report must name Capability Map as next layer", { nextLayer: state?.nextLayer || null }));
     }
   }
 
@@ -271,7 +271,7 @@ function normalizeReviewFlags(value, status) {
     severity: VALID_REVIEW_FLAG_SEVERITY.has(flag.severity) ? flag.severity : "warning",
     reason: isNonEmptyString(flag.reason) ? flag.reason.trim() : "Capability row needs review.",
     evidence: isNonEmptyString(flag.evidence) ? flag.evidence.trim() : "",
-    nextAction: isNonEmptyString(flag.nextAction) ? flag.nextAction.trim() : "Revise this Capability Matrix row."
+    nextAction: isNonEmptyString(flag.nextAction) ? flag.nextAction.trim() : "Revise this Capability Map row."
   }));
   if (status === "mapped" && flags.some(flag => flag.severity === "blocking") === false && value?.blocking === true) {
     flags.push({
@@ -342,7 +342,7 @@ function createAgentMarkedCapabilityRow(surfaceById, selectedSurfaceIds, spec) {
         relationship: "surface-registry-row",
         detail: isNonEmptyString(spec.evidenceDetail)
           ? spec.evidenceDetail.trim()
-          : `Capability mapped from Surface Registry row ${surface.surfaceId}: ${surface.label}.`
+          : `Capability mapped from Surface / Function Map row ${surface.surfaceId}: ${surface.label}.`
       })),
       ...asObjectArray(spec.evidenceRefs)
     ],
@@ -387,16 +387,16 @@ function parseSurfaceIds(value) {
 
 function markCapabilityRowsForSurfaces({ surfaceRows, capabilityRows, surfaceIds, capabilitySpecs }) {
   const selectedSurfaceIds = normalizeStringList(surfaceIds);
-  if (selectedSurfaceIds.length === 0) throw new Error("Capability Matrix fill requires --surface-ids");
+  if (selectedSurfaceIds.length === 0) throw new Error("Capability Map fill requires --surface-ids");
   if (!Array.isArray(capabilitySpecs) || capabilitySpecs.length === 0) {
-    throw new Error("Capability Matrix fill requires at least one capability spec");
+    throw new Error("Capability Map fill requires at least one capability spec");
   }
 
   const surfaceById = new Map(surfaceRows.map(row => [row.surfaceId, row]));
   for (const surfaceId of selectedSurfaceIds) {
     const surface = surfaceById.get(surfaceId);
-    if (!surface) throw new Error(`Unknown Surface Registry row: ${surfaceId}`);
-    if (!isReadySurface(surface)) throw new Error(`Surface is not ready for Capability Matrix: ${surfaceId}`);
+    if (!surface) throw new Error(`Unknown Surface / Function Map row: ${surfaceId}`);
+    if (!isReadySurface(surface)) throw new Error(`Surface is not ready for Capability Map: ${surfaceId}`);
   }
 
   const nextRows = capabilitySpecs.map(spec => createAgentMarkedCapabilityRow(surfaceById, selectedSurfaceIds, spec));
@@ -581,7 +581,7 @@ function validateCapabilityRows({ surfaceRows, capabilityRows, phase = "handoff"
       rowsBySurface.get(surfaceId).push(row);
       const surface = surfaceById.get(surfaceId);
       if (!surface) {
-        results.push(fail(`${prefix}:upstream-surface-resolves`, "Capability row references missing Surface Registry row", { surfaceId }));
+        results.push(fail(`${prefix}:upstream-surface-resolves`, "Capability row references missing Surface / Function Map row", { surfaceId }));
       } else if (!isReadySurface(surface)) {
         badSurfaceRefs.push({ capabilityId: row.capabilityId, surfaceId, status: surface.status, surfaceKind: surface.surfaceKind });
       }
@@ -597,11 +597,11 @@ function validateCapabilityRows({ surfaceRows, capabilityRows, phase = "handoff"
   }
 
   results.push(stale.length === 0
-    ? pass("capability-upstream-fresh", "Capability upstream surface fingerprints match Surface Registry rows")
-    : fail("capability-upstream-fresh", "Capability rows must be refreshed when upstream Surface Registry rows change", { stale }));
+    ? pass("capability-upstream-fresh", "Capability upstream surface fingerprints match Surface / Function Map rows")
+    : fail("capability-upstream-fresh", "Capability rows must be refreshed when upstream Surface / Function Map rows change", { stale }));
 
   results.push(badSurfaceRefs.length === 0
-    ? pass("capability-upstream-ready", "Capability rows only reference ready-for-capability Surface Registry rows")
+    ? pass("capability-upstream-ready", "Capability rows only reference ready-for-capability Surface / Function Map rows")
     : fail("capability-upstream-ready", "Capability rows must not claim support, pending, or failed surface rows", { badSurfaceRefs }));
 
   const uncovered = [];
@@ -614,11 +614,11 @@ function validateCapabilityRows({ surfaceRows, capabilityRows, phase = "handoff"
     }
   }
   if (uncovered.length === 0) {
-    results.push(pass("capability-covers-ready-surfaces", "Every ready Surface Registry row maps to a terminal capability row or blocking review row"));
+    results.push(pass("capability-covers-ready-surfaces", "Every ready Surface / Function Map row maps to a terminal capability row or blocking review row"));
   } else if (phase === "handoff") {
-    results.push(fail("capability-covers-ready-surfaces", "Capability Matrix must cover every ready Surface Registry row before Split And Queue", { uncovered }));
+    results.push(fail("capability-covers-ready-surfaces", "Capability Map must cover every ready Surface / Function Map row before Define Spec Jobs", { uncovered }));
   } else {
-    results.push(warn("capability-covers-ready-surfaces", `${uncovered.length} ready Surface Registry row(s) still need capability coverage`, { uncovered }));
+    results.push(warn("capability-covers-ready-surfaces", `${uncovered.length} ready Surface / Function Map row(s) still need capability coverage`, { uncovered }));
   }
 
   if (phase === "handoff") {
@@ -674,16 +674,16 @@ function validateCapabilityReportState({ repoRoot, runId, outDir, reportPath, su
     blockingFlagCount,
     capabilityCount: capabilityRows.length,
     nextLayer: pendingCount === 0 && mappedCount === 0 && blockingFlagCount === 0 && checkerPass && evalHandoffReady
-      ? "split and queue"
-      : "capability matrix revision"
+      ? "Define Spec Jobs"
+      : "Capability Map revision"
   };
   const drift = [];
   for (const [field, value] of Object.entries(expected)) {
     if (state[field] !== value) drift.push({ field, expected: value, actual: state[field] });
   }
   return drift.length === 0
-    ? [pass("capability-report-state-current", "Capability Matrix report state matches canonical artifacts")]
-    : [fail("capability-report-state-current", "Capability Matrix report state must match canonical artifacts", { drift })];
+    ? [pass("capability-report-state-current", "Capability Map report state matches canonical artifacts")]
+    : [fail("capability-report-state-current", "Capability Map report state must match canonical artifacts", { drift })];
 }
 
 function validateCapabilityMatrix({ repoRoot, runId, outDir = defaultBackfillDir(repoRoot), phase = "handoff", reportPath = null }) {
@@ -696,16 +696,16 @@ function validateCapabilityMatrix({ repoRoot, runId, outDir = defaultBackfillDir
       surfaceRegistryPath: upstream.surfaceRegistryPath,
       surfaceRows: upstream.surfaceRows,
       capabilityRows: [],
-      results: [...results, fail("capability-matrix-exists", `Capability Matrix does not exist: ${registryPath}`)]
+      results: [...results, fail("capability-matrix-exists", `Capability Map does not exist: ${registryPath}`)]
     };
   }
   const parsed = readJsonl(registryPath);
-  results.push(pass("capability-matrix-exists", "Capability Matrix exists"));
+  results.push(pass("capability-matrix-exists", "Capability Map exists"));
   if (parsed.errors.length > 0) {
-    results.push(...parsed.errors.map(error => fail(`capability-jsonl:${error.line}`, "Capability Matrix JSONL line must parse", error)));
+    results.push(...parsed.errors.map(error => fail(`capability-jsonl:${error.line}`, "Capability Map JSONL line must parse", error)));
     return { registryPath, surfaceRegistryPath: upstream.surfaceRegistryPath, surfaceRows: upstream.surfaceRows, capabilityRows: parsed.rows, results };
   }
-  results.push(pass("capability-jsonl", "Every capability matrix line parses as JSON"));
+  results.push(pass("capability-jsonl", "Every Capability Map line parses as JSON"));
   results.push(...validateCapabilityRows({ surfaceRows: upstream.surfaceRows, capabilityRows: parsed.rows, phase }));
   results.push(...validateCapabilityReportState({ repoRoot, runId, outDir, reportPath, surfaceRows: upstream.surfaceRows, capabilityRows: parsed.rows }));
   return {

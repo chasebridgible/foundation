@@ -24,7 +24,7 @@ function usage() {
   return `Usage:
   npm run foundation:evidence-pack:refresh -- --repo /path/to/repo --run-id YYYYMMDD-NN [--out-dir path] [--run-log path]
 
-Refreshes Evidence Pack rows from the current Split And Queue. Changed or new active queue slices return to pending and must be packed again.`;
+Refreshes Context Pack rows from the current Define Spec Jobs. Changed or new active queue slices return to pending and must be packed again.`;
 }
 
 function main() {
@@ -41,10 +41,10 @@ function main() {
   const outDir = options["out-dir"] ? path.resolve(repoRoot, options["out-dir"]) : defaultBackfillDir(repoRoot);
   const queuePath = splitQueuePathFor(repoRoot, runId, outDir);
   const queue = readJsonl(queuePath);
-  if (queue.errors.length > 0) throw new Error(`Split And Queue JSONL has parse errors: ${JSON.stringify(queue.errors)}`);
+  if (queue.errors.length > 0) throw new Error(`Define Spec Jobs JSONL has parse errors: ${JSON.stringify(queue.errors)}`);
   const packPath = evidencePackPathFor(repoRoot, runId, outDir);
   const existing = readEvidencePackRows(repoRoot, runId, outDir);
-  if (existing.errors.length > 0) throw new Error(`Evidence Pack JSONL has parse errors: ${JSON.stringify(existing.errors)}`);
+  if (existing.errors.length > 0) throw new Error(`Context Pack JSONL has parse errors: ${JSON.stringify(existing.errors)}`);
 
   const merged = mergeEvidencePackRowsForRefresh({
     queueRows: queue.rows,
@@ -68,14 +68,14 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "evidence-pack",
+    phase: "context-pack",
     event: "checkpoint",
-    summary: `Refreshed Evidence Pack: ${payload.changedCount} changed/new upstream queue slices, ${payload.removedCount} removed packs.`,
+    summary: `Refreshed Context Pack: ${payload.changedCount} changed/new upstream queue slices, ${payload.removedCount} removed packs.`,
     artifactsRead: [path.relative(repoRoot, queuePath), path.relative(repoRoot, packPath)],
     artifactsChanged: [path.relative(repoRoot, packPath), path.relative(repoRoot, refreshPath)],
     commands: ["foundation:evidence-pack:refresh"],
     checks: [],
-    nextAction: payload.pendingCount > 0 ? "Fill pending Evidence Pack rows." : "Run Evidence Pack check."
+    nextAction: payload.pendingCount > 0 ? "Fill pending Context Pack rows." : "Run Context Pack check."
   });
 
   console.log(JSON.stringify(payload, null, 2));

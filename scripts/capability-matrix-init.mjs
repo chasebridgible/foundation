@@ -20,7 +20,7 @@ function usage() {
   return `Usage:
   npm run foundation:capability-matrix:init -- --repo /path/to/repo --run-id YYYYMMDD-NN [--out-dir path] [--report path] [--run-log path]
 
-Creates the canonical pending Capability Matrix JSONL skeleton from a passing Surface Registry handoff.`;
+Creates the canonical pending Capability Map JSONL skeleton from a passing Surface / Function Map handoff.`;
 }
 
 function main() {
@@ -39,7 +39,7 @@ function main() {
   const handoff = validateSurfaceRegistryHandoff(repoRoot, runId, outDir, reportPath);
   const summary = summarizeResults(handoff.results);
   if (summary.fail > 0) {
-    console.log(renderResultsText("Capability Matrix init", handoff.results));
+    console.log(renderResultsText("Capability Map init", handoff.results));
     process.exit(1);
   }
 
@@ -50,19 +50,19 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "capability-matrix",
+    phase: "capability-map",
     event: "start",
-    summary: "Initialized Capability Matrix from passing Surface Registry handoff.",
+    summary: "Initialized Capability Map from passing Surface / Function Map handoff.",
     artifactsRead: [path.relative(repoRoot, handoff.surfaceRegistryPath)],
     artifactsChanged: [path.relative(repoRoot, matrixPath)],
     commands: ["foundation:capability-matrix:init"],
     checks: [{ name: "surface-registry-handoff", result: "passed" }],
     durationSeconds: 0,
     result: `${rows.length} pending capability row(s) created from ${readySurfaceRows(handoff.surfaceRows).length} ready surface row(s).`,
-    nextAction: "Use the Capability Matrix fill loop: group reviewed surfaces into actor/outcome capability rows, then run check and eval."
+    nextAction: "Use the Capability Map fill loop: group reviewed surfaces into actor/outcome capability rows, then run check and eval."
   });
 
-  console.log(renderResultsText("Capability Matrix init", [
+  console.log(renderResultsText("Capability Map init", [
     ...handoff.results,
     { id: "capability-matrix-skeleton", status: "pass", message: `Created ${rows.length} pending capability row(s)` }
   ]));

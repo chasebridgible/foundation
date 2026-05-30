@@ -21,12 +21,12 @@ function usage() {
   npm run foundation:capability-matrix:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --next [--out-dir path]
   npm run foundation:capability-matrix:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --surface-ids surface:a,surface:b --capabilities-json '[...]' [--run-log path]
 
-Groups reviewed Surface Registry rows into Capability Matrix rows. Accepted capability specs must be passed inline; generated capability files, --all, and --batch-size shortcuts are rejected.`;
+Groups reviewed Surface / Function Map rows into Capability Map rows. Accepted capability specs must be passed inline; generated capability files, --all, and --batch-size shortcuts are rejected.`;
 }
 
 function readCapabilitySpecs(options) {
   if (options["capabilities-file"]) {
-    throw new Error("Capability Matrix fill does not accept --capabilities-file; pass reviewed --capabilities-json inline");
+    throw new Error("Capability Map fill does not accept --capabilities-file; pass reviewed --capabilities-json inline");
   }
   if (!options["capabilities-json"]) {
     throw new Error("Missing --capabilities-json");
@@ -53,17 +53,17 @@ function main() {
   if (!options.repo) throw new Error("Missing --repo");
   if (!options["run-id"]) throw new Error("Missing --run-id");
   if (options.all || options["batch-size"]) {
-    throw new Error("Capability Matrix fill does not support --all or --batch-size; group reviewed surfaces explicitly with --surface-ids");
+    throw new Error("Capability Map fill does not support --all or --batch-size; group reviewed surfaces explicitly with --surface-ids");
   }
 
   const repoRoot = path.resolve(options.repo);
   const runId = options["run-id"];
   const outDir = options["out-dir"] ? path.resolve(repoRoot, options["out-dir"]) : defaultBackfillDir(repoRoot);
   const surfaceRegistry = readSurfaceRegistryRows(repoRoot, runId, outDir);
-  if (surfaceRegistry.errors.length > 0) throw new Error(`Surface Registry JSONL has parse errors: ${JSON.stringify(surfaceRegistry.errors)}`);
+  if (surfaceRegistry.errors.length > 0) throw new Error(`Surface / Function Map JSONL has parse errors: ${JSON.stringify(surfaceRegistry.errors)}`);
   const matrixPath = capabilityMatrixPathFor(repoRoot, runId, outDir);
   const capabilityMatrix = readJsonl(matrixPath);
-  if (capabilityMatrix.errors.length > 0) throw new Error(`Capability Matrix JSONL has parse errors: ${JSON.stringify(capabilityMatrix.errors)}`);
+  if (capabilityMatrix.errors.length > 0) throw new Error(`Capability Map JSONL has parse errors: ${JSON.stringify(capabilityMatrix.errors)}`);
 
   if (options.next) {
     console.log(JSON.stringify({
@@ -91,22 +91,22 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "capability-matrix",
+    phase: "capability-map",
     event: eventType,
     summary: marked.revisionCount > 0
-      ? `Revised Capability Matrix rows for ${marked.markedSurfaceIds.length} reviewed surface row(s).`
-      : `Marked Capability Matrix rows for ${marked.markedSurfaceIds.length} reviewed surface row(s).`,
+      ? `Revised Capability Map rows for ${marked.markedSurfaceIds.length} reviewed surface row(s).`
+      : `Marked Capability Map rows for ${marked.markedSurfaceIds.length} reviewed surface row(s).`,
     artifactsRead: [path.relative(repoRoot, surfaceRegistry.registryPath), path.relative(repoRoot, matrixPath)],
     artifactsChanged: [path.relative(repoRoot, matrixPath)],
     commands: ["foundation:capability-matrix:fill"],
     checks: [],
     result: `${marked.capabilityCount} capability row(s) written for reviewed surface group.`,
     nextAction: pendingCount > 0 || mappedCount > 0
-      ? "Group and mark the next pending Capability Matrix surface set."
-      : "Run Capability Matrix checker and eval."
+      ? "Group and mark the next pending Capability Map surface set."
+      : "Run Capability Map checker and eval."
   });
 
-  console.log(`Capability Matrix fill
+  console.log(`Capability Map fill
 Surface rows reviewed: ${marked.markedSurfaceIds.length}
 Capability rows written: ${marked.capabilityCount}
 Pending remaining: ${pendingCount}
