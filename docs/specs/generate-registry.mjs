@@ -18,10 +18,10 @@ const preferredOrder = [
   "docs/specs/linking.html",
   "docs/specs/templates/descriptive-spec-template.html",
   "docs/specs/templates/technical-spec-template.html",
-  "docs/specs/templates/test-spec-template.html",
+  "docs/specs/templates/eval-spec-template.html",
   "docs/specs/examples/descriptive-spec-example.html",
   "docs/specs/examples/technical-spec-example.html",
-  "docs/specs/examples/test-spec-example.html"
+  "docs/specs/examples/eval-spec-example.html"
 ];
 const preferredOrderByPath = new Map(preferredOrder.map((file, index) => [file, index]));
 let gitReadContext;
@@ -80,10 +80,10 @@ function relativeSpecPath(file) {
 
 function isGeneratedNonSpecHtml(file) {
   const relativeFile = relativeSpecPath(file);
-  return /^docs\/specs\/backfill\/(?:file|surface)-registry-(eval-summary|handoff)-\d{8}-\d{2}\.html$/.test(relativeFile) ||
-    /^docs\/specs\/backfill\/capability-matrix-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
-    /^docs\/specs\/backfill\/split-queue-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
-    /^docs\/specs\/backfill\/evidence-pack-summary-\d{8}-\d{2}\.html$/.test(relativeFile);
+  return /^docs\/specs\/backfill\/(?:artifact-inventory|surface-function-map)-(eval-summary|handoff)-\d{8}-\d{2}\.html$/.test(relativeFile) ||
+    /^docs\/specs\/backfill\/capability-map-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
+    /^docs\/specs\/backfill\/spec-job-queue-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
+    /^docs\/specs\/backfill\/context-pack-summary-\d{8}-\d{2}\.html$/.test(relativeFile);
 }
 
 function readSpecText(file) {

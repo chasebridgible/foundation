@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-system-coherence-evaluation.descriptive">
+<meta name="spec:type" content="descriptive">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-05-26">
+<title>Foundation Backfill Evaluate System Coherence</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-system-coherence-evaluation.descriptive",
+  "title": "Foundation Backfill Evaluate System Coherence",
+  "type": "descriptive",
+  "status": "draft",
+  "lastUpdated": "2026-05-26",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-specs.descriptive",
+  "children": [
+    "foundation.backfill-system-coherence-evaluation.technical",
+    "foundation.backfill-system-coherence-evaluation.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.backfill-specs.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "interface-journey",
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-system-coherence-evaluation.technical",
+      "relationship": "child",
+      "sections": [
+        "data-model",
+        "contracts",
+        "checker-and-fill-loop"
+      ]
+    },
+    {
+      "id": "foundation.backfill-system-coherence-evaluation.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping",
+        "eval-contract"
+      ]
+    },
+    {
+      "id": "foundation.backfill-job-slice-evaluation.descriptive",
+      "relationship": "depends-on",
+      "sections": [
+        "artifacts-and-state",
+        "handoff-gate"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-system-coherence-evaluation.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Parent backfill workflow."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-artifact-inventory.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Model for canonical layer artifacts and handoff gates."
+    },
+    {
+      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "BFL-GRAPH_EVALUATION-D-1",
+      "level": "static",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-system-coherence-evaluation.html",
+      "mapsTo": [
+        "foundation.backfill-system-coherence-evaluation.descriptive#handoff-gate"
+      ],
+      "evidence": "Planned Foundation Backfill Evaluate System Coherence descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+    }
+  ],
+  "tags": [
+    "foundation",
+    "backfill",
+    "system-coherence-evaluation",
+    "descriptive",
+    "substrate"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Foundation Backfill Evaluate System Coherence</div>
+      <div class="sidebar-sub">descriptive spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#artifacts-and-state"><span class="nav-num">02</span>Artifacts</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Loop</a>
+    <a class="nav-item" href="#checker-eval"><span class="nav-num">04</span>Checker/eval</a>
+    <a class="nav-item" href="#handoff-gate"><span class="nav-num">05</span>Handoff</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">06</span>Links</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-system-coherence-evaluation.html</div>
+    <h1>Foundation Backfill Evaluate System Coherence</h1>
+    <p class="lede">Evaluate System Coherence evaluates the completed spec graph after slice-level acceptance and checks whether system intent, evidence relationships, capability coverage, and verification links survive as a whole. This layer answers: <strong>Could a future agent rebuild the system intent from these specs without reading source?</strong></p>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Evaluate Job Slices</div><div><strong>Next:</strong> Handoff</div></div>
+    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
+    <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="artifacts-and-state" data-spec-section="artifacts-and-state" data-section-type="state-model">
+      <h2>Artifacts and state</h2>
+      <table class="status-table"><thead><tr><th>Category</th><th>Contract</th></tr></thead><tbody>
+        <tr><td>Canonical artifacts</td><td><ul><li><code>system-coherence-evaluation-YYYYMMDD-NN.jsonl</code></li>
+<li><code>system-coherence-evaluation-findings-YYYYMMDD-NN.jsonl</code></li></ul></td></tr>
+        <tr><td>Derived artifacts</td><td><ul><li><code>system-coherence-evaluation-summary-YYYYMMDD-NN.html</code></li>
+<li><code>spec graph coverage tables</code></li></ul></td></tr>
+        <tr><td>State model</td><td><ul><li><code>pending</code></li>
+<li><code>evaluating</code></li>
+<li><code>needs-revision</code></li>
+<li><code>acceptable</code></li>
+<li><code>blocked</code></li></ul></td></tr>
+        <tr><td>Core row</td><td>graph eval row with stable row ID, run ID, upstream row IDs, evidence links, status, confidence, review flags, checker result, and eval result.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Small-loop journey</h2>
+      <ol>
+        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Evaluate System Coherence artifact from Evaluate Job Slices handoff output.</li>
+        <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
+        <li><strong>Fill:</strong> agent walks parent/child specs, Capability Map, queue terminals, evidence links, verification targets, unresolved questions, and cross-slice consistency to produce graph findings.</li>
+        <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
+        <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>
+        <li><strong>Revise:</strong> route failed rows back to the fill loop with row IDs and findings.</li>
+        <li><strong>Handoff:</strong> advance only when the handoff gate passes or named human decisions block the layer.</li>
+      </ol>
+    </section>
+
+    <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
+      <h2>Checker and eval contract</h2>
+      <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
+        <tr><td>Checker</td><td>validates graph references resolve, every relevant capability has owner specs or terminal classification, every behavior-bearing file/surface routes to a spec/capability, and no draft graph orphan exists.</td></tr>
+        <tr><td>Eval receipt</td><td>judges whole-graph rebuild usefulness, contradiction handling, source-backed intent, architecture latitude, and whether future agents would still need source to discover core behavior. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
+        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
+      <h2>Handoff gate</h2>
+      <p>graph eval is acceptable or has named revision blockers; checker passes; eval JSONL and HTML summary exist; report names next layer as Handoff.</p>
+      <ul>
+        <li>Canonical artifacts exist and share a run ID.</li>
+        <li>All rows are in valid terminal or explicitly blocked states.</li>
+        <li>Checker passes for structure, references, currentness, and required fields.</li>
+        <li>Eval JSONL and HTML summary exist or an explicit planned-gap risk is recorded.</li>
+        <li>Active report records counts, artifact paths, checker/eval status, run-log sequence, and next layer.</li>
+      </ul>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="linking">
+      <h2>Related specs and paths</h2>
+      <ul>
+        <li><a data-spec-link="foundation.backfill-system-coherence-evaluation.technical" href="./foundation-backfill-system-coherence-evaluation-technical.html">foundation.backfill-system-coherence-evaluation.technical</a></li>
+        <li><a data-spec-link="foundation.backfill-system-coherence-evaluation.eval" href="./foundation-backfill-system-coherence-evaluation-eval.html">foundation.backfill-system-coherence-evaluation.eval</a></li>
+        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a></li>
+      </ul>
+    </section>
+  </article>
+  <hr>
+  <p class="footer-note">Foundation Backfill Evaluate System Coherence · draft</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

@@ -20,10 +20,10 @@
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": null,
-  "children": ["fup.kitchen-queue.technical", "fup.kitchen-queue.test"],
+  "children": ["fup.kitchen-queue.technical", "fup.kitchen-queue.eval"],
   "relatedSpecs": [
     { "id": "fup.kitchen-queue.technical", "relationship": "child", "sections": ["internal-sequence", "data-contract"] },
-    { "id": "fup.kitchen-queue.test", "relationship": "validated-by", "sections": ["acceptance-mapping"] }
+    { "id": "fup.kitchen-queue.eval", "relationship": "validated-by", "sections": ["acceptance-mapping"] }
   ],
   "ownedPaths": [
     { "path": "client/src/pages/kitchen-queue.tsx", "kind": "source", "ownership": "direct", "symbols": ["KitchenQueuePage"] },
@@ -97,7 +97,7 @@
       <h2>Interface journey</h2>
       <ol>
         <li><strong>Staff opens Kitchen Queue.</strong> The page shows active orders sorted by promised pickup/delivery time, with the oldest urgent order first. Empty state says "No active orders".</li>
-        <li><strong>New order arrives.</strong> A new card appears without page reload. The card is highlighted for 2 seconds and includes order number, pickup/delivery label, promised time, item list, and current item states. <a class="test-marker" href="./test-spec-example.html#coverage-plan">KQ-A1</a></li>
+        <li><strong>New order arrives.</strong> A new card appears without page reload. The card is highlighted for 2 seconds and includes order number, pickup/delivery label, promised time, item list, and current item states. <a class="test-marker" href="./eval-spec-example.html#coverage-plan">KQ-A1</a></li>
         <li><strong>Staff taps Start on an item.</strong> The tapped item changes from <code>received</code> to <code>in progress</code>. The button becomes disabled while the update is being saved, then changes to "Mark ready".</li>
         <li><strong>Staff taps Ready.</strong> The item changes to <code>ready</code>. When every item in the order is ready, the order card moves to the Ready group and the customer tracker shows "Ready for pickup" or "Out for delivery" depending on fulfillment type.</li>
         <li><strong>Order leaves the kitchen queue.</strong> Pickup orders leave when a staff user taps "Picked up". Delivery orders leave when a staff user taps "Out for delivery".</li>
@@ -155,8 +155,8 @@
           <div class="related-name">Kitchen queue technical spec</div>
           <div class="related-desc">Status mutation sequence, event payloads, reconnect behavior, and concurrency rules.</div>
         </a>
-        <a class="related-card" data-spec-link="fup.kitchen-queue.test" href="./test-spec-example.html">
-          <div class="related-name">Kitchen queue test spec</div>
+        <a class="related-card" data-spec-link="fup.kitchen-queue.eval" href="./eval-spec-example.html">
+          <div class="related-name">Kitchen queue eval spec</div>
           <div class="related-desc">Acceptance conditions and test coverage mapped back to this spec.</div>
         </a>
       </div>

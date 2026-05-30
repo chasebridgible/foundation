@@ -23,7 +23,7 @@
   "children": [],
   "relatedSpecs": [
     { "id": "fup.kitchen-queue.descriptive", "relationship": "parent", "sections": ["states-and-rules", "ux-contracts"] },
-    { "id": "fup.kitchen-queue.test", "relationship": "validated-by", "sections": ["risk-based-signal-choice"] }
+    { "id": "fup.kitchen-queue.eval", "relationship": "validated-by", "sections": ["risk-based-signal-choice"] }
   ],
   "ownedPaths": [
     { "path": "server/src/routes/kitchen-orders.ts", "kind": "source", "ownership": "direct", "symbols": ["patchOrderItemStatus"] },
@@ -125,7 +125,7 @@
   ],
   "occurredAt": "2026-05-11T15:24:00.000Z"
 }</code></pre>
-      <p>Event names and payload field names are contract names. A code change that renames them must update this spec and the test spec in the same commit.</p>
+      <p>Event names and payload field names are contract names. A code change that renames them must update this spec and the eval spec in the same commit.</p>
     </section>
 
     <section id="concurrency-and-timing" data-spec-section="concurrency-and-timing" data-section-type="concurrency">

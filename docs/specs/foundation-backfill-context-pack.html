@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-context-pack.descriptive">
+<meta name="spec:type" content="descriptive">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-29">
+<title>Foundation Backfill Context Pack</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-context-pack.descriptive",
+  "title": "Foundation Backfill Context Pack",
+  "type": "descriptive",
+  "status": "active",
+  "lastUpdated": "2026-05-29",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-specs.descriptive",
+  "children": [
+    "foundation.backfill-context-pack.technical",
+    "foundation.backfill-context-pack.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.backfill-specs.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "interface-journey",
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-context-pack.technical",
+      "relationship": "child",
+      "sections": [
+        "data-model",
+        "contracts",
+        "checker-and-fill-loop"
+      ]
+    },
+    {
+      "id": "foundation.backfill-context-pack.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping",
+        "eval-contract"
+      ]
+    },
+    {
+      "id": "foundation.backfill-spec-job-queue.descriptive",
+      "relationship": "depends-on",
+      "sections": [
+        "artifacts-and-state",
+        "handoff-gate"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-context-pack.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Parent backfill workflow."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-artifact-inventory.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Model for canonical layer artifacts and handoff gates."
+    },
+    {
+      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    },
+    {
+      "path": "foundation/scripts/context-pack-core.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Canonical Context Pack schema, upstream handoff gate, checker, eval, refresh, and report state logic."
+    },
+    {
+      "path": "foundation/scripts/context-pack-init.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Initializes pending Context Pack rows from passing Define Spec Jobs handoff."
+    },
+    {
+      "path": "foundation/scripts/context-pack-fill.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Writes reviewed bounded Context Packs from selected queue slices."
+    },
+    {
+      "path": "foundation/scripts/context-pack-check.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Runs deterministic Context Pack validation."
+    },
+    {
+      "path": "foundation/scripts/context-pack-eval.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Writes canonical eval receipts and derived HTML summary."
+    },
+    {
+      "path": "foundation/scripts/context-pack-report.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Embeds handoff state and Context Pack payload in the backfill report."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "BFL-CONTEXT_PACK-D-1",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/context-pack.test.mjs",
+      "mapsTo": [
+        "foundation.backfill-context-pack.descriptive#artifacts-and-state",
+        "foundation.backfill-context-pack.descriptive#handoff-gate"
+      ],
+      "evidence": "Context Pack tests cover initialization from Define Spec Jobs handoff, durable pack artifacts, exact evidence requirements, eval receipts, refresh invalidation, and report handoff state."
+    }
+  ],
+  "tags": [
+    "foundation",
+    "backfill",
+    "context-pack",
+    "descriptive",
+    "substrate"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Foundation Backfill Context Pack</div>
+      <div class="sidebar-sub">descriptive spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#artifacts-and-state"><span class="nav-num">02</span>Artifacts</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Loop</a>
+    <a class="nav-item" href="#checker-eval"><span class="nav-num">04</span>Checker/eval</a>
+    <a class="nav-item" href="#handoff-gate"><span class="nav-num">05</span>Handoff</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">06</span>Links</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-context-pack.html</div>
+    <h1>Foundation Backfill Context Pack</h1>
+    <p class="lede">Context Pack gathers only the files, surfaces, capabilities, tests, docs, schemas, and run state needed for a queued slice so work is resumable and context-bounded. This layer answers: <strong>What bounded evidence does the next slice need?</strong></p>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Upstream:</strong> Define Spec Jobs</div><div><strong>Next:</strong> Process / Action Map</div></div>
+    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
+    <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="artifacts-and-state" data-spec-section="artifacts-and-state" data-section-type="state-model">
+      <h2>Artifacts and state</h2>
+      <table class="status-table"><thead><tr><th>Category</th><th>Contract</th></tr></thead><tbody>
+        <tr><td>Canonical artifacts</td><td><ul><li><code>context-pack-YYYYMMDD-NN.jsonl</code></li>
+<li><code>context-pack-eval-YYYYMMDD-NN.jsonl</code></li></ul></td></tr>
+        <tr><td>Derived artifacts</td><td><ul><li><code>context-pack-summary-YYYYMMDD-NN.html</code></li>
+<li><code>slice evidence tables</code></li></ul></td></tr>
+        <tr><td>State model</td><td><ul><li><code>pending</code></li>
+<li><code>packed</code></li>
+<li><code>needs-evidence</code></li>
+<li><code>ready-for-process-map</code></li></ul></td></tr>
+        <tr><td>Core row</td><td>Context Pack row with stable row ID, run ID, upstream row IDs, evidence links, status, confidence, review flags, checker result, and eval result.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Small-loop journey</h2>
+      <ol>
+        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Context Pack artifact from Define Spec Jobs handoff output.</li>
+        <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
+        <li><strong>Fill:</strong> agent reads the current queue slice, pulls upstream file/surface/capability IDs, selects exact evidence paths and snippets, names excluded near-misses, and records why the pack is sufficient for the slice.</li>
+        <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
+        <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>
+        <li><strong>Revise:</strong> route failed rows back to the fill loop with row IDs and findings.</li>
+        <li><strong>Handoff:</strong> advance only when the handoff gate passes or named human decisions block the layer.</li>
+      </ol>
+    </section>
+
+    <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
+      <h2>Checker and eval contract</h2>
+      <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
+        <tr><td>Checker</td><td>validates each Context Pack references valid queue slices and upstream row IDs, all required evidence categories have entries or explicit gaps, file-like evidence cites exact paths plus line ranges, snippets, or symbols, generic full-file evidence is rejected, and pack size stays within configured limits.</td></tr>
+        <tr><td>Eval receipt</td><td>samples packs against queue slices to judge whether necessary files or surfaces were omitted, irrelevant evidence is bloating context, evidence is too vague, or the pack cannot support Process / Action Map and later Author Specs. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
+        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
+      <h2>Handoff gate</h2>
+      <p>each active queued slice has a bounded Context Pack or explicit blocker; checker artifact passes for the exact current Context Pack fingerprint; eval receipt and HTML summary exist for the exact current Context Pack fingerprint; all eval revision targets are resolved; report names next layer as Process / Action Map.</p>
+      <ul>
+        <li>Canonical artifacts exist and share a run ID.</li>
+        <li>All rows are in valid terminal or explicitly blocked states.</li>
+        <li>Checker passes for structure, references, currentness, and required fields.</li>
+        <li>Eval JSONL and HTML summary exist for the current Context Pack artifact, with zero revision targets.</li>
+        <li>Active report records counts, artifact paths, checker/eval status, run-log sequence, and next layer.</li>
+      </ul>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="linking">
+      <h2>Related specs and paths</h2>
+      <ul>
+        <li><a data-spec-link="foundation.backfill-context-pack.technical" href="./foundation-backfill-context-pack-technical.html">foundation.backfill-context-pack.technical</a></li>
+        <li><a data-spec-link="foundation.backfill-context-pack.eval" href="./foundation-backfill-context-pack-eval.html">foundation.backfill-context-pack.eval</a></li>
+        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a></li>
+      </ul>
+    </section>
+  </article>
+  <hr>
+  <p class="footer-note">Foundation Backfill Context Pack · active</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

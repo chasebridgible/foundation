@@ -19,10 +19,10 @@
   "lastUpdated": "2026-05-21",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-evaluation.process",
+  "parent": "foundation.backfill-quality-evaluation.process",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.backfill-evaluation.process", "relationship": "parent", "sections": ["scoring-rubric", "acceptability-gate"] },
+    { "id": "foundation.backfill-quality-evaluation.process", "relationship": "parent", "sections": ["scoring-rubric", "acceptability-gate"] },
     { "id": "foundation.backfill-specs.descriptive", "relationship": "sibling", "sections": ["ux-contracts", "design-placeholders"] },
     { "id": "foundation.backfill-orchestration.technical", "relationship": "sibling", "sections": ["contracts"] }
   ],
@@ -105,22 +105,22 @@
       <table class="status-table">
         <thead><tr><th>Artifact</th><th>Example path</th><th>Purpose</th></tr></thead>
         <tbody>
-          <tr><td>Backfill report</td><td><code>docs/specs/backfill/review-report-20260521-01.html</code></td><td>Durable run state, inventory, slice queue, evidence audit, discrepancy log, and human decision queue.</td></tr>
-          <tr><td>Capability Map</td><td><code>#backfill-capability-matrix</code> inside the report</td><td>Machine-readable and human-readable coverage rows for actor, outcome, object, actions, states, contracts, evidence, spec owners, status, and split state.</td></tr>
-          <tr><td>Job / Spec Queue</td><td><code>#backfill-slice-queue</code> inside the report</td><td>Machine-readable and human-readable status for every slice: owner skill, score, next action, blocker, and exit criterion.</td></tr>
+          <tr><td>Backfill report</td><td><code>docs/specs/backfill/review-report-20260521-01.html</code></td><td>Durable run state, inventory, Define Spec Jobs queue, evidence audit, discrepancy log, and human decision queue.</td></tr>
+          <tr><td>Capability Map</td><td><code>#backfill-capability-map</code> inside the report</td><td>Machine-readable and human-readable coverage rows for actor, outcome, object, actions, states, contracts, evidence, spec owners, status, and split state.</td></tr>
+          <tr><td>Define Spec Jobs</td><td><code>#backfill-spec-job-queue</code> inside the report</td><td>Machine-readable and human-readable status for every slice: owner skill, next action, blocker, and exit criterion.</td></tr>
           <tr><td>Execution run log</td><td><code>docs/specs/backfill/run-log-20260521-01.jsonl</code></td><td>Append-only JSONL phase events for work performed, artifacts read/changed, commands, checks, timing, result, and next action.</td></tr>
           <tr><td>Descriptive spec</td><td><code>docs/specs/field-visit-check-in-descriptive.html</code></td><td>Architecture-agnostic user/operator intent, processes/actions, states, copy, recovery, and rendered experience.</td></tr>
           <tr><td>Technical spec</td><td><code>docs/specs/field-visit-check-in-technical.html</code></td><td>Required contracts, current evidence, constraints, implementation latitude, and failure/observability rules.</td></tr>
           <tr><td>Evaluation report</td><td><code>docs/specs/backfill/evaluation-report-20260521-01.html</code></td><td>100-point scorecard, spec-only probe, evidence audit, category findings, and concrete revision routing.</td></tr>
         </tbody>
       </table>
-      <p>An acceptable backfill result is not just a set of generated pages. It is a resumable state machine: each slice is either queued, in progress, needs revision, revision-ready, acceptable, out of scope, or blocked by a named human decision.</p>
+      <p>An acceptable backfill result is not just a set of generated pages. It is a resumable state machine: each slice is either pending, ready, in progress, acceptable, out of scope, or blocked by a named human decision.</p>
     </section>
 
     <section id="golden-report" data-spec-section="golden-report" data-section-type="data-model">
       <h2>Golden backfill report excerpt</h2>
       <h3>Capability Map</h3>
-      <script type="application/json" id="backfill-capability-matrix">
+      <script type="application/json" id="backfill-capability-map">
 {
   "runId": "20260521-01",
   "targetRepo": "field-ops-example",
@@ -157,84 +157,78 @@
           <tr><td>FV-CHECKIN-CAP-01</td><td>Assigned field coordinator</td><td>Trustworthy arrival event and next work action.</td><td>ready, warning, submitting, checked-in, review-needed, denied</td><td>descriptive + technical</td><td class="score-good">acceptable</td></tr>
         </tbody>
       </table>
-      <h3>Slice ledger</h3>
-      <script type="application/json" id="backfill-slice-queue">
+      <h3>Define Spec Jobs</h3>
+      <script type="application/json" id="backfill-spec-job-queue">
 {
+  "schema": "foundation.backfill.spec-job-queue.v1",
   "runId": "20260521-01",
   "targetRepo": "field-ops-example",
-  "currentSlice": "FV-CHECKIN-01",
-  "nextSlice": "FV-NOTES-02",
-  "slices": [
+  "queue": [
     {
-      "id": "FV-CHECKIN-01",
+      "sliceId": "FV-CHECKIN-01",
+      "name": "Coordinator visit check-in",
       "scope": "Coordinator visit check-in from mobile web",
-      "capabilityIds": ["FV-CHECKIN-CAP-01"],
+      "upstreamCapabilityIds": ["FV-CHECKIN-CAP-01"],
       "status": "acceptable",
-      "score": 99,
       "ownerSkill": "evaluate-backfill-specs",
       "descriptiveSpec": "field.visit-check-in.descriptive",
       "technicalSpec": "field.visit-check-in.technical",
+      "descriptiveSections": ["#capability-contract", "#states-and-recovery", "#rendered-experience"],
+      "technicalSections": ["#capability-contract", "#technical-contract-matrix", "#failure-modes"],
+      "verificationTargets": ["permission denial", "idempotent duplicate submit", "location override review", "request failure retry"],
       "nextAction": "Continue to FV-NOTES-02",
       "exitCriterion": "Slice scored 99 with every category >= 9 and rebuild readiness = 10.",
+      "blockingQuestions": [],
       "blockingGaps": [],
-      "evidence": [
-        "apps/web/routes/visits/$visitId/check-in.tsx",
-        "apps/web/components/VisitCheckInPanel.tsx",
-        "services/visits/checkInVisit.ts",
-        "db/schema/visit_events.sql",
-        "docs/old/mobile-visit-plan.md"
-      ]
+      "humanDecisions": ["offline queue priority"],
+      "reviewFlags": []
     },
     {
-      "id": "FV-NOTES-02",
+      "sliceId": "FV-NOTES-02",
+      "name": "Visit notes and completion summary",
       "scope": "Visit notes, photos, and completion summary",
-      "capabilityIds": ["FV-NOTES-CAP-02"],
-      "status": "queued",
-      "score": null,
-      "ownerSkill": "backfill-user-flow-extraction",
+      "upstreamCapabilityIds": ["FV-NOTES-CAP-02"],
+      "status": "ready",
+      "ownerSkill": "backfill-context-pack",
       "descriptiveSpec": null,
       "technicalSpec": null,
       "nextAction": "Extract route, component, service, and existing-doc evidence.",
       "exitCriterion": "Concrete note/photo/completion process/action rows are ready for descriptive authoring.",
+      "blockingQuestions": [],
       "blockingGaps": [],
-      "evidence": [
-        "apps/web/routes/visits/$visitId/notes.tsx",
-        "apps/web/components/VisitNotesPanel.tsx",
-        "services/visits/completeVisit.ts"
-      ]
+      "humanDecisions": [],
+      "reviewFlags": []
     },
     {
-      "id": "FV-SCHEDULE-03",
+      "sliceId": "FV-SCHEDULE-03",
+      "name": "Visit scheduling and reassignment",
       "scope": "Visit scheduling and reassignment",
-      "capabilityIds": ["FV-SCHEDULE-CAP-03"],
-      "status": "queued",
-      "score": null,
-      "ownerSkill": "backfill-repo-inventory",
+      "upstreamCapabilityIds": ["FV-SCHEDULE-CAP-03"],
+      "status": "pending",
+      "ownerSkill": "backfill-context-pack",
       "descriptiveSpec": null,
       "technicalSpec": null,
       "nextAction": "Map scheduling routes, calendar service, and notification behavior.",
       "exitCriterion": "Scheduling evidence rows have proposed owner specs and slice boundaries.",
+      "blockingQuestions": [],
       "blockingGaps": [],
-      "evidence": [
-        "apps/web/routes/visits/schedule.tsx",
-        "services/visits/scheduleVisit.ts",
-        "services/notifications/visitAssignments.ts"
-      ]
+      "humanDecisions": [],
+      "reviewFlags": []
     }
   ]
 }
       </script>
       <table class="status-table">
-        <thead><tr><th>Slice ID</th><th>Scope</th><th>Owner skill</th><th>Status</th><th>Score</th><th>Next action</th></tr></thead>
+        <thead><tr><th>Slice ID</th><th>Scope</th><th>Owner skill</th><th>Status</th><th>Next action</th></tr></thead>
         <tbody>
-          <tr><td>FV-CHECKIN-01</td><td>Coordinator visit check-in from mobile web</td><td>evaluator</td><td>acceptable</td><td class="score-good">99</td><td>Continue to <code>FV-NOTES-02</code></td></tr>
-          <tr><td>FV-NOTES-02</td><td>Visit notes, photos, and completion summary</td><td>Process / Action Map</td><td>queued</td><td>not scored</td><td>Extract process/action evidence from route, component, service, and existing docs.</td></tr>
-          <tr><td>FV-SCHEDULE-03</td><td>Visit scheduling and reassignment</td><td>inventory</td><td>queued</td><td>not scored</td><td>Map scheduling routes, calendar service, and notification behavior.</td></tr>
+          <tr><td>FV-CHECKIN-01</td><td>Coordinator visit check-in from mobile web</td><td>evaluator</td><td>acceptable</td><td>Continue to <code>FV-NOTES-02</code></td></tr>
+          <tr><td>FV-NOTES-02</td><td>Visit notes, photos, and completion summary</td><td>Context Pack</td><td>ready</td><td>Extract process/action evidence from route, component, service, and existing docs.</td></tr>
+          <tr><td>FV-SCHEDULE-03</td><td>Visit scheduling and reassignment</td><td>Context Pack</td><td>pending</td><td>Map scheduling routes, calendar service, and notification behavior.</td></tr>
         </tbody>
       </table>
       <h3>Run log excerpt</h3>
-      <pre><code class="language-json">{"ts":"2026-05-21T14:00:00.000Z","runId":"20260521-01","sequence":1,"slice":"FV-CHECKIN-01","phase":"process-action","event":"start","summary":"Started extracting the coordinator check-in process.","artifactsRead":["apps/web/routes/visits/$visitId/check-in.tsx","apps/web/components/VisitCheckInPanel.tsx"],"artifactsChanged":[],"commands":[],"checks":[],"durationSeconds":null,"result":null,"nextAction":"Map entry, action, success, warning, and recovery states."}
-{"ts":"2026-05-21T14:18:00.000Z","runId":"20260521-01","sequence":2,"slice":"FV-CHECKIN-01","phase":"process-action","event":"complete","summary":"Completed Process / Action Map for check-in.","artifactsRead":["apps/web/routes/visits/$visitId/check-in.tsx","apps/web/components/VisitCheckInPanel.tsx","services/visits/checkInVisit.ts"],"artifactsChanged":["docs/specs/backfill/review-report-20260521-01.html"],"commands":["rg --files apps/web services"],"checks":[],"durationSeconds":1080,"result":"Process/action rows cover ready, location warning, submitting, checked-in, review-needed, and permission denied states.","nextAction":"Draft architecture-agnostic descriptive spec."}</code></pre>
+      <pre><code class="language-json">{"ts":"2026-05-21T14:00:00.000Z","runId":"20260521-01","sequence":1,"slice":"FV-CHECKIN-01","phase":"process-action-map","event":"start","summary":"Started extracting the coordinator check-in process.","artifactsRead":["apps/web/routes/visits/$visitId/check-in.tsx","apps/web/components/VisitCheckInPanel.tsx"],"artifactsChanged":[],"commands":[],"checks":[],"durationSeconds":null,"result":null,"nextAction":"Map entry, action, success, warning, and recovery states."}
+{"ts":"2026-05-21T14:18:00.000Z","runId":"20260521-01","sequence":2,"slice":"FV-CHECKIN-01","phase":"process-action-map","event":"complete","summary":"Completed Process / Action Map for check-in.","artifactsRead":["apps/web/routes/visits/$visitId/check-in.tsx","apps/web/components/VisitCheckInPanel.tsx","services/visits/checkInVisit.ts"],"artifactsChanged":["docs/specs/backfill/review-report-20260521-01.html"],"commands":["rg --files apps/web services"],"checks":[],"durationSeconds":1080,"result":"Process/action rows cover ready, location warning, submitting, checked-in, review-needed, and permission denied states.","nextAction":"Draft architecture-agnostic descriptive spec."}</code></pre>
       <h3>Evidence ledger for <code>FV-CHECKIN-01</code></h3>
       <table class="status-table">
         <thead><tr><th>Inventory ID</th><th>Evidence</th><th>Finding</th><th>Owning spec section</th><th>Confidence</th></tr></thead>

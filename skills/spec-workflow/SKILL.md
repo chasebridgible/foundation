@@ -5,7 +5,7 @@ description: Create, update, and verify HTML-native software specs. Use when Cod
 
 # Spec Workflow
 
-Use this skill as the execution wrapper for the repo's HTML-native spec system. The source of truth is the spec docs, especially `docs/specs/index.html`, `docs/specs/process.html`, and the relevant descriptive, technical, or test spec. Do not duplicate durable requirements into this skill.
+Use this skill as the execution wrapper for the repo's HTML-native spec system. The source of truth is the spec docs, especially `docs/specs/index.html`, `docs/specs/process.html`, and the relevant descriptive, technical, or eval spec. Do not duplicate durable requirements into this skill.
 
 ## Entry Workflow
 
@@ -35,7 +35,7 @@ When code behavior changes, update the relevant specs and tests in the same chan
 
 - Product behavior change: update descriptive spec and mapped test acceptance.
 - Internal behavior change: update technical spec at depth proportional to implementation risk.
-- Test addition, rename, deletion, or gap: update the test spec coverage metadata and visible coverage table.
+- Test addition, rename, deletion, or gap: update the eval spec coverage metadata and visible coverage table.
 - Path move or deletion: update `ownedPaths`, `implementationPaths`, coverage paths, and visible path lists.
 - Spec retirement or replacement: update status, `replacedBy`, parent/child links, and related specs.
 
@@ -44,8 +44,8 @@ When code behavior changes, update the relevant specs and tests in the same chan
 - T0: typo, formatting, navigation-only. No spec update unless the edited doc becomes inaccurate.
 - T1: metadata, registry, CI, or harness maintenance. Update metadata/process docs and run registry/check as needed.
 - T2: small bugfix or refactor with no intended user-visible behavior change. Compact technical note and targeted evidence.
-- T3: user-visible behavior change inside an existing feature. Update descriptive, technical, and test specs.
-- T4: new feature, new flow, or feature split. Create or update the full descriptive/technical/test spec set.
+- T3: user-visible behavior change inside an existing feature. Update descriptive, technical, and eval specs.
+- T4: new feature, new flow, or feature split. Create or update the full descriptive/technical/eval spec set.
 - T5: architecture, data, security, concurrency, migration, or cross-feature contract. Deep technical spec, ADR when useful, and broader verification.
 
 If uncertain, choose the higher tier until the spec or tests make the risk smaller.

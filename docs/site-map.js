@@ -39,6 +39,10 @@ window.SubstrateSiteMap = [
         "path": "general/business-os.html"
       },
       {
+        "title": "Business Capability Map",
+        "path": "general/business-capability-map.html"
+      },
+      {
         "title": "Definitions",
         "path": "definitions/sw-definitions.html"
       },
@@ -88,143 +92,143 @@ window.SubstrateSiteMap = [
       },
       {
         "title": "Foundation Backfill Evaluation Process",
-        "path": "specs/foundation-backfill-evaluation.html",
-        "specId": "foundation.backfill-evaluation.process"
+        "path": "specs/foundation-backfill-quality-evaluation.html",
+        "specId": "foundation.backfill-quality-evaluation.process"
       },
       {
         "title": "Foundation Artifact Inventory",
-        "path": "specs/foundation-backfill-file-registry.html",
-        "specId": "foundation.backfill-file-registry.descriptive"
+        "path": "specs/foundation-backfill-artifact-inventory.html",
+        "specId": "foundation.backfill-artifact-inventory.descriptive"
       },
       {
         "title": "Foundation Artifact Inventory Technical Spec",
-        "path": "specs/foundation-backfill-file-registry-technical.html",
-        "specId": "foundation.backfill-file-registry.technical"
+        "path": "specs/foundation-backfill-artifact-inventory-technical.html",
+        "specId": "foundation.backfill-artifact-inventory.technical"
       },
       {
-        "title": "Foundation Artifact Inventory Test Spec",
-        "path": "specs/foundation-backfill-file-registry-test.html",
-        "specId": "foundation.backfill-file-registry.test"
+        "title": "Foundation Artifact Inventory Eval Spec",
+        "path": "specs/foundation-backfill-artifact-inventory-eval.html",
+        "specId": "foundation.backfill-artifact-inventory.eval"
       },
       {
         "title": "Foundation Backfill Surface / Function Map",
-        "path": "specs/foundation-backfill-surface-registry.html",
-        "specId": "foundation.backfill-surface-registry.descriptive"
+        "path": "specs/foundation-backfill-surface-function-map.html",
+        "specId": "foundation.backfill-surface-function-map.descriptive"
       },
       {
         "title": "Foundation Backfill Surface / Function Map Technical Spec",
-        "path": "specs/foundation-backfill-surface-registry-technical.html",
-        "specId": "foundation.backfill-surface-registry.technical"
+        "path": "specs/foundation-backfill-surface-function-map-technical.html",
+        "specId": "foundation.backfill-surface-function-map.technical"
       },
       {
-        "title": "Foundation Backfill Surface / Function Map Test Spec",
-        "path": "specs/foundation-backfill-surface-registry-test.html",
-        "specId": "foundation.backfill-surface-registry.test"
+        "title": "Foundation Backfill Surface / Function Map Eval Spec",
+        "path": "specs/foundation-backfill-surface-function-map-eval.html",
+        "specId": "foundation.backfill-surface-function-map.eval"
       },
       {
         "title": "Foundation Backfill Capability Map",
-        "path": "specs/foundation-backfill-capability-matrix.html",
-        "specId": "foundation.backfill-capability-matrix.descriptive"
+        "path": "specs/foundation-backfill-capability-map.html",
+        "specId": "foundation.backfill-capability-map.descriptive"
       },
       {
         "title": "Foundation Backfill Capability Map Technical Spec",
-        "path": "specs/foundation-backfill-capability-matrix-technical.html",
-        "specId": "foundation.backfill-capability-matrix.technical"
+        "path": "specs/foundation-backfill-capability-map-technical.html",
+        "specId": "foundation.backfill-capability-map.technical"
       },
       {
-        "title": "Foundation Backfill Capability Map Test Spec",
-        "path": "specs/foundation-backfill-capability-matrix-test.html",
-        "specId": "foundation.backfill-capability-matrix.test"
+        "title": "Foundation Backfill Capability Map Eval Spec",
+        "path": "specs/foundation-backfill-capability-map-eval.html",
+        "specId": "foundation.backfill-capability-map.eval"
       },
       {
         "title": "Foundation Backfill Define Spec Jobs",
-        "path": "specs/foundation-backfill-split-queue.html",
-        "specId": "foundation.backfill-split-queue.descriptive"
+        "path": "specs/foundation-backfill-spec-job-queue.html",
+        "specId": "foundation.backfill-spec-job-queue.descriptive"
       },
       {
         "title": "Foundation Backfill Define Spec Jobs Technical Spec",
-        "path": "specs/foundation-backfill-split-queue-technical.html",
-        "specId": "foundation.backfill-split-queue.technical"
+        "path": "specs/foundation-backfill-spec-job-queue-technical.html",
+        "specId": "foundation.backfill-spec-job-queue.technical"
       },
       {
-        "title": "Foundation Backfill Define Spec Jobs Test Spec",
-        "path": "specs/foundation-backfill-split-queue-test.html",
-        "specId": "foundation.backfill-split-queue.test"
+        "title": "Foundation Backfill Define Spec Jobs Eval Spec",
+        "path": "specs/foundation-backfill-spec-job-queue-eval.html",
+        "specId": "foundation.backfill-spec-job-queue.eval"
       },
       {
         "title": "Foundation Backfill Context Pack",
-        "path": "specs/foundation-backfill-evidence-pack.html",
-        "specId": "foundation.backfill-evidence-pack.descriptive"
+        "path": "specs/foundation-backfill-context-pack.html",
+        "specId": "foundation.backfill-context-pack.descriptive"
       },
       {
         "title": "Foundation Backfill Context Pack Technical Spec",
-        "path": "specs/foundation-backfill-evidence-pack-technical.html",
-        "specId": "foundation.backfill-evidence-pack.technical"
+        "path": "specs/foundation-backfill-context-pack-technical.html",
+        "specId": "foundation.backfill-context-pack.technical"
       },
       {
-        "title": "Foundation Backfill Context Pack Test Spec",
-        "path": "specs/foundation-backfill-evidence-pack-test.html",
-        "specId": "foundation.backfill-evidence-pack.test"
+        "title": "Foundation Backfill Context Pack Eval Spec",
+        "path": "specs/foundation-backfill-context-pack-eval.html",
+        "specId": "foundation.backfill-context-pack.eval"
       },
       {
         "title": "Foundation Backfill Process / Action Map",
-        "path": "specs/foundation-backfill-flow-extraction.html",
-        "specId": "foundation.backfill-flow-extraction.descriptive"
+        "path": "specs/foundation-backfill-process-action-map.html",
+        "specId": "foundation.backfill-process-action-map.descriptive"
       },
       {
         "title": "Foundation Backfill Process / Action Map Technical Spec",
-        "path": "specs/foundation-backfill-flow-extraction-technical.html",
-        "specId": "foundation.backfill-flow-extraction.technical"
+        "path": "specs/foundation-backfill-process-action-map-technical.html",
+        "specId": "foundation.backfill-process-action-map.technical"
       },
       {
-        "title": "Foundation Backfill Process / Action Map Test Spec",
-        "path": "specs/foundation-backfill-flow-extraction-test.html",
-        "specId": "foundation.backfill-flow-extraction.test"
+        "title": "Foundation Backfill Process / Action Map Eval Spec",
+        "path": "specs/foundation-backfill-process-action-map-eval.html",
+        "specId": "foundation.backfill-process-action-map.eval"
       },
       {
         "title": "Foundation Backfill Author Specs",
-        "path": "specs/foundation-backfill-spec-authoring.html",
-        "specId": "foundation.backfill-spec-authoring.descriptive"
+        "path": "specs/foundation-backfill-author-specs.html",
+        "specId": "foundation.backfill-author-specs.descriptive"
       },
       {
         "title": "Foundation Backfill Author Specs Technical Spec",
-        "path": "specs/foundation-backfill-spec-authoring-technical.html",
-        "specId": "foundation.backfill-spec-authoring.technical"
+        "path": "specs/foundation-backfill-author-specs-technical.html",
+        "specId": "foundation.backfill-author-specs.technical"
       },
       {
-        "title": "Foundation Backfill Author Specs Test Spec",
-        "path": "specs/foundation-backfill-spec-authoring-test.html",
-        "specId": "foundation.backfill-spec-authoring.test"
+        "title": "Foundation Backfill Author Specs Eval Spec",
+        "path": "specs/foundation-backfill-author-specs-eval.html",
+        "specId": "foundation.backfill-author-specs.eval"
       },
       {
         "title": "Foundation Backfill Evaluate Job Slices",
-        "path": "specs/foundation-backfill-slice-evaluation.html",
-        "specId": "foundation.backfill-slice-evaluation.descriptive"
+        "path": "specs/foundation-backfill-job-slice-evaluation.html",
+        "specId": "foundation.backfill-job-slice-evaluation.descriptive"
       },
       {
         "title": "Foundation Backfill Evaluate Job Slices Technical Spec",
-        "path": "specs/foundation-backfill-slice-evaluation-technical.html",
-        "specId": "foundation.backfill-slice-evaluation.technical"
+        "path": "specs/foundation-backfill-job-slice-evaluation-technical.html",
+        "specId": "foundation.backfill-job-slice-evaluation.technical"
       },
       {
-        "title": "Foundation Backfill Evaluate Job Slices Test Spec",
-        "path": "specs/foundation-backfill-slice-evaluation-test.html",
-        "specId": "foundation.backfill-slice-evaluation.test"
+        "title": "Foundation Backfill Evaluate Job Slices Eval Spec",
+        "path": "specs/foundation-backfill-job-slice-evaluation-eval.html",
+        "specId": "foundation.backfill-job-slice-evaluation.eval"
       },
       {
         "title": "Foundation Backfill Evaluate System Coherence",
-        "path": "specs/foundation-backfill-graph-evaluation.html",
-        "specId": "foundation.backfill-graph-evaluation.descriptive"
+        "path": "specs/foundation-backfill-system-coherence-evaluation.html",
+        "specId": "foundation.backfill-system-coherence-evaluation.descriptive"
       },
       {
         "title": "Foundation Backfill Evaluate System Coherence Technical Spec",
-        "path": "specs/foundation-backfill-graph-evaluation-technical.html",
-        "specId": "foundation.backfill-graph-evaluation.technical"
+        "path": "specs/foundation-backfill-system-coherence-evaluation-technical.html",
+        "specId": "foundation.backfill-system-coherence-evaluation.technical"
       },
       {
-        "title": "Foundation Backfill Evaluate System Coherence Test Spec",
-        "path": "specs/foundation-backfill-graph-evaluation-test.html",
-        "specId": "foundation.backfill-graph-evaluation.test"
+        "title": "Foundation Backfill Evaluate System Coherence Eval Spec",
+        "path": "specs/foundation-backfill-system-coherence-evaluation-eval.html",
+        "specId": "foundation.backfill-system-coherence-evaluation.eval"
       },
       {
         "title": "Foundation Backfill Handoff",
@@ -237,14 +241,14 @@ window.SubstrateSiteMap = [
         "specId": "foundation.backfill-handoff.technical"
       },
       {
-        "title": "Foundation Backfill Handoff Test Spec",
-        "path": "specs/foundation-backfill-handoff-test.html",
-        "specId": "foundation.backfill-handoff.test"
+        "title": "Foundation Backfill Handoff Eval Spec",
+        "path": "specs/foundation-backfill-handoff-eval.html",
+        "specId": "foundation.backfill-handoff.eval"
       },
       {
         "title": "Foundation AGENTS Load Canary Test",
-        "path": "specs/foundation-agents-load-canary-test.html",
-        "specId": "foundation.agents-load-canary.test"
+        "path": "specs/foundation-agents-load-canary-eval.html",
+        "specId": "foundation.agents-load-canary.eval"
       },
       {
         "title": "Foundation Workspace Doctor Technical Spec",
@@ -252,9 +256,9 @@ window.SubstrateSiteMap = [
         "specId": "foundation.workspace-doctor.technical"
       },
       {
-        "title": "Foundation Workspace Doctor Test Spec",
-        "path": "specs/foundation-workspace-doctor-test.html",
-        "specId": "foundation.workspace-doctor.test"
+        "title": "Foundation Workspace Doctor Eval Spec",
+        "path": "specs/foundation-workspace-doctor-eval.html",
+        "specId": "foundation.workspace-doctor.eval"
       }
     ]
   },
@@ -272,9 +276,9 @@ window.SubstrateSiteMap = [
         "specId": "foundation.spec-template.technical"
       },
       {
-        "title": "Test Spec Template",
-        "path": "specs/templates/test-spec-template.html",
-        "specId": "foundation.spec-template.test"
+        "title": "Eval Spec Template",
+        "path": "specs/templates/eval-spec-template.html",
+        "specId": "foundation.spec-template.eval"
       }
     ]
   },
@@ -297,9 +301,9 @@ window.SubstrateSiteMap = [
         "specId": "fup.kitchen-queue.technical"
       },
       {
-        "title": "Fired Up Pizza Kitchen Queue - Test Spec Example",
-        "path": "specs/examples/test-spec-example.html",
-        "specId": "fup.kitchen-queue.test"
+        "title": "Fired Up Pizza Kitchen Queue - Eval Spec Example",
+        "path": "specs/examples/eval-spec-example.html",
+        "specId": "fup.kitchen-queue.eval"
       }
     ]
   }

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-surface-function-map.descriptive">
+<meta name="spec:type" content="descriptive">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-28">
+<title>Foundation Backfill Surface / Function Map</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-surface-function-map.descriptive",
+  "title": "Foundation Backfill Surface / Function Map",
+  "type": "descriptive",
+  "status": "active",
+  "lastUpdated": "2026-05-28",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-specs.descriptive",
+  "children": [
+    "foundation.backfill-surface-function-map.technical",
+    "foundation.backfill-surface-function-map.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.backfill-specs.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "interface-journey",
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-surface-function-map.technical",
+      "relationship": "child",
+      "sections": [
+        "data-model",
+        "contracts",
+        "checker-and-fill-loop"
+      ]
+    },
+    {
+      "id": "foundation.backfill-surface-function-map.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping",
+        "eval-contract"
+      ]
+    },
+    {
+      "id": "foundation.backfill-artifact-inventory.descriptive",
+      "relationship": "depends-on",
+      "sections": [
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-surface-function-map.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Parent backfill workflow."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-artifact-inventory.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Model for canonical layer artifacts and handoff gates."
+    },
+    {
+      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "BFL-SURFACE_REGISTRY-D-1",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/surface-function-map.test.mjs",
+      "mapsTo": [
+        "foundation.backfill-surface-function-map.descriptive#artifacts-and-state",
+        "foundation.backfill-surface-function-map.descriptive#handoff-gate"
+      ],
+      "evidence": "Surface / Function Map tests cover canonical JSONL artifacts, scope exclusion for inert files, one-file full-read fill for eligible files, deterministic handoff checks, eval receipts, report state, and Sandia Oil-compatible calibration mechanics."
+    }
+  ],
+  "tags": [
+    "foundation",
+    "backfill",
+    "surface-function-map",
+    "descriptive",
+    "substrate"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Foundation Backfill Surface / Function Map</div>
+      <div class="sidebar-sub">descriptive spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#artifacts-and-state"><span class="nav-num">02</span>Artifacts</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Loop</a>
+    <a class="nav-item" href="#checker-eval"><span class="nav-num">04</span>Checker/eval</a>
+    <a class="nav-item" href="#handoff-gate"><span class="nav-num">05</span>Handoff</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">06</span>Links</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-surface-function-map.html</div>
+    <h1>Foundation Backfill Surface / Function Map</h1>
+    <p class="lede">Surface / Function Map converts eligible Artifact Inventory rows into capability surfaces: routes, screens, APIs, commands, jobs, tables, workflows, infra resources, active behavior docs, and direct external dependencies. This layer answers: <strong>What things does this repo expose or depend on?</strong></p>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-28</div><div><strong>Upstream:</strong> Artifact Inventory</div><div><strong>Next:</strong> Capability Map</div></div>
+    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer by selecting only files that can plausibly define, expose, configure, or materially document capabilities, fills one eligible upstream file at a time after a complete file read, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
+    <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="artifacts-and-state" data-spec-section="artifacts-and-state" data-section-type="state-model">
+      <h2>Artifacts and state</h2>
+      <table class="status-table"><thead><tr><th>Category</th><th>Contract</th></tr></thead><tbody>
+        <tr><td>Canonical artifacts</td><td><ul><li><code>surface-function-map-YYYYMMDD-NN.jsonl</code></li>
+<li><code>surface-function-map-check-YYYYMMDD-NN.json</code></li>
+<li><code>surface-function-map-eval-YYYYMMDD-NN.jsonl</code></li></ul></td></tr>
+        <tr><td>Derived artifacts</td><td><ul><li><code>surface-function-map-eval-summary-YYYYMMDD-NN.html</code></li>
+<li><code>surface graph views</code></li>
+<li><code>report tables</code></li></ul></td></tr>
+        <tr><td>State model</td><td><ul><li><code>pending</code></li>
+<li><code>mapped</code></li>
+<li><code>needs-evidence</code></li>
+<li><code>ready-for-capability</code></li></ul></td></tr>
+        <tr><td>Scope</td><td>Artifact Inventory remains exhaustive. Surface / Function Map only queues code, runtime/config/deploy files, and active behavior-defining docs. Inert artifacts such as images, PPTX exports, spreadsheets, RTF/CSV/sample fixtures, generated files, lockfiles, archives, delete candidates, and support-only docs are skipped and may be cited only from the eligible file that consumes or defines behavior.</td></tr>
+        <tr><td>Core row</td><td>surface row with stable <code>surfaceId</code>, run ID, <code>surfaceKind</code>, source category, upstream file IDs, upstream content hashes, simple full-file-read evidence, exposed object, operation, consumer/actor hints, state/rule hints, support reason, status, confidence, and any blocking review flags.</td></tr>
+      </tbody></table>
+      <p>Surface kinds are <code>route</code>, <code>screen</code>, <code>api</code>, <code>command</code>, <code>job</code>, <code>table</code>, <code>workflow</code>, <code>infra-resource</code>, <code>doc</code>, <code>test</code>, <code>generated-artifact</code>, <code>external-dependency</code>, and <code>support-classification</code>. Capability IDs do not belong in this layer. Some legacy surface kinds remain valid for explicit rows, but skipped files are not read or marked merely because they exist in the repo.</p>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Small-loop journey</h2>
+      <ol>
+        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Surface / Function Map artifact from Surface / Function Map-eligible rows in a passing Artifact Inventory checker and eval handoff.</li>
+        <li><strong>Select file:</strong> choose exactly one pending or failed eligible upstream Artifact Inventory row using deterministic order plus review priority.</li>
+        <li><strong>Read:</strong> agent reads the complete eligible source file named by that row. Artifact Inventory kind, path patterns, imports, grep output, generated summaries, and helper-script output are hints, not authority for eligible rows. Inert artifacts are skipped rather than read.</li>
+        <li><strong>Fill:</strong> agent immediately marks every surface for that one file, or records an explicit support classification, with upstream file row IDs, upstream hashes, <code>agent-read-full-file</code> evidence, surface kind, actor or consumer hints, operations, and state/rule hints. The fill command accepts only inline rows for that one reviewed file; generated row files and batch fill modes are outside the process.</li>
+        <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
+        <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>
+        <li><strong>Revise:</strong> route failed rows back to the fill loop with row IDs and findings.</li>
+        <li><strong>Handoff:</strong> advance only when the handoff gate passes or named human decisions block the layer.</li>
+      </ol>
+    </section>
+
+    <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
+      <h2>Checker and eval contract</h2>
+      <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
+        <tr><td>Checker</td><td>validates the upstream Artifact Inventory handoff, surface JSONL parsing, surface kind/source/status enums, stable surface ID uniqueness, upstream file row references, upstream content hashes, concrete full-file evidence, scope eligibility, required fields, eligible file coverage, terminal handoff states, blocking flags, and optional report state drift.</td></tr>
+        <tr><td>Eval receipt</td><td>samples surface rows against Artifact Inventory rows to judge whether exposed and dependent surfaces were missed, over-merged, mislabeled, weakly supported, too vague for Capability Map, or detached from full-file evidence. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
+        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
+      <h2>Handoff gate</h2>
+      <p>All Surface / Function Map-eligible file rows are resolved to surfaces, explicit support classifications, or blocking review rows; inert Artifact Inventory rows are skipped; checker passes; eval receipt and HTML summary exist with no revision targets; report names next layer as Capability Map.</p>
+      <ul>
+        <li>Canonical artifacts exist and share a run ID.</li>
+        <li>Every terminal row has concrete <code>agent-read-full-file</code> evidence for its upstream file; generic evidence that only says the file was read is not accepted.</li>
+        <li>All Surface / Function Map rows are in valid terminal states: <code>ready-for-capability</code> for surfaces and <code>mapped</code> for support classifications.</li>
+        <li>Checker passes for structure, references, currentness, and required fields.</li>
+        <li>Eval JSONL and HTML summary exist, score at least <code>96</code>, have no normalized category below <code>9/10</code>, and list zero revision targets.</li>
+        <li>Active report records counts, artifact paths, checker/eval status, run-log sequence, and next layer.</li>
+        <li>Capability Map does not start unless the report state says <code>Capability Map</code> or a named human decision blocks or defers the layer.</li>
+      </ul>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="linking">
+      <h2>Related specs and paths</h2>
+      <ul>
+        <li><a data-spec-link="foundation.backfill-surface-function-map.technical" href="./foundation-backfill-surface-function-map-technical.html">foundation.backfill-surface-function-map.technical</a></li>
+        <li><a data-spec-link="foundation.backfill-surface-function-map.eval" href="./foundation-backfill-surface-function-map-eval.html">foundation.backfill-surface-function-map.eval</a></li>
+        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a></li>
+      </ul>
+    </section>
+  </article>
+  <hr>
+  <p class="footer-note">Foundation Backfill Surface / Function Map · active V1</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

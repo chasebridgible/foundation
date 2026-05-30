@@ -46,26 +46,26 @@ test("accepts a structurally valid run log", () => {
       checks: [],
       durationSeconds: 300,
       result: "Inventory ledger created.",
-      nextAction: "Create durable slice queue."
+      nextAction: "Create Define Spec Jobs queue."
     })
   ]);
 
   assert.equal(validateRunLog(file).some(result => result.status === "fail"), false);
 });
 
-test("accepts surface map phase events", () => {
+test("accepts surface function map phase events", () => {
   const file = writeRunLog([
     JSON.stringify({
       ts: "2026-05-28T04:00:00.000Z",
       runId: "20260527-01",
       sequence: 1,
       slice: null,
-      phase: "surface-map",
+      phase: "surface-function-map",
       event: "checkpoint",
       summary: "Filled Surface / Function Map rows.",
-      artifactsRead: ["docs/specs/backfill/file-registry-20260527-01.jsonl"],
-      artifactsChanged: ["docs/specs/backfill/surface-registry-20260527-01.jsonl"],
-      commands: ["foundation:surface-registry:fill"],
+      artifactsRead: ["docs/specs/backfill/artifact-inventory-20260527-01.jsonl"],
+      artifactsChanged: ["docs/specs/backfill/surface-function-map-20260527-01.jsonl"],
+      commands: ["foundation:surface-function-map:fill"],
       checks: [],
       nextAction: "Run Surface / Function Map checker."
     })
@@ -84,9 +84,9 @@ test("accepts capability map phase events", () => {
       phase: "capability-map",
       event: "checkpoint",
       summary: "Marked Capability Map rows.",
-      artifactsRead: ["docs/specs/backfill/surface-registry-20260529-01.jsonl"],
-      artifactsChanged: ["docs/specs/backfill/capability-matrix-20260529-01.jsonl"],
-      commands: ["foundation:capability-matrix:fill"],
+      artifactsRead: ["docs/specs/backfill/surface-function-map-20260529-01.jsonl"],
+      artifactsChanged: ["docs/specs/backfill/capability-map-20260529-01.jsonl"],
+      commands: ["foundation:capability-map:fill"],
       checks: [],
       result: "2 capability row(s) written.",
       nextAction: "Run Capability Map checker."
@@ -140,7 +140,7 @@ test("requires duration and result on complete events", () => {
       ts: "2026-05-21T14:00:00.000Z",
       runId: "20260521-01",
       sequence: 1,
-      phase: "validation",
+      phase: "quality-evaluation",
       event: "complete",
       summary: "Finished validation."
     })

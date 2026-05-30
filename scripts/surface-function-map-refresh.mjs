@@ -1,0 +1,91 @@
+#!/usr/bin/env node
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import {
+  appendRunLogEvent,
+  defaultBackfillDir,
+  mergeSurfaceRowsForRefresh,
+  parseCliArgs,
+  readArtifactInventoryRows,
+  readJsonl,
+  surfaceRefreshPathFor,
+  surfaceFunctionMapPathFor,
+  writeJson,
+  writeJsonl
+} from "./surface-function-map-core.mjs";
+
+const scriptPath = fileURLToPath(import.meta.url);
+
+function usage() {
+  return `Usage:
+  npm run foundation:surface-function-map:refresh -- --repo /path/to/repo --run-id YYYYMMDD-NN [--out-dir path] [--run-log path]
+
+Refreshes Surface / Function Map rows from the current Artifact Inventory. Changed or new eligible upstream rows return to pending and must be re-marked one file at a time after full-file agent read; inert artifacts remain skipped.`;
+}
+
+function main() {
+  const options = parseCliArgs(process.argv.slice(2));
+  if (options.help) {
+    console.log(usage());
+    return;
+  }
+  if (!options.repo) throw new Error("Missing --repo");
+  if (!options["run-id"]) throw new Error("Missing --run-id");
+
+  const repoRoot = path.resolve(options.repo);
+  const runId = options["run-id"];
+  const outDir = options["out-dir"] ? path.resolve(repoRoot, options["out-dir"]) : defaultBackfillDir(repoRoot);
+  const artifactInventory = readArtifactInventoryRows(repoRoot, runId, outDir);
+  if (artifactInventory.errors.length > 0) throw new Error(`Artifact Inventory JSONL has parse errors: ${JSON.stringify(artifactInventory.errors)}`);
+  const surfacePath = surfaceFunctionMapPathFor(repoRoot, runId, outDir);
+  const surfaces = readJsonl(surfacePath);
+  if (surfaces.errors.length > 0) throw new Error(`Surface / Function Map JSONL has parse errors: ${JSON.stringify(surfaces.errors)}`);
+  if (options["fill-changed"]) {
+    throw new Error("--fill-changed was removed for Surface / Function Map; read and mark each changed eligible file with foundation:surface-function-map:fill");
+  }
+
+  const merged = mergeSurfaceRowsForRefresh({
+    fileRows: artifactInventory.rows,
+    existingSurfaceRows: surfaces.rows
+  });
+  const payload = {
+    schema: "foundation.backfill.surface-function-map-refresh.v1",
+    runId,
+    generatedAt: new Date().toISOString(),
+    changed: merged.changed,
+    removed: merged.removed,
+    changedCount: merged.changed.length,
+    removedCount: merged.removed.length,
+    skippedCount: merged.skipped.length,
+    pendingCount: merged.rows.filter(row => row.status === "pending").length
+  };
+  const refreshPath = surfaceRefreshPathFor(repoRoot, runId, outDir);
+  writeJsonl(surfacePath, merged.rows);
+  writeJson(refreshPath, payload);
+
+  appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
+    runId,
+    slice: null,
+    phase: "surface-map",
+    event: "checkpoint",
+    summary: `Refreshed Surface / Function Map: ${payload.changedCount} changed/new eligible upstream files, ${payload.removedCount} removed surface rows, ${payload.skippedCount} inert file rows skipped.`,
+    artifactsRead: [path.relative(repoRoot, artifactInventory.registryPath), path.relative(repoRoot, surfacePath)],
+    artifactsChanged: [path.relative(repoRoot, surfacePath), path.relative(repoRoot, refreshPath)],
+    commands: ["foundation:surface-function-map:refresh"],
+    checks: [],
+    nextAction: payload.pendingCount > 0 ? "Read and mark pending changed Surface / Function Map-eligible files one file at a time." : "Run Surface / Function Map check."
+  });
+
+  console.log(JSON.stringify(payload, null, 2));
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) {
+  try {
+    main();
+  } catch (error) {
+    console.error(error.message);
+    console.error("");
+    console.error(usage());
+    process.exit(2);
+  }
+}

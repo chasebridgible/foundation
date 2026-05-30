@@ -13,7 +13,7 @@ Read when scoring:
 
 - `docs/principles/ai-evals-principles.html`
 - `docs/specs/examples/backfill-golden-example.html`
-- `docs/specs/foundation-backfill-evaluation.html`
+- `docs/specs/foundation-backfill-quality-evaluation.html`
 
 The golden example is the minimum shape of excellent, not a loose sample. Merely understandable work should score around 65-75.
 

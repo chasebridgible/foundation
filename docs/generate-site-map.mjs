@@ -20,6 +20,7 @@ const groupOrder = [
       "principles/sw-design-principles.html",
       "general/operating-spec.html",
       "general/business-os.html",
+      "general/business-capability-map.html",
       "definitions/sw-definitions.html"
     ]
   },
@@ -35,40 +36,40 @@ const groupOrder = [
       "specs/foundation-workspace-model.html",
       "specs/foundation-backfill-specs.html",
       "specs/foundation-backfill-orchestration-technical.html",
-      "specs/foundation-backfill-evaluation.html",
-      "specs/foundation-backfill-file-registry.html",
-      "specs/foundation-backfill-file-registry-technical.html",
-      "specs/foundation-backfill-file-registry-test.html",
-      "specs/foundation-backfill-surface-registry.html",
-      "specs/foundation-backfill-surface-registry-technical.html",
-      "specs/foundation-backfill-surface-registry-test.html",
-      "specs/foundation-backfill-capability-matrix.html",
-      "specs/foundation-backfill-capability-matrix-technical.html",
-      "specs/foundation-backfill-capability-matrix-test.html",
-      "specs/foundation-backfill-split-queue.html",
-      "specs/foundation-backfill-split-queue-technical.html",
-      "specs/foundation-backfill-split-queue-test.html",
-      "specs/foundation-backfill-evidence-pack.html",
-      "specs/foundation-backfill-evidence-pack-technical.html",
-      "specs/foundation-backfill-evidence-pack-test.html",
-      "specs/foundation-backfill-flow-extraction.html",
-      "specs/foundation-backfill-flow-extraction-technical.html",
-      "specs/foundation-backfill-flow-extraction-test.html",
-      "specs/foundation-backfill-spec-authoring.html",
-      "specs/foundation-backfill-spec-authoring-technical.html",
-      "specs/foundation-backfill-spec-authoring-test.html",
-      "specs/foundation-backfill-slice-evaluation.html",
-      "specs/foundation-backfill-slice-evaluation-technical.html",
-      "specs/foundation-backfill-slice-evaluation-test.html",
-      "specs/foundation-backfill-graph-evaluation.html",
-      "specs/foundation-backfill-graph-evaluation-technical.html",
-      "specs/foundation-backfill-graph-evaluation-test.html",
+      "specs/foundation-backfill-quality-evaluation.html",
+      "specs/foundation-backfill-artifact-inventory.html",
+      "specs/foundation-backfill-artifact-inventory-technical.html",
+      "specs/foundation-backfill-artifact-inventory-eval.html",
+      "specs/foundation-backfill-surface-function-map.html",
+      "specs/foundation-backfill-surface-function-map-technical.html",
+      "specs/foundation-backfill-surface-function-map-eval.html",
+      "specs/foundation-backfill-capability-map.html",
+      "specs/foundation-backfill-capability-map-technical.html",
+      "specs/foundation-backfill-capability-map-eval.html",
+      "specs/foundation-backfill-spec-job-queue.html",
+      "specs/foundation-backfill-spec-job-queue-technical.html",
+      "specs/foundation-backfill-spec-job-queue-eval.html",
+      "specs/foundation-backfill-context-pack.html",
+      "specs/foundation-backfill-context-pack-technical.html",
+      "specs/foundation-backfill-context-pack-eval.html",
+      "specs/foundation-backfill-process-action-map.html",
+      "specs/foundation-backfill-process-action-map-technical.html",
+      "specs/foundation-backfill-process-action-map-eval.html",
+      "specs/foundation-backfill-author-specs.html",
+      "specs/foundation-backfill-author-specs-technical.html",
+      "specs/foundation-backfill-author-specs-eval.html",
+      "specs/foundation-backfill-job-slice-evaluation.html",
+      "specs/foundation-backfill-job-slice-evaluation-technical.html",
+      "specs/foundation-backfill-job-slice-evaluation-eval.html",
+      "specs/foundation-backfill-system-coherence-evaluation.html",
+      "specs/foundation-backfill-system-coherence-evaluation-technical.html",
+      "specs/foundation-backfill-system-coherence-evaluation-eval.html",
       "specs/foundation-backfill-handoff.html",
       "specs/foundation-backfill-handoff-technical.html",
-      "specs/foundation-backfill-handoff-test.html",
-      "specs/foundation-agents-load-canary-test.html",
+      "specs/foundation-backfill-handoff-eval.html",
+      "specs/foundation-agents-load-canary-eval.html",
       "specs/foundation-workspace-doctor-technical.html",
-      "specs/foundation-workspace-doctor-test.html"
+      "specs/foundation-workspace-doctor-eval.html"
     ]
   },
   {
@@ -77,7 +78,7 @@ const groupOrder = [
     order: [
       "specs/templates/descriptive-spec-template.html",
       "specs/templates/technical-spec-template.html",
-      "specs/templates/test-spec-template.html"
+      "specs/templates/eval-spec-template.html"
     ]
   },
   {
@@ -87,7 +88,7 @@ const groupOrder = [
       "specs/examples/backfill-golden-example.html",
       "specs/examples/descriptive-spec-example.html",
       "specs/examples/technical-spec-example.html",
-      "specs/examples/test-spec-example.html"
+      "specs/examples/eval-spec-example.html"
     ]
   }
 ];

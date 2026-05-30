@@ -1,4 +1,0 @@
-interface:
-  display_name: "Backfill Process / Action Map"
-  short_description: "Map concrete processes and actions"
-  default_prompt: "Use $backfill-user-flow-extraction to derive the Process / Action Map from this repo evidence before drafting descriptive specs."
