@@ -7,13 +7,13 @@
 <meta name="spec:type" content="test">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
-<title>Foundation Backfill Capability Matrix Test Spec</title>
+<title>Foundation Backfill Capability Map Test Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-capability-matrix.test",
-  "title": "Foundation Backfill Capability Matrix Test Spec",
+  "title": "Foundation Backfill Capability Map Test Spec",
   "type": "test",
   "status": "active",
   "lastUpdated": "2026-05-29",
@@ -90,7 +90,7 @@
         "foundation.backfill-capability-matrix.test#acceptance-mapping",
         "foundation.backfill-capability-matrix.test#eval-contract"
       ],
-      "evidence": "Capability Matrix tests cover Surface Registry handoff consumption, pending and terminal handoff states, reviewed surface grouping, deterministic check failures, eval JSONL/HTML artifacts, refresh invalidation, report state, and report drift."
+      "evidence": "Capability Map tests cover Surface / Function Map handoff consumption, pending and terminal handoff states, reviewed surface grouping, deterministic check failures, eval JSONL/HTML artifacts, refresh invalidation, report state, and report drift."
     }
   ],
   "tags": [
@@ -108,7 +108,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">V</div>
     <div>
-      <div class="sidebar-title">Foundation Backfill Capability Matrix Test Spec</div>
+      <div class="sidebar-title">Foundation Backfill Capability Map Test Spec</div>
       <div class="sidebar-sub">test spec</div>
     </div>
   </div>
@@ -125,8 +125,8 @@
 <main class="main">
   <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-capability-matrix-test.html</div>
-    <h1>Foundation Backfill Capability Matrix Test Spec</h1>
-    <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Capability Matrix can hand off safely.</p>
+    <h1>Foundation Backfill Capability Map Test Spec</h1>
+    <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Capability Map can hand off safely.</p>
     <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-capability-matrix.descriptive</div></div>
     <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through eval receipts, and the HTML summary is a derived review surface.</p>
   </section>
@@ -136,11 +136,11 @@
       <h2>Acceptance mapping</h2>
       <table class="status-table"><thead><tr><th>ID</th><th>Condition</th><th>Must prove</th></tr></thead><tbody>
         <tr><td>AC-1</td><td>Canonical artifacts exist.</td><td>capability-matrix-YYYYMMDD-NN.jsonl, capability-matrix-check-YYYYMMDD-NN.json, capability-matrix-eval-YYYYMMDD-NN.jsonl exist and share the active run ID.</td></tr>
-        <tr><td>AC-2</td><td>Upstream references resolve and stay in scope.</td><td>Every row cites valid ready-for-capability Surface Registry IDs and current upstream surface fingerprints; support classifications are not claimed as upstream capability rows.</td></tr>
+        <tr><td>AC-2</td><td>Upstream references resolve and stay in scope.</td><td>Every row cites valid ready-for-capability Surface / Function Map IDs and current upstream surface fingerprints; support classifications are not claimed as upstream capability rows.</td></tr>
         <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, mapped, needs-split, ready-for-queue; handoff allows only ready-for-queue and needs-split.</td></tr>
         <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, uncovered ready surfaces, missing split criteria, and report drift fail.</td></tr>
         <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, or under-evidenced rows produce revision targets.</td></tr>
-        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>all ready surfaces are capability-owned, broad rows are flagged for split, checker passes, eval receipt and HTML summary exist with zero revision targets, embedded report matrix exists, and report names next layer as Split And Queue only after warnings are resolved.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>all ready surfaces are capability-owned, broad rows are flagged for split, checker passes, eval receipt and HTML summary exist with zero revision targets, embedded report matrix exists, and report names next layer as Define Spec Jobs only after warnings are resolved.</td></tr>
         <tr><td>AC-7</td><td>The fill loop cannot be replaced by generated or batch rows.</td><td>the fill command rejects generated capability-row files, all-file fill modes, and batch-size options; accepted rows must arrive inline for a reviewed surface group.</td></tr>
         <tr><td>AC-8</td><td>Changed upstream surfaces invalidate dependent capabilities.</td><td>Refresh preserves unchanged capability rows and returns changed/new ready surface rows to pending for semantic regrouping.</td></tr>
       </tbody></table>
@@ -150,9 +150,9 @@
       <h2>Coverage plan</h2>
       <table class="status-table"><thead><tr><th>ID</th><th>Level</th><th>Signal</th><th>Status</th></tr></thead><tbody>
         <tr><td>T-1</td><td>unit</td><td>Schema, enum, duplicate, stale-upstream, missing-coverage, split-discipline, and reference fixtures for the checker.</td><td>existing</td></tr>
-        <tr><td>T-2</td><td>integration</td><td>Passing Surface Registry handoff consumed by this layer; Capability Matrix report state gates Split And Queue.</td><td>existing</td></tr>
+        <tr><td>T-2</td><td>integration</td><td>Passing Surface / Function Map handoff consumed by this layer; Capability Map report state gates Define Spec Jobs.</td><td>existing</td></tr>
         <tr><td>T-3</td><td>eval</td><td>Risk-based semantic eval sample with canonical JSONL receipt and HTML summary.</td><td>existing</td></tr>
-        <tr><td>T-4</td><td>integration</td><td>Changed upstream Surface Registry rows invalidate dependent Capability Matrix rows.</td><td>existing</td></tr>
+        <tr><td>T-4</td><td>integration</td><td>Changed upstream Surface / Function Map rows invalidate dependent Capability Map rows.</td><td>existing</td></tr>
         <tr><td>T-5</td><td>integration</td><td>Fill command rejects generated capability files, all-file mode, and batch-size mode.</td><td>existing</td></tr>
         <tr><td>T-6</td><td>manual/eval</td><td>Sandia Oil calibration run before larger repo use.</td><td>planned; not a gold fixture until expected rows are human-authored</td></tr>
       </tbody></table>
@@ -188,7 +188,7 @@
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Capability Matrix Test Spec · active V1</p>
+  <p class="footer-note">Foundation Backfill Capability Map Test Spec · active V1</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

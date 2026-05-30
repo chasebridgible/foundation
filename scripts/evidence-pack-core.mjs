@@ -32,7 +32,15 @@ import {
   validateSplitQueue
 } from "./split-queue-core.mjs";
 
-const VALID_EVIDENCE_PACK_STATUSES = new Set(["pending", "packed", "needs-evidence", "ready-for-flow"]);
+const READY_FOR_PROCESS_MAP_STATUS = "ready-for-process-map";
+const LEGACY_READY_FOR_FLOW_STATUS = "ready-for-flow";
+const VALID_EVIDENCE_PACK_STATUSES = new Set([
+  "pending",
+  "packed",
+  "needs-evidence",
+  READY_FOR_PROCESS_MAP_STATUS,
+  LEGACY_READY_FOR_FLOW_STATUS
+]);
 const VALID_CONFIDENCE = new Set(["low", "medium", "high"]);
 const VALID_REVIEW_FLAG_SEVERITY = new Set(["info", "warning", "blocking"]);
 const ACTIVE_QUEUE_STATUSES_FOR_PACK = new Set(["ready", "acceptable"]);
@@ -103,6 +111,10 @@ const SEMANTIC_STOPWORDS = new Set([
   "target",
   "upstream"
 ]);
+
+function isReadyForProcessMapStatus(status) {
+  return status === READY_FOR_PROCESS_MAP_STATUS || status === LEGACY_READY_FOR_FLOW_STATUS;
+}
 
 function sha256Text(value) {
   return crypto.createHash("sha256").update(value).digest("hex");
@@ -221,12 +233,12 @@ function validateSplitQueueHandoff(repoRoot, runId, outDir = defaultBackfillDir(
 
   const checkPath = splitQueueCheckPathFor(repoRoot, runId, outDir);
   if (!fs.existsSync(checkPath)) {
-    results.push(fail("upstream-split-queue-check-artifact", "Passing Split And Queue check artifact is required before Evidence Pack"));
+    results.push(fail("upstream-split-queue-check-artifact", "Passing Define Spec Jobs check artifact is required before Context Pack"));
   } else {
     const check = readJson(checkPath);
     results.push(check?.summary?.fail === 0
-      ? pass("upstream-split-queue-check-artifact", "Split And Queue check artifact passes")
-      : fail("upstream-split-queue-check-artifact", "Split And Queue check artifact must pass", { summary: check?.summary || null }));
+      ? pass("upstream-split-queue-check-artifact", "Define Spec Jobs check artifact passes")
+      : fail("upstream-split-queue-check-artifact", "Define Spec Jobs check artifact must pass", { summary: check?.summary || null }));
   }
 
   const evalSummary = readEvalSummary(splitQueueEvalReceiptPathFor(repoRoot, runId, outDir));
@@ -235,8 +247,8 @@ function validateSplitQueueHandoff(repoRoot, runId, outDir = defaultBackfillDir(
     evalSummary.queueFingerprint === currentQueueFingerprint &&
     evalSummary.queueRowCount === validation.queueRows.length;
   results.push(evalSummary?.acceptabilityGate?.acceptable && evalQueueFresh
-    ? pass("upstream-split-queue-eval", "Split And Queue eval artifact passes and is current")
-    : fail("upstream-split-queue-eval", "Passing current Split And Queue eval receipt is required before Evidence Pack", {
+    ? pass("upstream-split-queue-eval", "Define Spec Jobs eval artifact passes and is current")
+    : fail("upstream-split-queue-eval", "Passing current Define Spec Jobs eval receipt is required before Context Pack", {
       expectedQueueFingerprint: currentQueueFingerprint,
       actualQueueFingerprint: evalSummary?.queueFingerprint || null,
       expectedRowCount: validation.queueRows.length,
@@ -244,22 +256,22 @@ function validateSplitQueueHandoff(repoRoot, runId, outDir = defaultBackfillDir(
     }));
   const revisionTargets = Array.isArray(evalSummary?.revisionTargets) ? evalSummary.revisionTargets : [];
   results.push(revisionTargets.length === 0
-    ? pass("upstream-split-queue-eval-revisions", "Split And Queue eval has no revision targets")
-    : fail("upstream-split-queue-eval-revisions", "Split And Queue eval revision targets must be resolved before Evidence Pack", { revisionTargets }));
+    ? pass("upstream-split-queue-eval-revisions", "Define Spec Jobs eval has no revision targets")
+    : fail("upstream-split-queue-eval-revisions", "Define Spec Jobs eval revision targets must be resolved before Context Pack", { revisionTargets }));
 
   const summaryPath = splitQueueSummaryPathFor(repoRoot, runId, outDir);
   results.push(fs.existsSync(summaryPath)
-    ? pass("upstream-split-queue-eval-summary", "Split And Queue HTML eval summary exists")
-    : fail("upstream-split-queue-eval-summary", "Split And Queue HTML eval summary is required before Evidence Pack", { summaryPath: path.relative(repoRoot, summaryPath) }));
+    ? pass("upstream-split-queue-eval-summary", "Define Spec Jobs HTML eval summary exists")
+    : fail("upstream-split-queue-eval-summary", "Define Spec Jobs HTML eval summary is required before Context Pack", { summaryPath: path.relative(repoRoot, summaryPath) }));
 
   if (reportPath) {
     if (!fs.existsSync(reportPath)) {
-      results.push(fail("upstream-split-queue-report-exists", "Split And Queue report path does not exist", { reportPath }));
+      results.push(fail("upstream-split-queue-report-exists", "Define Spec Jobs report path does not exist", { reportPath }));
     } else {
       const state = parseJsonScript(fs.readFileSync(reportPath, "utf8"), "backfill-split-queue-state");
-      results.push(state?.nextLayer === "evidence pack"
-        ? pass("upstream-split-queue-report-handoff", "Split And Queue report names Evidence Pack as next layer")
-        : fail("upstream-split-queue-report-handoff", "Split And Queue report must name Evidence Pack as next layer", { nextLayer: state?.nextLayer || null }));
+      results.push(state?.nextLayer === "Context Pack"
+        ? pass("upstream-split-queue-report-handoff", "Define Spec Jobs report names Context Pack as next layer")
+        : fail("upstream-split-queue-report-handoff", "Define Spec Jobs report must name Context Pack as next layer", { nextLayer: state?.nextLayer || null }));
     }
   }
 
@@ -324,9 +336,9 @@ function normalizeExcludedRefs(value) {
 function normalizeReviewFlags(value) {
   return asObjectArray(value).map(flag => ({
     severity: VALID_REVIEW_FLAG_SEVERITY.has(flag.severity) ? flag.severity : "warning",
-    reason: isNonEmptyString(flag.reason) ? flag.reason.trim() : "Evidence pack needs review.",
+    reason: isNonEmptyString(flag.reason) ? flag.reason.trim() : "Context Pack needs review.",
     evidence: isNonEmptyString(flag.evidence) ? flag.evidence.trim() : "",
-    nextAction: isNonEmptyString(flag.nextAction) ? flag.nextAction.trim() : "Revise this Evidence Pack row."
+    nextAction: isNonEmptyString(flag.nextAction) ? flag.nextAction.trim() : "Revise this Context Pack row."
   }));
 }
 
@@ -353,14 +365,14 @@ function createTraceEvidenceRefs(queueRow) {
       category: "queue-slice",
       relationship: "split-queue-row",
       sliceId: queueRow.sliceId,
-      detail: `Evidence pack is derived from Split And Queue slice ${queueRow.sliceId}: ${queueRow.name}.`,
-      questionAnswered: "Which queued slice does this evidence pack support?"
+      detail: `Context Pack is derived from Define Spec Jobs slice ${queueRow.sliceId}: ${queueRow.name}.`,
+      questionAnswered: "Which queued slice does this Context Pack support?"
     },
     ...(queueRow.upstreamCapabilityIds || []).map(capabilityId => ({
       category: "capability",
       relationship: "upstream-capability",
       capabilityId,
-      detail: `Evidence pack preserves upstream Capability Matrix row ${capabilityId} named by the queued slice.`,
+      detail: `Context Pack preserves upstream Capability Map row ${capabilityId} named by the queued slice.`,
       questionAnswered: "Which upstream capability must this pack support?"
     }))
   ];
@@ -368,7 +380,7 @@ function createTraceEvidenceRefs(queueRow) {
 
 function createPendingEvidencePackRow(queueRow, queueFingerprint = null, ordinal = 1) {
   const now = nowIso();
-  const name = `Pending evidence pack for ${queueRow.name}`;
+  const name = `Pending Context Pack for ${queueRow.name}`;
   return {
     schema: "foundation.backfill.evidence-pack-row.v1",
     runId: queueRow.runId,
@@ -401,18 +413,18 @@ function createInitialEvidencePackRows(queueRows, queueFingerprint = null) {
 
 function createAgentMarkedEvidencePackRow({ queueById, selectedSliceIds, spec, queueFingerprint, ordinal = 1 }) {
   if (!spec || typeof spec !== "object" || Array.isArray(spec)) {
-    throw new Error("Evidence pack spec must be an object");
+    throw new Error("Context Pack spec must be an object");
   }
   const selected = new Set(selectedSliceIds);
   const upstreamSliceId = isNonEmptyString(spec.upstreamSliceId || spec.sliceId)
     ? String(spec.upstreamSliceId || spec.sliceId).trim()
     : (selectedSliceIds.length === 1 ? selectedSliceIds[0] : null);
-  if (!upstreamSliceId) throw new Error("Evidence pack spec requires upstreamSliceId when filling multiple slices");
-  if (!selected.has(upstreamSliceId)) throw new Error(`Evidence pack references slice not included in --slice-ids: ${upstreamSliceId}`);
+  if (!upstreamSliceId) throw new Error("Context Pack spec requires upstreamSliceId when filling multiple slices");
+  if (!selected.has(upstreamSliceId)) throw new Error(`Context Pack references slice not included in --slice-ids: ${upstreamSliceId}`);
   const queueRow = queueById.get(upstreamSliceId);
-  if (!queueRow) throw new Error(`Evidence pack references unknown Split And Queue slice: ${upstreamSliceId}`);
+  if (!queueRow) throw new Error(`Context Pack references unknown Define Spec Jobs slice: ${upstreamSliceId}`);
   if (!ACTIVE_QUEUE_STATUSES_FOR_PACK.has(queueRow.status)) {
-    throw new Error(`Evidence pack references non-active Split And Queue slice: ${upstreamSliceId}`);
+    throw new Error(`Context Pack references non-active Define Spec Jobs slice: ${upstreamSliceId}`);
   }
 
   const traceRefs = createTraceEvidenceRefs(queueRow);
@@ -425,8 +437,8 @@ function createAgentMarkedEvidencePackRow({ queueById, selectedSliceIds, spec, q
   const hasBlocker = blockingQuestions.length > 0 || blockingGaps.length > 0 || humanDecisions.length > 0;
   const statusFromSpec = isNonEmptyString(spec.status) ? spec.status.trim() : null;
   const status = statusFromSpec && VALID_EVIDENCE_PACK_STATUSES.has(statusFromSpec)
-    ? statusFromSpec
-    : (hasBlocker ? "needs-evidence" : "ready-for-flow");
+    ? (statusFromSpec === LEGACY_READY_FOR_FLOW_STATUS ? READY_FOR_PROCESS_MAP_STATUS : statusFromSpec)
+    : (hasBlocker ? "needs-evidence" : READY_FOR_PROCESS_MAP_STATUS);
   const sufficiencyRationale = isNonEmptyString(spec.sufficiencyRationale || spec.rationale)
     ? String(spec.sufficiencyRationale || spec.rationale).trim()
     : "";
@@ -434,7 +446,7 @@ function createAgentMarkedEvidencePackRow({ queueById, selectedSliceIds, spec, q
   const estimatedTokens = Number.isInteger(spec.estimatedTokens) && spec.estimatedTokens >= 0
     ? spec.estimatedTokens
     : estimateEvidenceTokens(evidenceRefs, sufficiencyRationale);
-  const name = isNonEmptyString(spec.name) ? spec.name.trim() : `Evidence pack for ${queueRow.name}`;
+  const name = isNonEmptyString(spec.name) ? spec.name.trim() : `Context Pack for ${queueRow.name}`;
   const packId = isNonEmptyString(spec.packId || spec.rowId || spec.id)
     ? String(spec.packId || spec.rowId || spec.id).trim()
     : stablePackId(upstreamSliceId, name, ordinal);
@@ -460,7 +472,7 @@ function createAgentMarkedEvidencePackRow({ queueById, selectedSliceIds, spec, q
     tokenBudget,
     estimatedTokens,
     status,
-    confidence: VALID_CONFIDENCE.has(spec.confidence) ? spec.confidence : (status === "ready-for-flow" ? "medium" : "low"),
+    confidence: VALID_CONFIDENCE.has(spec.confidence) ? spec.confidence : (isReadyForProcessMapStatus(status) ? "medium" : "low"),
     createdAt: now,
     updatedAt: now
   };
@@ -479,16 +491,16 @@ function parseSliceIds(value) {
 
 function markEvidencePackRowsForSlices({ queueRows, packRows, sliceIds, packSpecs, queueFingerprint }) {
   const selectedSliceIds = normalizeStringList(sliceIds);
-  if (selectedSliceIds.length === 0) throw new Error("Evidence Pack fill requires --slice-ids");
+  if (selectedSliceIds.length === 0) throw new Error("Context Pack fill requires --slice-ids");
   if (!Array.isArray(packSpecs) || packSpecs.length === 0) {
-    throw new Error("Evidence Pack fill requires at least one pack spec");
+    throw new Error("Context Pack fill requires at least one pack spec");
   }
 
   const queueById = new Map(queueRows.map(row => [row.sliceId, row]));
   for (const sliceId of selectedSliceIds) {
     const queueRow = queueById.get(sliceId);
-    if (!queueRow) throw new Error(`Unknown Split And Queue slice: ${sliceId}`);
-    if (!ACTIVE_QUEUE_STATUSES_FOR_PACK.has(queueRow.status)) throw new Error(`Slice is not active for Evidence Pack: ${sliceId}`);
+    if (!queueRow) throw new Error(`Unknown Define Spec Jobs slice: ${sliceId}`);
+    if (!ACTIVE_QUEUE_STATUSES_FOR_PACK.has(queueRow.status)) throw new Error(`Slice is not active for Context Pack: ${sliceId}`);
   }
 
   const nextRows = packSpecs.map((spec, index) => createAgentMarkedEvidencePackRow({
@@ -501,7 +513,7 @@ function markEvidencePackRowsForSlices({ queueRows, packRows, sliceIds, packSpec
   const covered = new Set(nextRows.map(row => row.upstreamSliceId));
   const missing = selectedSliceIds.filter(sliceId => !covered.has(sliceId));
   if (missing.length > 0) {
-    throw new Error(`Evidence pack specs did not cover selected slice ID(s): ${missing.join(", ")}`);
+    throw new Error(`Context Pack specs did not cover selected slice ID(s): ${missing.join(", ")}`);
   }
   const selected = new Set(selectedSliceIds);
   const replacedRows = packRows.filter(row => selected.has(row.upstreamSliceId));
@@ -528,7 +540,13 @@ function hasBlockingDetail(row) {
 }
 
 function compareEvidencePackRows(left, right) {
-  const statusRank = { pending: 0, "needs-evidence": 1, packed: 2, "ready-for-flow": 3 };
+  const statusRank = {
+    pending: 0,
+    "needs-evidence": 1,
+    packed: 2,
+    [READY_FOR_PROCESS_MAP_STATUS]: 3,
+    [LEGACY_READY_FOR_FLOW_STATUS]: 3
+  };
   const leftKey = `${statusRank[left.status] ?? 9}:${left.upstreamSliceId || ""}:${left.packId || ""}`;
   const rightKey = `${statusRank[right.status] ?? 9}:${right.upstreamSliceId || ""}:${right.packId || ""}`;
   return leftKey.localeCompare(rightKey);
@@ -544,7 +562,7 @@ function nextEvidencePackTarget({ queueRows, packRows }) {
       if (leftRank !== rightRank) return leftRank - rightRank;
       return compareEvidencePackRows(left, right);
     });
-  const target = candidates[0] || packRows.filter(row => row.status === "ready-for-flow").sort(compareEvidencePackRows)[0] || null;
+  const target = candidates[0] || packRows.filter(row => isReadyForProcessMapStatus(row.status)).sort(compareEvidencePackRows)[0] || null;
   if (!target) return null;
   const queueRow = queueById.get(target.upstreamSliceId);
   return {
@@ -615,22 +633,22 @@ function evidencePackCoverageFindings(row) {
   const refs = asObjectArray(row.evidenceRefs);
   const findings = [];
   const hasQueueEvidence = refs.some(ref => ref.category === "queue-slice" || ref.sliceId === row.upstreamSliceId);
-  if (!hasQueueEvidence) findings.push({ category: "categoryCoverage", severity: "blocking", message: "Evidence pack lacks a queue-slice evidence reference." });
+  if (!hasQueueEvidence) findings.push({ category: "categoryCoverage", severity: "blocking", message: "Context Pack lacks a queue-slice evidence reference." });
 
   for (const capabilityId of row.upstreamCapabilityIds || []) {
     if (!refs.some(ref => ref.capabilityId === capabilityId)) {
-      findings.push({ category: "categoryCoverage", severity: "blocking", message: `Evidence pack lacks evidence for upstream capability ${capabilityId}.` });
+      findings.push({ category: "categoryCoverage", severity: "blocking", message: `Context Pack lacks evidence for upstream capability ${capabilityId}.` });
     }
   }
 
   const hasSourceEvidence = refs.some(ref => SOURCE_EVIDENCE_CATEGORIES.has(ref.category));
   if (!hasSourceEvidence && !explicitGapCovers(row, text => text.includes("source") || text.includes("file") || text.includes("surface"))) {
-    findings.push({ category: "categoryCoverage", severity: "blocking", message: "Evidence pack requires source evidence or an explicit source gap." });
+    findings.push({ category: "categoryCoverage", severity: "blocking", message: "Context Pack requires source evidence or an explicit source gap." });
   }
 
   const hasVerificationEvidence = refs.some(ref => VERIFICATION_EVIDENCE_CATEGORIES.has(ref.category));
   if (!hasVerificationEvidence && !explicitGapCovers(row, text => text.includes("verification") || text.includes("test") || text.includes("check"))) {
-    findings.push({ category: "categoryCoverage", severity: "blocking", message: "Evidence pack requires verification evidence or an explicit verification gap." });
+    findings.push({ category: "categoryCoverage", severity: "blocking", message: "Context Pack requires verification evidence or an explicit verification gap." });
   }
 
   return findings;
@@ -644,37 +662,37 @@ function validateEvidenceRef(ref, prefix, results, maps, row) {
   if (issue) results.push(fail(`${prefix}:specificity`, issue, { category: ref?.category, path: ref?.path || null }));
 
   if (isNonEmptyString(ref?.sliceId) && !maps.queueById.has(ref.sliceId)) {
-    results.push(fail(`${prefix}:slice-resolves`, "Evidence ref sliceId must resolve to Split And Queue", { sliceId: ref.sliceId }));
+    results.push(fail(`${prefix}:slice-resolves`, "Evidence ref sliceId must resolve to Define Spec Jobs", { sliceId: ref.sliceId }));
   }
   if (isNonEmptyString(ref?.sliceId) && row?.upstreamSliceId && ref.sliceId !== row.upstreamSliceId) {
     results.push(fail(`${prefix}:slice-alignment`, "Evidence ref sliceId must match the pack upstreamSliceId", { sliceId: ref.sliceId, upstreamSliceId: row.upstreamSliceId }));
   }
   if (isNonEmptyString(ref?.capabilityId) && !maps.capabilityById.has(ref.capabilityId)) {
-    results.push(fail(`${prefix}:capability-resolves`, "Evidence ref capabilityId must resolve to Capability Matrix", { capabilityId: ref.capabilityId }));
+    results.push(fail(`${prefix}:capability-resolves`, "Evidence ref capabilityId must resolve to Capability Map", { capabilityId: ref.capabilityId }));
   }
   if (isNonEmptyString(ref?.surfaceId) && !maps.surfaceById.has(ref.surfaceId)) {
-    results.push(fail(`${prefix}:surface-resolves`, "Evidence ref surfaceId must resolve to Surface Registry", { surfaceId: ref.surfaceId }));
+    results.push(fail(`${prefix}:surface-resolves`, "Evidence ref surfaceId must resolve to Surface / Function Map", { surfaceId: ref.surfaceId }));
   }
   if (isNonEmptyString(ref?.fileId) && !maps.fileById.has(ref.fileId)) {
-    results.push(fail(`${prefix}:file-id-resolves`, "Evidence ref fileId must resolve to File Registry", { fileId: ref.fileId }));
+    results.push(fail(`${prefix}:file-id-resolves`, "Evidence ref fileId must resolve to Artifact Inventory", { fileId: ref.fileId }));
   }
   if (isNonEmptyString(ref?.path) && !maps.fileByPath.has(ref.path)) {
-    results.push(fail(`${prefix}:path-resolves`, "Evidence ref path must resolve to File Registry", { path: ref.path }));
+    results.push(fail(`${prefix}:path-resolves`, "Evidence ref path must resolve to Artifact Inventory", { path: ref.path }));
   }
 }
 
 function validateEvidencePackRowShape(row, prefix, results, phase) {
   if (row?.schema !== "foundation.backfill.evidence-pack-row.v1") {
-    results.push(fail(`${prefix}:schema`, "Evidence Pack row schema is invalid", { schema: row?.schema }));
+    results.push(fail(`${prefix}:schema`, "Context Pack row schema is invalid", { schema: row?.schema }));
   }
-  if (!isNonEmptyString(row?.runId)) results.push(fail(`${prefix}:run-id`, "Evidence Pack row requires runId"));
-  if (!isNonEmptyString(row?.packId)) results.push(fail(`${prefix}:pack-id`, "Evidence Pack row requires packId"));
-  if (!isNonEmptyString(row?.upstreamSliceId)) results.push(fail(`${prefix}:upstream-slice-id`, "Evidence Pack row requires upstreamSliceId"));
+  if (!isNonEmptyString(row?.runId)) results.push(fail(`${prefix}:run-id`, "Context Pack row requires runId"));
+  if (!isNonEmptyString(row?.packId)) results.push(fail(`${prefix}:pack-id`, "Context Pack row requires packId"));
+  if (!isNonEmptyString(row?.upstreamSliceId)) results.push(fail(`${prefix}:upstream-slice-id`, "Context Pack row requires upstreamSliceId"));
   if (!VALID_EVIDENCE_PACK_STATUSES.has(row?.status)) {
-    results.push(fail(`${prefix}:status`, "Evidence Pack status is outside enum", { status: row?.status }));
+    results.push(fail(`${prefix}:status`, "Context Pack status is outside enum", { status: row?.status }));
   }
   if (!VALID_CONFIDENCE.has(row?.confidence)) {
-    results.push(fail(`${prefix}:confidence`, "Evidence Pack confidence is outside enum", { confidence: row?.confidence }));
+    results.push(fail(`${prefix}:confidence`, "Context Pack confidence is outside enum", { confidence: row?.confidence }));
   }
   for (const field of [
     "upstreamCapabilityIds",
@@ -695,28 +713,28 @@ function validateEvidencePackRowShape(row, prefix, results, phase) {
   }
   validateReviewFlags(row, prefix, results);
 
-  if (row?.status === "ready-for-flow") {
+  if (isReadyForProcessMapStatus(row?.status)) {
     if (!Array.isArray(row?.evidenceRefs) || row.evidenceRefs.length === 0) {
-      results.push(fail(`${prefix}:evidence-refs:terminal`, "ready-for-flow rows require evidenceRefs"));
+      results.push(fail(`${prefix}:evidence-refs:terminal`, "ready-for-process-map rows require evidenceRefs"));
     }
     if (!isNonEmptyString(row?.sufficiencyRationale) || row.sufficiencyRationale.trim().length < 40) {
-      results.push(fail(`${prefix}:sufficiency-rationale`, "ready-for-flow rows require a specific sufficiencyRationale"));
+      results.push(fail(`${prefix}:sufficiency-rationale`, "ready-for-process-map rows require a specific sufficiencyRationale"));
     }
   }
   if (row?.status === "needs-evidence" && phase === "handoff" && !hasBlockingDetail(row)) {
     results.push(fail(`${prefix}:needs-evidence-detail`, "needs-evidence handoff rows require blockingQuestions, blockingGaps, or humanDecisions"));
   }
   if (phase === "handoff" && (row?.status === "pending" || row?.status === "packed")) {
-    results.push(fail(`${prefix}:non-terminal-handoff`, "Handoff requires no pending or packed Evidence Pack rows", { status: row?.status }));
+    results.push(fail(`${prefix}:non-terminal-handoff`, "Handoff requires no pending or packed Context Pack rows", { status: row?.status }));
   }
-  if ((row?.status === "ready-for-flow" || row?.status === "packed") && rowHasBlockingFlag(row)) {
-    results.push(fail(`${prefix}:blocking-flags`, "Ready or packed Evidence Pack rows cannot carry blocking review flags"));
+  if ((isReadyForProcessMapStatus(row?.status) || row?.status === "packed") && rowHasBlockingFlag(row)) {
+    results.push(fail(`${prefix}:blocking-flags`, "Ready or packed Context Pack rows cannot carry blocking review flags"));
   }
   if (!Number.isInteger(row?.tokenBudget) || row.tokenBudget <= 0) {
-    results.push(fail(`${prefix}:token-budget`, "Evidence Pack rows require positive integer tokenBudget"));
+    results.push(fail(`${prefix}:token-budget`, "Context Pack rows require positive integer tokenBudget"));
   }
   if (!Number.isInteger(row?.estimatedTokens) || row.estimatedTokens < 0) {
-    results.push(fail(`${prefix}:estimated-tokens`, "Evidence Pack rows require non-negative integer estimatedTokens"));
+    results.push(fail(`${prefix}:estimated-tokens`, "Context Pack rows require non-negative integer estimatedTokens"));
   }
 }
 
@@ -749,33 +767,33 @@ function validateEvidencePackRows({ queueRows, capabilityRows, surfaceRows, file
 
     const queueRow = queueById.get(row.upstreamSliceId);
     if (!queueRow) {
-      results.push(fail(`${prefix}:upstream-slice-resolves`, "Evidence Pack row references missing Split And Queue slice", { upstreamSliceId: row.upstreamSliceId }));
+      results.push(fail(`${prefix}:upstream-slice-resolves`, "Context Pack row references missing Define Spec Jobs slice", { upstreamSliceId: row.upstreamSliceId }));
     } else {
       if (!ACTIVE_QUEUE_STATUSES_FOR_PACK.has(queueRow.status)) {
-        results.push(fail(`${prefix}:upstream-slice-active`, "Evidence Pack row references a Split And Queue slice that is not active for Evidence Pack", { upstreamSliceId: row.upstreamSliceId, status: queueRow.status }));
+        results.push(fail(`${prefix}:upstream-slice-active`, "Context Pack row references a Define Spec Jobs slice that is not active for Context Pack", { upstreamSliceId: row.upstreamSliceId, status: queueRow.status }));
       }
       if (row.upstreamSliceRef?.sliceFingerprint !== sliceFingerprint(queueRow)) {
         stale.push({ packId: row.packId, upstreamSliceId: row.upstreamSliceId, name: queueRow.name });
       }
       const missingCapabilities = (queueRow.upstreamCapabilityIds || []).filter(capabilityId => !(row.upstreamCapabilityIds || []).includes(capabilityId));
       if (missingCapabilities.length > 0) {
-        results.push(fail(`${prefix}:upstream-capability-coverage`, "Evidence Pack row must carry every upstream capability ID from its queue slice", { missingCapabilities }));
+        results.push(fail(`${prefix}:upstream-capability-coverage`, "Context Pack row must carry every upstream capability ID from its queue slice", { missingCapabilities }));
       }
     }
 
     for (const capabilityId of row.upstreamCapabilityIds || []) {
       if (!capabilityById.has(capabilityId)) {
-        results.push(fail(`${prefix}:capability-resolves`, "upstreamCapabilityIds must resolve to Capability Matrix", { capabilityId }));
+        results.push(fail(`${prefix}:capability-resolves`, "upstreamCapabilityIds must resolve to Capability Map", { capabilityId }));
       }
     }
     for (const surfaceId of row.upstreamSurfaceIds || []) {
       if (!surfaceById.has(surfaceId)) {
-        results.push(fail(`${prefix}:surface-resolves`, "upstreamSurfaceIds must resolve to Surface Registry", { surfaceId }));
+        results.push(fail(`${prefix}:surface-resolves`, "upstreamSurfaceIds must resolve to Surface / Function Map", { surfaceId }));
       }
     }
     for (const fileId of row.upstreamFileIds || []) {
       if (!fileById.has(fileId)) {
-        results.push(fail(`${prefix}:file-resolves`, "upstreamFileIds must resolve to File Registry", { fileId }));
+        results.push(fail(`${prefix}:file-resolves`, "upstreamFileIds must resolve to Artifact Inventory", { fileId }));
       }
     }
     for (const [refIndex, ref] of asObjectArray(row.evidenceRefs).entries()) {
@@ -784,34 +802,34 @@ function validateEvidencePackRows({ queueRows, capabilityRows, surfaceRows, file
     for (const [refIndex, ref] of asObjectArray(row.excludedRefs).entries()) {
       const label = `${prefix}:excluded-refs:${refIndex + 1}`;
       if (!isNonEmptyString(ref.reason)) results.push(fail(`${label}:reason`, "Excluded evidence refs require reason"));
-      if (isNonEmptyString(ref.fileId) && !fileById.has(ref.fileId)) results.push(fail(`${label}:file-id-resolves`, "Excluded fileId must resolve to File Registry", { fileId: ref.fileId }));
-      if (isNonEmptyString(ref.path) && !fileByPath.has(ref.path)) results.push(fail(`${label}:path-resolves`, "Excluded path must resolve to File Registry", { path: ref.path }));
-      if (isNonEmptyString(ref.surfaceId) && !surfaceById.has(ref.surfaceId)) results.push(fail(`${label}:surface-resolves`, "Excluded surfaceId must resolve to Surface Registry", { surfaceId: ref.surfaceId }));
-      if (isNonEmptyString(ref.capabilityId) && !capabilityById.has(ref.capabilityId)) results.push(fail(`${label}:capability-resolves`, "Excluded capabilityId must resolve to Capability Matrix", { capabilityId: ref.capabilityId }));
+      if (isNonEmptyString(ref.fileId) && !fileById.has(ref.fileId)) results.push(fail(`${label}:file-id-resolves`, "Excluded fileId must resolve to Artifact Inventory", { fileId: ref.fileId }));
+      if (isNonEmptyString(ref.path) && !fileByPath.has(ref.path)) results.push(fail(`${label}:path-resolves`, "Excluded path must resolve to Artifact Inventory", { path: ref.path }));
+      if (isNonEmptyString(ref.surfaceId) && !surfaceById.has(ref.surfaceId)) results.push(fail(`${label}:surface-resolves`, "Excluded surfaceId must resolve to Surface / Function Map", { surfaceId: ref.surfaceId }));
+      if (isNonEmptyString(ref.capabilityId) && !capabilityById.has(ref.capabilityId)) results.push(fail(`${label}:capability-resolves`, "Excluded capabilityId must resolve to Capability Map", { capabilityId: ref.capabilityId }));
     }
-    if (row.status === "ready-for-flow") {
+    if (isReadyForProcessMapStatus(row.status)) {
       for (const finding of evidencePackCoverageFindings(row)) {
         results.push(fail(`${prefix}:${finding.category}`, finding.message));
       }
     }
     if ((row.evidenceRefs || []).length > MAX_EVIDENCE_REFS) {
-      results.push(fail(`${prefix}:pack-size`, "Evidence Pack row has too many evidenceRefs", { max: MAX_EVIDENCE_REFS, actual: (row.evidenceRefs || []).length }));
+      results.push(fail(`${prefix}:pack-size`, "Context Pack row has too many evidenceRefs", { max: MAX_EVIDENCE_REFS, actual: (row.evidenceRefs || []).length }));
     }
     if (Number.isInteger(row.estimatedTokens) && Number.isInteger(row.tokenBudget) && row.estimatedTokens > row.tokenBudget) {
-      results.push(fail(`${prefix}:token-budget-exceeded`, "Evidence Pack row estimatedTokens exceeds tokenBudget", { estimatedTokens: row.estimatedTokens, tokenBudget: row.tokenBudget }));
+      results.push(fail(`${prefix}:token-budget-exceeded`, "Context Pack row estimatedTokens exceeds tokenBudget", { estimatedTokens: row.estimatedTokens, tokenBudget: row.tokenBudget }));
     }
   }
 
   results.push(stale.length === 0
-    ? pass("evidence-pack-upstream-fresh", "Evidence Pack upstream slice fingerprints match Split And Queue rows")
-    : fail("evidence-pack-upstream-fresh", "Evidence Pack rows must be refreshed when upstream Split And Queue rows change", { stale }));
+    ? pass("evidence-pack-upstream-fresh", "Context Pack upstream slice fingerprints match Define Spec Jobs rows")
+    : fail("evidence-pack-upstream-fresh", "Context Pack rows must be refreshed when upstream Define Spec Jobs rows change", { stale }));
 
   const duplicateSlicePacks = [...rowsBySlice.entries()]
     .filter(([, rows]) => rows.length > 1)
     .map(([upstreamSliceId, rows]) => ({ upstreamSliceId, packIds: rows.map(row => row.packId) }));
   results.push(duplicateSlicePacks.length === 0
-    ? pass("evidence-pack-one-row-per-slice", "Each queued slice has at most one Evidence Pack row")
-    : fail("evidence-pack-one-row-per-slice", "Each queued slice must have at most one Evidence Pack row", { duplicateSlicePacks }));
+    ? pass("evidence-pack-one-row-per-slice", "Each queued slice has at most one Context Pack row")
+    : fail("evidence-pack-one-row-per-slice", "Each queued slice must have at most one Context Pack row", { duplicateSlicePacks }));
 
   const uncovered = [];
   for (const queueRow of activeQueueRows(queueRows)) {
@@ -819,25 +837,25 @@ function validateEvidencePackRows({ queueRows, capabilityRows, surfaceRows, file
     if (attached.length === 0) uncovered.push({ sliceId: queueRow.sliceId, name: queueRow.name, status: queueRow.status });
   }
   if (uncovered.length === 0) {
-    results.push(pass("evidence-pack-covers-active-slices", "Every active Split And Queue slice has Evidence Pack coverage"));
+    results.push(pass("evidence-pack-covers-active-slices", "Every active Define Spec Jobs slice has Context Pack coverage"));
   } else if (phase === "handoff") {
-    results.push(fail("evidence-pack-covers-active-slices", "Evidence Pack must cover every active Split And Queue slice before Flow Extraction", { uncovered }));
+    results.push(fail("evidence-pack-covers-active-slices", "Context Pack must cover every active Define Spec Jobs slice before Process / Action Map", { uncovered }));
   } else {
-    results.push(warn("evidence-pack-covers-active-slices", `${uncovered.length} active queue slice(s) still need Evidence Pack coverage`, { uncovered }));
+    results.push(warn("evidence-pack-covers-active-slices", `${uncovered.length} active queue slice(s) still need Context Pack coverage`, { uncovered }));
   }
 
   if (phase === "handoff") {
     results.push(pending.length === 0
-      ? pass("handoff-no-pending-packs", "No pending Evidence Pack rows remain")
-      : fail("handoff-no-pending-packs", "Handoff requires zero pending Evidence Pack rows", { pending }));
+      ? pass("handoff-no-pending-packs", "No pending Context Pack rows remain")
+      : fail("handoff-no-pending-packs", "Handoff requires zero pending Context Pack rows", { pending }));
     results.push(packed.length === 0
-      ? pass("handoff-no-packed-packs", "No packed-but-unready Evidence Pack rows remain")
-      : fail("handoff-no-packed-packs", "Handoff requires no packed Evidence Pack rows", { packed }));
+      ? pass("handoff-no-packed-packs", "No packed-but-unready Context Pack rows remain")
+      : fail("handoff-no-packed-packs", "Handoff requires no packed Context Pack rows", { packed }));
     results.push(unblockedNeedsEvidence.length === 0
       ? pass("handoff-needs-evidence-blocked", "Every needs-evidence row has explicit blocker detail")
       : fail("handoff-needs-evidence-blocked", "needs-evidence rows require explicit blocker detail before handoff", { unblockedNeedsEvidence }));
   } else {
-    results.push(warn("batch-pending-packs-allowed", `${pending.length} pending Evidence Pack row(s) remain in batch phase`, { pendingCount: pending.length }));
+    results.push(warn("batch-pending-packs-allowed", `${pending.length} pending Context Pack row(s) remain in batch phase`, { pendingCount: pending.length }));
   }
 
   return results;
@@ -857,8 +875,8 @@ function validateEvidencePackEvalFreshness({ repoRoot, runId, outDir, packRows, 
     evalSummary.packFingerprint === currentFingerprint &&
     actualRowCount === expectedRowCount;
   const results = fresh
-    ? [pass("evidence-pack-eval-current", "Evidence Pack eval receipt matches the current pack artifact")]
-    : [fail("evidence-pack-eval-current", "Evidence Pack eval must be regenerated after pack artifact changes", {
+    ? [pass("evidence-pack-eval-current", "Context Pack eval receipt matches the current pack artifact")]
+    : [fail("evidence-pack-eval-current", "Context Pack eval must be regenerated after pack artifact changes", {
       expectedPackFingerprint: currentFingerprint,
       actualPackFingerprint: evalSummary.packFingerprint || null,
       expectedRowCount,
@@ -867,8 +885,8 @@ function validateEvidencePackEvalFreshness({ repoRoot, runId, outDir, packRows, 
   if (phase === "handoff") {
     const revisionTargets = Array.isArray(evalSummary.revisionTargets) ? evalSummary.revisionTargets : [];
     results.push(revisionTargets.length === 0
-      ? pass("evidence-pack-eval-revisions", "Evidence Pack eval has no revision targets")
-      : fail("evidence-pack-eval-revisions", "Evidence Pack eval revision targets must be resolved before Flow Extraction", { revisionTargets }));
+      ? pass("evidence-pack-eval-revisions", "Context Pack eval has no revision targets")
+      : fail("evidence-pack-eval-revisions", "Context Pack eval revision targets must be resolved before Process / Action Map", { revisionTargets }));
   }
   return results;
 }
@@ -886,8 +904,8 @@ function validateEvidencePackReportState({ repoRoot, runId, outDir, reportPath, 
     if (state[field] !== value) drift.push({ field, expected: value, actual: state[field] });
   }
   return drift.length === 0
-    ? [pass("evidence-pack-report-state-current", "Evidence Pack report state matches canonical artifacts")]
-    : [fail("evidence-pack-report-state-current", "Evidence Pack report state must match canonical artifacts", { drift })];
+    ? [pass("evidence-pack-report-state-current", "Context Pack report state matches canonical artifacts")]
+    : [fail("evidence-pack-report-state-current", "Context Pack report state must match canonical artifacts", { drift })];
 }
 
 function validateEvidencePack({ repoRoot, runId, outDir = defaultBackfillDir(repoRoot), phase = "handoff", reportPath = null, skipEvalFreshness = false }) {
@@ -917,13 +935,13 @@ function validateEvidencePack({ repoRoot, runId, outDir = defaultBackfillDir(rep
       surfaceRows: surfaceRegistry.rows,
       fileRows: fileRegistry.rows,
       packRows: [],
-      results: [...results, fail("evidence-pack-exists", `Evidence Pack artifact does not exist: ${packPath}`)]
+      results: [...results, fail("evidence-pack-exists", `Context Pack artifact does not exist: ${packPath}`)]
     };
   }
   const parsed = readJsonl(packPath);
-  results.push(pass("evidence-pack-exists", "Evidence Pack artifact exists"));
+  results.push(pass("evidence-pack-exists", "Context Pack artifact exists"));
   if (parsed.errors.length > 0) {
-    results.push(...parsed.errors.map(error => fail(`evidence-pack-jsonl:${error.line}`, "Evidence Pack JSONL line must parse", error)));
+    results.push(...parsed.errors.map(error => fail(`evidence-pack-jsonl:${error.line}`, "Context Pack JSONL line must parse", error)));
     return {
       packPath,
       queuePath: upstream.queuePath,
@@ -935,7 +953,7 @@ function validateEvidencePack({ repoRoot, runId, outDir = defaultBackfillDir(rep
       results
     };
   }
-  results.push(pass("evidence-pack-jsonl", "Every Evidence Pack line parses as JSON"));
+  results.push(pass("evidence-pack-jsonl", "Every Context Pack line parses as JSON"));
   results.push(...validateEvidencePackRows({
     queueRows: upstream.queueRows,
     capabilityRows: capabilityMatrix.rows,
@@ -974,7 +992,7 @@ function selectEvidencePackEvalSample(packRows, mode = "risk") {
   if (mode === "all" || packRows.length <= 120) return packRows;
   const selected = new Map();
   for (const row of packRows) {
-    if (row.status !== "ready-for-flow") selected.set(row.packId, row);
+    if (!isReadyForProcessMapStatus(row.status)) selected.set(row.packId, row);
     if (rowHasBlockingFlag(row) || row.status === "needs-evidence") selected.set(row.packId, row);
     if ((row.evidenceRefs || []).length > 25 || row.estimatedTokens > row.tokenBudget * 0.8) selected.set(row.packId, row);
   }
@@ -1013,31 +1031,31 @@ function scoreEvidencePackRow(row, queueById = new Map()) {
     evidenceSpecificity: 20,
     categoryCoverage: 20,
     boundedContext: 20,
-    flowReadiness: 20
+    processActionReadiness: 20
   };
 
   const queueRow = queueById.get(row.upstreamSliceId);
   if (!queueRow) {
-    findings.push({ category: "upstreamTraceability", severity: "blocking", message: "Evidence pack has no resolvable upstream Split And Queue slice." });
+    findings.push({ category: "upstreamTraceability", severity: "blocking", message: "Context Pack has no resolvable upstream Define Spec Jobs slice." });
     categoryScores.upstreamTraceability = 0;
   } else {
     if (!ACTIVE_QUEUE_STATUSES_FOR_PACK.has(queueRow.status)) {
-      findings.push({ category: "upstreamTraceability", severity: "blocking", message: "Evidence pack references a Split And Queue slice that is not active." });
+      findings.push({ category: "upstreamTraceability", severity: "blocking", message: "Context Pack references a Define Spec Jobs slice that is not active." });
       categoryScores.upstreamTraceability = 0;
     }
     if (row.upstreamSliceRef?.sliceFingerprint !== sliceFingerprint(queueRow)) {
-      findings.push({ category: "upstreamTraceability", severity: "blocking", message: "Evidence pack has stale upstream slice fingerprint." });
+      findings.push({ category: "upstreamTraceability", severity: "blocking", message: "Context Pack has stale upstream slice fingerprint." });
       categoryScores.upstreamTraceability = 0;
     }
     const missing = (queueRow.upstreamCapabilityIds || []).filter(id => !(row.upstreamCapabilityIds || []).includes(id));
     if (missing.length > 0) {
-      findings.push({ category: "upstreamTraceability", severity: "blocking", message: "Evidence pack omitted upstream capability IDs from its queue slice." });
+      findings.push({ category: "upstreamTraceability", severity: "blocking", message: "Context Pack omitted upstream capability IDs from its queue slice." });
       categoryScores.upstreamTraceability = 0;
     }
   }
 
   if (row.status === "needs-evidence" && hasBlockingDetail(row)) {
-    findings.push({ category: "flowReadiness", severity: "info", message: "Evidence pack is explicitly blocked with named blocker detail." });
+    findings.push({ category: "processActionReadiness", severity: "info", message: "Context Pack is explicitly blocked with named blocker detail." });
     return {
       subjectRowId: row.packId,
       upstreamSliceId: row.upstreamSliceId,
@@ -1053,7 +1071,7 @@ function scoreEvidencePackRow(row, queueById = new Map()) {
   }
 
   if (!Array.isArray(row.evidenceRefs) || row.evidenceRefs.length === 0) {
-    findings.push({ category: "evidenceSpecificity", severity: "blocking", message: "Evidence pack lacks evidenceRefs." });
+    findings.push({ category: "evidenceSpecificity", severity: "blocking", message: "Context Pack lacks evidenceRefs." });
     categoryScores.evidenceSpecificity = 0;
   } else {
     const specificityIssues = row.evidenceRefs
@@ -1072,31 +1090,31 @@ function scoreEvidencePackRow(row, queueById = new Map()) {
   }
 
   if ((row.evidenceRefs || []).length > MAX_EVIDENCE_REFS) {
-    findings.push({ category: "boundedContext", severity: "blocking", message: "Evidence pack exceeds max evidence ref count." });
+    findings.push({ category: "boundedContext", severity: "blocking", message: "Context Pack exceeds max evidence ref count." });
     categoryScores.boundedContext = 0;
   } else if ((row.evidenceRefs || []).length > 25) {
-    findings.push({ category: "boundedContext", severity: "warning", message: "Evidence pack is large enough to need tightening before handoff." });
+    findings.push({ category: "boundedContext", severity: "warning", message: "Context Pack is large enough to need tightening before handoff." });
     categoryScores.boundedContext = Math.min(categoryScores.boundedContext, 18);
   }
   if (Number.isInteger(row.estimatedTokens) && Number.isInteger(row.tokenBudget) && row.estimatedTokens > row.tokenBudget) {
-    findings.push({ category: "boundedContext", severity: "blocking", message: "Evidence pack estimated tokens exceed budget." });
+    findings.push({ category: "boundedContext", severity: "blocking", message: "Context Pack estimated tokens exceed budget." });
     categoryScores.boundedContext = 0;
   } else if (Number.isInteger(row.estimatedTokens) && Number.isInteger(row.tokenBudget) && row.estimatedTokens > row.tokenBudget * 0.8) {
-    findings.push({ category: "boundedContext", severity: "warning", message: "Evidence pack is near the token budget and should be tightened." });
+    findings.push({ category: "boundedContext", severity: "warning", message: "Context Pack is near the token budget and should be tightened." });
     categoryScores.boundedContext = Math.min(categoryScores.boundedContext, 18);
   }
 
-  if (row.status !== "ready-for-flow") {
-    findings.push({ category: "flowReadiness", severity: "blocking", message: "Evidence pack is not ready-for-flow or explicitly blocked." });
-    categoryScores.flowReadiness = 0;
+  if (!isReadyForProcessMapStatus(row.status)) {
+    findings.push({ category: "processActionReadiness", severity: "blocking", message: "Context Pack is not ready-for-process-map or explicitly blocked." });
+    categoryScores.processActionReadiness = 0;
   }
   if (!rationaleIsSpecific(row.sufficiencyRationale)) {
-    findings.push({ category: "flowReadiness", severity: "blocking", message: "Evidence pack sufficiencyRationale is missing or too vague." });
-    categoryScores.flowReadiness = 0;
+    findings.push({ category: "processActionReadiness", severity: "blocking", message: "Context Pack sufficiencyRationale is missing or too vague." });
+    categoryScores.processActionReadiness = 0;
   }
   if (!Array.isArray(row.excludedRefs)) {
-    findings.push({ category: "flowReadiness", severity: "blocking", message: "Evidence pack excludedRefs must be an array." });
-    categoryScores.flowReadiness = 0;
+    findings.push({ category: "processActionReadiness", severity: "blocking", message: "Context Pack excludedRefs must be an array." });
+    categoryScores.processActionReadiness = 0;
   }
 
   const score = Object.values(categoryScores).reduce((sum, value) => sum + value, 0);
@@ -1109,7 +1127,7 @@ function scoreEvidencePackRow(row, queueById = new Map()) {
     findings,
     acceptabilityGate: {
       acceptable: findings.every(finding => finding.severity !== "blocking") && score >= 90,
-      threshold: "No blocking findings for row-level Evidence Pack receipt"
+      threshold: "No blocking findings for row-level Context Pack receipt"
     }
   };
 }
@@ -1122,7 +1140,7 @@ function aggregateEvidencePackEval(checkResults, rowReceipts) {
       evidenceSpecificity: 20,
       categoryCoverage: 20,
       boundedContext: 20,
-      flowReadiness: 20
+      processActionReadiness: 20
     };
     const totalScore = Object.values(categoryScores).reduce((sum, value) => sum + value, 0);
     return {
@@ -1137,7 +1155,7 @@ function aggregateEvidencePackEval(checkResults, rowReceipts) {
     evidenceSpecificity: Math.min(...rowReceipts.map(receipt => receipt.categoryScores.evidenceSpecificity), 20),
     categoryCoverage: Math.min(...rowReceipts.map(receipt => receipt.categoryScores.categoryCoverage), 20),
     boundedContext: Math.min(...rowReceipts.map(receipt => receipt.categoryScores.boundedContext), 20),
-    flowReadiness: Math.min(...rowReceipts.map(receipt => receipt.categoryScores.flowReadiness), 20)
+    processActionReadiness: Math.min(...rowReceipts.map(receipt => receipt.categoryScores.processActionReadiness), 20)
   };
   const totalScore = Object.values(categoryScores).reduce((sum, value) => sum + value, 0);
   const normalizedMinimum = Math.min(...Object.values(categoryScores).map(score => score / 2));
@@ -1232,7 +1250,7 @@ function buildEvidencePackReportState({ repoRoot, runId, outDir, queueRows, capa
   const packedCount = packRows.filter(row => row.status === "packed").length;
   const needsEvidenceCount = packRows.filter(row => row.status === "needs-evidence").length;
   const blockedNeedsEvidenceCount = packRows.filter(row => row.status === "needs-evidence" && hasBlockingDetail(row)).length;
-  const readyForFlowCount = packRows.filter(row => row.status === "ready-for-flow").length;
+  const readyForProcessMapCount = packRows.filter(row => isReadyForProcessMapStatus(row.status)).length;
   const activeSliceCount = activeQueueRows(queueRows).length;
   const latestRunLogSequence = (() => {
     if (!runLogPath || !fs.existsSync(runLogPath)) return null;
@@ -1277,7 +1295,7 @@ function buildEvidencePackReportState({ repoRoot, runId, outDir, queueRows, capa
     needsEvidenceCount,
     blockedNeedsEvidenceCount,
     unresolvedNeedsEvidenceCount,
-    readyForFlowCount,
+    readyForProcessMapCount,
     currentPackId: currentTarget?.packId || null,
     currentSliceId: currentTarget?.upstreamSliceId || null,
     latestRunLogSequence,
@@ -1287,8 +1305,8 @@ function buildEvidencePackReportState({ repoRoot, runId, outDir, queueRows, capa
       unresolvedNeedsEvidenceCount === 0 &&
       checkerPass &&
       evalHandoffReady
-      ? "flow extraction"
-      : "evidence pack revision"
+      ? "Process / Action Map"
+      : "Context Pack revision"
   };
 }
 

@@ -23,7 +23,7 @@ function usage() {
   return `Usage:
   npm run foundation:capability-matrix:eval -- --repo /path/to/repo --run-id YYYYMMDD-NN [--sample all|risk] [--run-log path]
 
-Writes canonical JSONL Capability Matrix eval receipts and a derived HTML summary.`;
+Writes canonical JSONL Capability Map eval receipts and a derived HTML summary.`;
 }
 
 function renderHtmlSummary({ runId, repoRoot, registryPath, receiptPath, summaryPath, sampleRows, aggregate, findings }) {
@@ -38,15 +38,15 @@ function renderHtmlSummary({ runId, repoRoot, registryPath, receiptPath, summary
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Capability Matrix Eval ${runId}</title>
+<title>Capability Map Eval ${runId}</title>
 <link rel="stylesheet" href="../spec-system.css">
 </head>
 <body>
 <main class="main">
   <section id="summary">
     <div class="spec-eyebrow">docs/specs/backfill/${path.basename(summaryPath)}</div>
-    <h1>Capability Matrix Eval ${runId}</h1>
-    <p class="lede">Derived human summary for canonical JSONL Capability Matrix eval receipts.</p>
+    <h1>Capability Map Eval ${runId}</h1>
+    <p class="lede">Derived human summary for canonical JSONL Capability Map eval receipts.</p>
     <div class="meta-row">
       <div><strong>Run ID:</strong> ${runId}</div>
       <div><strong>Total score:</strong> ${aggregate.totalScore}</div>
@@ -158,16 +158,16 @@ function main() {
     slice: null,
     phase: "evaluation",
     event: "evaluation",
-    summary: `Capability Matrix eval ${aggregate.acceptable ? "passed" : "failed"} with score ${aggregate.totalScore}.`,
+    summary: `Capability Map eval ${aggregate.acceptable ? "passed" : "failed"} with score ${aggregate.totalScore}.`,
     artifactsRead: [path.relative(repoRoot, capabilityMatrixPathFor(repoRoot, runId, outDir))],
     artifactsChanged: [path.relative(repoRoot, receiptPath), path.relative(repoRoot, summaryPath)],
     commands: ["foundation:capability-matrix:eval"],
     checks: [{ name: "capability-matrix-eval", result: aggregate.acceptable ? "passed" : "failed" }],
-    result: aggregate.acceptable ? `Capability Matrix eval passed with score ${aggregate.totalScore}.` : `Capability Matrix eval failed with score ${aggregate.totalScore}.`,
-    nextAction: revisionTargets.length > 0 ? "Revise Capability Matrix rows named in revisionTargets before report handoff." : (aggregate.acceptable ? "Record handoff to Split And Queue gate." : "Revise Capability Matrix rows named in revisionTargets.")
+    result: aggregate.acceptable ? `Capability Map eval passed with score ${aggregate.totalScore}.` : `Capability Map eval failed with score ${aggregate.totalScore}.`,
+    nextAction: revisionTargets.length > 0 ? "Revise Capability Map rows named in revisionTargets before report handoff." : (aggregate.acceptable ? "Record handoff to Define Spec Jobs gate." : "Revise Capability Map rows named in revisionTargets.")
   });
 
-  console.log(`Capability Matrix eval
+  console.log(`Capability Map eval
 Score: ${aggregate.totalScore}
 Minimum normalized category: ${aggregate.normalizedMinimum.toFixed(1)}
 Acceptable: ${aggregate.acceptable ? "yes" : "no"}

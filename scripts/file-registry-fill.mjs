@@ -19,7 +19,7 @@ function usage() {
   return `Usage:
   npm run foundation:file-registry:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN [--batch-size 25|--all] [--out-dir path] [--run-log path]
 
-Maps pending registry rows with deterministic V1 static evidence. This is a fill-loop helper, not a replacement for human/agent review when eval finds weak rows.`;
+Maps pending inventory rows with deterministic V1 static evidence. This is a fill-loop helper, not a replacement for human/agent review when eval finds weak rows.`;
 }
 
 function main() {
@@ -52,18 +52,18 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "inventory",
+    phase: "artifact-inventory",
     event: "checkpoint",
-    summary: `Mapped ${selected.size} file registry row(s).`,
+    summary: `Mapped ${selected.size} Artifact Inventory row(s).`,
     artifactsRead: [path.relative(repoRoot, manifestPathFor(repoRoot, runId, outDir))],
     artifactsChanged: [path.relative(repoRoot, registryPathFor(repoRoot, runId, outDir))],
     commands: ["foundation:file-registry:fill"],
     checks: [],
-    nextAction: filledRows.some(row => row.status === "pending") ? "Continue filling pending rows." : "Run registry check and eval."
+    nextAction: filledRows.some(row => row.status === "pending") ? "Continue filling pending rows." : "Run Artifact Inventory check and eval."
   });
 
   const remaining = filledRows.filter(row => row.status === "pending").length;
-  console.log(`File registry fill\nMapped: ${selected.size}\nPending remaining: ${remaining}`);
+  console.log(`Artifact Inventory fill\nMapped: ${selected.size}\nPending remaining: ${remaining}`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) {

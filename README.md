@@ -1,8 +1,8 @@
 # Foundation
 
-Foundation is the canonical source bundle for a portable software substrate: principles, specs, skills, checks, and repo conventions for building software with agents across local repositories.
+Foundation is the canonical source bundle for System Philosophy and its software-development substrate: principles, specs, skills, checks, and repo conventions for turning intent into verified results with agents across local repositories.
 
-This repo is both the reference implementation and the shared system other repos should point at. Target repos should keep their own product specs and project facts locally, while Foundation owns the shared development process.
+This repo is both the reference implementation and the shared system other repos should point at. Target repos should keep their own product specs, project context, tests, and facts locally, while Foundation owns the shared development process and root vocabulary.
 
 ## What This Repo Contains
 
@@ -12,23 +12,25 @@ This repo is both the reference implementation and the shared system other repos
 - `docs/specs/foundation-workspace-model.html`: the workspace model for using one canonical Foundation repo from many target repos.
 - `docs/principles/`: durable principles for agentic software work, AI evals, software design, and compounding systems.
 - `docs/definitions/`: shared vocabulary for substrate, harnesses, skills, specs, and portability.
-- `docs/compounding-systems.html`: the conceptual root for why this substrate should compound instead of drift.
+- `docs/general/system-philosophy.html`: the root philosophy for intent, context, action, evidence, goals, capabilities, jobs, processes, actors, and substrate.
+- `docs/compounding-systems.html`: the five-layer framework for why this substrate should compound instead of drift.
 - `scripts/foundation-doctor.mjs`: setup diagnostic for the canonical Foundation path, global Codex pointer, target repo adapters, target-owned spec namespaces, and pinned Foundation CI.
 - `.github/workflows/specs.yml`: CI enforcement for generated registry and metadata validity.
 
 ## Reading Order
 
-1. Read [The Compounding System](docs/compounding-systems.html).
-2. Read [Core Principles](docs/principles/core-principles.html).
-3. Read [Software Development Principles](docs/principles/sw-dev-principles.html).
-4. Read [AI Evals Principles](docs/principles/ai-evals-principles.html) before creating or changing evaluator rubrics, LLM judges, backfill quality gates, or eval workflows.
-5. Read [Software Design Principles](docs/principles/sw-design-principles.html) before user-facing UI, responsive layout, rendered UX, accessibility, or visual verification work.
-6. Read [The Spec System](docs/specs/index.html).
-7. Read [The Spec Process](docs/specs/process.html) when creating, changing, or reviewing specs.
-8. Read [The Foundation Workspace Model](docs/specs/foundation-workspace-model.html) when setting up cross-repo use, global Codex instructions, target repo adapters, or CI integration.
-9. Read [Foundation Backfill Specs](docs/specs/foundation-backfill-specs.html) when adopting an existing repo into the spec system.
-10. Read [Foundation Backfill Orchestration Technical Spec](docs/specs/foundation-backfill-orchestration-technical.html) when changing the backfill skill chain, coverage ledger, or adequacy gate.
-11. Read [Foundation Backfill Evaluation Process](docs/specs/foundation-backfill-evaluation.html) when changing the evaluator rubric, golden example, or quality gate.
+1. Read [System Philosophy](docs/general/system-philosophy.html).
+2. Read [The Compounding System](docs/compounding-systems.html).
+3. Read [Core Principles](docs/principles/core-principles.html).
+4. Read [Software Development Principles](docs/principles/sw-dev-principles.html).
+5. Read [AI Evals Principles](docs/principles/ai-evals-principles.html) before creating or changing evaluator rubrics, LLM judges, backfill quality gates, or eval workflows.
+6. Read [Software Design Principles](docs/principles/sw-design-principles.html) before user-facing UI, responsive layout, rendered UX, accessibility, or visual verification work.
+7. Read [The Spec System](docs/specs/index.html).
+8. Read [The Spec Process](docs/specs/process.html) when creating, changing, or reviewing specs.
+9. Read [The Foundation Workspace Model](docs/specs/foundation-workspace-model.html) when setting up cross-repo use, global Codex instructions, target repo adapters, or CI integration.
+10. Read [Foundation Backfill Specs](docs/specs/foundation-backfill-specs.html) when adopting an existing repo into the spec system.
+11. Read [Foundation Backfill Orchestration Technical Spec](docs/specs/foundation-backfill-orchestration-technical.html) when changing the backfill skill chain, coverage ledger, or adequacy gate.
+12. Read [Foundation Backfill Evaluation Process](docs/specs/foundation-backfill-evaluation.html) when changing the evaluator rubric, golden example, or quality gate.
 
 ## Use Foundation From A Target Repo
 
@@ -93,10 +95,10 @@ Use this sequence when a repo already has substantial code, docs, plans, or test
 
 1. Use `skills/install-foundation-substrate/SKILL.md` to connect the repo to Foundation.
 2. Run `npm run foundation:doctor -- --repo /path/to/target-repo`.
-3. Use `skills/backfill-specs/SKILL.md` to orchestrate inventory, capability matrix, split rule, user-flow extraction, descriptive specs, rendered UX, technical specs, and adequacy review until capability coverage is complete.
-4. Keep the active dated report and run-log JSONL named in the target repo `AGENTS.md` while backfill is in progress; the report owns the capability matrix and durable queue.
+3. Use `skills/backfill-specs/SKILL.md` to orchestrate Artifact Inventory, Surface / Function Map, Capability Map, Define Spec Jobs, Context Pack, Process / Action Map, descriptive specs, rendered UX, technical specs, and Review Spec Adequacy until capability coverage is complete.
+4. Keep the active dated report and run-log JSONL named in the target repo `AGENTS.md` while backfill is in progress; the report owns the Capability Map and Job / Spec Queue.
 5. Keep descriptive specs architecture-agnostic and technical specs contract-first: required contracts, current evidence, architecture constraints, and implementation latitude.
-6. Run `npm run backfill:queue:check -- /path/to/target-repo/docs/specs/backfill/review-report-YYYYMMDD-NN.html` after capability matrix or queue updates so durable run state stays machine-checkable.
+6. Run `npm run backfill:queue:check -- /path/to/target-repo/docs/specs/backfill/review-report-YYYYMMDD-NN.html` after Capability Map or Job / Spec Queue updates so durable run state stays machine-checkable.
 7. Run `npm run backfill:run-log:check -- /path/to/target-repo/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl` after run-log updates so execution observability stays machine-checkable.
 8. Use `skills/evaluate-backfill-specs/SKILL.md` to score capability-backed slices and the completed graph, revise weak categories, and mark only strict 96+ results acceptable.
 9. Leave existing docs and code in place until the backfilled specs are reviewed and a separate cleanup pass is approved.

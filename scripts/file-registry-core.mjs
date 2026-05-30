@@ -795,20 +795,20 @@ function validateRegistryRows({ repoRoot, manifest, rows, phase = "handoff", mod
   }
 
   results.push(duplicatePaths.length === 0
-    ? pass("registry-path-unique", "Registry paths are unique")
+    ? pass("registry-path-unique", "Artifact Inventory paths are unique")
     : fail("registry-path-unique", "Registry paths must be unique", { duplicates: duplicatePaths }));
   results.push(duplicateFileIds.length === 0
-    ? pass("registry-file-id-unique", "Registry fileIds are unique")
+    ? pass("registry-file-id-unique", "Artifact Inventory fileIds are unique")
     : fail("registry-file-id-unique", "Registry fileIds must be unique", { duplicates: duplicateFileIds }));
 
   const missing = [...manifestByPath.keys()].filter(filePath => !rowsByPath.has(filePath));
   const extra = [...rowsByPath.keys()].filter(filePath => !manifestByPath.has(filePath));
   results.push(missing.length === 0
-    ? pass("registry-covers-manifest", "Every manifest file has a registry row")
-    : fail("registry-covers-manifest", "Every manifest file must have a registry row", { missing }));
+    ? pass("registry-covers-manifest", "Every manifest file has a inventory row")
+    : fail("registry-covers-manifest", "Every manifest file must have a inventory row", { missing }));
   results.push(extra.length === 0
-    ? pass("registry-no-extra-paths", "Registry has no paths outside manifest")
-    : fail("registry-no-extra-paths", "Registry rows must not exist outside manifest", { extra }));
+    ? pass("registry-no-extra-paths", "Artifact Inventory has no paths outside manifest")
+    : fail("registry-no-extra-paths", "Artifact Inventory rows must not exist outside manifest", { extra }));
 
   const pending = [];
   const blockingFlags = [];
@@ -857,8 +857,8 @@ function validateRegistryRows({ repoRoot, manifest, rows, phase = "handoff", mod
 
   const uniqueStale = [...new Set(stale)];
   results.push(uniqueStale.length === 0
-    ? pass("registry-fresh", "Registry hashes and sizes match manifest/current files")
-    : fail("registry-fresh", "Registry hashes and sizes must be current", { stale: uniqueStale }));
+    ? pass("registry-fresh", "Artifact Inventory hashes and sizes match manifest/current files")
+    : fail("registry-fresh", "Artifact Inventory hashes and sizes must be current", { stale: uniqueStale }));
 
   if (phase === "handoff") {
     results.push(pending.length === 0
@@ -899,20 +899,20 @@ function validateRegistry({ repoRoot, runId, outDir = defaultBackfillDir(repoRoo
     return {
       manifestPath,
       registryPath,
-      results: [pass("manifest-exists", "Manifest exists"), fail("registry-exists", `Registry does not exist: ${registryPath}`)]
+      results: [pass("manifest-exists", "Manifest exists"), fail("registry-exists", `Artifact Inventory does not exist: ${registryPath}`)]
     };
   }
 
   const manifest = readJson(manifestPath);
   const parsed = readJsonl(registryPath);
   results.push(pass("manifest-exists", "Manifest exists"));
-  results.push(pass("registry-exists", "Registry exists"));
+  results.push(pass("registry-exists", "Artifact Inventory exists"));
   results.push(...validateManifest(manifest, runId));
   if (parsed.errors.length > 0) {
-    results.push(...parsed.errors.map(error => fail(`registry-jsonl:${error.line}`, "Registry JSONL line must parse", error)));
+    results.push(...parsed.errors.map(error => fail(`registry-jsonl:${error.line}`, "Artifact Inventory JSONL line must parse", error)));
     return { manifestPath, registryPath, manifest, rows: parsed.rows, results };
   }
-  results.push(pass("registry-jsonl", "Every registry line parses as JSON"));
+  results.push(pass("registry-jsonl", "Every Artifact Inventory line parses as JSON"));
   results.push(...validateRegistryRows({ repoRoot, manifest, rows: parsed.rows, phase, mode }));
 
   return { manifestPath, registryPath, manifest, rows: parsed.rows, results };
@@ -1015,8 +1015,8 @@ function validateGraphLinks({ repoRoot, rows, strict = false }) {
     ? pass("graph-spec-registry", "Spec registry is available")
     : warn("graph-spec-registry", "Spec registry is not available; spec links cannot be resolved"));
   results.push(capabilityMatrix
-    ? pass("graph-capability-matrix", "Capability matrix is available")
-    : warn("graph-capability-matrix", "Capability matrix is not available; capability links cannot be resolved"));
+    ? pass("graph-capability-matrix", "Capability Map is available")
+    : warn("graph-capability-matrix", "Capability Map is not available; capability links cannot be resolved"));
   results.push(brokenSpecLinks.length === 0
     ? pass("graph-spec-links-resolve", "Spec links resolve")
     : fail("graph-spec-links-resolve", "Spec links must resolve", { brokenSpecLinks }));

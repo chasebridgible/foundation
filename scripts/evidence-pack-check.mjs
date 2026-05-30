@@ -19,7 +19,7 @@ function usage() {
   return `Usage:
   npm run foundation:evidence-pack:check -- --repo /path/to/repo --run-id YYYYMMDD-NN [--phase batch|handoff] [--report path] [--json] [--no-write]
 
-Validates Evidence Pack structure, upstream Split And Queue references, exact evidence specificity, freshness, required categories, pack size, and optional report state.`;
+Validates Context Pack structure, upstream Define Spec Jobs references, exact evidence specificity, freshness, required categories, pack size, and optional report state.`;
 }
 
 function main() {
@@ -58,19 +58,19 @@ function main() {
     slice: null,
     phase: "validation",
     event: "validation",
-    summary: `Evidence Pack check ${summary.fail === 0 ? "passed" : "failed"}.`,
+    summary: `Context Pack check ${summary.fail === 0 ? "passed" : "failed"}.`,
     artifactsRead: [payload.queuePath, payload.packPath].filter(Boolean),
     artifactsChanged: options["no-write"] ? [] : [path.relative(repoRoot, checkPath)],
     commands: ["foundation:evidence-pack:check"],
     checks: [{ name: "evidence-pack-check", result: summary.fail === 0 ? "passed" : "failed" }],
-    result: summary.fail === 0 ? "Evidence Pack check passed." : "Evidence Pack check failed.",
-    nextAction: summary.fail === 0 ? "Run Evidence Pack eval or record handoff." : "Fix Evidence Pack check failures."
+    result: summary.fail === 0 ? "Context Pack check passed." : "Context Pack check failed.",
+    nextAction: summary.fail === 0 ? "Run Context Pack eval or record handoff." : "Fix Context Pack check failures."
   });
 
   if (options.json) {
     console.log(JSON.stringify(payload, null, 2));
   } else {
-    console.log(renderResultsText("Evidence Pack check", check.results));
+    console.log(renderResultsText("Context Pack check", check.results));
   }
   if (summary.fail > 0) process.exit(1);
 }

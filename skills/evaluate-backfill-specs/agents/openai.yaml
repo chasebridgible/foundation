@@ -1,4 +1,4 @@
 interface:
   display_name: "Evaluate Backfill Specs"
   short_description: "Score and route backfill revisions"
-  default_prompt: "Use $evaluate-backfill-specs to score a backfill slice or spec graph against the Foundation golden example and strict 100-point rubric, check capability coverage and split boundaries, update the durable queue, and route any weak categories back to the owning backfill skill."
+  default_prompt: "Use $evaluate-backfill-specs to score a backfill slice or spec graph against the Foundation golden example and strict 100-point rubric, check capability coverage and split boundaries, update the Job / Spec Queue, and route any weak categories back to the owning backfill skill."

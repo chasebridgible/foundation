@@ -56,19 +56,19 @@ function main() {
     slice: null,
     phase: "validation",
     event: "validation",
-    summary: `File registry check ${summary.fail === 0 ? "passed" : "failed"}.`,
+    summary: `Artifact Inventory check ${summary.fail === 0 ? "passed" : "failed"}.`,
     artifactsRead: [payload.manifestPath, payload.registryPath],
     artifactsChanged: options["no-write"] ? [] : [path.relative(repoRoot, checkPath)],
     commands: ["foundation:file-registry:check"],
     checks: [{ name: "file-registry-check", result: summary.fail === 0 ? "passed" : "failed" }],
-    result: summary.fail === 0 ? "File registry check passed." : "File registry check failed.",
-    nextAction: summary.fail === 0 ? "Run file registry eval or advance to next gate." : "Fix registry check failures."
+    result: summary.fail === 0 ? "Artifact Inventory check passed." : "Artifact Inventory check failed.",
+    nextAction: summary.fail === 0 ? "Run Artifact Inventory eval or advance to next gate." : "Fix Artifact Inventory check failures."
   });
 
   if (options.json) {
     console.log(JSON.stringify(payload, null, 2));
   } else {
-    console.log(renderResultsText("File registry check", check.results));
+    console.log(renderResultsText("Artifact Inventory check", check.results));
   }
   if (summary.fail > 0) process.exit(1);
 }

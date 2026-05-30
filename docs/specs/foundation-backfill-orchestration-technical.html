@@ -221,13 +221,13 @@
       "path": "foundation/scripts/backfill-queue-check.mjs",
       "kind": "workflow",
       "ownership": "direct",
-      "notes": "Durable queue validation command."
+      "notes": "Job / Spec Queue validation command."
     },
     {
       "path": "foundation/scripts/backfill-queue-check.test.mjs",
       "kind": "test",
       "ownership": "direct",
-      "notes": "Automated coverage for durable queue validation."
+      "notes": "Automated coverage for Job / Spec Queue validation."
     },
     {
       "path": "foundation/scripts/backfill-run-log-check.mjs",
@@ -447,7 +447,7 @@
       "mapsTo": [
         "foundation.backfill-orchestration.technical#contracts"
       ],
-      "evidence": "Adequacy review skill defines the evaluator-readiness gate."
+      "evidence": "Review Spec Adequacy skill defines the evaluator-readiness gate."
     },
     {
       "id": "FBO-3",
@@ -488,7 +488,7 @@
         "foundation.backfill-orchestration.technical#data-model",
         "foundation.backfill-orchestration.technical#failure-modes"
       ],
-      "evidence": "Backfill queue checker tests validate embedded capability matrix and durable queue presence, parsing, status shape, capability references, and acceptable-score threshold."
+      "evidence": "Backfill queue checker tests validate embedded Capability Map and Job / Spec Queue presence, parsing, status shape, capability references, and acceptable-score threshold."
     },
     {
       "id": "FBO-7",
@@ -510,7 +510,7 @@
         "foundation.backfill-orchestration.technical#data-model",
         "foundation.backfill-orchestration.technical#contracts"
       ],
-      "evidence": "Capability Matrix, inventory, and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass."
+      "evidence": "Capability Map, inventory, and orchestrator skills define Capability Map rows, capability-backed queues, and the split pass."
     }
   ],
   "tags": [
@@ -550,7 +550,7 @@
   <section id="overview" data-spec-section="overview" data-section-type="summary">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-orchestration-technical.html</div>
     <h1>Foundation Backfill Orchestration Technical Spec</h1>
-    <p class="lede">The backfill orchestrator is a resumable workflow that delegates each layer of repo intent extraction to focused skills and only advances a slice after adequacy review and strict evaluation.</p>
+    <p class="lede">The backfill orchestrator is a resumable workflow that delegates each layer of repo intent extraction to focused skills and only advances a slice after Review Spec Adequacy and strict evaluation.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
       <div><strong>Updated:</strong> 2026-05-29</div>
@@ -563,27 +563,27 @@
       <h1>Required depth</h1>
       <p>The backfill system extracts intended behavior from repo evidence. Code is the strongest available evidence, but the durable output is a spec graph that states what the system is meant to do for users, operators, and future implementers.</p>
       <p>The orchestrated output is intent-rigid and architecture-flexible. Descriptive specs carry architecture-agnostic intent. Technical specs carry required contracts, current implementation evidence, justified architecture constraints, and implementation latitude.</p>
-      <p>Backfill completion depends on capability coverage, adequacy, and strict evaluation. A complete run has a capability matrix where every relevant behavior-bearing capability is acceptable, intentionally parent-owned with a precise reason, blocked by a named human decision, or explicitly marked out of scope. The durable queue is the execution order for that matrix.</p>
+      <p>Backfill completion depends on capability coverage, adequacy, and strict evaluation. A complete run has a Capability Map where every relevant behavior-bearing capability is acceptable, intentionally parent-owned with a precise reason, blocked by a named human decision, or explicitly marked out of scope. The Job / Spec Queue is the execution order for that matrix.</p>
     </section>
 
     <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
       <h2>Internal sequence</h2>
       <ol>
         <li><strong>Connect:</strong> use Foundation setup and doctor to confirm the target repo can consume Foundation.</li>
-        <li><strong>File registry:</strong> create or refresh the manifest and file registry with one row per repo-owned file. This V1 layer includes steady-state changed-file refresh, not only bootstrap backfill.</li>
-        <li><strong>Surface registry:</strong> convert eligible mapped file rows into evidence surfaces: routes, screens, APIs, commands, jobs, tables, workflows, infra resources, active behavior docs, and external dependencies.</li>
-        <li><strong>Capability matrix:</strong> convert reviewed ready surfaces into capability rows using actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
-        <li><strong>Split and queue:</strong> split broad capability rows before closure and create a durable queue with exact slice scope, owner layer, exit criteria, status, score, blockers, evidence rows, and next action.</li>
-        <li><strong>Evidence pack:</strong> gather only the files, surfaces, capabilities, tests, docs, schemas, and snippets needed for the current queued slice.</li>
+        <li><strong>Inventory Artifacts:</strong> create or refresh the manifest and Artifact Inventory with one row per repo-owned file. This V1 layer includes steady-state changed-file refresh, not only bootstrap backfill.</li>
+        <li><strong>Map Surfaces:</strong> convert eligible mapped file rows into evidence surfaces: routes, screens, APIs, commands, jobs, tables, workflows, infra resources, active behavior docs, and external dependencies.</li>
+        <li><strong>Map Capabilities:</strong> convert reviewed ready surfaces into capability rows using actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
+        <li><strong>Define Spec Jobs:</strong> split broad capability rows before closure and create a Job / Spec Queue with exact slice scope, owner layer, exit criteria, status, score, blockers, evidence rows, and next action.</li>
+        <li><strong>Gather Context:</strong> gather only the files, surfaces, capabilities, tests, docs, schemas, and snippets needed for the current queued slice.</li>
         <li><strong>Observe:</strong> append JSONL run-log events when phases start, finish, checkpoint, validate, evaluate, revise, block, or hand off.</li>
-        <li><strong>Extract flows:</strong> extract user and operator flows, state transitions, permissions, validations, empty/loading/error states, recovery behavior, and visible/operator behavior.</li>
-        <li><strong>Draft descriptive:</strong> create or update architecture-agnostic descriptive specs from the queued slice, evidence pack, and flow rows.</li>
+        <li><strong>Map Processes:</strong> map user and operator processes, actions, state transitions, permissions, validations, empty/loading/error states, recovery behavior, and visible/operator behavior.</li>
+        <li><strong>Author Specs:</strong> create or update architecture-agnostic descriptive specs from the queued slice, Context Pack, and process/action rows.</li>
         <li><strong>Render UX:</strong> run <code>backfill-rendered-ux-spec</code> when the descriptive slice has visual or UX-visible behavior.</li>
-        <li><strong>Draft technical:</strong> create or update contract-first technical specs that classify required contracts, current evidence, architecture constraints, and implementation latitude.</li>
-        <li><strong>Evaluate slice:</strong> run the hard loop for each queued slice: check, evaluate, revise category gaps, re-evaluate, and mark acceptable only after the gate passes or a named human decision blocks progress.</li>
-        <li><strong>Validate:</strong> check layer artifacts, check the durable queue, check the execution run log, regenerate the spec registry, and run spec checks.</li>
+        <li><strong>Author Technical Specs:</strong> create or update contract-first technical specs that classify required contracts, current evidence, architecture constraints, and implementation latitude.</li>
+        <li><strong>Evaluate Job Slices:</strong> run the hard loop for each queued slice: check, evaluate, revise category gaps, re-evaluate, and mark acceptable only after the gate passes or a named human decision blocks progress.</li>
+        <li><strong>Validate:</strong> check layer artifacts, check the Job / Spec Queue, check the execution run log, regenerate the spec registry, and run spec checks.</li>
         <li><strong>Continue:</strong> update the report and start the next queued slice until every capability is acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope.</li>
-        <li><strong>Evaluate graph:</strong> evaluate the completed spec graph for rebuild-grade intent preservation before final handoff.</li>
+        <li><strong>Evaluate System Coherence:</strong> evaluate the completed spec graph for rebuild-grade intent preservation before final handoff.</li>
         <li><strong>Handoff:</strong> produce the final report with coverage, artifact paths, ready/draft specs, blockers, uncertainties, stale/conflicting evidence, and next actions.</li>
       </ol>
     </section>
@@ -593,16 +593,16 @@
       <table class="status-table">
         <thead><tr><th>Artifact</th><th>Required fields</th><th>Invariant</th><th>Owner</th></tr></thead>
         <tbody>
-          <tr><td>Backfill report</td><td>run ID, date, target repo, Foundation revision, top-level spec, embedded durable queue, review queue, evaluation status, validation results</td><td>Can resume the run from durable files.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Backfill report</td><td>run ID, date, target repo, Foundation revision, top-level spec, embedded Job / Spec Queue, review queue, evaluation status, validation results</td><td>Can resume the run from durable files.</td><td><code>backfill-specs</code></td></tr>
           <tr><td>Execution run log</td><td>run ID, sequence, timestamp, slice, phase, event, summary, artifacts read/changed, commands, checks, duration, result, next action</td><td>Append-only JSONL events describe what happened without replacing the queue as canonical state.</td><td><code>backfill-specs</code></td></tr>
           <tr><td>Layer artifact row</td><td>layer ID, run ID, canonical JSONL path, eval JSONL path, HTML summary path, checker result, eval result, pending count, next layer</td><td>Every durable layer can hand off through machine-readable state and human-readable summaries.</td><td>owning layer spec</td></tr>
-          <tr><td>Surface registry row</td><td>ID, kind, upstream file rows, evidence paths, exposed/dependent object, operation, consumer/actor hints, rules/states, review flags</td><td>Every behavior-bearing file row is resolved to surfaces, support classification, or review.</td><td><code>foundation.backfill-surface-registry</code></td></tr>
-          <tr><td>Capability matrix row</td><td>ID, actor, outcome, domain object, actions, states, permissions/rules, surfaces, backing contracts, failure/recovery, evidence, status, split state, upstream surface refs</td><td>Every ready surface is represented by a terminal capability row before Split And Queue consumes it.</td><td><code>foundation.backfill-capability-matrix</code></td></tr>
-          <tr><td>Durable queue slice</td><td>ID, scope, capability IDs, status, owner skill, descriptive spec, technical spec, score, next action, exit criterion, blocking gaps, evidence rows</td><td>Every slice has exactly one current next action unless it is acceptable, out of scope, or blocked by human decision.</td><td><code>backfill-specs</code></td></tr>
-          <tr><td>Evidence pack row</td><td>slice ID, file rows, surface rows, capability rows, tests, docs, schemas, snippets, excluded near-misses, sufficiency rationale</td><td>Slice work loads bounded evidence instead of rediscovering the repo.</td><td><code>foundation.backfill-evidence-pack</code></td></tr>
+          <tr><td>Surface / Function Map row</td><td>ID, kind, upstream file rows, evidence paths, exposed/dependent object, operation, consumer/actor hints, rules/states, review flags</td><td>Every behavior-bearing file row is resolved to surfaces, support classification, or review.</td><td><code>foundation.backfill-surface-registry</code></td></tr>
+          <tr><td>Capability Map row</td><td>ID, actor, outcome, domain object, actions, states, permissions/rules, surfaces, backing contracts, failure/recovery, evidence, status, split state, upstream surface refs</td><td>Every ready surface is represented by a terminal capability row before Define Spec Jobs consumes it.</td><td><code>foundation.backfill-capability-matrix</code></td></tr>
+          <tr><td>Job / Spec Queue slice</td><td>ID, scope, capability IDs, status, owner skill, descriptive spec, technical spec, score, next action, exit criterion, blocking gaps, evidence rows</td><td>Every slice has exactly one current next action unless it is acceptable, out of scope, or blocked by human decision.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Context Pack row</td><td>slice ID, file rows, surface rows, capability rows, tests, docs, schemas, snippets, excluded near-misses, sufficiency rationale</td><td>Slice work loads bounded evidence instead of rediscovering the repo.</td><td><code>foundation.backfill-evidence-pack</code></td></tr>
           <tr><td>Inventory row</td><td>ID, category, label, evidence path, owning spec, coverage layer, missing detail, notes</td><td>Every relevant row maps to a capability row, non-behavioral support note, parent-owned reason, blocked human decision, or out-of-scope status by completion.</td><td><code>backfill-repo-inventory</code></td></tr>
-          <tr><td>User flow row</td><td>user, entry point, intent, actions, states, success, failure/recovery, evidence, owning spec</td><td>Every user-facing entry point maps to a concrete flow.</td><td><code>backfill-user-flow-extraction</code></td></tr>
-          <tr><td>Adequacy row</td><td>slice, specs, inventory result, flow result, rendered UX result, technical result, architecture flexibility result, traceability result, revisions, evaluator readiness</td><td>A slice advances to strict evaluation after adequacy review passes or records isolated non-blocking human questions.</td><td><code>backfill-spec-adequacy-review</code></td></tr>
+          <tr><td>Process/action row</td><td>actor, entry point, intent, actions, states, success, failure/recovery, evidence, owning spec</td><td>Every user-facing or operator-facing entry point maps to concrete process/action rows.</td><td><code>backfill-user-flow-extraction</code></td></tr>
+          <tr><td>Adequacy row</td><td>slice, specs, inventory result, process/action result, rendered UX result, technical result, architecture flexibility result, traceability result, revisions, evaluator readiness</td><td>A slice advances to strict evaluation after Review Spec Adequacy passes or records isolated non-blocking human questions.</td><td><code>backfill-spec-adequacy-review</code></td></tr>
           <tr><td>Evaluation row</td><td>slice, total score, category scores, citations, revision owner, next action, queue status</td><td>A slice advances to acceptable only when it reaches the strict 100-point threshold.</td><td><code>evaluate-backfill-specs</code></td></tr>
         </tbody>
       </table>
@@ -618,11 +618,11 @@
           <tr><td>Split rule</td><td>Capability rows split when they combine materially different actors, outcomes, domain objects, state machines, permission models, backing contracts, recovery behavior, or verification targets.</td><td>Strict evaluation needs bounded behavior units instead of broad domain summaries.</td></tr>
           <tr><td>Descriptive/technical split</td><td>Descriptive specs define architecture-agnostic user/operator intent; technical specs define contract-level system requirements.</td><td>The spec graph preserves intent while allowing implementation improvement.</td></tr>
           <tr><td>Architecture classification</td><td>Technical specs classify required contracts, current implementation evidence, architecture constraints, and implementation latitude.</td><td>Future build agents know what must remain true and where architecture may change.</td></tr>
-          <tr><td>Layered workflow</td><td>File registry, surface registry, capability matrix, split/queue, evidence pack, flow extraction, spec authoring, slice evaluation, graph evaluation, and handoff are separate artifact-owning units when they own state.</td><td>Focused steps reduce context loss and make completion testable.</td></tr>
+          <tr><td>Layered workflow</td><td>Artifact Inventory, Surface / Function Map, Capability Map, Job / Spec Queue, Context Pack, Process / Action Map, Author Specs, Evaluate Job Slices, Evaluate System Coherence, and handoff are separate artifact-owning units when they own state.</td><td>Focused steps reduce context loss and make completion testable.</td></tr>
           <tr><td>Layer handoff gate</td><td>Each layer advances only after its canonical JSONL artifact, eval JSONL receipt, derived HTML summary, deterministic checker result, semantic eval result, report entry, and run-log sequence are current or explicitly blocked.</td><td>The next layer consumes proven substrate instead of inherited chat assumptions.</td></tr>
-          <tr><td>No direct jump</td><td>The orchestrator must not allow spec authoring, slice acceptance, or graph completion to start directly from raw files when Surface Registry, Capability Matrix, Split/Queue, Evidence Pack, or Flow Extraction artifacts are missing. Missing upstream artifacts are blockers, not shortcuts.</td><td>"We saw files" and "we understood the system" are separate claims with separate proof.</td></tr>
+          <tr><td>No direct jump</td><td>The orchestrator must not allow Author Specs, slice acceptance, or graph completion to start directly from raw files when Surface / Function Map, Capability Map, Job / Spec Queue, Context Pack, or Process / Action Map artifacts are missing. Missing upstream artifacts are blockers, not shortcuts.</td><td>"We saw files" and "we understood the system" are separate claims with separate proof.</td></tr>
           <tr><td>State and observability split</td><td>The report and embedded queue own durable run state; the JSONL run log owns execution observability.</td><td>Agents can resume from state while users can inspect how work proceeded.</td></tr>
-          <tr><td>User flow depth</td><td>User-facing behavior is sliced by concrete user flows where possible.</td><td>Flow-sized specs can carry specific states, rules, and rendered examples.</td></tr>
+          <tr><td>Process/action map depth</td><td>User-facing and operator-facing behavior is sliced by concrete process/action rows where possible.</td><td>Process/action-sized specs can carry specific states, rules, and rendered examples.</td></tr>
           <tr><td>Parent/child graph</td><td>Parent specs define vocabulary and boundaries; child specs carry behavior.</td><td>Behavior coverage has an explicit owner.</td></tr>
           <tr><td>Adequacy gate</td><td>The review question is whether a future build agent could implement intended behavior from specs alone while preserving required contracts and using implementation latitude where architecture is flexible.</td><td>This is the practical signal that the spec has enough detail.</td></tr>
           <tr><td>Evaluation gate</td><td>The final graph is judged by <code>evaluate-backfill-specs</code> against the golden example and scoring rubric.</td><td>Backfill quality is evaluated as a system output, not just a file-generation task.</td></tr>
@@ -636,7 +636,7 @@
       <ul>
         <li><strong>Resume:</strong> read the report, inventory, top-level spec, current slice specs, and relevant skill before continuing.</li>
         <li><strong>Observe:</strong> append run-log checkpoint, start, complete, validation, evaluation, and handoff events as phases progress.</li>
-        <li><strong>Revision loop:</strong> adequacy review or strict evaluation may send the slice back to inventory, flow extraction, descriptive authoring, rendered UX, or technical authoring before the next slice begins.</li>
+        <li><strong>Revision loop:</strong> Review Spec Adequacy or strict evaluation may send the slice back to inventory, Process / Action Map, descriptive authoring, rendered UX, or technical authoring before the next slice begins.</li>
         <li><strong>Validation cadence:</strong> run spec registry/check after each acceptable slice or grouped set of tightly related child specs.</li>
       </ul>
     </section>
@@ -646,16 +646,16 @@
       <table class="status-table">
         <thead><tr><th>Failure</th><th>System behavior</th><th>User behavior</th><th>Evidence</th></tr></thead>
         <tbody>
-          <tr><td>Durable queue</td><td>Inventory rows awaiting owner specs, child behavior coverage, revision, evaluation, or human decision remain in the slice queue.</td><td>User sees the remaining slice queue until coverage is complete.</td><td>Embedded queue and visible table</td></tr>
+          <tr><td>Job / Spec Queue</td><td>Inventory rows awaiting owner specs, child behavior coverage, revision, evaluation, or human decision remain in the slice queue.</td><td>User sees the remaining slice queue until coverage is complete.</td><td>Embedded queue and visible table</td></tr>
           <tr><td>Execution run log missing or malformed</td><td>Run-log validation fails and the agent repairs JSONL shape or appends the missing phase evidence before handoff.</td><td>User receives an inspectable record of phase progress, commands, checks, and next action.</td><td>Run log checker</td></tr>
-          <tr><td>Capability matrix missing or shallow</td><td>Adequacy review and evaluator route the run back to inventory before additional slice closure.</td><td>User sees which capabilities are unmapped, too broad, missing owner specs, or missing verification targets.</td><td>Capability matrix and evaluation report</td></tr>
-          <tr><td>Broad slice compression</td><td>The split rule marks the row <code>needs-split</code> and prevents acceptable status until behavior-bearing child capabilities exist.</td><td>User receives smaller specs that can describe state, contracts, and recovery in rebuild-useful detail.</td><td>Capability matrix split state</td></tr>
-          <tr><td>Adequacy loop</td><td>Adequacy review marks flows, rules, UX, or technical contracts for revision and loops to the owning skill.</td><td>User receives specs that have passed the review gate before evaluator scoring.</td><td>Adequacy table</td></tr>
+          <tr><td>Capability Map missing or shallow</td><td>Review Spec Adequacy and evaluator route the run back to inventory before additional slice closure.</td><td>User sees which capabilities are unmapped, too broad, missing owner specs, or missing verification targets.</td><td>Capability Map and evaluation report</td></tr>
+          <tr><td>Broad slice compression</td><td>The split rule marks the row <code>needs-split</code> and prevents acceptable status until behavior-bearing child capabilities exist.</td><td>User receives smaller specs that can describe state, contracts, and recovery in rebuild-useful detail.</td><td>Capability Map split state</td></tr>
+          <tr><td>Adequacy loop</td><td>Review Spec Adequacy marks process/action rows, rules, UX, or technical contracts for revision and loops to the owning skill.</td><td>User receives specs that have passed the review gate before evaluator scoring.</td><td>Adequacy table</td></tr>
           <tr><td>Evaluation loop</td><td>Evaluator category scores below threshold route the slice back to the owner skill with exit criteria.</td><td>User receives acceptable slices rather than passable summaries.</td><td>Evaluation report and queue update</td></tr>
           <tr><td>Context reset</td><td>Next agent resumes from report, embedded queue, inventory, current specs, and skill chain.</td><td>User continues from durable state.</td><td>Dated report</td></tr>
           <tr><td>Evidence conflict</td><td>Report records the contradiction and the spec states evidence-backed intended behavior with review notes.</td><td>User can adjudicate high-value questions after full coverage exists.</td><td>Review queue</td></tr>
-          <tr><td>Architecture classification gap</td><td>Adequacy review sends current implementation details back for classification as required contracts, current evidence, justified constraints, or implementation latitude.</td><td>User receives specs that preserve necessary contracts and keep flexible implementation choices available.</td><td>Architecture flexibility result</td></tr>
-          <tr><td>Spec-only rebuild gap</td><td>The evaluator lists source files still needed for core behavior and routes missing behavior to descriptive, technical, inventory, or flow authoring.</td><td>User receives specs that reduce source-code dependency before the graph is called complete.</td><td>Spec-only rebuild probe</td></tr>
+          <tr><td>Architecture classification gap</td><td>Review Spec Adequacy sends current implementation details back for classification as required contracts, current evidence, justified constraints, or implementation latitude.</td><td>User receives specs that preserve necessary contracts and keep flexible implementation choices available.</td><td>Architecture flexibility result</td></tr>
+          <tr><td>Spec-only rebuild gap</td><td>The evaluator lists source files still needed for core behavior and routes missing behavior to descriptive, technical, Artifact Inventory, or Process / Action Map authoring.</td><td>User receives specs that reduce source-code dependency before the graph is called complete.</td><td>Spec-only rebuild probe</td></tr>
         </tbody>
       </table>
     </section>
@@ -665,7 +665,7 @@
       <ul>
         <li><strong>Orchestrator:</strong> sequencing, report state, skill selection, validation, and completion.</li>
         <li><strong>Inventory skill:</strong> evidence discovery and coverage ledger.</li>
-        <li><strong>User-flow skill:</strong> user-centered journeys and flow granularity.</li>
+        <li><strong>Process / Action Map skill:</strong> actor-centered journeys, decisions, actions, and state granularity.</li>
         <li><strong>Authoring skills:</strong> descriptive intent, rendered UX, and technical contracts.</li>
         <li><strong>Review skill:</strong> adequacy gate and revision loop.</li>
       </ul>
@@ -681,13 +681,13 @@
       <h3>Direct paths</h3>
       <ul class="path-list">
         <li data-implementation-path="foundation/skills/backfill-repo-inventory/SKILL.md"><code>foundation/skills/backfill-repo-inventory/SKILL.md</code> - inventory and coverage ledger workflow.</li>
-        <li data-implementation-path="foundation/skills/backfill-user-flow-extraction/SKILL.md"><code>foundation/skills/backfill-user-flow-extraction/SKILL.md</code> - concrete user-flow extraction workflow.</li>
-        <li data-implementation-path="foundation/skills/backfill-descriptive-spec-author/SKILL.md"><code>foundation/skills/backfill-descriptive-spec-author/SKILL.md</code> - descriptive spec authoring workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-user-flow-extraction/SKILL.md"><code>foundation/skills/backfill-user-flow-extraction/SKILL.md</code> - concrete Process / Action Map workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-descriptive-spec-author/SKILL.md"><code>foundation/skills/backfill-descriptive-spec-author/SKILL.md</code> - descriptive Author Specs workflow.</li>
         <li data-implementation-path="foundation/skills/backfill-rendered-ux-spec/SKILL.md"><code>foundation/skills/backfill-rendered-ux-spec/SKILL.md</code> - rendered UX workflow.</li>
-        <li data-implementation-path="foundation/skills/backfill-technical-spec-author/SKILL.md"><code>foundation/skills/backfill-technical-spec-author/SKILL.md</code> - technical spec authoring workflow.</li>
-        <li data-implementation-path="foundation/skills/backfill-spec-adequacy-review/SKILL.md"><code>foundation/skills/backfill-spec-adequacy-review/SKILL.md</code> - adequacy review workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-technical-spec-author/SKILL.md"><code>foundation/skills/backfill-technical-spec-author/SKILL.md</code> - technical Author Specs workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-spec-adequacy-review/SKILL.md"><code>foundation/skills/backfill-spec-adequacy-review/SKILL.md</code> - Review Spec Adequacy workflow.</li>
         <li data-implementation-path="foundation/skills/evaluate-backfill-specs/SKILL.md"><code>foundation/skills/evaluate-backfill-specs/SKILL.md</code> - graph-level semantic evaluation workflow.</li>
-        <li data-implementation-path="foundation/scripts/backfill-queue-check.mjs"><code>foundation/scripts/backfill-queue-check.mjs</code> - durable queue validation command.</li>
+        <li data-implementation-path="foundation/scripts/backfill-queue-check.mjs"><code>foundation/scripts/backfill-queue-check.mjs</code> - Job / Spec Queue validation command.</li>
         <li data-implementation-path="foundation/scripts/backfill-run-log-check.mjs"><code>foundation/scripts/backfill-run-log-check.mjs</code> - execution run log validation command.</li>
       </ul>
       <h3>Coverage</h3>
@@ -695,13 +695,13 @@
         <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>
         <tbody>
           <tr><td>FBO-1</td><td><code>#internal-sequence</code></td><td>Backfill orchestrator names the skill chain and resumable loop.</td><td>existing</td></tr>
-          <tr><td>FBO-2</td><td><code>#contracts</code></td><td>Adequacy review skill defines the evaluator-readiness gate.</td><td>existing</td></tr>
+          <tr><td>FBO-2</td><td><code>#contracts</code></td><td>Review Spec Adequacy skill defines the evaluator-readiness gate.</td><td>existing</td></tr>
           <tr><td>FBO-3</td><td><code>#paths-and-coverage</code></td><td>Doctor fixtures include required backfill sub-skills.</td><td>existing</td></tr>
           <tr><td>FBO-4</td><td><code>#failure-modes</code></td><td>Manual large-repo pilot for capability coverage, strict evaluation, and queue-resume behavior.</td><td>planned</td></tr>
           <tr><td>FBO-5</td><td><code>#contracts</code></td><td>Technical authoring skill requires architecture classification.</td><td>existing</td></tr>
-          <tr><td>FBO-6</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill queue checker validates embedded capability matrix and durable queue structure.</td><td>existing</td></tr>
+          <tr><td>FBO-6</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill queue checker validates embedded Capability Map and Job / Spec Queue structure.</td><td>existing</td></tr>
           <tr><td>FBO-7</td><td><code>#data-model</code>, <code>#failure-modes</code></td><td>Backfill run log checker validates JSONL execution event structure.</td><td>existing</td></tr>
-          <tr><td>FBO-8</td><td><code>#data-model</code>, <code>#contracts</code></td><td>Capability Matrix, inventory, and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass.</td><td>existing</td></tr>
+          <tr><td>FBO-8</td><td><code>#data-model</code>, <code>#contracts</code></td><td>Capability Map, inventory, and orchestrator skills define Capability Map rows, capability-backed queues, and the split pass.</td><td>existing</td></tr>
         </tbody>
       </table>
     </section>

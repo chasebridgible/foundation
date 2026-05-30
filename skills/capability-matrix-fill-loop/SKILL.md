@@ -1,11 +1,11 @@
 ---
 name: capability-matrix-fill-loop
-description: Fill or resume the Foundation Capability Matrix layer by grouping reviewed Surface Registry rows into actor/outcome capability rows, checking coverage and split discipline, evaluating, and recording handoff to Split And Queue.
+description: Fill or resume the Foundation Capability Map layer by grouping reviewed Surface / Function Map rows into actor/outcome capability rows, checking coverage and split discipline, evaluating, and recording handoff to Define Spec Jobs.
 ---
 
-# Capability Matrix Fill Loop
+# Capability Map Fill Loop
 
-Use this skill when a target repo is creating, refreshing, revising, checking, evaluating, or resuming a Foundation Capability Matrix.
+Use this skill when a target repo is creating, refreshing, revising, checking, evaluating, or resuming a Foundation Capability Map. Legacy file names, spec IDs, and commands still use `capability-matrix`.
 
 ## Source Of Truth
 
@@ -16,31 +16,33 @@ Load only the context needed for the current step:
 - active target report and run log named by the target repo
 - current target `surface-registry-<run-id>.jsonl`
 - current target `capability-matrix-<run-id>.jsonl`
-- Capability Matrix specs when changing the process/schema or resolving checker/eval ambiguity:
+- Capability Map specs when changing the process/schema or resolving checker/eval ambiguity:
   - `docs/specs/foundation-backfill-capability-matrix.html`
   - `docs/specs/foundation-backfill-capability-matrix-technical.html`
   - `docs/specs/foundation-backfill-capability-matrix-test.html`
 
 ## Commands
 
-- Initialize: `npm run foundation:capability-matrix:init -- --repo <repo> --run-id <run-id>`
-- Get next target: `npm run foundation:capability-matrix:fill -- --repo <repo> --run-id <run-id> --next`
-- Mark reviewed surfaces: `npm run foundation:capability-matrix:fill -- --repo <repo> --run-id <run-id> --surface-ids <surface-id[,surface-id]> --capabilities-json '<json-array>'`
-- Check during work: `npm run foundation:capability-matrix:check -- --repo <repo> --run-id <run-id> --phase batch`
-- Check handoff: `npm run foundation:capability-matrix:check -- --repo <repo> --run-id <run-id> --phase handoff`
-- Evaluate: `npm run foundation:capability-matrix:eval -- --repo <repo> --run-id <run-id>`
-- Refresh changed upstream surfaces: `npm run foundation:capability-matrix:refresh -- --repo <repo> --run-id <run-id>`
-- Record report state: `npm run foundation:capability-matrix:report -- --repo <repo> --run-id <run-id> --report <active-report>`
+- Initialize: `npm run foundation:capability-map:init -- --repo <repo> --run-id <run-id>`
+- Get next target: `npm run foundation:capability-map:fill -- --repo <repo> --run-id <run-id> --next`
+- Mark reviewed surfaces: `npm run foundation:capability-map:fill -- --repo <repo> --run-id <run-id> --surface-ids <surface-id[,surface-id]> --capabilities-json '<json-array>'`
+- Check during work: `npm run foundation:capability-map:check -- --repo <repo> --run-id <run-id> --phase batch`
+- Check handoff: `npm run foundation:capability-map:check -- --repo <repo> --run-id <run-id> --phase handoff`
+- Evaluate: `npm run foundation:capability-map:eval -- --repo <repo> --run-id <run-id>`
+- Refresh changed upstream surfaces: `npm run foundation:capability-map:refresh -- --repo <repo> --run-id <run-id>`
+- Record report state: `npm run foundation:capability-map:report -- --repo <repo> --run-id <run-id> --report <active-report>`
+
+The older `foundation:capability-matrix:*` commands remain valid aliases for compatibility.
 
 ## Required Loop
 
 1. Use `--next` to select a pending or failed surface target.
-2. Read the selected Surface Registry row and enough nearby ready surface rows to decide whether they belong to the same actor/outcome capability.
+2. Read the selected Surface / Function Map row and enough nearby ready surface rows to decide whether they belong to the same actor/outcome capability.
 3. Group only reviewed ready-for-capability surface rows. Support classifications are evidence, not upstream capability rows.
 4. Immediately mark that reviewed group with inline `--capabilities-json`.
 5. Do not rely on generated capability files, all-file fill modes, or broad path/domain summaries. The fill command rejects those shortcuts.
 6. Run the batch checker often enough that missing formula fields, uncovered surfaces, stale upstream refs, and split issues are fixed before many more rows are marked.
-7. Repeat until every ready surface is owned by a `ready-for-queue` or `needs-split` capability row.
+7. Repeat until every ready surface is owned by a `ready-for-queue` or `needs-split` capability row for the Job / Spec Queue.
 8. Run handoff check and eval once the layer is terminal.
 9. Revise every row named in eval `revisionTargets`; warnings are not handoff-ready.
 10. Rerun check and eval until `revisionTargets` is empty, then record report state.
@@ -71,4 +73,4 @@ Use `status: "ready-for-queue"` when the row is exact enough for a queue slice. 
 ]
 ```
 
-The fill command writes stable IDs, upstream surface references, freshness fingerprints, and evidence references. It replaces prior Capability Matrix rows that overlap the reviewed surface IDs, so include every capability row needed for that reviewed set in the same mark command.
+The fill command writes stable IDs, upstream surface references, freshness fingerprints, and evidence references. It replaces prior Capability Map rows that overlap the reviewed surface IDs, so include every capability row needed for that reviewed set in the same mark command.

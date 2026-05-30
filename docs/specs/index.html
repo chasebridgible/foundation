@@ -931,7 +931,7 @@
     },
     {
       "id": "foundation.backfill-capability-matrix.technical",
-      "title": "Foundation Backfill Capability Matrix Technical Spec",
+      "title": "Foundation Backfill Capability Map Technical Spec",
       "type": "technical",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-matrix-technical.html",
@@ -1040,7 +1040,7 @@
             "foundation.backfill-capability-matrix.technical#data-model",
             "foundation.backfill-capability-matrix.technical#contracts"
           ],
-          "evidence": "Capability Matrix tests verify upstream Surface Registry handoff enforcement, inline reviewed-surface grouping, row schema, enums, duplicate and stale upstream checks, ready-surface coverage, split discipline, report drift, eval receipts, and refresh invalidation."
+          "evidence": "Capability Map tests verify upstream Surface / Function Map handoff enforcement, inline reviewed-surface grouping, row schema, enums, duplicate and stale upstream checks, ready-surface coverage, split discipline, report drift, eval receipts, and refresh invalidation."
         }
       ],
       "tags": [
@@ -1053,7 +1053,7 @@
     },
     {
       "id": "foundation.backfill-capability-matrix.test",
-      "title": "Foundation Backfill Capability Matrix Test Spec",
+      "title": "Foundation Backfill Capability Map Test Spec",
       "type": "test",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-matrix-test.html",
@@ -1132,7 +1132,7 @@
             "foundation.backfill-capability-matrix.test#acceptance-mapping",
             "foundation.backfill-capability-matrix.test#eval-contract"
           ],
-          "evidence": "Capability Matrix tests cover Surface Registry handoff consumption, pending and terminal handoff states, reviewed surface grouping, deterministic check failures, eval JSONL/HTML artifacts, refresh invalidation, report state, and report drift."
+          "evidence": "Capability Map tests cover Surface / Function Map handoff consumption, pending and terminal handoff states, reviewed surface grouping, deterministic check failures, eval JSONL/HTML artifacts, refresh invalidation, report state, and report drift."
         }
       ],
       "tags": [
@@ -1145,7 +1145,7 @@
     },
     {
       "id": "foundation.backfill-capability-matrix.descriptive",
-      "title": "Foundation Backfill Capability Matrix",
+      "title": "Foundation Backfill Capability Map",
       "type": "descriptive",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-matrix.html",
@@ -1242,7 +1242,7 @@
             "foundation.backfill-capability-matrix.descriptive#artifacts-and-state",
             "foundation.backfill-capability-matrix.descriptive#handoff-gate"
           ],
-          "evidence": "Capability Matrix tests cover initialization from Surface Registry handoff, pending and terminal states, coverage of ready surfaces, split flags, checker output, eval receipts, HTML summary, refresh invalidation, and report handoff state."
+          "evidence": "Capability Map tests cover initialization from Surface / Function Map handoff, pending and terminal states, coverage of ready surfaces, split flags, checker output, eval receipts, HTML summary, refresh invalidation, and report handoff state."
         }
       ],
       "tags": [
@@ -1335,7 +1335,7 @@
           "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Per-slice adequacy review feeds the final evaluation."
+          "notes": "Per-slice Review Spec Adequacy feeds the final evaluation."
         },
         {
           "path": "foundation/scripts/foundation-doctor.mjs",
@@ -1398,7 +1398,7 @@
     },
     {
       "id": "foundation.backfill-evidence-pack.technical",
-      "title": "Foundation Backfill Evidence Pack Technical Spec",
+      "title": "Foundation Backfill Context Pack Technical Spec",
       "type": "technical",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-evidence-pack-technical.html",
@@ -1471,7 +1471,7 @@
           "path": "foundation/scripts/evidence-pack-init.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Creates evidence-pack JSONL from passing Split And Queue artifacts."
+          "notes": "Creates evidence-pack JSONL from passing Define Spec Jobs artifacts."
         },
         {
           "path": "foundation/scripts/evidence-pack-fill.mjs",
@@ -1495,13 +1495,13 @@
           "path": "foundation/scripts/evidence-pack-refresh.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Invalidates stale packs when Split And Queue rows change."
+          "notes": "Invalidates stale packs when Define Spec Jobs rows change."
         },
         {
           "path": "foundation/scripts/evidence-pack-report.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Embeds canonical Evidence Pack payloads plus handoff state in reports."
+          "notes": "Embeds canonical Context Pack payloads plus handoff state in reports."
         }
       ],
       "coverage": [
@@ -1515,7 +1515,7 @@
             "foundation.backfill-evidence-pack.technical#checker-and-fill-loop",
             "foundation.backfill-evidence-pack.technical#failure-modes"
           ],
-          "evidence": "Evidence Pack tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, exact evidence specificity, eval scoring, refresh invalidation, and report drift."
+          "evidence": "Context Pack tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, exact evidence specificity, eval scoring, refresh invalidation, and report drift."
         }
       ],
       "tags": [
@@ -1528,7 +1528,7 @@
     },
     {
       "id": "foundation.backfill-evidence-pack.test",
-      "title": "Foundation Backfill Evidence Pack Test Spec",
+      "title": "Foundation Backfill Context Pack Test Spec",
       "type": "test",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-evidence-pack-test.html",
@@ -1600,7 +1600,7 @@
           "path": "foundation/scripts/evidence-pack.test.mjs",
           "kind": "test",
           "ownership": "direct",
-          "notes": "Executable test coverage for the Evidence Pack acceptance map."
+          "notes": "Executable test coverage for the Context Pack acceptance map."
         },
         {
           "path": "foundation/scripts/evidence-pack-core.mjs",
@@ -1619,7 +1619,7 @@
             "foundation.backfill-evidence-pack.test#acceptance-mapping",
             "foundation.backfill-evidence-pack.test#eval-contract"
           ],
-          "evidence": "Evidence Pack tests cover artifact creation, upstream reference resolution, valid states, structural drift failures, weak semantic eval findings, explicit handoff state, eval freshness, refresh invalidation, and report drift."
+          "evidence": "Context Pack tests cover artifact creation, upstream reference resolution, valid states, structural drift failures, weak semantic eval findings, explicit handoff state, eval freshness, refresh invalidation, and report drift."
         }
       ],
       "tags": [
@@ -1632,7 +1632,7 @@
     },
     {
       "id": "foundation.backfill-evidence-pack.descriptive",
-      "title": "Foundation Backfill Evidence Pack",
+      "title": "Foundation Backfill Context Pack",
       "type": "descriptive",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-evidence-pack.html",
@@ -1712,25 +1712,25 @@
           "path": "foundation/scripts/evidence-pack-core.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Canonical Evidence Pack schema, upstream handoff gate, checker, eval, refresh, and report state logic."
+          "notes": "Canonical Context Pack schema, upstream handoff gate, checker, eval, refresh, and report state logic."
         },
         {
           "path": "foundation/scripts/evidence-pack-init.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Initializes pending Evidence Pack rows from passing Split And Queue handoff."
+          "notes": "Initializes pending Context Pack rows from passing Define Spec Jobs handoff."
         },
         {
           "path": "foundation/scripts/evidence-pack-fill.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Writes reviewed bounded evidence packs from selected queue slices."
+          "notes": "Writes reviewed bounded Context Packs from selected queue slices."
         },
         {
           "path": "foundation/scripts/evidence-pack-check.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Runs deterministic Evidence Pack validation."
+          "notes": "Runs deterministic Context Pack validation."
         },
         {
           "path": "foundation/scripts/evidence-pack-eval.mjs",
@@ -1742,7 +1742,7 @@
           "path": "foundation/scripts/evidence-pack-report.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Embeds handoff state and Evidence Pack payload in the backfill report."
+          "notes": "Embeds handoff state and Context Pack payload in the backfill report."
         }
       ],
       "coverage": [
@@ -1755,7 +1755,7 @@
             "foundation.backfill-evidence-pack.descriptive#artifacts-and-state",
             "foundation.backfill-evidence-pack.descriptive#handoff-gate"
           ],
-          "evidence": "Evidence Pack tests cover initialization from Split And Queue handoff, durable pack artifacts, exact evidence requirements, eval receipts, refresh invalidation, and report handoff state."
+          "evidence": "Context Pack tests cover initialization from Define Spec Jobs handoff, durable pack artifacts, exact evidence requirements, eval receipts, refresh invalidation, and report handoff state."
         }
       ],
       "tags": [
@@ -1768,7 +1768,7 @@
     },
     {
       "id": "foundation.backfill-file-registry.technical",
-      "title": "Foundation File Registry Technical Spec",
+      "title": "Foundation Artifact Inventory Technical Spec",
       "type": "technical",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
@@ -1877,7 +1877,7 @@
             "foundation.backfill-file-registry.technical#data-model",
             "foundation.backfill-file-registry.technical#contracts"
           ],
-          "evidence": "File registry tests verify registry schema, coverage, freshness, pending/mapped status gates, check receipts, and eval quality artifacts."
+          "evidence": "Artifact Inventory tests verify registry schema, coverage, freshness, pending/mapped status gates, check receipts, and eval quality artifacts."
         },
         {
           "id": "BFR-T-2",
@@ -1888,7 +1888,7 @@
             "foundation.backfill-file-registry.technical#graph-links",
             "foundation.backfill-file-registry.technical#lifecycle-modes"
           ],
-          "evidence": "File registry tests verify strict graph-link integrity and changed-file refresh behavior."
+          "evidence": "Artifact Inventory tests verify strict graph-link integrity and changed-file refresh behavior."
         }
       ],
       "tags": [
@@ -1902,7 +1902,7 @@
     },
     {
       "id": "foundation.backfill-file-registry.test",
-      "title": "Foundation File Registry Test Spec",
+      "title": "Foundation Artifact Inventory Test Spec",
       "type": "test",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-file-registry-test.html",
@@ -1964,7 +1964,7 @@
           "path": "foundation/docs/specs/foundation-backfill-file-registry.html",
           "kind": "doc",
           "ownership": "reference",
-          "notes": "Descriptive intent for the file registry layer."
+          "notes": "Descriptive intent for the Artifact Inventory layer."
         },
         {
           "path": "foundation/docs/specs/foundation-backfill-file-registry-technical.html",
@@ -1992,7 +1992,7 @@
           "mapsTo": [
             "foundation.backfill-file-registry.descriptive#ux-contracts"
           ],
-          "evidence": "File registry tests prove JSONL eval receipts, derived HTML summaries, report handoff state, and full-run acceptability mechanics; Sandia Oil calibration remains the real-repo proof target."
+          "evidence": "Artifact Inventory tests prove JSONL eval receipts, derived HTML summaries, report handoff state, and full-run acceptability mechanics; Sandia Oil calibration remains the real-repo proof target."
         },
         {
           "id": "BFR-E-3",
@@ -2018,7 +2018,7 @@
     },
     {
       "id": "foundation.backfill-file-registry.descriptive",
-      "title": "Foundation File Registry",
+      "title": "Foundation Artifact Inventory",
       "type": "descriptive",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-file-registry.html",
@@ -2109,7 +2109,7 @@
             "foundation.backfill-file-registry.descriptive#states-and-rules",
             "foundation.backfill-file-registry.descriptive#ux-contracts"
           ],
-          "evidence": "File registry tests cover deterministic init, handoff checks, JSONL eval receipts, derived HTML summaries, report state, and changed-file refresh."
+          "evidence": "Artifact Inventory tests cover deterministic init, handoff checks, JSONL eval receipts, derived HTML summaries, report state, and changed-file refresh."
         },
         {
           "id": "BFR-D-2",
@@ -2119,7 +2119,7 @@
           "mapsTo": [
             "foundation.backfill-file-registry.descriptive#system-relationship"
           ],
-          "evidence": "File registry graph-check tests verify file-to-spec, file-to-capability, and file-to-verification-or-gap links."
+          "evidence": "Artifact Inventory graph-check tests verify file-to-spec, file-to-capability, and file-to-verification-or-gap links."
         }
       ],
       "tags": [
@@ -2133,7 +2133,7 @@
     },
     {
       "id": "foundation.backfill-flow-extraction.technical",
-      "title": "Foundation Backfill User Operator Flow Extraction Technical Spec",
+      "title": "Foundation Backfill Process / Action Map Technical Spec",
       "type": "technical",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-flow-extraction-technical.html",
@@ -2206,7 +2206,7 @@
           "mapsTo": [
             "foundation.backfill-flow-extraction.technical#contracts"
           ],
-          "evidence": "Planned Foundation Backfill User Operator Flow Extraction technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Process / Action Map technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -2219,7 +2219,7 @@
     },
     {
       "id": "foundation.backfill-flow-extraction.test",
-      "title": "Foundation Backfill User Operator Flow Extraction Test Spec",
+      "title": "Foundation Backfill Process / Action Map Test Spec",
       "type": "test",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-flow-extraction-test.html",
@@ -2292,7 +2292,7 @@
           "mapsTo": [
             "foundation.backfill-flow-extraction.test#eval-contract"
           ],
-          "evidence": "Planned Foundation Backfill User Operator Flow Extraction test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Process / Action Map test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -2305,7 +2305,7 @@
     },
     {
       "id": "foundation.backfill-flow-extraction.descriptive",
-      "title": "Foundation Backfill User Operator Flow Extraction",
+      "title": "Foundation Backfill Process / Action Map",
       "type": "descriptive",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-flow-extraction.html",
@@ -2391,7 +2391,7 @@
           "mapsTo": [
             "foundation.backfill-flow-extraction.descriptive#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill User Operator Flow Extraction descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Process / Action Map descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -2404,7 +2404,7 @@
     },
     {
       "id": "foundation.backfill-graph-evaluation.technical",
-      "title": "Foundation Backfill Graph Evaluation Technical Spec",
+      "title": "Foundation Backfill Evaluate System Coherence Technical Spec",
       "type": "technical",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-graph-evaluation-technical.html",
@@ -2477,7 +2477,7 @@
           "mapsTo": [
             "foundation.backfill-graph-evaluation.technical#contracts"
           ],
-          "evidence": "Planned Foundation Backfill Graph Evaluation technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Evaluate System Coherence technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -2490,7 +2490,7 @@
     },
     {
       "id": "foundation.backfill-graph-evaluation.test",
-      "title": "Foundation Backfill Graph Evaluation Test Spec",
+      "title": "Foundation Backfill Evaluate System Coherence Test Spec",
       "type": "test",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-graph-evaluation-test.html",
@@ -2563,7 +2563,7 @@
           "mapsTo": [
             "foundation.backfill-graph-evaluation.test#eval-contract"
           ],
-          "evidence": "Planned Foundation Backfill Graph Evaluation test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Evaluate System Coherence test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -2576,7 +2576,7 @@
     },
     {
       "id": "foundation.backfill-graph-evaluation.descriptive",
-      "title": "Foundation Backfill Graph Evaluation",
+      "title": "Foundation Backfill Evaluate System Coherence",
       "type": "descriptive",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-graph-evaluation.html",
@@ -2662,7 +2662,7 @@
           "mapsTo": [
             "foundation.backfill-graph-evaluation.descriptive#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Graph Evaluation descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Evaluate System Coherence descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -3156,13 +3156,13 @@
           "path": "foundation/scripts/backfill-queue-check.mjs",
           "kind": "workflow",
           "ownership": "direct",
-          "notes": "Durable queue validation command."
+          "notes": "Job / Spec Queue validation command."
         },
         {
           "path": "foundation/scripts/backfill-queue-check.test.mjs",
           "kind": "test",
           "ownership": "direct",
-          "notes": "Automated coverage for durable queue validation."
+          "notes": "Automated coverage for Job / Spec Queue validation."
         },
         {
           "path": "foundation/scripts/backfill-run-log-check.mjs",
@@ -3382,7 +3382,7 @@
           "mapsTo": [
             "foundation.backfill-orchestration.technical#contracts"
           ],
-          "evidence": "Adequacy review skill defines the evaluator-readiness gate."
+          "evidence": "Review Spec Adequacy skill defines the evaluator-readiness gate."
         },
         {
           "id": "FBO-3",
@@ -3423,7 +3423,7 @@
             "foundation.backfill-orchestration.technical#data-model",
             "foundation.backfill-orchestration.technical#failure-modes"
           ],
-          "evidence": "Backfill queue checker tests validate embedded capability matrix and durable queue presence, parsing, status shape, capability references, and acceptable-score threshold."
+          "evidence": "Backfill queue checker tests validate embedded Capability Map and Job / Spec Queue presence, parsing, status shape, capability references, and acceptable-score threshold."
         },
         {
           "id": "FBO-7",
@@ -3445,7 +3445,7 @@
             "foundation.backfill-orchestration.technical#data-model",
             "foundation.backfill-orchestration.technical#contracts"
           ],
-          "evidence": "Capability Matrix, inventory, and orchestrator skills define capability matrix rows, capability-backed queues, and the split pass."
+          "evidence": "Capability Map, inventory, and orchestrator skills define Capability Map rows, capability-backed queues, and the split pass."
         }
       ],
       "tags": [
@@ -3458,7 +3458,7 @@
     },
     {
       "id": "foundation.backfill-slice-evaluation.technical",
-      "title": "Foundation Backfill Slice Evaluation Technical Spec",
+      "title": "Foundation Backfill Evaluate Job Slices Technical Spec",
       "type": "technical",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-slice-evaluation-technical.html",
@@ -3531,7 +3531,7 @@
           "mapsTo": [
             "foundation.backfill-slice-evaluation.technical#contracts"
           ],
-          "evidence": "Planned Foundation Backfill Slice Evaluation technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Evaluate Job Slices technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -3544,7 +3544,7 @@
     },
     {
       "id": "foundation.backfill-slice-evaluation.test",
-      "title": "Foundation Backfill Slice Evaluation Test Spec",
+      "title": "Foundation Backfill Evaluate Job Slices Test Spec",
       "type": "test",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-slice-evaluation-test.html",
@@ -3617,7 +3617,7 @@
           "mapsTo": [
             "foundation.backfill-slice-evaluation.test#eval-contract"
           ],
-          "evidence": "Planned Foundation Backfill Slice Evaluation test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Evaluate Job Slices test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -3630,7 +3630,7 @@
     },
     {
       "id": "foundation.backfill-slice-evaluation.descriptive",
-      "title": "Foundation Backfill Slice Evaluation",
+      "title": "Foundation Backfill Evaluate Job Slices",
       "type": "descriptive",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-slice-evaluation.html",
@@ -3716,7 +3716,7 @@
           "mapsTo": [
             "foundation.backfill-slice-evaluation.descriptive#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Slice Evaluation descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Evaluate Job Slices descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -3729,7 +3729,7 @@
     },
     {
       "id": "foundation.backfill-spec-authoring.technical",
-      "title": "Foundation Backfill Spec Authoring Technical Spec",
+      "title": "Foundation Backfill Author Specs Technical Spec",
       "type": "technical",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-spec-authoring-technical.html",
@@ -3802,7 +3802,7 @@
           "mapsTo": [
             "foundation.backfill-spec-authoring.technical#contracts"
           ],
-          "evidence": "Planned Foundation Backfill Spec Authoring technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Author Specs technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -3815,7 +3815,7 @@
     },
     {
       "id": "foundation.backfill-spec-authoring.test",
-      "title": "Foundation Backfill Spec Authoring Test Spec",
+      "title": "Foundation Backfill Author Specs Test Spec",
       "type": "test",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-spec-authoring-test.html",
@@ -3888,7 +3888,7 @@
           "mapsTo": [
             "foundation.backfill-spec-authoring.test#eval-contract"
           ],
-          "evidence": "Planned Foundation Backfill Spec Authoring test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Author Specs test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -3901,7 +3901,7 @@
     },
     {
       "id": "foundation.backfill-spec-authoring.descriptive",
-      "title": "Foundation Backfill Spec Authoring",
+      "title": "Foundation Backfill Author Specs",
       "type": "descriptive",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-spec-authoring.html",
@@ -3987,7 +3987,7 @@
           "mapsTo": [
             "foundation.backfill-spec-authoring.descriptive#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Spec Authoring descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Author Specs descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
@@ -4237,7 +4237,7 @@
           "path": "foundation/skills/backfill-user-flow-extraction/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Extracts concrete user flows before descriptive authoring."
+          "notes": "Maps concrete process/action rows before descriptive authoring."
         },
         {
           "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md",
@@ -4273,13 +4273,13 @@
           "path": "foundation/scripts/backfill-queue-check.mjs",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Validates the embedded durable queue in a dated backfill report."
+          "notes": "Validates the embedded Job / Spec Queue in a dated backfill report."
         },
         {
           "path": "foundation/scripts/backfill-queue-check.test.mjs",
           "kind": "test",
           "ownership": "reference",
-          "notes": "Covers durable queue validation behavior."
+          "notes": "Covers Job / Spec Queue validation behavior."
         },
         {
           "path": "foundation/scripts/backfill-run-log-check.mjs",
@@ -4566,7 +4566,7 @@
             "foundation.backfill-specs.descriptive#interface-journey",
             "foundation.backfill-specs.descriptive#ux-contracts"
           ],
-          "evidence": "Backfill Specs defines the Surface Registry to Capability Matrix handoff, capability matrix layer, capability split rule, and capability-backed completion rule."
+          "evidence": "Backfill Specs defines the Map Surfaces to Map Capabilities handoff, Capability Map layer, capability split rule, and capability-backed completion rule."
         }
       ],
       "tags": [
@@ -4579,7 +4579,7 @@
     },
     {
       "id": "foundation.backfill-split-queue.technical",
-      "title": "Foundation Backfill Split And Queue Technical Spec",
+      "title": "Foundation Backfill Define Spec Jobs Technical Spec",
       "type": "technical",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-split-queue-technical.html",
@@ -4652,7 +4652,7 @@
           "path": "foundation/scripts/split-queue-init.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Creates backfill-queue JSONL from passing Capability Matrix artifacts."
+          "notes": "Creates backfill-queue JSONL from passing Capability Map artifacts."
         },
         {
           "path": "foundation/scripts/split-queue-fill.mjs",
@@ -4676,7 +4676,7 @@
           "path": "foundation/scripts/split-queue-refresh.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Invalidates stale slices when Capability Matrix rows change."
+          "notes": "Invalidates stale slices when Capability Map rows change."
         },
         {
           "path": "foundation/scripts/split-queue-report.mjs",
@@ -4696,7 +4696,7 @@
             "foundation.backfill-split-queue.technical#checker-and-fill-loop",
             "foundation.backfill-split-queue.technical#failure-modes"
           ],
-          "evidence": "Split And Queue tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, needs-split child-slice coverage, eval scoring, refresh invalidation, and report drift."
+          "evidence": "Define Spec Jobs tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, needs-split child-slice coverage, eval scoring, refresh invalidation, and report drift."
         }
       ],
       "tags": [
@@ -4709,7 +4709,7 @@
     },
     {
       "id": "foundation.backfill-split-queue.test",
-      "title": "Foundation Backfill Split And Queue Test Spec",
+      "title": "Foundation Backfill Define Spec Jobs Test Spec",
       "type": "test",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-split-queue-test.html",
@@ -4781,7 +4781,7 @@
           "path": "foundation/scripts/split-queue.test.mjs",
           "kind": "test",
           "ownership": "direct",
-          "notes": "Executable test coverage for the Split And Queue acceptance map."
+          "notes": "Executable test coverage for the Define Spec Jobs acceptance map."
         },
         {
           "path": "foundation/scripts/split-queue-core.mjs",
@@ -4800,7 +4800,7 @@
             "foundation.backfill-split-queue.test#acceptance-mapping",
             "foundation.backfill-split-queue.test#eval-contract"
           ],
-          "evidence": "Split And Queue tests cover artifact creation, upstream reference resolution, valid states, structural drift failures, weak semantic eval findings, explicit handoff state, and report drift."
+          "evidence": "Define Spec Jobs tests cover artifact creation, upstream reference resolution, valid states, structural drift failures, weak semantic eval findings, explicit handoff state, and report drift."
         }
       ],
       "tags": [
@@ -4813,7 +4813,7 @@
     },
     {
       "id": "foundation.backfill-split-queue.descriptive",
-      "title": "Foundation Backfill Split And Queue",
+      "title": "Foundation Backfill Define Spec Jobs",
       "type": "descriptive",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-split-queue.html",
@@ -4893,13 +4893,13 @@
           "path": "foundation/scripts/split-queue-core.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Canonical Split And Queue schema, handoff, checker, eval, refresh, and report state logic."
+          "notes": "Canonical Define Spec Jobs schema, handoff, checker, eval, refresh, and report state logic."
         },
         {
           "path": "foundation/scripts/split-queue-init.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Initializes queue slices from passing Capability Matrix handoff."
+          "notes": "Initializes queue slices from passing Capability Map handoff."
         },
         {
           "path": "foundation/scripts/split-queue-fill.mjs",
@@ -4911,7 +4911,7 @@
           "path": "foundation/scripts/split-queue-check.mjs",
           "kind": "source",
           "ownership": "direct",
-          "notes": "Runs deterministic Split And Queue validation."
+          "notes": "Runs deterministic Define Spec Jobs validation."
         },
         {
           "path": "foundation/scripts/split-queue-eval.mjs",
@@ -4936,7 +4936,7 @@
             "foundation.backfill-split-queue.descriptive#artifacts-and-state",
             "foundation.backfill-split-queue.descriptive#handoff-gate"
           ],
-          "evidence": "Split And Queue tests cover initialization from Capability Matrix handoff, durable queue artifacts, needs-split child slice enforcement, eval receipts, refresh invalidation, and report handoff state."
+          "evidence": "Define Spec Jobs tests cover initialization from Capability Map handoff, Job / Spec Queue artifacts, needs-split child slice enforcement, eval receipts, refresh invalidation, and report handoff state."
         }
       ],
       "tags": [
@@ -4949,7 +4949,7 @@
     },
     {
       "id": "foundation.backfill-surface-registry.technical",
-      "title": "Foundation Backfill Surface Registry Technical Spec",
+      "title": "Foundation Backfill Surface / Function Map Technical Spec",
       "type": "technical",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-surface-registry-technical.html",
@@ -5058,7 +5058,7 @@
             "foundation.backfill-surface-registry.technical#data-model",
             "foundation.backfill-surface-registry.technical#contracts"
           ],
-          "evidence": "Surface Registry tests verify upstream handoff enforcement, scope exclusion for inert files, one-file full-read marking for eligible files, row schema, enums, duplicate surface IDs, stale upstream hashes, eligible-file coverage, report drift, eval receipts, and refresh invalidation."
+          "evidence": "Surface / Function Map tests verify upstream handoff enforcement, scope exclusion for inert files, one-file full-read marking for eligible files, row schema, enums, duplicate surface IDs, stale upstream hashes, eligible-file coverage, report drift, eval receipts, and refresh invalidation."
         }
       ],
       "tags": [
@@ -5071,7 +5071,7 @@
     },
     {
       "id": "foundation.backfill-surface-registry.test",
-      "title": "Foundation Backfill Surface Registry Test Spec",
+      "title": "Foundation Backfill Surface / Function Map Test Spec",
       "type": "test",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-surface-registry-test.html",
@@ -5150,7 +5150,7 @@
             "foundation.backfill-surface-registry.test#acceptance-mapping",
             "foundation.backfill-surface-registry.test#eval-contract"
           ],
-          "evidence": "Surface Registry tests cover init, scope exclusion for inert files, one-file full-read fill for eligible files, deterministic check failures, eval JSONL/HTML artifacts, refresh invalidation, report state, and report drift."
+          "evidence": "Surface / Function Map tests cover init, scope exclusion for inert files, one-file full-read fill for eligible files, deterministic check failures, eval JSONL/HTML artifacts, refresh invalidation, report state, and report drift."
         }
       ],
       "tags": [
@@ -5163,7 +5163,7 @@
     },
     {
       "id": "foundation.backfill-surface-registry.descriptive",
-      "title": "Foundation Backfill Surface Registry",
+      "title": "Foundation Backfill Surface / Function Map",
       "type": "descriptive",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-surface-registry.html",
@@ -5250,7 +5250,7 @@
             "foundation.backfill-surface-registry.descriptive#artifacts-and-state",
             "foundation.backfill-surface-registry.descriptive#handoff-gate"
           ],
-          "evidence": "Surface Registry tests cover canonical JSONL artifacts, scope exclusion for inert files, one-file full-read fill for eligible files, deterministic handoff checks, eval receipts, report state, and Sandia Oil-compatible calibration mechanics."
+          "evidence": "Surface / Function Map tests cover canonical JSONL artifacts, scope exclusion for inert files, one-file full-read fill for eligible files, deterministic handoff checks, eval receipts, report state, and Sandia Oil-compatible calibration mechanics."
         }
       ],
       "tags": [
@@ -5346,7 +5346,7 @@
           "mapsTo": [
             "foundation.workspace-doctor.technical#contracts"
           ],
-          "evidence": "machine setup passes when global pointer and required skills, including the file, surface, and capability matrix registry loops, exist"
+          "evidence": "machine setup passes when global pointer and required skills, including the Artifact Inventory, Surface / Function Map, and Capability Map fill loops, exist"
         },
         {
           "id": "FWD-T2",
@@ -5460,7 +5460,7 @@
             "foundation.workspace-doctor.test#acceptance-mapping",
             "foundation.workspace-doctor.technical#contracts"
           ],
-          "evidence": "machine setup passes when global pointer and required skills, including the file, surface, and capability matrix registry loops, exist"
+          "evidence": "machine setup passes when global pointer and required skills, including the Artifact Inventory, Surface / Function Map, and Capability Map fill loops, exist"
         },
         {
           "id": "FWD-A2",
@@ -5824,7 +5824,7 @@
         </a>
         <a class="related-card" data-spec-link="foundation.backfill-orchestration.technical" href="./foundation-backfill-orchestration-technical.html">
           <div class="related-name">Foundation backfill orchestration technical spec</div>
-          <div class="related-desc">Skill-chain contract for repo inventory, user flows, spec authoring, rendered UX, technical contracts, and adequacy review.</div>
+          <div class="related-desc">Skill-chain contract for artifact inventory, process/action maps, spec authoring, rendered UX, technical contracts, and spec adequacy checks.</div>
         </a>
         <a class="related-card" data-spec-link="foundation.agents-load-canary.test" href="./foundation-agents-load-canary-test.html">
           <div class="related-name">Foundation AGENTS load canary test</div>

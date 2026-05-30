@@ -1,4 +1,4 @@
 interface:
-  display_name: "Backfill User Flows"
-  short_description: "Extract concrete user journeys"
-  default_prompt: "Use $backfill-user-flow-extraction to derive concrete user flows from this repo evidence before drafting descriptive specs."
+  display_name: "Backfill Process / Action Map"
+  short_description: "Map concrete processes and actions"
+  default_prompt: "Use $backfill-user-flow-extraction to derive the Process / Action Map from this repo evidence before drafting descriptive specs."

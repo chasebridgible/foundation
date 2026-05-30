@@ -9,7 +9,7 @@ Use inside `backfill-specs` after descriptive intent exists. Technical specs exp
 
 ## Inputs
 
-- capability matrix rows for the slice
+- Capability Map rows for the slice
 - descriptive spec
 - evidence paths and inventory rows
 - parent spec and dated report

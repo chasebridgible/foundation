@@ -37,7 +37,7 @@ function main() {
   const runId = options["run-id"];
   const outDir = options["out-dir"] ? path.resolve(repoRoot, options["out-dir"]) : defaultBackfillDir(repoRoot);
   const existing = readJsonl(registryPathFor(repoRoot, runId, outDir));
-  if (existing.errors.length > 0) throw new Error(`Existing registry JSONL has parse errors: ${JSON.stringify(existing.errors)}`);
+  if (existing.errors.length > 0) throw new Error(`Existing Artifact Inventory JSONL has parse errors: ${JSON.stringify(existing.errors)}`);
 
   const manifest = createManifest({ repoRoot, runId, mode: "steady-state" });
   const merged = mergeRowsForRefresh({
@@ -65,9 +65,9 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "inventory",
+    phase: "artifact-inventory",
     event: "checkpoint",
-    summary: `Refreshed file registry: ${payload.changedCount} changed/new, ${payload.removedCount} removed.`,
+    summary: `Refreshed Artifact Inventory: ${payload.changedCount} changed/new, ${payload.removedCount} removed.`,
     artifactsRead: [path.relative(repoRoot, registryPathFor(repoRoot, runId, outDir))],
     artifactsChanged: [
       path.relative(repoRoot, manifestPathFor(repoRoot, runId, outDir)),
@@ -76,7 +76,7 @@ function main() {
     ],
     commands: ["foundation:file-registry:refresh"],
     checks: [],
-    nextAction: payload.pendingCount > 0 ? "Remap pending changed rows." : "Run registry check."
+    nextAction: payload.pendingCount > 0 ? "Remap pending changed rows." : "Run Artifact Inventory check."
   });
 
   console.log(JSON.stringify(payload, null, 2));

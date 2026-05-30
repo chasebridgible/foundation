@@ -20,12 +20,12 @@ function usage() {
   npm run foundation:surface-registry:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --next [--out-dir path]
   npm run foundation:surface-registry:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --path repo/relative/file --surfaces-json '[...]' [--run-log path]
 
-Marks Surface Registry rows for one eligible upstream file after an agent has read that complete file. Use --next to choose the next pending or failed eligible file, then read it before calling --path. Do not generate rows with helper scripts or pass a file of generated surfaces.`;
+Marks Surface / Function Map rows for one eligible upstream file after an agent has read that complete file. Use --next to choose the next pending or failed eligible file, then read it before calling --path. Do not generate rows with helper scripts or pass a file of generated surfaces.`;
 }
 
 function readSurfaceSpecs(options) {
   if (options["surfaces-file"]) {
-    throw new Error("Surface Registry fill no longer accepts --surfaces-file; pass one file's reviewed --surfaces-json after the agent reads that file");
+    throw new Error("Surface / Function Map fill no longer accepts --surfaces-file; pass one file's reviewed --surfaces-json after the agent reads that file");
   }
   if (!options["surfaces-json"]) {
     throw new Error("Missing --surfaces-json");
@@ -57,13 +57,13 @@ function main() {
   const runId = options["run-id"];
   const outDir = options["out-dir"] ? path.resolve(repoRoot, options["out-dir"]) : defaultBackfillDir(repoRoot);
   const fileRegistry = readFileRegistryRows(repoRoot, runId, outDir);
-  if (fileRegistry.errors.length > 0) throw new Error(`File Registry JSONL has parse errors: ${JSON.stringify(fileRegistry.errors)}`);
+  if (fileRegistry.errors.length > 0) throw new Error(`Artifact Inventory JSONL has parse errors: ${JSON.stringify(fileRegistry.errors)}`);
   const surfacePath = surfaceRegistryPathFor(repoRoot, runId, outDir);
   const surfaces = readJsonl(surfacePath);
-  if (surfaces.errors.length > 0) throw new Error(`Surface Registry JSONL has parse errors: ${JSON.stringify(surfaces.errors)}`);
+  if (surfaces.errors.length > 0) throw new Error(`Surface / Function Map JSONL has parse errors: ${JSON.stringify(surfaces.errors)}`);
 
   if (options.all || options["batch-size"]) {
-    throw new Error("Surface Registry fill no longer supports --all or --batch-size; mark one eligible --path after reading the full file");
+    throw new Error("Surface / Function Map fill no longer supports --all or --batch-size; mark one eligible --path after reading the full file");
   }
 
   if (options.next) {
@@ -92,22 +92,22 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "surface-registry",
+    phase: "surface-map",
     event: eventType,
     summary: marked.revisionCount > 0
-      ? `Revised Surface Registry rows for ${marked.markedPath} after full-file agent read.`
-      : `Marked Surface Registry rows for ${marked.markedPath} after full-file agent read.`,
+      ? `Revised Surface / Function Map rows for ${marked.markedPath} after full-file agent read.`
+      : `Marked Surface / Function Map rows for ${marked.markedPath} after full-file agent read.`,
     artifactsRead: [path.relative(repoRoot, fileRegistry.registryPath), path.relative(repoRoot, surfacePath), marked.markedPath],
     artifactsChanged: [path.relative(repoRoot, surfacePath)],
     commands: ["foundation:surface-registry:fill"],
     checks: [],
     result: `${marked.surfaceCount} surface row(s) written for one upstream file.`,
     nextAction: pendingCount > 0 || needsEvidenceCount > 0
-      ? "Read and mark the next pending or failed Surface Registry file."
-      : "Run Surface Registry checker and eval."
+      ? "Read and mark the next pending or failed Surface / Function Map file."
+      : "Run Surface / Function Map checker and eval."
   });
 
-  console.log(`Surface registry fill\nMarked file: ${marked.markedPath}\nSurface rows written for file: ${marked.surfaceCount}\nPending remaining: ${pendingCount}\nNeeds evidence remaining: ${needsEvidenceCount}\nSurface rows: ${marked.rows.length}`);
+  console.log(`Surface / Function Map fill\nMarked file: ${marked.markedPath}\nSurface rows written for file: ${marked.surfaceCount}\nPending remaining: ${pendingCount}\nNeeds evidence remaining: ${needsEvidenceCount}\nSurface rows: ${marked.rows.length}`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) {

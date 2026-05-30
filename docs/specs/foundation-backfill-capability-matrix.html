@@ -7,13 +7,13 @@
 <meta name="spec:type" content="descriptive">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
-<title>Foundation Backfill Capability Matrix</title>
+<title>Foundation Backfill Capability Map</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-capability-matrix.descriptive",
-  "title": "Foundation Backfill Capability Matrix",
+  "title": "Foundation Backfill Capability Map",
   "type": "descriptive",
   "status": "active",
   "lastUpdated": "2026-05-29",
@@ -108,7 +108,7 @@
         "foundation.backfill-capability-matrix.descriptive#artifacts-and-state",
         "foundation.backfill-capability-matrix.descriptive#handoff-gate"
       ],
-      "evidence": "Capability Matrix tests cover initialization from Surface Registry handoff, pending and terminal states, coverage of ready surfaces, split flags, checker output, eval receipts, HTML summary, refresh invalidation, and report handoff state."
+      "evidence": "Capability Map tests cover initialization from Surface / Function Map handoff, pending and terminal states, coverage of ready surfaces, split flags, checker output, eval receipts, HTML summary, refresh invalidation, and report handoff state."
     }
   ],
   "tags": [
@@ -126,7 +126,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">D</div>
     <div>
-      <div class="sidebar-title">Foundation Backfill Capability Matrix</div>
+      <div class="sidebar-title">Foundation Backfill Capability Map</div>
       <div class="sidebar-sub">descriptive spec</div>
     </div>
   </div>
@@ -144,9 +144,9 @@
 <main class="main">
   <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-capability-matrix.html</div>
-    <h1>Foundation Backfill Capability Matrix</h1>
-    <p class="lede">Capability Matrix converts surfaces into actor/outcome units using the formula: actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence. This layer answers: <strong>What is this system supposed to let someone or something do?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Upstream:</strong> Surface Registry</div><div><strong>Next:</strong> Split And Queue</div></div>
+    <h1>Foundation Backfill Capability Map</h1>
+    <p class="lede">Capability Map converts surfaces into actor/outcome units using the formula: actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence. This layer answers: <strong>What is this system supposed to let someone or something do?</strong></p>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Upstream:</strong> Surface / Function Map</div><div><strong>Next:</strong> Define Spec Jobs</div></div>
     <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills reviewed surface groups, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
@@ -172,7 +172,7 @@
     <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
       <h2>Small-loop journey</h2>
       <ol>
-        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Capability Matrix artifact from Surface Registry handoff output.</li>
+        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Capability Map artifact from Surface / Function Map handoff output.</li>
         <li><strong>Select target:</strong> choose the next pending or failed ready surface using deterministic order plus review priority.</li>
         <li><strong>Fill:</strong> agent reviews the selected surface and any nearby ready surfaces, groups only reviewed surfaces into capability rows, and names actor, outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery behavior, evidence rows, confidence, and review flags.</li>
         <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
@@ -185,15 +185,15 @@
     <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
       <h2>Checker and eval contract</h2>
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
-        <tr><td>Checker</td><td>validates the upstream Surface Registry handoff, capability JSONL parsing, every ready surface maps to a terminal capability row, every capability has the full formula fields, broad rows are marked needs-split, upstream surface freshness refs match, evidence references resolve, and status values are valid.</td></tr>
+        <tr><td>Checker</td><td>validates the upstream Surface / Function Map handoff, capability JSONL parsing, every ready surface maps to a terminal capability row, every capability has the full formula fields, broad rows are marked needs-split, upstream surface freshness refs match, evidence references resolve, and status values are valid.</td></tr>
         <tr><td>Eval receipt</td><td>samples capabilities against surfaces and source evidence to detect vague outcomes, missing actors, missing state/rule contracts, over-merged domains, and unsupported capability claims. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
-        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected registry is created; it is used to catch obvious misses while context is tractable.</td></tr>
+        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
     </section>
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>all ready Surface Registry rows are capability-owned, broad rows are flagged for split, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Split And Queue.</p>
+      <p>all ready Surface / Function Map rows are capability-owned, broad rows are flagged for split, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Define Spec Jobs.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
         <li>All rows are in valid terminal states: <code>ready-for-queue</code> or <code>needs-split</code>.</li>
@@ -213,7 +213,7 @@
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Capability Matrix · active V1</p>
+  <p class="footer-note">Foundation Backfill Capability Map · active V1</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

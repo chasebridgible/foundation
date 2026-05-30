@@ -243,27 +243,27 @@ function validateCapabilityMatrixHandoff(repoRoot, runId, outDir = defaultBackfi
 
   const checkPath = capabilityCheckPathFor(repoRoot, runId, outDir);
   if (!fs.existsSync(checkPath)) {
-    results.push(fail("upstream-capability-matrix-check-artifact", "Passing Capability Matrix check artifact is required before Split And Queue"));
+    results.push(fail("upstream-capability-matrix-check-artifact", "Passing Capability Map check artifact is required before Define Spec Jobs"));
   } else {
     const check = readJson(checkPath);
     results.push(check?.summary?.fail === 0
-      ? pass("upstream-capability-matrix-check-artifact", "Capability Matrix check artifact passes")
-      : fail("upstream-capability-matrix-check-artifact", "Capability Matrix check artifact must pass", { summary: check?.summary || null }));
+      ? pass("upstream-capability-matrix-check-artifact", "Capability Map check artifact passes")
+      : fail("upstream-capability-matrix-check-artifact", "Capability Map check artifact must pass", { summary: check?.summary || null }));
   }
 
   const evalSummary = readEvalSummary(capabilityEvalReceiptPathFor(repoRoot, runId, outDir));
   results.push(evalSummary?.acceptabilityGate?.acceptable
-    ? pass("upstream-capability-matrix-eval", "Capability Matrix eval artifact passes")
-    : fail("upstream-capability-matrix-eval", "Passing Capability Matrix eval receipt is required before Split And Queue"));
+    ? pass("upstream-capability-matrix-eval", "Capability Map eval artifact passes")
+    : fail("upstream-capability-matrix-eval", "Passing Capability Map eval receipt is required before Define Spec Jobs"));
   const revisionTargets = Array.isArray(evalSummary?.revisionTargets) ? evalSummary.revisionTargets : [];
   results.push(revisionTargets.length === 0
-    ? pass("upstream-capability-matrix-eval-revisions", "Capability Matrix eval has no revision targets")
-    : fail("upstream-capability-matrix-eval-revisions", "Capability Matrix eval revision targets must be resolved before Split And Queue", { revisionTargets }));
+    ? pass("upstream-capability-matrix-eval-revisions", "Capability Map eval has no revision targets")
+    : fail("upstream-capability-matrix-eval-revisions", "Capability Map eval revision targets must be resolved before Define Spec Jobs", { revisionTargets }));
 
   const summaryPath = capabilitySummaryPathFor(repoRoot, runId, outDir);
   results.push(fs.existsSync(summaryPath)
-    ? pass("upstream-capability-matrix-eval-summary", "Capability Matrix HTML eval summary exists")
-    : fail("upstream-capability-matrix-eval-summary", "Capability Matrix HTML eval summary is required before Split And Queue", { summaryPath: path.relative(repoRoot, summaryPath) }));
+    ? pass("upstream-capability-matrix-eval-summary", "Capability Map HTML eval summary exists")
+    : fail("upstream-capability-matrix-eval-summary", "Capability Map HTML eval summary is required before Define Spec Jobs", { summaryPath: path.relative(repoRoot, summaryPath) }));
 
   results.push(...validateSplitQueueStartSemanticAudit(validation.capabilityRows));
 
@@ -301,7 +301,7 @@ function createPendingSliceRow(capabilityRow, ordinal = 1) {
     evidenceRefs: [{
       capabilityId: capabilityRow.capabilityId,
       relationship: "capability-matrix-row",
-      detail: `Initialized from Capability Matrix row ${capabilityRow.capabilityId}: ${capabilityRow.name}.`
+      detail: `Initialized from Capability Map row ${capabilityRow.capabilityId}: ${capabilityRow.name}.`
     }],
     ownerSkill: "",
     scope: "",
@@ -335,7 +335,7 @@ function normalizeReviewFlags(value) {
     severity: VALID_REVIEW_FLAG_SEVERITY.has(flag.severity) ? flag.severity : "warning",
     reason: isNonEmptyString(flag.reason) ? flag.reason.trim() : "Queue slice needs review.",
     evidence: isNonEmptyString(flag.evidence) ? flag.evidence.trim() : "",
-    nextAction: isNonEmptyString(flag.nextAction) ? flag.nextAction.trim() : "Revise this Split And Queue row."
+    nextAction: isNonEmptyString(flag.nextAction) ? flag.nextAction.trim() : "Revise this Define Spec Jobs row."
   }));
 }
 
@@ -386,7 +386,7 @@ function createAgentMarkedSplitQueueRow(capabilityById, selectedCapabilityIds, s
       ...capabilities.map(capability => ({
         capabilityId: capability.capabilityId,
         relationship: "capability-matrix-row",
-        detail: `Queue slice is derived from Capability Matrix row ${capability.capabilityId}: ${capability.name}.`
+        detail: `Queue slice is derived from Capability Map row ${capability.capabilityId}: ${capability.name}.`
       })),
       ...asObjectArray(spec.evidenceRefs)
     ],
@@ -430,17 +430,17 @@ function parseCapabilityIds(value) {
 
 function markSplitQueueRowsForCapabilities({ capabilityRows, queueRows, capabilityIds, sliceSpecs }) {
   const selectedCapabilityIds = normalizeStringList(capabilityIds);
-  if (selectedCapabilityIds.length === 0) throw new Error("Split And Queue fill requires --capability-ids");
+  if (selectedCapabilityIds.length === 0) throw new Error("Define Spec Jobs fill requires --capability-ids");
   if (!Array.isArray(sliceSpecs) || sliceSpecs.length === 0) {
-    throw new Error("Split And Queue fill requires at least one slice spec");
+    throw new Error("Define Spec Jobs fill requires at least one slice spec");
   }
 
   const capabilityById = new Map(capabilityRows.map(row => [row.capabilityId, row]));
   for (const capabilityId of selectedCapabilityIds) {
     const capability = capabilityById.get(capabilityId);
-    if (!capability) throw new Error(`Unknown Capability Matrix row: ${capabilityId}`);
+    if (!capability) throw new Error(`Unknown Capability Map row: ${capabilityId}`);
     if (capability.status !== "ready-for-queue" && capability.status !== "needs-split") {
-      throw new Error(`Capability is not ready for Split And Queue: ${capabilityId}`);
+      throw new Error(`Capability is not ready for Define Spec Jobs: ${capabilityId}`);
     }
   }
 
@@ -659,7 +659,7 @@ function validateSplitQueueRows({ capabilityRows, queueRows, phase = "handoff" }
       rowsByCapability.get(capabilityId).push(row);
       const capability = capabilityById.get(capabilityId);
       if (!capability) {
-        results.push(fail(`${prefix}:upstream-capability-resolves`, "Split queue row references missing Capability Matrix row", { capabilityId }));
+        results.push(fail(`${prefix}:upstream-capability-resolves`, "Split queue row references missing Capability Map row", { capabilityId }));
       } else if (capability.status !== "ready-for-queue" && capability.status !== "needs-split") {
         results.push(fail(`${prefix}:upstream-capability-terminal`, "Split queue row references capability that is not ready-for-queue or needs-split", { capabilityId, status: capability.status }));
       }
@@ -675,8 +675,8 @@ function validateSplitQueueRows({ capabilityRows, queueRows, phase = "handoff" }
   }
 
   results.push(stale.length === 0
-    ? pass("split-queue-upstream-fresh", "Split queue upstream capability fingerprints match Capability Matrix rows")
-    : fail("split-queue-upstream-fresh", "Split queue rows must be refreshed when upstream Capability Matrix rows change", { stale }));
+    ? pass("split-queue-upstream-fresh", "Split queue upstream capability fingerprints match Capability Map rows")
+    : fail("split-queue-upstream-fresh", "Split queue rows must be refreshed when upstream Capability Map rows change", { stale }));
 
   const uncovered = [];
   for (const capability of terminalCapabilities) {
@@ -685,9 +685,9 @@ function validateSplitQueueRows({ capabilityRows, queueRows, phase = "handoff" }
     if (!hasQueue) uncovered.push({ capabilityId: capability.capabilityId, name: capability.name, status: capability.status });
   }
   if (uncovered.length === 0) {
-    results.push(pass("split-queue-covers-capabilities", "Every terminal Capability Matrix row has queue coverage"));
+    results.push(pass("split-queue-covers-capabilities", "Every terminal Capability Map row has queue coverage"));
   } else if (phase === "handoff") {
-    results.push(fail("split-queue-covers-capabilities", "Split And Queue must cover every terminal Capability Matrix row before Evidence Pack", { uncovered }));
+    results.push(fail("split-queue-covers-capabilities", "Define Spec Jobs must cover every terminal Capability Map row before Context Pack", { uncovered }));
   } else {
     results.push(warn("split-queue-covers-capabilities", `${uncovered.length} terminal capability row(s) still need queue coverage`, { uncovered }));
   }
@@ -743,8 +743,8 @@ function validateSplitQueueEvalFreshness({ repoRoot, runId, outDir, queueRows })
     evalSummary.queueFingerprint === currentFingerprint &&
     actualRowCount === expectedRowCount;
   return fresh
-    ? [pass("split-queue-eval-current", "Split And Queue eval receipt matches the current queue artifact")]
-    : [fail("split-queue-eval-current", "Split And Queue eval must be regenerated after queue artifact changes", {
+    ? [pass("split-queue-eval-current", "Define Spec Jobs eval receipt matches the current queue artifact")]
+    : [fail("split-queue-eval-current", "Define Spec Jobs eval must be regenerated after queue artifact changes", {
       expectedQueueFingerprint: currentFingerprint,
       actualQueueFingerprint: evalSummary.queueFingerprint || null,
       expectedRowCount,
@@ -765,8 +765,8 @@ function validateSplitQueueReportState({ repoRoot, runId, outDir, reportPath, ca
     if (state[field] !== value) drift.push({ field, expected: value, actual: state[field] });
   }
   return drift.length === 0
-    ? [pass("split-queue-report-state-current", "Split And Queue report state matches canonical artifacts")]
-    : [fail("split-queue-report-state-current", "Split And Queue report state must match canonical artifacts", { drift })];
+    ? [pass("split-queue-report-state-current", "Define Spec Jobs report state matches canonical artifacts")]
+    : [fail("split-queue-report-state-current", "Define Spec Jobs report state must match canonical artifacts", { drift })];
 }
 
 function validateSplitQueue({ repoRoot, runId, outDir = defaultBackfillDir(repoRoot), phase = "handoff", reportPath = null, skipEvalFreshness = false }) {
@@ -779,16 +779,16 @@ function validateSplitQueue({ repoRoot, runId, outDir = defaultBackfillDir(repoR
       capabilityMatrixPath: upstream.capabilityMatrixPath,
       capabilityRows: upstream.capabilityRows,
       queueRows: [],
-      results: [...results, fail("split-queue-exists", `Split And Queue artifact does not exist: ${queuePath}`)]
+      results: [...results, fail("split-queue-exists", `Define Spec Jobs artifact does not exist: ${queuePath}`)]
     };
   }
   const parsed = readJsonl(queuePath);
-  results.push(pass("split-queue-exists", "Split And Queue artifact exists"));
+  results.push(pass("split-queue-exists", "Define Spec Jobs artifact exists"));
   if (parsed.errors.length > 0) {
-    results.push(...parsed.errors.map(error => fail(`split-queue-jsonl:${error.line}`, "Split And Queue JSONL line must parse", error)));
+    results.push(...parsed.errors.map(error => fail(`split-queue-jsonl:${error.line}`, "Define Spec Jobs JSONL line must parse", error)));
     return { queuePath, capabilityMatrixPath: upstream.capabilityMatrixPath, capabilityRows: upstream.capabilityRows, queueRows: parsed.rows, results };
   }
-  results.push(pass("split-queue-jsonl", "Every Split And Queue line parses as JSON"));
+  results.push(pass("split-queue-jsonl", "Every Define Spec Jobs line parses as JSON"));
   results.push(...validateSplitQueueRows({ capabilityRows: upstream.capabilityRows, queueRows: parsed.rows, phase }));
   if (!skipEvalFreshness) {
     results.push(...validateSplitQueueEvalFreshness({ repoRoot, runId, outDir, queueRows: parsed.rows }));
@@ -903,7 +903,7 @@ function splitQueueSemanticAlignmentFindings(row, capabilities) {
       findings.push({
         category: "semanticAlignment",
         severity: "blocking",
-        message: `Upstream capability ${capability.capabilityId} has no usable semantic anchors for split queue alignment.`
+        message: `Upstream capability ${capability.capabilityId} has no usable semantic anchors for Job / Spec Queue alignment.`
       });
       continue;
     }
@@ -942,7 +942,7 @@ function validateSplitQueueStartSemanticAudit(capabilityRows) {
       auditIssues.push({
         capabilityId: capability.capabilityId,
         name: capability.name,
-        reason: "Capability identity is too semantically thin for durable split queue classification."
+        reason: "Capability identity is too semantically thin for durable Job / Spec Queue classification."
       });
       continue;
     }
@@ -959,8 +959,8 @@ function validateSplitQueueStartSemanticAudit(capabilityRows) {
     }
   }
   return auditIssues.length === 0
-    ? [pass("split-queue-upstream-semantic-audit", "Terminal Capability Matrix rows have semantic anchors for Split And Queue")]
-    : [fail("split-queue-upstream-semantic-audit", "Split And Queue requires capability identity and splitCriteria anchors before queue initialization", { auditIssues })];
+    ? [pass("split-queue-upstream-semantic-audit", "Terminal Capability Map rows have semantic anchors for Define Spec Jobs")]
+    : [fail("split-queue-upstream-semantic-audit", "Define Spec Jobs requires capability identity and splitCriteria anchors before queue initialization", { auditIssues })];
 }
 
 function auditSplitQueueSemanticAlignment({ capabilityRows, queueRows }) {
@@ -1125,7 +1125,7 @@ function scoreSplitQueueRow(row, capabilityById, siblingRowsByCapabilityId = new
     findings,
     acceptabilityGate: {
       acceptable: findings.every(finding => finding.severity !== "blocking") && score >= 90,
-      threshold: "No blocking findings for row-level Split And Queue receipt"
+      threshold: "No blocking findings for row-level Define Spec Jobs receipt"
     }
   };
 }
@@ -1361,8 +1361,8 @@ function buildSplitQueueReportState({ repoRoot, runId, outDir, capabilityRows, q
     currentSliceId: nextTarget?.sliceId || null,
     latestRunLogSequence,
     nextLayer: pendingCount === 0 && inProgressCount === 0 && unresolvedNeedsSplitCount === 0 && checkerPass && evalHandoffReady
-      ? "evidence pack"
-      : "split and queue revision"
+      ? "Context Pack"
+      : "Define Spec Jobs revision"
   };
 }
 

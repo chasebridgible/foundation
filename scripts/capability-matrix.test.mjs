@@ -62,7 +62,7 @@ CREATE TABLE dashboard_events (
   label text not null
 );
 `, "utf8");
-  fs.writeFileSync(path.join(repoRoot, "README.md"), "# Capability matrix fixture\n", "utf8");
+  fs.writeFileSync(path.join(repoRoot, "README.md"), "# Capability Map fixture\n", "utf8");
   fs.writeFileSync(path.join(repoRoot, ".gitignore"), "node_modules\n", "utf8");
   execFileSync("git", ["add", "."], { cwd: repoRoot });
   return repoRoot;
@@ -173,7 +173,7 @@ function capabilitySpec(surfaceIds, overrides = {}) {
     experience: "The user sees dashboard content or a bounded loading, empty, or error state.",
     backingContracts: ["Dashboard screen surface", "GET /dashboard API surface", "dashboard_events table"],
     failureAndRecovery: ["API failures render an error state without hiding the dashboard boundary"],
-    evidence: surfaceIds.map(surfaceId => `${surfaceId} reviewed in Surface Registry`),
+    evidence: surfaceIds.map(surfaceId => `${surfaceId} reviewed in Surface / Function Map`),
     status: "ready-for-queue",
     confidence: "high",
     ...overrides
@@ -223,7 +223,7 @@ function hasFailure(results, id) {
   return results.some(result => result.id === id && result.status === "fail");
 }
 
-test("init requires passing Surface Registry handoff and creates pending capability rows", () => {
+test("init requires passing Surface / Function Map handoff and creates pending capability rows", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   prepareSurfaceRegistry(repoRoot, runId);
@@ -235,7 +235,7 @@ test("init requires passing Surface Registry handoff and creates pending capabil
   assert.equal(rows.every(row => row.upstreamSurfaceRefs[0].surfaceFingerprint.startsWith("sha256:")), true);
 });
 
-test("init rejects Surface Registry handoff with unresolved eval revision targets", () => {
+test("init rejects Surface / Function Map handoff with unresolved eval revision targets", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   prepareSurfaceRegistry(repoRoot, runId);
@@ -392,7 +392,7 @@ test("eval flags broad ready-for-queue rows and writes receipts for passing rows
   assert.equal(fs.existsSync(capabilitySummaryPathFor(repoRoot, runId)), true);
 });
 
-test("refresh invalidates capabilities when upstream Surface Registry rows change", () => {
+test("refresh invalidates capabilities when upstream Surface / Function Map rows change", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   prepareCapabilityMatrix(repoRoot, runId);
@@ -421,7 +421,7 @@ test("report command embeds matrix state and checker can detect report drift", (
   const report = JSON.parse(reportOutput);
   assert.equal(report.state.checkerResult, "pass");
   assert.equal(report.state.evalResult, "pass");
-  assert.equal(report.state.nextLayer, "split and queue");
+  assert.equal(report.state.nextLayer, "Define Spec Jobs");
 
   const checkOutput = runNode(capabilityCheckScript, ["--repo", repoRoot, "--run-id", runId, "--report", report.reportPath], repoRoot);
   assert.match(checkOutput, /capability-report-state-current/);
@@ -432,7 +432,7 @@ test("report command embeds matrix state and checker can detect report drift", (
   assert.equal(hasFailure(drift, "capability-report-state-current"), true);
 });
 
-test("report keeps Capability Matrix in revision when eval revision targets remain", () => {
+test("report keeps Capability Map in revision when eval revision targets remain", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   prepareCapabilityMatrix(repoRoot, runId);
@@ -456,7 +456,7 @@ test("report keeps Capability Matrix in revision when eval revision targets rema
   const report = JSON.parse(runNode(capabilityReportScript, ["--repo", repoRoot, "--run-id", runId], repoRoot));
   assert.equal(report.state.evalResult, "pass-with-revisions");
   assert.equal(report.state.evalRevisionTargetCount, 1);
-  assert.equal(report.state.nextLayer, "capability matrix revision");
+  assert.equal(report.state.nextLayer, "Capability Map revision");
 });
 
 test("check command writes check artifact", () => {

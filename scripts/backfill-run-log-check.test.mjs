@@ -23,9 +23,9 @@ test("accepts a structurally valid run log", () => {
       runId: "20260521-01",
       sequence: 1,
       slice: null,
-      phase: "inventory",
+      phase: "artifact-inventory",
       event: "start",
-      summary: "Started repo inventory.",
+      summary: "Started artifact inventory.",
       artifactsRead: ["AGENTS.md"],
       artifactsChanged: [],
       commands: [],
@@ -37,9 +37,9 @@ test("accepts a structurally valid run log", () => {
       runId: "20260521-01",
       sequence: 2,
       slice: null,
-      phase: "inventory",
+      phase: "artifact-inventory",
       event: "complete",
-      summary: "Completed initial repo inventory.",
+      summary: "Completed initial artifact inventory.",
       artifactsRead: ["AGENTS.md", "package.json"],
       artifactsChanged: ["docs/specs/backfill/review-report-20260521-01.html"],
       commands: [{ command: "rg --files", result: "passed" }],
@@ -53,43 +53,43 @@ test("accepts a structurally valid run log", () => {
   assert.equal(validateRunLog(file).some(result => result.status === "fail"), false);
 });
 
-test("accepts surface registry phase events", () => {
+test("accepts surface map phase events", () => {
   const file = writeRunLog([
     JSON.stringify({
       ts: "2026-05-28T04:00:00.000Z",
       runId: "20260527-01",
       sequence: 1,
       slice: null,
-      phase: "surface-registry",
+      phase: "surface-map",
       event: "checkpoint",
-      summary: "Filled Surface Registry rows.",
+      summary: "Filled Surface / Function Map rows.",
       artifactsRead: ["docs/specs/backfill/file-registry-20260527-01.jsonl"],
       artifactsChanged: ["docs/specs/backfill/surface-registry-20260527-01.jsonl"],
       commands: ["foundation:surface-registry:fill"],
       checks: [],
-      nextAction: "Run Surface Registry checker."
+      nextAction: "Run Surface / Function Map checker."
     })
   ]);
 
   assert.equal(validateRunLog(file).some(result => result.status === "fail"), false);
 });
 
-test("accepts capability matrix phase events", () => {
+test("accepts capability map phase events", () => {
   const file = writeRunLog([
     JSON.stringify({
       ts: "2026-05-29T15:00:00.000Z",
       runId: "20260529-01",
       sequence: 1,
       slice: null,
-      phase: "capability-matrix",
+      phase: "capability-map",
       event: "checkpoint",
-      summary: "Marked Capability Matrix rows.",
+      summary: "Marked Capability Map rows.",
       artifactsRead: ["docs/specs/backfill/surface-registry-20260529-01.jsonl"],
       artifactsChanged: ["docs/specs/backfill/capability-matrix-20260529-01.jsonl"],
       commands: ["foundation:capability-matrix:fill"],
       checks: [],
       result: "2 capability row(s) written.",
-      nextAction: "Run Capability Matrix checker."
+      nextAction: "Run Capability Map checker."
     })
   ]);
 

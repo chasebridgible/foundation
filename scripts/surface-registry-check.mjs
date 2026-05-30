@@ -18,7 +18,7 @@ function usage() {
   return `Usage:
   npm run foundation:surface-registry:check -- --repo /path/to/repo --run-id YYYYMMDD-NN [--phase batch|handoff] [--report path] [--json] [--no-write]
 
-Validates Surface Registry structure, upstream references, freshness, scope eligibility, eligible file coverage, handoff gates, and optional report state.`;
+Validates Surface / Function Map structure, upstream references, freshness, scope eligibility, eligible file coverage, handoff gates, and optional report state.`;
 }
 
 function main() {
@@ -56,19 +56,19 @@ function main() {
     slice: null,
     phase: "validation",
     event: "validation",
-    summary: `Surface Registry check ${summary.fail === 0 ? "passed" : "failed"}.`,
+    summary: `Surface / Function Map check ${summary.fail === 0 ? "passed" : "failed"}.`,
     artifactsRead: [payload.fileRegistryPath, payload.registryPath].filter(Boolean),
     artifactsChanged: options["no-write"] ? [] : [path.relative(repoRoot, checkPath)],
     commands: ["foundation:surface-registry:check"],
     checks: [{ name: "surface-registry-check", result: summary.fail === 0 ? "passed" : "failed" }],
-    result: summary.fail === 0 ? "Surface Registry check passed." : "Surface Registry check failed.",
-    nextAction: summary.fail === 0 ? "Run Surface Registry eval or record handoff." : "Fix Surface Registry check failures."
+    result: summary.fail === 0 ? "Surface / Function Map check passed." : "Surface / Function Map check failed.",
+    nextAction: summary.fail === 0 ? "Run Surface / Function Map eval or record handoff." : "Fix Surface / Function Map check failures."
   });
 
   if (options.json) {
     console.log(JSON.stringify(payload, null, 2));
   } else {
-    console.log(renderResultsText("Surface registry check", check.results));
+    console.log(renderResultsText("Surface Artifact Inventory check", check.results));
   }
   if (summary.fail > 0) process.exit(1);
 }

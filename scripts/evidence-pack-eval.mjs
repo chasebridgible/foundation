@@ -24,7 +24,7 @@ function usage() {
   return `Usage:
   npm run foundation:evidence-pack:eval -- --repo /path/to/repo --run-id YYYYMMDD-NN [--sample all|risk] [--run-log path]
 
-Writes canonical JSONL Evidence Pack eval receipts and a derived HTML summary.`;
+Writes canonical JSONL Context Pack eval receipts and a derived HTML summary.`;
 }
 
 function escapeHtml(value) {
@@ -47,15 +47,15 @@ function renderHtmlSummary({ runId, repoRoot, packPath, packFingerprint, receipt
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Evidence Pack Eval ${escapeHtml(runId)}</title>
+<title>Context Pack Eval ${escapeHtml(runId)}</title>
 <link rel="stylesheet" href="../spec-system.css">
 </head>
 <body>
 <main class="main">
   <section id="summary">
     <div class="spec-eyebrow">docs/specs/backfill/${escapeHtml(path.basename(summaryPath))}</div>
-    <h1>Evidence Pack Eval ${escapeHtml(runId)}</h1>
-    <p class="lede">Derived human summary for canonical JSONL Evidence Pack eval receipts.</p>
+    <h1>Context Pack Eval ${escapeHtml(runId)}</h1>
+    <p class="lede">Derived human summary for canonical JSONL Context Pack eval receipts.</p>
     <div class="meta-row">
       <div><strong>Run ID:</strong> ${escapeHtml(runId)}</div>
       <div><strong>Total score:</strong> ${aggregate.totalScore}</div>
@@ -64,7 +64,7 @@ function renderHtmlSummary({ runId, repoRoot, packPath, packFingerprint, receipt
       <div><strong>Rows sampled:</strong> ${sampleRows.length}</div>
     </div>
     <ul>
-      <li><strong>Evidence Pack:</strong> <code>${escapeHtml(path.relative(repoRoot, packPath))}</code></li>
+      <li><strong>Context Pack:</strong> <code>${escapeHtml(path.relative(repoRoot, packPath))}</code></li>
       <li><strong>Pack fingerprint:</strong> <code>${escapeHtml(packFingerprint)}</code></li>
       <li><strong>Canonical receipt:</strong> <code>${escapeHtml(path.relative(repoRoot, receiptPath))}</code></li>
       <li><strong>Gate note:</strong> warnings produce revision targets; the report may hand off only after all revision targets are resolved.</li>
@@ -173,16 +173,16 @@ function main() {
     slice: null,
     phase: "evaluation",
     event: "evaluation",
-    summary: `Evidence Pack eval ${aggregate.acceptable ? "passed" : "failed"} with score ${aggregate.totalScore}.`,
+    summary: `Context Pack eval ${aggregate.acceptable ? "passed" : "failed"} with score ${aggregate.totalScore}.`,
     artifactsRead: [path.relative(repoRoot, packPath)],
     artifactsChanged: [path.relative(repoRoot, receiptPath), path.relative(repoRoot, summaryPath)],
     commands: ["foundation:evidence-pack:eval"],
     checks: [{ name: "evidence-pack-eval", result: aggregate.acceptable ? "passed" : "failed" }],
-    result: aggregate.acceptable ? `Evidence Pack eval passed with score ${aggregate.totalScore}.` : `Evidence Pack eval failed with score ${aggregate.totalScore}.`,
-    nextAction: revisionTargets.length > 0 ? "Revise Evidence Pack rows named in revisionTargets before report handoff." : (aggregate.acceptable ? "Record handoff to Flow Extraction gate." : "Revise Evidence Pack rows named in revisionTargets.")
+    result: aggregate.acceptable ? `Context Pack eval passed with score ${aggregate.totalScore}.` : `Context Pack eval failed with score ${aggregate.totalScore}.`,
+    nextAction: revisionTargets.length > 0 ? "Revise Context Pack rows named in revisionTargets before report handoff." : (aggregate.acceptable ? "Record handoff to Process / Action Map gate." : "Revise Context Pack rows named in revisionTargets.")
   });
 
-  console.log(`Evidence Pack eval
+  console.log(`Context Pack eval
 Score: ${aggregate.totalScore}
 Minimum normalized category: ${aggregate.normalizedMinimum.toFixed(1)}
 Acceptable: ${aggregate.acceptable ? "yes" : "no"}

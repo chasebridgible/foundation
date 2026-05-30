@@ -1,9 +1,9 @@
 ---
 name: evaluate-backfill-specs
-description: Evaluate and route revisions for a Foundation backfill slice or graph using the golden example and strict 100-point rubric. Use after Backfill Specs drafts or revises slices, when deciding whether a slice or repo-wide backfill is acceptable, or when scoring generated specs, updating the durable queue, and looping weak categories back to the owning backfill skill.
+description: Evaluate Job Slices and Evaluate System Coherence for a Foundation backfill using the golden example and strict 100-point rubric. Use after Backfill Specs drafts or revises slices, when deciding whether a slice or repo-wide backfill is acceptable, or when scoring generated specs, updating the Job / Spec Queue, and looping weak categories back to the owning backfill skill.
 ---
 
-# Evaluate Backfill Specs
+# Evaluate Job Slices And System Coherence
 
 Use to judge semantic quality after registry, metadata, queue, and run-log checks are structurally valid.
 
@@ -20,7 +20,7 @@ The golden example is the minimum shape of excellent, not a loose sample. Merely
 ## Inputs
 
 - target `AGENTS.md`
-- dated backfill report, capability matrix, inventory ledger, durable queue
+- dated backfill report, Capability Map, Artifact Inventory, Job / Spec Queue
 - top-level system/app spec
 - descriptive and technical specs named by the report
 - rendered UX sections for visible slices
@@ -30,11 +30,11 @@ The golden example is the minimum shape of excellent, not a loose sample. Merely
 
 Score each category `0-10`, total `0-100`:
 
-1. durable queue and resumability
+1. Job / Spec Queue and resumability
 2. capability coverage, inventory coverage, and slice boundaries
 3. evidence traceability
 4. descriptive intent quality
-5. user-flow and state specificity
+5. Process / Action Map and state specificity
 6. rendered UX quality for visible slices
 7. technical contract quality
 8. architecture flexibility: contracts, evidence, constraints, latitude
@@ -70,17 +70,17 @@ Acceptable requires:
 5. Score categories with citations.
 6. For any category below 9, write revision items with owner skill, affected artifact, blocking gap, and exit criterion.
 7. Write/update `docs/specs/backfill/evaluation-report-YYYYMMDD-NN.html`.
-8. Update the dated report, capability matrix, and durable queue.
+8. Update the dated report, Capability Map, and Job / Spec Queue.
 9. Mark `acceptable` only when the gate passes; otherwise mark `needs-revision` or `revision-ready`.
 
 ## Common Failures
 
 - Broad domain slice compresses several capabilities.
-- Capability matrix missing, shallow, unmapped, or not referenced by queue.
+- Capability Map missing, shallow, unmapped, or not referenced by queue.
 - Descriptive spec names features but omits states, recovery, copy, or rendered UX.
 - Technical spec copies current implementation without classifying required contracts and latitude.
 - Spec graph still requires source-code memory for core behavior.
 
 ## Output
 
-Evaluation report includes run ID, target repo, result, scorecard, capability findings, slice findings, architecture findings, spec-only rebuild probe, evidence audit, revision queue, durable queue update, and recommendation.
+Evaluation report includes run ID, target repo, result, scorecard, capability findings, slice findings, architecture findings, spec-only rebuild probe, evidence audit, revision queue, Job / Spec Queue update, and recommendation.

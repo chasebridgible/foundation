@@ -1,3 +1,3 @@
-name: File Registry Fill Loop
-description: Map target-repo files into the Foundation file registry and run check/eval gates.
+name: Artifact Inventory Fill Loop
+description: Map target-repo files into the Foundation Artifact Inventory and run check/eval gates.
 entrypoint: SKILL.md

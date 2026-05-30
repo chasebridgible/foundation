@@ -20,7 +20,7 @@ function usage() {
   return `Usage:
   npm run foundation:surface-registry:refresh -- --repo /path/to/repo --run-id YYYYMMDD-NN [--out-dir path] [--run-log path]
 
-Refreshes Surface Registry rows from the current File Registry. Changed or new eligible upstream rows return to pending and must be re-marked one file at a time after full-file agent read; inert artifacts remain skipped.`;
+Refreshes Surface / Function Map rows from the current Artifact Inventory. Changed or new eligible upstream rows return to pending and must be re-marked one file at a time after full-file agent read; inert artifacts remain skipped.`;
 }
 
 function main() {
@@ -36,12 +36,12 @@ function main() {
   const runId = options["run-id"];
   const outDir = options["out-dir"] ? path.resolve(repoRoot, options["out-dir"]) : defaultBackfillDir(repoRoot);
   const fileRegistry = readFileRegistryRows(repoRoot, runId, outDir);
-  if (fileRegistry.errors.length > 0) throw new Error(`File Registry JSONL has parse errors: ${JSON.stringify(fileRegistry.errors)}`);
+  if (fileRegistry.errors.length > 0) throw new Error(`Artifact Inventory JSONL has parse errors: ${JSON.stringify(fileRegistry.errors)}`);
   const surfacePath = surfaceRegistryPathFor(repoRoot, runId, outDir);
   const surfaces = readJsonl(surfacePath);
-  if (surfaces.errors.length > 0) throw new Error(`Surface Registry JSONL has parse errors: ${JSON.stringify(surfaces.errors)}`);
+  if (surfaces.errors.length > 0) throw new Error(`Surface / Function Map JSONL has parse errors: ${JSON.stringify(surfaces.errors)}`);
   if (options["fill-changed"]) {
-    throw new Error("--fill-changed was removed for Surface Registry; read and mark each changed eligible file with foundation:surface-registry:fill");
+    throw new Error("--fill-changed was removed for Surface / Function Map; read and mark each changed eligible file with foundation:surface-registry:fill");
   }
 
   const merged = mergeSurfaceRowsForRefresh({
@@ -66,14 +66,14 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "surface-registry",
+    phase: "surface-map",
     event: "checkpoint",
-    summary: `Refreshed Surface Registry: ${payload.changedCount} changed/new eligible upstream files, ${payload.removedCount} removed surface rows, ${payload.skippedCount} inert file rows skipped.`,
+    summary: `Refreshed Surface / Function Map: ${payload.changedCount} changed/new eligible upstream files, ${payload.removedCount} removed surface rows, ${payload.skippedCount} inert file rows skipped.`,
     artifactsRead: [path.relative(repoRoot, fileRegistry.registryPath), path.relative(repoRoot, surfacePath)],
     artifactsChanged: [path.relative(repoRoot, surfacePath), path.relative(repoRoot, refreshPath)],
     commands: ["foundation:surface-registry:refresh"],
     checks: [],
-    nextAction: payload.pendingCount > 0 ? "Read and mark pending changed Surface Registry-eligible files one file at a time." : "Run Surface Registry check."
+    nextAction: payload.pendingCount > 0 ? "Read and mark pending changed Surface / Function Map-eligible files one file at a time." : "Run Surface / Function Map check."
   });
 
   console.log(JSON.stringify(payload, null, 2));

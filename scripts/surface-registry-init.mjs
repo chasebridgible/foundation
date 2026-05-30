@@ -20,7 +20,7 @@ function usage() {
   return `Usage:
   npm run foundation:surface-registry:init -- --repo /path/to/repo --run-id YYYYMMDD-NN [--out-dir path] [--run-log path]
 
-Creates the canonical pending Surface Registry JSONL skeleton from Surface Registry-eligible rows in a passing File Registry handoff.`;
+Creates the canonical pending Surface / Function Map JSONL skeleton from Surface / Function Map-eligible rows in a passing Artifact Inventory handoff.`;
 }
 
 function main() {
@@ -38,7 +38,7 @@ function main() {
   const handoff = validateFileRegistryHandoff(repoRoot, runId, outDir);
   const summary = summarizeResults(handoff.results);
   if (summary.fail > 0) {
-    console.log(renderResultsText("Surface registry init", handoff.results));
+    console.log(renderResultsText("Surface / Function Map init", handoff.results));
     process.exit(1);
   }
 
@@ -50,21 +50,21 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "surface-registry",
+    phase: "surface-map",
     event: "start",
-    summary: "Initialized Surface Registry from passing File Registry handoff.",
+    summary: "Initialized Surface / Function Map from passing Artifact Inventory handoff.",
     artifactsRead: [path.relative(repoRoot, handoff.registry.registryPath)],
     artifactsChanged: [path.relative(repoRoot, registryPath)],
     commands: ["foundation:surface-registry:init"],
     checks: [{ name: "file-registry-handoff", result: "passed" }],
     durationSeconds: 0,
-    result: `${rows.length} pending Surface Registry-eligible source row(s) created; ${scope.skipped.length} inert file row(s) skipped.`,
-    nextAction: "Use the Surface Registry fill loop: read one eligible upstream file in full, mark that file's surface rows, then repeat."
+    result: `${rows.length} pending Surface / Function Map-eligible source row(s) created; ${scope.skipped.length} inert file row(s) skipped.`,
+    nextAction: "Use the Surface / Function Map fill loop: read one eligible upstream file in full, mark that file's surface rows, then repeat."
   });
 
-  console.log(renderResultsText("Surface registry init", [
+  console.log(renderResultsText("Surface / Function Map init", [
     ...handoff.results,
-    { id: "surface-registry-skeleton", status: "pass", message: `Created ${rows.length} pending Surface Registry-eligible row(s); skipped ${scope.skipped.length} inert file row(s)` }
+    { id: "surface-registry-skeleton", status: "pass", message: `Created ${rows.length} pending Surface / Function Map-eligible row(s); skipped ${scope.skipped.length} inert file row(s)` }
   ]));
 }
 

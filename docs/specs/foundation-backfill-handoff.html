@@ -135,7 +135,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-handoff.html</div>
     <h1>Foundation Backfill Handoff</h1>
     <p class="lede">Handoff produces the final reviewable report for a backfill run: covered layers, artifact paths, accepted slices, blockers, uncertainties, stale docs, draft versus ready specs, and next implementation or review decisions. This layer answers: <strong>What was covered, what remains uncertain, and what should a human or next agent do?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Graph Evaluation</div><div><strong>Next:</strong> Human Review</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Evaluate System Coherence</div><div><strong>Next:</strong> Human Review</div></div>
     <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
@@ -159,7 +159,7 @@
     <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
       <h2>Small-loop journey</h2>
       <ol>
-        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Handoff artifact from Graph Evaluation handoff output.</li>
+        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Handoff artifact from Evaluate System Coherence handoff output.</li>
         <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
         <li><strong>Fill:</strong> agent compiles layer receipts, checker/eval status, accepted slices, unresolved human questions, stale/conflicting evidence, draft specs, ready specs, and next recommended Foundation work.</li>
         <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
@@ -174,7 +174,7 @@
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
         <tr><td>Checker</td><td>validates every upstream layer has a terminal receipt, artifact paths resolve, run-log sequence is current, blockers are named, and report state does not claim completion with unresolved structural failures.</td></tr>
         <tr><td>Eval receipt</td><td>judges whether the handoff lets the user decide what to trust, what to review, what to implement next, and what remains uncertain without replaying the entire run. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
-        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected registry is created; it is used to catch obvious misses while context is tractable.</td></tr>
+        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
     </section>
 

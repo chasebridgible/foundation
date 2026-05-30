@@ -7,13 +7,13 @@
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
-<title>Foundation Backfill Split And Queue Technical Spec</title>
+<title>Foundation Backfill Define Spec Jobs Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.backfill-split-queue.technical",
-  "title": "Foundation Backfill Split And Queue Technical Spec",
+  "title": "Foundation Backfill Define Spec Jobs Technical Spec",
   "type": "technical",
   "status": "active",
   "lastUpdated": "2026-05-29",
@@ -84,7 +84,7 @@
       "path": "foundation/scripts/split-queue-init.mjs",
       "kind": "source",
       "ownership": "direct",
-      "notes": "Creates backfill-queue JSONL from passing Capability Matrix artifacts."
+      "notes": "Creates backfill-queue JSONL from passing Capability Map artifacts."
     },
     {
       "path": "foundation/scripts/split-queue-fill.mjs",
@@ -108,7 +108,7 @@
       "path": "foundation/scripts/split-queue-refresh.mjs",
       "kind": "source",
       "ownership": "direct",
-      "notes": "Invalidates stale slices when Capability Matrix rows change."
+      "notes": "Invalidates stale slices when Capability Map rows change."
     },
     {
       "path": "foundation/scripts/split-queue-report.mjs",
@@ -128,7 +128,7 @@
         "foundation.backfill-split-queue.technical#checker-and-fill-loop",
         "foundation.backfill-split-queue.technical#failure-modes"
       ],
-      "evidence": "Split And Queue tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, needs-split child-slice coverage, eval scoring, refresh invalidation, and report drift."
+      "evidence": "Define Spec Jobs tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, needs-split child-slice coverage, eval scoring, refresh invalidation, and report drift."
     }
   ],
   "tags": [
@@ -146,7 +146,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">T</div>
     <div>
-      <div class="sidebar-title">Foundation Backfill Split And Queue Technical Spec</div>
+      <div class="sidebar-title">Foundation Backfill Define Spec Jobs Technical Spec</div>
       <div class="sidebar-sub">technical spec</div>
     </div>
   </div>
@@ -164,8 +164,8 @@
 <main class="main">
   <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-split-queue-technical.html</div>
-    <h1>Foundation Backfill Split And Queue Technical Spec</h1>
-    <p class="lede">This technical layer makes Foundation Backfill Split And Queue deterministic enough for scripts and structured enough for agent judgment.</p>
+    <h1>Foundation Backfill Define Spec Jobs Technical Spec</h1>
+    <p class="lede">This technical layer makes Foundation Backfill Define Spec Jobs deterministic enough for scripts and structured enough for agent judgment.</p>
     <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-split-queue.descriptive</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
@@ -189,7 +189,7 @@
         <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
         <tr><td>Deterministic checker</td><td>validates every terminal capability has queue coverage, every slice references valid and current capability IDs, needs-split capabilities have multiple child slices or an explicit blocker, terminal statuses require evidence, active slices carry exactly one current next action, and child-slice name/scope/included behaviors/rationale align with capability identity and splitCriteria rather than incidental source paths.</td><td>Structural and mechanically detectable semantic drift should fail before eval or handoff.</td></tr>
         <tr><td>Semantic eval</td><td>samples slices against capability rows to judge whether the slice is small enough, aligned to capability identity and splitCriteria, exit criteria are objective, evidence references are specific, and no hidden behavior is parked inside a parent summary. Findings at warning or blocking severity become revision targets.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Handoff gate</td><td>durable queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue fingerprint, and report names next layer as Evidence Pack.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Handoff gate</td><td>Job / Spec Queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue fingerprint, and report names next layer as Context Pack.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 
@@ -220,11 +220,11 @@
 
     <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
       <h2>Related paths and coverage</h2>
-      <ul class="path-list"><li data-implementation-path="foundation/scripts/split-queue-core.mjs"><code>foundation/scripts/split-queue-core.mjs</code> - canonical Split And Queue implementation.</li><li data-implementation-path="foundation/scripts/split-queue.test.mjs"><code>foundation/scripts/split-queue.test.mjs</code> - command and gate coverage.</li><li data-implementation-path="foundation/docs/specs/foundation-backfill-split-queue-technical.html"><code>foundation/docs/specs/foundation-backfill-split-queue-technical.html</code> - technical contract for this layer.</li></ul>
+      <ul class="path-list"><li data-implementation-path="foundation/scripts/split-queue-core.mjs"><code>foundation/scripts/split-queue-core.mjs</code> - canonical Define Spec Jobs implementation.</li><li data-implementation-path="foundation/scripts/split-queue.test.mjs"><code>foundation/scripts/split-queue.test.mjs</code> - command and gate coverage.</li><li data-implementation-path="foundation/docs/specs/foundation-backfill-split-queue-technical.html"><code>foundation/docs/specs/foundation-backfill-split-queue-technical.html</code> - technical contract for this layer.</li></ul>
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Split And Queue Technical Spec · active</p>
+  <p class="footer-note">Foundation Backfill Define Spec Jobs Technical Spec · active</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

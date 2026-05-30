@@ -25,7 +25,7 @@ function usage() {
   return `Usage:
   npm run foundation:split-queue:eval -- --repo /path/to/repo --run-id YYYYMMDD-NN [--sample all|risk] [--run-log path]
 
-Writes canonical JSONL Split And Queue eval receipts and a derived HTML summary.`;
+Writes canonical JSONL Define Spec Jobs eval receipts and a derived HTML summary.`;
 }
 
 function renderHtmlSummary({ runId, repoRoot, queuePath, queueFingerprint, receiptPath, summaryPath, sampleRows, aggregate, findings }) {
@@ -40,15 +40,15 @@ function renderHtmlSummary({ runId, repoRoot, queuePath, queueFingerprint, recei
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Split And Queue Eval ${runId}</title>
+<title>Define Spec Jobs Eval ${runId}</title>
 <link rel="stylesheet" href="../spec-system.css">
 </head>
 <body>
 <main class="main">
   <section id="summary">
     <div class="spec-eyebrow">docs/specs/backfill/${path.basename(summaryPath)}</div>
-    <h1>Split And Queue Eval ${runId}</h1>
-    <p class="lede">Derived human summary for canonical JSONL Split And Queue eval receipts.</p>
+    <h1>Define Spec Jobs Eval ${runId}</h1>
+    <p class="lede">Derived human summary for canonical JSONL Define Spec Jobs eval receipts.</p>
     <div class="meta-row">
       <div><strong>Run ID:</strong> ${runId}</div>
       <div><strong>Total score:</strong> ${aggregate.totalScore}</div>
@@ -164,16 +164,16 @@ function main() {
     slice: null,
     phase: "evaluation",
     event: "evaluation",
-    summary: `Split And Queue eval ${aggregate.acceptable ? "passed" : "failed"} with score ${aggregate.totalScore}.`,
+    summary: `Define Spec Jobs eval ${aggregate.acceptable ? "passed" : "failed"} with score ${aggregate.totalScore}.`,
     artifactsRead: [path.relative(repoRoot, splitQueuePathFor(repoRoot, runId, outDir))],
     artifactsChanged: [path.relative(repoRoot, receiptPath), path.relative(repoRoot, summaryPath)],
     commands: ["foundation:split-queue:eval"],
     checks: [{ name: "split-queue-eval", result: aggregate.acceptable ? "passed" : "failed" }],
-    result: aggregate.acceptable ? `Split And Queue eval passed with score ${aggregate.totalScore}.` : `Split And Queue eval failed with score ${aggregate.totalScore}.`,
-    nextAction: revisionTargets.length > 0 ? "Revise Split And Queue rows named in revisionTargets before report handoff." : (aggregate.acceptable ? "Record handoff to Evidence Pack gate." : "Revise Split And Queue rows named in revisionTargets.")
+    result: aggregate.acceptable ? `Define Spec Jobs eval passed with score ${aggregate.totalScore}.` : `Define Spec Jobs eval failed with score ${aggregate.totalScore}.`,
+    nextAction: revisionTargets.length > 0 ? "Revise Define Spec Jobs rows named in revisionTargets before report handoff." : (aggregate.acceptable ? "Record handoff to Context Pack gate." : "Revise Define Spec Jobs rows named in revisionTargets.")
   });
 
-  console.log(`Split And Queue eval
+  console.log(`Define Spec Jobs eval
 Score: ${aggregate.totalScore}
 Minimum normalized category: ${aggregate.normalizedMinimum.toFixed(1)}
 Acceptable: ${aggregate.acceptable ? "yes" : "no"}

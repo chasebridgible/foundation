@@ -175,7 +175,7 @@
 <main>
   <div class="eyebrow">Foundation analysis note</div>
   <h1>GBrain Mechanics for Foundation Backfill</h1>
-  <p class="lede">This note extracts reusable mechanics from Garry Tan's GBrain for the Foundation backfill and development substrate. It is not a formal spec. It is a working analysis of what should guide the file registry, surface registry, capability matrix, queue, evidence pack, and evaluation layers.</p>
+  <p class="lede">This note extracts reusable mechanics from Garry Tan's GBrain for the Foundation backfill and development substrate. It is not a formal spec. It is a working analysis of what should guide the Artifact Inventory, Surface / Function Map, Capability Map, queue, Context Pack, and evaluation layers.</p>
   <div class="meta-row">
     <div><strong>Status:</strong> analysis draft</div>
     <div><strong>Created:</strong> 2026-05-25</div>
@@ -245,7 +245,7 @@
       <div class="cell">
         <div class="cell-label">Mechanic 08</div>
         <div class="cell-title">Queues with resumable state</div>
-        <div class="cell-copy">GBrain's Minions queue is durable, idempotent, bounded, and audited. Foundation's split/queue layer should become a real state model, not just prose inside the report.</div>
+        <div class="cell-copy">GBrain's Minions queue is durable, idempotent, bounded, and audited. Foundation's Job / Spec Queue layer should become a real state model, not just prose inside the report.</div>
       </div>
     </div>
   </section>
@@ -253,36 +253,36 @@
   <section id="layer-implications">
     <h2>Layer Implications</h2>
 
-    <h3>File Registry</h3>
-    <p>The file registry should follow GBrain's source-of-record pattern. The JSONL registry is canonical. Hashes, sizes, language detection, and generated-file classification are deterministic facts. Any search index, graph, or UI is derived and must be rebuildable from the registry plus repo files.</p>
-    <p>The registry rows should probably carry more than the proposed V1 fields. Add <code>registry_version</code>, <code>repo_id</code>, <code>run_id</code>, <code>path_kind</code>, <code>language</code>, <code>is_generated</code>, <code>source_status</code>, <code>mapping_status</code>, <code>responsibilities</code>, <code>surface_refs</code>, <code>review_flags</code>, <code>confidence</code>, <code>mapped_by</code>, <code>mapped_at</code>, and <code>evidence</code>. This makes later layers less dependent on re-reading raw files.</p>
+    <h3>Artifact Inventory</h3>
+    <p>The Artifact Inventory should follow GBrain's source-of-record pattern. The JSONL registry is canonical. Hashes, sizes, language detection, and generated-file classification are deterministic facts. Any search index, graph, or UI is derived and must be rebuildable from the registry plus repo files.</p>
+    <p>The inventory rows should probably carry more than the proposed V1 fields. Add <code>registry_version</code>, <code>repo_id</code>, <code>run_id</code>, <code>path_kind</code>, <code>language</code>, <code>is_generated</code>, <code>source_status</code>, <code>mapping_status</code>, <code>responsibilities</code>, <code>surface_refs</code>, <code>review_flags</code>, <code>confidence</code>, <code>mapped_by</code>, <code>mapped_at</code>, and <code>evidence</code>. This makes later layers less dependent on re-reading raw files.</p>
 
-    <h3>Surface Registry</h3>
-    <p>GBrain's retrieval system shows the value of layering cheap deterministic extractors before model judgment. The surface registry should first use deterministic detectors for routes, commands, screens, tables, workflows, tests, docs, generated artifacts, jobs, and infra resources. Latent extraction should fill gaps, classify intent, and flag ambiguity.</p>
-    <p>Every surface should cite the file registry rows that produced it. That creates a chain from file -> surface -> capability -> spec -> test. Without that chain, the backfill system will know it read files but will not know which files prove which user-facing behavior.</p>
+    <h3>Surface / Function Map</h3>
+    <p>GBrain's retrieval system shows the value of layering cheap deterministic extractors before model judgment. The Surface / Function Map should first use deterministic detectors for routes, commands, screens, tables, workflows, tests, docs, generated artifacts, jobs, and infra resources. Latent extraction should fill gaps, classify intent, and flag ambiguity.</p>
+    <p>Every surface should cite the Artifact Inventory rows that produced it. That creates a chain from file -> surface -> capability -> spec -> test. Without that chain, the backfill system will know it read files but will not know which files prove which user-facing behavior.</p>
 
-    <h3>Capability Matrix</h3>
+    <h3>Capability Map</h3>
     <p>GBrain's graph and source-aware citations are more relevant than its embeddings here. A capability is a graph node with evidence edges, not just a paragraph. The row should carry actor, outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence links back to surfaces and files.</p>
-    <p>The capability matrix should also include negative evidence: files inspected that looked relevant but did not prove the capability. This helps future agents avoid rediscovering the same dead ends.</p>
+    <p>The Capability Map should also include negative evidence: files inspected that looked relevant but did not prove the capability. This helps future agents avoid rediscovering the same dead ends.</p>
 
-    <h3>Split And Queue</h3>
-    <p>This is where GBrain's job queue is most useful. Broad capability rows let agents escape. A durable queue should include slice id, parent capability id, acceptance boundary, required artifact outputs, evidence pack id, status, attempts, blocked reason, reviewer state, budget, and last checker/eval result.</p>
+    <h3>Define Spec Jobs</h3>
+    <p>This is where GBrain's job queue is most useful. Broad capability rows let agents escape. A Job / Spec Queue should include slice id, parent capability id, acceptance boundary, required artifact outputs, Context Pack id, status, attempts, blocked reason, reviewer state, budget, and last checker/eval result.</p>
     <p>Use deterministic split checks before semantic review: row too broad, too many actors, too many unrelated surfaces, no backing contracts, no failure modes, no evidence, or no observable done condition.</p>
 
-    <h3>Evidence Pack</h3>
-    <p>GBrain's retrieval modes and token budgets suggest the evidence pack should be a scoped retrieval product, not a dump. It should gather the smallest sufficient set of file rows, surface rows, code excerpts, docs, tests, and prior decisions for one slice. It should include why each item was included and what question it answers.</p>
-    <p>Make evidence packs reproducible. A future agent should be able to re-run pack generation from the queue row and get a comparable result, then inspect differences.</p>
+    <h3>Context Pack</h3>
+    <p>GBrain's retrieval modes and token budgets suggest the Context Pack should be a scoped retrieval product, not a dump. It should gather the smallest sufficient set of file rows, surface rows, code excerpts, docs, tests, and prior decisions for one slice. It should include why each item was included and what question it answers.</p>
+    <p>Make Context Packs reproducible. A future agent should be able to re-run pack generation from the queue row and get a comparable result, then inspect differences.</p>
 
-    <h3>User And Operator Flow Extraction</h3>
-    <p>GBrain's diarization pattern matters here: read many documents, produce one structured judgment artifact. Flow extraction should read the evidence pack and produce states, rules, permissions, edge cases, empty/loading/error behavior, and visible/operator behavior. The output should be structured enough to evaluate and specific enough to author descriptive specs.</p>
+    <h3>Process / Action Map</h3>
+    <p>GBrain's diarization pattern matters here: read many documents, produce one structured judgment artifact. Process / Action Map should read the Context Pack and produce states, rules, permissions, edge cases, empty/loading/error behavior, and visible/operator behavior. The output should be structured enough to evaluate and specific enough to author descriptive specs.</p>
 
-    <h3>Descriptive And Technical Spec Authoring</h3>
-    <p>GBrain's thin-harness/fat-skills split says spec authoring should live mostly in skills, while the harness only manages artifacts and gates. Keep the descriptive spec skill architecture-agnostic. Keep the technical spec skill contract-first. Use deterministic validators to enforce metadata, owned paths, related specs, evidence links, and coverage.</p>
+    <h3>Author Specs</h3>
+    <p>GBrain's thin-harness/fat-skills split says Author Specs should live mostly in skills, while the harness only manages artifacts and gates. Keep the descriptive spec skill architecture-agnostic. Keep the technical spec skill contract-first. Use deterministic validators to enforce metadata, owned paths, related specs, evidence links, and coverage.</p>
 
-    <h3>Slice Evaluation And Revision</h3>
+    <h3>Evaluate Job Slices And Revision</h3>
     <p>GBrain's eval gate is a better pattern than one-time judging. Foundation should require create -> evaluate -> revise -> acceptable. The evaluator should write structured receipts that include scores, findings, sampled evidence, model/rubric versions, and what changed after revision.</p>
 
-    <h3>Graph Evaluation</h3>
+    <h3>Evaluate System Coherence</h3>
     <p>GBrain's rebuild promise is the hard version of the final question. Foundation's graph evaluation should ask whether the spec graph can rebuild the system's intent without source access. The practical test is: hide the source, give a future agent the specs and evidence summaries, and see whether it can describe the system, generate tests, and identify implementation boundaries.</p>
   </section>
 
@@ -335,7 +335,7 @@
         <tr>
           <td>Durable work</td>
           <td>Minions queue has bounded, resumable job state.</td>
-          <td>Move split/queue out of prose and into durable queue rows. Treat attempts, blocks, and approvals as first-class state.</td>
+          <td>Move Job / Spec Queue out of prose and into Job / Spec Queue rows. Treat attempts, blocks, and approvals as first-class state.</td>
         </tr>
       </tbody>
     </table>
@@ -355,7 +355,7 @@
   <section id="knowledge-base-extension">
     <h2>Knowledge Base Extension</h2>
     <p>The same mechanics apply to Business OS knowledge bases. Canonical business artifacts should be files or structured records: offer map, job records, role records, SOPs, metric dictionary, decision log, incidents, customer promises, and update rules. Search, graph traversal, dashboards, and recommendations should be derived from those artifacts.</p>
-    <p>GBrain's source boundaries map naturally to clients, departments, functions, or operating domains. Foundation's job records can become the business equivalent of capabilities. Evidence packs can gather the facts needed to improve one job. Eval/replay can test whether recommendations still improve causal drivers rather than vanity metrics.</p>
+    <p>GBrain's source boundaries map naturally to clients, departments, functions, or operating domains. Foundation's job records can become the business equivalent of capabilities. Context Packs can gather the facts needed to improve one job. Eval/replay can test whether recommendations still improve causal drivers rather than vanity metrics.</p>
     <div class="note">
       <p><strong>Business OS translation:</strong> a company compounds when measured reality updates durable operating memory. GBrain shows one way to make the memory retrievable. Foundation still needs the operating protocol that turns retrieval into better definitions, decisions, actions, and learning.</p>
     </div>
@@ -364,13 +364,13 @@
   <section id="recommended-order">
     <h2>Recommended Order</h2>
     <ol>
-      <li>Finalize the file registry artifact and checker as source-of-record infrastructure.</li>
+      <li>Finalize the Artifact Inventory artifact and checker as source-of-record infrastructure.</li>
       <li>Add artifact category rules: canonical, derived, and runtime-only exceptions.</li>
-      <li>Build the surface registry with deterministic detectors first, LLM fill second.</li>
-      <li>Make row ids and evidence edges mandatory across file, surface, capability, queue, evidence pack, and spec artifacts.</li>
-      <li>Add semantic eval receipts and replay before the capability matrix becomes too large.</li>
-      <li>Move split/queue into durable JSONL state with explicit acceptance boundaries.</li>
-      <li>Add evidence pack generation with token budgets and reproducibility receipts.</li>
+      <li>Build the Surface / Function Map with deterministic detectors first, LLM fill second.</li>
+      <li>Make row ids and evidence edges mandatory across file, surface, capability, queue, Context Pack, and spec artifacts.</li>
+      <li>Add semantic eval receipts and replay before the Capability Map becomes too large.</li>
+      <li>Move Job / Spec Queue into durable JSONL state with explicit acceptance boundaries.</li>
+      <li>Add Context Pack generation with token budgets and reproducibility receipts.</li>
       <li>Only then consider a GBrain-like retrieval/index layer for faster context assembly.</li>
     </ol>
   </section>
@@ -378,7 +378,7 @@
   <section id="bottom-line">
     <h2>Bottom Line</h2>
     <p>GBrain supports the direction of the Foundation backfill system. It suggests that the right V1 is not a smarter one-shot backfill prompt. The right V1 is a stack of durable, source-cited, machine-checkable artifacts with deterministic gates, semantic eval receipts, and replayable improvement loops.</p>
-    <p>The file registry is the bottom of that stack. It proves the repo was seen. The surface registry, capability matrix, queue, evidence pack, specs, and graph evaluation prove the system was understood. GBrain's most useful contribution is showing how to keep those layers canonical, scoped, routed, indexed, and improvable over time.</p>
+    <p>The Artifact Inventory is the bottom of that stack. It proves the repo was seen. The Surface / Function Map, Capability Map, queue, Context Pack, specs, and graph evaluation prove the system was understood. GBrain's most useful contribution is showing how to keep those layers canonical, scoped, routed, indexed, and improvable over time.</p>
   </section>
 </main>
 </body>

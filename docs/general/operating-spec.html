@@ -409,7 +409,7 @@
 <a class="nav-item" href="#2-the-loop-spec-test-prompt-execute"><span class="nav-num">03</span>2. The loop: spec, test, prompt, execute.</a>
 <a class="nav-item" href="#3-specs-evolve-so-do-the-tests-they-generate"><span class="nav-num">04</span>3. Specs evolve. So do the tests they generate.</a>
 <a class="nav-item" href="#4-capabilities--vertical-slices-that-compound"><span class="nav-num">05</span>4. Capabilities — vertical slices that compound.</a>
-<a class="nav-item" href="#5-the-knowledge-base--durable-context"><span class="nav-num">06</span>5. The knowledge base — durable context.</a>
+<a class="nav-item" href="#5-the-knowledge-base--durable-context"><span class="nav-num">06</span>5. Context substrate.</a>
 <a class="nav-item" href="#6-the-system-gets-better-as-the-world-gets-better"><span class="nav-num">07</span>6. The system gets better as the world gets better.</a>
 <a class="nav-item" href="#7-the-operating-shape"><span class="nav-num">08</span>7. The operating shape.</a>
 <a class="nav-item" href="#8-the-business--productized-agency"><span class="nav-num">09</span>8. The business — productized agency.</a>
@@ -433,13 +433,14 @@
 <section class="level1 generated-root">
 <section id="how-to-read-this" class="level2 spec-section">
 <h2>How to read this</h2>
-<p>This document is itself a spec. It describes how I want to build software with agents, and how the agents I work with should operate inside the system. It is written in the form it teaches: short, declarative, principle-first, kept current as I learn.</p>
+<p>This document is itself a spec and a software-development mapping of <code>system-philosophy.html</code>. It describes how I want to build value through software with agents, and how the agents I work with should operate inside the system. It is written in the form it teaches: short, declarative, principle-first, kept current as I learn.</p>
 <p>Two kinds of claim show up in here. <strong>Principles</strong> I am confident in — I would defend them in conversation and do not expect them to change as my technical understanding improves. <strong>Operating choices</strong> are my current best implementation of those principles. Those will change. When they do, this doc is updated in the same commit as the system that changed.</p>
 <p>If you are an agent reading this, this is your environment. Read §7 (the operating shape) for what to do, and read everything else for why.</p>
 <hr />
 </section>
 <section id="1-bugs-are-deviations-from-intent" class="level2 spec-section">
 <h2>1. Bugs are deviations from intent.</h2>
+<p>Software development exists to build value through software. Sometimes that value is a product behavior a customer uses. Sometimes it is internal leverage, automation, reliability, data, speed, or operating clarity. In every case, the work is justified by an intended result.</p>
 <p>Code executes. Agents execute. Wrongness in software is almost never "the machine made a mistake" — it is that the intent the machine was acting on was incomplete, ambiguous, or never written down. A bug is a gap between what was supposed to happen and what was specified to happen.</p>
 <p>That is not a semantic move. It changes where you look when something goes wrong. The first question is not <em>what is the agent doing weird?</em> It is <em>what did I tell it to do, and did that description capture what I wanted?</em> Almost always, the answer is no — the deviation is the agent faithfully executing an under-specified intent.</p>
 <p>The implication for how to work with agents is direct. <strong>The unit of correctness is the spec, not the code.</strong> If you can describe what should happen with enough precision that a test could verify it, the rest of the work compresses. If you cannot, no amount of prompting or model upgrade will reliably get you there.</p>
@@ -484,11 +485,11 @@
 </section>
 <section id="3-specs-evolve-so-do-the-tests-they-generate" class="level2 spec-section">
 <h2>3. Specs evolve. So do the tests they generate.</h2>
-<p>A spec is a living product contract. It says: <em>this is how the system should look and behave from the user's side, and these are the verifiable conditions that protect that behavior.</em> Specs are never finished. They are the most up-to-date statement of what the work is trying to achieve.</p>
+<p>A spec is a living intent-and-evidence artifact. In software, it says: <em>this is how the system should look and behave from the user's side, and these are the verifiable conditions that protect that behavior.</em> Specs are never finished. They are the most up-to-date statement of what the work is trying to achieve.</p>
 <p>There are three kinds, and they answer different questions.</p>
 <p><strong>Descriptive specs</strong> describe how the application should look and feel to a user — the full user flow, conditional behavior, edge cases. This is where the experience the user actually has gets articulated, and where vagueness gets discovered. A descriptive spec that says "the popup should appear when the user saves a clip" is too thin. One that says "a centered modal slides up over 200ms with a confetti burst, a haptic tap on iOS and Android, the title 'Saved' in 18pt semibold, the subtitle 'Your highlight is in your camera roll' in 14pt regular, dismissed on tap-anywhere or after 1.5 seconds" is a spec.</p>
 <p><strong>Technical specs</strong> describe how the system functions internally — what should happen, in what sequence, with what timing. They are required for every software task. The level of detail scales with the work: a simple message-thread change may need a short technical note that names touched modules, data flow, and non-goals; a livestreaming pipeline, custom video player, or real-time sync engine needs a deeper contract for sequencing, timing, failure modes, and boundaries. The rule is: the technical spec is never skippable, but it should be only as deep as the task requires.</p>
-<p><strong>Test specs</strong> describe in plain English how the system will be verified. They are the human's seat at the table. The code-level tests can be regenerated by the agent at any time, but the test spec is what the human reads to decide whether the right things are being checked. When the descriptive spec changes, the test spec changes; when the test spec changes, the underlying code-level tests are regenerated.</p>
+<p><strong>Test specs</strong> describe in plain English how the system will be verified. They are the human's seat at the table. The code-level tests can be regenerated by the agent at any time, but the test spec is what the human reads to decide whether the right things are being checked. In business language, the same artifact may be called an eval, acceptance criteria, quality gate, scorecard, audit, or metric definition. When the descriptive spec changes, the test spec changes; when the test spec changes, the underlying code-level tests are regenerated.</p>
 <p>The discipline that makes all of this work is straightforward. <strong>When the code changes, the relevant Specs must also change.</strong> A spec that drifts from the system it describes is worse than no spec, because it gives false confidence. Spec/code consistency is part of every loop iteration, not an afterthought.</p>
 <hr />
 </section>
@@ -502,11 +503,11 @@
 <hr />
 </section>
 <section id="5-the-knowledge-base--durable-context" class="level2 spec-section">
-<h2>5. The knowledge base — durable context.</h2>
+<h2>5. Context substrate — durable context.</h2>
 <p>A context window is finite. Whatever an agent does not know about your business at the moment of execution, it makes up. Most of the time the made-up answer is plausible enough that you do not notice — until you do, and the cost is whatever piece of work was built on top of the bad assumption.</p>
-<p>Context is the moat in agent-based development. The defensible thing is not the agent or the model; both are commodities. The defensible thing is the captured operating mind of the business — what it sells, who it sells to, what it promises, what it does not, who decides what, what the SOPs are, what the constraints are. That is the <strong>knowledge base</strong>.</p>
+<p>Context is the moat in agent-based development. The defensible thing is not the agent or the model; both are commodities. The defensible thing is the captured operating mind of the business — what it sells, who it sells to, what it promises, what it does not, who decides what, what the SOPs are, what the constraints are. A knowledge base is one implementation of that <strong>context substrate</strong>.</p>
 <p>A knowledge base is structured so an agent can read exactly the part it needs at exactly the moment it needs it. It contains the company's operating model (strategy, positioning, offerings), control (roles, decisions, systems, metrics), and execution (SOPs, checklists, workflows). It is edited continuously — by humans and by agents — and validated against a small set of rules so it stays trustworthy.</p>
-<p>The knowledge base and the spec serve the same function at different scales. A spec captures the durable intent of <em>one piece of work</em>. The knowledge base captures the durable intent of <em>one business</em>. Together they are how a finite context window can act with the company's actual taste, instead of generic competence.</p>
+<p>The knowledge base and the spec serve the same function at different scales. A spec captures the durable intent and evidence for <em>one piece of work</em>. The knowledge base captures durable business context across many pieces of work. Together they are how a finite context window can act with the company's actual taste, instead of generic competence.</p>
 <p>A business that articulates its operating mind well will outcompete one that does not, even at the same level of model capability. That is not a future claim. It is already true.</p>
 <hr />
 </section>
@@ -539,7 +540,7 @@
 <p><strong>Me.</strong> I confirm specs, prioritize development tasks, and decide what is good enough to ship. Three high-leverage decisions, repeated.</p>
 <p><strong>Shipmate.</strong> My CTO and operator. Watches the task board, notifies me on Slack when something needs attention, kicks off agent runs when I green-light work, reports back when work finishes or blocks, and runs deployments when I tell it to. Shipmate does not write code. It makes sure the right work happens at the right time with the right context.</p>
 <p><strong>The task board.</strong> A simple two-lane queue: <code>Later</code> and <code>Now</code>. New work — from me, from clients, from in-app feedback, from crash reports — lands in <code>Later</code>. Work moves to <code>Now</code> only when I green-light it. That move is the only execution gate in the system. No agent ever starts work on something still in <code>Later</code>, regardless of who created it.</p>
-<p><strong>The agent.</strong> One worker at a time, across all active repos. Receives a goal from the board, runs the spec/test/prompt/execute loop against the substrate (knowledge base, capabilities, templates), and produces a pull request. Spawns subagents when a goal benefits from parallel inner loops. Uses whatever skills fit the work; the workflow phases (plan, architect, design, build, review, push, deploy) are tactics inside the loop, not a fixed sequence.</p>
+<p><strong>The agent.</strong> One worker at a time, across all active repos. Receives a goal from the board, runs the spec/test/prompt/execute loop against the substrate (context substrate, capabilities, templates), and produces a pull request. Spawns subagents when a goal benefits from parallel inner loops. Uses whatever skills fit the work; the workflow phases (plan, architect, design, build, review, push, deploy) are tactics inside the loop, not a fixed sequence.</p>
 <p>That is the whole shape. Anything more elaborate is implementation detail. The reason this works is that it puts the human only in the places where context, judgment, and accountability matter — defining intent, prioritizing, accepting work — and delegates everything else to the loop.</p>
 <p>The operating choices inside this shape (which board, which orchestration framework, which skills, which validation gauntlet) are an iterating layer. The shape itself is settled.</p>
 <hr />
@@ -560,8 +561,8 @@
   </div>
 </div>
 <p>A traditional agency consumes effort per engagement that does not return. Each client is a fresh start; the work that ships for one is rarely useful for the next. Labor cost scales linearly with revenue, and margin compresses as the team grows.</p>
-<p>A productized agency built on the system above looks different. The substrate (the shared templates, the knowledge base structure, the operating shape) is built once. The capability library grows with every engagement and is available to every future engagement. The agent does the work the same way each time, against the same substrate, using the same loop. What is customized per client is the spec — the intent — and the small surface of capabilities the client actually needs. Most of the work is not bespoke.</p>
-<p>That is the gap the business model lives in. The client perceives a custom application built specifically for them, because the spec, the knowledge base, and the selected capabilities really are theirs. The delivery cost looks more like a product than a service, because the substrate carries most of the load. <strong>Service-grade outcomes with high revenue at product-grade cost.</strong> The margin lives in the gap, and the gap widens as the capability library grows.</p>
+<p>A productized agency built on the system above looks different. The substrate (the shared templates, the context-substrate structure, the operating shape) is built once. The capability library grows with every engagement and is available to every future engagement. The agent does the work the same way each time, against the same substrate, using the same loop. What is customized per client is the spec — the intent — and the small surface of capabilities the client actually needs. Most of the work is not bespoke.</p>
+<p>That is the gap the business model lives in. The client perceives a custom application built specifically for them, because the spec, the context substrate, and the selected capabilities really are theirs. The delivery cost looks more like a product than a service, because the substrate carries most of the load. <strong>Service-grade outcomes with high revenue at product-grade cost.</strong> The margin lives in the gap, and the gap widens as the capability library grows.</p>
 <p>Three things this depends on, all of which are claims I am willing to make.</p>
 <p><strong>Context is the moat.</strong> The defensible asset is each client's captured business context, the agency's accumulated capability inventory, and the business knowledge and acumen of the agency operators. None of these are replicable from outside.</p>
 <p><strong>Build for one, deploy to many.</strong> A capability that ships for client A and is useful for client B <em>only</em> if A's specifics are scrubbed is not reusable; it is a snowflake. Folder-copy portability is what keeps the inventory honest.</p>
@@ -576,7 +577,7 @@
 <li>The principles in §1 (intent is the bottleneck) and §2 (the four-step loop).</li>
 <li>The three spec types in §3 and the discipline of co-evolution.</li>
 <li>Capabilities as vertical slices, with folder-copy portability as the test.</li>
-<li>The knowledge base as durable context.</li>
+<li>Context substrate, with the knowledge base as one durable implementation.</li>
 <li>The three flywheels and positive time-dependence.</li>
 <li>The basic operating shape: me → OpenClaw → board → agent.</li>
 <li>The productized agency thesis.</li>
@@ -598,7 +599,8 @@
     <h2>Related core concept docs</h2>
     <p class="lede-2">Sibling HTML-native documents in this folder.</p>
     <div class="related-grid">
-      <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
+      <a class="related-card" href="./system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root philosophy that software development maps into as one business capability.</div></a>
+      <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.html is one instance of it.</div></a>
 <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
 <a class="related-card" href="../principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems in any field: sport, education, business, operations, software, and AI-assisted work.</div></a>
 <a class="related-card" href="../principles/sw-dev-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits the domain-neutral core principles and adds implementation-specific rules for building software with AI agents.</div></a>

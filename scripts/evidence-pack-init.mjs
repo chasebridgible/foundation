@@ -20,7 +20,7 @@ function usage() {
   return `Usage:
   npm run foundation:evidence-pack:init -- --repo /path/to/repo --run-id YYYYMMDD-NN [--out-dir path] [--report path] [--run-log path]
 
-Creates the canonical pending Evidence Pack JSONL skeleton from a passing Split And Queue handoff.`;
+Creates the canonical pending Context Pack JSONL skeleton from a passing Define Spec Jobs handoff.`;
 }
 
 function main() {
@@ -39,7 +39,7 @@ function main() {
   const handoff = validateSplitQueueHandoff(repoRoot, runId, outDir, reportPath);
   const summary = summarizeResults(handoff.results);
   if (summary.fail > 0) {
-    console.log(renderResultsText("Evidence Pack init", handoff.results));
+    console.log(renderResultsText("Context Pack init", handoff.results));
     process.exit(1);
   }
 
@@ -51,21 +51,21 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "evidence-pack",
+    phase: "context-pack",
     event: "start",
-    summary: "Initialized Evidence Pack from passing Split And Queue handoff.",
+    summary: "Initialized Context Pack from passing Define Spec Jobs handoff.",
     artifactsRead: [path.relative(repoRoot, handoff.queuePath)],
     artifactsChanged: [path.relative(repoRoot, packPath)],
     commands: ["foundation:evidence-pack:init"],
     checks: [{ name: "split-queue-handoff", result: "passed" }],
     durationSeconds: 0,
-    result: `${rows.length} pending Evidence Pack row(s) created from active Split And Queue slices.`,
-    nextAction: "Use the Evidence Pack fill loop: collect bounded source and verification evidence for each queued slice, then run check and eval."
+    result: `${rows.length} pending Context Pack row(s) created from active Define Spec Jobs slices.`,
+    nextAction: "Use the Context Pack fill loop: collect bounded source and verification evidence for each queued slice, then run check and eval."
   });
 
-  console.log(renderResultsText("Evidence Pack init", [
+  console.log(renderResultsText("Context Pack init", [
     ...handoff.results,
-    { id: "evidence-pack-skeleton", status: "pass", message: `Created ${rows.length} pending Evidence Pack row(s)` }
+    { id: "evidence-pack-skeleton", status: "pass", message: `Created ${rows.length} pending Context Pack row(s)` }
   ]));
 }
 

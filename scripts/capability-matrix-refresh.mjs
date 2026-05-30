@@ -20,7 +20,7 @@ function usage() {
   return `Usage:
   npm run foundation:capability-matrix:refresh -- --repo /path/to/repo --run-id YYYYMMDD-NN [--out-dir path] [--run-log path]
 
-Refreshes Capability Matrix rows from the current Surface Registry. Changed or new ready surfaces return to pending and must be grouped again by an agent.`;
+Refreshes Capability Map rows from the current Surface / Function Map. Changed or new ready surfaces return to pending and must be grouped again by an agent.`;
 }
 
 function main() {
@@ -36,10 +36,10 @@ function main() {
   const runId = options["run-id"];
   const outDir = options["out-dir"] ? path.resolve(repoRoot, options["out-dir"]) : defaultBackfillDir(repoRoot);
   const surfaceRegistry = readSurfaceRegistryRows(repoRoot, runId, outDir);
-  if (surfaceRegistry.errors.length > 0) throw new Error(`Surface Registry JSONL has parse errors: ${JSON.stringify(surfaceRegistry.errors)}`);
+  if (surfaceRegistry.errors.length > 0) throw new Error(`Surface / Function Map JSONL has parse errors: ${JSON.stringify(surfaceRegistry.errors)}`);
   const matrixPath = capabilityMatrixPathFor(repoRoot, runId, outDir);
   const existing = readJsonl(matrixPath);
-  if (existing.errors.length > 0) throw new Error(`Capability Matrix JSONL has parse errors: ${JSON.stringify(existing.errors)}`);
+  if (existing.errors.length > 0) throw new Error(`Capability Map JSONL has parse errors: ${JSON.stringify(existing.errors)}`);
 
   const merged = mergeCapabilityRowsForRefresh({
     surfaceRows: surfaceRegistry.rows,
@@ -62,14 +62,14 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "capability-matrix",
+    phase: "capability-map",
     event: "checkpoint",
-    summary: `Refreshed Capability Matrix: ${payload.changedCount} changed/new upstream surfaces, ${payload.removedCount} removed capability rows.`,
+    summary: `Refreshed Capability Map: ${payload.changedCount} changed/new upstream surfaces, ${payload.removedCount} removed capability rows.`,
     artifactsRead: [path.relative(repoRoot, surfaceRegistry.registryPath), path.relative(repoRoot, matrixPath)],
     artifactsChanged: [path.relative(repoRoot, matrixPath), path.relative(repoRoot, refreshPath)],
     commands: ["foundation:capability-matrix:refresh"],
     checks: [],
-    nextAction: payload.pendingCount > 0 ? "Group and mark pending Capability Matrix surfaces." : "Run Capability Matrix check."
+    nextAction: payload.pendingCount > 0 ? "Group and mark pending Capability Map surfaces." : "Run Capability Map check."
   });
 
   console.log(JSON.stringify(payload, null, 2));

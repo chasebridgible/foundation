@@ -1,6 +1,6 @@
 ---
 name: backfill-specs
-description: Orchestrate a complete existing-repo spec backfill by running Foundation backfill sub-skills for inventory, capability coverage, user-flow extraction, descriptive specs, rendered UX, technical specs, adequacy review, and evaluation. Use when adopting an existing repo into Foundation, mapping code/docs into intended behavior, or resuming a long-running repo backfill.
+description: Orchestrate a complete existing-repo spec backfill by running Foundation backfill sub-skills to Inventory Artifacts, Map Surfaces, Map Capabilities, Define Spec Jobs, Gather Context, Map Processes, Author Specs, Review Spec Adequacy, Evaluate Job Slices, and Evaluate System Coherence. Use when adopting an existing repo into Foundation, mapping code/docs into intended behavior, or resuming a long-running repo backfill.
 ---
 
 # Backfill Specs
@@ -18,8 +18,8 @@ Detailed contracts live in:
 - `docs/specs/examples/backfill-golden-example.html`
 
 Read those only when changing the workflow, resolving ambiguity, or calibrating quality.
-Read the file-registry specs before starting or resuming that layer.
-Read the surface-registry or capability-matrix specs before starting or resuming those layers.
+Read the Artifact Inventory specs before starting or resuming that layer. The legacy file and command namespace is `file-registry`.
+Read the Surface / Function Map or Capability Map specs before starting or resuming those layers. Their legacy command namespaces are `surface-registry` and `capability-matrix`.
 
 ## Non-Negotiables
 
@@ -41,15 +41,9 @@ In the target repo:
 - `docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl`
 - draft descriptive and technical specs in `docs/specs/`
 - `docs/specs/backfill/file-manifest-YYYYMMDD-NN.json`
-- `docs/specs/backfill/file-registry-YYYYMMDD-NN.jsonl`
-- `docs/specs/backfill/file-registry-eval-YYYYMMDD-NN.jsonl`
-- `docs/specs/backfill/file-registry-eval-summary-YYYYMMDD-NN.html`
-- `docs/specs/backfill/surface-registry-YYYYMMDD-NN.jsonl`
-- `docs/specs/backfill/surface-registry-eval-YYYYMMDD-NN.jsonl`
-- `docs/specs/backfill/surface-registry-eval-summary-YYYYMMDD-NN.html`
-- `docs/specs/backfill/capability-matrix-YYYYMMDD-NN.jsonl`
-- `docs/specs/backfill/capability-matrix-eval-YYYYMMDD-NN.jsonl`
-- `docs/specs/backfill/capability-matrix-summary-YYYYMMDD-NN.html`
+- Artifact Inventory artifacts: `docs/specs/backfill/file-registry-YYYYMMDD-NN.jsonl`, `file-registry-eval-YYYYMMDD-NN.jsonl`, and `file-registry-eval-summary-YYYYMMDD-NN.html`
+- Surface / Function Map artifacts: `docs/specs/backfill/surface-registry-YYYYMMDD-NN.jsonl`, `surface-registry-eval-YYYYMMDD-NN.jsonl`, and `surface-registry-eval-summary-YYYYMMDD-NN.html`
+- Capability Map artifacts: `docs/specs/backfill/capability-matrix-YYYYMMDD-NN.jsonl`, `capability-matrix-eval-YYYYMMDD-NN.jsonl`, and `capability-matrix-summary-YYYYMMDD-NN.html`
 
 The report must contain:
 
@@ -76,48 +70,48 @@ Queue slices must include stable ID, scope, capability IDs, status, owner skill,
 Repeat until capability coverage is closed:
 
 1. Create or resume the dated report and run log.
-2. Complete or resume the file-registry layer before capability inference: every repo-owned file must be mapped in the canonical registry and pass the file-registry check/eval gate.
-3. Complete or resume the surface-registry layer before capability inference: every eligible file row must resolve to ready surfaces, support classifications, or review blockers.
-4. Complete or resume the capability-matrix layer: every ready surface must map to a `ready-for-queue` or `needs-split` capability row.
+2. Inventory Artifacts before capability inference: every repo-owned file must be mapped in the canonical Artifact Inventory and pass the check/eval gate.
+3. Map Surfaces before capability inference: every eligible artifact row must resolve to ready surfaces, support classifications, or review blockers.
+4. Map Capabilities: every ready surface must map to a `ready-for-queue` or `needs-split` capability row.
 5. Apply the split rule; rows needing split cannot close.
-6. Refresh the slice queue from capability rows.
+6. Define Spec Jobs by refreshing the Job / Spec Queue from capability rows.
 7. Pick the next capability-backed slice that is queued, in progress, needs split, needs descriptive, needs technical, needs evaluation, needs revision, or revision-ready.
 8. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
-9. Use `backfill-user-flow-extraction` for user/operator-visible capability slices.
+9. Use `backfill-user-flow-extraction` to Map Processes for user/operator-visible capability slices.
 10. Use `backfill-descriptive-spec-author`.
 11. Use `backfill-rendered-ux-spec` when the capability has visible UX.
 12. Use `backfill-technical-spec-author`.
-13. Use `backfill-spec-adequacy-review`; revise before evaluator scoring if it fails.
-14. Use `evaluate-backfill-specs`.
+13. Use `backfill-spec-adequacy-review` to Review Spec Adequacy; revise before evaluator scoring if it fails.
+14. Use `evaluate-backfill-specs` to Evaluate Job Slices.
 15. If below threshold, mark `needs-revision`, route the gap to the owning skill, revise, and re-evaluate.
 16. If acceptable, mark the slice and attached capability rows acceptable.
 17. Run validation after meaningful report/log/spec changes:
     - `npm run backfill:queue:check -- <target-repo>/docs/specs/backfill/review-report-YYYYMMDD-NN.html`
     - `npm run backfill:run-log:check -- <target-repo>/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl`
     - target registry/spec checks required by its `AGENTS.md`
-18. Update report status, capability matrix, remaining queue, run-log sequence, and next action.
+18. Update report status, Capability Map, remaining Job / Spec Queue, run-log sequence, and next action.
 
-After all capability rows are acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope, run `evaluate-backfill-specs` on the full graph. If graph evaluation needs revision, route it back through the loop.
+After all capability rows are acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope, run `evaluate-backfill-specs` on the full graph to Evaluate System Coherence. If system-coherence evaluation needs revision, route it back through the loop.
 
 ## Skill Chain
 
 - `skills/backfill-repo-inventory/SKILL.md`
-- `skills/file-registry-fill-loop/SKILL.md`
-- `skills/surface-registry-fill-loop/SKILL.md`
-- `skills/capability-matrix-fill-loop/SKILL.md`
-- `skills/backfill-user-flow-extraction/SKILL.md`
+- `skills/file-registry-fill-loop/SKILL.md` - Inventory Artifacts
+- `skills/surface-registry-fill-loop/SKILL.md` - Map Surfaces
+- `skills/capability-matrix-fill-loop/SKILL.md` - Map Capabilities
+- `skills/backfill-user-flow-extraction/SKILL.md` - Map Processes
 - `skills/backfill-descriptive-spec-author/SKILL.md`
 - `skills/backfill-rendered-ux-spec/SKILL.md`
 - `skills/backfill-technical-spec-author/SKILL.md`
-- `skills/backfill-spec-adequacy-review/SKILL.md`
-- `skills/evaluate-backfill-specs/SKILL.md`
+- `skills/backfill-spec-adequacy-review/SKILL.md` - Review Spec Adequacy
+- `skills/evaluate-backfill-specs/SKILL.md` - Evaluate Job Slices and Evaluate System Coherence
 
 ## Completion
 
 Backfill is complete when:
 
 - every relevant capability row is acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope
-- every manifest file has a mapped file-registry row, and every relevant evidence surface maps to a capability row or non-behavioral support note
+- every manifest file has a mapped Artifact Inventory row, and every relevant evidence surface maps to a capability row or non-behavioral support note
 - graph-level evaluation is acceptable
 - queue, run log, registry, and spec checks pass
 

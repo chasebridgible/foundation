@@ -19,7 +19,7 @@ function usage() {
   return `Usage:
   npm run foundation:split-queue:init -- --repo /path/to/repo --run-id YYYYMMDD-NN [--out-dir path] [--report path] [--run-log path]
 
-Creates the canonical pending Split And Queue JSONL skeleton from a passing Capability Matrix handoff.`;
+Creates the canonical pending Define Spec Jobs JSONL skeleton from a passing Capability Map handoff.`;
 }
 
 function main() {
@@ -38,7 +38,7 @@ function main() {
   const handoff = validateCapabilityMatrixHandoff(repoRoot, runId, outDir, reportPath);
   const summary = summarizeResults(handoff.results);
   if (summary.fail > 0) {
-    console.log(renderResultsText("Split And Queue init", handoff.results));
+    console.log(renderResultsText("Define Spec Jobs init", handoff.results));
     process.exit(1);
   }
 
@@ -49,19 +49,19 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "split-queue",
+    phase: "spec-job-queue",
     event: "start",
-    summary: "Initialized Split And Queue from passing Capability Matrix handoff.",
+    summary: "Initialized Define Spec Jobs from passing Capability Map handoff.",
     artifactsRead: [path.relative(repoRoot, handoff.capabilityMatrixPath)],
     artifactsChanged: [path.relative(repoRoot, queuePath)],
     commands: ["foundation:split-queue:init"],
     checks: [{ name: "capability-matrix-handoff", result: "passed" }],
     durationSeconds: 0,
-    result: `${rows.length} pending queue slice row(s) created from Capability Matrix terminal rows.`,
-    nextAction: "Use the Split And Queue fill loop: split needs-split capabilities into child slices, then run check and eval."
+    result: `${rows.length} pending queue slice row(s) created from Capability Map terminal rows.`,
+    nextAction: "Use the Define Spec Jobs fill loop: split needs-split capabilities into child slices, then run check and eval."
   });
 
-  console.log(renderResultsText("Split And Queue init", [
+  console.log(renderResultsText("Define Spec Jobs init", [
     ...handoff.results,
     { id: "split-queue-skeleton", status: "pass", message: `Created ${rows.length} pending queue slice row(s)` }
   ]));

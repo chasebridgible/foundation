@@ -248,7 +248,7 @@
       "path": "foundation/skills/backfill-user-flow-extraction/SKILL.md",
       "kind": "workflow",
       "ownership": "reference",
-      "notes": "Extracts concrete user flows before descriptive authoring."
+      "notes": "Maps concrete process/action rows before descriptive authoring."
     },
     {
       "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md",
@@ -284,13 +284,13 @@
       "path": "foundation/scripts/backfill-queue-check.mjs",
       "kind": "workflow",
       "ownership": "reference",
-      "notes": "Validates the embedded durable queue in a dated backfill report."
+      "notes": "Validates the embedded Job / Spec Queue in a dated backfill report."
     },
     {
       "path": "foundation/scripts/backfill-queue-check.test.mjs",
       "kind": "test",
       "ownership": "reference",
-      "notes": "Covers durable queue validation behavior."
+      "notes": "Covers Job / Spec Queue validation behavior."
     },
     {
       "path": "foundation/scripts/backfill-run-log-check.mjs",
@@ -577,7 +577,7 @@
         "foundation.backfill-specs.descriptive#interface-journey",
         "foundation.backfill-specs.descriptive#ux-contracts"
       ],
-      "evidence": "Backfill Specs defines the Surface Registry to Capability Matrix handoff, capability matrix layer, capability split rule, and capability-backed completion rule."
+      "evidence": "Backfill Specs defines the Map Surfaces to Map Capabilities handoff, Capability Map layer, capability split rule, and capability-backed completion rule."
     }
   ],
   "tags": [
@@ -633,8 +633,9 @@
       <p>The backfill workflow converts existing code, schemas, tests, and supporting docs into a complete set of draft descriptive and technical specs backed by durable evidence layers. It gives the user a reviewable spec graph, a top-level system/app contract, capability-level specs, canonical JSONL layer artifacts, derived HTML summaries, a dated HTML report with an embedded queue, and a JSONL execution run log that makes the work observable across long sessions and context resets.</p>
       <p>Backfilled specs are intent-rigid and architecture-flexible. Descriptive specs define user and operator intent at an architecture-agnostic level. Technical specs preserve required contracts and classify current implementation evidence, architecture constraints, and implementation latitude.</p>
       <p>Backfill completeness is capability-based. A capability combines actor, intended outcome, domain object, actions, state model, permissions/rules, user or operator-visible experience, backing contracts, failure/recovery behavior, and evidence. Routes, screens, endpoints, tables, jobs, workflows, and infrastructure resources are evidence for capabilities, not proof of coverage on their own.</p>
-      <p>The workflow is designed for large repos and monorepos. It operates in loops: create a capability-backed slice, evaluate the slice, revise weak categories, mark the slice acceptable, then continue. It loads the evidence needed for the current slice and keeps moving through the durable queue until every relevant capability is acceptable, blocked by a named human decision, parent-owned with an explicit reason, or marked out of scope.</p>
-      <p>The sequence is a no-skip contract. File Registry proves the repo was seen; Surface Registry, Capability Matrix, Split/Queue, Evidence Pack, Flow Extraction, Spec Authoring, Slice Evaluation, and Graph Evaluation are the required evidence chain for proving the system was understood. A later layer cannot claim completion from chat memory, broad repo search, or a direct jump from file rows to specs.</p>
+      <p>The workflow is designed for large repos and monorepos. It operates in loops: create a capability-backed slice, evaluate the slice, revise weak categories, mark the slice acceptable, then continue. It loads the evidence needed for the current slice and keeps moving through the Job / Spec Queue until every relevant capability is acceptable, blocked by a named human decision, parent-owned with an explicit reason, or marked out of scope.</p>
+      <p>The sequence is a no-skip contract. Inventory Artifacts proves the repo was seen; Map Surfaces, Map Capabilities, Define Spec Jobs, Gather Context, Map Processes, Author Specs, Evaluate Job Slices, and Evaluate System Coherence are the required process steps for proving the system was understood. A later layer cannot claim completion from chat memory, broad repo search, or a direct jump from artifact rows to specs.</p>
+      <p>The durable artifact names are Artifact Inventory, Surface / Function Map, Capability Map, Job / Spec Queue, Context Pack, Process / Action Map, Specs, Job / Capability Eval, and System Eval. Existing file names, script names, and spec IDs may continue to use legacy implementation keys such as <code>file-registry</code>, <code>surface-registry</code>, <code>capability-matrix</code>, <code>split-queue</code>, and <code>evidence-pack</code> until a compatibility migration is deliberate.</p>
       <h3>Workflow boundary</h3>
       <p>Each durable backfill layer has descriptive, technical, and test/eval specs when it owns an artifact, state model, or correctness gate. Implementation tests and product acceptance tests can still be backfilled later, but the substrate's own check/eval contracts are part of this workflow.</p>
       <p>Backfill Specs creates spec artifacts and review reports. Code cleanup, documentation deletion, architecture rewrites, and old-plan cleanup belong to separate cleanup or implementation workflows after the specs are reviewed.</p>
@@ -658,15 +659,15 @@
         <li><strong>Setup:</strong> the target repo is connected with the Foundation setup skill, then <code>npm run foundation:doctor -- --repo &lt;target-repo&gt;</code> confirms the shared substrate is discoverable.</li>
         <li><strong>Backfill start:</strong> the agent reads target <code>AGENTS.md</code>, Foundation <code>AGENTS.md</code>, the Backfill Specs skill, any existing dated report, and the top-level system/app spec if present.</li>
         <li><strong>Run identity:</strong> the agent creates or continues a dated report such as <code>docs/specs/backfill/review-report-20260521-01.html</code> and matching run log such as <code>docs/specs/backfill/run-log-20260521-01.jsonl</code>. If a target repo adapter names the current report, that file is canonical for the run.</li>
-        <li><strong>File registry:</strong> the agent creates or refreshes the manifest and file registry so every repo-owned file has exactly one current row. V1 includes both bootstrap backfill and steady-state changed-file refresh.</li>
-        <li><strong>Surface registry:</strong> eligible mapped file rows become evidence surfaces such as routes, screens, APIs, commands, jobs, tables, workflows, infra resources, active behavior docs, and dependencies; inert rows remain File Registry evidence.</li>
-        <li><strong>Capability matrix:</strong> ready surfaces become capability rows using the full formula: actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
-        <li><strong>Split and queue:</strong> broad capability rows are split before closure, and a durable queue names exact slices, owner layer, exit criteria, status, score, blockers, and next action.</li>
-        <li><strong>Evidence pack:</strong> each queued slice receives only the files, surfaces, capabilities, tests, docs, schemas, and snippets needed for that slice.</li>
-        <li><strong>Flow extraction:</strong> user and operator flows, states, rules, permissions, empty/loading/error states, recovery paths, and visible behavior are extracted before spec authoring.</li>
-        <li><strong>Spec authoring:</strong> the agent writes or updates architecture-agnostic descriptive specs and contract-first technical specs from the evidence pack and flow rows.</li>
-        <li><strong>Slice evaluation:</strong> each slice runs the hard loop: create, evaluate, revise, re-evaluate, mark acceptable, then continue.</li>
-        <li><strong>Graph evaluation:</strong> after slice coverage is complete, the agent evaluates whether the spec graph preserves system intent well enough that a future agent can rebuild behavior from specs without rediscovering source.</li>
+        <li><strong>Inventory Artifacts:</strong> the agent creates or refreshes the manifest and artifact inventory so every repo-owned file has exactly one current row. V1 legacy files and commands still use <code>file-registry</code>.</li>
+        <li><strong>Map Surfaces:</strong> eligible mapped artifact rows become evidence surfaces such as routes, screens, APIs, commands, jobs, tables, workflows, infra resources, active behavior docs, and dependencies; inert rows remain Artifact Inventory evidence.</li>
+        <li><strong>Map Capabilities:</strong> ready surfaces become capability rows using the full formula: actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
+        <li><strong>Define Spec Jobs:</strong> broad capability rows are split before closure, and a durable Job / Spec Queue names exact slices, owner layer, exit criteria, status, score, blockers, and next action.</li>
+        <li><strong>Gather Context:</strong> each queued slice receives a Context Pack with only the artifacts, surfaces, capabilities, tests, docs, schemas, and snippets needed for that slice.</li>
+        <li><strong>Map Processes:</strong> user and operator processes/actions, states, rules, permissions, empty/loading/error states, recovery paths, and visible behavior are mapped before specs are authored.</li>
+        <li><strong>Author Specs:</strong> the agent writes or updates architecture-agnostic descriptive specs and contract-first technical specs from the Context Pack and Process / Action Map.</li>
+        <li><strong>Evaluate Job Slices:</strong> each slice runs the hard loop: create, evaluate, revise, re-evaluate, mark acceptable, then continue.</li>
+        <li><strong>Evaluate System Coherence:</strong> after slice coverage is complete, the agent evaluates whether the spec graph preserves system intent well enough that a future agent can rebuild behavior from specs without rediscovering source.</li>
         <li><strong>Handoff:</strong> the agent produces the final report: what was covered, which specs are draft or ready, what remains uncertain, what is blocked by human decisions, and what should happen next.</li>
       </ol>
     </section>
@@ -682,15 +683,15 @@
           <tr><td>Run log active</td><td>Append ordered JSONL events for phase starts, completions, checkpoints, evaluations, validations, and handoff; validate with <code>backfill:run-log:check</code>.</td><td>The user can inspect what happened during a long backfill without treating the report as a telemetry log.</td></tr>
           <tr><td>Layer active</td><td>Every artifact-owning layer has a canonical JSONL artifact, canonical JSONL eval receipt, derived HTML summary, deterministic checker, semantic eval, and explicit handoff gate.</td><td>Agents can complete one reproducible unit before the next unit consumes it.</td></tr>
           <tr><td>No-skip invariant</td><td>A downstream layer cannot start from raw files or agent memory when its required upstream artifact exists or is expected. It must consume the previous layer's handoff receipt or record a named blocker.</td><td>The work cannot jump from "we saw files" to "we understand the system" without the intermediate evidence layers.</td></tr>
-          <tr><td>File registry active</td><td>Every repo-owned file has exactly one current row, and changed-file refresh is supported from V1.</td><td>The repo has been seen before later layers claim it has been understood.</td></tr>
-          <tr><td>Surface registry active</td><td>Every behavior-bearing file row becomes an exposed or dependent surface, support classification, or review flag.</td><td>The user can inspect what the repo exposes or depends on before capability synthesis.</td></tr>
+          <tr><td>Artifact Inventory active</td><td>Every repo-owned file has exactly one current row, and changed-file refresh is supported from V1.</td><td>The repo has been seen before later layers claim it has been understood.</td></tr>
+          <tr><td>Surface / Function Map active</td><td>Every behavior-bearing file row becomes an exposed or dependent surface, support classification, or review flag.</td><td>The user can inspect what the repo exposes or depends on before capability synthesis.</td></tr>
           <tr><td>Top-level spec needed</td><td>Create the top-level system/app draft early and use it as parent or spine for child specs.</td><td>Slice specs have a shared product context.</td></tr>
-          <tr><td>Capability matrix active</td><td>Every ready Surface Registry row maps to a capability row that states actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, status, and split state.</td><td>The user can see what the whole repo means before trusting queue closure.</td></tr>
+          <tr><td>Capability Map active</td><td>Every ready Surface / Function Map row maps to a capability row that states actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, status, and split state.</td><td>The user can see what the whole repo means before trusting Job / Spec Queue closure.</td></tr>
           <tr><td>Split required</td><td>A capability row that combines different actors, outcomes, state models, permission models, backing contracts, recovery behavior, or verification targets becomes <code>needs-split</code>.</td><td>The agent creates smaller capability rows before marking coverage complete.</td></tr>
           <tr><td>Slice in progress</td><td>Load the files needed to understand the current capability-backed slice and list evidence paths in the report.</td><td>The agent can keep moving in large repos with bounded context.</td></tr>
-          <tr><td>Slice evaluated</td><td>After checks pass, evaluator score is acceptable, capability rows are covered, and the durable queue is updated, the next queued slice becomes the current slice.</td><td>The agent keeps moving through the remaining slice queue without lowering quality.</td></tr>
+          <tr><td>Slice evaluated</td><td>After checks pass, evaluator score is acceptable, capability rows are covered, and the Job / Spec Queue is updated, the next queued slice becomes the current slice.</td><td>The agent keeps moving through the remaining slice queue without lowering quality.</td></tr>
           <tr><td>Spec drafted</td><td>Backfilled specs start as <code>status: draft</code> with low or medium confidence.</td><td>The user reviews and promotes specs after the backfill graph is complete.</td></tr>
-          <tr><td>Descriptive spec drafted</td><td>Descriptive specs state user/operator intent, flows, states, rules, and outcomes at an architecture-agnostic level.</td><td>The product contract stays clear while implementation choices remain flexible.</td></tr>
+          <tr><td>Descriptive spec drafted</td><td>Descriptive specs state user/operator intent, processes/actions, states, rules, and outcomes at an architecture-agnostic level.</td><td>The product contract stays clear while implementation choices remain flexible.</td></tr>
           <tr><td>Technical spec drafted</td><td>Technical specs separate required contracts, current implementation evidence, architecture constraints, and implementation latitude.</td><td>A future build agent knows what must be preserved and where better implementation choices are allowed.</td></tr>
           <tr><td>Evidence conflict found</td><td>Flag material conflicts between code, schema, tests, and docs in the report.</td><td>The user reviews important decisions after the graph has full coverage.</td></tr>
           <tr><td>Fallback behavior found</td><td>Record the current fallback as evidence and add a review question about whether it is intended.</td><td>The intended spec names the supported product behavior clearly.</td></tr>
@@ -724,10 +725,10 @@
         <tbody>
           <tr><td>Evidence hierarchy</td><td>Specs are based primarily on current code, schemas, tests, and observed behavior, with docs used as supporting evidence.</td><td>When evidence conflicts, the agent records the conflict and drafts the best evidence-backed intent.</td></tr>
           <tr><td>Intent and architecture split</td><td>Descriptive specs own architecture-agnostic intent. Technical specs own required contracts, current evidence, architecture constraints, and implementation latitude.</td><td>A rebuild can preserve intended behavior while improving implementation choices that are flexible.</td></tr>
-          <tr><td>Durable queue</td><td>The dated report embeds a machine-readable slice queue with status, owner skill, score, next action, exit criterion, and blocking gaps.</td><td>After context reset, the next agent resumes from queue state rather than inventing a new plan.</td></tr>
-          <tr><td>Capability matrix</td><td>The dated report embeds a machine-readable capability matrix derived from canonical JSONL that defines coverage by actor, outcome, object, action, state, rule, surface, backing contract, recovery behavior, evidence, status, and split requirement.</td><td>Queue closure is judged against capability coverage, not against broad domains or file counts.</td></tr>
+          <tr><td>Job / Spec Queue</td><td>The dated report embeds a machine-readable slice queue with status, owner skill, score, next action, exit criterion, and blocking gaps.</td><td>After context reset, the next agent resumes from queue state rather than inventing a new plan.</td></tr>
+          <tr><td>Capability Map</td><td>The dated report embeds a machine-readable capability map derived from canonical JSONL that defines coverage by actor, outcome, object, action, state, rule, surface, backing contract, recovery behavior, evidence, status, and split requirement.</td><td>Job / Spec Queue closure is judged against capability coverage, not against broad domains or file counts.</td></tr>
           <tr><td>Split rule</td><td>Capability rows split when they contain materially different actors, outcomes, objects, state models, permission rules, contracts, recovery behavior, or verification targets.</td><td>Broad parent specs can organize the graph while child specs carry behavior.</td></tr>
-          <tr><td>Execution run log</td><td>The dated JSONL run log records phase starts, completions, checkpoints, artifacts read/changed, commands, checks, results, and next actions.</td><td>When the user reviews a long backfill, they can see the work pattern separately from the durable queue state.</td></tr>
+          <tr><td>Execution run log</td><td>The dated JSONL run log records phase starts, completions, checkpoints, artifacts read/changed, commands, checks, results, and next actions.</td><td>When the user reviews a long backfill, they can see the work pattern separately from the Job / Spec Queue state.</td></tr>
           <tr><td>Progressive disclosure</td><td>The agent works slice by slice and keeps the full repo map in the report.</td><td>When the next slice is unclear, the agent infers the next best slice from the repo map and records the ambiguity in the report.</td></tr>
           <tr><td>Strict evaluation loop</td><td>Each slice is evaluated, revised by category, and re-evaluated before it can be marked acceptable.</td><td>Broad summaries and passable drafts keep moving through revision instead of becoming final substrate.</td></tr>
           <tr><td>Human activation gate</td><td>Backfilled specs are reviewable drafts until a human promotes them to active after the graph is complete.</td><td>Agents treat draft confidence and unresolved items as part of future decisions until activation.</td></tr>
@@ -745,17 +746,17 @@
         <li><a data-spec-link="foundation.workspace-model.descriptive" href="./foundation-workspace-model.html">foundation.workspace-model.descriptive</a> - canonical Foundation repo, target repo adapters, and cross-repo skill discovery.</li>
         <li><a data-spec-link="foundation.backfill-orchestration.technical" href="./foundation-backfill-orchestration-technical.html">foundation.backfill-orchestration.technical</a> - skill-chain contract, coverage ledger, and adequacy gate.</li>
         <li><a data-spec-link="foundation.backfill-evaluation.process" href="./foundation-backfill-evaluation.html">foundation.backfill-evaluation.process</a> - golden example, LLM judge rubric, and acceptability gate.</li>
-        <li><a data-spec-link="foundation.backfill-file-registry.descriptive" href="./foundation-backfill-file-registry.html">foundation.backfill-file-registry.descriptive</a> - draft file registry fill loop and check/eval layer before surface and capability synthesis.</li>
-        <li><a data-spec-link="foundation.backfill-surface-registry.descriptive" href="./foundation-backfill-surface-registry.html">foundation.backfill-surface-registry.descriptive</a> - evidence surface registry after file mapping.</li>
+        <li><a data-spec-link="foundation.backfill-file-registry.descriptive" href="./foundation-backfill-file-registry.html">foundation.backfill-file-registry.descriptive</a> - Artifact Inventory fill loop and check/eval layer before surface and capability synthesis.</li>
+        <li><a data-spec-link="foundation.backfill-surface-registry.descriptive" href="./foundation-backfill-surface-registry.html">foundation.backfill-surface-registry.descriptive</a> - Surface / Function Map after artifact inventory.</li>
         <li><a data-spec-link="foundation.backfill-capability-matrix.descriptive" href="./foundation-backfill-capability-matrix.html">foundation.backfill-capability-matrix.descriptive</a> - capability formula and coverage matrix.</li>
-        <li><a data-spec-link="foundation.backfill-split-queue.descriptive" href="./foundation-backfill-split-queue.html">foundation.backfill-split-queue.descriptive</a> - split rule and durable queue layer.</li>
-        <li><a data-spec-link="foundation.backfill-evidence-pack.descriptive" href="./foundation-backfill-evidence-pack.html">foundation.backfill-evidence-pack.descriptive</a> - bounded evidence packs for queued slices.</li>
-        <li><a data-spec-link="foundation.backfill-flow-extraction.descriptive" href="./foundation-backfill-flow-extraction.html">foundation.backfill-flow-extraction.descriptive</a> - user and operator flow extraction before authoring.</li>
-        <li><a data-spec-link="foundation.backfill-spec-authoring.descriptive" href="./foundation-backfill-spec-authoring.html">foundation.backfill-spec-authoring.descriptive</a> - descriptive and technical spec authoring ledger.</li>
+        <li><a data-spec-link="foundation.backfill-split-queue.descriptive" href="./foundation-backfill-split-queue.html">foundation.backfill-split-queue.descriptive</a> - split rule and Job / Spec Queue layer.</li>
+        <li><a data-spec-link="foundation.backfill-evidence-pack.descriptive" href="./foundation-backfill-evidence-pack.html">foundation.backfill-evidence-pack.descriptive</a> - bounded Context Packs for queued slices.</li>
+        <li><a data-spec-link="foundation.backfill-flow-extraction.descriptive" href="./foundation-backfill-flow-extraction.html">foundation.backfill-flow-extraction.descriptive</a> - Process / Action Map before authoring.</li>
+        <li><a data-spec-link="foundation.backfill-spec-authoring.descriptive" href="./foundation-backfill-spec-authoring.html">foundation.backfill-spec-authoring.descriptive</a> - Author Specs ledger.</li>
         <li><a data-spec-link="foundation.backfill-slice-evaluation.descriptive" href="./foundation-backfill-slice-evaluation.html">foundation.backfill-slice-evaluation.descriptive</a> - per-slice evaluate/revise/accept loop.</li>
         <li><a data-spec-link="foundation.backfill-graph-evaluation.descriptive" href="./foundation-backfill-graph-evaluation.html">foundation.backfill-graph-evaluation.descriptive</a> - full spec graph rebuild-grade evaluation.</li>
         <li><a data-spec-link="foundation.backfill-handoff.descriptive" href="./foundation-backfill-handoff.html">foundation.backfill-handoff.descriptive</a> - final review and handoff report layer.</li>
-        <li><a data-spec-link="foundation.spec-process" href="./process.html">foundation.spec-process</a> - spec authoring, metadata, registry, and semantic review obligations.</li>
+        <li><a data-spec-link="foundation.spec-process" href="./process.html">foundation.spec-process</a> - Author Specs, metadata, registry, and semantic review obligations.</li>
         <li><a data-spec-link="foundation.spec-linking" href="./linking.html">foundation.spec-linking</a> - HTML-native linking, owned paths, and path-update loops.</li>
       </ul>
       <h3>Directly owned paths</h3>
@@ -774,13 +775,13 @@
         <li><code>foundation/docs/specs/foundation-backfill-file-registry.html</code> - draft file-registry layer for repo discovery.</li>
         <li><code>foundation/docs/specs/examples/backfill-golden-example.html</code> - golden example for evaluator calibration.</li>
         <li><code>foundation/skills/backfill-repo-inventory/SKILL.md</code> - evidence inventory and coverage ledger workflow.</li>
-        <li><code>foundation/skills/backfill-user-flow-extraction/SKILL.md</code> - concrete user-flow extraction workflow.</li>
-        <li><code>foundation/skills/backfill-descriptive-spec-author/SKILL.md</code> - descriptive spec authoring workflow.</li>
+        <li><code>foundation/skills/backfill-user-flow-extraction/SKILL.md</code> - concrete Process / Action Map workflow.</li>
+        <li><code>foundation/skills/backfill-descriptive-spec-author/SKILL.md</code> - descriptive Author Specs workflow inside Author Specs.</li>
         <li><code>foundation/skills/backfill-rendered-ux-spec/SKILL.md</code> - rendered UX workflow.</li>
         <li><code>foundation/skills/backfill-technical-spec-author/SKILL.md</code> - technical contract authoring workflow.</li>
-        <li><code>foundation/skills/backfill-spec-adequacy-review/SKILL.md</code> - adequacy review workflow.</li>
+        <li><code>foundation/skills/backfill-spec-adequacy-review/SKILL.md</code> - Review Spec Adequacy workflow.</li>
         <li><code>foundation/skills/evaluate-backfill-specs/SKILL.md</code> - semantic evaluation workflow.</li>
-        <li><code>foundation/scripts/backfill-queue-check.mjs</code> - durable queue validator for dated backfill reports.</li>
+        <li><code>foundation/scripts/backfill-queue-check.mjs</code> - Job / Spec Queue validator for dated backfill reports.</li>
         <li><code>foundation/scripts/backfill-run-log-check.mjs</code> - JSONL execution run log validator for dated backfill reports.</li>
         <li><code>foundation/docs/specs/templates/descriptive-spec-template.html</code> - draft descriptive spec shape.</li>
         <li><code>foundation/docs/specs/templates/technical-spec-template.html</code> - draft technical spec shape.</li>
@@ -802,10 +803,10 @@
       <p>The dated HTML review report should be scannable, durable, and useful when opened directly in a browser.</p>
       <ul>
         <li><strong>Report header:</strong> run ID, date, target repo, Foundation revision if known, top-level spec ID, and current status.</li>
-        <li><strong>Capability matrix:</strong> visible table plus embedded JSON of capability rows, surfaces, backing contracts, spec owners, verification targets, status, and split requirements.</li>
-        <li><strong>Slice queue:</strong> visible table plus embedded JSON of proposed slices with status, owner skill, score, evidence loaded, spec IDs, exit criterion, blocking gaps, and next action.</li>
+        <li><strong>Capability Map:</strong> visible table plus embedded JSON of capability rows, surfaces, backing contracts, spec owners, verification targets, status, and split requirements.</li>
+        <li><strong>Job / Spec Queue:</strong> visible table plus embedded JSON of proposed slices with status, owner skill, score, evidence loaded, spec IDs, exit criterion, blocking gaps, and next action.</li>
         <li><strong>Architecture classification:</strong> table or section showing required contracts, current implementation evidence, architecture constraints, and implementation latitude for each technical slice.</li>
-        <li><strong>Evaluation status:</strong> slice and graph evaluation report paths, scorecard result, and revision queue owner for generated graph quality.</li>
+        <li><strong>Evaluation status:</strong> job-slice and system-coherence eval report paths, scorecard result, and revision queue owner for generated graph quality.</li>
         <li><strong>Run log status:</strong> JSONL run log path, last event sequence, last completed phase, and latest validation result.</li>
         <li><strong>Review queue:</strong> material discrepancies, stale-doc warnings, fallback behavior decisions, and human activation needs.</li>
         <li><strong>Run state:</strong> remaining slice queue, current status, review queue, and commands/checks last run.</li>
@@ -825,7 +826,7 @@
           <tr><td>FBS-6</td><td><code>#ux-contracts</code></td><td>Static skill review: Backfill Specs requires intent-rigid, architecture-flexible output.</td><td>existing</td><td>Full repo pilots confirm semantic behavior.</td></tr>
           <tr><td>FBS-7</td><td><code>#test-coverage</code></td><td>Static skill review: Evaluate Backfill Specs defines the semantic quality gate.</td><td>existing</td><td>Target repo pilots confirm scoring calibration.</td></tr>
           <tr><td>FBS-8</td><td><code>#states-and-rules</code>, <code>#ux-contracts</code></td><td>Unit coverage: run-log checker validates JSONL event shape, run identity, sequence ordering, complete-event timing, and result fields.</td><td>existing</td><td>Target repo pilots confirm agents maintain logs during long-running backfills.</td></tr>
-          <tr><td>FBS-9</td><td><code>#interface-journey</code>, <code>#ux-contracts</code></td><td>Static skill review: Backfill Specs defines Surface Registry to Capability Matrix handoff, split rule, and capability-backed completion.</td><td>existing</td><td>Target repo pilots confirm agents use capability coverage instead of broad slices.</td></tr>
+          <tr><td>FBS-9</td><td><code>#interface-journey</code>, <code>#ux-contracts</code></td><td>Static skill review: Backfill Specs defines Surface / Function Map to Capability Map handoff, split rule, and capability-backed completion.</td><td>existing</td><td>Target repo pilots confirm agents use capability coverage instead of broad slices.</td></tr>
         </tbody>
       </table>
     </section>

@@ -443,6 +443,7 @@
 </section>
 <section id="knowledge-data-and-context" class="level2 spec-section">
 <h2>Knowledge, data, and context</h2>
+<p><strong>Context is higher than knowledge.</strong> Knowledge is what the system knows. Context is what an actor needs to act well: goals, constraints, promises, history, data, examples, standards, permissions, tools, current state, and known failure modes. A knowledge base is useful only when it becomes context substrate for future decisions and actions.</p>
 <p><strong>Give durable knowledge a type, a boundary, and an audience.</strong> When knowledge must survive people, sessions, teams, and tool boundaries, encode it in documents with a single purpose, clear retrieval rules, and optional ownership only when accountability is distributed.</p>
 <ul>
 <li>Each document should have a singular purpose. Mixing audiences creates unusable sprawl.</li>
@@ -457,7 +458,9 @@
 </section>
 <section id="intent-and-execution" class="level2 spec-section">
 <h2>Intent and execution</h2>
+<p><strong>Goals require intent-driven systems.</strong> A goal becomes real through clear intent, sufficient context, defined capabilities, jobs, processes, actors, actions, decisions, evidence, and revision. Desire and effort are not enough by themselves.</p>
 <p><strong>Separate intent from implementation.</strong> What you want is not the same as how it gets built. Specifying both well, and keeping them clearly distinguished, is most of the work.</p>
+<p><strong>Specs live wherever intent lives.</strong> A system, capability, job, process, action, decision, and test can all have specs. The artifact name can change by domain, but the function stays the same: preserve intent, context, and evidence so actors can execute and improve.</p>
 <p><strong>As capability gets cheaper, articulated intent does not.</strong> The bottleneck moves from <em>can the work be done</em> to <em>can the responsible person describe what should be done well enough that the executor knows when it is done.</em> The leverage move is getting good at articulating intent.</p>
 <p><strong>Write down the done-condition before the work starts.</strong> A <em>contract</em> — testable, external, agreed in advance — is the single highest-leverage move against scope drift. Once work is underway, "done" can be quietly redefined; pre-writing the exit criterion refuses that move.</p>
 <p><strong>Scope discipline: touch only what the goal requires.</strong> The single biggest determinant of whether work is acceptable on first pass or has to be unwound is whether it stayed inside the agreed intent. A change that does three extra things may look helpful, but it makes review, learning, and accountability harder.</p>
@@ -506,7 +509,7 @@
 </section>
 <section id="compounding-systems-and-substrate" class="level2 spec-section">
 <h2>Compounding systems and substrate</h2>
-<p><strong>A compounding system has five layers, each with a different durability profile.</strong> <em>Substrate</em> is the durable layer: principles, examples, playbooks, data, templates, reusable assets, and operating memory. <em>Iterating layers</em> are the tools, tactics, vendors, and temporary methods that change on someone else's cadence. <em>Operational shape</em> is who does what. <em>Intake layers</em> are where work originates: human input, monitoring, feedback, customer signals, or ambient observation. <em>The delivery loop</em> is the contract that turns intake into shipped work and substrate updates. Investments in each layer are not interchangeable; the discipline is knowing which layer you are investing in. See <code>compounding-system.md</code>.</p>
+<p><strong>A compounding system has five layers, each with a different durability profile.</strong> <em>Substrate</em> is the durable layer: principles, examples, playbooks, data, templates, reusable assets, and operating memory. <em>Iterating layers</em> are the tools, tactics, vendors, and temporary methods that change on someone else's cadence. <em>Operational shape</em> is who does what. <em>Intake layers</em> are where work originates: human input, monitoring, feedback, customer signals, or ambient observation. <em>The delivery loop</em> is the contract that turns intake into shipped work and substrate updates. Investments in each layer are not interchangeable; the discipline is knowing which layer you are investing in. See <code>compounding-systems.html</code>.</p>
 <p><strong>Distinguish substrate from iterating layers.</strong> The substrate is what lets a future operator, with better tools and more experience, rebuild a better version of the system from durable artifacts. Iterating layers are everything else: useful, sometimes necessary, but tied to present conditions. The discipline is knowing which one you are working on and budgeting time accordingly.</p>
 <p><strong>Prefer building substrate to building iterating layers.</strong> Time spent reproducing what the market, a tool vendor, or a changing tactic will soon commoditize is rented leverage. It can buy short-term advantage; it cannot compound into a long-term moat unless the work leaves behind reusable knowledge, data, examples, or operating assets.</p>
 <p><strong>Substrate compounds with use; iterating layers age with use.</strong> Every improvement to substrate pays out across future work. Every improvement to a current-tool-specific tactic mostly defends against drift. Both have to happen. Only one of them earns its keep over time.</p>
@@ -524,8 +527,9 @@
     <h2>Related core concept docs</h2>
     <p class="lede-2">Sibling HTML-native documents in this folder.</p>
     <div class="related-grid">
+      <a class="related-card" href="../general/system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root philosophy for intent, context, action, evidence, goals, capabilities, jobs, processes, actors, and substrate.</div></a>
       <a class="related-card" href="../general/operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
-<a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.md is one instance of it.</div></a>
+<a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.html is one instance of it.</div></a>
 <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
 <a class="related-card" href="./sw-dev-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work. Inherits the domain-neutral core principles and adds implementation-specific rules for building software with AI agents.</div></a>
 <a class="related-card" href="./sw-design-principles.html"><div class="related-name">Software Design Principles</div><div class="related-desc">Durable principles for user-facing UI, rendered experience, accessibility, responsive behavior, and visual verification.</div></a>

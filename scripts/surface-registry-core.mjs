@@ -154,17 +154,17 @@ function isActiveBehaviorDocPath(filePath) {
 
 function surfaceRegistryScopeDecision(fileRow) {
   if (!fileRow || typeof fileRow !== "object") {
-    return { eligible: false, reason: "Missing File Registry row." };
+    return { eligible: false, reason: "Missing Artifact Inventory row." };
   }
   const filePath = normalizeRepoPathForScope(fileRow.path);
   if (!isNonEmptyString(filePath)) {
-    return { eligible: false, reason: "File Registry row has no path." };
+    return { eligible: false, reason: "Artifact Inventory row has no path." };
   }
   if (fileRow.status !== "mapped") {
-    return { eligible: false, reason: "File Registry row is not mapped." };
+    return { eligible: false, reason: "Artifact Inventory row is not mapped." };
   }
   if (SURFACE_EXCLUDED_KINDS.has(fileRow.kind) || ["asset", "generated", "test-evidence"].includes(fileRow.evidenceValue)) {
-    return { eligible: false, reason: `${fileRow.kind || fileRow.evidenceValue} files are evidence artifacts, not Capability Matrix surfaces.` };
+    return { eligible: false, reason: `${fileRow.kind || fileRow.evidenceValue} files are evidence artifacts, not Capability Map surfaces.` };
   }
   if (fileRow.kind === "fixture" || fileRow.evidenceValue === "support" && /(^|\/)(sample|samples|fixtures?|mocks?)(\/|_|-|$)/i.test(filePath)) {
     return { eligible: false, reason: "Fixtures, samples, and mocks support tests or loaders but do not define repo capabilities." };
@@ -184,7 +184,7 @@ function surfaceRegistryScopeDecision(fileRow) {
   if (fileRow.kind === "doc" && isActiveBehaviorDocPath(filePath)) {
     return { eligible: true, reason: "Active product/spec documentation can define intended behavior." };
   }
-  return { eligible: false, reason: "File is repository support/evidence and does not define a Capability Matrix surface." };
+  return { eligible: false, reason: "File is repository support/evidence and does not define a Capability Map surface." };
 }
 
 function isSurfaceRegistryEligibleRow(fileRow) {
@@ -221,7 +221,7 @@ function createPendingSurfaceRow(fileRow) {
       fileId: fileRow.fileId,
       path: fileRow.path,
       relationship: "pending-extraction",
-      detail: "Initialized from mapped file-registry row."
+      detail: "Initialized from mapped Artifact Inventory row."
     }],
     exposedObject: "",
     operation: "",
@@ -290,7 +290,7 @@ function normalizeReviewFlags(value, status, fileRow) {
     severity: VALID_REVIEW_FLAG_SEVERITY.has(flag.severity) ? flag.severity : "warning",
     reason: isNonEmptyString(flag.reason) ? flag.reason.trim() : "Surface row needs review.",
     evidence: isNonEmptyString(flag.evidence) ? flag.evidence.trim() : fileRow.path,
-    nextAction: isNonEmptyString(flag.nextAction) ? flag.nextAction.trim() : "Revise this Surface Registry row."
+    nextAction: isNonEmptyString(flag.nextAction) ? flag.nextAction.trim() : "Revise this Surface / Function Map row."
   }));
   if (status === "needs-evidence" && !flags.some(flag => flag.severity === "blocking")) {
     flags.push({
@@ -379,13 +379,13 @@ function markSurfaceRowsForFile({ fileRows, surfaceRows, filePath, surfaceSpecs 
     throw new Error(`Surface mark for ${filePath} requires at least one surface spec`);
   }
   const fileRow = fileRows.find(row => row.path === filePath);
-  if (!fileRow) throw new Error(`No File Registry row found for ${filePath}`);
+  if (!fileRow) throw new Error(`No Artifact Inventory row found for ${filePath}`);
   if (fileRow.status !== "mapped") {
-    throw new Error(`File Registry row for ${filePath} must be mapped before Surface Registry fill`);
+    throw new Error(`Artifact Inventory row for ${filePath} must be mapped before Surface / Function Map fill`);
   }
   const scope = surfaceRegistryScopeDecision(fileRow);
   if (!scope.eligible) {
-    throw new Error(`File Registry row for ${filePath} is outside Surface Registry scope: ${scope.reason}`);
+    throw new Error(`Artifact Inventory row for ${filePath} is outside Surface / Function Map scope: ${scope.reason}`);
   }
 
   const replacedRows = surfaceRows.filter(row => (
@@ -460,29 +460,29 @@ function validateFileRegistryHandoff(repoRoot, runId, outDir = defaultBackfillDi
   const results = [];
   const registry = readFileRegistryRows(repoRoot, runId, outDir);
   if (registry.errors.length > 0) {
-    results.push(fail("upstream-file-registry-jsonl", "File registry JSONL must parse before surface extraction", { errors: registry.errors }));
+    results.push(fail("upstream-file-registry-jsonl", "Artifact Inventory JSONL must parse before surface extraction", { errors: registry.errors }));
   } else {
-    results.push(pass("upstream-file-registry-jsonl", "File registry JSONL parses"));
+    results.push(pass("upstream-file-registry-jsonl", "Artifact Inventory JSONL parses"));
   }
 
   const checkPath = fileRegistryCheckPathFor(repoRoot, runId, outDir);
   if (!fs.existsSync(checkPath)) {
-    results.push(fail("upstream-file-registry-check", "Passing file-registry check artifact is required before surface extraction"));
+    results.push(fail("upstream-file-registry-check", "Passing Artifact Inventory check artifact is required before surface extraction"));
   } else {
     const check = readJson(checkPath);
     results.push(check?.summary?.fail === 0
-      ? pass("upstream-file-registry-check", "File-registry check artifact passes")
-      : fail("upstream-file-registry-check", "File-registry check artifact must pass", { summary: check?.summary || null }));
+      ? pass("upstream-file-registry-check", "Artifact Inventory check artifact passes")
+      : fail("upstream-file-registry-check", "Artifact Inventory check artifact must pass", { summary: check?.summary || null }));
   }
 
   const evalSummary = readFileRegistryEvalSummary(repoRoot, runId, outDir);
   results.push(evalSummary?.acceptabilityGate?.acceptable
     ? pass("upstream-file-registry-eval", "File-registry eval artifact passes")
-    : fail("upstream-file-registry-eval", "Passing file-registry eval receipt is required before surface extraction"));
+    : fail("upstream-file-registry-eval", "Passing Artifact Inventory eval receipt is required before surface extraction"));
 
   const pending = registry.rows.filter(row => row.status !== "mapped").map(row => row.path);
   results.push(pending.length === 0
-    ? pass("upstream-file-registry-mapped", "All upstream file-registry rows are mapped")
+    ? pass("upstream-file-registry-mapped", "All upstream Artifact Inventory rows are mapped")
     : fail("upstream-file-registry-mapped", "Surface extraction requires mapped upstream file rows", { pending }));
 
   return { registry, results };
@@ -717,12 +717,12 @@ function validateSurfaceRows({ repoRoot = null, fileRows, surfaceRows, phase = "
   }
 
   results.push(stale.length === 0
-    ? pass("surface-upstream-fresh", "Surface upstream hashes match File Registry rows")
-    : fail("surface-upstream-fresh", "Surface rows must be refreshed when upstream File Registry rows change", { stale }));
+    ? pass("surface-upstream-fresh", "Surface upstream hashes match Artifact Inventory rows")
+    : fail("surface-upstream-fresh", "Surface rows must be refreshed when upstream Artifact Inventory rows change", { stale }));
 
   results.push(outOfScopeRows.length === 0
-    ? pass("surface-scope-eligible", "Surface rows only reference Surface Registry-eligible file rows")
-    : fail("surface-scope-eligible", "Surface Registry must not include inert artifacts, fixtures, generated files, test evidence, or support-only docs/assets", { outOfScopeRows }));
+    ? pass("surface-scope-eligible", "Surface rows only reference Surface / Function Map-eligible file rows")
+    : fail("surface-scope-eligible", "Surface / Function Map must not include inert artifacts, fixtures, generated files, test evidence, or support-only docs/assets", { outOfScopeRows }));
 
   const unresolvedEligibleRows = [];
   for (const fileRow of fileRows.filter(isSurfaceRegistryEligibleRow)) {
@@ -735,11 +735,11 @@ function validateSurfaceRows({ repoRoot = null, fileRows, surfaceRows, phase = "
     }
   }
   if (unresolvedEligibleRows.length === 0) {
-    results.push(pass("surface-covers-eligible-files", "Every Surface Registry-eligible file row resolves to a surface, support classification, or review blocker"));
+    results.push(pass("surface-covers-eligible-files", "Every Surface / Function Map-eligible file row resolves to a surface, support classification, or review blocker"));
   } else if (phase === "handoff") {
-    results.push(fail("surface-covers-eligible-files", "Surface Registry-eligible File Registry rows must be resolved before Capability Matrix", { unresolvedEligibleRows }));
+    results.push(fail("surface-covers-eligible-files", "Surface / Function Map-eligible Artifact Inventory rows must be resolved before Capability Map", { unresolvedEligibleRows }));
   } else {
-    results.push(warn("surface-covers-eligible-files", `${unresolvedEligibleRows.length} Surface Registry-eligible File Registry row(s) still need resolution`, { unresolvedEligibleRows }));
+    results.push(warn("surface-covers-eligible-files", `${unresolvedEligibleRows.length} Surface / Function Map-eligible Artifact Inventory row(s) still need resolution`, { unresolvedEligibleRows }));
   }
 
   if (phase === "handoff") {
@@ -814,8 +814,8 @@ function validateSurfaceReportState({ repoRoot, runId, outDir, reportPath, fileR
     supportCount: surfaceRows.filter(row => row.surfaceKind === "support-classification").length,
     blockingFlagCount,
     nextLayer: pendingCount === 0 && needsEvidenceCount === 0 && blockingFlagCount === 0 && checkerPass && evalHandoffReady
-      ? "capability matrix"
-      : "surface registry revision"
+      ? "Capability Map"
+      : "Surface / Function Map revision"
   };
   const drift = [];
   for (const [field, value] of Object.entries(expected)) {
@@ -837,16 +837,16 @@ function validateSurfaceRegistry({ repoRoot, runId, outDir = defaultBackfillDir(
       fileRegistryPath: upstream.registry.registryPath,
       fileRows: upstream.registry.rows,
       surfaceRows: [],
-      results: [...results, fail("surface-registry-exists", `Surface registry does not exist: ${surfacePath}`)]
+      results: [...results, fail("surface-registry-exists", `Surface / Function Map does not exist: ${surfacePath}`)]
     };
   }
   const parsed = readJsonl(surfacePath);
-  results.push(pass("surface-registry-exists", "Surface registry exists"));
+  results.push(pass("surface-registry-exists", "Surface / Function Map exists"));
   if (parsed.errors.length > 0) {
-    results.push(...parsed.errors.map(error => fail(`surface-jsonl:${error.line}`, "Surface registry JSONL line must parse", error)));
+    results.push(...parsed.errors.map(error => fail(`surface-jsonl:${error.line}`, "Surface Artifact Inventory JSONL line must parse", error)));
     return { registryPath: surfacePath, fileRows: upstream.registry.rows, surfaceRows: parsed.rows, results };
   }
-  results.push(pass("surface-jsonl", "Every surface registry line parses as JSON"));
+  results.push(pass("surface-jsonl", "Every Surface / Function Map line parses as JSON"));
   results.push(...validateSurfaceRows({ repoRoot, fileRows: upstream.registry.rows, surfaceRows: parsed.rows, phase }));
   results.push(...validateSurfaceReportState({ repoRoot, runId, outDir, reportPath, fileRows: upstream.registry.rows, surfaceRows: parsed.rows }));
   return {

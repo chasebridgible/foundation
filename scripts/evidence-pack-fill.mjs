@@ -25,23 +25,23 @@ function usage() {
   npm run foundation:evidence-pack:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --next [--out-dir path]
   npm run foundation:evidence-pack:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --slice-ids slice:a,slice:b --packs-json '[...]' [--run-log path]
 
-Creates reviewed Evidence Pack rows from Split And Queue slices. Generated pack files, --all, and --batch-size shortcuts are rejected.`;
+Creates reviewed Context Pack rows from Define Spec Jobs slices. Generated pack files, --all, and --batch-size shortcuts are rejected.`;
 }
 
 function readPackSpecs(options) {
   if (options["packs-file"]) {
-    throw new Error("Evidence Pack fill does not accept --packs-file; pass reviewed --packs-json inline");
+    throw new Error("Context Pack fill does not accept --packs-file; pass reviewed --packs-json inline");
   }
   if (!options["packs-json"]) throw new Error("Missing --packs-json");
   let payload;
   try {
     payload = JSON.parse(options["packs-json"]);
   } catch (error) {
-    throw new Error(`Evidence pack JSON did not parse: ${error.message}`);
+    throw new Error(`Context Pack JSON did not parse: ${error.message}`);
   }
   const specs = Array.isArray(payload) ? payload : payload?.packs || payload?.evidencePacks;
   if (!Array.isArray(specs) || specs.length === 0) {
-    throw new Error("Evidence pack JSON must be an array or an object with a non-empty packs array");
+    throw new Error("Context Pack JSON must be an array or an object with a non-empty packs array");
   }
   return specs;
 }
@@ -55,7 +55,7 @@ function main() {
   if (!options.repo) throw new Error("Missing --repo");
   if (!options["run-id"]) throw new Error("Missing --run-id");
   if (options.all || options["batch-size"]) {
-    throw new Error("Evidence Pack fill does not support --all or --batch-size; select reviewed slices explicitly with --slice-ids");
+    throw new Error("Context Pack fill does not support --all or --batch-size; select reviewed slices explicitly with --slice-ids");
   }
 
   const repoRoot = path.resolve(options.repo);
@@ -63,9 +63,9 @@ function main() {
   const outDir = options["out-dir"] ? path.resolve(repoRoot, options["out-dir"]) : defaultBackfillDir(repoRoot);
   const queuePath = splitQueuePathFor(repoRoot, runId, outDir);
   const queue = readJsonl(queuePath);
-  if (queue.errors.length > 0) throw new Error(`Split And Queue JSONL has parse errors: ${JSON.stringify(queue.errors)}`);
+  if (queue.errors.length > 0) throw new Error(`Define Spec Jobs JSONL has parse errors: ${JSON.stringify(queue.errors)}`);
   const pack = readEvidencePackRows(repoRoot, runId, outDir);
-  if (pack.errors.length > 0) throw new Error(`Evidence Pack JSONL has parse errors: ${JSON.stringify(pack.errors)}`);
+  if (pack.errors.length > 0) throw new Error(`Context Pack JSONL has parse errors: ${JSON.stringify(pack.errors)}`);
 
   if (options.next) {
     console.log(JSON.stringify({
@@ -96,28 +96,28 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: marked.markedSliceIds[0] || null,
-    phase: "evidence-pack",
+    phase: "context-pack",
     event: eventType,
     summary: marked.revisionCount > 0
-      ? `Revised Evidence Pack rows for ${marked.markedSliceIds.length} queue slice(s).`
-      : `Marked Evidence Pack rows for ${marked.markedSliceIds.length} queue slice(s).`,
+      ? `Revised Context Pack rows for ${marked.markedSliceIds.length} queue slice(s).`
+      : `Marked Context Pack rows for ${marked.markedSliceIds.length} queue slice(s).`,
     artifactsRead: [path.relative(repoRoot, queuePath), path.relative(repoRoot, packPath)],
     artifactsChanged: [path.relative(repoRoot, packPath)],
     commands: ["foundation:evidence-pack:fill"],
     checks: [],
-    result: `${marked.packCount} Evidence Pack row(s) written for reviewed queue slice group.`,
+    result: `${marked.packCount} Context Pack row(s) written for reviewed queue slice group.`,
     nextAction: pendingCount > 0 || packedCount > 0 || needsEvidenceCount > 0
-      ? "Fill, finalize, or explicitly block the next Evidence Pack row."
-      : "Run Evidence Pack checker and eval."
+      ? "Fill, finalize, or explicitly block the next Context Pack row."
+      : "Run Context Pack checker and eval."
   });
 
-  console.log(`Evidence Pack fill
+  console.log(`Context Pack fill
 Queue slices reviewed: ${marked.markedSliceIds.length}
-Evidence packs written: ${marked.packCount}
+Context Packs written: ${marked.packCount}
 Pending remaining: ${pendingCount}
 Packed remaining: ${packedCount}
 Needs-evidence remaining: ${needsEvidenceCount}
-Evidence packs: ${marked.rows.length}`);
+Context Packs: ${marked.rows.length}`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) {
