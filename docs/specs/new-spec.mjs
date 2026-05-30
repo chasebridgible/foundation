@@ -7,7 +7,8 @@ const specsDir = path.dirname(fileURLToPath(import.meta.url));
 const docsDir = path.dirname(specsDir);
 const repoRoot = path.dirname(docsDir);
 const repoName = path.basename(repoRoot);
-const allowedTypes = new Set(["descriptive", "technical", "test", "process", "linking", "template"]);
+const typeAliases = new Map([["test", "eval"]]);
+const allowedTypes = new Set(["descriptive", "technical", "eval", "process", "linking", "template"]);
 
 const typeSections = {
   descriptive: [
@@ -15,7 +16,7 @@ const typeSections = {
     ["user-model", "user-model", "User model"],
     ["interface-journey", "journey", "Interface journey"],
     ["states-and-rules", "states-rules", "States and rules"],
-    ["test-coverage", "coverage", "Test coverage"]
+    ["eval-coverage", "coverage", "Eval coverage"]
   ],
   technical: [
     ["required-depth", "decision-rule", "Required depth"],
@@ -24,7 +25,7 @@ const typeSections = {
     ["failure-modes", "failure-modes", "Failure modes"],
     ["paths-and-coverage", "links-coverage", "Paths and coverage"]
   ],
-  test: [
+  eval: [
     ["verification-contract", "verification-contract", "Verification contract"],
     ["acceptance-mapping", "acceptance", "Acceptance mapping"],
     ["coverage-plan", "coverage", "Coverage plan"],
@@ -53,7 +54,7 @@ function usage() {
   npm run spec:new -- --type descriptive --id product.feature.descriptive --title "Feature Descriptive Spec" --out docs/specs/features/feature-descriptive.html
 
 Required:
-  --type              descriptive, technical, test, process, linking, or template
+  --type              descriptive, technical, eval, process, linking, or template
   --id                stable dotted spec id
   --title             human-readable spec title
   --out               output .html path under docs/specs
@@ -224,6 +225,7 @@ try {
 } catch (error) {
   fail(error.message);
 }
+if (typeAliases.has(args.type)) args.type = typeAliases.get(args.type);
 
 for (const required of ["type", "id", "title", "out"]) {
   if (!args[required]) fail(`Missing required --${required}`);

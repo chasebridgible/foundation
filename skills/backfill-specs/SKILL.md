@@ -11,15 +11,15 @@ Detailed contracts live in:
 
 - `docs/specs/foundation-backfill-specs.html`
 - `docs/specs/foundation-backfill-orchestration-technical.html`
-- `docs/specs/foundation-backfill-evaluation.html`
-- `docs/specs/foundation-backfill-file-registry.html` plus its technical and test specs
-- `docs/specs/foundation-backfill-surface-registry.html` plus its technical and test specs
-- `docs/specs/foundation-backfill-capability-matrix.html` plus its technical and test specs
+- `docs/specs/foundation-backfill-quality-evaluation.html`
+- `docs/specs/foundation-backfill-artifact-inventory.html` plus its technical and eval specs
+- `docs/specs/foundation-backfill-surface-function-map.html` plus its technical and eval specs
+- `docs/specs/foundation-backfill-capability-map.html` plus its technical and eval specs
 - `docs/specs/examples/backfill-golden-example.html`
 
 Read those only when changing the workflow, resolving ambiguity, or calibrating quality.
-Read the Artifact Inventory specs before starting or resuming that layer. The legacy file and command namespace is `file-registry`.
-Read the Surface / Function Map or Capability Map specs before starting or resuming those layers. Their legacy command namespaces are `surface-registry` and `capability-matrix`.
+Read the Artifact Inventory specs before starting or resuming that layer. Its canonical file and command namespace is `artifact-inventory`.
+Read the Surface / Function Map or Capability Map specs before starting or resuming those layers. Their canonical command namespaces are `surface-function-map` and `capability-map`.
 
 ## Non-Negotiables
 
@@ -41,19 +41,20 @@ In the target repo:
 - `docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl`
 - draft descriptive and technical specs in `docs/specs/`
 - `docs/specs/backfill/file-manifest-YYYYMMDD-NN.json`
-- Artifact Inventory artifacts: `docs/specs/backfill/file-registry-YYYYMMDD-NN.jsonl`, `file-registry-eval-YYYYMMDD-NN.jsonl`, and `file-registry-eval-summary-YYYYMMDD-NN.html`
-- Surface / Function Map artifacts: `docs/specs/backfill/surface-registry-YYYYMMDD-NN.jsonl`, `surface-registry-eval-YYYYMMDD-NN.jsonl`, and `surface-registry-eval-summary-YYYYMMDD-NN.html`
-- Capability Map artifacts: `docs/specs/backfill/capability-matrix-YYYYMMDD-NN.jsonl`, `capability-matrix-eval-YYYYMMDD-NN.jsonl`, and `capability-matrix-summary-YYYYMMDD-NN.html`
+- Artifact Inventory artifacts: `docs/specs/backfill/artifact-inventory-YYYYMMDD-NN.jsonl`, `artifact-inventory-eval-YYYYMMDD-NN.jsonl`, and `artifact-inventory-eval-summary-YYYYMMDD-NN.html`
+- Surface / Function Map artifacts: `docs/specs/backfill/surface-function-map-YYYYMMDD-NN.jsonl`, `surface-function-map-eval-YYYYMMDD-NN.jsonl`, and `surface-function-map-eval-summary-YYYYMMDD-NN.html`
+- Capability Map artifacts: `docs/specs/backfill/capability-map-YYYYMMDD-NN.jsonl`, `capability-map-eval-YYYYMMDD-NN.jsonl`, and `capability-map-summary-YYYYMMDD-NN.html`
+- Define Spec Jobs artifacts: `docs/specs/backfill/spec-job-queue-YYYYMMDD-NN.jsonl`, `spec-job-queue-eval-YYYYMMDD-NN.jsonl`, and `spec-job-queue-summary-YYYYMMDD-NN.html`
 
 The report must contain:
 
-- `<script type="application/json" id="backfill-capability-matrix">`
-- `<script type="application/json" id="backfill-slice-queue">`
+- `<script type="application/json" id="backfill-capability-map">`
+- `<script type="application/json" id="backfill-spec-job-queue">`
 - visible tables for humans showing the same state
 
 Capability rows must include stable ID, actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, spec owners/sections, verification targets, status, split state, gaps, and human decisions.
 
-Queue slices must include stable ID, scope, capability IDs, status, owner skill, spec IDs, score, next action, exit criterion, blocking gaps, and evidence.
+Define Spec Jobs rows must include stable slice ID, name, scope, upstream capability IDs, status, owner skill, spec IDs, next action, exit criterion, blocking questions/gaps, human decisions, and verification targets where applicable.
 
 ## Entry
 
@@ -77,7 +78,7 @@ Repeat until capability coverage is closed:
 6. Define Spec Jobs by refreshing the Job / Spec Queue from capability rows.
 7. Pick the next capability-backed slice that is queued, in progress, needs split, needs descriptive, needs technical, needs evaluation, needs revision, or revision-ready.
 8. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
-9. Use `backfill-user-flow-extraction` to Map Processes for user/operator-visible capability slices.
+9. Use `backfill-process-action-map` to Map Processes for user/operator-visible capability slices.
 10. Use `backfill-descriptive-spec-author`.
 11. Use `backfill-rendered-ux-spec` when the capability has visible UX.
 12. Use `backfill-technical-spec-author`.
@@ -95,11 +96,11 @@ After all capability rows are acceptable, parent-owned with a precise reason, bl
 
 ## Skill Chain
 
-- `skills/backfill-repo-inventory/SKILL.md`
-- `skills/file-registry-fill-loop/SKILL.md` - Inventory Artifacts
-- `skills/surface-registry-fill-loop/SKILL.md` - Map Surfaces
-- `skills/capability-matrix-fill-loop/SKILL.md` - Map Capabilities
-- `skills/backfill-user-flow-extraction/SKILL.md` - Map Processes
+- `skills/backfill-artifact-inventory/SKILL.md`
+- `skills/artifact-inventory-fill-loop/SKILL.md` - Inventory Artifacts
+- `skills/surface-function-map-fill-loop/SKILL.md` - Map Surfaces
+- `skills/capability-map-fill-loop/SKILL.md` - Map Capabilities
+- `skills/backfill-process-action-map/SKILL.md` - Map Processes
 - `skills/backfill-descriptive-spec-author/SKILL.md`
 - `skills/backfill-rendered-ux-spec/SKILL.md`
 - `skills/backfill-technical-spec-author/SKILL.md`

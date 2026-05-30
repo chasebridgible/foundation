@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Capability Map - Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --primary-dim: rgba(79,142,255,0.10);
+    --amber: #d4a72c;
+    --amber-dim: rgba(212,167,44,0.12);
+    --emerald: #4ec9b0;
+    --emerald-dim: rgba(78,201,176,0.12);
+    --red: #f48771;
+    --red-dim: rgba(244,135,113,0.12);
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    display: flex;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    width: var(--sidebar-w);
+  }
+
+  .sidebar-logo {
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 0 18px 16px;
+  }
+
+  .logo-mark {
+    align-items: center;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    color: var(--fg);
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    height: 24px;
+    justify-content: center;
+    width: 24px;
+  }
+
+  .sidebar-title { color: var(--fg); font-size: 13px; font-weight: 500; }
+  .sidebar-sub {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-top: 1px;
+    max-width: 172px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 10px 10px 4px;
+  }
+
+  .nav-item {
+    align-items: center;
+    border-bottom: none;
+    border-radius: 4px;
+    color: var(--fg-2);
+    display: flex;
+    font-size: 12px;
+    gap: 8px;
+    min-width: 0;
+    overflow: hidden;
+    padding: 4px 10px;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    transition: background var(--transition), color var(--transition);
+    white-space: nowrap;
+  }
+
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-num {
+    color: var(--fg-3);
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding-top: 1px;
+    text-align: right;
+    width: 18px;
+  }
+
+  .main {
+    flex: 1;
+    max-width: 1020px;
+    min-width: 0;
+    padding: 56px 72px 120px;
+  }
+
+  .spec-eyebrow {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    color: var(--fg);
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.12;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    color: var(--fg);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0;
+    margin: 0 0 14px;
+  }
+
+  h3 {
+    color: var(--fg);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  strong { color: var(--fg); font-weight: 600; }
+  em { color: var(--fg-2); }
+  a {
+    color: var(--fg);
+    text-decoration: underline;
+    text-decoration-color: var(--border-2);
+    text-underline-offset: 3px;
+  }
+  a:hover { text-decoration-color: var(--fg-3); }
+  code {
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--fg);
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+    padding: 1px 4px;
+  }
+  ol, ul { color: var(--fg-2); margin: 0 0 16px 20px; }
+  li { margin-bottom: 8px; padding-left: 2px; }
+  hr { border: 0; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  .lede {
+    color: var(--fg-2);
+    font-size: 16px;
+    line-height: 1.65;
+    margin-bottom: 22px;
+    max-width: 780px;
+  }
+
+  .meta-row {
+    border-top: 1px solid var(--border);
+    color: var(--fg-3);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 12px;
+    gap: 18px;
+    margin-top: 22px;
+    padding-top: 14px;
+  }
+  .meta-row strong { color: var(--fg); font-weight: 600; }
+
+  .doc-body { margin-top: 48px; }
+  .doc-body section { margin-top: 46px; scroll-margin-top: 24px; }
+  .doc-body section:first-child { margin-top: 0; }
+
+  .callout {
+    background: var(--bg-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--primary);
+    border-radius: 8px;
+    margin: 18px 0 22px;
+    padding: 14px 16px;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .map-strip {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: 18px 0 24px;
+    overflow: hidden;
+  }
+  .map-column {
+    background: var(--bg-3);
+    min-height: 150px;
+    padding: 14px;
+  }
+  .map-label {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .map-title { color: var(--fg); font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+  .map-column ul { font-size: 12px; line-height: 1.45; margin: 0 0 0 16px; }
+  .map-column li { margin-bottom: 5px; }
+
+  .family {
+    border-top: 1px solid var(--border);
+    padding-top: 26px;
+  }
+  .family > p { max-width: 780px; }
+
+  .capability-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .capability-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .capability-head {
+    align-items: start;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 42px 1fr minmax(120px, auto);
+    padding: 14px 16px;
+  }
+
+  .capability-num {
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding-top: 2px;
+  }
+
+  .capability-tag {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    justify-self: end;
+    padding-top: 2px;
+    text-align: right;
+  }
+
+  .capability-kicker {
+    color: var(--fg-3);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .capability-body { padding: 14px 16px 16px; }
+  .capability-body p:last-child { margin-bottom: 0; }
+
+  .job-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    margin-top: 12px;
+  }
+
+  .job-panel {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .job-panel-title {
+    color: var(--fg);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .job-panel ul { font-size: 12px; line-height: 1.5; margin-bottom: 0; }
+  .job-panel li:last-child { margin-bottom: 0; }
+
+  .example-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 18px;
+  }
+  .example-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .example-card h3 { font-size: 14px; }
+
+  .related-section {
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+    padding-top: 28px;
+  }
+  .related-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 16px;
+  }
+  .related-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: inherit;
+    display: block;
+    padding: 14px;
+    text-decoration: none;
+    transition: background var(--transition), border-color var(--transition);
+  }
+  .related-card:hover { background: var(--bg-3); border-color: var(--border-2); }
+  .related-name { color: var(--fg); font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .related-desc { color: var(--fg-3); font-size: 12px; line-height: 1.45; }
+
+  .footer-note {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-top: 36px;
+  }
+
+  @media (max-width: 900px) {
+    body { display: block; }
+    .sidebar { height: auto; position: relative; width: 100%; }
+    .main { padding: 32px 22px 80px; }
+    h1 { font-size: 30px; }
+    .map-strip, .job-grid, .example-grid, .related-grid { grid-template-columns: 1fr; }
+    .capability-head { grid-template-columns: 34px 1fr; }
+    .capability-tag { grid-column: 2; justify-self: start; text-align: left; }
+  }
+</style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">F</div>
+    <div>
+      <div class="sidebar-title">Foundation</div>
+      <div class="sidebar-sub">Business Capability Map</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">On This Page</div>
+    <a href="#how-to-read-this" class="nav-item active"><span class="nav-num">01</span>How to read this</a>
+    <a href="#top-level-map" class="nav-item"><span class="nav-num">02</span>Top-level map</a>
+    <a href="#direction" class="nav-item"><span class="nav-num">03</span>Direction</a>
+    <a href="#build-value" class="nav-item"><span class="nav-num">04</span>Build value</a>
+    <a href="#reach-and-sell" class="nav-item"><span class="nav-num">05</span>Reach and sell</a>
+    <a href="#deliver-value" class="nav-item"><span class="nav-num">06</span>Deliver value</a>
+    <a href="#capture-and-control-money" class="nav-item"><span class="nav-num">07</span>Money control</a>
+    <a href="#operate-the-system" class="nav-item"><span class="nav-num">08</span>Operate system</a>
+    <a href="#protect-the-system" class="nav-item"><span class="nav-num">09</span>Protect system</a>
+    <a href="#learn-and-improve" class="nav-item"><span class="nav-num">10</span>Learn and improve</a>
+    <a href="#intake-pattern" class="nav-item"><span class="nav-num">11</span>Intake pattern</a>
+    <a href="#examples" class="nav-item"><span class="nav-num">12</span>Examples</a>
+  </div>
+</nav>
+
+<main class="main">
+  <article>
+    <div class="spec-eyebrow">Core Concepts - business-capability-map.html</div>
+    <h1>Business Capability Map</h1>
+    <p class="lede">A working inventory of the recurring capabilities a business must solve. The map names outcomes, not departments. A capability can be performed by an owner, employee, agent, software system, vendor, partner, franchise parent, or some combination of them.</p>
+    <div class="meta-row">
+      <span><strong>Format:</strong> HTML-native</span>
+      <span><strong>Authoring:</strong> edit this HTML file</span>
+      <span><strong>Status:</strong> Draft working map</span>
+    </div>
+
+    <section class="doc-body">
+      <section id="how-to-read-this" class="level2 spec-section">
+        <h2>How to read this</h2>
+        <p>A business is an intent-driven system for building value, delivering value, and capturing money. Most businesses therefore share a recurring capability shape. They still differ in market, model, product, constraints, scale, regulation, channels, people, and tools.</p>
+        <p>A <strong>capability</strong> is solved when the business can reliably produce the named outcome under real constraints. A <strong>job</strong> is the named body of work required for that capability to exist, operate, or improve. A <strong>process</strong> is the repeatable sequence that performs the job. The actor can change; the capability still has to be handled.</p>
+        <p>This map is meant for intake and diagnosis. When entering a business, ask how each capability is solved today, what jobs make it real, who or what performs those jobs, what process is followed, what context is required, what tools are used, and what evidence proves that the outcome happened.</p>
+        <div class="callout">
+          <p><strong>Operating rule:</strong> Classify the work by the capability it supports before choosing the actor. Payroll can be a person, vendor, software workflow, or agent-assisted system. The durable capability is still paying people accurately and on time.</p>
+        </div>
+        <hr>
+      </section>
+
+      <section id="top-level-map" class="level2 spec-section">
+        <h2>Top-level map</h2>
+        <p>The highest-level business capability is to build value, deliver value, and capture money while keeping the system able to learn. The map below groups the recurring capability families that support that goal.</p>
+        <div class="map-strip" aria-label="Business capability families">
+          <div class="map-column">
+            <div class="map-label">01</div>
+            <div class="map-title">Direct the business</div>
+            <ul>
+              <li>Choose goals</li>
+              <li>Set priorities</li>
+              <li>Allocate resources</li>
+              <li>Hold accountability</li>
+            </ul>
+          </div>
+          <div class="map-column">
+            <div class="map-label">02</div>
+            <div class="map-title">Build demand and value</div>
+            <ul>
+              <li>Understand the market</li>
+              <li>Design the offer</li>
+              <li>Create or source value</li>
+              <li>Generate trust and attention</li>
+            </ul>
+          </div>
+          <div class="map-column">
+            <div class="map-label">03</div>
+            <div class="map-title">Deliver and support</div>
+            <ul>
+              <li>Convert demand</li>
+              <li>Fulfill the promise</li>
+              <li>Support customers</li>
+              <li>Retain and expand</li>
+            </ul>
+          </div>
+          <div class="map-column">
+            <div class="map-label">04</div>
+            <div class="map-title">Operate and protect</div>
+            <ul>
+              <li>Run workflows</li>
+              <li>Manage people and partners</li>
+              <li>Control money</li>
+              <li>Handle risk and compliance</li>
+            </ul>
+          </div>
+          <div class="map-column">
+            <div class="map-label">05</div>
+            <div class="map-title">Learn and improve</div>
+            <ul>
+              <li>Collect evidence</li>
+              <li>Evaluate performance</li>
+              <li>Update context</li>
+              <li>Revise the system</li>
+            </ul>
+          </div>
+        </div>
+        <p>The categories are practical, not sacred. Some businesses combine capabilities in one role. Others split a single capability across many teams. The map is useful when it lets an entrepreneur see what must be true, what is currently true, and where the next improvement should happen.</p>
+        <hr>
+      </section>
+
+      <section id="direction" class="level2 spec-section family">
+        <h2>Direction</h2>
+        <p>Direction capabilities decide what the business is trying to produce, where resources go, and how tradeoffs are resolved.</p>
+        <div class="capability-grid">
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">01</div>
+              <div>
+                <h3>Goal and strategy system</h3>
+                <p class="capability-kicker">The business can choose the outcomes that matter and translate them into priorities.</p>
+              </div>
+              <div class="capability-tag">where work points</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> the business has a clear goal, a chosen market, a strategy for winning, and a small enough set of priorities that people and systems can act.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Define the business goal, economic target, and customer outcome.</li>
+                    <li>Choose the market, customer segment, and competitive position.</li>
+                    <li>Set quarterly or operating-period priorities.</li>
+                    <li>Translate strategy into capability gaps and jobs.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Written goals and decision criteria.</li>
+                    <li>Priority list tied to owner, deadline, and metric.</li>
+                    <li>Tradeoffs resolved without repeated re-litigation.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">02</div>
+              <div>
+                <h3>Governance and decision system</h3>
+                <p class="capability-kicker">The business can make, record, delegate, and revise decisions.</p>
+              </div>
+              <div class="capability-tag">how choices happen</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> important choices have owners, decision rights, inputs, constraints, and review points.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Define decision rights and approval thresholds.</li>
+                    <li>Run operating reviews and escalation meetings.</li>
+                    <li>Record decisions, rationale, and expected evidence.</li>
+                    <li>Review decisions when reality changes.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Decision log or operating record.</li>
+                    <li>Clear approval paths.</li>
+                    <li>Fewer blocked jobs and repeated debates.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">03</div>
+              <div>
+                <h3>Resource allocation</h3>
+                <p class="capability-kicker">The business can assign time, people, money, attention, and tools to the work that matters.</p>
+              </div>
+              <div class="capability-tag">where capacity goes</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> the business can choose what gets funded, staffed, automated, outsourced, paused, or stopped.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Plan capacity against goals and constraints.</li>
+                    <li>Budget labor, tools, inventory, marketing, and operations.</li>
+                    <li>Assign accountable owners to capabilities and jobs.</li>
+                    <li>Review opportunity cost and reallocate when evidence changes.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Budget, staffing, and capacity plan.</li>
+                    <li>Work queued by priority, not noise.</li>
+                    <li>Spending and effort tied to expected outcomes.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <hr>
+      </section>
+
+      <section id="build-value" class="level2 spec-section family">
+        <h2>Build value</h2>
+        <p>Build-value capabilities define who the business serves, what problem it solves, what promise it makes, and what product or service can make that promise true.</p>
+        <div class="capability-grid">
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">04</div>
+              <div>
+                <h3>Market and customer understanding</h3>
+                <p class="capability-kicker">The business can understand the customer, the problem, the buying context, and the alternatives.</p>
+              </div>
+              <div class="capability-tag">what is valuable</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> the business knows who it serves, what those customers value, what pain or desire drives action, and what would count as a better outcome.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Interview customers, prospects, and lost buyers.</li>
+                    <li>Map segments, use cases, pains, objections, and buying triggers.</li>
+                    <li>Study competitors, substitutes, category norms, and market constraints.</li>
+                    <li>Convert customer evidence into offer, product, and messaging updates.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Customer definitions and segment notes.</li>
+                    <li>Observed buying behavior.</li>
+                    <li>Win/loss reasons and recurring objections.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">05</div>
+              <div>
+                <h3>Positioning and category clarity</h3>
+                <p class="capability-kicker">The business can explain what it is, who it is for, and why it is the right choice.</p>
+              </div>
+              <div class="capability-tag">why this choice</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> customers, employees, partners, and operators understand the business's category, promise, difference, and proof.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Name the category and customer problem.</li>
+                    <li>Define the promise, contrast, proof, and reason to believe.</li>
+                    <li>Translate positioning into website, sales, recruiting, and partner language.</li>
+                    <li>Test whether the market understands the message.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Clear positioning statement.</li>
+                    <li>Higher qualified response from target buyers.</li>
+                    <li>Consistent language across surfaces.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">06</div>
+              <div>
+                <h3>Offer design</h3>
+                <p class="capability-kicker">The business can package value into a promise customers understand and want.</p>
+              </div>
+              <div class="capability-tag">what is promised</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> the business has an offer with a named customer, outcome, scope, price, delivery model, proof, guarantee or risk reversal, and constraints.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Define the offer promise, customer, outcome, inclusions, and exclusions.</li>
+                    <li>Design packaging, bundles, service levels, subscriptions, or menus.</li>
+                    <li>Set proof, guarantee, urgency, scarcity, and qualification rules.</li>
+                    <li>Review whether fulfillment can make the offer true.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Offer spec or catalog entry.</li>
+                    <li>Conversion and fulfillment quality.</li>
+                    <li>Customer comprehension and reduced mismatch.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">07</div>
+              <div>
+                <h3>Product or service creation and sourcing</h3>
+                <p class="capability-kicker">The business can create, acquire, assemble, or access what it sells.</p>
+              </div>
+              <div class="capability-tag">what creates value</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> the business can reliably produce or source the product, service, assortment, inventory, expertise, or operational result required by the offer.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Design, build, source, license, or partner for the thing sold.</li>
+                    <li>Maintain assortment, catalog, service menu, or product roadmap.</li>
+                    <li>Verify availability, fit, margin, quality, and constraints.</li>
+                    <li>Update products or services when demand, cost, supply, or evidence changes.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Product or service catalog.</li>
+                    <li>Availability and margin data.</li>
+                    <li>Customer outcomes and defect signals.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">08</div>
+              <div>
+                <h3>Quality and value standards</h3>
+                <p class="capability-kicker">The business can define and maintain the standard that makes the promise true.</p>
+              </div>
+              <div class="capability-tag">what good means</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> quality is defined, observable, measured, and maintained across product, service, support, and operations.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Define quality criteria, acceptance criteria, and failure modes.</li>
+                    <li>Inspect product, service, delivery, and customer experience.</li>
+                    <li>Run quality gates, reviews, tests, and corrective actions.</li>
+                    <li>Convert defects and complaints into process improvements.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Quality checklist or eval spec.</li>
+                    <li>Defect, return, complaint, and rework data.</li>
+                    <li>Standards visible to actors doing the work.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <hr>
+      </section>
+
+      <section id="reach-and-sell" class="level2 spec-section family">
+        <h2>Reach and sell</h2>
+        <p>Reach-and-sell capabilities make the offer visible, credible, available, and purchasable by the right buyers.</p>
+        <div class="capability-grid">
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">09</div>
+              <div>
+                <h3>Brand, trust, and reputation</h3>
+                <p class="capability-kicker">The business can earn enough trust for customers, partners, and employees to engage.</p>
+              </div>
+              <div class="capability-tag">why trust exists</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> the market sees credible proof, consistent identity, positive reputation, and confidence that the business will do what it says.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Maintain identity, reputation, reviews, testimonials, and public proof.</li>
+                    <li>Publish credible assets, case studies, before-and-after examples, or certifications.</li>
+                    <li>Respond to reputation events, complaints, and public risk.</li>
+                    <li>Keep brand language consistent across buyer and employee surfaces.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Review profile, referrals, and brand search.</li>
+                    <li>Trust signals used in sales and hiring.</li>
+                    <li>Reputation recovery when issues happen.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">10</div>
+              <div>
+                <h3>Distribution and market access</h3>
+                <p class="capability-kicker">The business can make the offer reachable and available to the right market.</p>
+              </div>
+              <div class="capability-tag">where buyers find it</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> buyers can discover, access, consider, and buy the offer through channels that fit the business model.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Choose channels: location, search, marketplace, partner, outbound, retail, distributor, direct sales, content, or referrals.</li>
+                    <li>Maintain channel presence, availability, listings, routing, and partner rules.</li>
+                    <li>Measure reach, qualified attention, channel cost, and channel reliability.</li>
+                    <li>Improve channels when the offer is valuable but hidden.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Traffic, footfall, impressions, referrals, or qualified leads.</li>
+                    <li>Channel performance by cost and conversion.</li>
+                    <li>Offer availability where buyers expect it.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">11</div>
+              <div>
+                <h3>Demand generation</h3>
+                <p class="capability-kicker">The business can create enough qualified attention for the offer.</p>
+              </div>
+              <div class="capability-tag">how attention starts</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> the business can repeatedly generate interest from people or organizations likely to buy.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Plan campaigns, content, ads, events, outbound, partnerships, or local promotion.</li>
+                    <li>Create messages and assets tied to the offer and segment.</li>
+                    <li>Run lead capture, qualification, attribution, and follow-up.</li>
+                    <li>Improve demand generation based on cost, quality, and sales outcomes.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Qualified pipeline or purchase intent.</li>
+                    <li>Cost per qualified opportunity.</li>
+                    <li>Demand sources tied to actual revenue.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">12</div>
+              <div>
+                <h3>Sales conversion</h3>
+                <p class="capability-kicker">The business can turn qualified demand into a buying decision.</p>
+              </div>
+              <div class="capability-tag">how buyers say yes</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> qualified buyers can understand the offer, resolve objections, approve terms, and purchase with low friction.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Qualify buyers and route opportunities.</li>
+                    <li>Present the offer, answer objections, quote, negotiate, and close.</li>
+                    <li>Prepare contracts, order forms, proposals, carts, or checkout flows.</li>
+                    <li>Inspect win rate, sales cycle, lost reasons, and handoff quality.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Conversion rate and close rate.</li>
+                    <li>Sales notes, call quality, and lost reasons.</li>
+                    <li>Signed agreements, orders, or completed checkouts.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">13</div>
+              <div>
+                <h3>Pricing and commercial terms</h3>
+                <p class="capability-kicker">The business can set prices, payment terms, and packaging that capture enough value.</p>
+              </div>
+              <div class="capability-tag">how value is priced</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> prices, margins, payment terms, discounts, financing, renewals, and guarantees support the business model and customer decision.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Set list price, discount rules, payment terms, and renewal terms.</li>
+                    <li>Calculate margin, unit economics, payback, and cash impact.</li>
+                    <li>Maintain price books, menus, quotes, and billing rules.</li>
+                    <li>Test pricing against conversion, retention, delivery cost, and profit.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Gross margin and contribution margin.</li>
+                    <li>Average order value or contract value.</li>
+                    <li>Discount leakage and pricing exceptions.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <hr>
+      </section>
+
+      <section id="deliver-value" class="level2 spec-section family">
+        <h2>Deliver value</h2>
+        <p>Delivery capabilities make the promise true after the customer says yes.</p>
+        <div class="capability-grid">
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">14</div>
+              <div>
+                <h3>Order intake and onboarding</h3>
+                <p class="capability-kicker">The business can convert a sale into the context and setup required to deliver.</p>
+              </div>
+              <div class="capability-tag">how work begins</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> every new customer, order, job, or account starts with the right information, expectations, permissions, schedule, and handoff.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Collect requirements, customer data, payment details, and constraints.</li>
+                    <li>Confirm scope, expectations, timeline, and responsibilities.</li>
+                    <li>Set up accounts, records, access, tickets, work orders, or project spaces.</li>
+                    <li>Route handoffs from sales to fulfillment, support, or operations.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Complete intake records.</li>
+                    <li>Clean handoffs with fewer missing details.</li>
+                    <li>Customer readiness and reduced rework.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">15</div>
+              <div>
+                <h3>Fulfillment and delivery</h3>
+                <p class="capability-kicker">The business can deliver the promised product, service, or result reliably.</p>
+              </div>
+              <div class="capability-tag">how value arrives</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> customers receive what was promised at the expected quality, time, cost, and scope.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Schedule, prepare, produce, pick, pack, ship, install, implement, perform, or complete the work.</li>
+                    <li>Coordinate handoffs, dependencies, inventory, capacity, and exceptions.</li>
+                    <li>Verify completion against the offer and quality standard.</li>
+                    <li>Communicate delivery state to customers and internal owners.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Delivered orders or completed services.</li>
+                    <li>On-time, in-full, and quality metrics.</li>
+                    <li>Completion proof and customer acceptance.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">16</div>
+              <div>
+                <h3>Customer support and issue resolution</h3>
+                <p class="capability-kicker">The business can help customers when something is unclear, broken, late, or incomplete.</p>
+              </div>
+              <div class="capability-tag">how problems close</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> customer problems are received, understood, routed, resolved, and converted into operating evidence.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Receive support requests, complaints, returns, claims, and exceptions.</li>
+                    <li>Triage urgency, ownership, root cause, and resolution path.</li>
+                    <li>Communicate status, resolve the issue, and confirm customer acceptance.</li>
+                    <li>Update products, processes, docs, training, or policies from support patterns.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Resolution time and backlog.</li>
+                    <li>Complaint, return, refund, and escalation patterns.</li>
+                    <li>Support causes linked to system updates.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">17</div>
+              <div>
+                <h3>Retention and expansion</h3>
+                <p class="capability-kicker">The business can keep valuable customers and grow the relationship when more value can be delivered.</p>
+              </div>
+              <div class="capability-tag">how value compounds</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> customers continue, renew, repurchase, refer, expand, or remain satisfied when the business model depends on ongoing value.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Monitor customer health, satisfaction, usage, outcomes, and renewal risk.</li>
+                    <li>Run renewal, reorder, subscription, account review, and expansion workflows.</li>
+                    <li>Identify unmet needs and appropriate next offers.</li>
+                    <li>Recover at-risk customers when the relationship is still valuable.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Retention, churn, repeat purchase, and expansion data.</li>
+                    <li>Customer outcome evidence.</li>
+                    <li>Referral and account growth signals.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <hr>
+      </section>
+
+      <section id="capture-and-control-money" class="level2 spec-section family">
+        <h2>Capture and control money</h2>
+        <p>Money-control capabilities turn value into cash, keep the business solvent, and make the economics visible.</p>
+        <div class="capability-grid">
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">18</div>
+              <div>
+                <h3>Billing, payment, and collections</h3>
+                <p class="capability-kicker">The business can invoice, charge, collect, reconcile, and resolve payment exceptions.</p>
+              </div>
+              <div class="capability-tag">how money arrives</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> earned revenue becomes collected cash with clear records and low leakage.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Create invoices, subscriptions, payment links, checkout flows, or charge records.</li>
+                    <li>Collect payments, handle failed charges, and follow up on receivables.</li>
+                    <li>Apply payments to customer records and orders.</li>
+                    <li>Resolve disputes, credits, refunds, and write-offs.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Collected cash and aging receivables.</li>
+                    <li>Payment failure and refund rates.</li>
+                    <li>Revenue records matched to delivery and bank activity.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">19</div>
+              <div>
+                <h3>Finance, accounting, and cash control</h3>
+                <p class="capability-kicker">The business can know where money is, where it is going, and whether the model works.</p>
+              </div>
+              <div class="capability-tag">what the numbers say</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> financial records, cash, profit, obligations, unit economics, and forecasts are accurate enough to guide decisions.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Book transactions, reconcile accounts, and close financial periods.</li>
+                    <li>Track revenue, cost of goods, labor, overhead, margin, taxes, debt, and cash.</li>
+                    <li>Forecast cash flow, budgets, and unit economics.</li>
+                    <li>Prepare financial reports for decisions, taxes, lenders, owners, or investors.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Reconciled books and financial statements.</li>
+                    <li>Cash forecast and budget variance.</li>
+                    <li>Profitability and unit economics by offer or channel.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">20</div>
+              <div>
+                <h3>Tax, reporting, and financial obligations</h3>
+                <p class="capability-kicker">The business can meet recurring financial obligations accurately and on time.</p>
+              </div>
+              <div class="capability-tag">what must be paid</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> required filings, taxes, debt payments, owner distributions, vendor payments, and reporting obligations are known, scheduled, paid, and evidenced.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Maintain tax calendar, reporting requirements, and payment schedules.</li>
+                    <li>Prepare sales tax, income tax, payroll tax, excise tax, or domain-specific filings.</li>
+                    <li>Manage debt, lease, insurance, license, and contract payment obligations.</li>
+                    <li>Keep proof of filings, payments, and approvals.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Filed returns and payment confirmations.</li>
+                    <li>Obligation calendar.</li>
+                    <li>Low penalty, interest, and missed-payment risk.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <hr>
+      </section>
+
+      <section id="operate-the-system" class="level2 spec-section family">
+        <h2>Operate the system</h2>
+        <p>Operating capabilities make work repeatable. They define jobs, processes, actors, tools, context, and handoffs.</p>
+        <div class="capability-grid">
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">21</div>
+              <div>
+                <h3>Process and workflow management</h3>
+                <p class="capability-kicker">The business can turn recurring work into repeatable paths.</p>
+              </div>
+              <div class="capability-tag">how work repeats</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> recurring jobs have clear steps, decisions, checks, handoffs, owners, tools, and evidence.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Map current workflows, surfaces, handoffs, decisions, and failure points.</li>
+                    <li>Create SOPs, checklists, skills, automations, and workflow definitions.</li>
+                    <li>Assign process owners and quality gates.</li>
+                    <li>Improve process clarity when outcomes miss.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Process maps and SOPs used in real work.</li>
+                    <li>Reduced rework, waiting, misses, and ambiguity.</li>
+                    <li>Process evidence captured at the point of work.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">22</div>
+              <div>
+                <h3>People, roles, and job ownership</h3>
+                <p class="capability-kicker">The business can attract, select, onboard, train, assign, and manage the people needed for the work.</p>
+              </div>
+              <div class="capability-tag">who owns work</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> roles and titles are decomposed into jobs, expectations, skills, accountabilities, capacity, and performance evidence.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Define roles, job responsibilities, hiring criteria, and scorecards.</li>
+                    <li>Recruit, select, onboard, train, coach, and review people.</li>
+                    <li>Assign jobs and resolve capacity, accountability, and ownership gaps.</li>
+                    <li>Manage performance, compensation expectations, and role changes.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Job descriptions tied to capabilities.</li>
+                    <li>Hiring pipeline and onboarding completion.</li>
+                    <li>Performance evidence and ownership clarity.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">23</div>
+              <div>
+                <h3>Payroll and workforce administration</h3>
+                <p class="capability-kicker">The business can pay people accurately, on time, and with the right records.</p>
+              </div>
+              <div class="capability-tag">how people are paid</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> time, pay, taxes, benefits, classifications, approvals, and payroll records are handled reliably.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Collect time, salary, commission, bonus, deduction, and benefit inputs.</li>
+                    <li>Approve hours, calculate pay, run payroll, and submit taxes or filings.</li>
+                    <li>Resolve payroll exceptions, corrections, reimbursements, and off-cycle payments.</li>
+                    <li>Maintain employee records, classifications, policies, and pay evidence.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Payroll run confirmations.</li>
+                    <li>Accurate employee pay and tax records.</li>
+                    <li>Low correction, complaint, and compliance risk.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">24</div>
+              <div>
+                <h3>Procurement and supplier management</h3>
+                <p class="capability-kicker">The business can acquire the goods, services, software, and inputs required to operate and fulfill.</p>
+              </div>
+              <div class="capability-tag">what inputs arrive</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> required inputs are sourced, purchased, received, paid for, and reviewed against quality, cost, risk, and availability.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Select suppliers, vendors, tools, contractors, agencies, distributors, and partners.</li>
+                    <li>Negotiate terms, place orders, track delivery, and approve invoices.</li>
+                    <li>Manage substitutions, shortages, lead times, returns, and vendor issues.</li>
+                    <li>Review supplier performance and concentration risk.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Purchase orders, contracts, and vendor records.</li>
+                    <li>Cost, quality, lead time, and issue history.</li>
+                    <li>Inputs available when the work requires them.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">25</div>
+              <div>
+                <h3>Inventory, assets, and facilities</h3>
+                <p class="capability-kicker">The business can maintain the physical and digital assets required for work.</p>
+              </div>
+              <div class="capability-tag">what must be ready</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> inventory, equipment, locations, vehicles, devices, credentials, and other assets are available, secure, maintained, and fit for use.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Track inventory levels, reorder points, shrink, storage, and movement.</li>
+                    <li>Maintain facilities, equipment, vehicles, fixtures, devices, and access.</li>
+                    <li>Schedule repairs, inspections, replenishment, and preventive maintenance.</li>
+                    <li>Record asset ownership, status, cost, warranty, and replacement needs.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Inventory accuracy and availability.</li>
+                    <li>Maintenance records and uptime.</li>
+                    <li>Lower loss, downtime, and stockout risk.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">26</div>
+              <div>
+                <h3>Technology, tooling, and automation</h3>
+                <p class="capability-kicker">The business can choose, run, integrate, and improve the tools that perform or support work.</p>
+              </div>
+              <div class="capability-tag">what actors use</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> software, hardware, agents, automations, integrations, data flows, and access systems make work faster, clearer, safer, or more reliable.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Select tools based on capability gaps and actor needs.</li>
+                    <li>Implement systems, integrations, automations, permissions, and monitoring.</li>
+                    <li>Maintain reliability, backups, security, and support.</li>
+                    <li>Retire or replace tools that create drag or hide reality.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Tool inventory and ownership.</li>
+                    <li>Workflow speed, error reduction, and data quality.</li>
+                    <li>System uptime, access logs, and support volume.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <hr>
+      </section>
+
+      <section id="protect-the-system" class="level2 spec-section family">
+        <h2>Protect the system</h2>
+        <p>Protection capabilities keep the business within the constraints that let it keep operating.</p>
+        <div class="capability-grid">
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">27</div>
+              <div>
+                <h3>Legal, compliance, and regulatory control</h3>
+                <p class="capability-kicker">The business can understand and meet the obligations that govern its work.</p>
+              </div>
+              <div class="capability-tag">what must be true</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> licenses, permits, contracts, policies, labor rules, privacy obligations, safety requirements, and industry regulations are known, assigned, monitored, and evidenced.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Identify applicable laws, permits, licenses, filings, policies, and contract obligations.</li>
+                    <li>Maintain compliance calendars, records, approvals, and owner assignments.</li>
+                    <li>Review contracts, vendor terms, employment obligations, and customer commitments.</li>
+                    <li>Respond to audits, incidents, claims, inspections, and regulatory changes.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Compliance register and proof records.</li>
+                    <li>Completed filings, licenses, audits, and renewals.</li>
+                    <li>Reduced penalty, dispute, and shutdown risk.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">28</div>
+              <div>
+                <h3>Risk, safety, and continuity</h3>
+                <p class="capability-kicker">The business can anticipate, reduce, absorb, and recover from material risks.</p>
+              </div>
+              <div class="capability-tag">how failure is handled</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> key risks are named, owners are assigned, controls exist, incidents are handled, and critical work can continue or recover.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Identify operational, financial, safety, security, supply, reputational, and strategic risks.</li>
+                    <li>Maintain insurance, safety procedures, incident response, backups, and continuity plans.</li>
+                    <li>Train actors on critical controls and escalation paths.</li>
+                    <li>Review incidents and near misses into system updates.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Risk register and mitigation owners.</li>
+                    <li>Incident, safety, downtime, and near-miss data.</li>
+                    <li>Recovery tests and continuity readiness.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">29</div>
+              <div>
+                <h3>Security, access, and control of sensitive assets</h3>
+                <p class="capability-kicker">The business can protect money, data, systems, facilities, and customer trust.</p>
+              </div>
+              <div class="capability-tag">what is protected</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> sensitive assets have clear owners, access rules, monitoring, response paths, and evidence of control.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Define access rules for money, systems, data, locations, devices, and customer records.</li>
+                    <li>Provision, review, revoke, and monitor access.</li>
+                    <li>Protect credentials, payments, private data, inventory, and facilities.</li>
+                    <li>Investigate exceptions, fraud, breaches, theft, and policy violations.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Access logs, permissions, and review records.</li>
+                    <li>Incident and exception reports.</li>
+                    <li>Controls aligned with asset sensitivity.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <hr>
+      </section>
+
+      <section id="learn-and-improve" class="level2 spec-section family">
+        <h2>Learn and improve</h2>
+        <p>Learning capabilities make the business smarter by turning evidence into revised artifacts, decisions, processes, and capabilities.</p>
+        <div class="capability-grid">
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">30</div>
+              <div>
+                <h3>Data, measurement, and evaluation</h3>
+                <p class="capability-kicker">The business can know whether actions, processes, jobs, and capabilities worked.</p>
+              </div>
+              <div class="capability-tag">how reality answers</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> the business collects reliable evidence and evaluates it against intent often enough to change decisions.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Define metrics, eval specs, dashboards, reports, scorecards, and quality gates.</li>
+                    <li>Collect data from sales, operations, finance, support, product, people, and tools.</li>
+                    <li>Judge evidence against goals, standards, and expected outcomes.</li>
+                    <li>Route evaluation results to owners who can update the system.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Metrics tied to decisions.</li>
+                    <li>Eval results with accept, revise, continue, or stop decisions.</li>
+                    <li>Evidence used in operating reviews.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">31</div>
+              <div>
+                <h3>Knowledge, context, and operating memory</h3>
+                <p class="capability-kicker">The business can preserve what it knows and prepare the relevant context for action.</p>
+              </div>
+              <div class="capability-tag">what is known</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> facts, definitions, decisions, examples, principles, constraints, standards, and evidence become reusable context for future work.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Maintain specs, SOPs, policies, decision logs, metric definitions, examples, and context packs.</li>
+                    <li>Capture operating knowledge from conversations, customer evidence, misses, and repeated work.</li>
+                    <li>Prepare job-specific context for people, agents, vendors, and software systems.</li>
+                    <li>Remove stale context when the system changes.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Actors can find the right context when work begins.</li>
+                    <li>Fewer repeated explanations and hidden decisions.</li>
+                    <li>Artifacts updated when evidence changes.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="capability-card">
+            <div class="capability-head">
+              <div class="capability-num">32</div>
+              <div>
+                <h3>Learning and system improvement</h3>
+                <p class="capability-kicker">The business can turn misses, discoveries, and wins into a better operating system.</p>
+              </div>
+              <div class="capability-tag">how learning sticks</div>
+            </div>
+            <div class="capability-body">
+              <p><strong>Capability outcome:</strong> the business revises goals, specs, capabilities, jobs, processes, actors, tools, context, evidence, and evaluations when reality teaches something useful.</p>
+              <div class="job-grid">
+                <div class="job-panel">
+                  <div class="job-panel-title">Typical jobs</div>
+                  <ul>
+                    <li>Detect repeated misses, bottlenecks, defects, unclear work, and new opportunities.</li>
+                    <li>Name the missing capability, job, process, action, actor, tool, context, evidence, or evaluation.</li>
+                    <li>Run experiments, improvement jobs, retrospectives, and operating reviews.</li>
+                    <li>Update the artifact that changes future action.</li>
+                  </ul>
+                </div>
+                <div class="job-panel">
+                  <div class="job-panel-title">Evidence</div>
+                  <ul>
+                    <li>Future behavior changes after a lesson.</li>
+                    <li>Repeated mistakes decline.</li>
+                    <li>New artifacts guide the next actor better than the old system did.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <hr>
+      </section>
+
+      <section id="intake-pattern" class="level2 spec-section">
+        <h2>Intake pattern</h2>
+        <p>To use this map with a real business, run the same questions capability by capability:</p>
+        <ol>
+          <li><strong>Outcome:</strong> what result must this capability reliably produce?</li>
+          <li><strong>Current solution:</strong> how is the capability handled today?</li>
+          <li><strong>Jobs:</strong> what named bodies of work make the capability exist, operate, or improve?</li>
+          <li><strong>Actors:</strong> who or what performs those jobs now: owner, employee, agent, software, vendor, partner, or parent system?</li>
+          <li><strong>Process:</strong> what steps, decisions, checks, and handoffs make the job repeatable?</li>
+          <li><strong>Tools and context:</strong> what does the actor use, and what must the actor know before acting?</li>
+          <li><strong>Evidence:</strong> what signal proves the outcome happened, and who evaluates it?</li>
+          <li><strong>Revision:</strong> what artifact changes when evidence shows that the capability is weak?</li>
+        </ol>
+        <p>The output is a capability map: each row names the capability, the jobs that support it, the actor model, the current process, the tools and context, the evidence, and the improvement opportunity.</p>
+        <hr>
+      </section>
+
+      <section id="examples" class="level2 spec-section">
+        <h2>Examples</h2>
+        <div class="example-grid">
+          <article class="example-card">
+            <h3>Product capability across different businesses</h3>
+            <p><strong>Shared capability:</strong> create or source a product or service customers want and can buy.</p>
+            <p>For a gas station, this can mean choosing the right convenience assortment, fuel offer, food program, placement, stock level, freshness standard, and availability. For a medical supply distributor, a large manufacturer may own product design, but the distributor still must solve catalog fit, sourcing, availability, substitutions, compliance attributes, inventory access, pricing, and customer-specific needs.</p>
+            <p>The capability is the same at the abstract level. The jobs, actors, tools, constraints, and evidence differ by business model.</p>
+          </article>
+          <article class="example-card">
+            <h3>Payroll as capability and job</h3>
+            <p><strong>Capability:</strong> pay people accurately and on time.</p>
+            <p><strong>Job:</strong> run payroll for a pay period. The job may include collecting hours, approving exceptions, calculating pay, submitting payroll, filing taxes, resolving corrections, and recording proof.</p>
+            <p>The actor could be an owner, internal operator, payroll vendor, software system, agent-assisted workflow, or hybrid. The capability is solved when the outcome happens reliably and evidence is available.</p>
+          </article>
+        </div>
+        <hr>
+      </section>
+
+      <section id="what-is-settled-vs-what-is-iterating" class="level2 spec-section">
+        <h2>What is settled vs. what is iterating</h2>
+        <p><strong>Settled:</strong> a business can be understood as recurring capabilities that produce outcomes through jobs, processes, actors, tools, context, evidence, evaluation, and revision. The same capability may be solved by different actors in different companies.</p>
+        <p><strong>Iterating:</strong> the exact capability taxonomy, the names of the job families under each capability, the intake questions used to populate a real business map, and the evidence standard for judging whether each capability is sufficiently solved.</p>
+      </section>
+    </section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede">Sibling documents that this map depends on.</p>
+    <div class="related-grid">
+      <a class="related-card" href="./system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root model for goal-to-result systems, vocabulary, context, evidence, evaluation, and revision.</div></a>
+      <a class="related-card" href="./business-os.html"><div class="related-name">The Business OS</div><div class="related-desc">The working spec for business operations as goals, capabilities, jobs, processes, context, and evidence.</div></a>
+      <a class="related-card" href="../principles/business-principles.html"><div class="related-name">Business Principles</div><div class="related-desc">Durable business principles for value creation, value delivery, value capture, offers, distribution, and operations.</div></a>
+      <a class="related-card" href="../principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for intent-driven systems.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts - HTML-native document</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.getElementById(link.getAttribute('href').slice(1));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(section => observer.observe(section));
+</script>
+
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

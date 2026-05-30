@@ -22,18 +22,18 @@
   "parent": "foundation.spec-system",
   "children": [
     "foundation.backfill-specs.descriptive",
-    "foundation.agents-load-canary.test",
+    "foundation.agents-load-canary.eval",
     "foundation.workspace-doctor.technical",
-    "foundation.workspace-doctor.test"
+    "foundation.workspace-doctor.eval"
   ],
   "relatedSpecs": [
     { "id": "foundation.spec-system", "relationship": "parent", "sections": ["registry", "entry-points"] },
     { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["workflow-contract", "update-obligations"] },
     { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["resolution", "path-update-loop"] },
     { "id": "foundation.backfill-specs.descriptive", "relationship": "child", "sections": ["product-intent", "interface-journey", "ux-contracts"] },
-    { "id": "foundation.agents-load-canary.test", "relationship": "child", "sections": ["verification-contract", "canary-procedure"] },
+    { "id": "foundation.agents-load-canary.eval", "relationship": "child", "sections": ["verification-contract", "canary-procedure"] },
     { "id": "foundation.workspace-doctor.technical", "relationship": "child", "sections": ["required-depth", "contracts"] },
-    { "id": "foundation.workspace-doctor.test", "relationship": "child", "sections": ["verification-contract", "acceptance-mapping"] }
+    { "id": "foundation.workspace-doctor.eval", "relationship": "child", "sections": ["verification-contract", "acceptance-mapping"] }
   ],
   "ownedPaths": [
     {
@@ -58,7 +58,7 @@
     { "path": "foundation/skills/backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Existing repo adoption workflow for creating draft descriptive and technical specs." },
     { "path": "foundation/skills/spec-workflow/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Spec authoring, registry, and verification workflow." },
     { "path": "foundation/skills/install-foundation-substrate/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Target repo setup workflow for connecting repos to canonical Foundation." },
-    { "path": "foundation/docs/specs/foundation-agents-load-canary-test.html", "kind": "doc", "ownership": "reference", "notes": "Manual cold-session procedure for proving AGENTS instruction loading." },
+    { "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html", "kind": "doc", "ownership": "reference", "notes": "Manual cold-session procedure for proving AGENTS instruction loading." },
     { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration." },
     { "path": "foundation/scripts/foundation-doctor.test.mjs", "kind": "test", "ownership": "reference", "notes": "Automated coverage for the Foundation doctor rules." }
   ],
@@ -94,10 +94,10 @@
       "id": "FW-4",
       "level": "manual",
       "status": "planned",
-      "path": "foundation/docs/specs/foundation-agents-load-canary-test.html",
+      "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html",
       "mapsTo": ["foundation.workspace-model.descriptive#ux-contracts"],
       "evidence": "Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.",
-      "notes": "Procedure is defined in foundation.agents-load-canary.test and is intentionally separate from foundation:doctor."
+      "notes": "Procedure is defined in foundation.agents-load-canary.eval and is intentionally separate from foundation:doctor."
     }
   ],
   "tags": [
@@ -152,7 +152,7 @@
       <p>Foundation should behave like the software-development operating system for the workspace: shared principles, spec workflow, skills, validators, and CI patterns live in one canonical repository, while each product repo keeps its own specs, knowledge, implementation paths, tests, and project-specific agent notes.</p>
       <p>The model must prevent drift. Updating the Foundation substrate should improve future work across repos without requiring the user to manually copy common docs, skills, or rules into every project after each change.</p>
       <h3>Out of scope</h3>
-      <p>This spec does not define the full technical implementation of the installer, sync command, global Codex configuration, or target-repo CI. Those need technical and test specs after this descriptive model is accepted.</p>
+      <p>This spec does not define the full technical implementation of the installer, sync command, global Codex configuration, or target-repo CI. Those need technical and eval specs after this descriptive model is accepted.</p>
       <p>This spec also does not define Tribal Innovations, MatchCoach, Sandia Oil, or any other product repo's feature specs. Those specs belong in the target repo and should reference Foundation only for shared process.</p>
     </section>
 
@@ -229,9 +229,9 @@
         <li><a data-spec-link="foundation.spec-process" href="./process.html">foundation.spec-process</a> - spec authoring and update obligations.</li>
         <li><a data-spec-link="foundation.spec-linking" href="./linking.html">foundation.spec-linking</a> - metadata, path ownership, and spec resolution.</li>
         <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a> - existing repo adoption workflow for draft descriptive and technical specs.</li>
-        <li><a data-spec-link="foundation.agents-load-canary.test" href="./foundation-agents-load-canary-test.html">foundation.agents-load-canary.test</a> - cold-session AGENTS load verification procedure.</li>
+        <li><a data-spec-link="foundation.agents-load-canary.eval" href="./foundation-agents-load-canary-eval.html">foundation.agents-load-canary.eval</a> - cold-session AGENTS load verification procedure.</li>
         <li><a data-spec-link="foundation.workspace-doctor.technical" href="./foundation-workspace-doctor-technical.html">foundation.workspace-doctor.technical</a> - diagnostic command contract for the workspace model.</li>
-        <li><a data-spec-link="foundation.workspace-doctor.test" href="./foundation-workspace-doctor-test.html">foundation.workspace-doctor.test</a> - verification contract for the diagnostic command.</li>
+        <li><a data-spec-link="foundation.workspace-doctor.eval" href="./foundation-workspace-doctor-eval.html">foundation.workspace-doctor.eval</a> - verification contract for the diagnostic command.</li>
       </ul>
       <h3>Directly owned paths</h3>
       <ul class="path-list">
@@ -245,7 +245,7 @@
         <li><code>foundation/skills/backfill-specs/SKILL.md</code> - workflow for adopting existing repos into draft specs.</li>
         <li><code>foundation/skills/spec-workflow/SKILL.md</code> - spec registry and verification workflow.</li>
         <li><code>foundation/skills/install-foundation-substrate/SKILL.md</code> - target repo setup workflow for connecting repos to canonical Foundation.</li>
-        <li><code>foundation/docs/specs/foundation-agents-load-canary-test.html</code> - manual AGENTS-load canary procedure.</li>
+        <li><code>foundation/docs/specs/foundation-agents-load-canary-eval.html</code> - manual AGENTS-load canary procedure.</li>
         <li><code>foundation/scripts/foundation-doctor.mjs</code> - setup diagnostic for canonical Foundation use from target repos.</li>
         <li><code>foundation/scripts/foundation-doctor.test.mjs</code> - automated tests for doctor checks.</li>
         <li><code>foundation/.github/workflows/specs.yml</code> - current Foundation CI check.</li>
@@ -269,7 +269,7 @@
           <tr><td>FW-1</td><td><code>#states-and-rules</code></td><td><code>foundation:doctor</code> target repo adapter check fails when <code>AGENTS.md</code> duplicates Foundation-owned rules.</td><td>existing</td><td>Implemented by <code>foundation.workspace-doctor.technical</code>.</td></tr>
           <tr><td>FW-2</td><td><code>#ux-contracts</code></td><td><code>foundation:doctor</code> reports Foundation path, global Codex pointer, required skills, target adapter status, spec namespace status, and CI pin status.</td><td>existing</td><td>CI pinning is a warning until a target repo configures GitHub workflows.</td></tr>
           <tr><td>FW-3</td><td><code>#interface-journey</code></td><td>Manual walkthrough from a target repo: create a descriptive spec using Foundation and write it into the target repo.</td><td>planned</td><td>Run after the technical spec defines install/sync mechanics.</td></tr>
-          <tr><td>FW-4</td><td><code>#ux-contracts</code></td><td>Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.</td><td>planned</td><td>Procedure lives in <code>foundation.agents-load-canary.test</code> and stays outside <code>foundation:doctor</code>.</td></tr>
+          <tr><td>FW-4</td><td><code>#ux-contracts</code></td><td>Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.</td><td>planned</td><td>Procedure lives in <code>foundation.agents-load-canary.eval</code> and stays outside <code>foundation:doctor</code>.</td></tr>
         </tbody>
       </table>
       <p>The next phase should define the isolated AGENTS-load canary and the target-repo CI template that runs Foundation-backed validation against a pinned Foundation revision.</p>

@@ -4,9 +4,9 @@
 - Use the Descriptive Spec Interview skill at `skills/descriptive-spec-interview/SKILL.md` when turning fuzzy user-facing intent into a descriptive spec.
 - Use `docs/principles/sw-design-principles.html` before user-facing UI, rendered-UX, accessibility, responsive layout, or visual-verification work.
 - Use the Backfill Specs skill at `skills/backfill-specs/SKILL.md` when converting an existing repo into a capability-covered, intent-rigid, architecture-flexible spec graph with dated report and JSONL run log.
-- Use the Artifact Inventory Fill Loop skill at `skills/file-registry-fill-loop/SKILL.md` when creating, filling, refreshing, checking, or evaluating a target repo artifact inventory. Legacy command/file names still use `file-registry`.
-- Use the Surface / Function Map Fill Loop skill at `skills/surface-registry-fill-loop/SKILL.md` when creating, filling, refreshing, checking, evaluating, or revising a target repo surface/function map; keep its read-one-file, mark-that-file-immediately loop intact. Legacy command/file names still use `surface-registry`.
-- Use the Capability Map Fill Loop skill at `skills/capability-matrix-fill-loop/SKILL.md` when creating, filling, refreshing, checking, evaluating, or revising a target repo capability map from Surface / Function Map handoff output. Legacy command/file names still use `capability-matrix`.
+- Use the Artifact Inventory Fill Loop skill at `skills/artifact-inventory-fill-loop/SKILL.md` when creating, filling, refreshing, checking, or evaluating a target repo artifact inventory.
+- Use the Surface / Function Map Fill Loop skill at `skills/surface-function-map-fill-loop/SKILL.md` when creating, filling, refreshing, checking, evaluating, or revising a target repo surface/function map; keep its read-one-file, mark-that-file-immediately loop intact.
+- Use the Capability Map Fill Loop skill at `skills/capability-map-fill-loop/SKILL.md` when creating, filling, refreshing, checking, evaluating, or revising a target repo capability map from Surface / Function Map handoff output.
 - Use the Evaluate Backfill Specs skill at `skills/evaluate-backfill-specs/SKILL.md` when judging whether generated backfill specs meet the strict acceptable-quality gate.
 - Use `docs/principles/ai-evals-principles.html` before creating or changing LLM judge rubrics, eval workflows, or backfill quality gates.
 - Use the Spec workflow skill at `skills/spec-workflow/SKILL.md` when creating or updating specs, mapping tests, or keeping code/spec/test changes aligned.

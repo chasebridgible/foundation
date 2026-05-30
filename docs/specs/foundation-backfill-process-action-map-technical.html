@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-process-action-map.technical">
+<meta name="spec:type" content="technical">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-05-26">
+<title>Foundation Backfill Process / Action Map Technical Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-process-action-map.technical",
+  "title": "Foundation Backfill Process / Action Map Technical Spec",
+  "type": "technical",
+  "status": "draft",
+  "lastUpdated": "2026-05-26",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-process-action-map.descriptive",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.backfill-process-action-map.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "product-intent",
+        "artifacts-and-state",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-process-action-map.eval",
+      "relationship": "sibling",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    },
+    {
+      "id": "foundation.backfill-context-pack.descriptive",
+      "relationship": "depends-on",
+      "sections": [
+        "artifacts-and-state",
+        "handoff-gate"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-process-action-map-technical.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Parent backfill workflow."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-artifact-inventory.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Model for canonical layer artifacts and handoff gates."
+    },
+    {
+      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "BFL-FLOW_EXTRACTION-T-1",
+      "level": "static",
+      "status": "planned",
+      "path": "foundation/docs/specs/foundation-backfill-process-action-map-technical.html",
+      "mapsTo": [
+        "foundation.backfill-process-action-map.technical#contracts"
+      ],
+      "evidence": "Planned Foundation Backfill Process / Action Map technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+    }
+  ],
+  "tags": [
+    "foundation",
+    "backfill",
+    "process-action-map",
+    "technical",
+    "substrate"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+    <div>
+      <div class="sidebar-title">Foundation Backfill Process / Action Map Technical Spec</div>
+      <div class="sidebar-sub">technical spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#required-depth"><span class="nav-num">01</span>Depth</a>
+    <a class="nav-item" href="#data-model"><span class="nav-num">02</span>Data</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">03</span>Contracts</a>
+    <a class="nav-item" href="#checker-and-fill-loop"><span class="nav-num">04</span>Loop</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">05</span>Failures</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">06</span>Coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-process-action-map-technical.html</div>
+    <h1>Foundation Backfill Process / Action Map Technical Spec</h1>
+    <p class="lede">This technical layer makes Foundation Backfill Process / Action Map deterministic enough for scripts and structured enough for agent judgment.</p>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-process-action-map.descriptive</div></div>
+    <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
+      <h2>Data model</h2>
+      <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
+        <tr><td>Layer row</td><td>runId, rowId, upstreamIds, status, confidence, evidenceRefs, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity and traceable upstream evidence.</td></tr>
+        <tr><td>Canonical artifact</td><td>process-action-map-YYYYMMDD-NN.jsonl, process-action-map-eval-YYYYMMDD-NN.jsonl</td><td>JSONL files are append-friendly and machine-parseable; each line is one receipt or row.</td></tr>
+        <tr><td>Derived artifact</td><td>process-action-map-summary-YYYYMMDD-NN.html, process/action maps, state tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
+        <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
+      <h2>Contracts</h2>
+      <table class="status-table"><thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead><tbody>
+        <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
+        <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
+        <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates every user-facing or operator-facing queued slice has process/action rows or explicit non-UI/operator classification; validates process/action rows link back to Context Packs and capability IDs.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
+        <tr><td>Semantic eval</td><td>samples process/action rows against Context Packs to detect missing states, hidden permissions, unmodeled errors, architecture leakage, and under-described visible behavior.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
+        <tr><td>Handoff gate</td><td>all queued slices that need process/action detail have acceptable process/action rows; checker passes; eval receipt and HTML summary exist; report names next layer as Author Specs.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="checker-and-fill-loop" data-spec-section="checker-and-fill-loop" data-section-type="sequence">
+      <h2>Checker and fill loop</h2>
+      <ol>
+        <li>Read active report, run log, upstream artifacts, and current layer artifact.</li>
+        <li>Select next pending or failed batch by deterministic order plus risk priority.</li>
+        <li>Inspect only the evidence needed for the batch and update canonical JSONL rows.</li>
+        <li>Run the checker; repair structural failures before semantic eval.</li>
+        <li>Run or append eval receipts; generate HTML summary from JSONL.</li>
+        <li>Revise failed rows until the gate passes or a named human decision blocks progress.</li>
+      </ol>
+    </section>
+
+    <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+      <h2>Failure modes</h2>
+      <table class="status-table"><thead><tr><th>Failure</th><th>System behavior</th><th>Evidence</th></tr></thead><tbody>
+        <tr><td>Missing upstream row</td><td>Checker fails and names the missing upstream ID.</td><td>Checker JSON output and report entry.</td></tr>
+        <tr><td>Vague or unsupported row</td><td>Eval routes the row back to the fill loop.</td><td>Eval JSONL receipt with revision target.</td></tr>
+        <tr><td>Report drift</td><td>Checker fails when report paths/counts do not match artifacts.</td><td>Report check result.</td></tr>
+        <tr><td>Context reset</td><td>Next agent resumes from report, run log, current artifacts, and pending rows.</td><td>Run-log checkpoint.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Related paths and coverage</h2>
+      <ul class="path-list"><li data-implementation-path="foundation/docs/specs/foundation-backfill-process-action-map-technical.html"><code>foundation/docs/specs/foundation-backfill-process-action-map-technical.html</code> - technical contract for this layer.</li></ul>
+    </section>
+  </article>
+  <hr>
+  <p class="footer-note">Foundation Backfill Process / Action Map Technical Spec · draft</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

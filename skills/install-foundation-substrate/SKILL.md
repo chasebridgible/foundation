@@ -36,7 +36,7 @@ After the target repo is connected:
 1. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation.
 2. Use `skills/backfill-specs/SKILL.md` to inspect existing repo behavior and create draft descriptive and technical specs.
 3. Keep the active dated backfill report named in the target repo adapter while the backfill is in progress.
-4. Use a later test-backfill workflow for test specs and acceptance mapping.
+4. Use a later eval-backfill workflow for eval specs and acceptance mapping.
 
 ## GitHub Setup
 

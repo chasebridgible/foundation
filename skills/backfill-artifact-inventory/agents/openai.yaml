@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backfill Artifact Inventory"
+  short_description: "Map artifacts into the coverage ledger"
+  default_prompt: "Use $backfill-artifact-inventory to map this repo's artifacts into a coverage ledger before drafting backfill specs."

@@ -27,7 +27,7 @@ Use target-owned spec IDs and `status: draft`. For each behavior-bearing capabil
 - integrations, providers, imports/exports, AI/model calls
 - timing, ordering, idempotency, concurrency, retries, lifecycle
 - failure, recovery, observability, operator impact
-- verification targets for later test specs/evals
+- verification targets for later eval specs/evals
 
 ## Architecture Classification
 

@@ -91,7 +91,7 @@
       <ol>
         <li>Read <a data-spec-link="foundation.spec-system" href="./index.html">the registry</a> and identify candidate specs by ID, path, title, tags, or board card.</li>
         <li>Load the relevant descriptive spec section first. Product intent outranks implementation convenience.</li>
-        <li>Load the test spec acceptance mapping before editing code. The test spec tells the agent what will count as done.</li>
+        <li>Load the eval spec acceptance mapping before editing code. The eval spec tells the agent what will count as done.</li>
         <li>Load the technical spec for every implementation task. For small tasks, expect a compact internal contract; for complex tasks, expect deeper sequencing, data, timing, concurrency, failure, and boundary detail.</li>
         <li>Load direct owned paths from the lowest-level relevant spec. Avoid walking every path in parent specs.</li>
       </ol>
@@ -124,8 +124,8 @@
           <tr><td>T0</td><td>Formatting, typo, comment, or navigation-only edits that do not change product, test, or implementation behavior.</td><td>No spec update unless the edited doc is itself inaccurate.</td><td>Run the narrowest relevant check; <code>npm run spec:check</code> when spec files or harness files change.</td></tr>
           <tr><td>T1</td><td>Spec metadata, path, registry, CI, or harness maintenance.</td><td>Update canonical <code>spec-metadata</code> or process docs, then regenerate the registry when metadata changed.</td><td><code>npm run spec:registry</code> when metadata changed, then <code>npm run spec:check</code>.</td></tr>
           <tr><td>T2</td><td>Small bugfix or refactor with no intended user-visible behavior change.</td><td>Compact technical spec note or update to the owning technical section; descriptive spec usually unchanged.</td><td>Targeted unit/static/manual evidence, plus explicit test gap if no automated signal is worth adding.</td></tr>
-          <tr><td>T3</td><td>User-visible behavior change inside an existing feature boundary.</td><td>Update descriptive, technical, and test spec sections that define the behavior and done signal.</td><td>Mapped coverage entry or explicit gap in the test spec; run the relevant code-level command.</td></tr>
-          <tr><td>T4</td><td>New feature, new flow, or meaningful feature split.</td><td>Create or update descriptive, technical, and test specs. Prefer child specs over broad parent path ownership.</td><td>Acceptance mapping plus planned, existing, or gap coverage for the primary user journey and main technical risks.</td></tr>
+          <tr><td>T3</td><td>User-visible behavior change inside an existing feature boundary.</td><td>Update descriptive, technical, and eval spec sections that define the behavior and done signal.</td><td>Mapped coverage entry or explicit gap in the eval spec; run the relevant code-level command.</td></tr>
+          <tr><td>T4</td><td>New feature, new flow, or meaningful feature split.</td><td>Create or update descriptive, technical, and eval specs. Prefer child specs over broad parent path ownership.</td><td>Acceptance mapping plus planned, existing, or gap coverage for the primary user journey and main technical risks.</td></tr>
           <tr><td>T5</td><td>Architecture, data model, security, concurrency, migration, or cross-feature contract change.</td><td>Deep technical spec section, related ADR when the decision is non-obvious, and all affected parent/child links.</td><td>Integration/e2e/manual evidence appropriate to the risk, with explicit rollback or follow-up gaps.</td></tr>
         </tbody>
       </table>
@@ -154,15 +154,15 @@
       <table class="status-table">
         <thead><tr><th>Trigger</th><th>Required update</th><th>Same commit?</th></tr></thead>
         <tbody>
-          <tr><td>Product behavior changes</td><td>Descriptive spec section and mapped test spec acceptance condition in canonical HTML <code>spec-metadata</code> and prose, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
-          <tr><td>Any implementation behavior changes</td><td>Technical spec depth adjusted to the task, plus mapped test spec risks where behavior is externally verifiable, followed by <code>npm run spec:registry</code> if metadata changed.</td><td>Yes</td></tr>
+          <tr><td>Product behavior changes</td><td>Descriptive spec section and mapped eval spec acceptance condition in canonical HTML <code>spec-metadata</code> and prose, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
+          <tr><td>Any implementation behavior changes</td><td>Technical spec depth adjusted to the task, plus mapped eval spec risks where behavior is externally verifiable, followed by <code>npm run spec:registry</code> if metadata changed.</td><td>Yes</td></tr>
           <tr><td>Code-level tests added, renamed, deleted, or regenerated</td><td>Test spec coverage table and canonical coverage entries in <code>spec-metadata</code>, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
           <tr><td>Owned file moved or deleted</td><td>All affected <code>ownedPaths</code>, <code>implementationPaths</code>, and coverage paths in canonical metadata and visible path lists, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
           <tr><td>Spec retired or replaced</td><td>Status, <code>replacedBy</code>, and parent/child references in canonical metadata, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
           <tr><td>New reusable workflow discovered</td><td>Convert to a workflow skill or SOP, then link from the relevant spec process note if needed.</td><td>Before relying on it again</td></tr>
         </tbody>
       </table>
-      <p>A diff that changes behavior without changing the relevant specs and test specs is incomplete by default.</p>
+      <p>A diff that changes behavior without changing the relevant specs and eval specs is incomplete by default.</p>
     </section>
 
     <section id="blockers-and-exits" data-spec-section="blockers-and-exits" data-section-type="exit-criteria">
@@ -170,7 +170,7 @@
       <h3>Blocker conditions</h3>
       <ul>
         <li>No descriptive spec exists for the user-visible behavior being changed.</li>
-        <li>The test spec cannot name the evidence required to accept the change.</li>
+        <li>The eval spec cannot name the evidence required to accept the change.</li>
         <li>No technical spec exists for the work, or the technical spec is too shallow for the implementation risk.</li>
         <li>Registry links point to missing specs, moved files, or deleted tests.</li>
         <li>The agent cannot tell whether a path is directly owned by the current feature or merely referenced by a parent spec.</li>
@@ -179,7 +179,7 @@
       <ul>
         <li>Relevant specs state the current intended behavior.</li>
         <li>Test spec maps acceptance conditions to descriptive and technical sections.</li>
-        <li>Code-level tests, manual evidence, or explicit gaps match the test spec.</li>
+        <li>Code-level tests, manual evidence, or explicit gaps match the eval spec.</li>
         <li>Risk tier is named or obvious from the diff, and spec depth matches that tier.</li>
         <li>Semantic review confirms metadata mappings are truthful, not just valid.</li>
         <li><code>npm run spec:check</code> proves the generated registry is current and resolves related specs, owned paths, coverage paths, and section references.</li>

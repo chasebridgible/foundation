@@ -23,7 +23,7 @@
   "children": [],
   "relatedSpecs": [
     { "id": "foundation.spec-template.technical", "relationship": "sibling", "sections": ["required-depth", "capability-contract"] },
-    { "id": "foundation.spec-template.test", "relationship": "sibling", "sections": ["verification-contract"] }
+    { "id": "foundation.spec-template.eval", "relationship": "sibling", "sections": ["verification-contract"] }
   ],
   "ownedPaths": [
     { "path": "foundation/docs/specs/templates/descriptive-spec-template.html", "kind": "doc", "ownership": "direct" }
@@ -62,7 +62,7 @@
   <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
     <div class="spec-eyebrow">Template · descriptive spec</div>
     <h1>[Feature name] descriptive spec</h1>
-    <p class="lede">Replace this with the product outcome in user language. A descriptive spec defines what should exist from the user's side. It should be precise enough that a test spec can verify it.</p>
+    <p class="lede">Replace this with the product outcome in user language. A descriptive spec defines what should exist from the user's side. It should be precise enough that an eval spec can verify it.</p>
     <div class="meta-row">
       <div><strong>Template status:</strong> active</div>
       <div><strong>Updated:</strong> 2026-05-21</div>
@@ -149,7 +149,7 @@
       <h3>Related specs</h3>
       <ul>
         <li><a data-spec-link="replace.feature.technical" href="./technical-spec-template.html">replace.feature.technical</a> - internal design when multiple implementations are valid.</li>
-        <li><a data-spec-link="replace.feature.test" href="./test-spec-template.html">replace.feature.test</a> - acceptance mapping and evidence.</li>
+        <li><a data-spec-link="replace.feature.eval" href="./eval-spec-template.html">replace.feature.eval</a> - acceptance mapping and evidence.</li>
       </ul>
       <h3>Directly owned paths</h3>
       <ul class="path-list">
@@ -182,7 +182,7 @@
           <tr><td>DS-1</td><td><code>#states-and-rules</code></td><td>Component test for visible state labels</td><td>planned</td><td>[known gap]</td></tr>
         </tbody>
       </table>
-      <p>When this descriptive spec changes, the mapped test spec must change in the same commit.</p>
+      <p>When this descriptive spec changes, the mapped eval spec must change in the same commit.</p>
     </section>
   </article>
 

@@ -7,7 +7,7 @@ description: Conversationally create or revise user-facing descriptive specs for
 
 Use this skill to turn fuzzy product intent into a strong descriptive spec. The descriptive spec is the human-heavy phase: what the thing is, who it serves, how it should look, how it should function, what states and edge cases exist, and what would make the result unacceptable.
 
-Technical and test specs are later phases. Capture downstream notes, but do not let this skill become a technical-spec workflow.
+Technical and eval specs are later phases. Capture downstream notes, but do not let this skill become a technical-spec workflow.
 
 ## Routing
 

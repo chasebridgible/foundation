@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.backfill-capability-map.descriptive">
+<meta name="spec:type" content="descriptive">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-29">
+<title>Foundation Backfill Capability Map</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.backfill-capability-map.descriptive",
+  "title": "Foundation Backfill Capability Map",
+  "type": "descriptive",
+  "status": "active",
+  "lastUpdated": "2026-05-29",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.backfill-specs.descriptive",
+  "children": [
+    "foundation.backfill-capability-map.technical",
+    "foundation.backfill-capability-map.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.backfill-specs.descriptive",
+      "relationship": "parent",
+      "sections": [
+        "interface-journey",
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.backfill-capability-map.technical",
+      "relationship": "child",
+      "sections": [
+        "data-model",
+        "contracts",
+        "checker-and-fill-loop"
+      ]
+    },
+    {
+      "id": "foundation.backfill-capability-map.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping",
+        "eval-contract"
+      ]
+    },
+    {
+      "id": "foundation.backfill-surface-function-map.descriptive",
+      "relationship": "depends-on",
+      "sections": [
+        "artifacts-and-state",
+        "handoff-gate"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-capability-map.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/capability-map-fill-loop/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/capability-map-fill-loop/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-backfill-specs.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Parent backfill workflow."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-backfill-artifact-inventory.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Model for canonical layer artifacts and handoff gates."
+    },
+    {
+      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "BFL-CAPABILITY_MATRIX-D-1",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/capability-map.test.mjs",
+      "mapsTo": [
+        "foundation.backfill-capability-map.descriptive#artifacts-and-state",
+        "foundation.backfill-capability-map.descriptive#handoff-gate"
+      ],
+      "evidence": "Capability Map tests cover initialization from Surface / Function Map handoff, pending and terminal states, coverage of ready surfaces, split flags, checker output, eval receipts, HTML summary, refresh invalidation, and report handoff state."
+    }
+  ],
+  "tags": [
+    "foundation",
+    "backfill",
+    "capability-map",
+    "descriptive",
+    "substrate"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Foundation Backfill Capability Map</div>
+      <div class="sidebar-sub">descriptive spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#artifacts-and-state"><span class="nav-num">02</span>Artifacts</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Loop</a>
+    <a class="nav-item" href="#checker-eval"><span class="nav-num">04</span>Checker/eval</a>
+    <a class="nav-item" href="#handoff-gate"><span class="nav-num">05</span>Handoff</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">06</span>Links</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-capability-map.html</div>
+    <h1>Foundation Backfill Capability Map</h1>
+    <p class="lede">Capability Map converts surfaces into actor/outcome units using the formula: actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence. This layer answers: <strong>What is this system supposed to let someone or something do?</strong></p>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Upstream:</strong> Surface / Function Map</div><div><strong>Next:</strong> Define Spec Jobs</div></div>
+    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills reviewed surface groups, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
+    <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="artifacts-and-state" data-spec-section="artifacts-and-state" data-section-type="state-model">
+      <h2>Artifacts and state</h2>
+      <table class="status-table"><thead><tr><th>Category</th><th>Contract</th></tr></thead><tbody>
+        <tr><td>Canonical artifacts</td><td><ul><li><code>capability-map-YYYYMMDD-NN.jsonl</code></li>
+<li><code>capability-map-check-YYYYMMDD-NN.json</code></li>
+<li><code>capability-map-eval-YYYYMMDD-NN.jsonl</code></li></ul></td></tr>
+        <tr><td>Derived artifacts</td><td><ul><li><code>capability-map-summary-YYYYMMDD-NN.html</code></li>
+<li><code>capability graph views</code></li>
+<li><code>report tables</code></li></ul></td></tr>
+        <tr><td>State model</td><td><ul><li><code>pending</code></li>
+<li><code>mapped</code></li>
+<li><code>needs-split</code></li>
+<li><code>ready-for-queue</code></li></ul></td></tr>
+        <tr><td>Core row</td><td>capability row with stable capability ID, run ID, upstream surface IDs, upstream surface freshness refs, actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, evidence links, status, split flags, confidence, review flags, checker result, and eval result.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Small-loop journey</h2>
+      <ol>
+        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Capability Map artifact from Surface / Function Map handoff output.</li>
+        <li><strong>Select target:</strong> choose the next pending or failed ready surface using deterministic order plus review priority.</li>
+        <li><strong>Fill:</strong> agent reviews the selected surface and any nearby ready surfaces, groups only reviewed surfaces into capability rows, and names actor, outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery behavior, evidence rows, confidence, and review flags.</li>
+        <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
+        <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>
+        <li><strong>Revise:</strong> route failed rows back to the fill loop with row IDs and findings.</li>
+        <li><strong>Handoff:</strong> advance only when the handoff gate passes or named human decisions block the layer.</li>
+      </ol>
+    </section>
+
+    <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
+      <h2>Checker and eval contract</h2>
+      <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
+        <tr><td>Checker</td><td>validates the upstream Surface / Function Map handoff, capability JSONL parsing, every ready surface maps to a terminal capability row, every capability has the full formula fields, broad rows are marked needs-split, upstream surface freshness refs match, evidence references resolve, and status values are valid.</td></tr>
+        <tr><td>Eval receipt</td><td>samples capabilities against surfaces and source evidence to detect vague outcomes, missing actors, missing state/rule contracts, over-merged domains, and unsupported capability claims. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
+        <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
+      </tbody></table>
+    </section>
+
+    <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
+      <h2>Handoff gate</h2>
+      <p>all ready Surface / Function Map rows are capability-owned, broad rows are flagged for split, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Define Spec Jobs.</p>
+      <ul>
+        <li>Canonical artifacts exist and share a run ID.</li>
+        <li>All rows are in valid terminal states: <code>ready-for-queue</code> or <code>needs-split</code>.</li>
+        <li>Checker passes for structure, references, currentness, and required fields.</li>
+        <li>Eval JSONL and HTML summary exist and list zero revision targets.</li>
+        <li>Active report records counts, artifact paths, checker/eval status, run-log sequence, embedded <code>backfill-capability-map</code> JSON, and next layer.</li>
+      </ul>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="linking">
+      <h2>Related specs and paths</h2>
+      <ul>
+        <li><a data-spec-link="foundation.backfill-capability-map.technical" href="./foundation-backfill-capability-map-technical.html">foundation.backfill-capability-map.technical</a></li>
+        <li><a data-spec-link="foundation.backfill-capability-map.eval" href="./foundation-backfill-capability-map-eval.html">foundation.backfill-capability-map.eval</a></li>
+        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a></li>
+      </ul>
+    </section>
+  </article>
+  <hr>
+  <p class="footer-note">Foundation Backfill Capability Map · active V1</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

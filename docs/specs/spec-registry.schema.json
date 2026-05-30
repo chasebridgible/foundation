@@ -48,7 +48,7 @@
         "title": { "type": "string" },
         "type": {
           "type": "string",
-          "enum": ["descriptive", "technical", "test", "process", "linking", "index", "template"]
+          "enum": ["descriptive", "technical", "eval", "process", "linking", "index", "template"]
         },
         "status": {
           "type": "string",
