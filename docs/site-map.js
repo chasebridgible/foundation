@@ -7,7 +7,7 @@ window.SubstrateSiteMap = {
       "sourcePath": "docs"
     }
   ],
-  "fileCount": 61,
+  "fileCount": 62,
   "items": [
     {
       "type": "folder",
@@ -580,6 +580,15 @@ window.SubstrateSiteMap = {
           "sourcePath": "docs/specs/foundation-workspace-model.html",
           "rootPath": "docs",
           "specId": "foundation.workspace-model.descriptive"
+        },
+        {
+          "type": "file",
+          "name": "knowledge-and-data-layer.html",
+          "title": "Knowledge and Data Layer",
+          "path": "specs/knowledge-and-data-layer.html",
+          "sourcePath": "docs/specs/knowledge-and-data-layer.html",
+          "rootPath": "docs",
+          "specId": "foundation.knowledge-data-layer.descriptive"
         },
         {
           "type": "file",

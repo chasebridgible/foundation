@@ -232,6 +232,107 @@
     text-align: center;
   }
 
+  .kdl-visual {
+    --kdl-blue: #5b8cff;
+    --kdl-blue-soft: rgba(91, 140, 255, 0.16);
+    --kdl-green: #4ec9b0;
+    --kdl-green-soft: rgba(78, 201, 176, 0.15);
+    --kdl-amber: #d4a72c;
+    --kdl-amber-soft: rgba(212, 167, 44, 0.14);
+    --kdl-violet: #a78bfa;
+    --kdl-violet-soft: rgba(167, 139, 250, 0.14);
+    --kdl-red: #f48771;
+    --kdl-red-soft: rgba(244, 135, 113, 0.12);
+  }
+
+  .kdl-flow-wrap {
+    overflow-x: auto;
+    padding: 18px;
+  }
+
+  .kdl-flow-svg {
+    display: block;
+    height: auto;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .kdl-flow-svg .node {
+    rx: 8;
+    ry: 8;
+    stroke-width: 1.4;
+  }
+
+  .kdl-flow-svg .node-blue {
+    fill: var(--kdl-blue-soft);
+    stroke: rgba(91, 140, 255, 0.64);
+  }
+
+  .kdl-flow-svg .node-green {
+    fill: var(--kdl-green-soft);
+    stroke: rgba(78, 201, 176, 0.64);
+  }
+
+  .kdl-flow-svg .node-amber {
+    fill: var(--kdl-amber-soft);
+    stroke: rgba(212, 167, 44, 0.58);
+  }
+
+  .kdl-flow-svg .node-violet {
+    fill: var(--kdl-violet-soft);
+    stroke: rgba(167, 139, 250, 0.58);
+  }
+
+  .kdl-flow-svg .node-red {
+    fill: var(--kdl-red-soft);
+    stroke: rgba(244, 135, 113, 0.54);
+  }
+
+  .kdl-flow-svg .node-title {
+    fill: var(--fg);
+    font-size: 17px;
+    font-weight: 650;
+  }
+
+  .kdl-flow-svg .node-copy {
+    fill: var(--fg-2);
+    font-size: 13px;
+  }
+
+  .kdl-flow-svg .node-label {
+    fill: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+
+  .kdl-flow-svg .flow-arrow {
+    fill: none;
+    marker-end: url(#orderly-kdl-arrowhead);
+    stroke: rgba(228, 228, 231, 0.42);
+    stroke-width: 1.6;
+  }
+
+  .kdl-flow-svg .flow-arrow.strong {
+    stroke: rgba(228, 228, 231, 0.62);
+    stroke-width: 2;
+  }
+
+  .kdl-flow-svg .flow-arrow.data {
+    stroke: rgba(212, 167, 44, 0.7);
+  }
+
+  .kdl-flow-svg .flow-arrow.revision {
+    stroke: rgba(78, 201, 176, 0.72);
+    stroke-dasharray: 6 6;
+  }
+
+  .kdl-flow-svg .flow-caption {
+    fill: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
   .callout {
     background: var(--bg-2);
     border: 1px solid var(--border-2);
@@ -285,10 +386,11 @@
     <a class="nav-item" href="#1-what-orderly-systems-is"><span class="nav-num">02</span>1. What it is</a>
     <a class="nav-item" href="#2-what-we-do"><span class="nav-num">03</span>2. What we do</a>
     <a class="nav-item" href="#3-the-job"><span class="nav-num">04</span>3. The job</a>
-    <a class="nav-item" href="#4-how-we-work"><span class="nav-num">05</span>4. How we work</a>
-    <a class="nav-item" href="#5-the-company-category"><span class="nav-num">06</span>5. Company category</a>
-    <a class="nav-item" href="#6-the-offer"><span class="nav-num">07</span>6. The offer</a>
-    <a class="nav-item" href="#settled-vs-iterating"><span class="nav-num">08</span>Settled vs. iterating</a>
+    <a class="nav-item" href="#4-knowledge-and-data-layer"><span class="nav-num">05</span>4. Knowledge/data layer</a>
+    <a class="nav-item" href="#5-how-we-work"><span class="nav-num">06</span>5. How we work</a>
+    <a class="nav-item" href="#6-the-company-category"><span class="nav-num">07</span>6. Company category</a>
+    <a class="nav-item" href="#7-the-offer"><span class="nav-num">08</span>7. The offer</a>
+    <a class="nav-item" href="#settled-vs-iterating"><span class="nav-num">09</span>Settled vs. iterating</a>
   </div>
 </nav>
 
@@ -460,8 +562,124 @@
       <hr>
     </section>
 
-    <section id="4-how-we-work" class="level2 spec-section">
-      <h2>4. How we work</h2>
+    <section id="4-knowledge-and-data-layer" class="level2 spec-section">
+      <h2>4. The knowledge and data layer</h2>
+      <p><strong>The operating model is the knowledge and data layer.</strong> Intake and existing sources become canonical operating substrate. Operational data becomes Reality answers. Context packs guide action. Evidence and evaluation revise the system.</p>
+      <div class="visual-block kdl-visual" aria-label="Orderly Systems knowledge and data layer model">
+        <div class="visual-header">
+          <div class="visual-title">Knowledge and data layer</div>
+          <div class="visual-kicker">data to reality; intake and sources to substrate</div>
+        </div>
+        <div class="kdl-flow-wrap">
+          <svg class="kdl-flow-svg" viewBox="0 0 1120 830" role="img" aria-labelledby="orderly-kdl-flow-title orderly-kdl-flow-desc">
+            <title id="orderly-kdl-flow-title">Orderly Systems knowledge and data layer flow</title>
+            <desc id="orderly-kdl-flow-desc">Operating data feeds reality answers through the operating database. Core-files questions and organization sources feed canonical operating substrate, context packs, action, evidence, evaluation, and revision.</desc>
+            <defs>
+              <marker id="orderly-kdl-arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#a1a1a1"></path>
+              </marker>
+            </defs>
+
+            <path class="flow-arrow data" d="M 195 150 L 195 198"></path>
+            <path class="flow-arrow" d="M 560 150 L 560 198"></path>
+            <path class="flow-arrow" d="M 925 150 L 925 198"></path>
+            <path class="flow-arrow data" d="M 195 290 C 110 340 110 540 110 666"></path>
+            <path class="flow-arrow strong" d="M 560 290 L 560 354"></path>
+            <path class="flow-arrow strong" d="M 925 290 C 925 326 798 320 696 354"></path>
+            <path class="flow-arrow strong" d="M 560 450 L 400 508"></path>
+            <path class="flow-arrow strong" d="M 525 552 L 595 552"></path>
+            <path class="flow-arrow strong" d="M 750 592 C 750 636 205 624 205 666"></path>
+            <path class="flow-arrow strong" d="M 360 712 L 595 712"></path>
+            <path class="flow-arrow revision" d="M 750 666 C 1040 610 1040 430 950 400"></path>
+
+            <text class="flow-caption" x="96" y="504">measurements</text>
+            <text class="flow-caption" x="860" y="628">revision</text>
+
+            <rect class="node node-amber" x="50" y="50" width="290" height="100"></rect>
+            <text class="node-label" x="72" y="82">OPERATING DATA</text>
+            <text class="node-title" x="72" y="110">SaaS and existing data</text>
+            <text class="node-copy">
+              <tspan x="72" y="135">CRM, accounting, payroll, analytics.</tspan>
+            </text>
+
+            <rect class="node node-blue" x="415" y="50" width="290" height="100"></rect>
+            <text class="node-label" x="437" y="82">INTAKE SCHEMA</text>
+            <text class="node-title" x="437" y="110">Core-files questions</text>
+            <text class="node-copy">
+              <tspan x="437" y="135">Question set for how the business works.</tspan>
+            </text>
+
+            <rect class="node node-green" x="780" y="50" width="290" height="100"></rect>
+            <text class="node-label" x="802" y="82">RAW SOURCES</text>
+            <text class="node-title" x="802" y="110">Existing org sources</text>
+            <text class="node-copy">
+              <tspan x="802" y="135">Docs, files, meetings, forms, messages.</tspan>
+            </text>
+
+            <rect class="node node-amber" x="50" y="198" width="290" height="92"></rect>
+            <text class="node-label" x="72" y="230">STRUCTURED STORE</text>
+            <text class="node-title" x="72" y="258">Orderly operating database</text>
+            <text class="node-copy">
+              <tspan x="72" y="282">Normalized measurements from reality.</tspan>
+            </text>
+
+            <rect class="node node-blue" x="415" y="198" width="290" height="92"></rect>
+            <text class="node-label" x="437" y="230">DISCOVERY</text>
+            <text class="node-title" x="437" y="258">Business intake answers</text>
+            <text class="node-copy">
+              <tspan x="437" y="282">What the business says and shows.</tspan>
+            </text>
+
+            <rect class="node node-green" x="780" y="198" width="290" height="92"></rect>
+            <text class="node-label" x="802" y="230">SOURCE MAP</text>
+            <text class="node-title" x="802" y="258">Organization Source Registry</text>
+            <text class="node-copy">
+              <tspan x="802" y="282">Where sources live, meaning, owner, trust.</tspan>
+            </text>
+
+            <rect class="node node-green" x="170" y="354" width="780" height="96"></rect>
+            <text class="node-label" x="200" y="388">CANONICAL MEANING</text>
+            <text class="node-title" x="200" y="418">Canonical operating substrate</text>
+            <text class="node-copy">
+              <tspan x="200" y="442">Capabilities, jobs, processes, roles, metrics, decision rules, eval specs, and update rules.</tspan>
+            </text>
+
+            <rect class="node node-violet" x="215" y="508" width="310" height="84"></rect>
+            <text class="node-label" x="237" y="538">BOUNDED CONTEXT</text>
+            <text class="node-title" x="237" y="566">Retrieval / Context Packs</text>
+            <text class="node-copy">
+              <tspan x="237" y="588">Relevant context for one job.</tspan>
+            </text>
+
+            <rect class="node node-blue" x="595" y="508" width="310" height="84"></rect>
+            <text class="node-label" x="617" y="538">WORK</text>
+            <text class="node-title" x="617" y="566">Action or implementation</text>
+            <text class="node-copy">
+              <tspan x="617" y="588">Recommendation, process, software, agent.</tspan>
+            </text>
+
+            <rect class="node node-violet" x="50" y="666" width="310" height="84"></rect>
+            <text class="node-label" x="72" y="696">EVIDENCE</text>
+            <text class="node-title" x="72" y="724">Reality answers</text>
+            <text class="node-copy">
+              <tspan x="72" y="746">Data, outcomes, review, observed behavior.</tspan>
+            </text>
+
+            <rect class="node node-red" x="595" y="666" width="310" height="84"></rect>
+            <text class="node-label" x="617" y="696">EVALUATION</text>
+            <text class="node-title" x="617" y="724">Evidence is judged</text>
+            <text class="node-copy">
+              <tspan x="617" y="746">Accept, revise, continue, stop, or clarify.</tspan>
+            </text>
+          </svg>
+        </div>
+      </div>
+      <p>This is the layer that lets Orderly Systems define the business clearly enough to improve it. The detailed draft is the <a href="../specs/knowledge-and-data-layer.html">Knowledge and Data Layer spec</a>.</p>
+      <hr>
+    </section>
+
+    <section id="5-how-we-work" class="level2 spec-section">
+      <h2>5. How we work</h2>
       <p>The work follows the same operating loop used across Foundation:</p>
       <div class="visual-block">
         <div class="visual-header">
@@ -481,8 +699,8 @@
       <hr>
     </section>
 
-    <section id="5-the-company-category" class="level2 spec-section">
-      <h2>5. The company category</h2>
+    <section id="6-the-company-category" class="level2 spec-section">
+      <h2>6. The company category</h2>
       <p>Orderly Systems is a business performance firm. The work is to define the business system, find the gaps, route the jobs, build the tools, and keep the operating layer improving over time.</p>
       <p>The category sits across operations, software, automation, agent systems, data, and process design. Those are implementation forms. The underlying job is to improve how work is defined, assigned, executed, measured, and updated.</p>
       <p>The boundary is the system layer. Orderly Systems may define the shelf-stocking job, build the checklist, choose the data capture, design the exception flow, train the employee, create the dashboard, and set up the review loop that shows whether the process is working. The operating business still owns the business result.</p>
@@ -490,8 +708,8 @@
       <hr>
     </section>
 
-    <section id="6-the-offer" class="level2 spec-section">
-      <h2>6. The offer</h2>
+    <section id="7-the-offer" class="level2 spec-section">
+      <h2>7. The offer</h2>
       <p>Orderly Systems builds Business Operating System infrastructure for companies that need clearer operations, better data, and more leverage from people, software, and agents.</p>
       <p><strong>The offer:</strong> we turn the operating reality of a business into a living context and spec system of jobs, actors, processes, data, measures, and update rules, then use that system to improve performance over time.</p>
       <p><strong>What we do for a business:</strong></p>
@@ -538,6 +756,7 @@
       <a class="related-card" href="./system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root model: intent, context, execution, evidence, evaluation, revision, capabilities, jobs, and substrate.</div></a>
       <a class="related-card" href="./business-operating-system.html"><div class="related-name">Business Operating System</div><div class="related-desc">The business-operations application of the system model.</div></a>
       <a class="related-card" href="./business-capability-map.html"><div class="related-name">Business Capability Map</div><div class="related-desc">A working inventory of recurring business capabilities and the jobs that make them real.</div></a>
+      <a class="related-card" href="../specs/knowledge-and-data-layer.html"><div class="related-name">Knowledge and Data Layer</div><div class="related-desc">The source registry, operating database, substrate, context pack, evidence, and revision layer behind Orderly Systems work.</div></a>
       <a class="related-card" href="./software-operating-system.html"><div class="related-name">Software Operating System</div><div class="related-desc">The software-and-agent application of the system model.</div></a>
       <a class="related-card" href="./compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The five-layer framework for systems whose value grows with use.</div></a>
       <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">The shared glossary for Foundation vocabulary.</div></a>
