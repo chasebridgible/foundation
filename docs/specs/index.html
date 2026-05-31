@@ -53,7 +53,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-05-30",
+  "lastUpdated": "2026-05-31",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -5906,6 +5906,143 @@
         "descriptive",
         "foundation",
         "workspace",
+        "substrate"
+      ]
+    },
+    {
+      "id": "foundation.knowledge-data-layer.descriptive",
+      "title": "Knowledge and Data Layer",
+      "type": "descriptive",
+      "status": "draft",
+      "file": "foundation/docs/specs/knowledge-and-data-layer.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-31",
+      "reviewCadence": "on-trigger",
+      "confidence": "medium",
+      "parent": null,
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.backfill-artifact-inventory.descriptive",
+          "relationship": "informs",
+          "sections": [
+            "product-intent",
+            "system-relationship",
+            "states-and-rules"
+          ]
+        },
+        {
+          "id": "foundation.backfill-context-pack.descriptive",
+          "relationship": "informs",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "checker-eval"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-map.descriptive",
+          "relationship": "informs",
+          "sections": [
+            "product-intent",
+            "artifacts-and-state",
+            "handoff-gate"
+          ]
+        },
+        {
+          "id": "foundation.backfill-specs.descriptive",
+          "relationship": "informs",
+          "sections": [
+            "product-intent",
+            "interface-journey",
+            "ux-contracts"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/knowledge-and-data-layer.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/core-files/README.md",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Core-files reading order and intake-lane framing."
+        },
+        {
+          "path": "foundation/core-files/capabilities-products-services.md",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Intake lane for offerings, capabilities, and delivery strain."
+        },
+        {
+          "path": "foundation/core-files/systems-and-coordination.md",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Intake lane for work movement, handoffs, queues, dependencies, and feedback loops."
+        },
+        {
+          "path": "foundation/core-files/processes-and-sops.md",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Intake lane for repeatable procedures and documented standard work."
+        },
+        {
+          "path": "foundation/core-files/data-and-metrics.md",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Intake lane for metrics, evidence, and trusted business signals."
+        },
+        {
+          "path": "foundation/docs/fundamentals/system-philosophy.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Root vocabulary for intent, context, execution, evidence, evaluation, revision, capabilities, jobs, processes, specs, and substrate."
+        },
+        {
+          "path": "foundation/docs/fundamentals/business-operating-system.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Business operating-system framing this layer should support."
+        },
+        {
+          "path": "foundation/docs/fundamentals/compounding-systems.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Substrate, intake, operational shape, and delivery-loop framework."
+        },
+        {
+          "path": "foundation/docs/general/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Source-of-record and derived retrieval mechanics that inform this layer."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "KDL-D-1",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/knowledge-and-data-layer.html",
+          "mapsTo": [
+            "foundation.knowledge-data-layer.descriptive#system-model",
+            "foundation.knowledge-data-layer.descriptive#states-and-rules",
+            "foundation.knowledge-data-layer.descriptive#open-questions"
+          ],
+          "evidence": "Review this draft against the first real client intake and source inventory; promote or revise once the layer can answer one operating question with cited sources and data evidence."
+        }
+      ],
+      "tags": [
+        "descriptive",
+        "knowledge-layer",
+        "data-layer",
+        "business-operating-system",
+        "source-registry",
+        "context-pack",
         "substrate"
       ]
     }

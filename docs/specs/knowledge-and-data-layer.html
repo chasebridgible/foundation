@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.knowledge-data-layer.descriptive">
+<meta name="spec:type" content="descriptive">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-05-31">
+<title>Knowledge and Data Layer</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.knowledge-data-layer.descriptive",
+  "title": "Knowledge and Data Layer",
+  "type": "descriptive",
+  "status": "draft",
+  "lastUpdated": "2026-05-31",
+  "reviewCadence": "on-trigger",
+  "confidence": "medium",
+  "parent": null,
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.backfill-artifact-inventory.descriptive",
+      "relationship": "informs",
+      "sections": [
+        "product-intent",
+        "system-relationship",
+        "states-and-rules"
+      ]
+    },
+    {
+      "id": "foundation.backfill-context-pack.descriptive",
+      "relationship": "informs",
+      "sections": [
+        "product-intent",
+        "artifacts-and-state",
+        "checker-eval"
+      ]
+    },
+    {
+      "id": "foundation.backfill-capability-map.descriptive",
+      "relationship": "informs",
+      "sections": [
+        "product-intent",
+        "artifacts-and-state",
+        "handoff-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-specs.descriptive",
+      "relationship": "informs",
+      "sections": [
+        "product-intent",
+        "interface-journey",
+        "ux-contracts"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/knowledge-and-data-layer.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/core-files/README.md",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Core-files reading order and intake-lane framing."
+    },
+    {
+      "path": "foundation/core-files/capabilities-products-services.md",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Intake lane for offerings, capabilities, and delivery strain."
+    },
+    {
+      "path": "foundation/core-files/systems-and-coordination.md",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Intake lane for work movement, handoffs, queues, dependencies, and feedback loops."
+    },
+    {
+      "path": "foundation/core-files/processes-and-sops.md",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Intake lane for repeatable procedures and documented standard work."
+    },
+    {
+      "path": "foundation/core-files/data-and-metrics.md",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Intake lane for metrics, evidence, and trusted business signals."
+    },
+    {
+      "path": "foundation/docs/fundamentals/system-philosophy.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Root vocabulary for intent, context, execution, evidence, evaluation, revision, capabilities, jobs, processes, specs, and substrate."
+    },
+    {
+      "path": "foundation/docs/fundamentals/business-operating-system.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Business operating-system framing this layer should support."
+    },
+    {
+      "path": "foundation/docs/fundamentals/compounding-systems.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Substrate, intake, operational shape, and delivery-loop framework."
+    },
+    {
+      "path": "foundation/docs/general/gbrain-backfill-mechanics.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Source-of-record and derived retrieval mechanics that inform this layer."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "KDL-D-1",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/knowledge-and-data-layer.html",
+      "mapsTo": [
+        "foundation.knowledge-data-layer.descriptive#system-model",
+        "foundation.knowledge-data-layer.descriptive#states-and-rules",
+        "foundation.knowledge-data-layer.descriptive#open-questions"
+      ],
+      "evidence": "Review this draft against the first real client intake and source inventory; promote or revise once the layer can answer one operating question with cited sources and data evidence."
+    }
+  ],
+  "tags": [
+    "descriptive",
+    "knowledge-layer",
+    "data-layer",
+    "business-operating-system",
+    "source-registry",
+    "context-pack",
+    "substrate"
+  ]
+}
+</script>
+<style>
+  .kdl-visual {
+    --kdl-blue: #5b8cff;
+    --kdl-blue-soft: rgba(91, 140, 255, 0.16);
+    --kdl-green: #4ec9b0;
+    --kdl-green-soft: rgba(78, 201, 176, 0.15);
+    --kdl-amber: #d4a72c;
+    --kdl-amber-soft: rgba(212, 167, 44, 0.14);
+    --kdl-violet: #a78bfa;
+    --kdl-violet-soft: rgba(167, 139, 250, 0.14);
+    --kdl-red: #f48771;
+    --kdl-red-soft: rgba(244, 135, 113, 0.12);
+    margin: 24px 0 34px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005));
+    overflow: hidden;
+  }
+
+  .kdl-visual-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-2);
+  }
+
+  .kdl-visual-title {
+    color: var(--fg);
+    font-weight: 600;
+  }
+
+  .kdl-visual-subtitle {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+
+  .kdl-flow-wrap {
+    padding: 18px;
+    overflow-x: auto;
+  }
+
+  .kdl-flow-svg {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+  }
+
+  .kdl-flow-svg .node {
+    stroke-width: 1.4;
+    rx: 8;
+    ry: 8;
+  }
+
+  .kdl-flow-svg .node-blue {
+    fill: var(--kdl-blue-soft);
+    stroke: rgba(91, 140, 255, 0.64);
+  }
+
+  .kdl-flow-svg .node-green {
+    fill: var(--kdl-green-soft);
+    stroke: rgba(78, 201, 176, 0.64);
+  }
+
+  .kdl-flow-svg .node-amber {
+    fill: var(--kdl-amber-soft);
+    stroke: rgba(212, 167, 44, 0.58);
+  }
+
+  .kdl-flow-svg .node-violet {
+    fill: var(--kdl-violet-soft);
+    stroke: rgba(167, 139, 250, 0.58);
+  }
+
+  .kdl-flow-svg .node-red {
+    fill: var(--kdl-red-soft);
+    stroke: rgba(244, 135, 113, 0.54);
+  }
+
+  .kdl-flow-svg .node-title {
+    fill: var(--fg);
+    font-size: 17px;
+    font-weight: 650;
+  }
+
+  .kdl-flow-svg .node-copy {
+    fill: var(--fg-2);
+    font-size: 13px;
+  }
+
+  .kdl-flow-svg .node-label {
+    fill: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+
+  .kdl-flow-svg .flow-arrow {
+    fill: none;
+    stroke: rgba(228, 228, 231, 0.42);
+    stroke-width: 1.6;
+    marker-end: url(#kdl-arrowhead);
+  }
+
+  .kdl-flow-svg .flow-arrow.strong {
+    stroke: rgba(228, 228, 231, 0.62);
+    stroke-width: 2;
+  }
+
+  .kdl-flow-svg .flow-arrow.data {
+    stroke: rgba(212, 167, 44, 0.7);
+  }
+
+  .kdl-flow-svg .flow-arrow.revision {
+    stroke: rgba(78, 201, 176, 0.72);
+    stroke-dasharray: 6 6;
+  }
+
+  .kdl-flow-svg .flow-caption {
+    fill: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  .kdl-note-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 18px 0 28px;
+  }
+
+  .kdl-note {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-2);
+    padding: 14px;
+  }
+
+  .kdl-note-title {
+    color: var(--fg);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .kdl-note p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 860px) {
+    .kdl-note-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">K</div>
+    <div>
+      <div class="sidebar-title">Knowledge and Data</div>
+      <div class="sidebar-sub">descriptive spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#system-model"><span class="nav-num">02</span>System model</a>
+    <a class="nav-item" href="#capability-contract"><span class="nav-num">03</span>Capability</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">04</span>Journey</a>
+    <a class="nav-item" href="#states-and-rules"><span class="nav-num">05</span>Rules</a>
+    <a class="nav-item" href="#edge-cases"><span class="nav-num">06</span>Edges</a>
+    <a class="nav-item" href="#ux-contracts"><span class="nav-num">07</span>Mechanics</a>
+    <a class="nav-item" href="#open-questions"><span class="nav-num">08</span>Questions</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">09</span>Links</a>
+    <a class="nav-item" href="#test-coverage"><span class="nav-num">10</span>Coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/knowledge-and-data-layer.html</div>
+    <h1>Knowledge and Data Layer</h1>
+    <p class="lede">The Knowledge and Data Layer turns business intake, existing organizational sources, and operating data into durable substrate that people and agents can use to understand, improve, and evaluate a business system.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> draft</div>
+      <div><strong>Updated:</strong> 2026-05-31</div>
+      <div><strong>Confidence:</strong> medium</div>
+      <div><strong>Scope:</strong> high-level descriptive spec</div>
+    </div>
+    <h3>Intent</h3>
+    <p>This spec defines the first durable shape for an Orderly Systems knowledge and data layer. The layer should capture how a business works, connect that understanding to the organization's existing sources, collect operating data where useful, and produce context, evidence, and evaluation for business improvement work.</p>
+    <p>The system has two cooperating loops. The <strong>knowledge loop</strong> asks the core-files questions, reads existing sources, and turns answers into canonical operating substrate. The <strong>data loop</strong> brings SaaS and existing business data into an Orderly-managed database so <strong>Reality answers</strong> can use current measurements instead of only interview memory or static documents. Evaluation then judges those answers against intent.</p>
+    <h3>Out of scope</h3>
+    <p>This draft does not choose a database, vector store, sync vendor, SaaS connector set, permission model, or UI. It defines the conceptual contract that those implementation decisions must satisfy later.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="system-model" data-spec-section="system-model" data-section-type="system-model">
+      <h2>System model</h2>
+      <p>The layer should preserve the distinction between raw sources, canonical operating substrate, structured data, and retrieved context. Search and databases are useful, but neither should become the only place where business meaning lives.</p>
+
+      <div class="kdl-visual" aria-label="Knowledge and data layer top-down system model">
+        <div class="kdl-visual-header">
+          <div class="kdl-visual-title">Knowledge and data layer</div>
+          <div class="kdl-visual-subtitle">data -> reality; intake + sources -> substrate -> revision</div>
+        </div>
+        <div class="kdl-flow-wrap">
+          <svg class="kdl-flow-svg" viewBox="0 0 1120 830" role="img" aria-labelledby="kdl-flow-title kdl-flow-desc">
+            <title id="kdl-flow-title">Knowledge and data layer flow</title>
+            <desc id="kdl-flow-desc">Operating data feeds reality answers through the database. Core-files questions and organization sources feed the canonical operating substrate, context packs, action, evidence, evaluation, and revision.</desc>
+            <defs>
+              <marker id="kdl-arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#a1a1a1"></path>
+              </marker>
+            </defs>
+
+            <path class="flow-arrow data" d="M 195 150 L 195 198"></path>
+            <path class="flow-arrow" d="M 560 150 L 560 198"></path>
+            <path class="flow-arrow" d="M 925 150 L 925 198"></path>
+            <path class="flow-arrow data" d="M 195 290 C 110 340 110 540 110 666"></path>
+            <path class="flow-arrow strong" d="M 560 290 L 560 354"></path>
+            <path class="flow-arrow strong" d="M 925 290 C 925 326 798 320 696 354"></path>
+            <path class="flow-arrow strong" d="M 560 450 L 400 508"></path>
+            <path class="flow-arrow strong" d="M 525 552 L 595 552"></path>
+            <path class="flow-arrow strong" d="M 750 592 C 750 636 205 624 205 666"></path>
+            <path class="flow-arrow strong" d="M 360 712 L 595 712"></path>
+            <path class="flow-arrow revision" d="M 750 666 C 1040 610 1040 430 950 400"></path>
+
+            <text class="flow-caption" x="96" y="504">measurements</text>
+            <text class="flow-caption" x="860" y="628">revision</text>
+
+            <rect class="node node-amber" x="50" y="50" width="290" height="100"></rect>
+            <text class="node-label" x="72" y="82">OPERATING DATA</text>
+            <text class="node-title" x="72" y="110">SaaS and existing data</text>
+            <text class="node-copy">
+              <tspan x="72" y="135">CRM, accounting, payroll, analytics.</tspan>
+            </text>
+
+            <rect class="node node-blue" x="415" y="50" width="290" height="100"></rect>
+            <text class="node-label" x="437" y="82">INTAKE SCHEMA</text>
+            <text class="node-title" x="437" y="110">Core-files questions</text>
+            <text class="node-copy">
+              <tspan x="437" y="135">Question set for how the business works.</tspan>
+            </text>
+
+            <rect class="node node-green" x="780" y="50" width="290" height="100"></rect>
+            <text class="node-label" x="802" y="82">RAW SOURCES</text>
+            <text class="node-title" x="802" y="110">Existing org sources</text>
+            <text class="node-copy">
+              <tspan x="802" y="135">Docs, files, meetings, forms, messages.</tspan>
+            </text>
+
+            <rect class="node node-amber" x="50" y="198" width="290" height="92"></rect>
+            <text class="node-label" x="72" y="230">STRUCTURED STORE</text>
+            <text class="node-title" x="72" y="258">Orderly operating database</text>
+            <text class="node-copy">
+              <tspan x="72" y="282">Normalized measurements from reality.</tspan>
+            </text>
+
+            <rect class="node node-blue" x="415" y="198" width="290" height="92"></rect>
+            <text class="node-label" x="437" y="230">DISCOVERY</text>
+            <text class="node-title" x="437" y="258">Business intake answers</text>
+            <text class="node-copy">
+              <tspan x="437" y="282">What the business says and shows.</tspan>
+            </text>
+
+            <rect class="node node-green" x="780" y="198" width="290" height="92"></rect>
+            <text class="node-label" x="802" y="230">SOURCE MAP</text>
+            <text class="node-title" x="802" y="258">Organization Source Registry</text>
+            <text class="node-copy">
+              <tspan x="802" y="282">Where sources live, meaning, owner, trust.</tspan>
+            </text>
+
+            <rect class="node node-green" x="170" y="354" width="780" height="96"></rect>
+            <text class="node-label" x="200" y="388">CANONICAL MEANING</text>
+            <text class="node-title" x="200" y="418">Canonical operating substrate</text>
+            <text class="node-copy">
+              <tspan x="200" y="442">Capabilities, jobs, processes, roles, metrics, decision rules, eval specs, and update rules.</tspan>
+            </text>
+
+            <rect class="node node-violet" x="215" y="508" width="310" height="84"></rect>
+            <text class="node-label" x="237" y="538">BOUNDED CONTEXT</text>
+            <text class="node-title" x="237" y="566">Retrieval / Context Packs</text>
+            <text class="node-copy">
+              <tspan x="237" y="588">Relevant context for one job.</tspan>
+            </text>
+
+            <rect class="node node-blue" x="595" y="508" width="310" height="84"></rect>
+            <text class="node-label" x="617" y="538">WORK</text>
+            <text class="node-title" x="617" y="566">Action or implementation</text>
+            <text class="node-copy">
+              <tspan x="617" y="588">Recommendation, process, software, agent.</tspan>
+            </text>
+
+            <rect class="node node-violet" x="50" y="666" width="310" height="84"></rect>
+            <text class="node-label" x="72" y="696">EVIDENCE</text>
+            <text class="node-title" x="72" y="724">Reality answers</text>
+            <text class="node-copy">
+              <tspan x="72" y="746">Data, outcomes, review, observed behavior.</tspan>
+            </text>
+
+            <rect class="node node-red" x="595" y="666" width="310" height="84"></rect>
+            <text class="node-label" x="617" y="696">EVALUATION</text>
+            <text class="node-title" x="617" y="724">Evidence is judged</text>
+            <text class="node-copy">
+              <tspan x="617" y="746">Accept, revise, continue, stop, or clarify.</tspan>
+            </text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="kdl-note-grid">
+        <div class="kdl-note">
+          <div class="kdl-note-title">The registry maps sources.</div>
+          <p>It says what exists, where it lives, what it is about, who owns it, how fresh it is, and which operating concepts it supports.</p>
+        </div>
+        <div class="kdl-note">
+          <div class="kdl-note-title">The substrate owns meaning.</div>
+          <p>It preserves the current best understanding of capabilities, jobs, processes, roles, metrics, decisions, specs, and evaluation rules.</p>
+        </div>
+        <div class="kdl-note">
+          <div class="kdl-note-title">The database stores reality.</div>
+          <p>It holds selected measurements from SaaS and operational data so Reality answers can include what is happening now.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="capability-contract" data-spec-section="capability-contract" data-section-type="contracts">
+      <h2>Capability contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Actor</td><td>Orderly Systems operator, agent, or client stakeholder trying to understand or improve a business system.</td><td>Business Operating System and core-files intake lanes.</td></tr>
+          <tr><td>Intended outcome</td><td>A business can be understood well enough that an operator can name its capabilities, jobs, processes, actors, tools, context, evidence, and improvement opportunities from cited sources and current data.</td><td>System Philosophy vocabulary and user feedback.</td></tr>
+          <tr><td>Domain objects</td><td>Source registry row, intake answer, operating database table, capability spec, job spec, process spec, metric definition, decision rule, eval spec, context pack, and revision record.</td><td>This spec.</td></tr>
+          <tr><td>Primary actions</td><td>Ask core-files questions, register sources, ingest selected data, classify source meaning, create substrate artifacts, build context packs, evaluate evidence, revise artifacts.</td><td>Core-files and GBrain mechanics.</td></tr>
+          <tr><td>Success signal</td><td>The system can answer a business question or recommend an improvement with citations, current data evidence where available, confidence, gaps, and the substrate artifact that should change next.</td><td>Manual acceptance until eval specs exist.</td></tr>
+          <tr><td>Boundary</td><td>The database is not the whole knowledge layer. Retrieval is not the source of truth. Canonical meaning belongs in substrate artifacts that can be reviewed, versioned, and revised.</td><td>GBrain mechanics and Compounding Systems substrate rule.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Interface journey</h2>
+      <ol>
+        <li><strong>Initialize:</strong> choose a client or business unit, create a source namespace, and load the core-files intake lanes.</li>
+        <li><strong>Interview and observe:</strong> collect business intake answers from conversations, meetings, existing documents, and real work.</li>
+        <li><strong>Register sources:</strong> create source-registry rows for documents, files, tools, dashboards, spreadsheets, meeting notes, SaaS objects, and data exports.</li>
+        <li><strong>Classify meaning:</strong> link each source to the capabilities, jobs, processes, actors, tools, metrics, risks, decisions, or evidence it informs.</li>
+        <li><strong>Build substrate:</strong> turn the strongest answers into canonical artifacts such as capability maps, job specs, process specs, role specs, metric definitions, and eval specs.</li>
+        <li><strong>Ingest data:</strong> pull selected SaaS or existing data into an Orderly operating database when the data can produce useful measurements for Reality answers.</li>
+        <li><strong>Assemble context:</strong> build a bounded context pack for one question, job, capability, recommendation, automation, or implementation path.</li>
+        <li><strong>Act:</strong> produce a recommendation, process, software system, agent workflow, checklist, dashboard, or handoff.</li>
+        <li><strong>Evaluate:</strong> compare evidence against intent. Evidence may come from source documents, observed work, human review, or Reality answers produced from the operating database.</li>
+        <li><strong>Revise:</strong> update the relevant substrate, source-registry rows, data definitions, process specs, or eval specs so future work starts from better context.</li>
+      </ol>
+    </section>
+
+    <section id="states-and-rules" data-spec-section="states-and-rules" data-section-type="states-rules">
+      <h2>States and rules</h2>
+      <table class="status-table">
+        <thead><tr><th>State or rule</th><th>Meaning</th><th>Required behavior</th></tr></thead>
+        <tbody>
+          <tr><td>Source registry row</td><td>A durable record for a source the organization uses or has produced.</td><td>Rows should carry source type, location, owner, access boundary, freshness, trust level, business domain, related capabilities/jobs/processes, and evidence value.</td></tr>
+          <tr><td>Canonical substrate artifact</td><td>A reviewed artifact that states operating meaning.</td><td>Artifacts should name intent, context, evidence, and revision rules for the layer where work happens.</td></tr>
+          <tr><td>Operating database</td><td>A structured store of selected data from existing systems.</td><td>Data should be ingested when it can produce measurements for Reality answers, dashboards, recommendations, automation, or context generation.</td></tr>
+          <tr><td>Metric definition</td><td>The substrate artifact that says what a metric means and how to interpret it.</td><td>Metric definitions should sit in the substrate even when metric values sit in the database.</td></tr>
+          <tr><td>Context pack</td><td>A bounded retrieval product for a specific job or question.</td><td>It should include only relevant source refs, substrate artifacts, data evidence, definitions, exclusions, confidence, and open gaps.</td></tr>
+          <tr><td>Evidence</td><td>Observable signal from documents, data, users, operations, or review.</td><td>Evidence should cite where it came from and which intent it answers.</td></tr>
+          <tr><td>Evaluation</td><td>Judgment comparing evidence against intent.</td><td>Evaluation should produce accept, revise, continue, stop, or explicit uncertainty, then route revisions to the smallest substrate artifact.</td></tr>
+          <tr><td>Freshness</td><td>Whether a source, answer, data pull, or substrate artifact still reflects reality.</td><td>Stale sources should remain visible and flagged, not silently removed from retrieval.</td></tr>
+          <tr><td>Derived indexes</td><td>Search indexes, embeddings, graph views, dashboards, and caches.</td><td>Derived structures should be rebuildable from source registry rows, canonical substrate, and operating data.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="edge-cases" data-spec-section="edge-cases" data-section-type="edge-cases">
+      <h2>Edge cases and recovery paths</h2>
+      <ul>
+        <li><strong>Conflicting sources:</strong> keep both sources linked, mark the conflict, choose a canonical answer only after review or evidence.</li>
+        <li><strong>Untrusted data:</strong> ingest it with confidence and lineage fields, then prevent it from driving evaluation until a metric definition or review rule exists.</li>
+        <li><strong>Private or restricted documents:</strong> register the source and its access boundary without leaking contents into broad context packs.</li>
+        <li><strong>Stale SOP or dashboard:</strong> do not delete it from the registry. Flag freshness and route revision to the owning process, metric, or source row.</li>
+        <li><strong>Interview answer without evidence:</strong> preserve it as an intake answer with confidence, then link it to follow-up evidence or mark it as unresolved.</li>
+        <li><strong>Data without meaning:</strong> do not treat a table or dashboard as useful until the substrate defines what the fields mean and what decisions they support.</li>
+      </ul>
+    </section>
+
+    <section id="ux-contracts" data-spec-section="ux-contracts" data-section-type="hidden-mechanics">
+      <h2>Hidden mechanics as operating contracts</h2>
+      <table class="status-table">
+        <thead><tr><th>Mechanic</th><th>Operating contract</th><th>Failure promise</th></tr></thead>
+        <tbody>
+          <tr><td>Source registration</td><td>The system has seen the source before claiming to understand the business area it covers.</td><td>Missing source coverage becomes an explicit gap in the context pack.</td></tr>
+          <tr><td>Substrate promotion</td><td>Draft answers become durable only when they are clear enough to guide future human or agent action.</td><td>Weak answers stay in intake or review state instead of becoming canonical operating memory.</td></tr>
+          <tr><td>Data ingestion</td><td>Only selected operational data is normalized into the Orderly database, and each data set should serve a known measurement or context purpose.</td><td>Unmapped data is visible as a data gap or exploratory source, not used as an authoritative Reality answer.</td></tr>
+          <tr><td>Retrieval</td><td>Retrieval assembles context from registry, substrate, and data; it does not decide truth by itself.</td><td>When retrieval confidence is low, the context pack names missing sources, stale rows, conflicting evidence, or absent metric definitions.</td></tr>
+          <tr><td>Evaluation</td><td>Eval specs decide how evidence will be judged before the system claims improvement.</td><td>Evidence without an eval rule becomes reporting, not learning.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="open-questions" data-spec-section="open-questions" data-section-type="open-questions">
+      <h2>Open questions</h2>
+      <p>This spec is intentionally high level. These questions should be answered through pilots rather than abstract design alone.</p>
+      <ol>
+        <li><strong>First useful vertical:</strong> Which lane should prove the system first: capabilities, processes, data/metrics, or systems/coordination?</li>
+        <li><strong>Registry name:</strong> Should the business-facing term be Organization Source Registry, Business Source Registry, or another name?</li>
+        <li><strong>Data path:</strong> Which operating measurements should feed Reality answers first, and which metric definitions are required before those measurements can be trusted?</li>
+        <li><strong>Canonical artifact set:</strong> Which artifacts are required in V1: capability map, job specs, process specs, role specs, metric definitions, source registry, and context packs?</li>
+        <li><strong>Access model:</strong> How should the system represent private, client-owned, employee-owned, and vendor-owned sources?</li>
+        <li><strong>Freshness rules:</strong> What should force a source row, data pull, context pack, or substrate artifact back into review?</li>
+        <li><strong>Client delivery shape:</strong> Does Orderly host the registry and operating database, install them into the client's environment, or export portable artifacts?</li>
+      </ol>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="linking">
+      <h2>Related specs and implementation paths</h2>
+      <h3>Related specs</h3>
+      <ul>
+        <li><a data-spec-link="foundation.backfill-artifact-inventory.descriptive" href="./foundation-backfill-artifact-inventory.html">foundation.backfill-artifact-inventory.descriptive</a> - code-side source registry pattern.</li>
+        <li><a data-spec-link="foundation.backfill-context-pack.descriptive" href="./foundation-backfill-context-pack.html">foundation.backfill-context-pack.descriptive</a> - bounded retrieval product pattern.</li>
+        <li><a data-spec-link="foundation.backfill-capability-map.descriptive" href="./foundation-backfill-capability-map.html">foundation.backfill-capability-map.descriptive</a> - capability synthesis pattern.</li>
+        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a> - backfill workflow this business version may mirror.</li>
+      </ul>
+      <h3>Reference documents</h3>
+      <ul class="path-list">
+        <li><code>core-files/README.md</code> - core-files intake lanes and reading order.</li>
+        <li><code>docs/fundamentals/system-philosophy.html</code> - root vocabulary and operating loop.</li>
+        <li><code>docs/fundamentals/business-operating-system.html</code> - business-system application.</li>
+        <li><code>docs/fundamentals/compounding-systems.html</code> - substrate and compounding-system framework.</li>
+        <li><code>docs/general/gbrain-backfill-mechanics.html</code> - source-of-record, derived retrieval, and GBrain mechanics.</li>
+      </ul>
+    </section>
+
+    <section id="test-coverage" data-spec-section="test-coverage" data-section-type="coverage">
+      <h2>Test coverage mapping and known gaps</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Spec section</th><th>Coverage</th><th>Status</th><th>Gap</th></tr></thead>
+        <tbody>
+          <tr><td>KDL-D-1</td><td><code>#system-model</code>, <code>#states-and-rules</code>, <code>#open-questions</code></td><td>Manual review against the first real client intake, source registry, and data evidence pilot.</td><td>planned</td><td>No technical or eval spec exists yet; the first pilot should determine whether this becomes a full spec set.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Knowledge and Data Layer - draft descriptive spec</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>
