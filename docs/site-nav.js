@@ -2,12 +2,67 @@
   const scriptElement = document.currentScript;
   const siteRootUrl = new URL(".", scriptElement ? scriptElement.src : window.location.href);
 
-  function normalizePath(url) {
-    return decodeURIComponent(new URL(url, window.location.href).pathname).replace(/\/index\.html$/, "/index.html");
+  function normalizePagePath(url) {
+    const parsed = new URL(url, window.location.href);
+    let pathname = decodeURIComponent(parsed.pathname);
+    if (pathname.endsWith("/")) pathname += "index.html";
+    return pathname.replace(/\/+/g, "/");
   }
 
   function isCurrentPage(targetUrl) {
-    return normalizePath(targetUrl) === normalizePath(window.location.href);
+    return normalizePagePath(targetUrl) === normalizePagePath(window.location.href);
+  }
+
+  function itemUrl(item) {
+    return new URL(item.path, siteRootUrl);
+  }
+
+  function isFile(item) {
+    return item && item.type === "file";
+  }
+
+  function isFolder(item) {
+    return item && item.type === "folder" && Array.isArray(item.items);
+  }
+
+  function folderContainsCurrent(folder) {
+    return (folder.items || []).some(item => {
+      if (isFile(item)) return isCurrentPage(itemUrl(item).href);
+      if (isFolder(item)) return folderContainsCurrent(item);
+      return false;
+    });
+  }
+
+  function normalizeSiteMap(rawSiteMap) {
+    if (rawSiteMap && Array.isArray(rawSiteMap.items)) {
+      return {
+        label: rawSiteMap.label || "Documents",
+        items: rawSiteMap.items
+      };
+    }
+
+    if (Array.isArray(rawSiteMap)) {
+      return {
+        label: "Documents",
+        items: rawSiteMap.map(group => ({
+          type: "folder",
+          name: group.group,
+          title: group.group,
+          items: (group.items || []).map(item => {
+            const normalizedItem = {
+              type: "file",
+              name: item.path,
+              title: item.title,
+              path: item.path
+            };
+            if (item.specId) normalizedItem.specId = item.specId;
+            return normalizedItem;
+          })
+        }))
+      };
+    }
+
+    return null;
   }
 
   function injectStyles() {
@@ -16,16 +71,126 @@
     const style = document.createElement("style");
     style.id = "substrate-site-nav-styles";
     style.textContent = `
+      body.substrate-has-injected-sidebar {
+        display: flex;
+        min-height: 100vh;
+        padding: 0;
+      }
+      body.substrate-has-injected-sidebar .substrate-site-main {
+        flex: 1;
+        min-width: 0;
+        padding: 56px 72px 120px;
+      }
+      .substrate-generated-sidebar {
+        background: var(--bg-2, #1f1f1f);
+        border-right: 1px solid var(--border, #2a2a2a);
+        flex-shrink: 0;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 24px 0;
+        position: sticky;
+        top: 0;
+        width: var(--sidebar-w, 252px);
+      }
+      .substrate-generated-sidebar .sidebar-logo {
+        align-items: center;
+        border-bottom: 1px solid var(--border, #2a2a2a);
+        display: flex;
+        gap: 10px;
+        margin-bottom: 8px;
+        padding: 0 18px 16px;
+      }
+      .substrate-generated-sidebar .logo-mark {
+        align-items: center;
+        background: var(--bg-4, #2a2a2a);
+        border: 1px solid var(--border-2, #353535);
+        border-radius: 5px;
+        color: var(--fg, #e4e4e7);
+        display: flex;
+        font-size: 12px;
+        font-weight: 600;
+        height: 24px;
+        justify-content: center;
+        width: 24px;
+      }
+      .substrate-generated-sidebar .sidebar-title {
+        color: var(--fg, #e4e4e7);
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .substrate-generated-sidebar .sidebar-sub {
+        color: var(--fg-3, #6b6b6b);
+        font-family: var(--font-mono, ui-monospace, monospace);
+        font-size: 11px;
+        margin-top: 1px;
+        max-width: 172px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .substrate-generated-sidebar .nav-section {
+        padding: 6px 8px 0;
+      }
+      .substrate-generated-sidebar .nav-label {
+        color: var(--fg-3, #6b6b6b);
+        font-family: var(--font-mono, ui-monospace, monospace);
+        font-size: 10px;
+        font-weight: 500;
+        padding: 10px 10px 4px;
+      }
+      .substrate-generated-sidebar .nav-section[data-page-nav] {
+        border-top: 1px solid var(--border, #2a2a2a);
+        margin-top: 8px;
+        padding-top: 8px;
+      }
+      .substrate-generated-sidebar .nav-item {
+        align-items: flex-start;
+        border-radius: 4px;
+        color: var(--fg-2, #a1a1a1);
+        display: flex;
+        font-size: 12px;
+        gap: 8px;
+        line-height: 1.35;
+        min-width: 0;
+        overflow: hidden;
+        padding: 5px 10px;
+        text-decoration: none;
+      }
+      .substrate-generated-sidebar .nav-item:hover,
+      .substrate-generated-sidebar .nav-item.active,
+      .substrate-generated-sidebar .nav-item.current {
+        background: var(--bg-4, #2a2a2a);
+        color: var(--fg, #e4e4e7);
+      }
+      .substrate-generated-sidebar .nav-num {
+        color: var(--fg-3, #6b6b6b);
+        flex: 0 0 auto;
+        font-family: var(--font-mono, ui-monospace, monospace);
+        font-size: 10px;
+        padding-top: 1px;
+        text-align: right;
+        width: 18px;
+      }
       .site-wide-nav {
         border-top: 1px solid var(--border, #2a2a2a);
         margin-top: 10px;
         padding-top: 8px;
       }
-      .site-nav-group {
-        margin: 2px 0 8px;
+      .sidebar > .site-wide-nav:first-child,
+      .sidebar > .sidebar-logo + .site-wide-nav {
+        border-top: 0;
+        margin-top: 0;
+      }
+      .site-nav-tree,
+      .site-nav-folder-contents {
+        display: block;
+      }
+      .site-nav-folder {
+        margin: 1px 0;
       }
       .site-nav-summary {
         align-items: center;
+        border-radius: 4px;
         color: var(--fg-3, #6b6b6b);
         cursor: pointer;
         display: flex;
@@ -33,9 +198,15 @@
         font-size: 10px;
         font-weight: 500;
         gap: 6px;
+        line-height: 1.35;
         list-style: none;
-        padding: 7px 10px 4px;
-        text-transform: none;
+        min-width: 0;
+        padding: 6px 10px 5px calc(10px + (var(--site-nav-depth, 0) * 12px));
+        user-select: none;
+      }
+      .site-nav-summary:hover {
+        background: var(--bg-3, #232323);
+        color: var(--fg-2, #a1a1a1);
       }
       .site-nav-summary::-webkit-details-marker {
         display: none;
@@ -43,54 +214,213 @@
       .site-nav-summary::before {
         color: var(--fg-3, #6b6b6b);
         content: ">";
+        flex: 0 0 auto;
         font-size: 9px;
         transform: rotate(0deg);
         transition: transform 120ms ease;
       }
-      .site-nav-group[open] > .site-nav-summary::before {
+      .site-nav-folder[open] > .site-nav-summary::before {
         transform: rotate(90deg);
+      }
+      .site-nav-folder-title,
+      .site-nav-title {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .site-nav-link {
+        align-items: flex-start;
+        min-width: 0;
+        padding-left: calc(10px + (var(--site-nav-depth, 0) * 12px));
       }
       .site-nav-link.current {
         background: var(--bg-4, #2a2a2a);
         color: var(--fg, #e4e4e7);
       }
-      .site-nav-link .nav-num {
-        width: 18px;
+      .site-nav-link .site-nav-dot {
+        background: currentColor;
+        border-radius: 999px;
+        flex: 0 0 auto;
+        height: 3px;
+        margin-top: 8px;
+        opacity: 0.45;
+        width: 3px;
       }
       .site-nav-empty {
         color: var(--fg-3, #6b6b6b);
         font-size: 12px;
         padding: 4px 10px 8px;
       }
+      @media (max-width: 760px) {
+        body.substrate-has-injected-sidebar {
+          display: block;
+        }
+        body.substrate-has-injected-sidebar .substrate-site-main {
+          padding: 36px 22px 72px;
+        }
+        .substrate-generated-sidebar {
+          border-bottom: 1px solid var(--border, #2a2a2a);
+          border-right: 0;
+          height: auto;
+          max-height: 60vh;
+          position: relative;
+          width: 100%;
+        }
+      }
     `;
     document.head.appendChild(style);
   }
 
-  function buildLink(item, index) {
+  function currentDocumentTitle() {
+    const heading = document.querySelector("h1");
+    return ((heading && heading.textContent) || document.title || "Document").trim();
+  }
+
+  function ensureSidebar() {
+    const existingSidebar = document.querySelector(".sidebar");
+    if (existingSidebar) {
+      if (!existingSidebar.getAttribute("aria-label")) existingSidebar.setAttribute("aria-label", "Documents");
+      return { sidebar: existingSidebar, generated: false };
+    }
+
+    const sidebar = document.createElement("nav");
+    sidebar.className = "sidebar substrate-generated-sidebar";
+    sidebar.setAttribute("aria-label", "Documents");
+
+    const logo = document.createElement("div");
+    logo.className = "sidebar-logo";
+
+    const mark = document.createElement("div");
+    mark.className = "logo-mark";
+    mark.textContent = "D";
+
+    const copy = document.createElement("div");
+    const title = document.createElement("div");
+    title.className = "sidebar-title";
+    title.textContent = "Documents";
+    const subtitle = document.createElement("div");
+    subtitle.className = "sidebar-sub";
+    subtitle.textContent = currentDocumentTitle();
+    subtitle.title = currentDocumentTitle();
+    copy.append(title, subtitle);
+    logo.append(mark, copy);
+    sidebar.appendChild(logo);
+
+    document.body.classList.add("substrate-has-injected-sidebar");
+    const main = document.querySelector("main");
+    if (main) main.classList.add("substrate-site-main");
+    document.body.insertBefore(sidebar, document.body.firstChild);
+    return { sidebar, generated: true };
+  }
+
+  function buildFileLink(item, depth) {
     const link = document.createElement("a");
-    const targetUrl = new URL(item.path, siteRootUrl);
+    const targetUrl = itemUrl(item);
     link.className = "nav-item site-nav-link";
     link.href = targetUrl.href;
+    link.style.setProperty("--site-nav-depth", String(depth));
+    link.title = item.sourcePath || item.title;
     if (item.specId) link.dataset.specLink = item.specId;
     if (isCurrentPage(targetUrl.href)) link.classList.add("current");
 
-    const number = document.createElement("span");
-    number.className = "nav-num";
-    number.textContent = String(index + 1).padStart(2, "0");
+    const dot = document.createElement("span");
+    dot.className = "site-nav-dot";
+    dot.setAttribute("aria-hidden", "true");
 
     const label = document.createElement("span");
-    label.textContent = item.title;
+    label.className = "site-nav-title";
+    label.textContent = item.title || item.name || item.path;
 
-    link.append(number, label);
+    link.append(dot, label);
     return link;
   }
 
+  function buildFolder(item, depth) {
+    const details = document.createElement("details");
+    details.className = "site-nav-folder";
+    details.open = folderContainsCurrent(item);
+
+    const summary = document.createElement("summary");
+    summary.className = "site-nav-summary";
+    summary.style.setProperty("--site-nav-depth", String(depth));
+    summary.title = item.sourcePath || item.title || item.name;
+
+    const label = document.createElement("span");
+    label.className = "site-nav-folder-title";
+    label.textContent = item.title || item.name;
+    summary.appendChild(label);
+    details.appendChild(summary);
+
+    const contents = document.createElement("div");
+    contents.className = "site-nav-folder-contents";
+    for (const child of item.items || []) {
+      const childNode = buildTreeItem(child, depth + 1);
+      if (childNode) contents.appendChild(childNode);
+    }
+    details.appendChild(contents);
+    return details;
+  }
+
+  function buildTreeItem(item, depth) {
+    if (isFile(item)) return buildFileLink(item, depth);
+    if (isFolder(item)) return buildFolder(item, depth);
+    return null;
+  }
+
+  function buildPageSectionNav() {
+    const sections = Array.from(document.querySelectorAll("main section[id], section[id]"));
+    const seen = new Set();
+    const items = sections
+      .filter(section => {
+        if (!section.id || seen.has(section.id)) return false;
+        seen.add(section.id);
+        return true;
+      })
+      .slice(0, 24);
+
+    if (items.length === 0) return null;
+
+    const section = document.createElement("div");
+    section.className = "nav-section";
+
+    const label = document.createElement("div");
+    label.className = "nav-label";
+    label.textContent = "Sections";
+    section.appendChild(label);
+
+    items.forEach((item, index) => {
+      const link = document.createElement("a");
+      link.className = "nav-item" + (index === 0 ? " active" : "");
+      link.href = `#${item.id}`;
+
+      const number = document.createElement("span");
+      number.className = "nav-num";
+      number.textContent = String(index + 1).padStart(2, "0");
+
+      const heading = item.querySelector("h1, h2, h3");
+      const title = document.createTextNode(((heading && heading.textContent) || item.id).trim());
+      link.append(number, title);
+      section.appendChild(link);
+    });
+
+    return section;
+  }
+
+  function insertDocumentSection(sidebar, section) {
+    const existingSections = Array.from(sidebar.children).filter(child => child.classList.contains("nav-section"));
+    const firstSection = existingSections[0];
+    if (!firstSection) sidebar.appendChild(section);
+    else sidebar.insertBefore(section, firstSection);
+  }
+
   function addSiteNav() {
-    const sidebar = document.querySelector(".sidebar");
-    const siteMap = window.SubstrateSiteMap;
-    if (!sidebar || !Array.isArray(siteMap) || sidebar.querySelector("[data-site-nav]")) return;
+    const siteMap = normalizeSiteMap(window.SubstrateSiteMap);
+    if (!siteMap) return;
 
     injectStyles();
+    const { sidebar, generated } = ensureSidebar();
+    if (sidebar.querySelector("[data-site-nav]")) return;
 
     const section = document.createElement("div");
     section.className = "nav-section site-wide-nav";
@@ -98,41 +428,32 @@
 
     const label = document.createElement("div");
     label.className = "nav-label";
-    label.textContent = "All HTML";
+    label.textContent = siteMap.label || "Documents";
     section.appendChild(label);
 
-    if (!siteMap.length) {
+    if (!siteMap.items.length) {
       const empty = document.createElement("div");
       empty.className = "site-nav-empty";
       empty.textContent = "No pages found.";
       section.appendChild(empty);
-      sidebar.appendChild(section);
-      return;
-    }
-
-    for (const group of siteMap) {
-      const details = document.createElement("details");
-      details.className = "site-nav-group";
-
-      const activeGroup = (group.items || []).some(item => isCurrentPage(new URL(item.path, siteRootUrl).href));
-      details.open = activeGroup;
-
-      const summary = document.createElement("summary");
-      summary.className = "site-nav-summary";
-      summary.textContent = group.group;
-      details.appendChild(summary);
-
-      (group.items || []).forEach((item, index) => details.appendChild(buildLink(item, index)));
-      section.appendChild(details);
-    }
-
-    const existingSections = Array.from(sidebar.querySelectorAll(":scope > .nav-section"));
-    const firstSection = existingSections[0];
-
-    if (!firstSection) {
-      sidebar.appendChild(section);
     } else {
-      sidebar.insertBefore(section, firstSection);
+      const tree = document.createElement("div");
+      tree.className = "site-nav-tree";
+      for (const item of siteMap.items) {
+        const node = buildTreeItem(item, 0);
+        if (node) tree.appendChild(node);
+      }
+      section.appendChild(tree);
+    }
+
+    insertDocumentSection(sidebar, section);
+
+    if (generated && !sidebar.querySelector("[data-page-nav]")) {
+      const pageNav = buildPageSectionNav();
+      if (pageNav) {
+        pageNav.dataset.pageNav = "true";
+        sidebar.appendChild(pageNav);
+      }
     }
   }
 

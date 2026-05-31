@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-system">
 <meta name="spec:type" content="index">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-20">
+<meta name="spec:last-updated" content="2026-05-30">
 <title>Spec System</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="schema" href="./spec-registry.schema.json">
@@ -16,7 +16,7 @@
   "title": "Spec System",
   "type": "index",
   "status": "active",
-  "lastUpdated": "2026-05-20",
+  "lastUpdated": "2026-05-30",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": null,
@@ -24,7 +24,8 @@
   "relatedSpecs": [
     { "id": "foundation.spec-process", "relationship": "child", "sections": ["workflow-contract", "spec-authoring", "risk-tiers", "semantic-review"] },
     { "id": "foundation.spec-linking", "relationship": "child", "sections": ["html-native-metadata"] },
-    { "id": "foundation.workspace-model.descriptive", "relationship": "child", "sections": ["product-intent", "states-and-rules", "ux-contracts"] }
+    { "id": "foundation.workspace-model.descriptive", "relationship": "child", "sections": ["product-intent", "states-and-rules", "ux-contracts"] },
+    { "id": "foundation.html-docs-navigation.descriptive", "relationship": "informs", "sections": ["product-intent", "states-and-rules", "ux-contracts"] }
   ],
   "ownedPaths": [
     { "path": "foundation/README.md", "kind": "doc", "ownership": "direct" },
@@ -35,9 +36,6 @@
     { "path": "foundation/docs/specs/new-spec.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/docs/specs/generate-registry.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/docs/specs/check-specs.mjs", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/docs/generate-site-map.mjs", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/docs/site-map.js", "kind": "config", "ownership": "direct" },
-    { "path": "foundation/docs/site-nav.js", "kind": "source", "ownership": "direct" },
     { "path": "foundation/.github/workflows/specs.yml", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/skills/descriptive-spec-interview/SKILL.md", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/skills/descriptive-spec-interview/agents/openai.yaml", "kind": "config", "ownership": "direct" },
@@ -55,7 +53,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-05-29",
+  "lastUpdated": "2026-05-30",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -65,7 +63,7 @@
       "status": "active",
       "file": "foundation/docs/specs/index.html",
       "canonicalSection": "overview",
-      "lastUpdated": "2026-05-20",
+      "lastUpdated": "2026-05-30",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": null,
@@ -98,6 +96,15 @@
         {
           "id": "foundation.workspace-model.descriptive",
           "relationship": "child",
+          "sections": [
+            "product-intent",
+            "states-and-rules",
+            "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.html-docs-navigation.descriptive",
+          "relationship": "informs",
           "sections": [
             "product-intent",
             "states-and-rules",
@@ -144,21 +151,6 @@
         {
           "path": "foundation/docs/specs/check-specs.mjs",
           "kind": "workflow",
-          "ownership": "direct"
-        },
-        {
-          "path": "foundation/docs/generate-site-map.mjs",
-          "kind": "workflow",
-          "ownership": "direct"
-        },
-        {
-          "path": "foundation/docs/site-map.js",
-          "kind": "config",
-          "ownership": "direct"
-        },
-        {
-          "path": "foundation/docs/site-nav.js",
-          "kind": "source",
           "ownership": "direct"
         },
         {
@@ -5262,6 +5254,188 @@
       ]
     },
     {
+      "id": "foundation.html-docs-navigation.descriptive",
+      "title": "Foundation HTML Docs Navigation",
+      "type": "descriptive",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-html-docs-navigation.html",
+      "canonicalSection": "product-intent",
+      "lastUpdated": "2026-05-30",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": null,
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-system",
+          "relationship": "depends-on",
+          "sections": [
+            "registry",
+            "entry-points",
+            "foundation-specs"
+          ]
+        },
+        {
+          "id": "foundation.workspace-model.descriptive",
+          "relationship": "depends-on",
+          "sections": [
+            "product-intent",
+            "interface-journey",
+            "links-and-paths"
+          ]
+        },
+        {
+          "id": "foundation.spec-process",
+          "relationship": "depends-on",
+          "sections": [
+            "spec-authoring",
+            "risk-tiers"
+          ]
+        },
+        {
+          "id": "foundation.spec-linking",
+          "relationship": "depends-on",
+          "sections": [
+            "resolution",
+            "path-update-loop"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-html-docs-navigation.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/generate-site-map.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/site-map.js",
+          "kind": "config",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/site-nav.js",
+          "kind": "source",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Default durable HTML document root whose folder tree should drive the navigation structure."
+        },
+        {
+          "path": "foundation/docs/specs/new-spec.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Spec scaffolds must continue loading the shared docs navigation scripts."
+        },
+        {
+          "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Target repo setup workflow that should install or verify local HTML docs navigation for Foundation-based repos."
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Target repo validator that checks whether durable HTML docs have local navigation assets and script includes."
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "kind": "test",
+          "ownership": "reference",
+          "notes": "Regression tests for target repo HTML docs navigation validation."
+        },
+        {
+          "path": "foundation/templates/target-repo-AGENTS.md",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Target repo adapter template that may need to point agents at the local docs navigation setup rules."
+        },
+        {
+          "path": "foundation/docs/specs/spec-system.css",
+          "kind": "design",
+          "ownership": "reference",
+          "notes": "Provides shared sidebar, typography, responsive, and local table-of-contents styling used by rendered specs."
+        },
+        {
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Durable HTML document that is included in the generated map and exercises generated-sidebar rendering."
+        },
+        {
+          "path": "foundation/package.json",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Exposes the site-map generation command."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "HDN-1",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/generate-site-map.mjs",
+          "command": "npm run site-map",
+          "mapsTo": [
+            "foundation.html-docs-navigation.descriptive#states-and-rules"
+          ],
+          "evidence": "Generated navigation data preserves the docs folder tree instead of emitting hand-curated content categories.",
+          "notes": "Generator emits a folder tree with stable file nodes derived from the configured HTML document roots."
+        },
+        {
+          "id": "HDN-2",
+          "level": "visual",
+          "status": "existing",
+          "path": "foundation/docs/site-nav.js",
+          "mapsTo": [
+            "foundation.html-docs-navigation.descriptive#ux-contracts",
+            "foundation.html-docs-navigation.descriptive#design-placeholders"
+          ],
+          "evidence": "Rendered desktop and mobile screenshots show the current document highlighted inside its real folder path, with no overflow or hidden primary navigation.",
+          "notes": "Renderer consumes the folder tree, preserves spec link attributes, expands the selected path, and can create a sidebar for bare durable HTML docs."
+        },
+        {
+          "id": "HDN-3",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/gbrain-backfill-mechanics.html",
+          "mapsTo": [
+            "foundation.html-docs-navigation.descriptive#edge-cases"
+          ],
+          "evidence": "Every durable HTML document included in the navigation either renders the shared navigation itself or is explicitly excluded from the navigable corpus.",
+          "notes": "The GBrain mechanics page now loads the shared site-map and site-nav scripts."
+        },
+        {
+          "id": "HDN-4",
+          "level": "integration",
+          "status": "existing",
+          "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+          "mapsTo": [
+            "foundation.html-docs-navigation.descriptive#foundation-based-repo-setup"
+          ],
+          "evidence": "A target repo connected to Foundation receives or verifies local HTML docs navigation so its own durable HTML files render with the same folder-derived sidebar.",
+          "notes": "The install skill and Foundation doctor describe and verify target-local docs navigation assets while preserving target-owned spec registry resolution."
+        }
+      ],
+      "tags": [
+        "descriptive",
+        "foundation",
+        "docs",
+        "navigation",
+        "html"
+      ]
+    },
+    {
       "id": "foundation.workspace-doctor.eval",
       "title": "Foundation Workspace Doctor Eval Spec",
       "type": "eval",
@@ -5766,7 +5940,7 @@
     <p class="lede">Specs are durable source-of-truth contracts for what should exist. They are not traditional docs, stale plans, or workflow procedures. This folder defines the first HTML-native spec system for productized-agency software development substrate.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-20</div>
+      <div><strong>Updated:</strong> 2026-05-30</div>
       <div><strong>Metadata:</strong> per-spec <code>#spec-metadata</code> is canonical</div>
     </div>
   </section>
@@ -5817,6 +5991,10 @@
         <a class="related-card" data-spec-link="foundation.workspace-model.descriptive" href="./foundation-workspace-model.html">
           <div class="related-name">Foundation workspace model</div>
           <div class="related-desc">Canonical Foundation repo, global Codex pointer, target repo adapters, skill discovery, and CI pinning model.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.html-docs-navigation.descriptive" href="./foundation-html-docs-navigation.html">
+          <div class="related-name">Foundation HTML docs navigation</div>
+          <div class="related-desc">Folder-derived left sidebar navigation for durable HTML documents, separate from the spec registry graph.</div>
         </a>
         <a class="related-card" data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">
           <div class="related-name">Foundation backfill specs</div>

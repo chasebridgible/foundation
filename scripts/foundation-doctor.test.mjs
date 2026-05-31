@@ -120,3 +120,54 @@ test("target repo specs fail when product specs use foundation namespace", () =>
 
   assert.equal(statusById(report, "repo-spec-ids"), "fail");
 });
+
+test("target repo HTML docs navigation warns when docs are missing assets or scripts", () => {
+  const foundation = makeDir();
+  const repo = makeDir();
+  const globalAgents = path.join(makeDir(), "AGENTS.md");
+  makeFoundation(foundation);
+  makeRepo(repo, foundation);
+  write(globalAgents, `# Global\n\n- Use Foundation at ${foundation}.\n- Read Foundation AGENTS.md before work.\n`);
+  write(path.join(repo, "docs", "guide.html"), "<!doctype html><title>Guide</title><main><h1>Guide</h1></main>");
+
+  const report = runDoctor({
+    foundationPath: foundation,
+    globalAgentsPath: globalAgents,
+    repoPath: repo,
+    skipSpecCheck: true
+  });
+
+  assert.equal(statusById(report, "repo-html-docs-nav"), "warn");
+});
+
+test("target repo HTML docs navigation passes when local assets, command, and scripts exist", () => {
+  const foundation = makeDir();
+  const repo = makeDir();
+  const globalAgents = path.join(makeDir(), "AGENTS.md");
+  makeFoundation(foundation);
+  makeRepo(repo, foundation);
+  write(globalAgents, `# Global\n\n- Use Foundation at ${foundation}.\n- Read Foundation AGENTS.md before work.\n`);
+  write(path.join(repo, "docs", "generate-site-map.mjs"), "console.log('site map');\n");
+  write(path.join(repo, "docs", "site-map.js"), "window.SubstrateSiteMap = { items: [] };\n");
+  write(path.join(repo, "docs", "site-nav.js"), "console.log('site nav');\n");
+  write(path.join(repo, "package.json"), JSON.stringify({
+    scripts: {
+      "site-map": "node docs/generate-site-map.mjs"
+    }
+  }));
+  write(path.join(repo, "docs", "guide.html"), `<!doctype html>
+<title>Guide</title>
+<main><h1>Guide</h1></main>
+<script src="./site-map.js"></script>
+<script src="./site-nav.js"></script>`);
+
+  const report = runDoctor({
+    foundationPath: foundation,
+    globalAgentsPath: globalAgents,
+    repoPath: repo,
+    skipSpecCheck: true
+  });
+
+  assert.equal(statusById(report, "repo-html-docs-nav"), "pass");
+  assert.equal(statusById(report, "repo-html-docs-nav-command"), "pass");
+});

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orderly Systems - Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #242424;
+    --bg-4: #2a2a2a;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --primary-dim: rgba(79, 142, 255, 0.12);
+    --emerald: #4ec9b0;
+    --emerald-dim: rgba(78, 201, 176, 0.12);
+    --amber: #d4a72c;
+    --amber-dim: rgba(212, 167, 44, 0.12);
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    display: flex;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    width: var(--sidebar-w);
+  }
+
+  .sidebar-logo {
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 0 18px 16px;
+  }
+
+  .logo-mark {
+    align-items: center;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    color: var(--fg);
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    height: 24px;
+    justify-content: center;
+    width: 24px;
+  }
+
+  .sidebar-title { color: var(--fg); font-size: 13px; font-weight: 500; }
+  .sidebar-sub { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; margin-top: 1px; }
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 10px 10px 4px;
+  }
+
+  .nav-item {
+    align-items: center;
+    border-radius: 4px;
+    color: var(--fg-2);
+    display: flex;
+    font-size: 12px;
+    gap: 8px;
+    overflow: hidden;
+    padding: 4px 10px;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    transition: background var(--transition), color var(--transition);
+    white-space: nowrap;
+  }
+  .nav-item:hover, .nav-item.active { background: var(--bg-4); color: var(--fg); }
+  .nav-num { color: var(--fg-3); flex-shrink: 0; font-family: var(--font-mono); font-size: 10px; width: 20px; }
+
+  .main {
+    margin: 0 auto;
+    max-width: 900px;
+    padding: 28px 42px 80px;
+    width: 100%;
+  }
+  .overview-section {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 34px;
+    padding-bottom: 28px;
+  }
+  .spec-eyebrow { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; margin-bottom: 10px; }
+  h1 { color: var(--fg); font-size: 38px; letter-spacing: 0; line-height: 1.1; margin-bottom: 14px; }
+  h2 { color: var(--fg); font-size: 21px; letter-spacing: 0; line-height: 1.25; margin: 0 0 14px; }
+  h3 { color: var(--fg); font-size: 15px; margin-bottom: 8px; }
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  strong { color: var(--fg); font-weight: 650; }
+  code { background: var(--bg-3); border: 1px solid var(--border-2); border-radius: 4px; color: var(--fg); font-family: var(--font-mono); font-size: 0.92em; padding: 1px 5px; }
+  a { color: var(--fg); text-decoration-color: var(--fg-3); text-underline-offset: 3px; }
+  ul, ol { margin: 8px 0 18px 24px; }
+  li { color: var(--fg-2); margin-bottom: 8px; }
+  .lede { color: var(--fg-2); font-size: 18px; line-height: 1.55; max-width: 760px; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; color: var(--fg-2); font-size: 12px; }
+  .spec-section { margin-bottom: 8px; scroll-margin-top: 24px; }
+
+  .visual-block {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 18px 0 24px;
+    overflow: hidden;
+  }
+  .visual-header {
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    padding: 14px 16px;
+  }
+  .visual-title { color: var(--fg); font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+  .visual-kicker { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; }
+  .three-grid, .process-grid, .related-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 16px;
+  }
+  .process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card {
+    background: var(--bg-3);
+    border: 1px solid var(--border-2);
+    border-radius: 7px;
+    min-height: 142px;
+    padding: 15px;
+  }
+  .card.accent { background: var(--primary-dim); border-color: rgba(79, 142, 255, 0.45); }
+  .card.green { background: var(--emerald-dim); border-color: rgba(78, 201, 176, 0.45); }
+  .card.amber { background: var(--amber-dim); border-color: rgba(212, 167, 44, 0.45); }
+  .card-label { color: var(--fg-3); font-family: var(--font-mono); font-size: 10px; margin-bottom: 10px; }
+  .card-title { color: var(--fg); font-size: 15px; font-weight: 650; margin-bottom: 8px; }
+  .card-copy { color: var(--fg-2); font-size: 12px; line-height: 1.55; }
+
+  .loop-list {
+    display: grid;
+    gap: 8px;
+    padding: 16px;
+  }
+  .loop-row {
+    align-items: start;
+    background: var(--bg-3);
+    border: 1px solid var(--border-2);
+    border-radius: 7px;
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 120px 1fr 190px;
+    padding: 12px 14px;
+  }
+  .loop-name { color: var(--fg); font-weight: 650; }
+  .loop-copy { color: var(--fg-2); font-size: 12px; }
+  .loop-example { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; }
+
+  .callout {
+    background: var(--bg-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--primary);
+    border-radius: 7px;
+    margin: 18px 0 24px;
+    padding: 16px 18px;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .related-section { margin-top: 42px; }
+  .related-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0; }
+  .related-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  .related-card:hover { background: var(--bg-3); }
+  .related-name { color: var(--fg); font-size: 13px; font-weight: 650; margin-bottom: 4px; }
+  .related-desc { color: var(--fg-3); font-size: 12px; line-height: 1.5; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 34px 0; }
+  .footer-note { color: var(--fg-3); font-size: 12px; text-align: center; }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar { border-bottom: 1px solid var(--border); border-right: 0; height: auto; position: relative; width: 100%; }
+    .main { padding: 36px 22px 72px; }
+    .three-grid, .process-grid, .related-grid { grid-template-columns: 1fr; }
+    .loop-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">O</div>
+    <div>
+      <div class="sidebar-title">Orderly Systems</div>
+      <div class="sidebar-sub">What we do</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#how-to-read-this"><span class="nav-num">01</span>How to read this</a>
+    <a class="nav-item" href="#1-what-orderly-systems-is"><span class="nav-num">02</span>1. What it is</a>
+    <a class="nav-item" href="#2-what-we-do"><span class="nav-num">03</span>2. What we do</a>
+    <a class="nav-item" href="#3-how-we-work"><span class="nav-num">04</span>3. How we work</a>
+    <a class="nav-item" href="#4-what-we-build"><span class="nav-num">05</span>4. What we build</a>
+    <a class="nav-item" href="#5-document-roles"><span class="nav-num">06</span>5. Document roles</a>
+    <a class="nav-item" href="#settled-vs-iterating"><span class="nav-num">07</span>Settled vs. iterating</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · orderly-systems.html</div>
+    <h1>Orderly Systems</h1>
+    <p class="lede">What Orderly Systems is, what we do, and how we turn business intent into better operating systems, software, agents, evidence, and revision.</p>
+    <div class="meta-row">
+      <div><strong>Format:</strong> HTML-native</div>
+      <div><strong>Authoring:</strong> edit this HTML file</div>
+      <div><strong>Status:</strong> Draft working concept</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="how-to-read-this" class="level2 spec-section">
+      <h2>How to read this</h2>
+      <p>This document sits between the root philosophy and the operating documents. <code>system-philosophy.html</code> defines the model. <code>business-os.html</code> applies it to business operations. <code>operating-spec.html</code> applies it to software and agents. This document names the company-level shape: what Orderly Systems does with those ideas.</p>
+      <p>The short version: Orderly Systems helps entrepreneurs make their businesses legible, capable, measurable, and improvable. We do that by mapping capabilities and jobs, building the context and evidence layer, and creating software or agent systems only where they improve the business system.</p>
+      <hr>
+    </section>
+
+    <section id="1-what-orderly-systems-is" class="level2 spec-section">
+      <h2>1. What Orderly Systems is</h2>
+      <p><strong>Orderly Systems is a business systems firm.</strong> It helps entrepreneurs turn intent into operating reality by making the business explicit: goals, capabilities, jobs, processes, actors, tools, context, evidence, evaluation, and revision.</p>
+      <p>The company is not primarily a software shop, an automation shop, or an AI agency. Software, automations, dashboards, agents, SOPs, scorecards, and operating cadences are tools. The object is the business system. The work is to improve the system's ability to build value, deliver value, and capture money.</p>
+      <div class="visual-block">
+        <div class="visual-header">
+          <div class="visual-title">Orderly Systems in one frame</div>
+          <div class="visual-kicker">business intent to operating improvement</div>
+        </div>
+        <div class="three-grid">
+          <div class="card accent">
+            <div class="card-label">01</div>
+            <div class="card-title">Make the system legible</div>
+            <div class="card-copy">Name the capabilities, jobs, processes, actors, tools, context, and evidence that already exist.</div>
+          </div>
+          <div class="card green">
+            <div class="card-label">02</div>
+            <div class="card-title">Improve the missing layer</div>
+            <div class="card-copy">Find whether the constraint is capability, job clarity, process, actor fit, tool fit, context, evidence, or evaluation.</div>
+          </div>
+          <div class="card amber">
+            <div class="card-label">03</div>
+            <div class="card-title">Preserve the learning</div>
+            <div class="card-copy">Turn what was learned into reusable substrate so the next person, agent, or system starts smarter.</div>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </section>
+
+    <section id="2-what-we-do" class="level2 spec-section">
+      <h2>2. What we do</h2>
+      <p>Orderly Systems improves the business by improving the jobs and capabilities inside it. The work can look like consulting, operations design, software development, agent deployment, data work, or documentation, but the underlying function stays the same.</p>
+      <div class="process-grid">
+        <div class="card">
+          <div class="card-label">Capability map</div>
+          <div class="card-title">What the business must be able to do</div>
+          <div class="card-copy">Map the recurring capabilities required to build value, deliver value, capture money, support customers, manage cash, hire, comply, measure, and improve.</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Job system</div>
+          <div class="card-title">What work makes those capabilities real</div>
+          <div class="card-copy">Define the jobs, owners, processes, inputs, tools, standards, escalation paths, and evidence for the capabilities that matter.</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Context substrate</div>
+          <div class="card-title">What actors need to know</div>
+          <div class="card-copy">Preserve the operating mind of the business: offers, promises, constraints, decisions, examples, standards, process maps, and evidence history.</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Software and agents</div>
+          <div class="card-title">What should be built or delegated</div>
+          <div class="card-copy">Build software, workflows, automations, or agent skills where they make a capability more reliable, faster, clearer, or cheaper to operate.</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Evidence and evaluation</div>
+          <div class="card-title">How the system knows what worked</div>
+          <div class="card-copy">Define metrics, scorecards, audits, tests, reviews, dashboards, and eval specs that judge evidence against business intent.</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Revision cadence</div>
+          <div class="card-title">How learning changes future work</div>
+          <div class="card-copy">Update job records, processes, actor assignments, context, capabilities, offers, and decision rules when reality teaches the system.</div>
+        </div>
+      </div>
+      <hr>
+    </section>
+
+    <section id="3-how-we-work" class="level2 spec-section">
+      <h2>3. How we work</h2>
+      <p>The work follows the same operating loop used across Foundation:</p>
+      <div class="visual-block">
+        <div class="visual-header">
+          <div class="visual-title">Orderly Systems operating loop</div>
+          <div class="visual-kicker">same loop, business domain</div>
+        </div>
+        <div class="loop-list">
+          <div class="loop-row"><div class="loop-name">Intent</div><div class="loop-copy">Name the business result and the capability that should produce it.</div><div class="loop-example">increase retention, shorten fulfillment, improve cash clarity</div></div>
+          <div class="loop-row"><div class="loop-name">Context</div><div class="loop-copy">Gather the knowledge, data, constraints, actors, tools, risks, and examples needed to act.</div><div class="loop-example">interviews, dashboards, SOPs, CRM, financials</div></div>
+          <div class="loop-row"><div class="loop-name">Execution</div><div class="loop-copy">Run the job through the right actor: person, process, software, agent, vendor, or hybrid.</div><div class="loop-example">process change, app feature, agent workflow, operating cadence</div></div>
+          <div class="loop-row"><div class="loop-name">Evidence</div><div class="loop-copy">Collect the signal from reality after the work runs.</div><div class="loop-example">metric movement, audit result, customer response, test, review</div></div>
+          <div class="loop-row"><div class="loop-name">Evaluation</div><div class="loop-copy">Compare evidence against intent and decide accept, revise, continue, or stop.</div><div class="loop-example">scorecard, eval spec, owner review, quality gate</div></div>
+          <div class="loop-row"><div class="loop-name">Revision</div><div class="loop-copy">Update the artifact that guides future work.</div><div class="loop-example">job record, process, offer, metric definition, capability map</div></div>
+        </div>
+      </div>
+      <p>This is why the work is not just implementation. A business improves when reality updates the artifacts that guide future action.</p>
+      <hr>
+    </section>
+
+    <section id="4-what-we-build" class="level2 spec-section">
+      <h2>4. What we build</h2>
+      <p>Orderly Systems builds the smallest system that improves the business capability being targeted. Sometimes that is software. Sometimes it is a job record, a process, a scorecard, an agent skill, a dashboard, an intake flow, or a capability map. The form follows the missing layer.</p>
+      <p><strong>Portable capabilities matter in consulting work.</strong> When software or agent systems are built for a client, the useful parts should become modular enough to deliver to future clients when the same capability appears again. That does not mean every client receives the same product. It means the underlying capability inventory compounds.</p>
+      <p><strong>Substrate matters because the next improvement should start ahead.</strong> The system should preserve the client's context, the agency's capability inventory, the decisions made, the evidence gathered, and the processes that worked. Substrate is the durable memory layer inside the system, not the whole system itself.</p>
+      <div class="callout">
+        <p><strong>Operating rule</strong></p>
+        <p>When a business is not achieving its goal, decompose its system before adding effort. Find the missing capability, job, process, action, decision, context, actor, tool, evidence, evaluation, or revision.</p>
+      </div>
+      <hr>
+    </section>
+
+    <section id="5-document-roles" class="level2 spec-section">
+      <h2>5. Document roles</h2>
+      <p>The core documents should have clear jobs:</p>
+      <ul>
+        <li><strong>System Philosophy</strong> defines the root model and vocabulary.</li>
+        <li><strong>Orderly Systems</strong> defines the company-level application: what we do and how we do it.</li>
+        <li><strong>The Compounding System</strong> defines the five-layer durability framework.</li>
+        <li><strong>Business OS</strong> defines the business-operations application.</li>
+        <li><strong>Operating Spec</strong> defines the software-and-agent application.</li>
+        <li><strong>Principles</strong> define how to do work well in a domain. Core principles are cross-domain; business, software development, software design, and AI eval principles are domain-specific.</li>
+        <li><strong>Definitions</strong> keeps the shared glossary precise enough that the documents do not redefine the same term differently.</li>
+      </ul>
+      <p>The documents should reinforce the same model instead of competing for it. Domain documents can use local examples, but they should map back to the root loop and vocabulary.</p>
+      <hr>
+    </section>
+
+    <section id="settled-vs-iterating" class="level2 spec-section">
+      <h2>Settled vs. iterating</h2>
+      <p><strong>Settled:</strong></p>
+      <ul>
+        <li>Orderly Systems works on business systems, not software as an isolated category.</li>
+        <li>The root loop is Intent -&gt; Context -&gt; Execution -&gt; Evidence -&gt; Evaluation -&gt; Revision.</li>
+        <li>Capabilities name what the business can reliably do; jobs name the work required for those capabilities to exist, operate, or improve.</li>
+        <li>Software and agents are valuable when they improve a capability, reduce variance, preserve context, collect evidence, or make revision faster.</li>
+        <li>Substrate is the durable memory layer inside the system: specs, context, capability inventory, decisions, workflows, examples, evals, and evidence history.</li>
+      </ul>
+      <p><strong>Iterating:</strong></p>
+      <ul>
+        <li>The best public name for the company category.</li>
+        <li>The first client-facing offer and delivery cadence.</li>
+        <li>The exact artifact package for a Business OS engagement.</li>
+        <li>The boundary between software build work, operating-system design, and ongoing system maintenance.</li>
+      </ul>
+    </section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede">The documents this one connects.</p>
+    <div class="related-grid">
+      <a class="related-card" href="./system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root model: intent, context, execution, evidence, evaluation, revision, capabilities, jobs, and substrate.</div></a>
+      <a class="related-card" href="./business-os.html"><div class="related-name">Business OS</div><div class="related-desc">The business-operations application of the system model.</div></a>
+      <a class="related-card" href="./business-capability-map.html"><div class="related-name">Business Capability Map</div><div class="related-desc">A working inventory of recurring business capabilities and the jobs that make them real.</div></a>
+      <a class="related-card" href="./operating-spec.html"><div class="related-name">Building Software with Agents</div><div class="related-desc">The software-and-agent application of the system model.</div></a>
+      <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The five-layer framework for systems whose value grows with use.</div></a>
+      <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">The shared glossary for Foundation vocabulary.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · HTML-native document</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(item => item.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(item => item.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(section => observer.observe(section));
+</script>
+
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

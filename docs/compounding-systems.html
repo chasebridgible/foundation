@@ -438,7 +438,7 @@
 <section class="level1 generated-root">
 <section id="how-to-read-this" class="level2 spec-section">
 <h2>How to read this</h2>
-<p>This document defines the structure I use to build systems whose value grows with use. <code>system-philosophy.html</code> names the root philosophy: intent, context, action, evidence, goals, capabilities, jobs, processes, actors, and substrate. This document is the <strong>compounding framework</strong>: the layers any compounding system has, what design rule each layer obeys, and how to tell whether each layer is healthy. <code>operating-spec.html</code> is one application of this framework: a compounding system for productized-agency software delivery. Future compounding systems (knowledge management, marketing, sales, operations) follow the same shape with different contents.</p>
+<p>This document defines the structure I use to build systems whose value grows with use. <code>system-philosophy.html</code> names the root philosophy: intent, context, execution, evidence, evaluation, revision, goals, capabilities, jobs, processes, actors, and substrate. This document is the <strong>compounding framework</strong>: the layers any compounding system has, what design rule each layer obeys, and how to tell whether each layer is healthy. <code>operating-spec.html</code> is one application of this framework: a compounding system for productized-agency software delivery. Future compounding systems (knowledge management, marketing, sales, operations) follow the same shape with different contents.</p>
 <p>The framework is settled in its shape (five layers, the durability hierarchy, the one-shot regeneration test). The contents inside each layer are domain-specific and iterate with the work.</p>
 <p>If you are an agent reading this, this is the structure of the system you operate inside. Read §1 for the shape, §2-§6 for the layer-by-layer design rules, and §7 for how the framework applies beyond software.</p>
 <hr />
@@ -454,7 +454,7 @@
   <div class="layer-stack">
     <div class="layer-row substrate">
       <div class="layer-num">01</div>
-      <div><div class="layer-name">Substrate</div><div class="layer-desc">The durable repo-shaped artifacts that survive model and harness changes.</div></div>
+      <div><div class="layer-name">Substrate</div><div class="layer-desc">The durable artifact layer inside the system that survives model and harness changes.</div></div>
       <div class="layer-rule">owned leverage</div>
     </div>
     <div class="layer-row iterating">
@@ -480,7 +480,7 @@
   </div>
 </div>
 <pre class="text"><code>Compounding system  (the whole — value grows with use)
-├── Substrate              (durable, repo-shaped — survives one-shot regeneration)
+├── Substrate              (durable artifact layer — survives one-shot regeneration)
 ├── Iterating layers       (rented from frontier providers — replaced on their cadence)
 ├── Operational shape      (who does what — humans, agents, queues)
 ├── Intake layers          (where work originates — human, monitoring, feedback, ambient)
@@ -514,10 +514,10 @@
     <div class="matrix-copy">Current-runtime wiring mistaken for durable advantage.</div>
   </div>
 </div>
-<p>The substrate is everything in the repo that captures work no frontier lab will ever do for you, arranged so that a more capable model and a better harness can do strictly better work off the same artifacts over time. Six categories, today:</p>
+<p>The substrate is the durable memory layer inside the system: everything in the repo that captures work no frontier lab will ever do for you, arranged so that a more capable model and a better harness can do strictly better work off the same artifacts over time. It is not the whole system. The system also includes intake, routing, actors, tools, execution, evidence, evaluation, and revision. Six categories, today:</p>
 <ul>
-<li><strong>Specs</strong> (descriptive, technical, test) — the precision of intent for each piece of work.</li>
-<li><strong>Capability inventory</strong> — the shared library of vertical slices, each portable by folder copy.</li>
+<li><strong>Specs</strong> (descriptive, technical, eval) — the precision of intent and evidence for each piece of work.</li>
+<li><strong>Capability inventory</strong> — the shared library of portable capabilities, each able to move to another client with the implementation pieces it needs.</li>
 <li><strong>Knowledge layer</strong> — the captured operating mind of the business, queryable per question.</li>
 <li><strong>Domain-specific skills and tools</strong> — workflows that only matter inside the domain.</li>
 <li><strong>Repository conventions</strong> — folder layout, naming, frontmatter contracts, the loop-as-contract.</li>
@@ -551,14 +551,14 @@
 <section id="4-operational-shape" class="level2 spec-section">
 <h2>4. Operational shape</h2>
 <p><strong>Who does what — which humans hold which decisions, which agents do which work, which queues route what to where.</strong></p>
-<p>The operational shape is the organizational structure of the compounding system. It names the human roles, the agent roles, and the routing surface that connects them. Distinct from substrate (the artifacts) and iterating layers (the runtime), the operational shape is <em>who sits where in the loop.</em></p>
+<p>The operational shape is the organizational structure of the compounding system. It names the human roles, the agent roles, and the routing interface that connects them. Distinct from substrate (the artifacts) and iterating layers (the runtime), the operational shape is <em>who sits where in the loop.</em></p>
 <p>Three components:</p>
 <ul>
 <li><strong>Human roles</strong> — who holds intent, who prioritizes, who accepts. The places where context, judgment, and accountability matter.</li>
-<li><strong>Agent roles</strong> — who plans, who executes, who reviews. The searchable-labor surface.</li>
+<li><strong>Agent roles</strong> — who plans, who executes, who reviews. The searchable-labor interface.</li>
 <li><strong>Routing</strong> — the queue, the board, the metadata schema that lets the system prioritize and attribute work.</li>
 </ul>
-<p><strong>Design rule.</strong> Small surface area for the human, large surface area for the agent. Put the human only where context, judgment, and accountability matter — defining intent, prioritizing work, accepting what ships. Everything else belongs to the agent. Anything more elaborate is overhead, and overhead is what stops compounding systems from scaling.</p>
+<p><strong>Design rule.</strong> Small owner interface, large execution interface. Put the human only where context, judgment, and accountability matter — defining intent, prioritizing work, accepting what ships. Everything else belongs to the agent. Anything more elaborate is overhead, and overhead is what stops compounding systems from scaling.</p>
 <p><strong>Lifecycle.</strong> The roles and routing evolve with the work and with the team. Generally more stable than iterating layers, less stable than substrate. Operational shape changes when the team scales, when the work mix shifts, or when a new intake source comes online.</p>
 <p><strong>Healthy.</strong> Each human decision is high-leverage. Routing is unambiguous — every piece of work has a clear owner and a clear next step. Agents do not idle waiting for human approval on low-stakes calls.</p>
 <p><strong>Unhealthy.</strong> Humans are bottlenecks on routine work. Routing is opaque. Multiple humans each "kind of" own the same decision. Agents can't tell what's pending and what's blocked.</p>
@@ -567,8 +567,8 @@
 </section>
 <section id="5-intake-layers" class="level2 spec-section">
 <h2>5. Intake layers</h2>
-<p><strong>Where work originates — the surface where the outside world becomes work the system processes.</strong></p>
-<p>The intake layer is everything that turns events into tasks. Without it, the system runs only on what humans manually request; with it, the system runs on a continuously refreshed task surface.</p>
+<p><strong>Where work originates — the interface where the outside world becomes work the system processes.</strong></p>
+<p>The intake layer is everything that turns events into tasks. Without it, the system runs only on what humans manually request; with it, the system runs on a continuously refreshed task board.</p>
 <p>Four common sources:</p>
 <ul>
 <li><strong>Human inputs</strong> — direct requests from you or your team, conversations in Slack, feedback in standups.</li>
@@ -576,22 +576,22 @@
 <li><strong>User feedback</strong> — in-app reports, feature requests, support tickets. Direct user-to-task pipelines.</li>
 <li><strong>Ambient ingestion</strong> — background pulls of client SaaS, calendar, transcripts, metrics. Keeps the substrate (especially the context layer) warm between agent runs.</li>
 </ul>
-<p>All four ideally land on the same task surface — the board — with metadata that lets the rest of the system prioritize, route, and attribute. Source, severity, client, type, urgency, related entity. The metadata schema is substrate; the wrappers feeding into it are iterating layer.</p>
+<p>All four ideally land on the same task board, with metadata that lets the rest of the system prioritize, route, and attribute. Source, severity, client, type, urgency, related entity. The metadata schema is substrate; the wrappers feeding into it are iterating layer.</p>
 <p><strong>Design rule.</strong> The intake layer should be additive — new sources land on the board with the right metadata, and the rest of the system picks them up without changes. If adding a new intake source requires rewriting routing or prioritization logic, the metadata schema is wrong.</p>
 <p><strong>Lifecycle.</strong> New intake sources arrive as the business grows (new clients, new monitoring tools, new user feedback channels). The metadata schema (substrate) is meant to be stable; the wrappers feeding into it (iterating layer) churn.</p>
-<p><strong>Healthy.</strong> All work, regardless of source, lands on one task surface with consistent metadata. The board is the single source of truth for what the system is doing. Adding a new intake source is a config change, not a rewrite.</p>
+<p><strong>Healthy.</strong> All work, regardless of source, lands on one task board with consistent metadata. The board is the single source of truth for what the system is doing. Adding a new intake source is a config change, not a rewrite.</p>
 <p><strong>Unhealthy.</strong> Multiple parallel queues that don't talk to each other. Work falls between sources. The board is incomplete. Some intake is silently lost or deprioritized because it didn't land in the right place.</p>
 <hr />
 </section>
 <section id="6-the-delivery-loop" class="level2 spec-section">
 <h2>6. The delivery loop</h2>
 <p><strong>The contract that turns intake into shipped work and substrate updates.</strong></p>
-<p>The delivery loop is the protocol every piece of work follows. In this repo's vocabulary, the inner loop is <strong>spec → test → prompt → execute</strong>; the outer loop is review, integration, rollout, observation, and deprecation. The four steps of the inner loop are the contract; the structure inside them is open.</p>
-<p>The loop is recursive: large goals contain smaller goals, each running its own spec/test/prompt/execute cycle. An agent is free to break a top-level goal into any number of inner loops, in any order, using whatever skills fit.</p>
+<p>The delivery loop is the protocol every piece of work follows. The canonical loop is <strong>Intent -&gt; Context -&gt; Execution -&gt; Evidence -&gt; Evaluation -&gt; Revision</strong>. Domain documents can give local examples of that loop, but the root sequence stays the same.</p>
+<p>The loop is recursive: large goals contain smaller goals, each running its own intent/context/execution/evidence/evaluation/revision cycle. An agent is free to break a top-level goal into any number of inner loops, in any order, using whatever skills fit.</p>
 <p><strong>Design rule.</strong> When a step fails, go back to the smallest correction — usually the spec — update it, regenerate the downstream artifacts, re-run. Don't restart from scratch. The loop is the recovery mechanism, not just the build mechanism.</p>
-<p><strong>Lifecycle.</strong> The four-step contract is settled. The skills, tools, and workflows that run inside the contract iterate continuously. The outer loop (review → ship → observe → deprecate) is also stable in shape; the implementation evolves with the team and the iterating layers.</p>
-<p><strong>Healthy.</strong> Every piece of work passes through all four steps with evidence at each. Failures route to the smallest correction. The loop is recursive in practice, not just in theory.</p>
-<p><strong>Unhealthy.</strong> Steps get skipped under time pressure. Agents prompt-and-execute without specs or tests. Work is "done" without verification. Loop iterations re-litigate things that should have been settled in the spec.</p>
+<p><strong>Lifecycle.</strong> The six-stage contract is settled. The skills, tools, prompts, tests, workflows, and review practices that run inside the contract iterate continuously. The implementation evolves with the team and the iterating layers.</p>
+<p><strong>Healthy.</strong> Every piece of work has clear intent, sufficient context, real execution, observable evidence, explicit evaluation, and a revision path. Failures route to the smallest correction. The loop is recursive in practice, not just in theory.</p>
+<p><strong>Unhealthy.</strong> Steps get skipped under time pressure. Agents prompt-and-execute without specs, context, evidence, or eval specs. Work is "done" without evaluation. Loop iterations re-litigate things that should have been settled in the spec.</p>
 <p>For the principles that govern the loop, see <code>sw-dev-principles.html</code> §The delivery loop and §Intent and specification.</p>
 <hr />
 </section>
@@ -616,7 +616,7 @@
 <td>OpenClaw, framework choices, vendor SDKs</td>
 <td>You → board → agent → PR</td>
 <td>Slack, Sentry, user feedback, ambient</td>
-<td>Spec → test → prompt → execute</td>
+<td>Intent/spec → context/prompt → execution → evidence/tests → evaluation/review → revision</td>
 </tr>
 <tr class="even">
 <td><strong>Marketing</strong></td>
@@ -624,7 +624,7 @@
 <td>Ad platforms, analytics tools, CMS</td>
 <td>You → marketer → agent → publish</td>
 <td>Performance signals, customer feedback</td>
-<td>Hypothesis → asset → test → measure → learn</td>
+<td>Intent/hypothesis → audience context → publish → measure → evaluate → revise</td>
 </tr>
 <tr class="odd">
 <td><strong>Sales</strong></td>
@@ -632,7 +632,7 @@
 <td>CRM, dialer, prospecting tools</td>
 <td>You → SDR/AE → agent</td>
 <td>Inbound, outbound, referrals</td>
-<td>Lead → qualify → propose → close → record</td>
+<td>Intent/target → deal context → outreach/sale → response data → evaluate → revise</td>
 </tr>
 <tr class="even">
 <td><strong>Context management</strong> (including the <code>knowledge-base/</code>)</td>
@@ -640,7 +640,7 @@
 <td>MCP server, search backend</td>
 <td>Owner → editor → agent</td>
 <td>Interviews, transcripts, source docs</td>
-<td>Capture → synthesize → review → publish</td>
+<td>Intent/question → source context → synthesize → evidence → review → revise</td>
 </tr>
 <tr class="odd">
 <td><strong>Operations / SOPs</strong></td>
@@ -648,7 +648,7 @@
 <td>Workflow tools, automation platforms</td>
 <td>Owner → operator → agent</td>
 <td>Tickets, alerts, exceptions</td>
-<td>Trigger → run SOP → verify → log</td>
+<td>Intent/trigger → operating context → run SOP → evidence → evaluate → revise</td>
 </tr>
 </tbody>
 </table>
@@ -687,7 +687,7 @@
 <p><strong>Settled</strong> (the framework itself):</p>
 <ul>
 <li>The five layers (substrate / iterating / operational / intake / loop).</li>
-<li>The durability hierarchy (substrate is what survives one-shot regeneration; iterating layers are rented; operational shape is structural; intake is the world-facing surface; the loop is the contract).</li>
+<li>The durability hierarchy (substrate is what survives one-shot regeneration; iterating layers are rented; operational shape is structural; intake is the world-facing interface; the loop is the contract).</li>
 <li>The cross-layer rules (investments are not interchangeable; substrate is the durability lever; healthy systems compound asset value; the framework absorbs improvement).</li>
 <li>The domain-agnostic generalization (the same shape applies to software, marketing, sales, knowledge management, operations).</li>
 </ul>
@@ -709,6 +709,7 @@
     <p class="lede-2">Sibling HTML-native documents in this folder.</p>
     <div class="related-grid">
       <a class="related-card" href="./general/system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root philosophy for intent, context, action, evidence, goals, capabilities, jobs, processes, actors, and substrate.</div></a>
+      <a class="related-card" href="./general/orderly-systems.html"><div class="related-name">Orderly Systems</div><div class="related-desc">The company-level application of the system philosophy and compounding framework.</div></a>
       <a class="related-card" href="./general/operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
 <a class="related-card" href="./definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
 <a class="related-card" href="./principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems in any field: sport, education, business, operations, software, and AI-assisted work.</div></a>

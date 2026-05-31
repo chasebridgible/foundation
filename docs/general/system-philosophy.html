@@ -897,7 +897,7 @@
                 <p class="model-thread-copy">The job is to design and implement the user experience so it matches the intended product behavior and can be checked against it.</p>
                 <div class="model-thread-list">
                   <div class="model-thread-row"><strong>Input:</strong> product intent, context, constraints, and examples.</div>
-                  <div class="model-thread-row"><strong>Output:</strong> a working slice of the experience.</div>
+                  <div class="model-thread-row"><strong>Output:</strong> a working part of the experience.</div>
                 </div>
               </div>
             </div>
@@ -922,7 +922,7 @@
                 <div class="model-thread-title">Run the build path</div>
                 <p class="model-thread-copy">The process is the sequence someone follows to complete the job: clarify intent, design the interaction, build it, test it, review the rendered result, and revise.</p>
                 <div class="model-thread-list">
-                  <div class="model-thread-row"><strong>Decision:</strong> what behavior is in this slice?</div>
+                  <div class="model-thread-row"><strong>Decision:</strong> which behavior belongs in this pass?</div>
                   <div class="model-thread-row"><strong>Check:</strong> does the rendered experience match the intent?</div>
                 </div>
               </div>
@@ -1005,7 +1005,7 @@
           </div>
         </div>
       </div>
-      <p>Software development, the Business OS, context substrate, and the Orderly Systems offer apply this root model to different domains of work.</p>
+      <p>Software development, the Business OS, context substrate, and Orderly Systems apply this root model to different domains of work.</p>
       <p>This document separates durable principles from current operating choices. <strong>Principles</strong> are the parts I expect to survive changes in tools, models, teams, companies, and markets. <strong>Operating choices</strong> are Foundation's current best way to express those principles. The words will sharpen as the system runs. The structure is the thing being protected.</p>
       <hr>
     </section>
@@ -1030,7 +1030,7 @@
       <div class="visual-block operating-loop-visual" aria-label="Top-down operating loop">
         <div class="visual-header">
           <div class="visual-title">The operating loop</div>
-          <div class="visual-kicker">intent to learning</div>
+          <div class="visual-kicker">intent to revision</div>
         </div>
         <div class="operating-loop-shell">
           <div class="operating-return-rail" aria-hidden="true">
@@ -1083,7 +1083,7 @@
             <div class="operating-grid three">
               <div class="operating-chip"><strong>Actor</strong>Person, agent, software system, vendor, workflow, or hybrid.</div>
               <div class="operating-chip"><strong>Action</strong>The concrete thing done or decision made.</div>
-              <div class="operating-chip"><strong>Surface</strong>The place work becomes visible: screen, call, form, handoff, dashboard, file, or document.</div>
+              <div class="operating-chip"><strong>Interface</strong>The place where the system is exposed or operated: screen, call, form, handoff, dashboard, file, or document.</div>
             </div>
           </div>
 
@@ -1134,7 +1134,7 @@
                 <div class="operating-stage-title">Revision</div>
                 <div class="operating-stage-copy">Preserve what was learned so the next actor starts from a better system.</div>
               </div>
-              <div class="operating-stage-rule">how learning sticks</div>
+              <div class="operating-stage-rule">how revision sticks</div>
             </div>
             <div class="operating-grid two">
               <div class="operating-chip"><strong>Update the artifact</strong>Spec, process, skill, capability, context pack, decision rule, or eval spec.</div>
@@ -1144,7 +1144,8 @@
         </div>
       </div>
       <p>The visual carries the loop. The important distinction is timing: intent and context come before action; evidence comes after action; evaluation judges the evidence; revision updates the system so the next loop starts with better context.</p>
-      <p><strong>Context</strong> is knowledge prepared for action. It is the relevant subset of knowledge plus the current goal, constraints, state, actor, tools, risks, examples, decision criteria, and evidence needed for the current job.</p>
+      <p><strong>Knowledge</strong> is stored understanding: facts, history, decisions, definitions, examples, data, principles, and notes. <strong>Context</strong> is knowledge prepared for action: the relevant subset of knowledge plus the current goal, constraints, state, actor, tools, risks, examples, decision criteria, and evidence needed for the current job.</p>
+      <p><strong>Data</strong> is recorded fact or event history. <strong>Evidence</strong> is the part of reality selected to judge whether intent became result. <strong>Evaluation</strong> compares evidence against intent. <strong>Revision</strong> updates the system so the next action starts from what was learned.</p>
       <p><strong>Specs</strong> can attach to any layer where intent, context, and evidence need to be preserved: the system, a capability, a job, a process, an action, or an evaluation. An <strong>eval spec</strong> is the spec for judging evidence. It names what must be observed, measured, or checked, the passing condition, and what the system should update when evidence comes back. A test is one way to collect evidence for an eval; evaluation is the broader category.</p>
       <hr>
     </section>
@@ -1201,7 +1202,7 @@
           <div class="stack-row">
             <div class="stack-name">Context</div>
             <div class="stack-copy">Knowledge prepared for action: the relevant subset of knowledge plus the current goal, constraints, state, actor, tools, risk, and evidence needed for a specific job.</div>
-            <div class="stack-rule">what is known</div>
+            <div class="stack-rule">knowledge for action</div>
           </div>
           <div class="stack-row">
             <div class="stack-name">Evidence</div>
@@ -1216,13 +1217,14 @@
           <div class="stack-row">
             <div class="stack-name">Revision</div>
             <div class="stack-copy">The system update that preserves what was learned so future work starts from better context.</div>
-            <div class="stack-rule">how learning sticks</div>
+            <div class="stack-rule">how revision sticks</div>
           </div>
         </div>
       </div>
       <p>This vocabulary is a diagnostic tool. When a result misses, it gives the operator a smaller layer to inspect: spec clarity, capability, job ownership, process clarity, action quality, actor fit, context, tool fit, evidence, evaluation, or revision.</p>
+      <p><strong>Capability and job are different layers.</strong> A capability names what the system can reliably do. A job names the work required for that capability to exist, operate, or improve. For example, <em>pay employees accurately and on time</em> is a capability; <em>run payroll for this pay period</em> is a job; approving hours, calculating pay, resolving exceptions, and recording proof are process steps and actions inside the job.</p>
       <p><strong>Specs carry intent at every layer.</strong> Use a spec wherever a layer needs explicit intent, context, and evidence: the system, a capability, a job, a process, an action, or an evaluation.</p>
-      <p><strong>Surfaces are where work becomes visible.</strong> In software, a surface can be a screen, route, command, schema, workflow file, dashboard, or document. In business, a surface can be an offer, sales call, intake form, fulfillment handoff, customer dashboard, invoice, SOP, metric report, or decision meeting. A surface shows where an actor can act or where evidence can be observed; the process then names the action, actor, tool, context, and eval spec for that place.</p>
+      <p><strong>Interfaces are where the system is exposed or operated.</strong> In software, an interface can be a screen, route, command, schema, workflow file, dashboard, or document. In business, an interface can be an offer, sales call, intake form, fulfillment handoff, customer dashboard, invoice, SOP, metric report, or decision meeting. An interface shows where an actor can act or where evidence can be observed; the process then names the action, actor, tool, context, and eval spec for that place. Older backfill documents may use <em>surface</em> for this idea, but the broader system vocabulary is interface.</p>
       <hr>
     </section>
 
@@ -1248,7 +1250,7 @@
 
     <section id="6-capability-is-the-unit-of-performance" class="level2 spec-section">
       <h2>6. Capability is the unit of performance</h2>
-      <p><strong>A capability is the ability to reliably produce an outcome.</strong> In software delivery, a capability is often a portable vertical slice: schema, API, types, UI, and tests traveling together. In business, a capability is broader: the organization's ability to create an offer, reach buyers, sell, fulfill, retain, hire, measure, or improve. The software definition is a domain-specific instance of the broader definition.</p>
+      <p><strong>A capability is the ability to reliably produce an outcome.</strong> In software delivery for Orderly Systems, a capability is often portable implementation inventory: schema, API, types, UI, and tests traveling together so the same capability can be delivered to another client. In business, a capability is broader: the organization's ability to create an offer, reach buyers, sell, fulfill, retain, hire, measure, or improve. The software definition is a domain-specific instance of the broader definition.</p>
       <p>A business can build something valuable and still fail when it lacks the capability to distribute it, sell it, package it, price it, fulfill it repeatedly, or capture money from it. An entrepreneur can work hard and still fail when effort misses the missing capability. Effort is real, but capability is what changes the system's ability to win.</p>
       <p>The primary business capability is broader than "create value." A more complete statement is: <strong>build value, deliver value, and capture money.</strong> That top-level capability decomposes into at least three subordinate capabilities:</p>
       <ol>
@@ -1268,7 +1270,7 @@
       <pre><code>Goal: working video-player experience
 Capability: user can open, control, recover, and exit playback
 Job: define and implement the open-player process
-Process: inspect current player surfaces, define states, implement behavior, verify rendered UX
+Process: inspect current player interfaces, define states, implement behavior, verify rendered UX
 Skill: the reusable workflow that tells an agent how to run that process
 Actions: read files, identify state model, edit component, run tests, capture screenshots
 Evidence: tests pass, playback states render, gestures work, errors recover
@@ -1283,7 +1285,7 @@ Evaluation: compare that evidence against the eval spec and decide pass, revise,
       <p><strong>Context</strong> is knowledge prepared for action. It is the relevant subset of knowledge, plus the current goal, constraints, state, actor, tools, risk, and evidence needed for a specific job. Knowledge becomes useful when the system can turn it into context for action.</p>
       <p>A knowledge base is one implementation of context substrate. Its job is to preserve the operating mind of the business so future actors can act with the right goals, promises, constraints, standards, history, decisions, and examples in view.</p>
       <p>Orderly Systems starts by asking questions because intake is how hidden work becomes visible. The intake process discovers the business system: what the owner is trying to accomplish, what the business promises, which capabilities matter, which jobs produce them, who does the jobs today, what process is followed, what context is missing, what decisions happen, what evidence is trusted, and where the system fails.</p>
-      <p>That discovery process should become operating substrate: capability maps, job records, process maps, decision rules, metric definitions, offer context, actor assignments, evidence requirements, and update rules. The exact artifact names should fit the business domain. The function is stable: make context reusable so the next human, agent, or system performs better.</p>
+      <p>That discovery process should become operating substrate: capability maps, job records, process maps, decision rules, metric definitions, offer context, actor assignments, evidence requirements, and update rules. Substrate is the durable memory layer inside the system. It is not the whole system: the system also includes actors, tools, intake, execution, evidence, evaluation, and revision. The exact artifact names should fit the business domain. The function is stable: make context reusable so the next human, agent, or system performs better.</p>
       <p>A document entry is useful when it changes future action. A metric is useful when it changes a decision. An intake answer is useful when it updates a job, process, actor assignment, offer, or capability map. Otherwise the business has collected information without improving the system.</p>
       <hr>
     </section>
@@ -1347,7 +1349,7 @@ Evaluation: compare that evidence against the eval spec and decide pass, revise,
         <li>A skill is the software-development form of a process or workflow.</li>
         <li>Knowledge becomes useful when it becomes context for action.</li>
         <li>Learning updates the artifacts that guide future work.</li>
-        <li>Surfaces show where behavior appears; process/action maps name the actions, actors, context, tools, and evidence connected to those surfaces.</li>
+        <li>Interfaces show where a system is exposed or operated; process/action maps name the actions, actors, context, tools, and evidence connected to those interfaces.</li>
       </ul>
       <p><strong>Iterating</strong> (current best implementation):</p>
       <ul>
@@ -1366,6 +1368,7 @@ Evaluation: compare that evidence against the eval spec and decide pass, revise,
     <p class="lede">Sibling HTML-native documents that this meta layer connects.</p>
     <div class="related-grid">
       <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The five-layer durability framework that explains how substrate, intake, operational shape, and loops compound.</div></a>
+      <a class="related-card" href="./orderly-systems.html"><div class="related-name">Orderly Systems</div><div class="related-desc">What Orderly Systems is, what it does, and how it applies the root model to business systems.</div></a>
       <a class="related-card" href="./operating-spec.html"><div class="related-name">Building Software with Agents</div><div class="related-desc">The working spec for applying these system mechanics to agent-assisted software work.</div></a>
       <a class="related-card" href="./business-os.html"><div class="related-name">The Business OS</div><div class="related-desc">The business-operations working spec for goals, capabilities, jobs, processes, context, and evidence.</div></a>
       <a class="related-card" href="./business-capability-map.html"><div class="related-name">Business Capability Map</div><div class="related-desc">A working inventory of recurring business capabilities and the jobs that make them real.</div></a>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.html-docs-navigation.descriptive">
+<meta name="spec:type" content="descriptive">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-30">
+<title>Foundation HTML Docs Navigation</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.html-docs-navigation.descriptive",
+  "title": "Foundation HTML Docs Navigation",
+  "type": "descriptive",
+  "status": "active",
+  "lastUpdated": "2026-05-30",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": null,
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.spec-system",
+      "relationship": "depends-on",
+      "sections": [
+        "registry",
+        "entry-points",
+        "foundation-specs"
+      ]
+    },
+    {
+      "id": "foundation.workspace-model.descriptive",
+      "relationship": "depends-on",
+      "sections": [
+        "product-intent",
+        "interface-journey",
+        "links-and-paths"
+      ]
+    },
+    {
+      "id": "foundation.spec-process",
+      "relationship": "depends-on",
+      "sections": [
+        "spec-authoring",
+        "risk-tiers"
+      ]
+    },
+    {
+      "id": "foundation.spec-linking",
+      "relationship": "depends-on",
+      "sections": [
+        "resolution",
+        "path-update-loop"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-html-docs-navigation.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/generate-site-map.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/site-map.js",
+      "kind": "config",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/site-nav.js",
+      "kind": "source",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Default durable HTML document root whose folder tree should drive the navigation structure."
+    },
+    {
+      "path": "foundation/docs/specs/new-spec.mjs",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Spec scaffolds must continue loading the shared docs navigation scripts."
+    },
+    {
+      "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Target repo setup workflow that should install or verify local HTML docs navigation for Foundation-based repos."
+    },
+    {
+      "path": "foundation/scripts/foundation-doctor.mjs",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Target repo validator that checks whether durable HTML docs have local navigation assets and script includes."
+    },
+    {
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "kind": "test",
+      "ownership": "reference",
+      "notes": "Regression tests for target repo HTML docs navigation validation."
+    },
+    {
+      "path": "foundation/templates/target-repo-AGENTS.md",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Target repo adapter template that may need to point agents at the local docs navigation setup rules."
+    },
+    {
+      "path": "foundation/docs/specs/spec-system.css",
+      "kind": "design",
+      "ownership": "reference",
+      "notes": "Provides shared sidebar, typography, responsive, and local table-of-contents styling used by rendered specs."
+    },
+    {
+      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Durable HTML document that is included in the generated map and exercises generated-sidebar rendering."
+    },
+    {
+      "path": "foundation/package.json",
+      "kind": "config",
+      "ownership": "reference",
+      "notes": "Exposes the site-map generation command."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "HDN-1",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/generate-site-map.mjs",
+      "command": "npm run site-map",
+      "mapsTo": [
+        "foundation.html-docs-navigation.descriptive#states-and-rules"
+      ],
+      "evidence": "Generated navigation data preserves the docs folder tree instead of emitting hand-curated content categories.",
+      "notes": "Generator emits a folder tree with stable file nodes derived from the configured HTML document roots."
+    },
+    {
+      "id": "HDN-2",
+      "level": "visual",
+      "status": "existing",
+      "path": "foundation/docs/site-nav.js",
+      "mapsTo": [
+        "foundation.html-docs-navigation.descriptive#ux-contracts",
+        "foundation.html-docs-navigation.descriptive#design-placeholders"
+      ],
+      "evidence": "Rendered desktop and mobile screenshots show the current document highlighted inside its real folder path, with no overflow or hidden primary navigation.",
+      "notes": "Renderer consumes the folder tree, preserves spec link attributes, expands the selected path, and can create a sidebar for bare durable HTML docs."
+    },
+    {
+      "id": "HDN-3",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "mapsTo": [
+        "foundation.html-docs-navigation.descriptive#edge-cases"
+      ],
+      "evidence": "Every durable HTML document included in the navigation either renders the shared navigation itself or is explicitly excluded from the navigable corpus.",
+      "notes": "The GBrain mechanics page now loads the shared site-map and site-nav scripts."
+    },
+    {
+      "id": "HDN-4",
+      "level": "integration",
+      "status": "existing",
+      "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+      "mapsTo": [
+        "foundation.html-docs-navigation.descriptive#foundation-based-repo-setup"
+      ],
+      "evidence": "A target repo connected to Foundation receives or verifies local HTML docs navigation so its own durable HTML files render with the same folder-derived sidebar.",
+      "notes": "The install skill and Foundation doctor describe and verify target-local docs navigation assets while preserving target-owned spec registry resolution."
+    }
+  ],
+  "tags": [
+    "descriptive",
+    "foundation",
+    "docs",
+    "navigation",
+    "html"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">D</div>
+    <div>
+      <div class="sidebar-title">Foundation HTML Docs Navigation</div>
+      <div class="sidebar-sub">descriptive spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#capability-contract"><span class="nav-num">02</span>Contract</a>
+    <a class="nav-item" href="#user-model"><span class="nav-num">03</span>User model</a>
+    <a class="nav-item" href="#interface-journey"><span class="nav-num">04</span>Journey</a>
+    <a class="nav-item" href="#foundation-based-repo-setup"><span class="nav-num">05</span>Setup</a>
+    <a class="nav-item" href="#states-and-rules"><span class="nav-num">06</span>Rules</a>
+    <a class="nav-item" href="#edge-cases"><span class="nav-num">07</span>Edges</a>
+    <a class="nav-item" href="#ux-contracts"><span class="nav-num">08</span>UX</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">09</span>Links</a>
+    <a class="nav-item" href="#design-placeholders"><span class="nav-num">10</span>Rendered</a>
+    <a class="nav-item" href="#test-coverage"><span class="nav-num">11</span>Coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-html-docs-navigation.html</div>
+    <h1>Foundation HTML Docs Navigation</h1>
+    <p class="lede">Every Foundation-based repo needs a shared left-side document browser for its durable HTML files. The browser's structure comes from that repo's actual folders and files. It complements, but does not replace, the spec registry that agents use to resolve specs by capabilities, jobs, processes, paths, and coverage.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-30</div>
+      <div><strong>Canonical section:</strong> <a href="#product-intent">#product-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
+      <h1>Product intent</h1>
+      <p>The left side of every rendered HTML document in a Foundation-based repo should answer: "Where am I in this repo's documents, and what nearby documents can I open?" It should behave like a document tree for the repo, not like a curated product taxonomy and not like a spec-system index.</p>
+      <p>The desired model is simple: if durable HTML documents are arranged in folders in the repo, that arrangement appears in the navigation. In Foundation, a page under <code>docs/specs/templates/</code> appears under that folder path and a page under <code>docs/principles/</code> appears under that folder path. In a target repo, a page under that repo's own <code>docs/</code>, <code>knowledge-base/</code>, or configured HTML docs root appears under its own local path.</p>
+      <p>The feature has two consumers. Humans need the visible folder tree to navigate rendered documents. Agents need the spec registry to resolve behavior-bearing specs by ID, capability, job, process, path ownership, implementation reference, and coverage. Those two systems must coexist: the sidebar organizes documents by file location; the spec registry organizes specs by durable semantic metadata.</p>
+      <h3>Out of scope</h3>
+      <ul>
+        <li>This spec does not replace or weaken the spec registry, spec metadata schema, spec authoring process, or code-path ownership semantics.</li>
+        <li>This spec does not define a marketing site, search engine, content recommendation system, or hand-authored table of contents.</li>
+        <li>This spec does not require implementation by a runtime app. A generated static JavaScript file is acceptable when its generated data preserves the folder tree.</li>
+      </ul>
+      <div class="callout info"><strong>Separation rule:</strong> spec pages are HTML documents for this feature and semantic contracts for the spec registry. Their spec IDs, types, parent/child graph, capability links, job links, process links, path ownership, and coverage remain critical for agents, but they must not decide which folder or category a document appears under in the visual document tree.</div>
+    </section>
+
+    <section id="capability-contract" data-spec-section="capability-contract" data-section-type="contracts">
+      <h2>Capability contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Actor</td><td>Human reader or agent reviewing HTML documentation in Foundation or any Foundation-based repo.</td><td>User request on 2026-05-30.</td></tr>
+          <tr><td>Intended outcome</td><td>The actor can navigate all durable local HTML docs through the left sidebar using the repo's existing folder structure while agents retain spec-registry resolution for specs.</td><td>This spec's product intent and states.</td></tr>
+          <tr><td>Domain object</td><td>A durable HTML document and its repo-relative path under the repo's configured HTML docs roots.</td><td><code>foundation/docs/**/*.html</code> today; target repos may have their own docs roots after setup.</td></tr>
+          <tr><td>Primary action</td><td>Expand a folder, choose a document, and keep page-local section navigation available.</td><td>Rendered sidebar behavior.</td></tr>
+          <tr><td>Structure source</td><td>Repository folders and files, not spec type, spec status, spec parentage, or a hand-curated category list.</td><td>User explicitly rejected unique categorization judgment.</td></tr>
+          <tr><td>Display labels</td><td>Folders use folder names. Documents may use the HTML <code>&lt;title&gt;</code> for readability, with path context retained by the tree.</td><td>Current pages already carry useful titles.</td></tr>
+          <tr><td>Surfaces</td><td>Left sidebar on rendered HTML docs, generated site-map data, spec scaffolding, and Foundation target-repo setup.</td><td><code>docs/site-nav.js</code>, <code>docs/site-map.js</code>, <code>docs/specs/new-spec.mjs</code>, and <code>skills/install-foundation-substrate/SKILL.md</code>.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="user-model" data-spec-section="user-model" data-section-type="user-model">
+      <h2>User model</h2>
+      <table class="status-table">
+        <thead><tr><th>User</th><th>Goal</th><th>Context</th><th>Success feeling</th></tr></thead>
+        <tbody>
+          <tr><td>Human reader</td><td>Move between related Foundation documents without returning to the filesystem or guessing URLs.</td><td>They are reading one HTML document in a browser and need to understand the surrounding document set.</td><td>The sidebar feels like the repo's folders made visible.</td></tr>
+          <tr><td>Target repo reader</td><td>Use the same rendered-doc navigation model in a repo that has been connected to Foundation.</td><td>They are reading product specs, project docs, knowledge-base exports, ADRs, or other durable HTML docs in the target repo.</td><td>The sidebar reflects the target repo's own folders, not Foundation's folders.</td></tr>
+          <tr><td>Spec author</td><td>Add or move an HTML document and have navigation reflect the new path without updating a taxonomy.</td><td>They are creating durable docs or specs as files in Foundation or a target repo.</td><td>Putting the file in the right folder is enough to put it in the right navigation location.</td></tr>
+          <tr><td>Agent</td><td>Resolve nearby docs visually while preserving the separate registry path for finding specs connected to capabilities, jobs, and processes.</td><td>It is inspecting rendered docs, source files, or spec metadata.</td><td>The navigation structure matches path-based repo reasoning and registry lookup remains available for semantic spec resolution.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
+      <h2>Interface journey</h2>
+      <ol>
+        <li><strong>Foundation setup:</strong> a repo is connected to Foundation through the target-repo setup flow. The setup creates or verifies the local assets, commands, and scaffolding needed for that repo's own durable HTML docs to render the shared navigation.</li>
+        <li><strong>Entry:</strong> a reader opens any durable HTML document in Foundation or a Foundation-based target repo that participates in the shared renderer.</li>
+        <li><strong>Orientation:</strong> the left sidebar shows a document-tree region and a page-local section region. The current document is visibly selected inside its actual folder path.</li>
+        <li><strong>Folder navigation:</strong> the reader expands or collapses folders. Opening a folder reveals child folders and HTML files in deterministic path order.</li>
+        <li><strong>Document navigation:</strong> selecting a document navigates to that document. On the destination page, the same document-tree model appears, with the destination document selected and ancestor folders open.</li>
+        <li><strong>Page-local navigation:</strong> section links for the current document remain separate from the repo document tree so the reader can distinguish "move within this page" from "open another page."</li>
+        <li><strong>Agent lookup:</strong> if the task is to find the spec behind a capability, job, process, implementation path, or coverage item, the agent uses the repo's spec registry. The sidebar is only visual document navigation and must not be treated as the semantic spec graph.</li>
+        <li><strong>Exit:</strong> the reader can stop on any document with enough sidebar context to know where the document lives in the repo.</li>
+      </ol>
+    </section>
+
+    <section id="foundation-based-repo-setup" data-spec-section="foundation-based-repo-setup" data-section-type="setup-contract">
+      <h2>Foundation-based repo setup</h2>
+      <p>When a repo is connected to Foundation, HTML docs navigation becomes part of the repo setup contract. The target repo keeps its own product specs, project docs, knowledge, tests, ADRs, implementation paths, and generated navigation data. Foundation supplies the shared process, generator behavior, renderer behavior, validators, and setup guidance.</p>
+      <table class="status-table">
+        <thead><tr><th>Setup area</th><th>Required behavior</th><th>Failure mode</th></tr></thead>
+        <tbody>
+          <tr><td>Local assets</td><td>The target repo has local or pinned generated assets needed to render its own HTML docs sidebar without depending on Foundation's current working tree at runtime.</td><td>A target repo opens Foundation's navigation tree instead of its own.</td></tr>
+          <tr><td>Local map</td><td>The target repo generates navigation data from its own configured HTML docs roots.</td><td>Only Foundation docs are visible, or target docs are categorized by Foundation-specific groups.</td></tr>
+          <tr><td>Spec registry</td><td>The target repo's spec registry remains the authoritative semantic lookup for target specs, capabilities, jobs, processes, owned paths, implementation references, and coverage.</td><td>The visual sidebar is used as a substitute for semantic spec resolution.</td></tr>
+          <tr><td>Scaffolding</td><td>New target-owned specs and durable HTML docs opt into the local sidebar automatically or through a documented command.</td><td>Authors must remember custom script tags for each new doc.</td></tr>
+          <tr><td>Validation</td><td>Setup and doctor checks can report whether the target repo has local docs navigation assets, a current local map, and a valid spec registry.</td><td>A repo claims Foundation setup while rendered docs or registry lookup are broken.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="states-and-rules" data-spec-section="states-and-rules" data-section-type="states-rules">
+      <h2>States and rules</h2>
+      <table class="status-table">
+        <thead><tr><th>State or rule</th><th>Required behavior</th><th>Unacceptable behavior</th></tr></thead>
+        <tbody>
+          <tr><td>Source of truth</td><td>The navigation tree is derived from durable HTML file paths under the configured docs root.</td><td>Grouping pages into labels such as "Core Concepts" or "Foundation Specs" when those labels are not folders.</td></tr>
+          <tr><td>Root</td><td>The default Foundation root is <code>foundation/docs</code>. Target repos use their own configured HTML roots and local generated map.</td><td>Hard-coding Foundation-specific groups into reusable navigation behavior.</td></tr>
+          <tr><td>Folder labels</td><td>Folder nodes use folder names transformed only for readability, such as hyphen-to-space or title case.</td><td>Renaming folders based on perceived importance, topic, spec type, or author judgment.</td></tr>
+          <tr><td>Document labels</td><td>Document nodes prefer the HTML <code>&lt;title&gt;</code>; if missing, they fall back to filename. Duplicate titles remain distinguishable through their folder position.</td><td>Flattening duplicate titles into one ambiguous link.</td></tr>
+          <tr><td>Ordering</td><td>Ordering is deterministic and path-derived: folder ancestors first, <code>index.html</code> before sibling files, then natural filename order unless a later adjacent-folder manifest is explicitly specified by a separate spec.</td><td>A central hand-maintained order list that silently overrides where files live.</td></tr>
+          <tr><td>Current page</td><td>The current document is highlighted; its ancestor folders are open on load.</td><td>Highlighting a group only, or failing to show the selected document's folder path.</td></tr>
+          <tr><td>Missing map</td><td>If generated map data is missing, the page still renders its content and page-local section nav. The document-tree region may show a clear empty/error state.</td><td>Breaking the whole document because navigation data failed to load.</td></tr>
+          <tr><td>Included document</td><td>A document included in the navigation should render the shared navigation itself, unless explicitly marked as excluded.</td><td>A one-way link where readers can enter a page and lose the document tree.</td></tr>
+          <tr><td>Excluded files</td><td>Generated reports, build output, vendor output, hidden directories, and transient artifacts may be excluded by explicit rules that are visible in the generator contract.</td><td>Quietly omitting durable authored HTML docs.</td></tr>
+          <tr><td>Spec metadata</td><td>Spec metadata may add <code>data-spec-link</code> or similar machine hooks to document links.</td><td>Using spec metadata to reclassify the document's navigation location.</td></tr>
+          <tr><td>Registry preservation</td><td>Spec registry generation, lookup, and validation continue to work independently of visual sidebar generation.</td><td>A sidebar refactor removes, hides, or degrades registry fields agents need for capabilities, jobs, processes, paths, or coverage.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="edge-cases" data-spec-section="edge-cases" data-section-type="edge-cases">
+      <h2>Edge cases</h2>
+      <ul>
+        <li><strong>Root-level HTML files:</strong> show them directly under the docs root rather than inventing a topical category.</li>
+        <li><strong>Nested folders:</strong> preserve nesting deeply enough that moving a file changes the visible path after regeneration.</li>
+        <li><strong>Duplicate filenames or titles:</strong> rely on folder position for disambiguation and keep link targets exact.</li>
+        <li><strong>Moved documents:</strong> a path move is a navigation event. Regenerating the map should remove the old link and add the new link.</li>
+        <li><strong>Broken generated data:</strong> a malformed generated map should fail checks before handoff; rendered pages should degrade without hiding content.</li>
+        <li><strong>Pages without shared chrome:</strong> either opt them into the shared navigation or exclude them from the generated tree with an explicit reason.</li>
+        <li><strong>Target repo without docs yet:</strong> show a valid empty state and keep spec-registry setup checks separate.</li>
+        <li><strong>Foundation revision changes:</strong> target repos using pinned Foundation behavior should have an explicit update path so docs navigation changes do not silently alter generated output.</li>
+        <li><strong>Large document trees:</strong> collapsed folders, stable indentation, and selected-path expansion keep the sidebar scannable without flattening the tree.</li>
+      </ul>
+    </section>
+
+    <section id="ux-contracts" data-spec-section="ux-contracts" data-section-type="ux-contracts">
+      <h2>UX contracts</h2>
+      <table class="status-table">
+        <thead><tr><th>Area</th><th>Contract</th><th>Verification signal</th></tr></thead>
+        <tbody>
+          <tr><td>Information architecture</td><td>The document tree communicates repo location first. Page-local section links communicate location within the current document.</td><td>A cold reader can identify both the current page's folder and current page sections from the sidebar.</td></tr>
+          <tr><td>Registry separation</td><td>Rendered navigation and spec registry lookup are clearly separate concepts. The visual document tree helps people move between files; the registry helps agents find behavior-bearing specs.</td><td>An agent can still resolve specs by ID, capability, job, process, path ownership, implementation reference, and coverage.</td></tr>
+          <tr><td>Accessibility</td><td>The document tree is inside a named navigation region. Folder controls expose expanded/collapsed state and remain keyboard reachable.</td><td>Keyboard traversal can expand folders and open documents; focus is visible.</td></tr>
+          <tr><td>Responsive behavior</td><td>Desktop keeps the document tree in a sticky left region. Narrow screens place the same navigation before content or behind an explicit, accessible disclosure without changing meaning.</td><td>Mobile and desktop screenshots preserve current-page context and section access.</td></tr>
+          <tr><td>Density</td><td>The sidebar may be dense, but text cannot overlap or resize the layout unpredictably. Long labels wrap or truncate consistently while full meaning remains available through context or title text.</td><td>Rendered checks at representative widths show no incoherent overlap.</td></tr>
+          <tr><td>Copy</td><td>Labels should use document language: "Documents", folder names, and page titles. Avoid taxonomy labels that imply editorial judgment.</td><td>The left nav mirrors folder structure rather than a custom subject hierarchy.</td></tr>
+          <tr><td>State feedback</td><td>Current document, hover, focus, open folder, and unavailable/error states are visually distinct.</td><td>Manual interaction can identify each state without reading source code.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="links-and-paths" data-spec-section="links-and-paths" data-section-type="links-paths">
+      <h2>Links and paths</h2>
+      <h3>Owning paths</h3>
+      <ul class="path-list">
+        <li><code>foundation/docs/specs/foundation-html-docs-navigation.html</code> - this descriptive contract.</li>
+        <li><code>foundation/docs/generate-site-map.mjs</code> - generator that should derive navigation data from folder structure.</li>
+        <li><code>foundation/docs/site-map.js</code> - generated navigation data consumed by rendered pages.</li>
+        <li><code>foundation/docs/site-nav.js</code> - client-side renderer that injects the shared document navigation into HTML pages.</li>
+      </ul>
+      <h3>Related references</h3>
+      <ul class="path-list">
+        <li><code>foundation/docs</code> - default durable HTML document root.</li>
+        <li><code>foundation/docs/specs/new-spec.mjs</code> - scaffolds new spec HTML pages with shared navigation scripts.</li>
+        <li><code>foundation/skills/install-foundation-substrate/SKILL.md</code> - target repo setup workflow that should install or verify local docs navigation.</li>
+        <li><code>foundation/templates/target-repo-AGENTS.md</code> - target repo adapter template that may point to local navigation setup expectations.</li>
+        <li><code>foundation/docs/specs/spec-system.css</code> - shared sidebar and document chrome styling.</li>
+        <li><code>foundation/docs/gbrain-backfill-mechanics.html</code> - durable HTML page used to verify generated-sidebar rendering for pages without a hand-authored sidebar.</li>
+        <li><code>foundation/package.json</code> - exposes <code>npm run site-map</code>.</li>
+      </ul>
+      <h3>Related specs</h3>
+      <ul>
+        <li><a data-spec-link="foundation.spec-system" href="./index.html">foundation.spec-system</a> - registry-backed spec entry point that this navigation should remain separate from.</li>
+        <li><a data-spec-link="foundation.workspace-model.descriptive" href="./foundation-workspace-model.html">foundation.workspace-model.descriptive</a> - target repo setup model this feature must join.</li>
+        <li><a data-spec-link="foundation.spec-process" href="./process.html">foundation.spec-process</a> - authoring and update obligations for this spec.</li>
+        <li><a data-spec-link="foundation.spec-linking" href="./linking.html">foundation.spec-linking</a> - path ownership and reference rules for moving ownership out of the spec-system index.</li>
+      </ul>
+    </section>
+
+    <section id="design-placeholders" data-spec-section="design-placeholders" data-section-type="design">
+      <h2>Rendered experience</h2>
+      <p>No final screenshot baseline exists yet. The intended rendered outcome is a shared document-tree region in the left sidebar that mirrors the current repo folder layout and coexists with each page's local section navigation.</p>
+      <table class="status-table">
+        <thead><tr><th>Viewport</th><th>Expected evidence</th><th>Risk to check</th></tr></thead>
+        <tbody>
+          <tr><td>Desktop</td><td>Sticky left sidebar, selected document visible within ancestor folders, local section navigation still available.</td><td>Large folder trees hiding page-local navigation or causing unreadable long labels.</td></tr>
+          <tr><td>Mobile</td><td>Navigation remains reachable before content or via an explicit disclosure; current page context is not lost.</td><td>Huge navigation block delaying content without an escape hatch.</td></tr>
+          <tr><td>Deep page</td><td>A nested file under <code>docs/specs/templates/</code> or <code>docs/specs/examples/</code> shows its real path.</td><td>Hard-coded categories obscuring where the file lives.</td></tr>
+          <tr><td>Non-spec page</td><td>A page like <code>docs/principles/sw-design-principles.html</code> appears under its folder even though it has no spec metadata.</td><td>Spec-only navigation that drops ordinary HTML docs.</td></tr>
+          <tr><td>Foundation-based target repo</td><td>A target repo's own HTML docs render with a sidebar built from that target repo's folders and keep its local spec registry available for agent lookup.</td><td>Foundation-only navigation or registry degradation.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="test-coverage" data-spec-section="test-coverage" data-section-type="coverage">
+      <h2>Test coverage</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Spec section</th><th>Coverage</th><th>Status</th><th>Gap</th></tr></thead>
+        <tbody>
+          <tr><td>HDN-1</td><td><code>#states-and-rules</code></td><td><code>npm run site-map</code> generates tree-preserving navigation data.</td><td>existing</td><td>Generated map uses folder and file nodes from configured HTML roots.</td></tr>
+          <tr><td>HDN-2</td><td><code>#ux-contracts</code>, <code>#design-placeholders</code></td><td>Rendered desktop and mobile evidence should show selected-path context, accessible folder controls, and no layout overlap.</td><td>existing</td><td>Renderer expands the selected path and can create a sidebar for bare durable HTML docs.</td></tr>
+          <tr><td>HDN-3</td><td><code>#edge-cases</code></td><td>Every included durable HTML page should either render shared navigation or be explicitly excluded.</td><td>existing</td><td><code>docs/gbrain-backfill-mechanics.html</code> now loads the shared navigation scripts.</td></tr>
+          <tr><td>HDN-4</td><td><code>#foundation-based-repo-setup</code></td><td>Target repo setup installs or verifies local docs navigation without weakening target-owned spec registry resolution.</td><td>existing</td><td>Install workflow and Foundation doctor cover local nav assets, command wiring, and script includes.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation HTML Docs Navigation - folder-derived document browser</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>
