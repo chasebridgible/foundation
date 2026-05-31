@@ -12,15 +12,15 @@ This repo is both the reference implementation and the shared system other repos
 - `docs/specs/foundation-workspace-model.html`: the workspace model for using one canonical Foundation repo from many target repos.
 - `docs/principles/`: durable principles for agentic software work, AI evals, software design, and compounding systems.
 - `docs/definitions/`: shared vocabulary for substrate, harnesses, skills, specs, and portability.
-- `docs/general/system-philosophy.html`: the root philosophy for intent, context, action, evidence, goals, capabilities, jobs, processes, actors, and substrate.
-- `docs/compounding-systems.html`: the five-layer framework for why this substrate should compound instead of drift.
+- `docs/fundamentals/system-philosophy.html`: the root philosophy for intent, context, action, evidence, goals, capabilities, jobs, processes, actors, and substrate.
+- `docs/fundamentals/compounding-systems.html`: the five-layer framework for why this substrate should compound instead of drift.
 - `scripts/foundation-doctor.mjs`: setup diagnostic for the canonical Foundation path, global Codex pointer, target repo adapters, target-owned spec namespaces, and pinned Foundation CI.
 - `.github/workflows/specs.yml`: CI enforcement for generated registry and metadata validity.
 
 ## Reading Order
 
-1. Read [System Philosophy](docs/general/system-philosophy.html).
-2. Read [The Compounding System](docs/compounding-systems.html).
+1. Read [System Philosophy](docs/fundamentals/system-philosophy.html).
+2. Read [The Compounding System](docs/fundamentals/compounding-systems.html).
 3. Read [Core Principles](docs/principles/core-principles.html).
 4. Read [Software Development Principles](docs/principles/sw-dev-principles.html).
 5. Read [AI Evals Principles](docs/principles/ai-evals-principles.html) before creating or changing evaluator rubrics, LLM judges, backfill quality gates, or eval workflows.

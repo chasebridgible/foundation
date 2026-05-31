@@ -27,48 +27,72 @@ window.SubstrateSiteMap = {
     },
     {
       "type": "folder",
-      "name": "general",
-      "title": "General",
-      "sourcePath": "docs/general",
+      "name": "fundamentals",
+      "title": "Fundamentals",
+      "sourcePath": "docs/fundamentals",
       "items": [
         {
           "type": "file",
           "name": "business-capability-map.html",
           "title": "Business Capability Map",
-          "path": "general/business-capability-map.html",
-          "sourcePath": "docs/general/business-capability-map.html",
+          "path": "fundamentals/business-capability-map.html",
+          "sourcePath": "docs/fundamentals/business-capability-map.html",
           "rootPath": "docs"
         },
         {
           "type": "file",
-          "name": "business-os.html",
-          "title": "The Business OS: A Working Spec",
-          "path": "general/business-os.html",
-          "sourcePath": "docs/general/business-os.html",
+          "name": "business-operating-system.html",
+          "title": "Business Operating System",
+          "path": "fundamentals/business-operating-system.html",
+          "sourcePath": "docs/fundamentals/business-operating-system.html",
           "rootPath": "docs"
         },
         {
           "type": "file",
-          "name": "operating-spec.html",
-          "title": "Building Software with Agents: A Working Spec",
-          "path": "general/operating-spec.html",
-          "sourcePath": "docs/general/operating-spec.html",
+          "name": "compounding-systems.html",
+          "title": "The Compounding System",
+          "path": "fundamentals/compounding-systems.html",
+          "sourcePath": "docs/fundamentals/compounding-systems.html",
           "rootPath": "docs"
         },
         {
           "type": "file",
           "name": "orderly-systems.html",
           "title": "Orderly Systems",
-          "path": "general/orderly-systems.html",
-          "sourcePath": "docs/general/orderly-systems.html",
+          "path": "fundamentals/orderly-systems.html",
+          "sourcePath": "docs/fundamentals/orderly-systems.html",
+          "rootPath": "docs"
+        },
+        {
+          "type": "file",
+          "name": "software-operating-system.html",
+          "title": "Software Operating System",
+          "path": "fundamentals/software-operating-system.html",
+          "sourcePath": "docs/fundamentals/software-operating-system.html",
           "rootPath": "docs"
         },
         {
           "type": "file",
           "name": "system-philosophy.html",
           "title": "System Philosophy",
-          "path": "general/system-philosophy.html",
-          "sourcePath": "docs/general/system-philosophy.html",
+          "path": "fundamentals/system-philosophy.html",
+          "sourcePath": "docs/fundamentals/system-philosophy.html",
+          "rootPath": "docs"
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "general",
+      "title": "General",
+      "sourcePath": "docs/general",
+      "items": [
+        {
+          "type": "file",
+          "name": "gbrain-backfill-mechanics.html",
+          "title": "GBrain Mechanics for Foundation Backfill",
+          "path": "general/gbrain-backfill-mechanics.html",
+          "sourcePath": "docs/general/gbrain-backfill-mechanics.html",
           "rootPath": "docs"
         }
       ]
@@ -576,22 +600,6 @@ window.SubstrateSiteMap = {
           "specId": "foundation.spec-process"
         }
       ]
-    },
-    {
-      "type": "file",
-      "name": "compounding-systems.html",
-      "title": "The Compounding System",
-      "path": "compounding-systems.html",
-      "sourcePath": "docs/compounding-systems.html",
-      "rootPath": "docs"
-    },
-    {
-      "type": "file",
-      "name": "gbrain-backfill-mechanics.html",
-      "title": "GBrain Mechanics for Foundation Backfill",
-      "path": "gbrain-backfill-mechanics.html",
-      "sourcePath": "docs/gbrain-backfill-mechanics.html",
-      "rootPath": "docs"
     }
   ]
 };
