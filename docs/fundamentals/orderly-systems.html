@@ -183,6 +183,55 @@
   .loop-copy { color: var(--fg-2); font-size: 12px; }
   .loop-example { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; }
 
+  .job-map {
+    display: grid;
+    gap: 10px;
+    padding: 16px;
+  }
+  .job-stage {
+    background: var(--bg-3);
+    border: 1px solid var(--border-2);
+    border-radius: 7px;
+    padding: 16px;
+  }
+  .job-stage.accent { background: var(--primary-dim); border-color: rgba(79, 142, 255, 0.45); }
+  .job-stage.green { background: var(--emerald-dim); border-color: rgba(78, 201, 176, 0.45); }
+  .job-stage.amber { background: var(--amber-dim); border-color: rgba(212, 167, 44, 0.45); }
+  .job-stage-head {
+    align-items: baseline;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .job-stage-label { color: var(--fg-3); font-family: var(--font-mono); font-size: 10px; }
+  .job-stage-title { color: var(--fg); font-size: 16px; font-weight: 650; }
+  .job-stage-copy { color: var(--fg-2); font-size: 12px; margin-bottom: 12px; }
+  .job-branch-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .job-branch, .job-output {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 7px;
+    padding: 12px;
+  }
+  .job-branch-title, .job-output-title { color: var(--fg); font-size: 13px; font-weight: 650; margin-bottom: 6px; }
+  .job-branch-copy, .job-output-copy { color: var(--fg-2); font-size: 12px; line-height: 1.5; }
+  .job-output-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .job-arrow {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-align: center;
+  }
+
   .callout {
     background: var(--bg-2);
     border: 1px solid var(--border-2);
@@ -213,7 +262,7 @@
     body { display: block; }
     .sidebar { border-bottom: 1px solid var(--border); border-right: 0; height: auto; position: relative; width: 100%; }
     .main { padding: 36px 22px 72px; }
-    .three-grid, .process-grid, .related-grid { grid-template-columns: 1fr; }
+    .three-grid, .process-grid, .related-grid, .job-branch-grid, .job-output-grid { grid-template-columns: 1fr; }
     .loop-row { grid-template-columns: 1fr; }
   }
 </style>
@@ -235,10 +284,11 @@
     <a class="nav-item" href="#how-to-read-this"><span class="nav-num">01</span>How to read this</a>
     <a class="nav-item" href="#1-what-orderly-systems-is"><span class="nav-num">02</span>1. What it is</a>
     <a class="nav-item" href="#2-what-we-do"><span class="nav-num">03</span>2. What we do</a>
-    <a class="nav-item" href="#3-how-we-work"><span class="nav-num">04</span>3. How we work</a>
-    <a class="nav-item" href="#4-what-we-build"><span class="nav-num">05</span>4. What we build</a>
-    <a class="nav-item" href="#5-document-roles"><span class="nav-num">06</span>5. Document roles</a>
-    <a class="nav-item" href="#settled-vs-iterating"><span class="nav-num">07</span>Settled vs. iterating</a>
+    <a class="nav-item" href="#3-the-job"><span class="nav-num">04</span>3. The job</a>
+    <a class="nav-item" href="#4-how-we-work"><span class="nav-num">05</span>4. How we work</a>
+    <a class="nav-item" href="#5-the-company-category"><span class="nav-num">06</span>5. Company category</a>
+    <a class="nav-item" href="#6-the-offer"><span class="nav-num">07</span>6. The offer</a>
+    <a class="nav-item" href="#settled-vs-iterating"><span class="nav-num">08</span>Settled vs. iterating</a>
   </div>
 </nav>
 
@@ -257,7 +307,7 @@
   <article class="doc-body">
     <section id="how-to-read-this" class="level2 spec-section">
       <h2>How to read this</h2>
-      <p>This document sits between the root philosophy and the operating documents. <code>system-philosophy.html</code> defines the model. <code>business-os.html</code> applies it to business operations. <code>operating-spec.html</code> applies it to software and agents. This document names the company-level shape: what Orderly Systems does with those ideas.</p>
+      <p>This document sits between the root philosophy and the operating documents. <code>system-philosophy.html</code> defines the model. <code>business-operating-system.html</code> applies it to business operations. <code>software-operating-system.html</code> applies it to software and agents. This document names the company-level shape: what Orderly Systems does with those ideas.</p>
       <p>The short version: Orderly Systems helps entrepreneurs make their businesses legible, capable, measurable, and improvable. We do that by mapping capabilities and jobs, building the context and evidence layer, and creating software or agent systems only where they improve the business system.</p>
       <hr>
     </section>
@@ -330,8 +380,88 @@
       <hr>
     </section>
 
-    <section id="3-how-we-work" class="level2 spec-section">
-      <h2>3. How we work</h2>
+    <section id="3-the-job" class="level2 spec-section">
+      <h2>3. The job</h2>
+      <p><strong>Our job is to define the business clearly enough that humans and agents can improve it, then implement the next useful improvement.</strong> Definition comes first because an invisible business system cannot be operated, delegated, automated, measured, or improved reliably.</p>
+      <div class="visual-block">
+        <div class="visual-header">
+          <div class="visual-title">The Orderly Systems job</div>
+          <div class="visual-kicker">define to improve</div>
+        </div>
+        <div class="job-map">
+          <div class="job-stage accent">
+            <div class="job-stage-head">
+              <div class="job-stage-title">Define the business</div>
+              <div class="job-stage-label">01</div>
+            </div>
+            <p class="job-stage-copy">Make the operating system visible in two forms: knowledge that explains how the business works, and data that shows what is happening.</p>
+            <div class="job-branch-grid">
+              <div class="job-branch">
+                <div class="job-branch-title">Knowledge</div>
+                <div class="job-branch-copy">Record jobs, processes, workflows, decisions, and examples in language humans and agents can both use. Capture this from existing documents, interviews, meetings, observation, and day-to-day work. Standardize where documents live and how new documents enter the system.</div>
+              </div>
+              <div class="job-branch">
+                <div class="job-branch-title">Data</div>
+                <div class="job-branch-copy">Create the business data layer: the place where important operational, financial, customer, sales, fulfillment, and support signals flow. Give humans and AI systems a way to understand what is happening in the business.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="job-arrow">↓</div>
+
+          <div class="job-stage green">
+            <div class="job-stage-head">
+              <div class="job-stage-title">Decide what needs to change</div>
+              <div class="job-stage-label">02</div>
+            </div>
+            <p class="job-stage-copy">Use the knowledge and data to identify the missing capability, unclear job, weak process, bad handoff, wrong actor, missing tool, poor context, weak evidence, or evaluation gap. Then name the action required.</p>
+          </div>
+
+          <div class="job-arrow">↓</div>
+
+          <div class="job-stage amber">
+            <div class="job-stage-head">
+              <div class="job-stage-title">Implement the improvement</div>
+              <div class="job-stage-label">03</div>
+            </div>
+            <p class="job-stage-copy">The output depends on the missing layer. The work may be a process, a software tool, an agent system, or a recommendation the business can execute.</p>
+            <div class="job-output-grid">
+              <div class="job-output">
+                <div class="job-output-title">Process</div>
+                <div class="job-output-copy">Define the repeatable path, checklist, handoff, standard, and owner.</div>
+              </div>
+              <div class="job-output">
+                <div class="job-output-title">Software</div>
+                <div class="job-output-copy">Build an app, sheet, dashboard, intake flow, or system interface that makes the job easier to run.</div>
+              </div>
+              <div class="job-output">
+                <div class="job-output-title">Agent system</div>
+                <div class="job-output-copy">Give an agent the context, workflow, tools, and eval criteria needed to do or support the job.</div>
+              </div>
+              <div class="job-output">
+                <div class="job-output-title">Recommendation</div>
+                <div class="job-output-copy">Hand the business a clear decision, operating change, or task package to execute.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="job-arrow">↓</div>
+
+          <div class="job-stage">
+            <div class="job-stage-head">
+              <div class="job-stage-title">Iterate from evidence</div>
+              <div class="job-stage-label">04</div>
+            </div>
+            <p class="job-stage-copy">Run the improvement in real work, collect evidence, evaluate the result, and revise the business system. The goal is not one finished artifact; it is a business that gets easier to understand and improve each cycle.</p>
+          </div>
+        </div>
+      </div>
+      <p>That means Orderly Systems does not have to perform every operating task directly. If shelves need to be stocked, the work may be to define the stocking job, create the checklist or app employees use, route the task, collect evidence that it happened, and revise the process when it fails.</p>
+      <hr>
+    </section>
+
+    <section id="4-how-we-work" class="level2 spec-section">
+      <h2>4. How we work</h2>
       <p>The work follows the same operating loop used across Foundation:</p>
       <div class="visual-block">
         <div class="visual-header">
@@ -351,31 +481,33 @@
       <hr>
     </section>
 
-    <section id="4-what-we-build" class="level2 spec-section">
-      <h2>4. What we build</h2>
-      <p>Orderly Systems builds the smallest system that improves the business capability being targeted. Sometimes that is software. Sometimes it is a job record, a process, a scorecard, an agent skill, a dashboard, an intake flow, or a capability map. The form follows the missing layer.</p>
-      <p><strong>Portable capabilities matter in consulting work.</strong> When software or agent systems are built for a client, the useful parts should become modular enough to deliver to future clients when the same capability appears again. That does not mean every client receives the same product. It means the underlying capability inventory compounds.</p>
-      <p><strong>Substrate matters because the next improvement should start ahead.</strong> The system should preserve the client's context, the agency's capability inventory, the decisions made, the evidence gathered, and the processes that worked. Substrate is the durable memory layer inside the system, not the whole system itself.</p>
-      <div class="callout">
-        <p><strong>Operating rule</strong></p>
-        <p>When a business is not achieving its goal, decompose its system before adding effort. Find the missing capability, job, process, action, decision, context, actor, tool, evidence, evaluation, or revision.</p>
-      </div>
+    <section id="5-the-company-category" class="level2 spec-section">
+      <h2>5. The company category</h2>
+      <p>Orderly Systems is a business performance firm. The work is to define the business system, find the gaps, route the jobs, build the tools, and keep the operating layer improving over time.</p>
+      <p>The category sits across operations, software, automation, agent systems, data, and process design. Those are implementation forms. The underlying job is to improve how work is defined, assigned, executed, measured, and updated.</p>
+      <p>The boundary is the system layer. Orderly Systems may define the shelf-stocking job, build the checklist, choose the data capture, design the exception flow, train the employee, create the dashboard, and set up the review loop that shows whether the process is working. The operating business still owns the business result.</p>
+      <p>The offer becomes: <strong>we build and maintain the operating systems that make businesses easier to understand, easier to improve, and easier to scale.</strong></p>
       <hr>
     </section>
 
-    <section id="5-document-roles" class="level2 spec-section">
-      <h2>5. Document roles</h2>
-      <p>The core documents should have clear jobs:</p>
+    <section id="6-the-offer" class="level2 spec-section">
+      <h2>6. The offer</h2>
+      <p>Orderly Systems builds Business Operating System infrastructure for companies that need clearer operations, better data, and more leverage from people, software, and agents.</p>
+      <p><strong>The offer:</strong> we turn the operating reality of a business into a living context and spec system of jobs, actors, processes, data, measures, and update rules, then use that system to improve performance over time.</p>
+      <p><strong>What we do for a business:</strong></p>
       <ul>
-        <li><strong>System Philosophy</strong> defines the root model and vocabulary.</li>
-        <li><strong>Orderly Systems</strong> defines the company-level application: what we do and how we do it.</li>
-        <li><strong>The Compounding System</strong> defines the five-layer durability framework.</li>
-        <li><strong>Business OS</strong> defines the business-operations application.</li>
-        <li><strong>Operating Spec</strong> defines the software-and-agent application.</li>
-        <li><strong>Principles</strong> define how to do work well in a domain. Core principles are cross-domain; business, software development, software design, and AI eval principles are domain-specific.</li>
-        <li><strong>Definitions</strong> keeps the shared glossary precise enough that the documents do not redefine the same term differently.</li>
+        <li><strong>Define the business.</strong> Clarify the offers, customer promises, constraints, roles, systems, and outcomes that matter.</li>
+        <li><strong>Map the jobs.</strong> Identify the work the business must do to fulfill its offers, grow, avoid failure, and improve margins.</li>
+        <li><strong>Write the job specs.</strong> Capture purpose, trigger, actor, inputs, process, success criteria, measurement, escalation, and revision history.</li>
+        <li><strong>Find the gaps.</strong> Identify unowned jobs, unclear decisions, weak handoffs, missing data, broken processes, and places where the actor no longer fits the work.</li>
+        <li><strong>Design the operating system.</strong> Create the job board, SOPs, checklists, data definitions, dashboards, decision rules, and intake paths the business needs.</li>
+        <li><strong>Implement the right intervention.</strong> Build or recommend processes, software, automations, agent workflows, training artifacts, or human handoffs.</li>
+        <li><strong>Set up the data layer.</strong> Route the events, metrics, outcomes, and exceptions needed to understand whether the business is working.</li>
+        <li><strong>Close the revision loop.</strong> Turn measured reality into updates to job definitions, decisions, processes, actor assignments, and future actions.</li>
+        <li><strong>Maintain the operating system.</strong> Keep the business operating substrate current as offers, people, tools, constraints, and market conditions change.</li>
       </ul>
-      <p>The documents should reinforce the same model instead of competing for it. Domain documents can use local examples, but they should map back to the root loop and vocabulary.</p>
+      <p><strong>The boundary:</strong> accountable owners remain accountable for running the business. Orderly Systems defines the work, designs the system, implements the right leverage, and makes sure measured reality updates how the business operates.</p>
+      <p>The result is a company that can answer: what needs to be done, who or what is doing it, how we know it is handled, what is failing, and what should change next.</p>
       <hr>
     </section>
 
@@ -391,9 +523,9 @@
       </ul>
       <p><strong>Iterating:</strong></p>
       <ul>
-        <li>The best public name for the company category.</li>
-        <li>The first client-facing offer and delivery cadence.</li>
-        <li>The exact artifact package for a Business OS engagement.</li>
+        <li>The final public name for the company category.</li>
+        <li>The first client-facing delivery cadence.</li>
+        <li>The exact artifact package for a Business Operating System engagement.</li>
         <li>The boundary between software build work, operating-system design, and ongoing system maintenance.</li>
       </ul>
     </section>
@@ -404,10 +536,10 @@
     <p class="lede">The documents this one connects.</p>
     <div class="related-grid">
       <a class="related-card" href="./system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root model: intent, context, execution, evidence, evaluation, revision, capabilities, jobs, and substrate.</div></a>
-      <a class="related-card" href="./business-os.html"><div class="related-name">Business OS</div><div class="related-desc">The business-operations application of the system model.</div></a>
+      <a class="related-card" href="./business-operating-system.html"><div class="related-name">Business Operating System</div><div class="related-desc">The business-operations application of the system model.</div></a>
       <a class="related-card" href="./business-capability-map.html"><div class="related-name">Business Capability Map</div><div class="related-desc">A working inventory of recurring business capabilities and the jobs that make them real.</div></a>
-      <a class="related-card" href="./operating-spec.html"><div class="related-name">Building Software with Agents</div><div class="related-desc">The software-and-agent application of the system model.</div></a>
-      <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The five-layer framework for systems whose value grows with use.</div></a>
+      <a class="related-card" href="./software-operating-system.html"><div class="related-name">Software Operating System</div><div class="related-desc">The software-and-agent application of the system model.</div></a>
+      <a class="related-card" href="./compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The five-layer framework for systems whose value grows with use.</div></a>
       <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">The shared glossary for Foundation vocabulary.</div></a>
     </div>
   </section>

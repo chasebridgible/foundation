@@ -123,7 +123,7 @@
       "notes": "Provides shared sidebar, typography, responsive, and local table-of-contents styling used by rendered specs."
     },
     {
-      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "path": "foundation/docs/general/gbrain-backfill-mechanics.html",
       "kind": "doc",
       "ownership": "reference",
       "notes": "Durable HTML document that is included in the generated map and exercises generated-sidebar rendering."
@@ -164,7 +164,7 @@
       "id": "HDN-3",
       "level": "static",
       "status": "existing",
-      "path": "foundation/docs/gbrain-backfill-mechanics.html",
+      "path": "foundation/docs/general/gbrain-backfill-mechanics.html",
       "mapsTo": [
         "foundation.html-docs-navigation.descriptive#edge-cases"
       ],
@@ -370,7 +370,7 @@
         <li><code>foundation/skills/install-foundation-substrate/SKILL.md</code> - target repo setup workflow that should install or verify local docs navigation.</li>
         <li><code>foundation/templates/target-repo-AGENTS.md</code> - target repo adapter template that may point to local navigation setup expectations.</li>
         <li><code>foundation/docs/specs/spec-system.css</code> - shared sidebar and document chrome styling.</li>
-        <li><code>foundation/docs/gbrain-backfill-mechanics.html</code> - durable HTML page used to verify generated-sidebar rendering for pages without a hand-authored sidebar.</li>
+        <li><code>foundation/docs/general/gbrain-backfill-mechanics.html</code> - durable HTML page used to verify generated-sidebar rendering for pages without a hand-authored sidebar.</li>
         <li><code>foundation/package.json</code> - exposes <code>npm run site-map</code>.</li>
       </ul>
       <h3>Related specs</h3>
@@ -404,7 +404,7 @@
         <tbody>
           <tr><td>HDN-1</td><td><code>#states-and-rules</code></td><td><code>npm run site-map</code> generates tree-preserving navigation data.</td><td>existing</td><td>Generated map uses folder and file nodes from configured HTML roots.</td></tr>
           <tr><td>HDN-2</td><td><code>#ux-contracts</code>, <code>#design-placeholders</code></td><td>Rendered desktop and mobile evidence should show selected-path context, accessible folder controls, and no layout overlap.</td><td>existing</td><td>Renderer expands the selected path and can create a sidebar for bare durable HTML docs.</td></tr>
-          <tr><td>HDN-3</td><td><code>#edge-cases</code></td><td>Every included durable HTML page should either render shared navigation or be explicitly excluded.</td><td>existing</td><td><code>docs/gbrain-backfill-mechanics.html</code> now loads the shared navigation scripts.</td></tr>
+          <tr><td>HDN-3</td><td><code>#edge-cases</code></td><td>Every included durable HTML page should either render shared navigation or be explicitly excluded.</td><td>existing</td><td><code>docs/general/gbrain-backfill-mechanics.html</code> now loads the shared navigation scripts.</td></tr>
           <tr><td>HDN-4</td><td><code>#foundation-based-repo-setup</code></td><td>Target repo setup installs or verifies local docs navigation without weakening target-owned spec registry resolution.</td><td>existing</td><td>Install workflow and Foundation doctor cover local nav assets, command wiring, and script includes.</td></tr>
         </tbody>
       </table>

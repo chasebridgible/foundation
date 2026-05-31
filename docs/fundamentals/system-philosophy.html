@@ -767,8 +767,8 @@
     <a class="nav-item" href="#7-processes-are-skills"><span class="nav-num">08</span>7. Processes are skills</a>
     <a class="nav-item" href="#8-context-and-intake"><span class="nav-num">09</span>8. Context and intake</a>
     <a class="nav-item" href="#9-learning-is-a-job"><span class="nav-num">10</span>9. Learning updates the system</a>
-    <a class="nav-item" href="#10-principle-documents"><span class="nav-num">11</span>10. Principle docs</a>
-    <a class="nav-item" href="#what-is-settled-vs-what-is-iterating"><span class="nav-num">12</span>Settled vs. iterating</a>
+    <a class="nav-item" href="#what-is-settled-vs-what-is-iterating"><span class="nav-num">11</span>Settled vs. iterating</a>
+    <a class="nav-item" href="#document-roles-and-reading-order"><span class="nav-num">12</span>Document roles</a>
   </div>
 </aside>
 
@@ -1005,7 +1005,7 @@
           </div>
         </div>
       </div>
-      <p>Software development, the Business OS, context substrate, and Orderly Systems apply this root model to different domains of work.</p>
+      <p>Software development, the Business Operating System, context substrate, and Orderly Systems apply this root model to different domains of work.</p>
       <p>This document separates durable principles from current operating choices. <strong>Principles</strong> are the parts I expect to survive changes in tools, models, teams, companies, and markets. <strong>Operating choices</strong> are Foundation's current best way to express those principles. The words will sharpen as the system runs. The structure is the thing being protected.</p>
       <hr>
     </section>
@@ -1321,20 +1321,6 @@ Evaluation: compare that evidence against the eval spec and decide pass, revise,
       <hr>
     </section>
 
-    <section id="10-principle-documents" class="level2 spec-section">
-      <h2>10. Principle documents</h2>
-      <p>Principles are durable claims. They should remain true when tools, models, teams, markets, and implementations change. This document defines the system model; the principle documents hold the selective rules that govern work.</p>
-      <p>Cross-domain principles belong in Core Principles. Business, software development, software design, and AI evaluation principles belong in their domain documents.</p>
-      <div class="related-grid">
-        <a class="related-card" href="../principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles that should survive changes in tools, domains, and implementation details.</div></a>
-        <a class="related-card" href="../principles/business-principles.html"><div class="related-name">Business Principles</div><div class="related-desc">Principles for value creation, value delivery, value capture, offers, distribution, and operating systems.</div></a>
-        <a class="related-card" href="../principles/sw-dev-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Principles for spec-driven, agent-assisted software work and verification.</div></a>
-        <a class="related-card" href="../principles/sw-design-principles.html"><div class="related-name">Software Design Principles</div><div class="related-desc">Principles for rendered experience, accessibility, responsive behavior, and visual verification.</div></a>
-        <a class="related-card" href="../principles/ai-evals-principles.html"><div class="related-name">AI Evals Principles</div><div class="related-desc">Principles for judging AI work, rubric design, evidence, and quality gates.</div></a>
-      </div>
-      <hr>
-    </section>
-
     <section id="what-is-settled-vs-what-is-iterating" class="level2 spec-section">
       <h2>What is settled vs. what is iterating</h2>
       <p><strong>Settled</strong> (the foundation of the model):</p>
@@ -1356,10 +1342,42 @@ Evaluation: compare that evidence against the eval spec and decide pass, revise,
         <li>The exact artifact names for system specs, capability specs, job specs, process specs, action specs, and eval specs.</li>
         <li>The final vocabulary for distribution, sales, marketing, offer creation, value capture, and business performance capabilities.</li>
         <li>The document structure for job specs, process specs, capability maps, offer artifacts, distribution artifacts, learning logs, and business-stack registries.</li>
-        <li>How much of this vocabulary should move into <code>sw-definitions.html</code>, Business OS specs, and future skills.</li>
+        <li>How much of this vocabulary should move into <code>sw-definitions.html</code>, Business Operating System specs, and future skills.</li>
         <li>The first practical workflow that turns System Philosophy into daily execution and revision.</li>
       </ul>
       <p>This document should be updated whenever the vocabulary becomes clearer, a new domain maps cleanly onto the model, or real execution proves that one of the layer boundaries needs revision.</p>
+      <hr>
+    </section>
+
+    <section id="document-roles-and-reading-order" class="level2 spec-section">
+      <h2>Document roles and reading order</h2>
+      <p>The core documents should have clear jobs. This document defines the root model and vocabulary. Domain documents should apply the model without redefining it. Principle documents should hold durable rules for doing work well. Spec system documents should define how durable specs are authored, linked, checked, and kept current.</p>
+      <p><strong>Naming convention proposal:</strong> use plain noun names for root concepts, <code>*-principles.html</code> for durable rules, <code>*-map.html</code> for inventories, and the spec-system convention of <code>{subject}.html</code>, <code>{subject}-technical.html</code>, and <code>{subject}-eval.html</code> for spec families.</p>
+      <ol>
+        <li><strong>Root model:</strong> <code>system-philosophy.html</code>, <code>compounding-systems.html</code>, and <code>definitions/sw-definitions.html</code>.</li>
+        <li><strong>Company and domain applications:</strong> <code>orderly-systems.html</code>, <code>business-operating-system.html</code>, and <code>software-operating-system.html</code>.</li>
+        <li><strong>Inventories and maps:</strong> name the domain first and the artifact second, as in <code>business-capability-map.html</code>.</li>
+        <li><strong>Principles:</strong> use <code>{domain}-principles.html</code>, with <code>core-principles.html</code> reserved for cross-domain rules.</li>
+        <li><strong>Specs:</strong> use descriptive specs as the family root, then add <code>-technical</code> and <code>-eval</code> for implementation and evaluation contracts.</li>
+      </ol>
+      <p><strong>Recommended reading order:</strong> start with System Philosophy, then Orderly Systems, The Compounding System, Definitions, Business Capability Map, Business Operating System, Software Operating System, Core Principles, domain principle documents, and finally the Spec System documents.</p>
+      <div class="related-grid">
+        <a class="related-card" href="./orderly-systems.html"><div class="related-name">Orderly Systems</div><div class="related-desc">The company-level application: what Orderly Systems does and how it works.</div></a>
+        <a class="related-card" href="./compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The five-layer durability framework for substrate, intake, operational shape, and loops.</div></a>
+        <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">The shared glossary that keeps terms consistent across documents and specs.</div></a>
+        <a class="related-card" href="./business-capability-map.html"><div class="related-name">Business Capability Map</div><div class="related-desc">The working inventory of recurring business capabilities and corresponding jobs.</div></a>
+        <a class="related-card" href="./business-operating-system.html"><div class="related-name">Business Operating System</div><div class="related-desc">The business-operations application of the root model.</div></a>
+        <a class="related-card" href="./software-operating-system.html"><div class="related-name">Software Operating System</div><div class="related-desc">The software-and-agent application of the root model.</div></a>
+        <a class="related-card" href="../principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles that should survive changes in tools, domains, and implementation details.</div></a>
+        <a class="related-card" href="../principles/business-principles.html"><div class="related-name">Business Principles</div><div class="related-desc">Principles for value creation, value delivery, value capture, offers, distribution, and operating systems.</div></a>
+        <a class="related-card" href="../principles/sw-dev-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Principles for spec-driven, agent-assisted software work and verification.</div></a>
+        <a class="related-card" href="../principles/sw-design-principles.html"><div class="related-name">Software Design Principles</div><div class="related-desc">Principles for rendered experience, accessibility, responsive behavior, and visual verification.</div></a>
+        <a class="related-card" href="../principles/ai-evals-principles.html"><div class="related-name">AI Evals Principles</div><div class="related-desc">Principles for judging AI work, rubric design, evidence, and quality gates.</div></a>
+        <a class="related-card" href="../specs/index.html"><div class="related-name">Spec Registry</div><div class="related-desc">The index of durable spec contracts and their metadata.</div></a>
+        <a class="related-card" href="../specs/process.html"><div class="related-name">Spec Process</div><div class="related-desc">The authoring, review, and update workflow for specs.</div></a>
+        <a class="related-card" href="../specs/linking.html"><div class="related-name">Spec Linking</div><div class="related-desc">The contract for links, IDs, and path updates across the spec graph.</div></a>
+        <a class="related-card" href="../specs/foundation-html-docs-navigation.html"><div class="related-name">HTML Docs Navigation Spec</div><div class="related-desc">The spec for folder-derived navigation across durable HTML docs.</div></a>
+      </div>
     </section>
   </article>
 
@@ -1367,10 +1385,10 @@ Evaluation: compare that evidence against the eval spec and decide pass, revise,
     <h2>Related core concept docs</h2>
     <p class="lede">Sibling HTML-native documents that this meta layer connects.</p>
     <div class="related-grid">
-      <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The five-layer durability framework that explains how substrate, intake, operational shape, and loops compound.</div></a>
+      <a class="related-card" href="./compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The five-layer durability framework that explains how substrate, intake, operational shape, and loops compound.</div></a>
       <a class="related-card" href="./orderly-systems.html"><div class="related-name">Orderly Systems</div><div class="related-desc">What Orderly Systems is, what it does, and how it applies the root model to business systems.</div></a>
-      <a class="related-card" href="./operating-spec.html"><div class="related-name">Building Software with Agents</div><div class="related-desc">The working spec for applying these system mechanics to agent-assisted software work.</div></a>
-      <a class="related-card" href="./business-os.html"><div class="related-name">The Business OS</div><div class="related-desc">The business-operations working spec for goals, capabilities, jobs, processes, context, and evidence.</div></a>
+      <a class="related-card" href="./software-operating-system.html"><div class="related-name">Software Operating System</div><div class="related-desc">The working spec for applying these system mechanics to agent-assisted software work.</div></a>
+      <a class="related-card" href="./business-operating-system.html"><div class="related-name">Business Operating System</div><div class="related-desc">The business-operations working spec for goals, capabilities, jobs, processes, context, and evidence.</div></a>
       <a class="related-card" href="./business-capability-map.html"><div class="related-name">Business Capability Map</div><div class="related-desc">A working inventory of recurring business capabilities and the jobs that make them real.</div></a>
       <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Shared vocabulary for substrate, harnesses, specs, skills, registries, and system terms.</div></a>
     </div>
