@@ -22,6 +22,21 @@ const requiredSkills = [
   "spec-workflow",
   "install-foundation-substrate"
 ];
+const docsNavAssetPaths = [
+  "docs/generate-site-map.mjs",
+  "docs/site-map.js",
+  "docs/site-nav.js"
+];
+const skippedHtmlDirectories = new Set([
+  ".git",
+  ".next",
+  ".turbo",
+  "build",
+  "coverage",
+  "dist",
+  "node_modules",
+  "vendor"
+]);
 
 function usage() {
   return `Usage:
@@ -101,9 +116,29 @@ function listHtmlFiles(dir) {
   if (!exists(dir)) return [];
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
     const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) return listHtmlFiles(full);
+    if (entry.isDirectory()) {
+      if (entry.name.startsWith(".") || skippedHtmlDirectories.has(entry.name)) return [];
+      return listHtmlFiles(full);
+    }
     return entry.isFile() && entry.name.endsWith(".html") ? [full] : [];
   });
+}
+
+function relativeTo(root, file) {
+  return path.relative(root, file).split(path.sep).join("/");
+}
+
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function htmlLoadsScript(html, scriptName) {
+  const escaped = escapeRegex(scriptName);
+  return new RegExp(`<script\\b[^>]*\\bsrc=["'][^"']*${escaped}["'][^>]*>\\s*</script>`, "i").test(html);
+}
+
+function readJson(file) {
+  return JSON.parse(read(file));
 }
 
 function extractSpecMetadata(html) {
@@ -122,6 +157,54 @@ function runSpecCheck(foundationPath) {
     cwd: foundationPath,
     encoding: "utf8"
   });
+}
+
+function checkTargetHtmlDocsNavigation(repoPath) {
+  const out = [];
+  const docsDir = path.join(repoPath, "docs");
+  const htmlFiles = listHtmlFiles(docsDir);
+
+  if (htmlFiles.length === 0) {
+    out.push(pass("repo", "repo-html-docs-nav", "Target repo has no docs HTML files requiring navigation"));
+    return out;
+  }
+
+  const missingAssets = docsNavAssetPaths.filter(asset => !exists(path.join(repoPath, asset)));
+  const missingIncludes = htmlFiles.filter(file => {
+    const html = read(file);
+    return !htmlLoadsScript(html, "site-map.js") || !htmlLoadsScript(html, "site-nav.js");
+  });
+
+  if (missingAssets.length === 0 && missingIncludes.length === 0) {
+    out.push(pass("repo", "repo-html-docs-nav", `Target repo HTML docs navigation is installed for ${htmlFiles.length} HTML files`));
+  } else {
+    out.push(warn("repo", "repo-html-docs-nav", "Target repo HTML docs navigation is incomplete", {
+      htmlFileCount: htmlFiles.length,
+      missingAssets,
+      missingIncludes: missingIncludes.slice(0, 10).map(file => relativeTo(repoPath, file)),
+      omittedMissingIncludes: Math.max(0, missingIncludes.length - 10)
+    }));
+  }
+
+  const packageJsonPath = path.join(repoPath, "package.json");
+  if (!exists(packageJsonPath)) {
+    out.push(pass("repo", "repo-html-docs-nav-command", "Target repo has no package.json; run docs/generate-site-map.mjs directly"));
+    return out;
+  }
+
+  try {
+    const packageJson = readJson(packageJsonPath);
+    const siteMapCommand = packageJson.scripts?.["site-map"];
+    out.push(siteMapCommand && /docs\/generate-site-map\.mjs/.test(siteMapCommand)
+      ? pass("repo", "repo-html-docs-nav-command", "Target repo package.json exposes a site-map command")
+      : warn("repo", "repo-html-docs-nav-command", "Target repo package.json does not expose a site-map command"));
+  } catch (error) {
+    out.push(warn("repo", "repo-html-docs-nav-command", "Target repo package.json could not be parsed", {
+      error: error.message
+    }));
+  }
+
+  return out;
 }
 
 function checkMachine(options) {
@@ -232,6 +315,8 @@ function checkTargetRepo(options) {
       ? pass("repo", "repo-spec-ids", "Target repo specs do not use foundation.* IDs")
       : fail("repo", "repo-spec-ids", "Target repo contains product specs under foundation.* IDs", { badIds }));
   }
+
+  out.push(...checkTargetHtmlDocsNavigation(repoPath));
 
   const workflowsDir = path.join(repoPath, ".github", "workflows");
   if (!exists(workflowsDir)) {

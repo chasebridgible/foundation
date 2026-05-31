@@ -302,7 +302,7 @@
   .stack-name { font-size: 13px; font-weight: 600; color: var(--fg); }
   .stack-copy { font-size: 12px; color: var(--fg-2); line-height: 1.45; }
   .stack-tag { justify-self: end; font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); text-align: right; }
-  .slice-grid {
+  .capability-layer-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1px;
@@ -312,11 +312,11 @@
     overflow: hidden;
     margin: 18px 0 24px;
   }
-  .slice-card { background: var(--bg-2); padding: 15px; min-height: 128px; }
-  .slice-card.accent { background: var(--bg-3); }
-  .slice-num { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; }
-  .slice-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
-  .slice-copy { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+  .capability-layer-card { background: var(--bg-2); padding: 15px; min-height: 128px; }
+  .capability-layer-card.accent { background: var(--bg-3); }
+  .capability-layer-num { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; }
+  .capability-layer-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+  .capability-layer-copy { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
   .harness-map {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -374,7 +374,7 @@
       border-bottom: 1px solid var(--border);
     }
     .main { padding: 36px 22px 72px; }
-    .related-grid, .slice-grid, .harness-map { grid-template-columns: 1fr; }
+    .related-grid, .capability-layer-grid, .harness-map { grid-template-columns: 1fr; }
     .stack-row { grid-template-columns: 1fr; }
     .stack-tag { justify-self: start; text-align: left; }
   }
@@ -432,8 +432,8 @@
   </div>
   <div class="system-stack">
     <div class="stack-row intent"><div class="stack-name">Intent</div><div class="stack-copy">Specs and context substrate define what should exist, why, and how success will be verified.</div><div class="stack-tag">human-owned</div></div>
-    <div class="stack-row contract"><div class="stack-name">Verification</div><div class="stack-copy">Tests, eval specs, and review surfaces decide whether the work is done.</div><div class="stack-tag">exit signal</div></div>
-    <div class="stack-row inventory"><div class="stack-name">Capabilities</div><div class="stack-copy">Portable vertical slices turn one-off work into reusable system inventory.</div><div class="stack-tag">compounding asset</div></div>
+    <div class="stack-row contract"><div class="stack-name">Verification</div><div class="stack-copy">Tests, eval specs, and review evidence decide whether the work is done.</div><div class="stack-tag">exit signal</div></div>
+    <div class="stack-row inventory"><div class="stack-name">Capabilities</div><div class="stack-copy">Portable capabilities turn one-off work into reusable system inventory.</div><div class="stack-tag">compounding asset</div></div>
     <div class="stack-row runtime"><div class="stack-name">Harness</div><div class="stack-copy">Tools, skills, sandboxes, and logs route the model through the loop.</div><div class="stack-tag">replaceable layer</div></div>
   </div>
 </div>
@@ -463,7 +463,7 @@
 <p><strong>Software development builds value through software.</strong> Sometimes that value is customer-facing product behavior. Sometimes it is internal leverage, automation, reliability, data, speed, or operating clarity. The spec is how that intended value becomes clear enough to execute and verify.</p>
 <p><strong>Bugs are deviations from intent</strong> - but it is worth defining prioritization of intent across product, user, operator, regulator, and security. This is something to be addressed at the spec level of the system.</p>
 <p><strong>The unit of correctness is the spec, not the code.</strong> Code executes; agents execute. Wrongness in software is almost never "the machine made a mistake" — it's that the intent the machine was acting on was incomplete, ambiguous, or never written down. The first question when something goes wrong is not <em>what is the agent doing weird?</em> but <em>what did I tell it to do, and did that description capture what I wanted?</em></p>
-<p><strong>The spec and the test are the work; the prompt and execute steps are the cheap part.</strong> Code generation has compressed to near-zero; what hasn't compressed is the precision of the description the code is generated from. Vague sketch + no tests + many prompt cycles produces software whose correctness no one can verify.</p>
+<p><strong>The spec, eval spec, and evidence are the work; the prompt and execute steps are the cheap part.</strong> Code generation has compressed to near-zero; what has not compressed is the precision of the description the code is generated from and the clarity of the evidence used to judge it. Vague sketch + no reliable eval + many prompt cycles produces software whose correctness no one can verify.</p>
 <p><strong>A spec is a living intent-and-evidence contract; specs are never finished.</strong> A spec is the most up-to-date statement of what the work is trying to achieve and how success will be verified, not a deliverable produced once at the start. When the code changes, the relevant specs change in the same commit. A spec that drifts from the system it describes is worse than no spec, because it gives false confidence.</p>
 <p><strong>Technical specs are required for every software task.</strong> The depth of the technical spec scales with the work: small tasks need a compact note naming touched modules, data flow, contracts, and non-goals; systems with non-trivial technical depth need a deeper contract for sequencing, timing, concurrency, failure modes, integrations, and boundaries. The technical spec is never skippable; what changes is its level of detail.</p>
 <p><strong>The appreciating skill is writing specs that survive contact with an autonomous executor.</strong> Defining work crisply enough that an agent can run on it for a day is harder than doing the work yourself. That definition is the human's job and isn't going away.</p>
@@ -476,8 +476,8 @@
 <p><strong>Grade outcomes, not trajectorial theater.</strong> Recent agent-evals practice lands on the same lesson: over-specifying the path an agent must take leads to brittle evals. Evaluate what matters in the environment, then read transcripts to see whether the eval is fair.</p>
 <p><strong>Use the least expensive reliable signal that matches the risk.</strong> Interaction tests, larger tests, and inferential graders all have legitimate uses; the real rule is matching signal cost to risk.</p>
 <p><strong>The loop must refuse to let the agent stop early.</strong> Models declare "task complete" too soon. A wrapper that re-injects the goal into a fresh context window when the agent claims it's done is the simplest defense (the Ralph pattern).</p>
-<p><strong>Surface correctness is not systemic correctness.</strong> Code that compiles, lints, and passes tests still hides ordering changes, edge-case defaults, and decisions the human never made. The "looks plausible" filter is exactly the wrong filter when the author is a model.</p>
-<p><strong>The eval spec is the human's seat at the table.</strong> Code-level tests (unit, integration, smoke) can be regenerated by the agent at any time; what stays human-readable is the plain-English test plan that says <em>these are the conditions we're verifying.</em> When the descriptive spec changes, the eval spec changes; when the eval spec changes, the code-level tests are regenerated.</p>
+<p><strong>Rendered correctness is not systemic correctness.</strong> Code that compiles, lints, and passes tests still hides ordering changes, edge-case defaults, and decisions the human never made. The "looks plausible" filter is exactly the wrong filter when the author is a model.</p>
+<p><strong>The eval spec is the human's seat at the table.</strong> Code-level tests (unit, integration, smoke) can be regenerated by the agent at any time; what stays human-readable is the plain-English eval plan that says <em>these are the conditions we're verifying.</em> When the descriptive spec changes, the eval spec changes; when the eval spec changes, the code-level tests are regenerated.</p>
 <p><strong>Visible software needs rendered evidence.</strong> For user-facing behavior, the software design principles extend the verification loop with screenshots, traces, rendered HTML-native spec examples, focus evidence, and responsive checks. The rendered experience is part of correctness, not presentation polish.</p>
 </section>
 <section id="modularity-and-the-unit-of-change" class="level2 spec-section">
@@ -490,7 +490,7 @@
 </ul>
 <p><strong>Prefer the boring, obvious solution. Cleverness is expensive.</strong> The work-doer is not penalized for picking the more interesting design; the system is. Default to the dullest design whose failure modes you understand and reach for cleverness only when the boring version provably will not do.</p>
 <p><strong>Decompose around volatility and language boundaries, not around execution order or presentation layers.</strong> When the point of modularity is safe change, modules should hide the decisions most likely to vary, because the whole value of decomposition is to contain blast radius. Start from difficult design decisions and likely changes, and hide those behind module boundaries.</p>
-<p><strong>Vertical-slice intuition within the scope of a productized agency is canonically sound if the slice owns a coherent concept end-to-end.</strong> In practice that means each slice should be promptable, reviewable, and testable as a unit, with contracts at its edges and no hidden cross-slice magic.</p>
+<p><strong>Portable-capability intuition within the scope of a productized agency is canonically sound if the capability owns a coherent concept end-to-end.</strong> In practice that means each capability should be promptable, reviewable, and testable as a unit, with contracts at its edges and no hidden cross-capability magic.</p>
 <p>Anti-patterns: layer-first decomposition, temporal decomposition, and "we'll share the same model name everywhere."</p>
 <p><strong>A change should do one thing and be small enough for a reviewer to understand end-to-end.</strong> Ship small diffs if you want any realistic chance of inspecting them for correctness.</p>
 <p>This becomes dramatically more important once an agent can generate a five-file refactor, a migration, and three incidental cleanups in a single turn. Harnesses should enforce scope budgets, change descriptions, and maybe even "one primary intent per diff."</p>
@@ -499,17 +499,17 @@
 </section>
 <section id="capabilities-and-inventory" class="level2 spec-section">
 <h2>Capabilities and inventory</h2>
-<div class="slice-grid">
-  <div class="slice-card accent"><div class="slice-num">01</div><div class="slice-title">Schema</div><div class="slice-copy">The tables and data contracts the feature owns.</div></div>
-  <div class="slice-card"><div class="slice-num">02</div><div class="slice-title">API</div><div class="slice-copy">The routes, validation, and business behavior at the boundary.</div></div>
-  <div class="slice-card"><div class="slice-num">03</div><div class="slice-title">Types</div><div class="slice-copy">Shared contracts that make frontend and backend agree.</div></div>
-  <div class="slice-card"><div class="slice-num">04</div><div class="slice-title">UI</div><div class="slice-copy">The screen or component surface users actually touch.</div></div>
+<div class="capability-layer-grid">
+  <div class="capability-layer-card accent"><div class="capability-layer-num">01</div><div class="capability-layer-title">Schema</div><div class="capability-layer-copy">The tables and data contracts the feature owns.</div></div>
+  <div class="capability-layer-card"><div class="capability-layer-num">02</div><div class="capability-layer-title">API</div><div class="capability-layer-copy">The routes, validation, and business behavior at the boundary.</div></div>
+  <div class="capability-layer-card"><div class="capability-layer-num">03</div><div class="capability-layer-title">Types</div><div class="capability-layer-copy">Shared contracts that make frontend and backend agree.</div></div>
+  <div class="capability-layer-card"><div class="capability-layer-num">04</div><div class="capability-layer-title">UI</div><div class="capability-layer-copy">The screen or component interface users actually touch.</div></div>
 </div>
-<p><strong>A capability is a vertical slice that owns every layer it touches.</strong> Database tables, API routes, shared types, frontend components — all in one folder. The unit of change is the capability, not the codebase.</p>
+<p><strong>A portable software capability owns every implementation layer it needs.</strong> Database tables, API routes, shared types, frontend components, tests, and docs travel together. The unit of change is the capability, not the codebase.</p>
 <p><strong>Folder copy is the portability test.</strong> A capability is portable if dropping its folder into a new repo applies the schema, mounts the routes, exposes the types, wires up the screens, and declares the env vars — without further surgery. The test is a physical constraint, not a design rule. There is nothing to debate.</p>
 <p><strong>A capability is not done until it is substrate inventory.</strong> Every finished client feature is rewritten — as part of the same goal — into a portable capability in the shared library. Skip that step and the inventory doesn't grow; the system goes back to being a normal codebase that gets harder over time.</p>
 <p><strong>Build for one, deploy to many.</strong> A capability that ships for client A and is useful for client B <em>only</em> if A's specifics are scrubbed first is not reusable — it's a snowflake. Folder-copy portability is what keeps the inventory honest.</p>
-<p><strong>Codebases grow by accretion; capability libraries grow by inventory.</strong> Accretion entangles features over time, so the whole codebase becomes the unit of change. Inventory adds independent, self-contained slices that travel together across every layer. The fiftieth client engagement starts with forty-nine capabilities the first one didn't have.</p>
+<p><strong>Codebases grow by accretion; capability libraries grow by inventory.</strong> Accretion entangles features over time, so the whole codebase becomes the unit of change. Inventory adds independent, self-contained capabilities that travel together across every layer they need. The fiftieth client engagement starts with forty-nine capabilities the first one didn't have.</p>
 </section>
 <section id="the-human-machine-boundary" class="level2 spec-section">
 <h2>The human-machine boundary</h2>
@@ -520,10 +520,10 @@
 <p><strong>Cognitive surrender is path-dependent; comprehension debt compounds like technical debt.</strong> Each accepted chunk of work you do not understand makes the next change to that chunk almost guaranteed to be another act of surrender — because forming an independent view now requires reconstructing the part you skipped. The bill comes due when something breaks and no one can rebuild the system from first principles.</p>
 <p><strong>Humans own intent, boundaries, harnesses, and acceptance; agents own searchable labor.</strong></p>
 <p><strong>Context engineering for coding agents is curating what the model sees.</strong></p>
-<p><strong>The real discipline is harness engineering</strong>, not prompt engineering: specs, rules, examples, fast tests, structural checks, code review surfaces, transcripts, outcome-based evals, intervention paths, and explicit handoff artifacts across sessions.</p>
+<p><strong>The real discipline is harness engineering</strong>, not prompt engineering: specs, rules, examples, fast tests, structural checks, code review evidence, transcripts, outcome-based evals, intervention paths, and explicit handoff artifacts across sessions.</p>
 <p><strong>Mature oversight looks less like approving every action and more like observing traces and intervening quickly when the system drifts.</strong></p>
 <p><strong>The default behavior of any AI coding agent is the shortest path to "done."</strong> The reward signal points at "task complete," not "task complete <em>and the design doc exists</em>." Senior-engineer work — surfacing assumptions, sizing changes, writing the spec, leaving evidence, refusing to merge what can't be reviewed — is exactly what gets skipped unless skipping is made impossible.</p>
-<p><strong>Small human surface area, large agent surface area.</strong> The human belongs only where context, judgment, and accountability matter — defining intent, prioritizing work, accepting what ships. Everything else belongs to the loop. Anything more elaborate is overhead, and overhead is what stops systems like this from scaling.</p>
+<p><strong>Small human interface, large agent interface.</strong> The human belongs only where context, judgment, and accountability matter — defining intent, prioritizing work, accepting what ships. Everything else belongs to the loop. Anything more elaborate is overhead, and overhead is what stops systems like this from scaling.</p>
 </section>
 <section id="harness-engineering" class="level2 spec-section">
 <h2>Harness engineering</h2>
@@ -564,7 +564,7 @@
 <p><strong>State must live outside the model's context window.</strong> The agent is amnesiac; the filesystem, the session log, and the memory store are not. Every long-running design is, at its core, a way of moving state out of context and back in on demand.</p>
 <p><strong>Three walls bound every long-running agent: finite context, no persistent state, no self-verification.</strong> Every architecture in this space is an answer to those three problems. If a design doesn't address all three, it isn't long-running — it's just a long single-session run.</p>
 <p><strong>Compaction alone is insufficient for very long jobs.</strong> Past a certain horizon you need full context resets — tearing down the session and rebuilding it from a structured handoff file. Closer to onboarding a new engineer than to "memory."</p>
-<p><strong>Bet on the patterns, not the products.</strong> Google, Anthropic, and Cursor have arrived at roughly the same shape from very different directions: Brain / Hands / Session, planner / worker / judge, durable session log, sprint contract, Ralph-loop continuation. Surface area differs across products; the underlying patterns converge.</p>
+<p><strong>Bet on the patterns, not the products.</strong> Google, Anthropic, and Cursor have arrived at roughly the same shape from very different directions: Brain / Hands / Session, planner / worker / judge, durable session log, sprint contract, Ralph-loop continuation. Interfaces differ across products; the underlying patterns converge.</p>
 </section>
 <section id="compounding-systems-and-substrate" class="level2 spec-section">
 <h2>Compounding systems and substrate</h2>
@@ -583,11 +583,11 @@
 <p><strong>Long runs amplify every shortcut.</strong> Skipping a rigorous step in a 10-minute task produces a defect; skipping it in a 30-hour run produces a debugging archaeology project at the end. The longer the run, the more the rigor must be <em>enforced</em> rather than <em>suggested</em>.</p>
 <p><strong>A good harness, good docs, good examples, and a sane platform turn model improvements into leverage. A weak system turns the same models into faster accumulation of drift.</strong></p>
 <p><strong>A spec-driven, capability-based system has positive time-dependence.</strong> Three flywheels turn at once: specs sharpen each iteration; capabilities compound into a library that doesn't deprecate the way a normal codebase does; models improve on their own schedule. This is one of the few kinds of software system that gets better while you sleep.</p>
-<p><strong>The interface to the agent is the unit of stability.</strong> Because the system meets the agent at the spec, the test, the prompt, and the skill — and because all four are stable abstractions — model improvement is absorbed automatically. No rewrites, no migration projects. The same prompts produce better work.</p>
+<p><strong>The interface to the agent is the unit of stability.</strong> Because the system meets the agent at the spec, eval spec, prompt, and skill - and because those are stable abstractions - model improvement is absorbed automatically. No rewrites, no migration projects. The same prompts produce better work.</p>
 </section>
 <section id="the-delivery-loop" class="level2 spec-section">
 <h2>The delivery loop</h2>
-<p><strong>"Spec → test → prompt → execute" is a strong inner loop. The outer loop is review, integration, rollout, observation, and deprecation.</strong> The outer loop is equally or more important to success over time. The general loop-as-recovery and recursive-loop principles live in <code>core-principles.md</code>; the four-step inner loop named here is the software-specific instantiation.</p>
+<p><strong>The software loop is the root operating loop applied to code: Intent -&gt; Context -&gt; Execution -&gt; Evidence -&gt; Evaluation -&gt; Revision.</strong> Specs define intent, repo state and skills provide context, prompts route execution, tests and rendered artifacts provide evidence, eval specs and reviews judge that evidence, and revisions update the system. The outer loop is review, integration, rollout, observation, and deprecation. The general loop-as-recovery and recursive-loop principles live in <code>core-principles.html</code>.</p>
 <p><strong>When a step fails, go back to the smallest correction — usually the spec.</strong> Do not restart from scratch. Update the smallest upstream artifact that is wrong, regenerate the downstream artifacts that depend on it, re-run. The loop is the recovery mechanism, not just the build mechanism.</p>
 <p><strong>The loop is recursive; the steps are the contract.</strong> A large goal contains smaller goals, each running its own cycle. The work-doer is free to break a top-level goal into any number of inner loops, in any order, using whatever skills fit. The steps of the loop are the contract; the structure inside them is open.</p>
 </section>
@@ -599,6 +599,7 @@
     <p class="lede-2">Sibling HTML-native documents in this folder.</p>
     <div class="related-grid">
       <a class="related-card" href="../general/system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root philosophy that software development maps into as one business capability.</div></a>
+      <a class="related-card" href="../general/orderly-systems.html"><div class="related-name">Orderly Systems</div><div class="related-desc">The company-level context for the software-development system.</div></a>
       <a class="related-card" href="../general/operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">For me, and for the agents I work with.</div></a>
 <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.html is one instance of it.</div></a>
 <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>

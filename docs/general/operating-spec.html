@@ -285,7 +285,7 @@
   .visual-kicker { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); }
   .loop-flow {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
@@ -406,9 +406,9 @@
     <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
     <a class="nav-item" href="#how-to-read-this"><span class="nav-num">01</span>How to read this</a>
 <a class="nav-item" href="#1-bugs-are-deviations-from-intent"><span class="nav-num">02</span>1. Bugs are deviations from intent.</a>
-<a class="nav-item" href="#2-the-loop-spec-test-prompt-execute"><span class="nav-num">03</span>2. The loop: spec, test, prompt, execute.</a>
-<a class="nav-item" href="#3-specs-evolve-so-do-the-tests-they-generate"><span class="nav-num">04</span>3. Specs evolve. So do the tests they generate.</a>
-<a class="nav-item" href="#4-capabilities--vertical-slices-that-compound"><span class="nav-num">05</span>4. Capabilities — vertical slices that compound.</a>
+<a class="nav-item" href="#2-the-loop-spec-test-prompt-execute"><span class="nav-num">03</span>2. The software operating loop.</a>
+<a class="nav-item" href="#3-specs-evolve-so-do-the-tests-they-generate"><span class="nav-num">04</span>3. Specs, evals, and tests evolve.</a>
+<a class="nav-item" href="#4-portable-capabilities-compound"><span class="nav-num">05</span>4. Portable capabilities compound.</a>
 <a class="nav-item" href="#5-the-knowledge-base--durable-context"><span class="nav-num">06</span>5. Context substrate.</a>
 <a class="nav-item" href="#6-the-system-gets-better-as-the-world-gets-better"><span class="nav-num">07</span>6. The system gets better as the world gets better.</a>
 <a class="nav-item" href="#7-the-operating-shape"><span class="nav-num">08</span>7. The operating shape.</a>
@@ -448,43 +448,55 @@
 <hr />
 </section>
 <section id="2-the-loop-spec-test-prompt-execute" class="level2 spec-section">
-<h2>2. The loop: spec, test, prompt, execute.</h2>
-<p>Every piece of agentic work runs the same four-step cycle.</p>
+<h2>2. The software operating loop.</h2>
+<p>Every piece of agentic software work runs the root operating loop. Software gives each stage concrete artifacts: specs, repo context, prompts, code changes, tests, eval specs, review, and revision.</p>
 <div class="loop-flow">
   <div class="loop-node accent">
     <div class="loop-num">01</div>
-    <div class="loop-title">Spec</div>
-    <div class="loop-copy">State the intended outcome clearly enough that a test could verify it.</div>
+    <div class="loop-title">Intent</div>
+    <div class="loop-copy">Write the spec: intended behavior, user outcome, constraints, and done condition.</div>
   </div>
   <div class="loop-node">
     <div class="loop-num">02</div>
-    <div class="loop-title">Test</div>
-    <div class="loop-copy">Turn the intent into code-level checks and a human-readable eval spec.</div>
+    <div class="loop-title">Context</div>
+    <div class="loop-copy">Load repo state, rules, skills, examples, related specs, tests, and the eval spec.</div>
   </div>
   <div class="loop-node">
     <div class="loop-num">03</div>
-    <div class="loop-title">Prompt</div>
-    <div class="loop-copy">Load the spec, tests, rules, skills, and relevant context into the run.</div>
+    <div class="loop-title">Execution</div>
+    <div class="loop-copy">Prompt the agent to change the system inside the agreed scope.</div>
   </div>
   <div class="loop-node">
     <div class="loop-num">04</div>
-    <div class="loop-title">Execute</div>
-    <div class="loop-copy">The agent builds against the contract; evidence decides whether it is done.</div>
+    <div class="loop-title">Evidence</div>
+    <div class="loop-copy">Collect tests, screenshots, traces, CI output, review notes, and production signals.</div>
+  </div>
+  <div class="loop-node">
+    <div class="loop-num">05</div>
+    <div class="loop-title">Evaluation</div>
+    <div class="loop-copy">Compare the evidence against the eval spec and decide accept, revise, continue, or stop.</div>
+  </div>
+  <div class="loop-node">
+    <div class="loop-num">06</div>
+    <div class="loop-title">Revision</div>
+    <div class="loop-copy">Update code, specs, eval specs, tests, skills, context, or capability inventory.</div>
   </div>
 </div>
 <ol type="1">
-<li><strong>Spec.</strong> Describe the intended user experience and outcome with enough specificity that a test could verify it.</li>
-<li><strong>Test.</strong> Derive code-level tests from the spec, and keep the eval spec readable enough that a human can review the intended evidence.</li>
-<li><strong>Prompt.</strong> Compose a prompt that references the spec, the tests, the rules of the system, the available skills, and the relevant context.</li>
-<li><strong>Execute.</strong> The agent runs against the prompt, produces work, and the tests verify whether the work matches intent.</li>
+<li><strong>Intent.</strong> Describe the intended user experience and outcome with enough specificity that evidence can verify it.</li>
+<li><strong>Context.</strong> Prepare the repo state, relevant rules, available skills, examples, existing tests, and eval spec.</li>
+<li><strong>Execution.</strong> Compose a prompt that references the spec and context, then let the agent change the system inside scope.</li>
+<li><strong>Evidence.</strong> Run code-level tests and collect the other signals needed for the work: screenshots, traces, CI, review notes, and production behavior.</li>
+<li><strong>Evaluation.</strong> Judge the evidence against the eval spec. Tests produce evidence; evaluation decides whether the evidence satisfies intent.</li>
+<li><strong>Revision.</strong> Update the smallest upstream artifact that was wrong, then rerun the loop.</li>
 </ol>
-<p>When a step fails, you do not restart from scratch. You go back to whichever step is the smallest correction — usually the spec — update it, regenerate tests, re-prompt, re-execute. The loop is the thing.</p>
-<p>What this loop replaces is the older mode I used to work in: prompt and execute, repeatedly, with a vague sketch instead of a spec and no tests at all. That mode burns context, generates work that drifts further from intent each round, and produces software whose correctness no one can verify. The lesson from doing it that way for too long is that the spec and the test are not optional preliminaries. They are the work; the prompt and execute steps are the cheap part.</p>
-<p>The loop is also recursive. A large goal contains smaller goals, each running its own spec/test/prompt/execute cycle. The agent is free to break a top-level goal into any number of inner loops, in any order, using whatever skills fit. The four steps are the contract; the structure inside them is open.</p>
+<p>When a step fails, you do not restart from scratch. You go back to whichever upstream artifact is the smallest correction - usually the spec or eval spec - update it, regenerate dependent tests or context, re-prompt, re-execute, and collect evidence again. The loop is the recovery mechanism.</p>
+<p>What this replaces is the older mode I used to work in: prompt and execute, repeatedly, with a vague sketch instead of a spec and no reliable evaluation. That mode burns context, generates work that drifts further from intent each round, and produces software whose correctness no one can verify. The lesson from doing it that way for too long is that the spec, eval spec, and evidence are not optional preliminaries. They are the work; the prompt and execute steps are the cheap part.</p>
+<p>The loop is also recursive. A large goal contains smaller goals, each running its own intent/context/execution/evidence/evaluation/revision cycle. The agent is free to break a top-level goal into any number of inner loops, in any order, using whatever skills fit. The stages are the contract; the structure inside them is open.</p>
 <hr />
 </section>
 <section id="3-specs-evolve-so-do-the-tests-they-generate" class="level2 spec-section">
-<h2>3. Specs evolve. So do the tests they generate.</h2>
+<h2>3. Specs, evals, and tests evolve.</h2>
 <p>A spec is a living intent-and-evidence artifact. In software, it says: <em>this is how the system should look and behave from the user's side, and these are the verifiable conditions that protect that behavior.</em> Specs are never finished. They are the most up-to-date statement of what the work is trying to achieve.</p>
 <p>There are three kinds, and they answer different questions.</p>
 <p><strong>Descriptive specs</strong> describe how the application should look and feel to a user — the full user flow, conditional behavior, edge cases. This is where the experience the user actually has gets articulated, and where vagueness gets discovered. A descriptive spec that says "the popup should appear when the user saves a clip" is too thin. One that says "a centered modal slides up over 200ms with a confetti burst, a haptic tap on iOS and Android, the title 'Saved' in 18pt semibold, the subtitle 'Your highlight is in your camera roll' in 14pt regular, dismissed on tap-anywhere or after 1.5 seconds" is a spec.</p>
@@ -493,12 +505,12 @@
 <p>The discipline that makes all of this work is straightforward. <strong>When the code changes, the relevant Specs must also change.</strong> A spec that drifts from the system it describes is worse than no spec, because it gives false confidence. Spec/code consistency is part of every loop iteration, not an afterthought.</p>
 <hr />
 </section>
-<section id="4-capabilities--vertical-slices-that-compound" class="level2 spec-section">
-<h2>4. Capabilities — vertical slices that compound.</h2>
+<section id="4-portable-capabilities-compound" class="level2 spec-section">
+<h2>4. Portable capabilities compound.</h2>
 <p>Most software gets harder to change as it ages. The unit of change keeps growing — a new feature touches the database, the API, the contracts, the frontend, three shared utilities, and the dev environment, and any of those can break the others. The codebase becomes the unit of change, and the codebase is the whole system.</p>
-<p>The fix is to make the unit of change much smaller and much more self-contained. A <strong>capability</strong> is a single product feature that owns every layer it touches: its database tables, its API routes, its shared types, its frontend components. All in one folder. The capability moves between client repos by folder copy. If it does not move cleanly that way — schema applied, routes mounted, types available, screens wired up, env vars declared — the capability is not done.</p>
+<p>The fix is to make the unit of change much smaller and much more self-contained. A <strong>portable capability</strong> is a product capability packaged with every implementation layer it needs: database tables, API routes, shared types, frontend components, tests, and docs. The capability moves between client repos by folder copy. If it does not move cleanly that way - schema applied, routes mounted, types available, screens wired up, env vars declared - the capability is not done.</p>
 <p>Folder copy is the portability test because it is a physical constraint, not a design rule. The capability either drops into a new repo and works, or it does not. There is nothing to debate.</p>
-<p>This is what makes the system compound. A normal codebase grows by accretion: features tangle, the whole thing becomes one big thing. A capability library grows by <strong>inventory</strong>. Every feature built for one client becomes a reusable asset across every layer at once — a new screen <em>and</em> a new route <em>and</em> a new schema slice, traveling together. The next client either uses the capability as-is, extends it, or contributes a new one back.</p>
+<p>This is what makes the system compound. A normal codebase grows by accretion: features tangle, the whole thing becomes one big thing. A capability library grows by <strong>inventory</strong>. Every feature built for one client becomes a reusable asset across every layer it needs - a screen, route, schema, test, and spec traveling together. The next client either uses the capability as-is, extends it, or contributes a new one back.</p>
 <p>The discipline that makes this real is the corollary of the principle. <strong>A capability is not done until it is substrate inventory.</strong> Every finished client feature is rewritten — by the agent, as part of the same goal — into a portable capability in the shared library. Skip that step and the inventory does not grow, and the system goes back to being a normal codebase that gets harder over time.</p>
 <hr />
 </section>
@@ -516,8 +528,8 @@
 <p>Most software systems decay. Code rots, dependencies drift, original authors leave, edge cases pile up, and the team gets steadily slower at making the same kind of change. The default time-direction of software is downhill.</p>
 <p>A spec-driven, capability-based system goes the other way. Three flywheels turn at once.</p>
 <p><strong>Specs sharpen over time.</strong> Every iteration of the loop teaches you something about the work — an edge case you had not considered, a behavior you took for granted that needed to be explicit. The next version of the spec is more precise than the last. Compounded over a year, the spec for any given feature is dramatically more useful than the day it was written.</p>
-<p><strong>Capabilities compound.</strong> Every engagement contributes new vertical slices to the shared library. The library does not deprecate the way a normal codebase does, because each capability is self-contained — old ones do not block new ones. The fiftieth client engagement starts with forty-nine capabilities of inventory the first one did not have.</p>
-<p><strong>Models improve on their own schedule.</strong> The agent operating against this system in a year will be smarter than the one operating against it today. Because the system's interface to the agent is the spec, the test, the prompt, and the skill — and because all four of those are stable abstractions — the system absorbs model improvement automatically. No rewrites. No migration projects. The same prompts produce better work.</p>
+<p><strong>Capabilities compound.</strong> Every engagement contributes new portable capabilities to the shared library. The library does not deprecate the way a normal codebase does, because each capability is self-contained - old ones do not block new ones. The fiftieth client engagement starts with forty-nine capabilities of inventory the first one did not have.</p>
+<p><strong>Models improve on their own schedule.</strong> The agent operating against this system in a year will be smarter than the one operating against it today. Because the system's interface to the agent is the spec, eval spec, prompt, and skill - and because those are stable abstractions - the system absorbs model improvement automatically. No rewrites. No migration projects. The same prompts produce better work.</p>
 <p>The limit case of all three turning together is the <strong>hypothetical one-shot</strong>: a perfect spec, a strong enough model, a rich enough capability library, and the system produces the right outcome in a single pass. We are not there yet. But the trajectory is toward there, and every piece of discipline in this document is an investment in moving along that curve.</p>
 <p>The strongest version of the claim is this. <strong>This is one of the few kinds of software system that has positive time dependence.</strong> It gets better while you sleep.</p>
 <hr />
@@ -528,7 +540,7 @@
 <div class="visual-block">
   <div class="visual-header">
     <div class="visual-title">Operating shape</div>
-    <div class="visual-kicker">small human surface · large agent surface</div>
+    <div class="visual-kicker">small human interface · large agent interface</div>
   </div>
   <div class="actor-chain">
     <div class="actor-card human"><div class="actor-label">intent</div><div class="actor-name">Me</div><div class="actor-copy">Confirm specs, prioritize work, accept what ships.</div></div>
@@ -540,7 +552,7 @@
 <p><strong>Me.</strong> I confirm specs, prioritize development tasks, and decide what is good enough to ship. Three high-leverage decisions, repeated.</p>
 <p><strong>Shipmate.</strong> My CTO and operator. Watches the task board, notifies me on Slack when something needs attention, kicks off agent runs when I green-light work, reports back when work finishes or blocks, and runs deployments when I tell it to. Shipmate does not write code. It makes sure the right work happens at the right time with the right context.</p>
 <p><strong>The task board.</strong> A simple two-lane queue: <code>Later</code> and <code>Now</code>. New work — from me, from clients, from in-app feedback, from crash reports — lands in <code>Later</code>. Work moves to <code>Now</code> only when I green-light it. That move is the only execution gate in the system. No agent ever starts work on something still in <code>Later</code>, regardless of who created it.</p>
-<p><strong>The agent.</strong> One worker at a time, across all active repos. Receives a goal from the board, runs the spec/test/prompt/execute loop against the substrate (context substrate, capabilities, templates), and produces a pull request. Spawns subagents when a goal benefits from parallel inner loops. Uses whatever skills fit the work; the workflow phases (plan, architect, design, build, review, push, deploy) are tactics inside the loop, not a fixed sequence.</p>
+<p><strong>The agent.</strong> One worker at a time, across all active repos. Receives a goal from the board, runs the operating loop against the substrate (context substrate, capabilities, templates), and produces a pull request. Spawns subagents when a goal benefits from parallel inner loops. Uses whatever skills fit the work; the workflow phases (plan, architect, design, build, review, push, deploy) are tactics inside the loop, not a fixed sequence.</p>
 <p>That is the whole shape. Anything more elaborate is implementation detail. The reason this works is that it puts the human only in the places where context, judgment, and accountability matter — defining intent, prioritizing, accepting work — and delegates everything else to the loop.</p>
 <p>The operating choices inside this shape (which board, which orchestration framework, which skills, which validation gauntlet) are an iterating layer. The shape itself is settled.</p>
 <hr />
@@ -561,22 +573,22 @@
   </div>
 </div>
 <p>A traditional agency consumes effort per engagement that does not return. Each client is a fresh start; the work that ships for one is rarely useful for the next. Labor cost scales linearly with revenue, and margin compresses as the team grows.</p>
-<p>A productized agency built on the system above looks different. The substrate (the shared templates, the context-substrate structure, the operating shape) is built once. The capability library grows with every engagement and is available to every future engagement. The agent does the work the same way each time, against the same substrate, using the same loop. What is customized per client is the spec — the intent — and the small surface of capabilities the client actually needs. Most of the work is not bespoke.</p>
+<p>A productized agency built on the system above looks different. The substrate (the shared templates, the context-substrate structure, the operating shape) is built once. The capability library grows with every engagement and is available to every future engagement. The agent does the work the same way each time, against the same substrate, using the same loop. What is customized per client is the spec - the intent - and the specific capabilities the client actually needs. Most of the work is not bespoke.</p>
 <p>That is the gap the business model lives in. The client perceives a custom application built specifically for them, because the spec, the context substrate, and the selected capabilities really are theirs. The delivery cost looks more like a product than a service, because the substrate carries most of the load. <strong>Service-grade outcomes with high revenue at product-grade cost.</strong> The margin lives in the gap, and the gap widens as the capability library grows.</p>
 <p>Three things this depends on, all of which are claims I am willing to make.</p>
 <p><strong>Context is the moat.</strong> The defensible asset is each client's captured business context, the agency's accumulated capability inventory, and the business knowledge and acumen of the agency operators. None of these are replicable from outside.</p>
 <p><strong>Build for one, deploy to many.</strong> A capability that ships for client A and is useful for client B <em>only</em> if A's specifics are scrubbed is not reusable; it is a snowflake. Folder-copy portability is what keeps the inventory honest.</p>
 <p><strong>The offer compounds with the inventory.</strong> What an agency built on this system can promise a new client in year three is qualitatively different from what it can promise in year one — not because the team is more skilled, but because the substrate they ship onto is richer. The offer becomes uniquely positioned because the inventory backing it has no equivalent elsewhere.</p>
-<p>The business shape this produces is a small team with a large surface area, building custom client systems as a service, but delivering with the speed that a product would offer. The bet is that a system like this allows for increased speed, capability, and the opportunity to scale beyond traditional limits.</p>
+<p>The business shape this produces is a small team with a large execution interface, building custom client systems as a service, but delivering with the speed that a product would offer. The bet is that a system like this allows for increased speed, capability, and the opportunity to scale beyond traditional limits.</p>
 <hr />
 </section>
 <section id="what-is-settled-vs-what-is-iterating" class="level2 spec-section">
 <h2>What is settled vs. what is iterating</h2>
 <p><strong>Settled</strong> (will not change as I learn more):</p>
 <ul>
-<li>The principles in §1 (intent is the bottleneck) and §2 (the four-step loop).</li>
+<li>The principles in §1 (intent is the bottleneck) and §2 (the root operating loop applied to software).</li>
 <li>The three spec types in §3 and the discipline of co-evolution.</li>
-<li>Capabilities as vertical slices, with folder-copy portability as the test.</li>
+<li>Capabilities as portable inventory, with folder-copy portability as the test.</li>
 <li>Context substrate, with the knowledge base as one durable implementation.</li>
 <li>The three flywheels and positive time-dependence.</li>
 <li>The basic operating shape: me → OpenClaw → board → agent.</li>
@@ -600,6 +612,7 @@
     <p class="lede-2">Sibling HTML-native documents in this folder.</p>
     <div class="related-grid">
       <a class="related-card" href="./system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root philosophy that software development maps into as one business capability.</div></a>
+      <a class="related-card" href="./orderly-systems.html"><div class="related-name">Orderly Systems</div><div class="related-desc">The company-level application that software work supports.</div></a>
       <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. operating-spec.html is one instance of it.</div></a>
 <a class="related-card" href="../definitions/sw-definitions.html"><div class="related-name">Definitions</div><div class="related-desc">Plain-language glossary of terms that show up across docs/education/ and the wider agent / spec / harness conversation. Grow this over time.</div></a>
 <a class="related-card" href="../principles/core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for building compounding systems in any field: sport, education, business, operations, software, and AI-assisted work.</div></a>

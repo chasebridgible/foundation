@@ -185,7 +185,7 @@
   .visual-kicker { font-size: 11px; color: var(--fg-3); font-family: var(--font-mono); }
   .loop-flow {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
@@ -341,7 +341,7 @@
     <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
     <a class="nav-item" href="#how-to-read-this"><span class="nav-num">01</span>How to read this</a>
     <a class="nav-item" href="#1-the-business-is-the-system"><span class="nav-num">02</span>1. Business mapping.</a>
-    <a class="nav-item" href="#2-the-loop-define-decide-act-learn"><span class="nav-num">03</span>2. The loop: define, decide, act, learn.</a>
+<a class="nav-item" href="#2-the-loop-define-decide-act-learn"><span class="nav-num">03</span>2. The operating loop.</a>
     <a class="nav-item" href="#3-what-a-business-os-is"><span class="nav-num">04</span>3. What a Business OS is.</a>
     <a class="nav-item" href="#4-jobs-are-the-unit-of-change"><span class="nav-num">05</span>4. Jobs are the unit of change.</a>
     <a class="nav-item" href="#5-data-is-the-operating-signal"><span class="nav-num">06</span>5. Data is the operating signal.</a>
@@ -370,7 +370,7 @@
 <h2>How to read this</h2>
 <p>This document applies <code>system-philosophy.html</code> and the compounding-system framework to business operations. It asks one question: if goals require intent-driven systems, what does that system look like for a business whose recurring goal is to build value, deliver value, and capture money?</p>
 <p>The answer is a <strong>Business OS</strong>: the durable operating layer that describes what the business is trying to do, which jobs produce the outcomes, who or what performs those jobs, what data tells us whether the system is working, and how the whole thing updates after reality teaches us something.</p>
-<p>The core loop is simple enough to read early and repeat often: <strong>Define -&gt; Decide -&gt; Act -&gt; Learn.</strong> Learn is the compounding step: measured reality enters the data layer, gets interpreted against intent, and changes the next definition, decision, or action.</p>
+<p>The core loop is the same root loop from System Philosophy: <strong>Intent -&gt; Context -&gt; Execution -&gt; Evidence -&gt; Evaluation -&gt; Revision.</strong> In business operations, measured reality enters the data layer, gets evaluated against intent, and revises the next job definition, decision, process, actor assignment, or action.</p>
 <p>Two kinds of claim show up here. <strong>Principles</strong> are the parts I expect to survive changes in tools, models, teams, and markets. <strong>Operating choices</strong> are the current best implementation of those principles. The choices will change. The loop is what keeps those changes from becoming drift.</p>
 <hr />
 </section>
@@ -378,48 +378,58 @@
 <section id="1-the-business-is-the-system" class="level2 spec-section">
 <h2>1. The business is a mapping of the system.</h2>
 <p>The entirety of a business can be described in tasks, decisions, actions, and outcomes. That does not mean every business is simple. It means the complexity can be made legible. Every company has work that needs to happen, decisions that need to be made, actors who do the work, standards that define success, and evidence that tells the owner whether the system is improving.</p>
-<p>The leverage move is to stop treating the business as a set of departments and start treating it as a set of jobs. A cashier, marketer, designer, coder, operator, manager, and CEO all have jobs to be done. Some are physical. Some are judgment-heavy. Some are mostly information routing. Some can be done by software, by an agent, by a person, or by a person using an agent.</p>
+<p>The leverage move is to stop treating the business as a set of departments and start treating it as a system of capabilities and jobs. A capability names what the business must be able to do reliably. A job names the work required for that capability to exist, operate, or improve. A cashier, marketer, designer, coder, operator, manager, and CEO all own or perform jobs. Some are physical. Some are judgment-heavy. Some are mostly information routing. Some can be done by software, by an agent, by a person, or by a person using an agent.</p>
 <p>This is why the "AI CEO" idea matters even when the business is not run by an AI. The point is not that an agent becomes the accountable CEO. The point is sharper: even the CEO role can be decomposed into jobs, decisions, context retrieval, recommendations, and actions where an agent can help. If that is true at the top of a company, it is also true for a cashier, marketer, designer, coder, operator, or owner.</p>
-<p><strong>A job is the core unit of business intent.</strong> A job is a named body of work meant to produce a defined outcome under real constraints. In this definition, a job can include decision work, relationship work, strategy work, physical work, creative work, or operational work. If the job is clear, the business owner can decide whether it belongs to a person, an agent, a workflow, a software system, or a hybrid. If the job is not clear, delegation becomes guessing with a better interface.</p>
+<p><strong>A job is the named body of work required for a capability to exist, operate, or improve.</strong> A job can include decision work, relationship work, strategy work, physical work, creative work, or operational work. If the job is clear, the business owner can decide whether it belongs to a person, an agent, a workflow, a software system, or a hybrid. If the job is not clear, delegation becomes guessing with a better interface.</p>
 <hr />
 </section>
 
 <section id="2-the-loop-define-decide-act-learn" class="level2 spec-section">
-<h2>2. The loop: define, decide, act, learn.</h2>
-<p>Every improvement to the Business OS runs the same cycle.</p>
+<h2>2. The business operating loop.</h2>
+<p>Every improvement to the Business OS runs the root operating loop.</p>
 <div class="loop-flow">
   <div class="loop-node accent">
     <div class="loop-num">01</div>
-    <div class="loop-title">Define</div>
-    <div class="loop-copy">Write down the job, actor, process, constraints, and success criteria.</div>
+    <div class="loop-title">Intent</div>
+    <div class="loop-copy">Name the business result, capability, job, and success condition.</div>
   </div>
   <div class="loop-node">
     <div class="loop-num">02</div>
-    <div class="loop-title">Decide</div>
-    <div class="loop-copy">Choose the next intervention, actor, standard, and evidence.</div>
+    <div class="loop-title">Context</div>
+    <div class="loop-copy">Prepare the constraints, history, actor options, tools, data, and risk.</div>
   </div>
   <div class="loop-node">
     <div class="loop-num">03</div>
-    <div class="loop-title">Act</div>
-    <div class="loop-copy">Implement the process, software, agent, checklist, recommendation, or handoff.</div>
+    <div class="loop-title">Execution</div>
+    <div class="loop-copy">Run the process, software, agent, checklist, recommendation, or handoff.</div>
   </div>
   <div class="loop-node">
     <div class="loop-num">04</div>
-    <div class="loop-title">Learn</div>
-    <div class="loop-copy">Move measured reality into the data layer and update future work.</div>
+    <div class="loop-title">Evidence</div>
+    <div class="loop-copy">Collect measured reality from data, review, customer response, or outcome.</div>
+  </div>
+  <div class="loop-node">
+    <div class="loop-num">05</div>
+    <div class="loop-title">Evaluation</div>
+    <div class="loop-copy">Compare the evidence against the intended result and decide what it means.</div>
+  </div>
+  <div class="loop-node">
+    <div class="loop-num">06</div>
+    <div class="loop-title">Revision</div>
+    <div class="loop-copy">Update the job, process, actor assignment, metric, offer, or capability map.</div>
   </div>
 </div>
-<p><strong>Define.</strong> Capture the work in a form both humans and agents can understand. That may mean writing down a process, standardizing an existing document, sitting in on a meeting, interviewing an employee, or turning a messy conversation into a job record.</p>
-<p><strong>Decide.</strong> Use the job record, business context, and available data to choose what needs to be done and why. The decision names the intended action, the actor, the expected outcome, and the evidence that will decide whether the action worked.</p>
-<p><strong>Act.</strong> Implement the chosen intervention. Sometimes that is a checklist. Sometimes it is a spreadsheet. Sometimes it is an app, automation, agent skill, operating cadence, training artifact, or recommendation the business implements itself. The actor is selected after the job is understood, not before.</p>
-<p><strong>Learn.</strong> The loop compounds only when measured reality enters the data layer, gets interpreted against intent, and changes the next definition, decision, or action. Measurement can be data, manager review, customer response, audit trail, task completion, error rate, revenue, margin, cycle time, or any other signal tied to the job. Measurement without OS update is reporting. Measurement with OS update is compounding.</p>
+<p><strong>Intent.</strong> Capture the desired result in a form both humans and agents can understand. That may mean defining a capability, writing a job record, standardizing an existing document, sitting in on a meeting, interviewing an employee, or turning a messy conversation into a clear operating artifact.</p>
+<p><strong>Context.</strong> Use the job record, business context, and available data to choose what needs to be done and why. Context names the constraints, actor candidates, expected outcome, tools, and evidence that will decide whether the action worked.</p>
+<p><strong>Execution.</strong> Implement the chosen intervention. Sometimes that is a checklist. Sometimes it is a spreadsheet. Sometimes it is an app, automation, agent skill, operating cadence, training artifact, or recommendation the business implements itself. The actor is selected after the job is understood, not before.</p>
+<p><strong>Evidence, evaluation, and revision.</strong> The loop compounds only when measured reality enters the data layer, gets interpreted against intent, and changes the next job definition, decision, process, actor assignment, or action. Measurement can be data, manager review, customer response, audit trail, task completion, error rate, revenue, margin, cycle time, or any other signal tied to the job. Measurement without OS update is reporting. Measurement with OS update is compounding.</p>
 <p>When a step fails, go back to the smallest correction. If the actor did the wrong thing, inspect the job definition. If the metric did not answer the question, revise the data capture. If the process worked once but cannot be repeated, turn the successful path into a checklist or skill. The loop is the recovery mechanism and the learning mechanism.</p>
 <hr />
 </section>
 
 <section id="3-what-a-business-os-is" class="level2 spec-section">
 <h2>3. What a Business OS is.</h2>
-<p>A Business OS is a living context and spec system for defining work, assigning actors, measuring outcomes, and updating how the business operates. It contains the operating memory of the business: jobs, decisions, actors, processes, data, measures, update rules, and the evidence behind revisions.</p>
+<p>A Business OS is a living context and spec system for defining work, assigning actors, measuring outcomes, and updating how the business operates. It contains the operating substrate of the business: goals, capabilities, jobs, decisions, actors, processes, data definitions, measures, update rules, and the evidence behind revisions.</p>
 <p>The knowledge layer is one part of that system and one implementation of context substrate. The Business OS turns that context into routed work, assigned responsibility, measured outcomes, and revised future defaults.</p>
 <div class="matrix-grid">
   <div class="matrix-cell">
@@ -434,23 +444,24 @@
   </div>
   <div class="matrix-cell">
     <div class="matrix-label">GBrain-style access</div>
-    <div class="matrix-value">Retrieval surface</div>
+    <div class="matrix-value">Retrieval interface</div>
     <div class="matrix-copy">Useful when the question is "what do we know about this?" Not sufficient by itself for routing or accountability.</div>
   </div>
   <div class="matrix-cell">
     <div class="matrix-label">Update protocol</div>
-    <div class="matrix-value">Compounding surface</div>
+    <div class="matrix-value">Compounding system</div>
     <div class="matrix-copy">Defines where new artifacts go, who approves changes, when processes revise, and how lessons become future default behavior.</div>
   </div>
 </div>
-<p>A GBrain-style setup may be enough for information access. The Business OS adds the operating protocol around that access: where work starts, who owns it, how it is measured, and how lessons become future default behavior. With update rules, the business gets an operating memory that changes how future work is done.</p>
+<p>A GBrain-style setup may be enough for information access. The Business OS adds the operating protocol around that access: where work starts, who owns it, how it is measured, and how lessons become future default behavior. With update rules, the business gets operating memory preserved as substrate that changes how future work is done.</p>
 <p>File placement matters less than retrieval and maintenance discipline, but it still matters. The system needs canonical homes for jobs, processes, roles, metrics, offers, decisions, and incidents. If employees can add documents anywhere, the business accumulates content. If employees complete guided intake that creates or updates the right artifact, the business accumulates substrate.</p>
 <hr />
 </section>
 
 <section id="4-jobs-are-the-unit-of-change" class="level2 spec-section">
 <h2>4. Jobs are the unit of change.</h2>
-<p>A job record is a job spec, even when the business-facing name is "job record." It says what needs to happen, why it matters, how it is currently done, who owns it, what inputs it needs, what output it creates, and how success is verified. Because a job carries intent, the record can describe strategy work, relationship work, decision work, creative work, physical work, or routine operational work without changing shape.</p>
+<p>A capability says what the business can reliably do. A job says what work must happen for that capability to exist, operate, or improve. For example, <em>pay employees accurately and on time</em> is a capability; <em>run payroll for this pay period</em> is a job; approving hours, calculating pay, resolving exceptions, and recording proof are process steps and actions inside that job.</p>
+<p>A job record is a job spec, even when the business-facing name is "job record." It says what needs to happen, why it matters, which capability it supports, how it is currently done, who owns it, what inputs it needs, what output it creates, and how success is verified. Because a job carries intent, the record can describe strategy work, relationship work, decision work, creative work, physical work, or routine operational work without changing shape.</p>
 <p>A complete job record should answer:</p>
 <ul>
 <li><strong>Purpose:</strong> what business outcome this job protects or creates.</li>
@@ -473,7 +484,7 @@
 <section id="5-data-is-the-operating-signal" class="level2 spec-section">
 <h2>5. Data is the operating signal.</h2>
 <p>The Business OS needs a data layer because the owner needs to know what is happening before deciding what should happen next. A process document can say how work is intended to happen. Data says whether it is happening, how often it fails, where it is slow, and which outcomes are improving.</p>
-<p>This is the Learn step in concrete form: measured reality enters the data layer, gets interpreted against intent, and changes the next definition, decision, or action. If the data does not change future work, the loop has not learned.</p>
+<p>This is evidence, evaluation, and revision in concrete form: measured reality enters the data layer, gets interpreted against intent, and changes the next job definition, decision, process, actor assignment, or action. If the data does not change future work, the loop has not learned.</p>
 <p>The data layer is not just a dashboard. It is the accumulating history of business events, decisions, outcomes, and exceptions, labeled well enough that humans and agents can reason about them later. Clean labels matter because they preserve the context that is cheap to capture now and expensive to reconstruct later.</p>
 <p>Better business context plus better business data means better recommendations. An agent that knows the job list, offer map, customer promises, constraints, metrics, current bottlenecks, and recent outcomes can help decide what should be done and why. An agent without that context gives generic advice with confident language.</p>
 <p>The durable data questions are simple:</p>
@@ -490,25 +501,25 @@
 
 <section id="6-the-operating-shape" class="level2 spec-section">
 <h2>6. The operating shape.</h2>
-<p>The Business OS is maintained by a small routing surface and a clear ownership model.</p>
+<p>The Business OS is maintained by a small routing interface and a clear ownership model.</p>
 <div class="visual-block">
   <div class="visual-header">
     <div class="visual-title">Business OS operating shape</div>
-    <div class="visual-kicker">small owner surface · large system surface</div>
+    <div class="visual-kicker">small owner interface · large system interface</div>
   </div>
   <div class="actor-chain">
     <div class="actor-card human"><div class="actor-label">intent</div><div class="actor-name">Owner</div><div class="actor-copy">Defines outcomes, approves priorities, accepts major changes.</div></div>
     <div class="actor-card queue"><div class="actor-label">operator</div><div class="actor-name">OS Steward</div><div class="actor-copy">Maintains jobs, processes, data definitions, and revision rules.</div></div>
     <div class="actor-card queue"><div class="actor-label">routing</div><div class="actor-name">Job Board</div><div class="actor-copy">Shows what needs to be done, who owns it, and what is blocked.</div></div>
     <div class="actor-card agent"><div class="actor-label">labor</div><div class="actor-name">Actor</div><div class="actor-copy">Person, agent, software, vendor, or hybrid performs the job.</div></div>
-    <div class="actor-card system"><div class="actor-label">evidence</div><div class="actor-name">Learn</div><div class="actor-copy">Outcome data updates the OS and shapes the next cycle.</div></div>
+    <div class="actor-card system"><div class="actor-label">revision</div><div class="actor-name">Revision</div><div class="actor-copy">Outcome data updates the OS and shapes the next cycle.</div></div>
   </div>
 </div>
 <p><strong>Owner.</strong> The business owner holds intent and accountability. The owner decides what matters, which tradeoffs are acceptable, and when a major change is good enough to become the new default.</p>
 <p><strong>OS steward.</strong> The steward maintains the operating substrate. This can be a consultant, operator, internal employee, or agent-assisted role. The steward does not need to do every job. The steward makes sure every important job is defined, assigned, measurable, and updated when reality changes.</p>
-<p><strong>Job board.</strong> The board is the current task surface. It answers: what jobs exist, what tasks are active, who owns them, what is blocked, what evidence is missing, and what changed recently. Business owners should be able to see all jobs and how they are handled without manually interviewing the whole company.</p>
+<p><strong>Job board.</strong> The board is the current work interface. It answers: what jobs exist, what tasks are active, who owns them, what is blocked, what evidence is missing, and what changed recently. Business owners should be able to see all jobs and how they are handled without manually interviewing the whole company.</p>
 <p><strong>Actor.</strong> The actor does the job. Sometimes the actor is an employee following a checklist. Sometimes it is an agent that drafts a recommendation. Sometimes it is software that automates the action. Sometimes it is a human approving an agent's work. The OS should name the actor explicitly instead of hiding delegation inside informal habits.</p>
-<p><strong>Learn.</strong> The learning layer closes the loop. It decides whether the job is healthy, whether the actor is appropriate, whether the process needs revision, and whether new work should be created.</p>
+<p><strong>Revision.</strong> The revision layer closes the loop. It decides whether the job is healthy, whether the actor is appropriate, whether the process needs revision, and whether new work should be created.</p>
 <p>The key interface is guided intake. Employees should not have to understand the entire OS to update it. They should be able to answer structured questions about what happened, what changed, what failed, or what process they followed. The system turns those answers into updates to jobs, tasks, SOPs, decision records, and metrics.</p>
 <hr />
 </section>
@@ -536,8 +547,8 @@
 <li><strong>Design the operating system.</strong> Create the job board, SOPs, checklists, data definitions, dashboards, decision rules, and intake paths the business needs.</li>
 <li><strong>Implement the right intervention.</strong> Build or recommend processes, software, automations, agent workflows, training artifacts, or human handoffs.</li>
 <li><strong>Set up the data layer.</strong> Route the events, metrics, outcomes, and exceptions needed to understand whether the business is working.</li>
-<li><strong>Close the Learn loop.</strong> Turn measured reality into updates to job definitions, decisions, processes, actor assignments, and future actions.</li>
-<li><strong>Maintain the OS.</strong> Keep the business operating memory current as offers, people, tools, constraints, and market conditions change.</li>
+<li><strong>Close the revision loop.</strong> Turn measured reality into updates to job definitions, decisions, processes, actor assignments, and future actions.</li>
+<li><strong>Maintain the OS.</strong> Keep the business operating substrate current as offers, people, tools, constraints, and market conditions change.</li>
 </ul>
 <p><strong>What we do not promise:</strong> we do not personally perform every job inside the business. We do not stock shelves, run every sales call, or replace accountable owners. We define the work, design the system, implement the right leverage, and make sure measured reality updates how the business operates.</p>
 <p>The result is a company that can answer: what needs to be done, who or what is doing it, how we know it is handled, what is failing, and what should change next.</p>
@@ -549,18 +560,18 @@
 <p><strong>Settled</strong> (will not change as tools improve):</p>
 <ul>
 <li>A business becomes improvable when its jobs, decisions, actions, outcomes, constraints, and evidence are legible.</li>
-<li>A job is the core unit of business intent: a named body of work meant to produce a defined outcome under real constraints.</li>
+<li>A job is the named body of work required for a capability to exist, operate, or improve.</li>
 <li>Offers define what the business promises; jobs define what the business must do to fulfill those promises.</li>
 <li>Define the job before choosing the actor.</li>
 <li>A Business OS is a living system for defining work, assigning actors, measuring outcomes, and updating how the business operates.</li>
 <li>Measurement without operating-memory update is reporting; measurement with update is compounding.</li>
 <li>Accountability stays with the responsible owner even when execution is delegated.</li>
-<li>The operating loop is Define -&gt; Decide -&gt; Act -&gt; Learn.</li>
+<li>The operating loop is Intent -&gt; Context -&gt; Execution -&gt; Evidence -&gt; Evaluation -&gt; Revision.</li>
 </ul>
 <p><strong>Iterating</strong> (current best implementation):</p>
 <ul>
 <li>The exact document structure for a job registry, SOP library, decision log, metric dictionary, and offer map.</li>
-<li>Whether the interface starts as files, sheets, a custom app, a GBrain-style knowledge surface, or a hybrid.</li>
+<li>Whether the interface starts as files, sheets, a custom app, a GBrain-style knowledge interface, or a hybrid.</li>
 <li>Which agent skills handle intake, job updates, process drafting, data interpretation, and owner reporting.</li>
 <li>The precise title for the company category: business performance firm, business systems firm, operations intelligence firm, or something sharper.</li>
 <li>The first client-facing offer and delivery cadence for Orderly Systems.</li>
@@ -575,6 +586,7 @@
     <p class="lede">Sibling HTML-native documents in this folder.</p>
     <div class="related-grid">
       <a class="related-card" href="./system-philosophy.html"><div class="related-name">System Philosophy</div><div class="related-desc">The root philosophy for intent-driven business systems, context, action, evidence, and compounding substrate.</div></a>
+      <a class="related-card" href="./orderly-systems.html"><div class="related-name">Orderly Systems</div><div class="related-desc">The company-level application: what Orderly Systems does and how it works.</div></a>
       <a class="related-card" href="./operating-spec.html"><div class="related-name">Building Software with Agents: A Working Spec</div><div class="related-desc">The software-development operating spec this document mirrors.</div></a>
       <a class="related-card" href="../compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The framework. The Business OS is one instance of it.</div></a>
       <a class="related-card" href="../principles/business-principles.html"><div class="related-name">Business Principles</div><div class="related-desc">Domain-specific principles for building and maintaining a Business OS.</div></a>

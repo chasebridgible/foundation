@@ -23,7 +23,7 @@ The golden example is the minimum shape of excellent, not a loose sample. Merely
 - dated backfill report, Capability Map, Artifact Inventory, Job / Spec Queue
 - top-level system/app spec
 - descriptive and technical specs named by the report
-- rendered UX sections for visible slices
+- rendered UX sections for visible capability work
 - evidence paths needed to audit traceability
 
 ## Rubric
@@ -35,7 +35,7 @@ Score each category `0-10`, total `0-100`:
 3. evidence traceability
 4. descriptive intent quality
 5. Process / Action Map and state specificity
-6. rendered UX quality for visible slices
+6. rendered UX quality for visible capability work
 7. technical contract quality
 8. architecture flexibility: contracts, evidence, constraints, latitude
 9. review questions and discrepancy handling

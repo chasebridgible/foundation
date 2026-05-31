@@ -3,134 +3,177 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const docsDir = path.dirname(fileURLToPath(import.meta.url));
-const outputPath = path.join(docsDir, "site-map.js");
+const scriptPath = fileURLToPath(import.meta.url);
+const docsDir = path.dirname(scriptPath);
+const repoRoot = path.dirname(docsDir);
+const defaultOutputPath = path.join(docsDir, "site-map.js");
+const skipDirectoryNames = new Set([
+  ".git",
+  ".next",
+  ".turbo",
+  "build",
+  "coverage",
+  "dist",
+  "node_modules",
+  "vendor"
+]);
 
-const groupOrder = [
-  {
-    group: "Core Concepts",
-    include: file => !file.startsWith("specs/"),
-    order: [
-      "general/system-philosophy.html",
-      "compounding-systems.html",
-      "principles/core-principles.html",
-      "principles/business-principles.html",
-      "principles/sw-dev-principles.html",
-      "principles/ai-evals-principles.html",
-      "principles/sw-design-principles.html",
-      "general/operating-spec.html",
-      "general/business-os.html",
-      "general/business-capability-map.html",
-      "definitions/sw-definitions.html"
-    ]
-  },
-  {
-    group: "Spec System",
-    include: file => /^specs\/(index|process|linking)\.html$/.test(file),
-    order: ["specs/index.html", "specs/process.html", "specs/linking.html"]
-  },
-  {
-    group: "Foundation Specs",
-    include: file => /^specs\/[^/]+\.html$/.test(file) && !/^specs\/(index|process|linking)\.html$/.test(file),
-    order: [
-      "specs/foundation-workspace-model.html",
-      "specs/foundation-backfill-specs.html",
-      "specs/foundation-backfill-orchestration-technical.html",
-      "specs/foundation-backfill-quality-evaluation.html",
-      "specs/foundation-backfill-artifact-inventory.html",
-      "specs/foundation-backfill-artifact-inventory-technical.html",
-      "specs/foundation-backfill-artifact-inventory-eval.html",
-      "specs/foundation-backfill-surface-function-map.html",
-      "specs/foundation-backfill-surface-function-map-technical.html",
-      "specs/foundation-backfill-surface-function-map-eval.html",
-      "specs/foundation-backfill-capability-map.html",
-      "specs/foundation-backfill-capability-map-technical.html",
-      "specs/foundation-backfill-capability-map-eval.html",
-      "specs/foundation-backfill-spec-job-queue.html",
-      "specs/foundation-backfill-spec-job-queue-technical.html",
-      "specs/foundation-backfill-spec-job-queue-eval.html",
-      "specs/foundation-backfill-context-pack.html",
-      "specs/foundation-backfill-context-pack-technical.html",
-      "specs/foundation-backfill-context-pack-eval.html",
-      "specs/foundation-backfill-process-action-map.html",
-      "specs/foundation-backfill-process-action-map-technical.html",
-      "specs/foundation-backfill-process-action-map-eval.html",
-      "specs/foundation-backfill-author-specs.html",
-      "specs/foundation-backfill-author-specs-technical.html",
-      "specs/foundation-backfill-author-specs-eval.html",
-      "specs/foundation-backfill-job-slice-evaluation.html",
-      "specs/foundation-backfill-job-slice-evaluation-technical.html",
-      "specs/foundation-backfill-job-slice-evaluation-eval.html",
-      "specs/foundation-backfill-system-coherence-evaluation.html",
-      "specs/foundation-backfill-system-coherence-evaluation-technical.html",
-      "specs/foundation-backfill-system-coherence-evaluation-eval.html",
-      "specs/foundation-backfill-handoff.html",
-      "specs/foundation-backfill-handoff-technical.html",
-      "specs/foundation-backfill-handoff-eval.html",
-      "specs/foundation-agents-load-canary-eval.html",
-      "specs/foundation-workspace-doctor-technical.html",
-      "specs/foundation-workspace-doctor-eval.html"
-    ]
-  },
-  {
-    group: "Spec Templates",
-    include: file => file.startsWith("specs/templates/"),
-    order: [
-      "specs/templates/descriptive-spec-template.html",
-      "specs/templates/technical-spec-template.html",
-      "specs/templates/eval-spec-template.html"
-    ]
-  },
-  {
-    group: "Spec Examples",
-    include: file => file.startsWith("specs/examples/"),
-    order: [
-      "specs/examples/backfill-golden-example.html",
-      "specs/examples/descriptive-spec-example.html",
-      "specs/examples/technical-spec-example.html",
-      "specs/examples/eval-spec-example.html"
-    ]
+function usage() {
+  return `Usage:
+  node docs/generate-site-map.mjs
+  node docs/generate-site-map.mjs --root docs --root knowledge-base --output docs/site-map.js
+
+Options:
+  --root <path>      HTML document root relative to repo root. Repeatable. Defaults to docs.
+  --output <path>    Generated JS file relative to repo root. Defaults to docs/site-map.js.
+  --repo-root <path> Repository root. Defaults to this script's parent directory.
+  --help            Show this help`;
+}
+
+function slash(value) {
+  return value.split(path.sep).join("/");
+}
+
+function parseArgs(argv) {
+  const options = {
+    outputPath: defaultOutputPath,
+    repoRoot,
+    roots: []
+  };
+
+  for (let index = 0; index < argv.length; index += 1) {
+    const token = argv[index];
+    if (token === "--help") return { ...options, help: true };
+    if (token === "--root" || token === "--output" || token === "--repo-root") {
+      const value = argv[index + 1];
+      if (!value || value.startsWith("--")) throw new Error(`Missing value for ${token}`);
+      index += 1;
+      if (token === "--root") options.roots.push(value);
+      if (token === "--output") options.outputPath = value;
+      if (token === "--repo-root") options.repoRoot = value;
+      continue;
+    }
+    throw new Error(`Unknown argument: ${token}`);
   }
-];
 
-function walk(dir) {
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  return entries.flatMap(entry => {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) return walk(fullPath);
-    if (!entry.isFile() || !entry.name.endsWith(".html")) return [];
-    return [path.relative(docsDir, fullPath).split(path.sep).join("/")];
-  });
+  options.repoRoot = path.resolve(options.repoRoot);
+  options.outputPath = path.resolve(options.repoRoot, options.outputPath);
+  if (options.roots.length === 0) options.roots.push(slash(path.relative(options.repoRoot, docsDir)));
+  options.roots = options.roots.map(root => path.resolve(options.repoRoot, root));
+  return options;
 }
 
-function readPage(file) {
-  const html = fs.readFileSync(path.join(docsDir, file), "utf8");
-  const title = html.match(/<title>([^<]+)<\/title>/)?.[1]?.trim() || file;
+function humanizeFolder(name) {
+  return name
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, letter => letter.toUpperCase());
+}
+
+function cleanTitle(title) {
+  return title.replace(/ (?:\u2014|-) Core Concepts$/, "");
+}
+
+function readPage(file, outputDir, rootPath, options) {
+  const html = fs.readFileSync(file, "utf8");
+  const title = cleanTitle(html.match(/<title>([^<]+)<\/title>/)?.[1]?.trim() || path.basename(file));
   const specId = html.match(/<meta name="spec:id" content="([^"]+)">/)?.[1];
-  const cleanTitle = title.replace(/ (?:\u2014|-) Core Concepts$/, "");
-  return { title: cleanTitle, path: file, ...(specId ? { specId } : {}) };
+  return {
+    type: "file",
+    name: path.basename(file),
+    title,
+    path: slash(path.relative(outputDir, file)),
+    sourcePath: slash(path.relative(options.repoRoot, file)),
+    rootPath: slash(path.relative(options.repoRoot, rootPath)),
+    ...(specId ? { specId } : {})
+  };
 }
 
-function orderItems(files, order) {
-  const index = new Map(order.map((file, position) => [file, position]));
-  return files
-    .slice()
-    .sort((a, b) => {
-      const ai = index.has(a) ? index.get(a) : Number.MAX_SAFE_INTEGER;
-      const bi = index.has(b) ? index.get(b) : Number.MAX_SAFE_INTEGER;
-      return ai - bi || a.localeCompare(b);
-    })
-    .map(readPage);
+function entryRank(entry) {
+  if (entry.isFile() && entry.name === "index.html") return 0;
+  if (entry.isDirectory()) return 1;
+  return 2;
 }
 
-const htmlFiles = walk(docsDir);
-const groups = groupOrder
-  .map(group => ({
-    group: group.group,
-    items: orderItems(htmlFiles.filter(group.include), group.order)
-  }))
-  .filter(group => group.items.length > 0);
+function compareEntries(a, b) {
+  const rank = entryRank(a) - entryRank(b);
+  return rank || a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: "base" });
+}
 
-const contents = `window.SubstrateSiteMap = ${JSON.stringify(groups, null, 2)};\n`;
-fs.writeFileSync(outputPath, contents);
-console.log(`Wrote ${path.relative(process.cwd(), outputPath)} with ${htmlFiles.length} HTML files.`);
+function shouldSkipEntry(entry) {
+  return entry.name.startsWith(".") || skipDirectoryNames.has(entry.name);
+}
+
+function walkFolder(dir, rootPath, options) {
+  if (!fs.existsSync(dir)) return [];
+
+  const outputDir = path.dirname(options.outputPath);
+  return fs.readdirSync(dir, { withFileTypes: true })
+    .filter(entry => !shouldSkipEntry(entry))
+    .sort(compareEntries)
+    .flatMap(entry => {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        const items = walkFolder(fullPath, rootPath, options);
+        if (items.length === 0) return [];
+        return [{
+          type: "folder",
+          name: entry.name,
+          title: humanizeFolder(entry.name),
+          sourcePath: slash(path.relative(options.repoRoot, fullPath)),
+          items
+        }];
+      }
+      if (!entry.isFile() || !entry.name.endsWith(".html")) return [];
+      return [readPage(fullPath, outputDir, rootPath, options)];
+    });
+}
+
+function rootNode(rootPath, options) {
+  const name = path.basename(rootPath);
+  return {
+    type: "folder",
+    name,
+    title: name === "docs" ? "Documents" : humanizeFolder(name),
+    sourcePath: slash(path.relative(options.repoRoot, rootPath)),
+    items: walkFolder(rootPath, rootPath, options)
+  };
+}
+
+function countFiles(items) {
+  return items.reduce((count, item) => count + (item.type === "file" ? 1 : countFiles(item.items || [])), 0);
+}
+
+function buildSiteMap(options) {
+  const roots = options.roots
+    .map(root => rootNode(root, options))
+    .filter(root => root.items.length > 0);
+  const items = roots.length === 1 ? roots[0].items : roots;
+  return {
+    version: "2.0",
+    label: "Documents",
+    roots: roots.map(root => ({ title: root.title, sourcePath: root.sourcePath })),
+    fileCount: countFiles(items),
+    items
+  };
+}
+
+let options;
+try {
+  options = parseArgs(process.argv.slice(2));
+} catch (error) {
+  console.error(error.message);
+  console.error("");
+  console.error(usage());
+  process.exit(2);
+}
+
+if (options.help) {
+  console.log(usage());
+  process.exit(0);
+}
+
+const siteMap = buildSiteMap(options);
+const contents = `window.SubstrateSiteMap = ${JSON.stringify(siteMap, null, 2)};\n`;
+fs.mkdirSync(path.dirname(options.outputPath), { recursive: true });
+fs.writeFileSync(options.outputPath, contents);
+console.log(`Wrote ${slash(path.relative(process.cwd(), options.outputPath))} with ${siteMap.fileCount} HTML files.`);

@@ -17,8 +17,14 @@ Use this skill to connect a target repo to Foundation. The model is defined in `
    - Use `templates/target-repo-AGENTS.md` as the starting shape.
 4. Keep project specs, project knowledge, tests, ADRs, and implementation paths in the target repo.
 5. Keep shared process, templates, skills, validators, and principles in Foundation.
-6. Configure CI to check out a pinned Foundation revision, not an implicit local sibling path.
-7. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation and resolve failures before handoff.
+6. Install local HTML docs navigation for the target repo:
+   - Copy or pin `docs/generate-site-map.mjs` and `docs/site-nav.js` from Foundation into the target repo.
+   - Generate the target repo's own `docs/site-map.js`; it must reflect the target repo's folders, not Foundation's folders.
+   - If the target repo has `package.json`, add a `site-map` script that runs `node docs/generate-site-map.mjs`.
+   - Ensure durable HTML docs under `docs/` load the local `site-map.js` and `site-nav.js` scripts.
+   - Preserve the target repo's spec registry as the semantic lookup for specs, capabilities, jobs, processes, paths, and coverage.
+7. Configure CI to check out a pinned Foundation revision, not an implicit local sibling path.
+8. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation and resolve failures before handoff.
 
 ## Target Repo Adapter
 
@@ -54,6 +60,8 @@ After the target repo is connected:
 - The target repo `AGENTS.md` is a short adapter, not a copy of Foundation rules.
 - The target README explains what the target repo is.
 - Product specs and project facts live in the target repo.
+- Durable HTML docs in the target repo render a left sidebar from the target repo's own folder tree.
+- The target repo spec registry remains separate from visual document navigation.
 - Shared process changes live in Foundation.
 - Existing repo adoption routes to Backfill Specs after setup.
 - CI checks out a pinned Foundation revision before running Foundation-backed validation.
