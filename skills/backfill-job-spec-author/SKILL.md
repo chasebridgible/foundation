@@ -22,6 +22,8 @@ Use target-owned spec IDs and `status: draft`. Choose altitude:
 - parent spec: vocabulary, boundaries, child graph
 - child spec: concrete capability behavior
 
+Every authored spec must include `graph-metadata`. Job specs expose the job node, supporting capability edge, process node, actor nodes, tool nodes, evidence/metric/gap nodes, and source sections. Technical and eval specs expose support/evaluation nodes and edges.
+
 For behavior-bearing specs, include:
 
 - product intent
@@ -38,13 +40,15 @@ For behavior-bearing specs, include:
 - related specs and evidence paths
 - rendered UX requirement or nonvisual explanation
 - coverage and review gaps
+- graph metadata that agrees with the visible prose and capability row
 
 ## Rules
 
 - Keep implementation choices out unless user-visible or required constraints.
 - Preserve cross-platform flexibility: the same capability can appear on multiple platforms when actor, outcome, state model, rules, and contracts are equivalent.
 - Mark claims as evidence-backed, inferred, or review-needed in the report.
+- Run or route `npm run foundation:visible-business-graph:check -- --repo <target-repo>` after authored specs are written or revised.
 
 ## Done
 
-Done when a future build agent can understand intended behavior, states, recovery, permissions, and open human decisions from the spec without reading source for core behavior. If the slice has visible UX, call `backfill-rendered-ux-spec`.
+Done when a future build agent can understand intended behavior, states, recovery, permissions, graph relationships, and open human decisions from the spec without reading source for core behavior. If the slice has visible UX, call `backfill-rendered-ux-spec`.

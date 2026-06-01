@@ -7,14 +7,14 @@ import { fileURLToPath } from "node:url";
 const scriptPath = fileURLToPath(import.meta.url);
 const repoRoot = path.dirname(path.dirname(scriptPath));
 const requiredSkills = [
-  "descriptive-spec-interview",
+  "job-spec-interview",
   "backfill-specs",
   "artifact-inventory-fill-loop",
   "surface-function-map-fill-loop",
   "capability-map-fill-loop",
   "backfill-artifact-inventory",
   "backfill-process-action-map",
-  "backfill-descriptive-spec-author",
+  "backfill-job-spec-author",
   "backfill-rendered-ux-spec",
   "backfill-technical-spec-author",
   "backfill-spec-adequacy-review",

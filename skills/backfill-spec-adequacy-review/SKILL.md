@@ -22,10 +22,16 @@ Could a future build agent implement the intended behavior from the specs while 
 - technical specs cover data, APIs, services/jobs, permissions, integrations, timing, failures, observability, boundaries
 - technical specs separate required contracts, current evidence, constraints, and latitude
 - parent specs define vocabulary/graph; child specs carry behavior
+- `graph-metadata` is present, valid, source-backed, and semantically aligned with capability/job/process/actor/tool/evidence/metric/gap prose
+- technical, eval, and template specs are not graph orphans; they link to what they support, evaluate, or scaffold
 - vague nouns, unsupported claims, summary-only prose, and missing state/rule tables are revised
 - report/queue names owner skill, next action, exit criterion, capability IDs, and blocking gaps
 - observed behavior, inferred intent, required future contract, and human decisions are separated
 - spec-only rebuild probe lists source files still needed; source needed for core behavior means revision
+
+## Graph Check
+
+Run `npm run foundation:visible-business-graph:check -- --repo <repo>` before marking a slice ready when specs have been created or revised. Treat valid JSON as necessary but not enough: this review must also reject misleading graph relationships, missing actors/processes/tools/evidence, unsupported confidence, and source section IDs that do not match the prose.
 
 ## Output
 

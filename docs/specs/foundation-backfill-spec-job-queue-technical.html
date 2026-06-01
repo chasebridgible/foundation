@@ -140,6 +140,69 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.backfill-spec-job-queue.technical",
+  "nodes": [
+    {
+      "id": "spec:foundation.backfill-spec-job-queue.technical",
+      "type": "technical-contract",
+      "label": "Foundation Backfill Define Spec Jobs Technical Spec",
+      "source": {
+        "specId": "foundation.backfill-spec-job-queue.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "foundation",
+          "backfill",
+          "spec-job-queue",
+          "technical",
+          "substrate"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.backfill-spec-job-queue.technical:depends-on:spec:foundation.backfill-spec-job-queue.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-spec-job-queue.technical",
+      "to": "spec:foundation.backfill-spec-job-queue.job",
+      "source": {
+        "specId": "foundation.backfill-spec-job-queue.technical",
+        "sectionId": "required-depth"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-spec-job-queue.technical:supports:spec:foundation.backfill-spec-job-queue.eval",
+      "type": "supports",
+      "from": "spec:foundation.backfill-spec-job-queue.technical",
+      "to": "spec:foundation.backfill-spec-job-queue.eval",
+      "source": {
+        "specId": "foundation.backfill-spec-job-queue.technical",
+        "sectionId": "required-depth"
+      },
+      "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.backfill-spec-job-queue.technical:depends-on:spec:foundation.backfill-capability-map.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-spec-job-queue.technical",
+      "to": "spec:foundation.backfill-capability-map.job",
+      "source": {
+        "specId": "foundation.backfill-spec-job-queue.technical",
+        "sectionId": "required-depth"
+      },
+      "label": "depends-on"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

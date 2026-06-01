@@ -34,6 +34,7 @@ const TERMINAL_QUEUE_STATUSES = new Set(["ready", "acceptable", "blocked", "out-
 const ACTIVE_QUEUE_STATUSES = new Set(["ready", "in-progress"]);
 const VALID_OWNER_SKILLS = new Set([
   "backfill-context-pack",
+  "backfill-job-spec-author",
   "backfill-descriptive-spec-author",
   "backfill-rendered-ux-spec",
   "backfill-technical-spec-author",
@@ -199,6 +200,10 @@ function normalizeNullableString(value) {
   return isNonEmptyString(value) ? value.trim() : null;
 }
 
+function preferredField(source, primary, legacy) {
+  return source?.[primary] !== undefined ? source[primary] : source?.[legacy];
+}
+
 function slug(value) {
   return String(value || "")
     .toLowerCase()
@@ -309,9 +314,9 @@ function createPendingSliceRow(capabilityRow, ordinal = 1) {
     excludedBehaviors: [],
     exitCriterion: "",
     nextAction: "",
-    descriptiveSpec: normalizeNullableString(capabilityRow.descriptiveSpec),
+    jobSpec: normalizeNullableString(preferredField(capabilityRow, "jobSpec", "descriptiveSpec")),
     technicalSpec: normalizeNullableString(capabilityRow.technicalSpec),
-    descriptiveSections: normalizeStringList(capabilityRow.descriptiveSections),
+    jobSections: normalizeStringList(preferredField(capabilityRow, "jobSections", "descriptiveSections")),
     technicalSections: normalizeStringList(capabilityRow.technicalSections),
     verificationTargets: normalizeStringList(capabilityRow.verificationTargets),
     childSliceRationale: "",
@@ -396,9 +401,9 @@ function createAgentMarkedSpecJobQueueRow(capabilityById, selectedCapabilityIds,
     excludedBehaviors: normalizeStringList(spec.excludedBehaviors || spec.outOfScope),
     exitCriterion: isNonEmptyString(spec.exitCriterion) ? spec.exitCriterion.trim() : "",
     nextAction: isNonEmptyString(spec.nextAction) ? spec.nextAction.trim() : "",
-    descriptiveSpec: normalizeNullableString(spec.descriptiveSpec),
+    jobSpec: normalizeNullableString(preferredField(spec, "jobSpec", "descriptiveSpec")),
     technicalSpec: normalizeNullableString(spec.technicalSpec),
-    descriptiveSections: normalizeStringList(spec.descriptiveSections),
+    jobSections: normalizeStringList(preferredField(spec, "jobSections", "descriptiveSections")),
     technicalSections: normalizeStringList(spec.technicalSections),
     verificationTargets: verificationTargets.length > 0
       ? verificationTargets
@@ -583,7 +588,6 @@ function validateSpecJobQueueRowShape(row, prefix, results, phase) {
     "upstreamCapabilityIds",
     "includedBehaviors",
     "excludedBehaviors",
-    "descriptiveSections",
     "technicalSections",
     "verificationTargets",
     "blockingQuestions",
@@ -592,6 +596,10 @@ function validateSpecJobQueueRowShape(row, prefix, results, phase) {
     "reviewFlags"
   ]) {
     if (!Array.isArray(row?.[field])) results.push(fail(`${prefix}:${field}`, `${field} must be an array`));
+  }
+  const jobSections = preferredField(row, "jobSections", "descriptiveSections");
+  if (!Array.isArray(jobSections)) {
+    results.push(fail(`${prefix}:jobSections`, "jobSections must be an array"));
   }
   if (!Array.isArray(row?.upstreamCapabilityRefs) || !row.upstreamCapabilityRefs.every(ref => ref && typeof ref === "object" && !Array.isArray(ref))) {
     results.push(fail(`${prefix}:upstream-capability-refs`, "upstreamCapabilityRefs must be an array of objects"));
@@ -1237,9 +1245,9 @@ function buildSpecJobQueuePayload({ runId, repoRoot, queueRows }) {
       excludedBehaviors: row.excludedBehaviors,
       exitCriterion: row.exitCriterion,
       nextAction: row.nextAction,
-      descriptiveSpec: row.descriptiveSpec,
+      jobSpec: preferredField(row, "jobSpec", "descriptiveSpec"),
       technicalSpec: row.technicalSpec,
-      descriptiveSections: row.descriptiveSections,
+      jobSections: preferredField(row, "jobSections", "descriptiveSections") || [],
       technicalSections: row.technicalSections,
       verificationTargets: row.verificationTargets,
       childSliceRationale: row.childSliceRationale,

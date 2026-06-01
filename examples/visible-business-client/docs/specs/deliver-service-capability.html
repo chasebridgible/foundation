@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.deliver-service.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Deliver Service Visit Capability</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.deliver-service.capability",
+  "title": "Deliver Service Visit Capability",
+  "type": "capability",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": "client.field-service.system",
+  "children": [
+    "client.field-service.prepare-visit.job",
+    "client.field-service.complete-service-visit.job",
+    "client.field-service.close-work-order.job"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "supported-by",
+      "sections": [
+        "identity-linkage-contract"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/deliver-service-capability.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "CAP-DELIVER-SERVICE-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.deliver-service.capability#capability-intent"
+      ],
+      "evidence": "Deliver service visit is present in the expected graph fixture and canvas."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "capability",
+    "deliver-service"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.deliver-service.capability",
+  "nodes": [
+    {
+      "id": "cap:field-service:deliver-service",
+      "type": "capability",
+      "label": "Deliver service visit",
+      "source": {
+        "specId": "client.field-service.deliver-service.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "outcome": "Technicians arrive prepared, complete the promised work, and produce enough evidence to close the work order."
+      }
+    },
+    {
+      "id": "metric:field-service:same-day-completion-rate",
+      "type": "metric",
+      "label": "Same-day completion rate",
+      "source": {
+        "specId": "client.field-service.deliver-service.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "target": "Completed visits close or escalate before end of service day."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:cap:field-service:deliver-service:realized-by:job:field-service:prepare-visit",
+      "type": "realized-by",
+      "from": "cap:field-service:deliver-service",
+      "to": "job:field-service:prepare-visit",
+      "source": {
+        "specId": "client.field-service.deliver-service.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:deliver-service:realized-by:job:field-service:complete-service-visit",
+      "type": "realized-by",
+      "from": "cap:field-service:deliver-service",
+      "to": "job:field-service:complete-service-visit",
+      "source": {
+        "specId": "client.field-service.deliver-service.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:deliver-service:realized-by:job:field-service:close-work-order",
+      "type": "realized-by",
+      "from": "cap:field-service:deliver-service",
+      "to": "job:field-service:close-work-order",
+      "source": {
+        "specId": "client.field-service.deliver-service.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:deliver-service:measured-by:metric:field-service:same-day-completion-rate",
+      "type": "measured-by",
+      "from": "cap:field-service:deliver-service",
+      "to": "metric:field-service:same-day-completion-rate",
+      "source": {
+        "specId": "client.field-service.deliver-service.capability",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:deliver-service:has-gap:gap:field-service:photo-standard",
+      "type": "has-gap",
+      "from": "cap:field-service:deliver-service",
+      "to": "gap:field-service:photo-standard",
+      "source": {
+        "specId": "client.field-service.deliver-service.capability",
+        "sectionId": "revision"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+    <h1>Deliver Service Visit Capability</h1>
+    <p>Technicians arrive prepared, complete the promised work, and produce enough evidence to close the work order.</p>
+  </section>
+  <article class="doc-body">
+  <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="outcome-contract">
+    <h2>Outcome contract</h2>
+    <p>Technicians arrive prepared, complete the promised work, and produce enough evidence to close the work order.</p>    <ul>
+      <li>A technician cannot start a visit without appointment context, customer notes, and expected materials.</li>
+      <li>Completion requires outcome notes, materials used, and customer-facing completion state.</li>
+      <li>Photo evidence standards are visible as a gap until the service manager defines them.</li>
+    </ul>
+  </section>
+  <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+    <h2>Jobs</h2>
+    <table class="status-table">
+      <thead><tr><th>Job</th><th>Actor</th><th>Outcome</th></tr></thead>
+      <tbody>
+        <tr><td><a href="./prepare-visit-job.html">Prepare service visit</a></td><td>Technician</td><td>Review job context and required materials before arriving at the customer site.</td></tr>
+        <tr><td><a href="./complete-service-visit-job.html">Complete service visit</a></td><td>Technician</td><td>Perform the promised service and record the customer-visible outcome.</td></tr>
+        <tr><td><a href="./close-work-order-job.html">Close work order</a></td><td>Service manager</td><td>Review completion evidence and close or reopen the service job.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>Same-day completion rate: Completed visits close or escalate before end of service day.</p>    <ul>
+      <li>Visit readiness checklist proves Prepare service visit.</li>
+      <li>Completed work order proves Complete service visit.</li>
+      <li>Closed service job proves Close work order.</li>
+    </ul>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>The following gaps stay visible on the graph until resolved.</p>    <ul>
+      <li>Completion photo standard is not defined</li>
+    </ul>
+  </section>
+  </article>
+</main>
+</body>
+</html>

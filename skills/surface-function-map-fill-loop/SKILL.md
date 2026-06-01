@@ -32,6 +32,10 @@ Load only the context needed for the current step:
 - Refresh changed upstream files: `npm run foundation:surface-function-map:refresh -- --repo <repo> --run-id <run-id>`
 - Record report state: `npm run foundation:surface-function-map:report -- --repo <repo> --run-id <run-id> --report <active-report>`
 
+## Graph Metadata Support
+
+Surface / Function Map rows are upstream evidence for capability and job graph metadata. Preserve graph-ready hints while marking each file: actor hints, state hints, rules, data objects, external systems, tools, evidence path, source section or symbol, confidence, and whether the surface is support-only. When downstream specs are created or revised from these rows, the spec author must update `graph-metadata` and run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
+
 ## Required Loop
 
 1. Use `--next` to select the next `pending` or `needs-evidence` upstream file.
@@ -43,7 +47,7 @@ Load only the context needed for the current step:
 7. Repeat until no pending or failed eligible rows remain.
 8. Run handoff check and eval once the layer is terminal.
 9. Revise every row named in eval `revisionTargets`; warnings are not handoff-ready.
-10. Rerun check and eval until `revisionTargets` is empty, then record report state.
+10. Rerun check and eval until `revisionTargets` is empty, run the visible business graph check when specs already exist, then record report state.
 
 ## Row Decisions
 

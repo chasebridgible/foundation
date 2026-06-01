@@ -1,0 +1,1654 @@
+{
+  "summary": {
+    "pass": 329,
+    "fail": 0
+  },
+  "acceptable": true,
+  "results": [
+    {
+      "status": "pass",
+      "id": "graph-check",
+      "message": "Graph metadata validates for repo specs."
+    },
+    {
+      "status": "pass",
+      "id": "graph-current",
+      "message": "Graph JSON matches current repo graph node set."
+    },
+    {
+      "status": "pass",
+      "id": "node:actor:billing-coordinator",
+      "message": "Required node exists: actor:billing-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "node:actor:customer",
+      "message": "Required node exists: actor:customer"
+    },
+    {
+      "status": "pass",
+      "id": "node:actor:customer-coordinator",
+      "message": "Required node exists: actor:customer-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "node:actor:dispatcher",
+      "message": "Required node exists: actor:dispatcher"
+    },
+    {
+      "status": "pass",
+      "id": "node:actor:inventory-coordinator",
+      "message": "Required node exists: actor:inventory-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "node:actor:owner-operator",
+      "message": "Required node exists: actor:owner-operator"
+    },
+    {
+      "status": "pass",
+      "id": "node:actor:service-manager",
+      "message": "Required node exists: actor:service-manager"
+    },
+    {
+      "status": "pass",
+      "id": "node:actor:technician",
+      "message": "Required node exists: actor:technician"
+    },
+    {
+      "status": "pass",
+      "id": "node:cap:field-service:collect-payment",
+      "message": "Required node exists: cap:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "node:cap:field-service:deliver-service",
+      "message": "Required node exists: cap:field-service:deliver-service"
+    },
+    {
+      "status": "pass",
+      "id": "node:cap:field-service:maintain-readiness",
+      "message": "Required node exists: cap:field-service:maintain-readiness"
+    },
+    {
+      "status": "pass",
+      "id": "node:cap:field-service:protect-relationship",
+      "message": "Required node exists: cap:field-service:protect-relationship"
+    },
+    {
+      "status": "pass",
+      "id": "node:cap:field-service:schedule-work",
+      "message": "Required node exists: cap:field-service:schedule-work"
+    },
+    {
+      "status": "pass",
+      "id": "node:evaluation:field-service:workflow",
+      "message": "Required node exists: evaluation:field-service:workflow"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:appointment-confirmation",
+      "message": "Required node exists: evidence:field-service:appointment-confirmation"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:arrival-message",
+      "message": "Required node exists: evidence:field-service:arrival-message"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:closed-service-job",
+      "message": "Required node exists: evidence:field-service:closed-service-job"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:completed-work-order",
+      "message": "Required node exists: evidence:field-service:completed-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:daily-capacity-plan",
+      "message": "Required node exists: evidence:field-service:daily-capacity-plan"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:dispatch-assignment",
+      "message": "Required node exists: evidence:field-service:dispatch-assignment"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:issued-invoice",
+      "message": "Required node exists: evidence:field-service:issued-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:paid-invoice",
+      "message": "Required node exists: evidence:field-service:paid-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:payment-exception-resolution",
+      "message": "Required node exists: evidence:field-service:payment-exception-resolution"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:request-triage",
+      "message": "Required node exists: evidence:field-service:request-triage"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:review-request",
+      "message": "Required node exists: evidence:field-service:review-request"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:service-recovery-case",
+      "message": "Required node exists: evidence:field-service:service-recovery-case"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:truck-restock",
+      "message": "Required node exists: evidence:field-service:truck-restock"
+    },
+    {
+      "status": "pass",
+      "id": "node:evidence:field-service:visit-readiness-checklist",
+      "message": "Required node exists: evidence:field-service:visit-readiness-checklist"
+    },
+    {
+      "status": "pass",
+      "id": "node:gap:field-service:emergency-priority-rules",
+      "message": "Required node exists: gap:field-service:emergency-priority-rules"
+    },
+    {
+      "status": "pass",
+      "id": "node:gap:field-service:photo-standard",
+      "message": "Required node exists: gap:field-service:photo-standard"
+    },
+    {
+      "status": "pass",
+      "id": "node:gap:field-service:refund-owner",
+      "message": "Required node exists: gap:field-service:refund-owner"
+    },
+    {
+      "status": "pass",
+      "id": "node:gap:field-service:review-suppression-rule",
+      "message": "Required node exists: gap:field-service:review-suppression-rule"
+    },
+    {
+      "status": "pass",
+      "id": "node:gap:field-service:truck-min-max",
+      "message": "Required node exists: gap:field-service:truck-min-max"
+    },
+    {
+      "status": "pass",
+      "id": "node:index:visible-business-client-specs",
+      "message": "Required node exists: index:visible-business-client-specs"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:book-appointment",
+      "message": "Required node exists: job:field-service:book-appointment"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:close-work-order",
+      "message": "Required node exists: job:field-service:close-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:collect-payment",
+      "message": "Required node exists: job:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:complete-service-visit",
+      "message": "Required node exists: job:field-service:complete-service-visit"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:create-invoice",
+      "message": "Required node exists: job:field-service:create-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:dispatch-technician",
+      "message": "Required node exists: job:field-service:dispatch-technician"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:handle-service-issue",
+      "message": "Required node exists: job:field-service:handle-service-issue"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:plan-daily-capacity",
+      "message": "Required node exists: job:field-service:plan-daily-capacity"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:prepare-visit",
+      "message": "Required node exists: job:field-service:prepare-visit"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:request-review",
+      "message": "Required node exists: job:field-service:request-review"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:resolve-payment-exception",
+      "message": "Required node exists: job:field-service:resolve-payment-exception"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:restock-truck",
+      "message": "Required node exists: job:field-service:restock-truck"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:send-arrival-update",
+      "message": "Required node exists: job:field-service:send-arrival-update"
+    },
+    {
+      "status": "pass",
+      "id": "node:job:field-service:triage-service-request",
+      "message": "Required node exists: job:field-service:triage-service-request"
+    },
+    {
+      "status": "pass",
+      "id": "node:metric:field-service:days-to-collect",
+      "message": "Required node exists: metric:field-service:days-to-collect"
+    },
+    {
+      "status": "pass",
+      "id": "node:metric:field-service:first-available-window",
+      "message": "Required node exists: metric:field-service:first-available-window"
+    },
+    {
+      "status": "pass",
+      "id": "node:metric:field-service:issue-recovery-time",
+      "message": "Required node exists: metric:field-service:issue-recovery-time"
+    },
+    {
+      "status": "pass",
+      "id": "node:metric:field-service:readiness-score",
+      "message": "Required node exists: metric:field-service:readiness-score"
+    },
+    {
+      "status": "pass",
+      "id": "node:metric:field-service:same-day-completion-rate",
+      "message": "Required node exists: metric:field-service:same-day-completion-rate"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:book-appointment",
+      "message": "Required node exists: process:field-service:book-appointment"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:close-work-order",
+      "message": "Required node exists: process:field-service:close-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:collect-payment",
+      "message": "Required node exists: process:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:complete-service-visit",
+      "message": "Required node exists: process:field-service:complete-service-visit"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:create-invoice",
+      "message": "Required node exists: process:field-service:create-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:dispatch-technician",
+      "message": "Required node exists: process:field-service:dispatch-technician"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:handle-service-issue",
+      "message": "Required node exists: process:field-service:handle-service-issue"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:plan-daily-capacity",
+      "message": "Required node exists: process:field-service:plan-daily-capacity"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:prepare-visit",
+      "message": "Required node exists: process:field-service:prepare-visit"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:request-review",
+      "message": "Required node exists: process:field-service:request-review"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:resolve-payment-exception",
+      "message": "Required node exists: process:field-service:resolve-payment-exception"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:restock-truck",
+      "message": "Required node exists: process:field-service:restock-truck"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:send-arrival-update",
+      "message": "Required node exists: process:field-service:send-arrival-update"
+    },
+    {
+      "status": "pass",
+      "id": "node:process:field-service:triage-service-request",
+      "message": "Required node exists: process:field-service:triage-service-request"
+    },
+    {
+      "status": "pass",
+      "id": "node:system:field-service-business",
+      "message": "Required node exists: system:field-service-business"
+    },
+    {
+      "status": "pass",
+      "id": "node:technical:field-service:workflow",
+      "message": "Required node exists: technical:field-service:workflow"
+    },
+    {
+      "status": "pass",
+      "id": "node:tool:field-service:crm",
+      "message": "Required node exists: tool:field-service:crm"
+    },
+    {
+      "status": "pass",
+      "id": "node:tool:field-service:customer-messaging",
+      "message": "Required node exists: tool:field-service:customer-messaging"
+    },
+    {
+      "status": "pass",
+      "id": "node:tool:field-service:inventory-log",
+      "message": "Required node exists: tool:field-service:inventory-log"
+    },
+    {
+      "status": "pass",
+      "id": "node:tool:field-service:mobile-work-order",
+      "message": "Required node exists: tool:field-service:mobile-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "node:tool:field-service:payment-system",
+      "message": "Required node exists: tool:field-service:payment-system"
+    },
+    {
+      "status": "pass",
+      "id": "node:tool:field-service:review-dashboard",
+      "message": "Required node exists: tool:field-service:review-dashboard"
+    },
+    {
+      "status": "pass",
+      "id": "node:tool:field-service:route-board",
+      "message": "Required node exists: tool:field-service:route-board"
+    },
+    {
+      "status": "pass",
+      "id": "node:tool:field-service:skill-roster",
+      "message": "Required node exists: tool:field-service:skill-roster"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:collect-payment:has-gap:gap:field-service:refund-owner",
+      "message": "Required edge exists: edge:cap:field-service:collect-payment:has-gap:gap:field-service:refund-owner"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:collect-payment:measured-by:metric:field-service:days-to-collect",
+      "message": "Required edge exists: edge:cap:field-service:collect-payment:measured-by:metric:field-service:days-to-collect"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:collect-payment:realized-by:job:field-service:collect-payment",
+      "message": "Required edge exists: edge:cap:field-service:collect-payment:realized-by:job:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:collect-payment:realized-by:job:field-service:create-invoice",
+      "message": "Required edge exists: edge:cap:field-service:collect-payment:realized-by:job:field-service:create-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:collect-payment:realized-by:job:field-service:resolve-payment-exception",
+      "message": "Required edge exists: edge:cap:field-service:collect-payment:realized-by:job:field-service:resolve-payment-exception"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:deliver-service:has-gap:gap:field-service:photo-standard",
+      "message": "Required edge exists: edge:cap:field-service:deliver-service:has-gap:gap:field-service:photo-standard"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:deliver-service:measured-by:metric:field-service:same-day-completion-rate",
+      "message": "Required edge exists: edge:cap:field-service:deliver-service:measured-by:metric:field-service:same-day-completion-rate"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:deliver-service:realized-by:job:field-service:close-work-order",
+      "message": "Required edge exists: edge:cap:field-service:deliver-service:realized-by:job:field-service:close-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:deliver-service:realized-by:job:field-service:complete-service-visit",
+      "message": "Required edge exists: edge:cap:field-service:deliver-service:realized-by:job:field-service:complete-service-visit"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:deliver-service:realized-by:job:field-service:prepare-visit",
+      "message": "Required edge exists: edge:cap:field-service:deliver-service:realized-by:job:field-service:prepare-visit"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:maintain-readiness:has-gap:gap:field-service:truck-min-max",
+      "message": "Required edge exists: edge:cap:field-service:maintain-readiness:has-gap:gap:field-service:truck-min-max"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:maintain-readiness:measured-by:metric:field-service:readiness-score",
+      "message": "Required edge exists: edge:cap:field-service:maintain-readiness:measured-by:metric:field-service:readiness-score"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:maintain-readiness:realized-by:job:field-service:plan-daily-capacity",
+      "message": "Required edge exists: edge:cap:field-service:maintain-readiness:realized-by:job:field-service:plan-daily-capacity"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:maintain-readiness:realized-by:job:field-service:restock-truck",
+      "message": "Required edge exists: edge:cap:field-service:maintain-readiness:realized-by:job:field-service:restock-truck"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:protect-relationship:has-gap:gap:field-service:review-suppression-rule",
+      "message": "Required edge exists: edge:cap:field-service:protect-relationship:has-gap:gap:field-service:review-suppression-rule"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:protect-relationship:measured-by:metric:field-service:issue-recovery-time",
+      "message": "Required edge exists: edge:cap:field-service:protect-relationship:measured-by:metric:field-service:issue-recovery-time"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:protect-relationship:realized-by:job:field-service:handle-service-issue",
+      "message": "Required edge exists: edge:cap:field-service:protect-relationship:realized-by:job:field-service:handle-service-issue"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:protect-relationship:realized-by:job:field-service:request-review",
+      "message": "Required edge exists: edge:cap:field-service:protect-relationship:realized-by:job:field-service:request-review"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:protect-relationship:realized-by:job:field-service:send-arrival-update",
+      "message": "Required edge exists: edge:cap:field-service:protect-relationship:realized-by:job:field-service:send-arrival-update"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:schedule-work:has-gap:gap:field-service:emergency-priority-rules",
+      "message": "Required edge exists: edge:cap:field-service:schedule-work:has-gap:gap:field-service:emergency-priority-rules"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:schedule-work:measured-by:metric:field-service:first-available-window",
+      "message": "Required edge exists: edge:cap:field-service:schedule-work:measured-by:metric:field-service:first-available-window"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:schedule-work:realized-by:job:field-service:book-appointment",
+      "message": "Required edge exists: edge:cap:field-service:schedule-work:realized-by:job:field-service:book-appointment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:schedule-work:realized-by:job:field-service:dispatch-technician",
+      "message": "Required edge exists: edge:cap:field-service:schedule-work:realized-by:job:field-service:dispatch-technician"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:cap:field-service:schedule-work:realized-by:job:field-service:triage-service-request",
+      "message": "Required edge exists: edge:cap:field-service:schedule-work:realized-by:job:field-service:triage-service-request"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:evaluation:field-service:workflow:evaluates:cap:field-service:collect-payment",
+      "message": "Required edge exists: edge:evaluation:field-service:workflow:evaluates:cap:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:evaluation:field-service:workflow:evaluates:cap:field-service:deliver-service",
+      "message": "Required edge exists: edge:evaluation:field-service:workflow:evaluates:cap:field-service:deliver-service"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:evaluation:field-service:workflow:evaluates:cap:field-service:maintain-readiness",
+      "message": "Required edge exists: edge:evaluation:field-service:workflow:evaluates:cap:field-service:maintain-readiness"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:evaluation:field-service:workflow:evaluates:cap:field-service:protect-relationship",
+      "message": "Required edge exists: edge:evaluation:field-service:workflow:evaluates:cap:field-service:protect-relationship"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:evaluation:field-service:workflow:evaluates:cap:field-service:schedule-work",
+      "message": "Required edge exists: edge:evaluation:field-service:workflow:evaluates:cap:field-service:schedule-work"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:evaluation:field-service:workflow:evaluates:system:field-service-business",
+      "message": "Required edge exists: edge:evaluation:field-service:workflow:evaluates:system:field-service-business"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:index:visible-business-client-specs:contains:system:field-service-business",
+      "message": "Required edge exists: edge:index:visible-business-client-specs:contains:system:field-service-business"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:book-appointment:evidenced-by:evidence:field-service:appointment-confirmation",
+      "message": "Required edge exists: edge:job:field-service:book-appointment:evidenced-by:evidence:field-service:appointment-confirmation"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:book-appointment:has-process:process:field-service:book-appointment",
+      "message": "Required edge exists: edge:job:field-service:book-appointment:has-process:process:field-service:book-appointment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:book-appointment:performed-by:actor:customer-coordinator",
+      "message": "Required edge exists: edge:job:field-service:book-appointment:performed-by:actor:customer-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:book-appointment:supports:cap:field-service:schedule-work",
+      "message": "Required edge exists: edge:job:field-service:book-appointment:supports:cap:field-service:schedule-work"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:book-appointment:uses-tool:tool:field-service:crm",
+      "message": "Required edge exists: edge:job:field-service:book-appointment:uses-tool:tool:field-service:crm"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:book-appointment:uses-tool:tool:field-service:customer-messaging",
+      "message": "Required edge exists: edge:job:field-service:book-appointment:uses-tool:tool:field-service:customer-messaging"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:close-work-order:evidenced-by:evidence:field-service:closed-service-job",
+      "message": "Required edge exists: edge:job:field-service:close-work-order:evidenced-by:evidence:field-service:closed-service-job"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:close-work-order:has-process:process:field-service:close-work-order",
+      "message": "Required edge exists: edge:job:field-service:close-work-order:has-process:process:field-service:close-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:close-work-order:performed-by:actor:service-manager",
+      "message": "Required edge exists: edge:job:field-service:close-work-order:performed-by:actor:service-manager"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:close-work-order:supports:cap:field-service:deliver-service",
+      "message": "Required edge exists: edge:job:field-service:close-work-order:supports:cap:field-service:deliver-service"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:close-work-order:uses-tool:tool:field-service:crm",
+      "message": "Required edge exists: edge:job:field-service:close-work-order:uses-tool:tool:field-service:crm"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:close-work-order:uses-tool:tool:field-service:mobile-work-order",
+      "message": "Required edge exists: edge:job:field-service:close-work-order:uses-tool:tool:field-service:mobile-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:collect-payment:evidenced-by:evidence:field-service:paid-invoice",
+      "message": "Required edge exists: edge:job:field-service:collect-payment:evidenced-by:evidence:field-service:paid-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:collect-payment:has-gap:gap:field-service:refund-owner",
+      "message": "Required edge exists: edge:job:field-service:collect-payment:has-gap:gap:field-service:refund-owner"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:collect-payment:has-process:process:field-service:collect-payment",
+      "message": "Required edge exists: edge:job:field-service:collect-payment:has-process:process:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:collect-payment:performed-by:actor:billing-coordinator",
+      "message": "Required edge exists: edge:job:field-service:collect-payment:performed-by:actor:billing-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:collect-payment:supports:cap:field-service:collect-payment",
+      "message": "Required edge exists: edge:job:field-service:collect-payment:supports:cap:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:collect-payment:uses-tool:tool:field-service:customer-messaging",
+      "message": "Required edge exists: edge:job:field-service:collect-payment:uses-tool:tool:field-service:customer-messaging"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:collect-payment:uses-tool:tool:field-service:payment-system",
+      "message": "Required edge exists: edge:job:field-service:collect-payment:uses-tool:tool:field-service:payment-system"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:complete-service-visit:evidenced-by:evidence:field-service:completed-work-order",
+      "message": "Required edge exists: edge:job:field-service:complete-service-visit:evidenced-by:evidence:field-service:completed-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:complete-service-visit:has-gap:gap:field-service:photo-standard",
+      "message": "Required edge exists: edge:job:field-service:complete-service-visit:has-gap:gap:field-service:photo-standard"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:complete-service-visit:has-process:process:field-service:complete-service-visit",
+      "message": "Required edge exists: edge:job:field-service:complete-service-visit:has-process:process:field-service:complete-service-visit"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:complete-service-visit:performed-by:actor:technician",
+      "message": "Required edge exists: edge:job:field-service:complete-service-visit:performed-by:actor:technician"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:complete-service-visit:supports:cap:field-service:deliver-service",
+      "message": "Required edge exists: edge:job:field-service:complete-service-visit:supports:cap:field-service:deliver-service"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:complete-service-visit:uses-tool:tool:field-service:customer-messaging",
+      "message": "Required edge exists: edge:job:field-service:complete-service-visit:uses-tool:tool:field-service:customer-messaging"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:complete-service-visit:uses-tool:tool:field-service:mobile-work-order",
+      "message": "Required edge exists: edge:job:field-service:complete-service-visit:uses-tool:tool:field-service:mobile-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:create-invoice:evidenced-by:evidence:field-service:issued-invoice",
+      "message": "Required edge exists: edge:job:field-service:create-invoice:evidenced-by:evidence:field-service:issued-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:create-invoice:has-process:process:field-service:create-invoice",
+      "message": "Required edge exists: edge:job:field-service:create-invoice:has-process:process:field-service:create-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:create-invoice:performed-by:actor:billing-coordinator",
+      "message": "Required edge exists: edge:job:field-service:create-invoice:performed-by:actor:billing-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:create-invoice:supports:cap:field-service:collect-payment",
+      "message": "Required edge exists: edge:job:field-service:create-invoice:supports:cap:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:create-invoice:uses-tool:tool:field-service:mobile-work-order",
+      "message": "Required edge exists: edge:job:field-service:create-invoice:uses-tool:tool:field-service:mobile-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:create-invoice:uses-tool:tool:field-service:payment-system",
+      "message": "Required edge exists: edge:job:field-service:create-invoice:uses-tool:tool:field-service:payment-system"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:dispatch-technician:evidenced-by:evidence:field-service:dispatch-assignment",
+      "message": "Required edge exists: edge:job:field-service:dispatch-technician:evidenced-by:evidence:field-service:dispatch-assignment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:dispatch-technician:has-process:process:field-service:dispatch-technician",
+      "message": "Required edge exists: edge:job:field-service:dispatch-technician:has-process:process:field-service:dispatch-technician"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:dispatch-technician:performed-by:actor:dispatcher",
+      "message": "Required edge exists: edge:job:field-service:dispatch-technician:performed-by:actor:dispatcher"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:dispatch-technician:performed-by:actor:technician",
+      "message": "Required edge exists: edge:job:field-service:dispatch-technician:performed-by:actor:technician"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:dispatch-technician:supports:cap:field-service:schedule-work",
+      "message": "Required edge exists: edge:job:field-service:dispatch-technician:supports:cap:field-service:schedule-work"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:dispatch-technician:uses-tool:tool:field-service:route-board",
+      "message": "Required edge exists: edge:job:field-service:dispatch-technician:uses-tool:tool:field-service:route-board"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:dispatch-technician:uses-tool:tool:field-service:skill-roster",
+      "message": "Required edge exists: edge:job:field-service:dispatch-technician:uses-tool:tool:field-service:skill-roster"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:handle-service-issue:evidenced-by:evidence:field-service:service-recovery-case",
+      "message": "Required edge exists: edge:job:field-service:handle-service-issue:evidenced-by:evidence:field-service:service-recovery-case"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:handle-service-issue:has-process:process:field-service:handle-service-issue",
+      "message": "Required edge exists: edge:job:field-service:handle-service-issue:has-process:process:field-service:handle-service-issue"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:handle-service-issue:performed-by:actor:service-manager",
+      "message": "Required edge exists: edge:job:field-service:handle-service-issue:performed-by:actor:service-manager"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:handle-service-issue:supports:cap:field-service:protect-relationship",
+      "message": "Required edge exists: edge:job:field-service:handle-service-issue:supports:cap:field-service:protect-relationship"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:handle-service-issue:uses-tool:tool:field-service:crm",
+      "message": "Required edge exists: edge:job:field-service:handle-service-issue:uses-tool:tool:field-service:crm"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:handle-service-issue:uses-tool:tool:field-service:customer-messaging",
+      "message": "Required edge exists: edge:job:field-service:handle-service-issue:uses-tool:tool:field-service:customer-messaging"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:plan-daily-capacity:evidenced-by:evidence:field-service:daily-capacity-plan",
+      "message": "Required edge exists: edge:job:field-service:plan-daily-capacity:evidenced-by:evidence:field-service:daily-capacity-plan"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:plan-daily-capacity:has-process:process:field-service:plan-daily-capacity",
+      "message": "Required edge exists: edge:job:field-service:plan-daily-capacity:has-process:process:field-service:plan-daily-capacity"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:plan-daily-capacity:performed-by:actor:service-manager",
+      "message": "Required edge exists: edge:job:field-service:plan-daily-capacity:performed-by:actor:service-manager"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:plan-daily-capacity:supports:cap:field-service:maintain-readiness",
+      "message": "Required edge exists: edge:job:field-service:plan-daily-capacity:supports:cap:field-service:maintain-readiness"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:plan-daily-capacity:uses-tool:tool:field-service:route-board",
+      "message": "Required edge exists: edge:job:field-service:plan-daily-capacity:uses-tool:tool:field-service:route-board"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:plan-daily-capacity:uses-tool:tool:field-service:skill-roster",
+      "message": "Required edge exists: edge:job:field-service:plan-daily-capacity:uses-tool:tool:field-service:skill-roster"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:prepare-visit:evidenced-by:evidence:field-service:visit-readiness-checklist",
+      "message": "Required edge exists: edge:job:field-service:prepare-visit:evidenced-by:evidence:field-service:visit-readiness-checklist"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:prepare-visit:has-process:process:field-service:prepare-visit",
+      "message": "Required edge exists: edge:job:field-service:prepare-visit:has-process:process:field-service:prepare-visit"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:prepare-visit:performed-by:actor:technician",
+      "message": "Required edge exists: edge:job:field-service:prepare-visit:performed-by:actor:technician"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:prepare-visit:supports:cap:field-service:deliver-service",
+      "message": "Required edge exists: edge:job:field-service:prepare-visit:supports:cap:field-service:deliver-service"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:prepare-visit:uses-tool:tool:field-service:inventory-log",
+      "message": "Required edge exists: edge:job:field-service:prepare-visit:uses-tool:tool:field-service:inventory-log"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:prepare-visit:uses-tool:tool:field-service:mobile-work-order",
+      "message": "Required edge exists: edge:job:field-service:prepare-visit:uses-tool:tool:field-service:mobile-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:request-review:evidenced-by:evidence:field-service:review-request",
+      "message": "Required edge exists: edge:job:field-service:request-review:evidenced-by:evidence:field-service:review-request"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:request-review:has-gap:gap:field-service:review-suppression-rule",
+      "message": "Required edge exists: edge:job:field-service:request-review:has-gap:gap:field-service:review-suppression-rule"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:request-review:has-process:process:field-service:request-review",
+      "message": "Required edge exists: edge:job:field-service:request-review:has-process:process:field-service:request-review"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:request-review:performed-by:actor:customer-coordinator",
+      "message": "Required edge exists: edge:job:field-service:request-review:performed-by:actor:customer-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:request-review:supports:cap:field-service:protect-relationship",
+      "message": "Required edge exists: edge:job:field-service:request-review:supports:cap:field-service:protect-relationship"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:request-review:uses-tool:tool:field-service:customer-messaging",
+      "message": "Required edge exists: edge:job:field-service:request-review:uses-tool:tool:field-service:customer-messaging"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:request-review:uses-tool:tool:field-service:review-dashboard",
+      "message": "Required edge exists: edge:job:field-service:request-review:uses-tool:tool:field-service:review-dashboard"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:resolve-payment-exception:evidenced-by:evidence:field-service:payment-exception-resolution",
+      "message": "Required edge exists: edge:job:field-service:resolve-payment-exception:evidenced-by:evidence:field-service:payment-exception-resolution"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:resolve-payment-exception:has-process:process:field-service:resolve-payment-exception",
+      "message": "Required edge exists: edge:job:field-service:resolve-payment-exception:has-process:process:field-service:resolve-payment-exception"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:resolve-payment-exception:performed-by:actor:billing-coordinator",
+      "message": "Required edge exists: edge:job:field-service:resolve-payment-exception:performed-by:actor:billing-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:resolve-payment-exception:performed-by:actor:service-manager",
+      "message": "Required edge exists: edge:job:field-service:resolve-payment-exception:performed-by:actor:service-manager"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:resolve-payment-exception:supports:cap:field-service:collect-payment",
+      "message": "Required edge exists: edge:job:field-service:resolve-payment-exception:supports:cap:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:resolve-payment-exception:uses-tool:tool:field-service:crm",
+      "message": "Required edge exists: edge:job:field-service:resolve-payment-exception:uses-tool:tool:field-service:crm"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:resolve-payment-exception:uses-tool:tool:field-service:payment-system",
+      "message": "Required edge exists: edge:job:field-service:resolve-payment-exception:uses-tool:tool:field-service:payment-system"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:restock-truck:evidenced-by:evidence:field-service:truck-restock",
+      "message": "Required edge exists: edge:job:field-service:restock-truck:evidenced-by:evidence:field-service:truck-restock"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:restock-truck:has-gap:gap:field-service:truck-min-max",
+      "message": "Required edge exists: edge:job:field-service:restock-truck:has-gap:gap:field-service:truck-min-max"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:restock-truck:has-process:process:field-service:restock-truck",
+      "message": "Required edge exists: edge:job:field-service:restock-truck:has-process:process:field-service:restock-truck"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:restock-truck:performed-by:actor:inventory-coordinator",
+      "message": "Required edge exists: edge:job:field-service:restock-truck:performed-by:actor:inventory-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:restock-truck:performed-by:actor:technician",
+      "message": "Required edge exists: edge:job:field-service:restock-truck:performed-by:actor:technician"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:restock-truck:supports:cap:field-service:maintain-readiness",
+      "message": "Required edge exists: edge:job:field-service:restock-truck:supports:cap:field-service:maintain-readiness"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:restock-truck:uses-tool:tool:field-service:inventory-log",
+      "message": "Required edge exists: edge:job:field-service:restock-truck:uses-tool:tool:field-service:inventory-log"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:restock-truck:uses-tool:tool:field-service:mobile-work-order",
+      "message": "Required edge exists: edge:job:field-service:restock-truck:uses-tool:tool:field-service:mobile-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:send-arrival-update:evidenced-by:evidence:field-service:arrival-message",
+      "message": "Required edge exists: edge:job:field-service:send-arrival-update:evidenced-by:evidence:field-service:arrival-message"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:send-arrival-update:has-process:process:field-service:send-arrival-update",
+      "message": "Required edge exists: edge:job:field-service:send-arrival-update:has-process:process:field-service:send-arrival-update"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:send-arrival-update:performed-by:actor:customer-coordinator",
+      "message": "Required edge exists: edge:job:field-service:send-arrival-update:performed-by:actor:customer-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:send-arrival-update:performed-by:actor:technician",
+      "message": "Required edge exists: edge:job:field-service:send-arrival-update:performed-by:actor:technician"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:send-arrival-update:supports:cap:field-service:protect-relationship",
+      "message": "Required edge exists: edge:job:field-service:send-arrival-update:supports:cap:field-service:protect-relationship"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:send-arrival-update:uses-tool:tool:field-service:customer-messaging",
+      "message": "Required edge exists: edge:job:field-service:send-arrival-update:uses-tool:tool:field-service:customer-messaging"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:send-arrival-update:uses-tool:tool:field-service:route-board",
+      "message": "Required edge exists: edge:job:field-service:send-arrival-update:uses-tool:tool:field-service:route-board"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:triage-service-request:evidenced-by:evidence:field-service:request-triage",
+      "message": "Required edge exists: edge:job:field-service:triage-service-request:evidenced-by:evidence:field-service:request-triage"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:triage-service-request:has-gap:gap:field-service:emergency-priority-rules",
+      "message": "Required edge exists: edge:job:field-service:triage-service-request:has-gap:gap:field-service:emergency-priority-rules"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:triage-service-request:has-process:process:field-service:triage-service-request",
+      "message": "Required edge exists: edge:job:field-service:triage-service-request:has-process:process:field-service:triage-service-request"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:triage-service-request:performed-by:actor:customer-coordinator",
+      "message": "Required edge exists: edge:job:field-service:triage-service-request:performed-by:actor:customer-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:triage-service-request:supports:cap:field-service:schedule-work",
+      "message": "Required edge exists: edge:job:field-service:triage-service-request:supports:cap:field-service:schedule-work"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:triage-service-request:uses-tool:tool:field-service:crm",
+      "message": "Required edge exists: edge:job:field-service:triage-service-request:uses-tool:tool:field-service:crm"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:job:field-service:triage-service-request:uses-tool:tool:field-service:customer-messaging",
+      "message": "Required edge exists: edge:job:field-service:triage-service-request:uses-tool:tool:field-service:customer-messaging"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:actor:billing-coordinator",
+      "message": "Required edge exists: edge:system:field-service-business:contains:actor:billing-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:actor:customer",
+      "message": "Required edge exists: edge:system:field-service-business:contains:actor:customer"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:actor:customer-coordinator",
+      "message": "Required edge exists: edge:system:field-service-business:contains:actor:customer-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:actor:dispatcher",
+      "message": "Required edge exists: edge:system:field-service-business:contains:actor:dispatcher"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:actor:inventory-coordinator",
+      "message": "Required edge exists: edge:system:field-service-business:contains:actor:inventory-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:actor:owner-operator",
+      "message": "Required edge exists: edge:system:field-service-business:contains:actor:owner-operator"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:actor:service-manager",
+      "message": "Required edge exists: edge:system:field-service-business:contains:actor:service-manager"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:actor:technician",
+      "message": "Required edge exists: edge:system:field-service-business:contains:actor:technician"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:cap:field-service:collect-payment",
+      "message": "Required edge exists: edge:system:field-service-business:contains:cap:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:cap:field-service:deliver-service",
+      "message": "Required edge exists: edge:system:field-service-business:contains:cap:field-service:deliver-service"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:cap:field-service:maintain-readiness",
+      "message": "Required edge exists: edge:system:field-service-business:contains:cap:field-service:maintain-readiness"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:cap:field-service:protect-relationship",
+      "message": "Required edge exists: edge:system:field-service-business:contains:cap:field-service:protect-relationship"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:cap:field-service:schedule-work",
+      "message": "Required edge exists: edge:system:field-service-business:contains:cap:field-service:schedule-work"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:tool:field-service:crm",
+      "message": "Required edge exists: edge:system:field-service-business:contains:tool:field-service:crm"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:tool:field-service:customer-messaging",
+      "message": "Required edge exists: edge:system:field-service-business:contains:tool:field-service:customer-messaging"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:tool:field-service:inventory-log",
+      "message": "Required edge exists: edge:system:field-service-business:contains:tool:field-service:inventory-log"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:tool:field-service:mobile-work-order",
+      "message": "Required edge exists: edge:system:field-service-business:contains:tool:field-service:mobile-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:tool:field-service:payment-system",
+      "message": "Required edge exists: edge:system:field-service-business:contains:tool:field-service:payment-system"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:tool:field-service:review-dashboard",
+      "message": "Required edge exists: edge:system:field-service-business:contains:tool:field-service:review-dashboard"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:tool:field-service:route-board",
+      "message": "Required edge exists: edge:system:field-service-business:contains:tool:field-service:route-board"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:system:field-service-business:contains:tool:field-service:skill-roster",
+      "message": "Required edge exists: edge:system:field-service-business:contains:tool:field-service:skill-roster"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:technical:field-service:workflow:supports:cap:field-service:collect-payment",
+      "message": "Required edge exists: edge:technical:field-service:workflow:supports:cap:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:technical:field-service:workflow:supports:cap:field-service:deliver-service",
+      "message": "Required edge exists: edge:technical:field-service:workflow:supports:cap:field-service:deliver-service"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:technical:field-service:workflow:supports:cap:field-service:maintain-readiness",
+      "message": "Required edge exists: edge:technical:field-service:workflow:supports:cap:field-service:maintain-readiness"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:technical:field-service:workflow:supports:cap:field-service:protect-relationship",
+      "message": "Required edge exists: edge:technical:field-service:workflow:supports:cap:field-service:protect-relationship"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:technical:field-service:workflow:supports:cap:field-service:schedule-work",
+      "message": "Required edge exists: edge:technical:field-service:workflow:supports:cap:field-service:schedule-work"
+    },
+    {
+      "status": "pass",
+      "id": "edge:edge:technical:field-service:workflow:supports:system:field-service-business",
+      "message": "Required edge exists: edge:technical:field-service:workflow:supports:system:field-service-business"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:index",
+      "message": "index count 1 >= 1"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:system",
+      "message": "system count 1 >= 1"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:capability",
+      "message": "capability count 5 >= 5"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:job",
+      "message": "job count 14 >= 14"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:process",
+      "message": "process count 14 >= 14"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:actor",
+      "message": "actor count 8 >= 8"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:tool",
+      "message": "tool count 8 >= 8"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:evidence",
+      "message": "evidence count 14 >= 14"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:metric",
+      "message": "metric count 5 >= 5"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:gap",
+      "message": "gap count 5 >= 5"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:technical-contract",
+      "message": "technical-contract count 1 >= 1"
+    },
+    {
+      "status": "pass",
+      "id": "node-type:evaluation",
+      "message": "evaluation count 1 >= 1"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-exists",
+      "message": "Canvas HTML exists."
+    },
+    {
+      "status": "pass",
+      "id": "canvas-text:Capability map",
+      "message": "Canvas includes Capability map"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-text:Actors",
+      "message": "Canvas includes Actors"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-text:Field service business",
+      "message": "Canvas includes Field service business"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-text:Schedule service work",
+      "message": "Canvas includes Schedule service work"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-text:Deliver service visit",
+      "message": "Canvas includes Deliver service visit"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-text:Collect service payment",
+      "message": "Canvas includes Collect service payment"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-text:Protect customer relationship",
+      "message": "Canvas includes Protect customer relationship"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-text:Maintain technician readiness",
+      "message": "Canvas includes Maintain technician readiness"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-text:client-system.html",
+      "message": "Canvas includes client-system.html"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:actor:billing-coordinator",
+      "message": "Canvas embeds node actor:billing-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:actor:customer",
+      "message": "Canvas embeds node actor:customer"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:actor:customer-coordinator",
+      "message": "Canvas embeds node actor:customer-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:actor:dispatcher",
+      "message": "Canvas embeds node actor:dispatcher"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:actor:inventory-coordinator",
+      "message": "Canvas embeds node actor:inventory-coordinator"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:actor:owner-operator",
+      "message": "Canvas embeds node actor:owner-operator"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:actor:service-manager",
+      "message": "Canvas embeds node actor:service-manager"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:actor:technician",
+      "message": "Canvas embeds node actor:technician"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:cap:field-service:collect-payment",
+      "message": "Canvas embeds node cap:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:cap:field-service:deliver-service",
+      "message": "Canvas embeds node cap:field-service:deliver-service"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:cap:field-service:maintain-readiness",
+      "message": "Canvas embeds node cap:field-service:maintain-readiness"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:cap:field-service:protect-relationship",
+      "message": "Canvas embeds node cap:field-service:protect-relationship"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:cap:field-service:schedule-work",
+      "message": "Canvas embeds node cap:field-service:schedule-work"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evaluation:field-service:workflow",
+      "message": "Canvas embeds node evaluation:field-service:workflow"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:appointment-confirmation",
+      "message": "Canvas embeds node evidence:field-service:appointment-confirmation"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:arrival-message",
+      "message": "Canvas embeds node evidence:field-service:arrival-message"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:closed-service-job",
+      "message": "Canvas embeds node evidence:field-service:closed-service-job"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:completed-work-order",
+      "message": "Canvas embeds node evidence:field-service:completed-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:daily-capacity-plan",
+      "message": "Canvas embeds node evidence:field-service:daily-capacity-plan"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:dispatch-assignment",
+      "message": "Canvas embeds node evidence:field-service:dispatch-assignment"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:issued-invoice",
+      "message": "Canvas embeds node evidence:field-service:issued-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:paid-invoice",
+      "message": "Canvas embeds node evidence:field-service:paid-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:payment-exception-resolution",
+      "message": "Canvas embeds node evidence:field-service:payment-exception-resolution"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:request-triage",
+      "message": "Canvas embeds node evidence:field-service:request-triage"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:review-request",
+      "message": "Canvas embeds node evidence:field-service:review-request"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:service-recovery-case",
+      "message": "Canvas embeds node evidence:field-service:service-recovery-case"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:truck-restock",
+      "message": "Canvas embeds node evidence:field-service:truck-restock"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:evidence:field-service:visit-readiness-checklist",
+      "message": "Canvas embeds node evidence:field-service:visit-readiness-checklist"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:gap:field-service:emergency-priority-rules",
+      "message": "Canvas embeds node gap:field-service:emergency-priority-rules"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:gap:field-service:photo-standard",
+      "message": "Canvas embeds node gap:field-service:photo-standard"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:gap:field-service:refund-owner",
+      "message": "Canvas embeds node gap:field-service:refund-owner"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:gap:field-service:review-suppression-rule",
+      "message": "Canvas embeds node gap:field-service:review-suppression-rule"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:gap:field-service:truck-min-max",
+      "message": "Canvas embeds node gap:field-service:truck-min-max"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:index:visible-business-client-specs",
+      "message": "Canvas embeds node index:visible-business-client-specs"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:book-appointment",
+      "message": "Canvas embeds node job:field-service:book-appointment"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:close-work-order",
+      "message": "Canvas embeds node job:field-service:close-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:collect-payment",
+      "message": "Canvas embeds node job:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:complete-service-visit",
+      "message": "Canvas embeds node job:field-service:complete-service-visit"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:create-invoice",
+      "message": "Canvas embeds node job:field-service:create-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:dispatch-technician",
+      "message": "Canvas embeds node job:field-service:dispatch-technician"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:handle-service-issue",
+      "message": "Canvas embeds node job:field-service:handle-service-issue"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:plan-daily-capacity",
+      "message": "Canvas embeds node job:field-service:plan-daily-capacity"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:prepare-visit",
+      "message": "Canvas embeds node job:field-service:prepare-visit"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:request-review",
+      "message": "Canvas embeds node job:field-service:request-review"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:resolve-payment-exception",
+      "message": "Canvas embeds node job:field-service:resolve-payment-exception"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:restock-truck",
+      "message": "Canvas embeds node job:field-service:restock-truck"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:send-arrival-update",
+      "message": "Canvas embeds node job:field-service:send-arrival-update"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:job:field-service:triage-service-request",
+      "message": "Canvas embeds node job:field-service:triage-service-request"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:metric:field-service:days-to-collect",
+      "message": "Canvas embeds node metric:field-service:days-to-collect"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:metric:field-service:first-available-window",
+      "message": "Canvas embeds node metric:field-service:first-available-window"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:metric:field-service:issue-recovery-time",
+      "message": "Canvas embeds node metric:field-service:issue-recovery-time"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:metric:field-service:readiness-score",
+      "message": "Canvas embeds node metric:field-service:readiness-score"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:metric:field-service:same-day-completion-rate",
+      "message": "Canvas embeds node metric:field-service:same-day-completion-rate"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:book-appointment",
+      "message": "Canvas embeds node process:field-service:book-appointment"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:close-work-order",
+      "message": "Canvas embeds node process:field-service:close-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:collect-payment",
+      "message": "Canvas embeds node process:field-service:collect-payment"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:complete-service-visit",
+      "message": "Canvas embeds node process:field-service:complete-service-visit"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:create-invoice",
+      "message": "Canvas embeds node process:field-service:create-invoice"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:dispatch-technician",
+      "message": "Canvas embeds node process:field-service:dispatch-technician"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:handle-service-issue",
+      "message": "Canvas embeds node process:field-service:handle-service-issue"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:plan-daily-capacity",
+      "message": "Canvas embeds node process:field-service:plan-daily-capacity"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:prepare-visit",
+      "message": "Canvas embeds node process:field-service:prepare-visit"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:request-review",
+      "message": "Canvas embeds node process:field-service:request-review"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:resolve-payment-exception",
+      "message": "Canvas embeds node process:field-service:resolve-payment-exception"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:restock-truck",
+      "message": "Canvas embeds node process:field-service:restock-truck"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:send-arrival-update",
+      "message": "Canvas embeds node process:field-service:send-arrival-update"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:process:field-service:triage-service-request",
+      "message": "Canvas embeds node process:field-service:triage-service-request"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:system:field-service-business",
+      "message": "Canvas embeds node system:field-service-business"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:technical:field-service:workflow",
+      "message": "Canvas embeds node technical:field-service:workflow"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:tool:field-service:crm",
+      "message": "Canvas embeds node tool:field-service:crm"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:tool:field-service:customer-messaging",
+      "message": "Canvas embeds node tool:field-service:customer-messaging"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:tool:field-service:inventory-log",
+      "message": "Canvas embeds node tool:field-service:inventory-log"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:tool:field-service:mobile-work-order",
+      "message": "Canvas embeds node tool:field-service:mobile-work-order"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:tool:field-service:payment-system",
+      "message": "Canvas embeds node tool:field-service:payment-system"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:tool:field-service:review-dashboard",
+      "message": "Canvas embeds node tool:field-service:review-dashboard"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:tool:field-service:route-board",
+      "message": "Canvas embeds node tool:field-service:route-board"
+    },
+    {
+      "status": "pass",
+      "id": "canvas-node:tool:field-service:skill-roster",
+      "message": "Canvas embeds node tool:field-service:skill-roster"
+    }
+  ]
+}

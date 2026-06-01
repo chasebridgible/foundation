@@ -22,6 +22,10 @@ Use inside `backfill-specs`. Do not draft specs here.
 3. Split signals for rows that are too broad.
 4. Slice queue candidates derived from capability rows.
 
+## Graph Metadata Support
+
+Do not draft specs in this skill, but collect the fields that make later `graph-metadata` accurate: system boundaries, capability names, job/process candidates, actors, tools, evidence paths, metrics, gaps, and source anchors. Preserve exact evidence paths and row IDs so downstream capability, job, technical, and eval specs can create stable graph nodes and edges. If this pass revises existing specs, update their `graph-metadata` and run `npm run foundation:visible-business-graph:check -- --repo <repo>` before handoff.
+
 ## Inventory Scope
 
 Derive evidence surfaces from the mapped Artifact Inventory first, then inspect source files only to resolve ambiguity. Cover:
@@ -43,4 +47,4 @@ Split capability rows when actors, outcomes, objects, actions, states, permissio
 
 ## Done
 
-The layer is done when every mapped Artifact Inventory row contributes to a capability row, non-behavioral support note, parent-owned reason, out-of-scope reason, or named human decision.
+The layer is done when every mapped Artifact Inventory row contributes to a capability row, non-behavioral support note, parent-owned reason, out-of-scope reason, or named human decision, and graph-relevant evidence is specific enough for downstream specs to emit source-backed graph nodes.

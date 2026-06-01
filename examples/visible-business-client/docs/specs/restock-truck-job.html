@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.restock-truck.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Restock Technician Truck Job</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.restock-truck.job",
+  "title": "Restock Technician Truck Job",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "high",
+  "parent": "client.field-service.maintain-readiness.capability",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.maintain-readiness.capability",
+      "relationship": "supports",
+      "sections": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "informed-by",
+      "sections": [
+        "data-contracts"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/restock-truck-job.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "JOB-RESTOCK-TRUCK-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.restock-truck.job#job-intent",
+        "client.field-service.restock-truck.job#process"
+      ],
+      "evidence": "Restock technician truck appears with process, actor, tool, and evidence nodes in the expected graph."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "job",
+    "maintain-readiness",
+    "restock-truck"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.restock-truck.job",
+  "nodes": [
+    {
+      "id": "job:field-service:restock-truck",
+      "type": "job",
+      "label": "Restock technician truck",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "capability": "Maintain technician readiness"
+      }
+    },
+    {
+      "id": "process:field-service:restock-truck",
+      "type": "process",
+      "label": "Restock technician truck process",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "stepCount": 4
+      }
+    },
+    {
+      "id": "evidence:field-service:truck-restock",
+      "type": "evidence",
+      "label": "Truck restock confirmation",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "proves": "Restock technician truck"
+      }
+    },
+    {
+      "id": "gap:field-service:truck-min-max",
+      "type": "gap",
+      "label": "Truck stock min/max rules need owner review",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "revision"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "ownerNeeded": true
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:job:field-service:restock-truck:supports:cap:field-service:maintain-readiness",
+      "type": "supports",
+      "from": "job:field-service:restock-truck",
+      "to": "cap:field-service:maintain-readiness",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:job:field-service:restock-truck:has-process:process:field-service:restock-truck",
+      "type": "has-process",
+      "from": "job:field-service:restock-truck",
+      "to": "process:field-service:restock-truck",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:job:field-service:restock-truck:performed-by:actor:inventory-coordinator",
+      "type": "performed-by",
+      "from": "job:field-service:restock-truck",
+      "to": "actor:inventory-coordinator",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "current-handling"
+      }
+    },
+    {
+      "id": "edge:job:field-service:restock-truck:performed-by:actor:technician",
+      "type": "performed-by",
+      "from": "job:field-service:restock-truck",
+      "to": "actor:technician",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "current-handling"
+      }
+    },
+    {
+      "id": "edge:job:field-service:restock-truck:uses-tool:tool:field-service:inventory-log",
+      "type": "uses-tool",
+      "from": "job:field-service:restock-truck",
+      "to": "tool:field-service:inventory-log",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:restock-truck:uses-tool:tool:field-service:mobile-work-order",
+      "type": "uses-tool",
+      "from": "job:field-service:restock-truck",
+      "to": "tool:field-service:mobile-work-order",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:restock-truck:evidenced-by:evidence:field-service:truck-restock",
+      "type": "evidenced-by",
+      "from": "job:field-service:restock-truck",
+      "to": "evidence:field-service:truck-restock",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:job:field-service:restock-truck:has-gap:gap:field-service:truck-min-max",
+      "type": "has-gap",
+      "from": "job:field-service:restock-truck",
+      "to": "gap:field-service:truck-min-max",
+      "source": {
+        "specId": "client.field-service.restock-truck.job",
+        "sectionId": "revision"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <h1>Restock Technician Truck Job</h1>
+    <p>Replenish critical truck materials before they block customer work.</p>
+  </section>
+  <article class="doc-body">
+  <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+    <h2>Capability supported</h2>
+    <p>Supports Maintain technician readiness.</p>
+  </section>
+  <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+    <h2>Current handling</h2>
+    <p>The inventory coordinator reviews usage and low-stock signals from technician work orders.</p>    <table class="status-table">
+      <thead><tr><th>Actor</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Inventory coordinator</td><td>Keeps technician trucks stocked and records material exceptions.</td></tr>
+        <tr><td>Technician</td><td>Completes work, records job evidence, and communicates field status.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="process" data-spec-section="process" data-section-type="process-contract">
+    <h2>Process</h2>
+    <ol>
+      <li>Review parts used and low-stock truck signals.</li>
+      <li>Pick materials for truck replenishment.</li>
+      <li>Record restock quantity and exceptions.</li>
+      <li>Escalate missing critical parts before dispatch.</li>
+    </ol>
+  </section>
+  <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+    <h2>Context, tools, and interfaces</h2>
+    <table class="status-table">
+      <thead><tr><th>Tool</th><th>Use in job</th></tr></thead>
+      <tbody>
+        <tr><td>Truck inventory log</td><td>Truck stock, parts usage, replenishment, and low-stock exceptions.</td></tr>
+        <tr><td>Mobile work order app</td><td>Technician checklist, photos, parts, signatures, and completion notes.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>A restock confirmation or shortage exception proves truck readiness state.</p>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>Truck stock min/max rules need owner review</p>
+  </section>
+  </article>
+</main>
+</body>
+</html>

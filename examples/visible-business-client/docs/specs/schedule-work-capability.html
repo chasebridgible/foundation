@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.schedule-work.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Schedule Service Work Capability</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.schedule-work.capability",
+  "title": "Schedule Service Work Capability",
+  "type": "capability",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": "client.field-service.system",
+  "children": [
+    "client.field-service.triage-service-request.job",
+    "client.field-service.book-appointment.job",
+    "client.field-service.dispatch-technician.job"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "supported-by",
+      "sections": [
+        "identity-linkage-contract"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/schedule-work-capability.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "CAP-SCHEDULE-WORK-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.schedule-work.capability#capability-intent"
+      ],
+      "evidence": "Schedule service work is present in the expected graph fixture and canvas."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "capability",
+    "schedule-work"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.schedule-work.capability",
+  "nodes": [
+    {
+      "id": "cap:field-service:schedule-work",
+      "type": "capability",
+      "label": "Schedule service work",
+      "source": {
+        "specId": "client.field-service.schedule-work.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "outcome": "Customers receive a confirmed visit window with enough context for the business to dispatch the right technician."
+      }
+    },
+    {
+      "id": "metric:field-service:first-available-window",
+      "type": "metric",
+      "label": "First available appointment window",
+      "source": {
+        "specId": "client.field-service.schedule-work.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "target": "Same-day or next-business-day window is visible before confirmation."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:cap:field-service:schedule-work:realized-by:job:field-service:triage-service-request",
+      "type": "realized-by",
+      "from": "cap:field-service:schedule-work",
+      "to": "job:field-service:triage-service-request",
+      "source": {
+        "specId": "client.field-service.schedule-work.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:schedule-work:realized-by:job:field-service:book-appointment",
+      "type": "realized-by",
+      "from": "cap:field-service:schedule-work",
+      "to": "job:field-service:book-appointment",
+      "source": {
+        "specId": "client.field-service.schedule-work.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:schedule-work:realized-by:job:field-service:dispatch-technician",
+      "type": "realized-by",
+      "from": "cap:field-service:schedule-work",
+      "to": "job:field-service:dispatch-technician",
+      "source": {
+        "specId": "client.field-service.schedule-work.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:schedule-work:measured-by:metric:field-service:first-available-window",
+      "type": "measured-by",
+      "from": "cap:field-service:schedule-work",
+      "to": "metric:field-service:first-available-window",
+      "source": {
+        "specId": "client.field-service.schedule-work.capability",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:schedule-work:has-gap:gap:field-service:emergency-priority-rules",
+      "type": "has-gap",
+      "from": "cap:field-service:schedule-work",
+      "to": "gap:field-service:emergency-priority-rules",
+      "source": {
+        "specId": "client.field-service.schedule-work.capability",
+        "sectionId": "revision"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+    <h1>Schedule Service Work Capability</h1>
+    <p>Customers receive a confirmed visit window with enough context for the business to dispatch the right technician.</p>
+  </section>
+  <article class="doc-body">
+  <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="outcome-contract">
+    <h2>Outcome contract</h2>
+    <p>Customers receive a confirmed visit window with enough context for the business to dispatch the right technician.</p>    <ul>
+      <li>Every confirmed appointment must have a customer, address, service category, preferred window, and priority.</li>
+      <li>Emergency priority is visible as a named gap until the owner defines its override rules.</li>
+      <li>Scheduling is not complete until the customer receives confirmation.</li>
+    </ul>
+  </section>
+  <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+    <h2>Jobs</h2>
+    <table class="status-table">
+      <thead><tr><th>Job</th><th>Actor</th><th>Outcome</th></tr></thead>
+      <tbody>
+        <tr><td><a href="./triage-service-request-job.html">Triage service request</a></td><td>Customer coordinator</td><td>Classify the inbound service request so the business knows whether to schedule, escalate, or reject it.</td></tr>
+        <tr><td><a href="./book-appointment-job.html">Book service appointment</a></td><td>Customer coordinator</td><td>Offer and confirm a customer appointment window that can be dispatched.</td></tr>
+        <tr><td><a href="./dispatch-technician-job.html">Dispatch technician</a></td><td>Dispatcher</td><td>Assign technician capacity and route context to confirmed service work.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>First available appointment window: Same-day or next-business-day window is visible before confirmation.</p>    <ul>
+      <li>Request triage record proves Triage service request.</li>
+      <li>Appointment confirmation proves Book service appointment.</li>
+      <li>Dispatch assignment proves Dispatch technician.</li>
+    </ul>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>The following gaps stay visible on the graph until resolved.</p>    <ul>
+      <li>Emergency priority rules need owner definition</li>
+    </ul>
+  </section>
+  </article>
+</main>
+</body>
+</html>

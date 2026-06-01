@@ -28,6 +28,7 @@ Use target-owned spec IDs and `status: draft`. For each behavior-bearing capabil
 - timing, ordering, idempotency, concurrency, retries, lifecycle
 - failure, recovery, observability, operator impact
 - verification targets for later eval specs/evals
+- `graph-metadata` technical-contract nodes and support edges back to the capability/job specs the technical contract protects
 
 ## Architecture Classification
 
@@ -42,4 +43,4 @@ Promote architecture to a constraint only when production data, external contrac
 
 ## Done
 
-Done when every attached capability row has technical section anchors for required contracts, evidence, constraints, latitude, failures/recovery, observability, and verification targets. If a cold build agent cannot tell what must be preserved versus what may change, mark the slice `needs-revision`.
+Done when every attached capability row has technical section anchors for required contracts, evidence, constraints, latitude, failures/recovery, observability, verification targets, and graph metadata support edges. If a cold build agent cannot tell what must be preserved versus what may change, mark the slice `needs-revision`.

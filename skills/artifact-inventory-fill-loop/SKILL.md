@@ -29,6 +29,10 @@ Read these before changing rows:
 - Refresh changed files: `npm run foundation:artifact-inventory:refresh -- --repo <repo> --run-id <run-id>`
 - Record report state: `npm run foundation:artifact-inventory:report -- --repo <repo> --run-id <run-id> --report <active-report>`
 
+## Graph Metadata
+
+Artifact Inventory rows are upstream evidence for the Visible Business Graph. While this skill does not usually edit specs directly, preserve graph-relevant signals in the inventory rows: candidate systems, capabilities, jobs, processes, actors, tools, evidence paths, metrics, gaps, and source sections. When this layer causes specs to be created or revised, the downstream spec author must update `graph-metadata` and run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
+
 ## Loop
 
 1. Read the current manifest and registry.
@@ -38,7 +42,7 @@ Read these before changing rows:
 5. Keep uncertainty inside `reviewFlags`; do not create extra statuses.
 6. Run the batch checker.
 7. Repeat until no pending rows remain.
-8. Run handoff check, eval, and graph check when graph artifacts exist.
+8. Run handoff check, eval, and graph check when graph artifacts or specs exist.
 9. Record artifact paths, pending count, checker result, eval result, latest run-log sequence, and next layer in the target report.
 
 The deterministic fill command is a V1 assistant for creating a first-pass row. Eval findings or human review still route weak rows back through this loop.

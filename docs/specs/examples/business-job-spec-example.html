@@ -31,6 +31,131 @@
   "tags": ["example", "business", "job-spec", "payroll"]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "example.business.pay-employees.job",
+  "nodes": [
+    {
+      "id": "spec:example.business.pay-employees.job",
+      "type": "job",
+      "label": "Pay Employees Accurately and On Time - Business Job Spec Example",
+      "source": {
+        "specId": "example.business.pay-employees.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "example",
+          "business",
+          "job-spec",
+          "payroll"
+        ]
+      }
+    },
+    {
+      "id": "process:example.business.pay-employees.job:main",
+      "type": "process",
+      "label": "Pay Employees Accurately and On Time - Business Job Spec Example process",
+      "source": {
+        "specId": "example.business.pay-employees.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "example.business.pay-employees.job"
+      }
+    },
+    {
+      "id": "actor:example.business.pay-employees.job:primary",
+      "type": "actor",
+      "label": "Pay Employees Accurately and On Time - Business Job Spec Example actor",
+      "source": {
+        "specId": "example.business.pay-employees.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "example.business.pay-employees.job"
+      }
+    },
+    {
+      "id": "evidence:example.business.pay-employees.job:primary",
+      "type": "evidence",
+      "label": "Pay Employees Accurately and On Time - Business Job Spec Example evidence",
+      "source": {
+        "specId": "example.business.pay-employees.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "example.business.pay-employees.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:example.business.pay-employees.job:has-process:process:example.business.pay-employees.job:main",
+      "type": "has-process",
+      "from": "spec:example.business.pay-employees.job",
+      "to": "process:example.business.pay-employees.job:main",
+      "source": {
+        "specId": "example.business.pay-employees.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:example.business.pay-employees.job:performed-by:actor:example.business.pay-employees.job:primary",
+      "type": "performed-by",
+      "from": "spec:example.business.pay-employees.job",
+      "to": "actor:example.business.pay-employees.job:primary",
+      "source": {
+        "specId": "example.business.pay-employees.job",
+        "sectionId": "job-intent"
+      }
+    },
+    {
+      "id": "edge:spec:example.business.pay-employees.job:evidenced-by:evidence:example.business.pay-employees.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:example.business.pay-employees.job",
+      "to": "evidence:example.business.pay-employees.job:primary",
+      "source": {
+        "specId": "example.business.pay-employees.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:example.business.pay-employees.job:supports:spec:foundation.spec-template.job",
+      "type": "supports",
+      "from": "spec:example.business.pay-employees.job",
+      "to": "spec:foundation.spec-template.job",
+      "source": {
+        "specId": "example.business.pay-employees.job",
+        "sectionId": "job-intent"
+      },
+      "label": "informs"
+    },
+    {
+      "id": "edge:spec:example.business.pay-employees.job:supports:spec:foundation.spec-template.eval",
+      "type": "supports",
+      "from": "spec:example.business.pay-employees.job",
+      "to": "spec:foundation.spec-template.eval",
+      "source": {
+        "specId": "example.business.pay-employees.job",
+        "sectionId": "job-intent"
+      },
+      "label": "informs"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

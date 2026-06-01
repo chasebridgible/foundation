@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>visible-business-client Visible Business Graph</title>
+<style>
+  :root {
+    --bg: #171717;
+    --panel: #202020;
+    --panel-2: #262626;
+    --border: #363636;
+    --text: #eeeeee;
+    --muted: #a8a8a8;
+    --faint: #737373;
+    --blue: #6ea8fe;
+    --green: #58d6a9;
+    --amber: #e0b84f;
+    --red: #ff8a75;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .app { display: grid; grid-template-columns: 280px minmax(520px, 1fr) 340px; height: 100vh; overflow: hidden; }
+  aside, .details { background: var(--panel); border-color: var(--border); overflow: auto; }
+  aside { border-right: 1px solid var(--border); padding: 18px; }
+  .details { border-left: 1px solid var(--border); padding: 18px; }
+  main { min-width: 0; padding: 20px; overflow: hidden; display: flex; flex-direction: column; }
+  h1, h2, h3, p { margin-top: 0; }
+  h1 { font-size: 20px; letter-spacing: 0; margin-bottom: 6px; }
+  h2 { font-size: 14px; margin: 22px 0 10px; color: var(--text); }
+  h3 { font-size: 13px; margin: 0 0 6px; }
+  p, .muted { color: var(--muted); }
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 16px 0; }
+  .stat { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+  .stat strong { display: block; font-size: 18px; }
+  .type-list { display: grid; gap: 6px; }
+  .type-button, .node-button, .tab {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel-2);
+    color: var(--text);
+    cursor: pointer;
+    font: inherit;
+    padding: 8px 10px;
+    text-align: left;
+  }
+  .type-button.active, .node-button.active, .tab.active { border-color: var(--blue); background: rgba(110, 168, 254, 0.14); }
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; flex: 0 0 auto; }
+  .tab { width: auto; }
+  .canvas {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 680px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #1d1d1d;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: none;
+  }
+  .canvas.dragging { cursor: grabbing; }
+  .graph-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 960px;
+    min-height: 680px;
+    transform-origin: 0 0;
+  }
+  .edge-layer { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
+  .node-card {
+    position: absolute;
+    width: 210px;
+    min-height: 88px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel);
+    padding: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: left;
+  }
+  .node-card.active { outline: 2px solid var(--blue); }
+  .node-card[data-expanded="true"] { border-color: var(--green); background: rgba(88, 214, 169, 0.10); }
+  .node-card:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+  .node-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .node-type { color: var(--faint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; text-transform: uppercase; }
+  .node-action {
+    min-width: 24px;
+    height: 22px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+  }
+  .node-card[data-expanded="true"] .node-action { color: var(--green); border-color: rgba(88, 214, 169, .55); }
+  .node-label { color: var(--text); font-weight: 650; margin-top: 4px; overflow-wrap: anywhere; }
+  .node-source { color: var(--muted); font-size: 12px; margin-top: 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .node-source-link { display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .detail-list { display: grid; gap: 8px; }
+  .detail-row { border-top: 1px solid var(--border); padding-top: 8px; }
+  a { color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(110, 168, 254, 0.38); }
+  .pill { display: inline-block; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); padding: 2px 8px; margin: 2px 4px 2px 0; font-size: 12px; }
+  @media (max-width: 1040px) {
+    .app { grid-template-columns: 1fr; height: auto; overflow: visible; }
+    aside, .details { border: 0; border-bottom: 1px solid var(--border); max-height: none; }
+    main { padding: 14px; min-height: 720px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <h1>visible-business-client graph</h1>
+    <p>Derived canvas from graph-compatible HTML specs. Canvas state is not canonical.</p>
+    <div class="stats">
+      <div class="stat"><strong>77</strong><span class="muted">nodes</span></div>
+      <div class="stat"><strong>151</strong><span class="muted">edges</span></div>
+      <div class="stat"><strong>23</strong><span class="muted">specs</span></div>
+      <div class="stat"><strong>12</strong><span class="muted">types</span></div>
+    </div>
+    <h2>Node Types</h2>
+    <div class="type-list" id="typeList"></div>
+    <h2>Nodes</h2>
+    <div class="type-list" id="nodeList"></div>
+  </aside>
+  <main>
+    <div class="tabs" id="tabs" role="tablist" aria-label="Graph views">
+      <button class="tab active" role="tab" aria-selected="true" data-view="capability">Capability map</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="actors">Actors</button>
+    </div>
+    <section class="canvas" id="canvas" data-layout="top-down" aria-label="Visible business graph canvas">
+      <div class="graph-stage" id="graphStage">
+        <svg class="edge-layer" id="edgeLayer" aria-hidden="true"></svg>
+      </div>
+    </section>
+  </main>
+  <section class="details">
+    <h2>Selection</h2>
+    <div id="details"></div>
+  </section>
+</div>
+<script>
+const graph = {"schema":"foundation.visible-business-graph.v1","generatedAt":"2026-06-01T17:00:31.748Z","repoName":"visible-business-client","sources":[{"specId":"client.field-service.book-appointment.job","title":"Book Service Appointment Job","type":"job","file":"docs/specs/book-appointment-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.system","title":"Field Service Business System","type":"system","file":"docs/specs/client-system.html","canonicalSection":"system-intent","status":"active","confidence":"high"},{"specId":"client.field-service.workflow.eval","title":"Field Service Workflow Evaluation","type":"eval","file":"docs/specs/client-workflow-eval.html","canonicalSection":"verification-contract","status":"active","confidence":"high"},{"specId":"client.field-service.workflow.technical","title":"Field Service Workflow Technical Contract","type":"technical","file":"docs/specs/client-workflow-technical.html","canonicalSection":"required-depth","status":"active","confidence":"high"},{"specId":"client.field-service.close-work-order.job","title":"Close Work Order Job","type":"job","file":"docs/specs/close-work-order-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.collect-payment.capability","title":"Collect Service Payment Capability","type":"capability","file":"docs/specs/collect-payment-capability.html","canonicalSection":"capability-intent","status":"active","confidence":"high"},{"specId":"client.field-service.collect-payment.job","title":"Collect Service Payment Job","type":"job","file":"docs/specs/collect-payment-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.complete-service-visit.job","title":"Complete Service Visit Job","type":"job","file":"docs/specs/complete-service-visit-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.create-invoice.job","title":"Create Service Invoice Job","type":"job","file":"docs/specs/create-invoice-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.deliver-service.capability","title":"Deliver Service Visit Capability","type":"capability","file":"docs/specs/deliver-service-capability.html","canonicalSection":"capability-intent","status":"active","confidence":"high"},{"specId":"client.field-service.dispatch-technician.job","title":"Dispatch Technician Job","type":"job","file":"docs/specs/dispatch-technician-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.handle-service-issue.job","title":"Handle Service Issue Job","type":"job","file":"docs/specs/handle-service-issue-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.spec-system","title":"Visible Business Client Spec System","type":"index","file":"docs/specs/index.html","canonicalSection":"overview","status":"active","confidence":"high"},{"specId":"client.field-service.maintain-readiness.capability","title":"Maintain Technician Readiness Capability","type":"capability","file":"docs/specs/maintain-readiness-capability.html","canonicalSection":"capability-intent","status":"active","confidence":"high"},{"specId":"client.field-service.plan-daily-capacity.job","title":"Plan Daily Capacity Job","type":"job","file":"docs/specs/plan-daily-capacity-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.prepare-visit.job","title":"Prepare Service Visit Job","type":"job","file":"docs/specs/prepare-visit-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.protect-relationship.capability","title":"Protect Customer Relationship Capability","type":"capability","file":"docs/specs/protect-relationship-capability.html","canonicalSection":"capability-intent","status":"active","confidence":"high"},{"specId":"client.field-service.request-review.job","title":"Request Customer Review Job","type":"job","file":"docs/specs/request-review-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.resolve-payment-exception.job","title":"Resolve Payment Exception Job","type":"job","file":"docs/specs/resolve-payment-exception-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.restock-truck.job","title":"Restock Technician Truck Job","type":"job","file":"docs/specs/restock-truck-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.schedule-work.capability","title":"Schedule Service Work Capability","type":"capability","file":"docs/specs/schedule-work-capability.html","canonicalSection":"capability-intent","status":"active","confidence":"high"},{"specId":"client.field-service.send-arrival-update.job","title":"Send Arrival Update Job","type":"job","file":"docs/specs/send-arrival-update-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"},{"specId":"client.field-service.triage-service-request.job","title":"Triage Service Request Job","type":"job","file":"docs/specs/triage-service-request-job.html","canonicalSection":"job-intent","status":"active","confidence":"high"}],"nodes":[{"id":"actor:billing-coordinator","type":"actor","label":"Billing coordinator","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"role":"Owns invoices, payment follow-up, receipts, and open balance exceptions."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"actor:customer","type":"actor","label":"Customer","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"role":"Requests service, confirms expectations, pays, and gives feedback."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"actor:customer-coordinator","type":"actor","label":"Customer coordinator","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"role":"Owns intake, scheduling, customer updates, and review requests."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"actor:dispatcher","type":"actor","label":"Dispatcher","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"role":"Turns scheduled work into technician-ready route assignments."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"actor:inventory-coordinator","type":"actor","label":"Inventory coordinator","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"role":"Keeps technician trucks stocked and records material exceptions."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"actor:owner-operator","type":"actor","label":"Owner operator","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"role":"Reviews operating evidence and resolves cross-capability gaps."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"actor:service-manager","type":"actor","label":"Service manager","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"role":"Owns quality recovery, priority rules, and daily capacity tradeoffs."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"actor:technician","type":"actor","label":"Technician","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"role":"Completes work, records job evidence, and communicates field status."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"cap:field-service:collect-payment","type":"capability","label":"Collect service payment","source":{"specId":"client.field-service.collect-payment.capability","sectionId":"capability-intent"},"status":"active","confidence":"high","attributes":{"outcome":"Completed work turns into collected cash or a named open balance with an accountable owner."},"ownerSpecId":"client.field-service.collect-payment.capability","file":"docs/specs/collect-payment-capability.html","sourceFile":"docs/specs/collect-payment-capability.html","sourceTitle":"Collect Service Payment Capability","href":"../specs/collect-payment-capability.html"},{"id":"cap:field-service:deliver-service","type":"capability","label":"Deliver service visit","source":{"specId":"client.field-service.deliver-service.capability","sectionId":"capability-intent"},"status":"active","confidence":"high","attributes":{"outcome":"Technicians arrive prepared, complete the promised work, and produce enough evidence to close the work order."},"ownerSpecId":"client.field-service.deliver-service.capability","file":"docs/specs/deliver-service-capability.html","sourceFile":"docs/specs/deliver-service-capability.html","sourceTitle":"Deliver Service Visit Capability","href":"../specs/deliver-service-capability.html"},{"id":"cap:field-service:maintain-readiness","type":"capability","label":"Maintain technician readiness","source":{"specId":"client.field-service.maintain-readiness.capability","sectionId":"capability-intent"},"status":"active","confidence":"high","attributes":{"outcome":"Technician capacity, skills, and truck materials are ready before customer commitments are made."},"ownerSpecId":"client.field-service.maintain-readiness.capability","file":"docs/specs/maintain-readiness-capability.html","sourceFile":"docs/specs/maintain-readiness-capability.html","sourceTitle":"Maintain Technician Readiness Capability","href":"../specs/maintain-readiness-capability.html"},{"id":"cap:field-service:protect-relationship","type":"capability","label":"Protect customer relationship","source":{"specId":"client.field-service.protect-relationship.capability","sectionId":"capability-intent"},"status":"active","confidence":"high","attributes":{"outcome":"Customers know what is happening, can recover from service issues, and are asked for feedback at the right time."},"ownerSpecId":"client.field-service.protect-relationship.capability","file":"docs/specs/protect-relationship-capability.html","sourceFile":"docs/specs/protect-relationship-capability.html","sourceTitle":"Protect Customer Relationship Capability","href":"../specs/protect-relationship-capability.html"},{"id":"cap:field-service:schedule-work","type":"capability","label":"Schedule service work","source":{"specId":"client.field-service.schedule-work.capability","sectionId":"capability-intent"},"status":"active","confidence":"high","attributes":{"outcome":"Customers receive a confirmed visit window with enough context for the business to dispatch the right technician."},"ownerSpecId":"client.field-service.schedule-work.capability","file":"docs/specs/schedule-work-capability.html","sourceFile":"docs/specs/schedule-work-capability.html","sourceTitle":"Schedule Service Work Capability","href":"../specs/schedule-work-capability.html"},{"id":"evaluation:field-service:workflow","type":"evaluation","label":"Field service workflow evaluation","source":{"specId":"client.field-service.workflow.eval","sectionId":"verification-contract"},"status":"active","confidence":"high","attributes":{"evaluates":"visible business graph completeness"},"ownerSpecId":"client.field-service.workflow.eval","file":"docs/specs/client-workflow-eval.html","sourceFile":"docs/specs/client-workflow-eval.html","sourceTitle":"Field Service Workflow Evaluation","href":"../specs/client-workflow-eval.html"},{"id":"evidence:field-service:appointment-confirmation","type":"evidence","label":"Appointment confirmation","source":{"specId":"client.field-service.book-appointment.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Book service appointment"},"ownerSpecId":"client.field-service.book-appointment.job","file":"docs/specs/book-appointment-job.html","sourceFile":"docs/specs/book-appointment-job.html","sourceTitle":"Book Service Appointment Job","href":"../specs/book-appointment-job.html"},{"id":"evidence:field-service:arrival-message","type":"evidence","label":"Arrival message log","source":{"specId":"client.field-service.send-arrival-update.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Send arrival update"},"ownerSpecId":"client.field-service.send-arrival-update.job","file":"docs/specs/send-arrival-update-job.html","sourceFile":"docs/specs/send-arrival-update-job.html","sourceTitle":"Send Arrival Update Job","href":"../specs/send-arrival-update-job.html"},{"id":"evidence:field-service:closed-service-job","type":"evidence","label":"Closed service job","source":{"specId":"client.field-service.close-work-order.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Close work order"},"ownerSpecId":"client.field-service.close-work-order.job","file":"docs/specs/close-work-order-job.html","sourceFile":"docs/specs/close-work-order-job.html","sourceTitle":"Close Work Order Job","href":"../specs/close-work-order-job.html"},{"id":"evidence:field-service:completed-work-order","type":"evidence","label":"Completed work order","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Complete service visit"},"ownerSpecId":"client.field-service.complete-service-visit.job","file":"docs/specs/complete-service-visit-job.html","sourceFile":"docs/specs/complete-service-visit-job.html","sourceTitle":"Complete Service Visit Job","href":"../specs/complete-service-visit-job.html"},{"id":"evidence:field-service:daily-capacity-plan","type":"evidence","label":"Daily capacity plan","source":{"specId":"client.field-service.plan-daily-capacity.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Plan daily capacity"},"ownerSpecId":"client.field-service.plan-daily-capacity.job","file":"docs/specs/plan-daily-capacity-job.html","sourceFile":"docs/specs/plan-daily-capacity-job.html","sourceTitle":"Plan Daily Capacity Job","href":"../specs/plan-daily-capacity-job.html"},{"id":"evidence:field-service:dispatch-assignment","type":"evidence","label":"Dispatch assignment","source":{"specId":"client.field-service.dispatch-technician.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Dispatch technician"},"ownerSpecId":"client.field-service.dispatch-technician.job","file":"docs/specs/dispatch-technician-job.html","sourceFile":"docs/specs/dispatch-technician-job.html","sourceTitle":"Dispatch Technician Job","href":"../specs/dispatch-technician-job.html"},{"id":"evidence:field-service:issued-invoice","type":"evidence","label":"Issued invoice","source":{"specId":"client.field-service.create-invoice.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Create service invoice"},"ownerSpecId":"client.field-service.create-invoice.job","file":"docs/specs/create-invoice-job.html","sourceFile":"docs/specs/create-invoice-job.html","sourceTitle":"Create Service Invoice Job","href":"../specs/create-invoice-job.html"},{"id":"evidence:field-service:paid-invoice","type":"evidence","label":"Paid invoice receipt","source":{"specId":"client.field-service.collect-payment.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Collect service payment"},"ownerSpecId":"client.field-service.collect-payment.job","file":"docs/specs/collect-payment-job.html","sourceFile":"docs/specs/collect-payment-job.html","sourceTitle":"Collect Service Payment Job","href":"../specs/collect-payment-job.html"},{"id":"evidence:field-service:payment-exception-resolution","type":"evidence","label":"Payment exception resolution","source":{"specId":"client.field-service.resolve-payment-exception.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Resolve payment exception"},"ownerSpecId":"client.field-service.resolve-payment-exception.job","file":"docs/specs/resolve-payment-exception-job.html","sourceFile":"docs/specs/resolve-payment-exception-job.html","sourceTitle":"Resolve Payment Exception Job","href":"../specs/resolve-payment-exception-job.html"},{"id":"evidence:field-service:request-triage","type":"evidence","label":"Request triage record","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Triage service request"},"ownerSpecId":"client.field-service.triage-service-request.job","file":"docs/specs/triage-service-request-job.html","sourceFile":"docs/specs/triage-service-request-job.html","sourceTitle":"Triage Service Request Job","href":"../specs/triage-service-request-job.html"},{"id":"evidence:field-service:review-request","type":"evidence","label":"Review request log","source":{"specId":"client.field-service.request-review.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Request customer review"},"ownerSpecId":"client.field-service.request-review.job","file":"docs/specs/request-review-job.html","sourceFile":"docs/specs/request-review-job.html","sourceTitle":"Request Customer Review Job","href":"../specs/request-review-job.html"},{"id":"evidence:field-service:service-recovery-case","type":"evidence","label":"Service recovery case","source":{"specId":"client.field-service.handle-service-issue.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Handle service issue"},"ownerSpecId":"client.field-service.handle-service-issue.job","file":"docs/specs/handle-service-issue-job.html","sourceFile":"docs/specs/handle-service-issue-job.html","sourceTitle":"Handle Service Issue Job","href":"../specs/handle-service-issue-job.html"},{"id":"evidence:field-service:truck-restock","type":"evidence","label":"Truck restock confirmation","source":{"specId":"client.field-service.restock-truck.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Restock technician truck"},"ownerSpecId":"client.field-service.restock-truck.job","file":"docs/specs/restock-truck-job.html","sourceFile":"docs/specs/restock-truck-job.html","sourceTitle":"Restock Technician Truck Job","href":"../specs/restock-truck-job.html"},{"id":"evidence:field-service:visit-readiness-checklist","type":"evidence","label":"Visit readiness checklist","source":{"specId":"client.field-service.prepare-visit.job","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"proves":"Prepare service visit"},"ownerSpecId":"client.field-service.prepare-visit.job","file":"docs/specs/prepare-visit-job.html","sourceFile":"docs/specs/prepare-visit-job.html","sourceTitle":"Prepare Service Visit Job","href":"../specs/prepare-visit-job.html"},{"id":"gap:field-service:emergency-priority-rules","type":"gap","label":"Emergency priority rules need owner definition","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"revision"},"status":"active","confidence":"medium","attributes":{"ownerNeeded":true},"ownerSpecId":"client.field-service.triage-service-request.job","file":"docs/specs/triage-service-request-job.html","sourceFile":"docs/specs/triage-service-request-job.html","sourceTitle":"Triage Service Request Job","href":"../specs/triage-service-request-job.html"},{"id":"gap:field-service:photo-standard","type":"gap","label":"Completion photo standard is not defined","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"revision"},"status":"active","confidence":"medium","attributes":{"ownerNeeded":true},"ownerSpecId":"client.field-service.complete-service-visit.job","file":"docs/specs/complete-service-visit-job.html","sourceFile":"docs/specs/complete-service-visit-job.html","sourceTitle":"Complete Service Visit Job","href":"../specs/complete-service-visit-job.html"},{"id":"gap:field-service:refund-owner","type":"gap","label":"Refund exception owner unclear","source":{"specId":"client.field-service.collect-payment.job","sectionId":"revision"},"status":"active","confidence":"medium","attributes":{"ownerNeeded":true},"ownerSpecId":"client.field-service.collect-payment.job","file":"docs/specs/collect-payment-job.html","sourceFile":"docs/specs/collect-payment-job.html","sourceTitle":"Collect Service Payment Job","href":"../specs/collect-payment-job.html"},{"id":"gap:field-service:review-suppression-rule","type":"gap","label":"Review suppression rule needs confirmation","source":{"specId":"client.field-service.request-review.job","sectionId":"revision"},"status":"active","confidence":"medium","attributes":{"ownerNeeded":true},"ownerSpecId":"client.field-service.request-review.job","file":"docs/specs/request-review-job.html","sourceFile":"docs/specs/request-review-job.html","sourceTitle":"Request Customer Review Job","href":"../specs/request-review-job.html"},{"id":"gap:field-service:truck-min-max","type":"gap","label":"Truck stock min/max rules need owner review","source":{"specId":"client.field-service.restock-truck.job","sectionId":"revision"},"status":"active","confidence":"medium","attributes":{"ownerNeeded":true},"ownerSpecId":"client.field-service.restock-truck.job","file":"docs/specs/restock-truck-job.html","sourceFile":"docs/specs/restock-truck-job.html","sourceTitle":"Restock Technician Truck Job","href":"../specs/restock-truck-job.html"},{"id":"index:visible-business-client-specs","type":"index","label":"Visible Business Client Specs","source":{"specId":"client.field-service.spec-system","sectionId":"overview"},"status":"active","confidence":"high","attributes":{"exampleRole":"template-repo-index"},"ownerSpecId":"client.field-service.spec-system","file":"docs/specs/index.html","sourceFile":"docs/specs/index.html","sourceTitle":"Visible Business Client Spec System","href":"../specs/index.html"},{"id":"job:field-service:book-appointment","type":"job","label":"Book service appointment","source":{"specId":"client.field-service.book-appointment.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Schedule service work"},"ownerSpecId":"client.field-service.book-appointment.job","file":"docs/specs/book-appointment-job.html","sourceFile":"docs/specs/book-appointment-job.html","sourceTitle":"Book Service Appointment Job","href":"../specs/book-appointment-job.html"},{"id":"job:field-service:close-work-order","type":"job","label":"Close work order","source":{"specId":"client.field-service.close-work-order.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Deliver service visit"},"ownerSpecId":"client.field-service.close-work-order.job","file":"docs/specs/close-work-order-job.html","sourceFile":"docs/specs/close-work-order-job.html","sourceTitle":"Close Work Order Job","href":"../specs/close-work-order-job.html"},{"id":"job:field-service:collect-payment","type":"job","label":"Collect service payment","source":{"specId":"client.field-service.collect-payment.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Collect service payment"},"ownerSpecId":"client.field-service.collect-payment.job","file":"docs/specs/collect-payment-job.html","sourceFile":"docs/specs/collect-payment-job.html","sourceTitle":"Collect Service Payment Job","href":"../specs/collect-payment-job.html"},{"id":"job:field-service:complete-service-visit","type":"job","label":"Complete service visit","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Deliver service visit"},"ownerSpecId":"client.field-service.complete-service-visit.job","file":"docs/specs/complete-service-visit-job.html","sourceFile":"docs/specs/complete-service-visit-job.html","sourceTitle":"Complete Service Visit Job","href":"../specs/complete-service-visit-job.html"},{"id":"job:field-service:create-invoice","type":"job","label":"Create service invoice","source":{"specId":"client.field-service.create-invoice.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Collect service payment"},"ownerSpecId":"client.field-service.create-invoice.job","file":"docs/specs/create-invoice-job.html","sourceFile":"docs/specs/create-invoice-job.html","sourceTitle":"Create Service Invoice Job","href":"../specs/create-invoice-job.html"},{"id":"job:field-service:dispatch-technician","type":"job","label":"Dispatch technician","source":{"specId":"client.field-service.dispatch-technician.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Schedule service work"},"ownerSpecId":"client.field-service.dispatch-technician.job","file":"docs/specs/dispatch-technician-job.html","sourceFile":"docs/specs/dispatch-technician-job.html","sourceTitle":"Dispatch Technician Job","href":"../specs/dispatch-technician-job.html"},{"id":"job:field-service:handle-service-issue","type":"job","label":"Handle service issue","source":{"specId":"client.field-service.handle-service-issue.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Protect customer relationship"},"ownerSpecId":"client.field-service.handle-service-issue.job","file":"docs/specs/handle-service-issue-job.html","sourceFile":"docs/specs/handle-service-issue-job.html","sourceTitle":"Handle Service Issue Job","href":"../specs/handle-service-issue-job.html"},{"id":"job:field-service:plan-daily-capacity","type":"job","label":"Plan daily capacity","source":{"specId":"client.field-service.plan-daily-capacity.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Maintain technician readiness"},"ownerSpecId":"client.field-service.plan-daily-capacity.job","file":"docs/specs/plan-daily-capacity-job.html","sourceFile":"docs/specs/plan-daily-capacity-job.html","sourceTitle":"Plan Daily Capacity Job","href":"../specs/plan-daily-capacity-job.html"},{"id":"job:field-service:prepare-visit","type":"job","label":"Prepare service visit","source":{"specId":"client.field-service.prepare-visit.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Deliver service visit"},"ownerSpecId":"client.field-service.prepare-visit.job","file":"docs/specs/prepare-visit-job.html","sourceFile":"docs/specs/prepare-visit-job.html","sourceTitle":"Prepare Service Visit Job","href":"../specs/prepare-visit-job.html"},{"id":"job:field-service:request-review","type":"job","label":"Request customer review","source":{"specId":"client.field-service.request-review.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Protect customer relationship"},"ownerSpecId":"client.field-service.request-review.job","file":"docs/specs/request-review-job.html","sourceFile":"docs/specs/request-review-job.html","sourceTitle":"Request Customer Review Job","href":"../specs/request-review-job.html"},{"id":"job:field-service:resolve-payment-exception","type":"job","label":"Resolve payment exception","source":{"specId":"client.field-service.resolve-payment-exception.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Collect service payment"},"ownerSpecId":"client.field-service.resolve-payment-exception.job","file":"docs/specs/resolve-payment-exception-job.html","sourceFile":"docs/specs/resolve-payment-exception-job.html","sourceTitle":"Resolve Payment Exception Job","href":"../specs/resolve-payment-exception-job.html"},{"id":"job:field-service:restock-truck","type":"job","label":"Restock technician truck","source":{"specId":"client.field-service.restock-truck.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Maintain technician readiness"},"ownerSpecId":"client.field-service.restock-truck.job","file":"docs/specs/restock-truck-job.html","sourceFile":"docs/specs/restock-truck-job.html","sourceTitle":"Restock Technician Truck Job","href":"../specs/restock-truck-job.html"},{"id":"job:field-service:send-arrival-update","type":"job","label":"Send arrival update","source":{"specId":"client.field-service.send-arrival-update.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Protect customer relationship"},"ownerSpecId":"client.field-service.send-arrival-update.job","file":"docs/specs/send-arrival-update-job.html","sourceFile":"docs/specs/send-arrival-update-job.html","sourceTitle":"Send Arrival Update Job","href":"../specs/send-arrival-update-job.html"},{"id":"job:field-service:triage-service-request","type":"job","label":"Triage service request","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"job-intent"},"status":"active","confidence":"high","attributes":{"capability":"Schedule service work"},"ownerSpecId":"client.field-service.triage-service-request.job","file":"docs/specs/triage-service-request-job.html","sourceFile":"docs/specs/triage-service-request-job.html","sourceTitle":"Triage Service Request Job","href":"../specs/triage-service-request-job.html"},{"id":"metric:field-service:days-to-collect","type":"metric","label":"Days to collect","source":{"specId":"client.field-service.collect-payment.capability","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"target":"Most completed jobs are collected before the next business day."},"ownerSpecId":"client.field-service.collect-payment.capability","file":"docs/specs/collect-payment-capability.html","sourceFile":"docs/specs/collect-payment-capability.html","sourceTitle":"Collect Service Payment Capability","href":"../specs/collect-payment-capability.html"},{"id":"metric:field-service:first-available-window","type":"metric","label":"First available appointment window","source":{"specId":"client.field-service.schedule-work.capability","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"target":"Same-day or next-business-day window is visible before confirmation."},"ownerSpecId":"client.field-service.schedule-work.capability","file":"docs/specs/schedule-work-capability.html","sourceFile":"docs/specs/schedule-work-capability.html","sourceTitle":"Schedule Service Work Capability","href":"../specs/schedule-work-capability.html"},{"id":"metric:field-service:issue-recovery-time","type":"metric","label":"Issue recovery time","source":{"specId":"client.field-service.protect-relationship.capability","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"target":"Service issues receive owner response before the next service day."},"ownerSpecId":"client.field-service.protect-relationship.capability","file":"docs/specs/protect-relationship-capability.html","sourceFile":"docs/specs/protect-relationship-capability.html","sourceTitle":"Protect Customer Relationship Capability","href":"../specs/protect-relationship-capability.html"},{"id":"metric:field-service:readiness-score","type":"metric","label":"Technician readiness score","source":{"specId":"client.field-service.maintain-readiness.capability","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"target":"Daily capacity and critical truck stock are reviewed before dispatch."},"ownerSpecId":"client.field-service.maintain-readiness.capability","file":"docs/specs/maintain-readiness-capability.html","sourceFile":"docs/specs/maintain-readiness-capability.html","sourceTitle":"Maintain Technician Readiness Capability","href":"../specs/maintain-readiness-capability.html"},{"id":"metric:field-service:same-day-completion-rate","type":"metric","label":"Same-day completion rate","source":{"specId":"client.field-service.deliver-service.capability","sectionId":"evidence-and-evaluation"},"status":"active","confidence":"high","attributes":{"target":"Completed visits close or escalate before end of service day."},"ownerSpecId":"client.field-service.deliver-service.capability","file":"docs/specs/deliver-service-capability.html","sourceFile":"docs/specs/deliver-service-capability.html","sourceTitle":"Deliver Service Visit Capability","href":"../specs/deliver-service-capability.html"},{"id":"process:field-service:book-appointment","type":"process","label":"Book service appointment process","source":{"specId":"client.field-service.book-appointment.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.book-appointment.job","file":"docs/specs/book-appointment-job.html","sourceFile":"docs/specs/book-appointment-job.html","sourceTitle":"Book Service Appointment Job","href":"../specs/book-appointment-job.html"},{"id":"process:field-service:close-work-order","type":"process","label":"Close work order process","source":{"specId":"client.field-service.close-work-order.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.close-work-order.job","file":"docs/specs/close-work-order-job.html","sourceFile":"docs/specs/close-work-order-job.html","sourceTitle":"Close Work Order Job","href":"../specs/close-work-order-job.html"},{"id":"process:field-service:collect-payment","type":"process","label":"Collect service payment process","source":{"specId":"client.field-service.collect-payment.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.collect-payment.job","file":"docs/specs/collect-payment-job.html","sourceFile":"docs/specs/collect-payment-job.html","sourceTitle":"Collect Service Payment Job","href":"../specs/collect-payment-job.html"},{"id":"process:field-service:complete-service-visit","type":"process","label":"Complete service visit process","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.complete-service-visit.job","file":"docs/specs/complete-service-visit-job.html","sourceFile":"docs/specs/complete-service-visit-job.html","sourceTitle":"Complete Service Visit Job","href":"../specs/complete-service-visit-job.html"},{"id":"process:field-service:create-invoice","type":"process","label":"Create service invoice process","source":{"specId":"client.field-service.create-invoice.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.create-invoice.job","file":"docs/specs/create-invoice-job.html","sourceFile":"docs/specs/create-invoice-job.html","sourceTitle":"Create Service Invoice Job","href":"../specs/create-invoice-job.html"},{"id":"process:field-service:dispatch-technician","type":"process","label":"Dispatch technician process","source":{"specId":"client.field-service.dispatch-technician.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.dispatch-technician.job","file":"docs/specs/dispatch-technician-job.html","sourceFile":"docs/specs/dispatch-technician-job.html","sourceTitle":"Dispatch Technician Job","href":"../specs/dispatch-technician-job.html"},{"id":"process:field-service:handle-service-issue","type":"process","label":"Handle service issue process","source":{"specId":"client.field-service.handle-service-issue.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.handle-service-issue.job","file":"docs/specs/handle-service-issue-job.html","sourceFile":"docs/specs/handle-service-issue-job.html","sourceTitle":"Handle Service Issue Job","href":"../specs/handle-service-issue-job.html"},{"id":"process:field-service:plan-daily-capacity","type":"process","label":"Plan daily capacity process","source":{"specId":"client.field-service.plan-daily-capacity.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.plan-daily-capacity.job","file":"docs/specs/plan-daily-capacity-job.html","sourceFile":"docs/specs/plan-daily-capacity-job.html","sourceTitle":"Plan Daily Capacity Job","href":"../specs/plan-daily-capacity-job.html"},{"id":"process:field-service:prepare-visit","type":"process","label":"Prepare service visit process","source":{"specId":"client.field-service.prepare-visit.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.prepare-visit.job","file":"docs/specs/prepare-visit-job.html","sourceFile":"docs/specs/prepare-visit-job.html","sourceTitle":"Prepare Service Visit Job","href":"../specs/prepare-visit-job.html"},{"id":"process:field-service:request-review","type":"process","label":"Request customer review process","source":{"specId":"client.field-service.request-review.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.request-review.job","file":"docs/specs/request-review-job.html","sourceFile":"docs/specs/request-review-job.html","sourceTitle":"Request Customer Review Job","href":"../specs/request-review-job.html"},{"id":"process:field-service:resolve-payment-exception","type":"process","label":"Resolve payment exception process","source":{"specId":"client.field-service.resolve-payment-exception.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.resolve-payment-exception.job","file":"docs/specs/resolve-payment-exception-job.html","sourceFile":"docs/specs/resolve-payment-exception-job.html","sourceTitle":"Resolve Payment Exception Job","href":"../specs/resolve-payment-exception-job.html"},{"id":"process:field-service:restock-truck","type":"process","label":"Restock technician truck process","source":{"specId":"client.field-service.restock-truck.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.restock-truck.job","file":"docs/specs/restock-truck-job.html","sourceFile":"docs/specs/restock-truck-job.html","sourceTitle":"Restock Technician Truck Job","href":"../specs/restock-truck-job.html"},{"id":"process:field-service:send-arrival-update","type":"process","label":"Send arrival update process","source":{"specId":"client.field-service.send-arrival-update.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.send-arrival-update.job","file":"docs/specs/send-arrival-update-job.html","sourceFile":"docs/specs/send-arrival-update-job.html","sourceTitle":"Send Arrival Update Job","href":"../specs/send-arrival-update-job.html"},{"id":"process:field-service:triage-service-request","type":"process","label":"Triage service request process","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"process"},"status":"active","confidence":"high","attributes":{"stepCount":4},"ownerSpecId":"client.field-service.triage-service-request.job","file":"docs/specs/triage-service-request-job.html","sourceFile":"docs/specs/triage-service-request-job.html","sourceTitle":"Triage Service Request Job","href":"../specs/triage-service-request-job.html"},{"id":"system:field-service-business","type":"system","label":"Field service business","source":{"specId":"client.field-service.system","sectionId":"system-intent"},"status":"active","confidence":"high","attributes":{"industry":"residential field service","exampleRole":"business-root"},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"technical:field-service:workflow","type":"technical-contract","label":"Field service workflow technical contract","source":{"specId":"client.field-service.workflow.technical","sectionId":"required-depth"},"status":"active","confidence":"high","attributes":{"contract":"service job identity links workflow evidence"},"ownerSpecId":"client.field-service.workflow.technical","file":"docs/specs/client-workflow-technical.html","sourceFile":"docs/specs/client-workflow-technical.html","sourceTitle":"Field Service Workflow Technical Contract","href":"../specs/client-workflow-technical.html"},{"id":"tool:field-service:crm","type":"tool","label":"CRM schedule board","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"purpose":"Customer record, service category, appointment window, and job status."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"tool:field-service:customer-messaging","type":"tool","label":"Customer messaging","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"purpose":"Confirmations, arrival updates, issue recovery, and review requests."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"tool:field-service:inventory-log","type":"tool","label":"Truck inventory log","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"purpose":"Truck stock, parts usage, replenishment, and low-stock exceptions."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"tool:field-service:mobile-work-order","type":"tool","label":"Mobile work order app","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"purpose":"Technician checklist, photos, parts, signatures, and completion notes."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"tool:field-service:payment-system","type":"tool","label":"Payment system","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"purpose":"Invoices, payment links, receipts, refunds, and aging status."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"tool:field-service:review-dashboard","type":"tool","label":"Review dashboard","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"purpose":"Review requests, customer satisfaction signals, and follow-up status."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"tool:field-service:route-board","type":"tool","label":"Route board","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"purpose":"Technician assignments, geography, arrival estimates, and route load."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"},{"id":"tool:field-service:skill-roster","type":"tool","label":"Technician skill roster","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"status":"active","confidence":"high","attributes":{"purpose":"Skill, license, territory, capacity, and PTO constraints."},"ownerSpecId":"client.field-service.system","file":"docs/specs/client-system.html","sourceFile":"docs/specs/client-system.html","sourceTitle":"Field Service Business System","href":"../specs/client-system.html"}],"edges":[{"id":"edge:cap:field-service:collect-payment:has-gap:gap:field-service:refund-owner","type":"has-gap","from":"cap:field-service:collect-payment","to":"gap:field-service:refund-owner","source":{"specId":"client.field-service.collect-payment.capability","sectionId":"revision"},"ownerSpecId":"client.field-service.collect-payment.capability"},{"id":"edge:cap:field-service:collect-payment:measured-by:metric:field-service:days-to-collect","type":"measured-by","from":"cap:field-service:collect-payment","to":"metric:field-service:days-to-collect","source":{"specId":"client.field-service.collect-payment.capability","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.collect-payment.capability"},{"id":"edge:cap:field-service:collect-payment:realized-by:job:field-service:collect-payment","type":"realized-by","from":"cap:field-service:collect-payment","to":"job:field-service:collect-payment","source":{"specId":"client.field-service.collect-payment.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.collect-payment.capability"},{"id":"edge:cap:field-service:collect-payment:realized-by:job:field-service:create-invoice","type":"realized-by","from":"cap:field-service:collect-payment","to":"job:field-service:create-invoice","source":{"specId":"client.field-service.collect-payment.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.collect-payment.capability"},{"id":"edge:cap:field-service:collect-payment:realized-by:job:field-service:resolve-payment-exception","type":"realized-by","from":"cap:field-service:collect-payment","to":"job:field-service:resolve-payment-exception","source":{"specId":"client.field-service.collect-payment.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.collect-payment.capability"},{"id":"edge:cap:field-service:deliver-service:has-gap:gap:field-service:photo-standard","type":"has-gap","from":"cap:field-service:deliver-service","to":"gap:field-service:photo-standard","source":{"specId":"client.field-service.deliver-service.capability","sectionId":"revision"},"ownerSpecId":"client.field-service.deliver-service.capability"},{"id":"edge:cap:field-service:deliver-service:measured-by:metric:field-service:same-day-completion-rate","type":"measured-by","from":"cap:field-service:deliver-service","to":"metric:field-service:same-day-completion-rate","source":{"specId":"client.field-service.deliver-service.capability","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.deliver-service.capability"},{"id":"edge:cap:field-service:deliver-service:realized-by:job:field-service:close-work-order","type":"realized-by","from":"cap:field-service:deliver-service","to":"job:field-service:close-work-order","source":{"specId":"client.field-service.deliver-service.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.deliver-service.capability"},{"id":"edge:cap:field-service:deliver-service:realized-by:job:field-service:complete-service-visit","type":"realized-by","from":"cap:field-service:deliver-service","to":"job:field-service:complete-service-visit","source":{"specId":"client.field-service.deliver-service.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.deliver-service.capability"},{"id":"edge:cap:field-service:deliver-service:realized-by:job:field-service:prepare-visit","type":"realized-by","from":"cap:field-service:deliver-service","to":"job:field-service:prepare-visit","source":{"specId":"client.field-service.deliver-service.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.deliver-service.capability"},{"id":"edge:cap:field-service:maintain-readiness:has-gap:gap:field-service:truck-min-max","type":"has-gap","from":"cap:field-service:maintain-readiness","to":"gap:field-service:truck-min-max","source":{"specId":"client.field-service.maintain-readiness.capability","sectionId":"revision"},"ownerSpecId":"client.field-service.maintain-readiness.capability"},{"id":"edge:cap:field-service:maintain-readiness:measured-by:metric:field-service:readiness-score","type":"measured-by","from":"cap:field-service:maintain-readiness","to":"metric:field-service:readiness-score","source":{"specId":"client.field-service.maintain-readiness.capability","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.maintain-readiness.capability"},{"id":"edge:cap:field-service:maintain-readiness:realized-by:job:field-service:plan-daily-capacity","type":"realized-by","from":"cap:field-service:maintain-readiness","to":"job:field-service:plan-daily-capacity","source":{"specId":"client.field-service.maintain-readiness.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.maintain-readiness.capability"},{"id":"edge:cap:field-service:maintain-readiness:realized-by:job:field-service:restock-truck","type":"realized-by","from":"cap:field-service:maintain-readiness","to":"job:field-service:restock-truck","source":{"specId":"client.field-service.maintain-readiness.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.maintain-readiness.capability"},{"id":"edge:cap:field-service:protect-relationship:has-gap:gap:field-service:review-suppression-rule","type":"has-gap","from":"cap:field-service:protect-relationship","to":"gap:field-service:review-suppression-rule","source":{"specId":"client.field-service.protect-relationship.capability","sectionId":"revision"},"ownerSpecId":"client.field-service.protect-relationship.capability"},{"id":"edge:cap:field-service:protect-relationship:measured-by:metric:field-service:issue-recovery-time","type":"measured-by","from":"cap:field-service:protect-relationship","to":"metric:field-service:issue-recovery-time","source":{"specId":"client.field-service.protect-relationship.capability","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.protect-relationship.capability"},{"id":"edge:cap:field-service:protect-relationship:realized-by:job:field-service:handle-service-issue","type":"realized-by","from":"cap:field-service:protect-relationship","to":"job:field-service:handle-service-issue","source":{"specId":"client.field-service.protect-relationship.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.protect-relationship.capability"},{"id":"edge:cap:field-service:protect-relationship:realized-by:job:field-service:request-review","type":"realized-by","from":"cap:field-service:protect-relationship","to":"job:field-service:request-review","source":{"specId":"client.field-service.protect-relationship.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.protect-relationship.capability"},{"id":"edge:cap:field-service:protect-relationship:realized-by:job:field-service:send-arrival-update","type":"realized-by","from":"cap:field-service:protect-relationship","to":"job:field-service:send-arrival-update","source":{"specId":"client.field-service.protect-relationship.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.protect-relationship.capability"},{"id":"edge:cap:field-service:schedule-work:has-gap:gap:field-service:emergency-priority-rules","type":"has-gap","from":"cap:field-service:schedule-work","to":"gap:field-service:emergency-priority-rules","source":{"specId":"client.field-service.schedule-work.capability","sectionId":"revision"},"ownerSpecId":"client.field-service.schedule-work.capability"},{"id":"edge:cap:field-service:schedule-work:measured-by:metric:field-service:first-available-window","type":"measured-by","from":"cap:field-service:schedule-work","to":"metric:field-service:first-available-window","source":{"specId":"client.field-service.schedule-work.capability","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.schedule-work.capability"},{"id":"edge:cap:field-service:schedule-work:realized-by:job:field-service:book-appointment","type":"realized-by","from":"cap:field-service:schedule-work","to":"job:field-service:book-appointment","source":{"specId":"client.field-service.schedule-work.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.schedule-work.capability"},{"id":"edge:cap:field-service:schedule-work:realized-by:job:field-service:dispatch-technician","type":"realized-by","from":"cap:field-service:schedule-work","to":"job:field-service:dispatch-technician","source":{"specId":"client.field-service.schedule-work.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.schedule-work.capability"},{"id":"edge:cap:field-service:schedule-work:realized-by:job:field-service:triage-service-request","type":"realized-by","from":"cap:field-service:schedule-work","to":"job:field-service:triage-service-request","source":{"specId":"client.field-service.schedule-work.capability","sectionId":"jobs"},"ownerSpecId":"client.field-service.schedule-work.capability"},{"id":"edge:evaluation:field-service:workflow:evaluates:cap:field-service:collect-payment","type":"evaluates","from":"evaluation:field-service:workflow","to":"cap:field-service:collect-payment","source":{"specId":"client.field-service.workflow.eval","sectionId":"acceptance-mapping"},"ownerSpecId":"client.field-service.workflow.eval"},{"id":"edge:evaluation:field-service:workflow:evaluates:cap:field-service:deliver-service","type":"evaluates","from":"evaluation:field-service:workflow","to":"cap:field-service:deliver-service","source":{"specId":"client.field-service.workflow.eval","sectionId":"acceptance-mapping"},"ownerSpecId":"client.field-service.workflow.eval"},{"id":"edge:evaluation:field-service:workflow:evaluates:cap:field-service:maintain-readiness","type":"evaluates","from":"evaluation:field-service:workflow","to":"cap:field-service:maintain-readiness","source":{"specId":"client.field-service.workflow.eval","sectionId":"acceptance-mapping"},"ownerSpecId":"client.field-service.workflow.eval"},{"id":"edge:evaluation:field-service:workflow:evaluates:cap:field-service:protect-relationship","type":"evaluates","from":"evaluation:field-service:workflow","to":"cap:field-service:protect-relationship","source":{"specId":"client.field-service.workflow.eval","sectionId":"acceptance-mapping"},"ownerSpecId":"client.field-service.workflow.eval"},{"id":"edge:evaluation:field-service:workflow:evaluates:cap:field-service:schedule-work","type":"evaluates","from":"evaluation:field-service:workflow","to":"cap:field-service:schedule-work","source":{"specId":"client.field-service.workflow.eval","sectionId":"acceptance-mapping"},"ownerSpecId":"client.field-service.workflow.eval"},{"id":"edge:evaluation:field-service:workflow:evaluates:system:field-service-business","type":"evaluates","from":"evaluation:field-service:workflow","to":"system:field-service-business","source":{"specId":"client.field-service.workflow.eval","sectionId":"verification-contract"},"ownerSpecId":"client.field-service.workflow.eval"},{"id":"edge:index:visible-business-client-specs:contains:system:field-service-business","type":"contains","from":"index:visible-business-client-specs","to":"system:field-service-business","source":{"specId":"client.field-service.spec-system","sectionId":"registry"},"ownerSpecId":"client.field-service.spec-system"},{"id":"edge:job:field-service:book-appointment:evidenced-by:evidence:field-service:appointment-confirmation","type":"evidenced-by","from":"job:field-service:book-appointment","to":"evidence:field-service:appointment-confirmation","source":{"specId":"client.field-service.book-appointment.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.book-appointment.job"},{"id":"edge:job:field-service:book-appointment:has-process:process:field-service:book-appointment","type":"has-process","from":"job:field-service:book-appointment","to":"process:field-service:book-appointment","source":{"specId":"client.field-service.book-appointment.job","sectionId":"process"},"ownerSpecId":"client.field-service.book-appointment.job"},{"id":"edge:job:field-service:book-appointment:performed-by:actor:customer-coordinator","type":"performed-by","from":"job:field-service:book-appointment","to":"actor:customer-coordinator","source":{"specId":"client.field-service.book-appointment.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.book-appointment.job"},{"id":"edge:job:field-service:book-appointment:supports:cap:field-service:schedule-work","type":"supports","from":"job:field-service:book-appointment","to":"cap:field-service:schedule-work","source":{"specId":"client.field-service.book-appointment.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.book-appointment.job"},{"id":"edge:job:field-service:book-appointment:uses-tool:tool:field-service:crm","type":"uses-tool","from":"job:field-service:book-appointment","to":"tool:field-service:crm","source":{"specId":"client.field-service.book-appointment.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.book-appointment.job"},{"id":"edge:job:field-service:book-appointment:uses-tool:tool:field-service:customer-messaging","type":"uses-tool","from":"job:field-service:book-appointment","to":"tool:field-service:customer-messaging","source":{"specId":"client.field-service.book-appointment.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.book-appointment.job"},{"id":"edge:job:field-service:close-work-order:evidenced-by:evidence:field-service:closed-service-job","type":"evidenced-by","from":"job:field-service:close-work-order","to":"evidence:field-service:closed-service-job","source":{"specId":"client.field-service.close-work-order.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.close-work-order.job"},{"id":"edge:job:field-service:close-work-order:has-process:process:field-service:close-work-order","type":"has-process","from":"job:field-service:close-work-order","to":"process:field-service:close-work-order","source":{"specId":"client.field-service.close-work-order.job","sectionId":"process"},"ownerSpecId":"client.field-service.close-work-order.job"},{"id":"edge:job:field-service:close-work-order:performed-by:actor:service-manager","type":"performed-by","from":"job:field-service:close-work-order","to":"actor:service-manager","source":{"specId":"client.field-service.close-work-order.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.close-work-order.job"},{"id":"edge:job:field-service:close-work-order:supports:cap:field-service:deliver-service","type":"supports","from":"job:field-service:close-work-order","to":"cap:field-service:deliver-service","source":{"specId":"client.field-service.close-work-order.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.close-work-order.job"},{"id":"edge:job:field-service:close-work-order:uses-tool:tool:field-service:crm","type":"uses-tool","from":"job:field-service:close-work-order","to":"tool:field-service:crm","source":{"specId":"client.field-service.close-work-order.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.close-work-order.job"},{"id":"edge:job:field-service:close-work-order:uses-tool:tool:field-service:mobile-work-order","type":"uses-tool","from":"job:field-service:close-work-order","to":"tool:field-service:mobile-work-order","source":{"specId":"client.field-service.close-work-order.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.close-work-order.job"},{"id":"edge:job:field-service:collect-payment:evidenced-by:evidence:field-service:paid-invoice","type":"evidenced-by","from":"job:field-service:collect-payment","to":"evidence:field-service:paid-invoice","source":{"specId":"client.field-service.collect-payment.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.collect-payment.job"},{"id":"edge:job:field-service:collect-payment:has-gap:gap:field-service:refund-owner","type":"has-gap","from":"job:field-service:collect-payment","to":"gap:field-service:refund-owner","source":{"specId":"client.field-service.collect-payment.job","sectionId":"revision"},"ownerSpecId":"client.field-service.collect-payment.job"},{"id":"edge:job:field-service:collect-payment:has-process:process:field-service:collect-payment","type":"has-process","from":"job:field-service:collect-payment","to":"process:field-service:collect-payment","source":{"specId":"client.field-service.collect-payment.job","sectionId":"process"},"ownerSpecId":"client.field-service.collect-payment.job"},{"id":"edge:job:field-service:collect-payment:performed-by:actor:billing-coordinator","type":"performed-by","from":"job:field-service:collect-payment","to":"actor:billing-coordinator","source":{"specId":"client.field-service.collect-payment.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.collect-payment.job"},{"id":"edge:job:field-service:collect-payment:supports:cap:field-service:collect-payment","type":"supports","from":"job:field-service:collect-payment","to":"cap:field-service:collect-payment","source":{"specId":"client.field-service.collect-payment.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.collect-payment.job"},{"id":"edge:job:field-service:collect-payment:uses-tool:tool:field-service:customer-messaging","type":"uses-tool","from":"job:field-service:collect-payment","to":"tool:field-service:customer-messaging","source":{"specId":"client.field-service.collect-payment.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.collect-payment.job"},{"id":"edge:job:field-service:collect-payment:uses-tool:tool:field-service:payment-system","type":"uses-tool","from":"job:field-service:collect-payment","to":"tool:field-service:payment-system","source":{"specId":"client.field-service.collect-payment.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.collect-payment.job"},{"id":"edge:job:field-service:complete-service-visit:evidenced-by:evidence:field-service:completed-work-order","type":"evidenced-by","from":"job:field-service:complete-service-visit","to":"evidence:field-service:completed-work-order","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.complete-service-visit.job"},{"id":"edge:job:field-service:complete-service-visit:has-gap:gap:field-service:photo-standard","type":"has-gap","from":"job:field-service:complete-service-visit","to":"gap:field-service:photo-standard","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"revision"},"ownerSpecId":"client.field-service.complete-service-visit.job"},{"id":"edge:job:field-service:complete-service-visit:has-process:process:field-service:complete-service-visit","type":"has-process","from":"job:field-service:complete-service-visit","to":"process:field-service:complete-service-visit","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"process"},"ownerSpecId":"client.field-service.complete-service-visit.job"},{"id":"edge:job:field-service:complete-service-visit:performed-by:actor:technician","type":"performed-by","from":"job:field-service:complete-service-visit","to":"actor:technician","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.complete-service-visit.job"},{"id":"edge:job:field-service:complete-service-visit:supports:cap:field-service:deliver-service","type":"supports","from":"job:field-service:complete-service-visit","to":"cap:field-service:deliver-service","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.complete-service-visit.job"},{"id":"edge:job:field-service:complete-service-visit:uses-tool:tool:field-service:customer-messaging","type":"uses-tool","from":"job:field-service:complete-service-visit","to":"tool:field-service:customer-messaging","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.complete-service-visit.job"},{"id":"edge:job:field-service:complete-service-visit:uses-tool:tool:field-service:mobile-work-order","type":"uses-tool","from":"job:field-service:complete-service-visit","to":"tool:field-service:mobile-work-order","source":{"specId":"client.field-service.complete-service-visit.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.complete-service-visit.job"},{"id":"edge:job:field-service:create-invoice:evidenced-by:evidence:field-service:issued-invoice","type":"evidenced-by","from":"job:field-service:create-invoice","to":"evidence:field-service:issued-invoice","source":{"specId":"client.field-service.create-invoice.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.create-invoice.job"},{"id":"edge:job:field-service:create-invoice:has-process:process:field-service:create-invoice","type":"has-process","from":"job:field-service:create-invoice","to":"process:field-service:create-invoice","source":{"specId":"client.field-service.create-invoice.job","sectionId":"process"},"ownerSpecId":"client.field-service.create-invoice.job"},{"id":"edge:job:field-service:create-invoice:performed-by:actor:billing-coordinator","type":"performed-by","from":"job:field-service:create-invoice","to":"actor:billing-coordinator","source":{"specId":"client.field-service.create-invoice.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.create-invoice.job"},{"id":"edge:job:field-service:create-invoice:supports:cap:field-service:collect-payment","type":"supports","from":"job:field-service:create-invoice","to":"cap:field-service:collect-payment","source":{"specId":"client.field-service.create-invoice.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.create-invoice.job"},{"id":"edge:job:field-service:create-invoice:uses-tool:tool:field-service:mobile-work-order","type":"uses-tool","from":"job:field-service:create-invoice","to":"tool:field-service:mobile-work-order","source":{"specId":"client.field-service.create-invoice.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.create-invoice.job"},{"id":"edge:job:field-service:create-invoice:uses-tool:tool:field-service:payment-system","type":"uses-tool","from":"job:field-service:create-invoice","to":"tool:field-service:payment-system","source":{"specId":"client.field-service.create-invoice.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.create-invoice.job"},{"id":"edge:job:field-service:dispatch-technician:evidenced-by:evidence:field-service:dispatch-assignment","type":"evidenced-by","from":"job:field-service:dispatch-technician","to":"evidence:field-service:dispatch-assignment","source":{"specId":"client.field-service.dispatch-technician.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.dispatch-technician.job"},{"id":"edge:job:field-service:dispatch-technician:has-process:process:field-service:dispatch-technician","type":"has-process","from":"job:field-service:dispatch-technician","to":"process:field-service:dispatch-technician","source":{"specId":"client.field-service.dispatch-technician.job","sectionId":"process"},"ownerSpecId":"client.field-service.dispatch-technician.job"},{"id":"edge:job:field-service:dispatch-technician:performed-by:actor:dispatcher","type":"performed-by","from":"job:field-service:dispatch-technician","to":"actor:dispatcher","source":{"specId":"client.field-service.dispatch-technician.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.dispatch-technician.job"},{"id":"edge:job:field-service:dispatch-technician:performed-by:actor:technician","type":"performed-by","from":"job:field-service:dispatch-technician","to":"actor:technician","source":{"specId":"client.field-service.dispatch-technician.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.dispatch-technician.job"},{"id":"edge:job:field-service:dispatch-technician:supports:cap:field-service:schedule-work","type":"supports","from":"job:field-service:dispatch-technician","to":"cap:field-service:schedule-work","source":{"specId":"client.field-service.dispatch-technician.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.dispatch-technician.job"},{"id":"edge:job:field-service:dispatch-technician:uses-tool:tool:field-service:route-board","type":"uses-tool","from":"job:field-service:dispatch-technician","to":"tool:field-service:route-board","source":{"specId":"client.field-service.dispatch-technician.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.dispatch-technician.job"},{"id":"edge:job:field-service:dispatch-technician:uses-tool:tool:field-service:skill-roster","type":"uses-tool","from":"job:field-service:dispatch-technician","to":"tool:field-service:skill-roster","source":{"specId":"client.field-service.dispatch-technician.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.dispatch-technician.job"},{"id":"edge:job:field-service:handle-service-issue:evidenced-by:evidence:field-service:service-recovery-case","type":"evidenced-by","from":"job:field-service:handle-service-issue","to":"evidence:field-service:service-recovery-case","source":{"specId":"client.field-service.handle-service-issue.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.handle-service-issue.job"},{"id":"edge:job:field-service:handle-service-issue:has-process:process:field-service:handle-service-issue","type":"has-process","from":"job:field-service:handle-service-issue","to":"process:field-service:handle-service-issue","source":{"specId":"client.field-service.handle-service-issue.job","sectionId":"process"},"ownerSpecId":"client.field-service.handle-service-issue.job"},{"id":"edge:job:field-service:handle-service-issue:performed-by:actor:service-manager","type":"performed-by","from":"job:field-service:handle-service-issue","to":"actor:service-manager","source":{"specId":"client.field-service.handle-service-issue.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.handle-service-issue.job"},{"id":"edge:job:field-service:handle-service-issue:supports:cap:field-service:protect-relationship","type":"supports","from":"job:field-service:handle-service-issue","to":"cap:field-service:protect-relationship","source":{"specId":"client.field-service.handle-service-issue.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.handle-service-issue.job"},{"id":"edge:job:field-service:handle-service-issue:uses-tool:tool:field-service:crm","type":"uses-tool","from":"job:field-service:handle-service-issue","to":"tool:field-service:crm","source":{"specId":"client.field-service.handle-service-issue.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.handle-service-issue.job"},{"id":"edge:job:field-service:handle-service-issue:uses-tool:tool:field-service:customer-messaging","type":"uses-tool","from":"job:field-service:handle-service-issue","to":"tool:field-service:customer-messaging","source":{"specId":"client.field-service.handle-service-issue.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.handle-service-issue.job"},{"id":"edge:job:field-service:plan-daily-capacity:evidenced-by:evidence:field-service:daily-capacity-plan","type":"evidenced-by","from":"job:field-service:plan-daily-capacity","to":"evidence:field-service:daily-capacity-plan","source":{"specId":"client.field-service.plan-daily-capacity.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.plan-daily-capacity.job"},{"id":"edge:job:field-service:plan-daily-capacity:has-process:process:field-service:plan-daily-capacity","type":"has-process","from":"job:field-service:plan-daily-capacity","to":"process:field-service:plan-daily-capacity","source":{"specId":"client.field-service.plan-daily-capacity.job","sectionId":"process"},"ownerSpecId":"client.field-service.plan-daily-capacity.job"},{"id":"edge:job:field-service:plan-daily-capacity:performed-by:actor:service-manager","type":"performed-by","from":"job:field-service:plan-daily-capacity","to":"actor:service-manager","source":{"specId":"client.field-service.plan-daily-capacity.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.plan-daily-capacity.job"},{"id":"edge:job:field-service:plan-daily-capacity:supports:cap:field-service:maintain-readiness","type":"supports","from":"job:field-service:plan-daily-capacity","to":"cap:field-service:maintain-readiness","source":{"specId":"client.field-service.plan-daily-capacity.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.plan-daily-capacity.job"},{"id":"edge:job:field-service:plan-daily-capacity:uses-tool:tool:field-service:route-board","type":"uses-tool","from":"job:field-service:plan-daily-capacity","to":"tool:field-service:route-board","source":{"specId":"client.field-service.plan-daily-capacity.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.plan-daily-capacity.job"},{"id":"edge:job:field-service:plan-daily-capacity:uses-tool:tool:field-service:skill-roster","type":"uses-tool","from":"job:field-service:plan-daily-capacity","to":"tool:field-service:skill-roster","source":{"specId":"client.field-service.plan-daily-capacity.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.plan-daily-capacity.job"},{"id":"edge:job:field-service:prepare-visit:evidenced-by:evidence:field-service:visit-readiness-checklist","type":"evidenced-by","from":"job:field-service:prepare-visit","to":"evidence:field-service:visit-readiness-checklist","source":{"specId":"client.field-service.prepare-visit.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.prepare-visit.job"},{"id":"edge:job:field-service:prepare-visit:has-process:process:field-service:prepare-visit","type":"has-process","from":"job:field-service:prepare-visit","to":"process:field-service:prepare-visit","source":{"specId":"client.field-service.prepare-visit.job","sectionId":"process"},"ownerSpecId":"client.field-service.prepare-visit.job"},{"id":"edge:job:field-service:prepare-visit:performed-by:actor:technician","type":"performed-by","from":"job:field-service:prepare-visit","to":"actor:technician","source":{"specId":"client.field-service.prepare-visit.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.prepare-visit.job"},{"id":"edge:job:field-service:prepare-visit:supports:cap:field-service:deliver-service","type":"supports","from":"job:field-service:prepare-visit","to":"cap:field-service:deliver-service","source":{"specId":"client.field-service.prepare-visit.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.prepare-visit.job"},{"id":"edge:job:field-service:prepare-visit:uses-tool:tool:field-service:inventory-log","type":"uses-tool","from":"job:field-service:prepare-visit","to":"tool:field-service:inventory-log","source":{"specId":"client.field-service.prepare-visit.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.prepare-visit.job"},{"id":"edge:job:field-service:prepare-visit:uses-tool:tool:field-service:mobile-work-order","type":"uses-tool","from":"job:field-service:prepare-visit","to":"tool:field-service:mobile-work-order","source":{"specId":"client.field-service.prepare-visit.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.prepare-visit.job"},{"id":"edge:job:field-service:request-review:evidenced-by:evidence:field-service:review-request","type":"evidenced-by","from":"job:field-service:request-review","to":"evidence:field-service:review-request","source":{"specId":"client.field-service.request-review.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.request-review.job"},{"id":"edge:job:field-service:request-review:has-gap:gap:field-service:review-suppression-rule","type":"has-gap","from":"job:field-service:request-review","to":"gap:field-service:review-suppression-rule","source":{"specId":"client.field-service.request-review.job","sectionId":"revision"},"ownerSpecId":"client.field-service.request-review.job"},{"id":"edge:job:field-service:request-review:has-process:process:field-service:request-review","type":"has-process","from":"job:field-service:request-review","to":"process:field-service:request-review","source":{"specId":"client.field-service.request-review.job","sectionId":"process"},"ownerSpecId":"client.field-service.request-review.job"},{"id":"edge:job:field-service:request-review:performed-by:actor:customer-coordinator","type":"performed-by","from":"job:field-service:request-review","to":"actor:customer-coordinator","source":{"specId":"client.field-service.request-review.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.request-review.job"},{"id":"edge:job:field-service:request-review:supports:cap:field-service:protect-relationship","type":"supports","from":"job:field-service:request-review","to":"cap:field-service:protect-relationship","source":{"specId":"client.field-service.request-review.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.request-review.job"},{"id":"edge:job:field-service:request-review:uses-tool:tool:field-service:customer-messaging","type":"uses-tool","from":"job:field-service:request-review","to":"tool:field-service:customer-messaging","source":{"specId":"client.field-service.request-review.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.request-review.job"},{"id":"edge:job:field-service:request-review:uses-tool:tool:field-service:review-dashboard","type":"uses-tool","from":"job:field-service:request-review","to":"tool:field-service:review-dashboard","source":{"specId":"client.field-service.request-review.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.request-review.job"},{"id":"edge:job:field-service:resolve-payment-exception:evidenced-by:evidence:field-service:payment-exception-resolution","type":"evidenced-by","from":"job:field-service:resolve-payment-exception","to":"evidence:field-service:payment-exception-resolution","source":{"specId":"client.field-service.resolve-payment-exception.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.resolve-payment-exception.job"},{"id":"edge:job:field-service:resolve-payment-exception:has-process:process:field-service:resolve-payment-exception","type":"has-process","from":"job:field-service:resolve-payment-exception","to":"process:field-service:resolve-payment-exception","source":{"specId":"client.field-service.resolve-payment-exception.job","sectionId":"process"},"ownerSpecId":"client.field-service.resolve-payment-exception.job"},{"id":"edge:job:field-service:resolve-payment-exception:performed-by:actor:billing-coordinator","type":"performed-by","from":"job:field-service:resolve-payment-exception","to":"actor:billing-coordinator","source":{"specId":"client.field-service.resolve-payment-exception.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.resolve-payment-exception.job"},{"id":"edge:job:field-service:resolve-payment-exception:performed-by:actor:service-manager","type":"performed-by","from":"job:field-service:resolve-payment-exception","to":"actor:service-manager","source":{"specId":"client.field-service.resolve-payment-exception.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.resolve-payment-exception.job"},{"id":"edge:job:field-service:resolve-payment-exception:supports:cap:field-service:collect-payment","type":"supports","from":"job:field-service:resolve-payment-exception","to":"cap:field-service:collect-payment","source":{"specId":"client.field-service.resolve-payment-exception.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.resolve-payment-exception.job"},{"id":"edge:job:field-service:resolve-payment-exception:uses-tool:tool:field-service:crm","type":"uses-tool","from":"job:field-service:resolve-payment-exception","to":"tool:field-service:crm","source":{"specId":"client.field-service.resolve-payment-exception.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.resolve-payment-exception.job"},{"id":"edge:job:field-service:resolve-payment-exception:uses-tool:tool:field-service:payment-system","type":"uses-tool","from":"job:field-service:resolve-payment-exception","to":"tool:field-service:payment-system","source":{"specId":"client.field-service.resolve-payment-exception.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.resolve-payment-exception.job"},{"id":"edge:job:field-service:restock-truck:evidenced-by:evidence:field-service:truck-restock","type":"evidenced-by","from":"job:field-service:restock-truck","to":"evidence:field-service:truck-restock","source":{"specId":"client.field-service.restock-truck.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.restock-truck.job"},{"id":"edge:job:field-service:restock-truck:has-gap:gap:field-service:truck-min-max","type":"has-gap","from":"job:field-service:restock-truck","to":"gap:field-service:truck-min-max","source":{"specId":"client.field-service.restock-truck.job","sectionId":"revision"},"ownerSpecId":"client.field-service.restock-truck.job"},{"id":"edge:job:field-service:restock-truck:has-process:process:field-service:restock-truck","type":"has-process","from":"job:field-service:restock-truck","to":"process:field-service:restock-truck","source":{"specId":"client.field-service.restock-truck.job","sectionId":"process"},"ownerSpecId":"client.field-service.restock-truck.job"},{"id":"edge:job:field-service:restock-truck:performed-by:actor:inventory-coordinator","type":"performed-by","from":"job:field-service:restock-truck","to":"actor:inventory-coordinator","source":{"specId":"client.field-service.restock-truck.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.restock-truck.job"},{"id":"edge:job:field-service:restock-truck:performed-by:actor:technician","type":"performed-by","from":"job:field-service:restock-truck","to":"actor:technician","source":{"specId":"client.field-service.restock-truck.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.restock-truck.job"},{"id":"edge:job:field-service:restock-truck:supports:cap:field-service:maintain-readiness","type":"supports","from":"job:field-service:restock-truck","to":"cap:field-service:maintain-readiness","source":{"specId":"client.field-service.restock-truck.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.restock-truck.job"},{"id":"edge:job:field-service:restock-truck:uses-tool:tool:field-service:inventory-log","type":"uses-tool","from":"job:field-service:restock-truck","to":"tool:field-service:inventory-log","source":{"specId":"client.field-service.restock-truck.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.restock-truck.job"},{"id":"edge:job:field-service:restock-truck:uses-tool:tool:field-service:mobile-work-order","type":"uses-tool","from":"job:field-service:restock-truck","to":"tool:field-service:mobile-work-order","source":{"specId":"client.field-service.restock-truck.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.restock-truck.job"},{"id":"edge:job:field-service:send-arrival-update:evidenced-by:evidence:field-service:arrival-message","type":"evidenced-by","from":"job:field-service:send-arrival-update","to":"evidence:field-service:arrival-message","source":{"specId":"client.field-service.send-arrival-update.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.send-arrival-update.job"},{"id":"edge:job:field-service:send-arrival-update:has-process:process:field-service:send-arrival-update","type":"has-process","from":"job:field-service:send-arrival-update","to":"process:field-service:send-arrival-update","source":{"specId":"client.field-service.send-arrival-update.job","sectionId":"process"},"ownerSpecId":"client.field-service.send-arrival-update.job"},{"id":"edge:job:field-service:send-arrival-update:performed-by:actor:customer-coordinator","type":"performed-by","from":"job:field-service:send-arrival-update","to":"actor:customer-coordinator","source":{"specId":"client.field-service.send-arrival-update.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.send-arrival-update.job"},{"id":"edge:job:field-service:send-arrival-update:performed-by:actor:technician","type":"performed-by","from":"job:field-service:send-arrival-update","to":"actor:technician","source":{"specId":"client.field-service.send-arrival-update.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.send-arrival-update.job"},{"id":"edge:job:field-service:send-arrival-update:supports:cap:field-service:protect-relationship","type":"supports","from":"job:field-service:send-arrival-update","to":"cap:field-service:protect-relationship","source":{"specId":"client.field-service.send-arrival-update.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.send-arrival-update.job"},{"id":"edge:job:field-service:send-arrival-update:uses-tool:tool:field-service:customer-messaging","type":"uses-tool","from":"job:field-service:send-arrival-update","to":"tool:field-service:customer-messaging","source":{"specId":"client.field-service.send-arrival-update.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.send-arrival-update.job"},{"id":"edge:job:field-service:send-arrival-update:uses-tool:tool:field-service:route-board","type":"uses-tool","from":"job:field-service:send-arrival-update","to":"tool:field-service:route-board","source":{"specId":"client.field-service.send-arrival-update.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.send-arrival-update.job"},{"id":"edge:job:field-service:triage-service-request:evidenced-by:evidence:field-service:request-triage","type":"evidenced-by","from":"job:field-service:triage-service-request","to":"evidence:field-service:request-triage","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"evidence-and-evaluation"},"ownerSpecId":"client.field-service.triage-service-request.job"},{"id":"edge:job:field-service:triage-service-request:has-gap:gap:field-service:emergency-priority-rules","type":"has-gap","from":"job:field-service:triage-service-request","to":"gap:field-service:emergency-priority-rules","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"revision"},"ownerSpecId":"client.field-service.triage-service-request.job"},{"id":"edge:job:field-service:triage-service-request:has-process:process:field-service:triage-service-request","type":"has-process","from":"job:field-service:triage-service-request","to":"process:field-service:triage-service-request","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"process"},"ownerSpecId":"client.field-service.triage-service-request.job"},{"id":"edge:job:field-service:triage-service-request:performed-by:actor:customer-coordinator","type":"performed-by","from":"job:field-service:triage-service-request","to":"actor:customer-coordinator","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"current-handling"},"ownerSpecId":"client.field-service.triage-service-request.job"},{"id":"edge:job:field-service:triage-service-request:supports:cap:field-service:schedule-work","type":"supports","from":"job:field-service:triage-service-request","to":"cap:field-service:schedule-work","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"capability-supported"},"ownerSpecId":"client.field-service.triage-service-request.job"},{"id":"edge:job:field-service:triage-service-request:uses-tool:tool:field-service:crm","type":"uses-tool","from":"job:field-service:triage-service-request","to":"tool:field-service:crm","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.triage-service-request.job"},{"id":"edge:job:field-service:triage-service-request:uses-tool:tool:field-service:customer-messaging","type":"uses-tool","from":"job:field-service:triage-service-request","to":"tool:field-service:customer-messaging","source":{"specId":"client.field-service.triage-service-request.job","sectionId":"context-tools-and-interfaces"},"ownerSpecId":"client.field-service.triage-service-request.job"},{"id":"edge:system:field-service-business:contains:actor:billing-coordinator","type":"contains","from":"system:field-service-business","to":"actor:billing-coordinator","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:actor:customer","type":"contains","from":"system:field-service-business","to":"actor:customer","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:actor:customer-coordinator","type":"contains","from":"system:field-service-business","to":"actor:customer-coordinator","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:actor:dispatcher","type":"contains","from":"system:field-service-business","to":"actor:dispatcher","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:actor:inventory-coordinator","type":"contains","from":"system:field-service-business","to":"actor:inventory-coordinator","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:actor:owner-operator","type":"contains","from":"system:field-service-business","to":"actor:owner-operator","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:actor:service-manager","type":"contains","from":"system:field-service-business","to":"actor:service-manager","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:actor:technician","type":"contains","from":"system:field-service-business","to":"actor:technician","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:cap:field-service:collect-payment","type":"contains","from":"system:field-service-business","to":"cap:field-service:collect-payment","source":{"specId":"client.field-service.system","sectionId":"capability-map"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:cap:field-service:deliver-service","type":"contains","from":"system:field-service-business","to":"cap:field-service:deliver-service","source":{"specId":"client.field-service.system","sectionId":"capability-map"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:cap:field-service:maintain-readiness","type":"contains","from":"system:field-service-business","to":"cap:field-service:maintain-readiness","source":{"specId":"client.field-service.system","sectionId":"capability-map"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:cap:field-service:protect-relationship","type":"contains","from":"system:field-service-business","to":"cap:field-service:protect-relationship","source":{"specId":"client.field-service.system","sectionId":"capability-map"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:cap:field-service:schedule-work","type":"contains","from":"system:field-service-business","to":"cap:field-service:schedule-work","source":{"specId":"client.field-service.system","sectionId":"capability-map"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:tool:field-service:crm","type":"contains","from":"system:field-service-business","to":"tool:field-service:crm","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:tool:field-service:customer-messaging","type":"contains","from":"system:field-service-business","to":"tool:field-service:customer-messaging","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:tool:field-service:inventory-log","type":"contains","from":"system:field-service-business","to":"tool:field-service:inventory-log","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:tool:field-service:mobile-work-order","type":"contains","from":"system:field-service-business","to":"tool:field-service:mobile-work-order","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:tool:field-service:payment-system","type":"contains","from":"system:field-service-business","to":"tool:field-service:payment-system","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:tool:field-service:review-dashboard","type":"contains","from":"system:field-service-business","to":"tool:field-service:review-dashboard","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:tool:field-service:route-board","type":"contains","from":"system:field-service-business","to":"tool:field-service:route-board","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:system:field-service-business:contains:tool:field-service:skill-roster","type":"contains","from":"system:field-service-business","to":"tool:field-service:skill-roster","source":{"specId":"client.field-service.system","sectionId":"actors-and-tools"},"ownerSpecId":"client.field-service.system"},{"id":"edge:technical:field-service:workflow:supports:cap:field-service:collect-payment","type":"supports","from":"technical:field-service:workflow","to":"cap:field-service:collect-payment","source":{"specId":"client.field-service.workflow.technical","sectionId":"data-contracts"},"ownerSpecId":"client.field-service.workflow.technical"},{"id":"edge:technical:field-service:workflow:supports:cap:field-service:deliver-service","type":"supports","from":"technical:field-service:workflow","to":"cap:field-service:deliver-service","source":{"specId":"client.field-service.workflow.technical","sectionId":"data-contracts"},"ownerSpecId":"client.field-service.workflow.technical"},{"id":"edge:technical:field-service:workflow:supports:cap:field-service:maintain-readiness","type":"supports","from":"technical:field-service:workflow","to":"cap:field-service:maintain-readiness","source":{"specId":"client.field-service.workflow.technical","sectionId":"data-contracts"},"ownerSpecId":"client.field-service.workflow.technical"},{"id":"edge:technical:field-service:workflow:supports:cap:field-service:protect-relationship","type":"supports","from":"technical:field-service:workflow","to":"cap:field-service:protect-relationship","source":{"specId":"client.field-service.workflow.technical","sectionId":"data-contracts"},"ownerSpecId":"client.field-service.workflow.technical"},{"id":"edge:technical:field-service:workflow:supports:cap:field-service:schedule-work","type":"supports","from":"technical:field-service:workflow","to":"cap:field-service:schedule-work","source":{"specId":"client.field-service.workflow.technical","sectionId":"data-contracts"},"ownerSpecId":"client.field-service.workflow.technical"},{"id":"edge:technical:field-service:workflow:supports:system:field-service-business","type":"supports","from":"technical:field-service:workflow","to":"system:field-service-business","source":{"specId":"client.field-service.workflow.technical","sectionId":"identity-linkage-contract"},"ownerSpecId":"client.field-service.workflow.technical"}],"summary":{"specCount":23,"nodeCount":77,"edgeCount":151,"validation":{"pass":1,"warn":0,"fail":0}}};
+const typeLabels = {"system":"Systems","capability":"Capabilities","job":"Jobs","process":"Processes","actor":"Actors","tool":"Tools","evidence":"Evidence","metric":"Metrics","gap":"Gaps","technical-contract":"Technical","evaluation":"Evaluations","template":"Templates","index":"Indexes"};
+const nodesById = new Map(graph.nodes.map(node => [node.id, node]));
+let selectedType = "capability";
+let selectedNodeId = "cap:field-service:collect-payment";
+let view = "capability";
+let expandedCapabilityIds = new Set();
+let expandedJobIds = new Set();
+let expandedActorIds = new Set();
+let pan = { x: 0, y: 0 };
+let dragState = null;
+let lastDragEndedAt = 0;
+const cardSize = { width: 210, height: 88, gapX: 36, groupGapX: 48, childGapX: 24, gapY: 150, margin: 36 };
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function sourceLink(node, label) {
+  if (!node.href) return escapeHtml(label || node.sourceFile || node.source?.specId || "");
+  const section = node.source?.sectionId ? "#" + encodeURIComponent(node.source.sectionId) : "";
+  const text = label || (node.sourceFile + (node.source?.sectionId ? "#" + node.source.sectionId : ""));
+  return '<a class="node-source-link" href="' + escapeHtml(node.href + section) + '">' + escapeHtml(text) + '</a>';
+}
+
+function sortedNodes(ids) {
+  return [...ids]
+    .map(id => nodesById.get(id))
+    .filter(Boolean)
+    .sort((a, b) => {
+      const layerDiff = layerForNode(a) - layerForNode(b);
+      if (layerDiff !== 0) return layerDiff;
+      return a.label.localeCompare(b.label);
+    });
+}
+
+function sortByLabel(items) {
+  return [...items].sort((a, b) => a.label.localeCompare(b.label));
+}
+
+function edgeConnects(edge, fromId, toType, edgeType) {
+  if (edgeType && edge.type !== edgeType) return false;
+  const target = nodesById.get(edge.to);
+  return edge.from === fromId && (!toType || target?.type === toType);
+}
+
+function capabilityJobs(capabilityId) {
+  const ids = new Set();
+  for (const edge of graph.edges) {
+    if (edgeConnects(edge, capabilityId, "job", "realized-by")) ids.add(edge.to);
+    if (edge.to === capabilityId && edge.type === "supports" && nodesById.get(edge.from)?.type === "job") ids.add(edge.from);
+  }
+  return sortedNodes(ids);
+}
+
+function jobCapabilities(jobId) {
+  const ids = new Set();
+  for (const edge of graph.edges) {
+    if (edge.from === jobId && edge.type === "supports" && nodesById.get(edge.to)?.type === "capability") ids.add(edge.to);
+    if (edge.to === jobId && edge.type === "realized-by" && nodesById.get(edge.from)?.type === "capability") ids.add(edge.from);
+  }
+  return sortedNodes(ids);
+}
+
+function addEdgeTargets(ids, fromId, edgeTypes, nodeTypes) {
+  for (const edge of graph.edges) {
+    if (edge.from !== fromId || !edgeTypes.includes(edge.type)) continue;
+    const target = nodesById.get(edge.to);
+    if (target && nodeTypes.includes(target.type)) ids.add(target.id);
+  }
+}
+
+function actorJobs(actorId) {
+  const ids = new Set();
+  for (const edge of graph.edges) {
+    if (edge.type === "performed-by" && edge.to === actorId && nodesById.get(edge.from)?.type === "job") ids.add(edge.from);
+  }
+  return sortedNodes(ids);
+}
+
+function jobContextNodes(jobId) {
+  const ids = new Set();
+  addEdgeTargets(ids, jobId, ["has-process"], ["process"]);
+  addEdgeTargets(ids, jobId, ["performed-by"], ["actor"]);
+  addEdgeTargets(ids, jobId, ["uses-tool"], ["tool"]);
+  addEdgeTargets(ids, jobId, ["evidenced-by"], ["evidence"]);
+  addEdgeTargets(ids, jobId, ["measured-by"], ["metric"]);
+  addEdgeTargets(ids, jobId, ["has-gap"], ["gap"]);
+  for (const capability of jobCapabilities(jobId)) {
+    addEdgeTargets(ids, capability.id, ["measured-by"], ["metric"]);
+    addEdgeTargets(ids, capability.id, ["has-gap"], ["gap"]);
+  }
+  return sortedNodes(ids);
+}
+
+function addExpandedJobContext(ids, jobId) {
+  ids.add(jobId);
+  jobCapabilities(jobId).forEach(capability => ids.add(capability.id));
+  jobContextNodes(jobId).forEach(node => ids.add(node.id));
+}
+
+function nodesForCapabilityMap() {
+  const ids = new Set();
+  const systems = graph.nodes.filter(node => node.type === "system");
+  const roots = systems.length > 0 ? systems : graph.nodes.filter(node => node.type === "index");
+  roots.forEach(node => ids.add(node.id));
+  graph.nodes.filter(node => node.type === "capability").forEach(node => ids.add(node.id));
+  for (const capabilityId of expandedCapabilityIds) capabilityJobs(capabilityId).forEach(job => ids.add(job.id));
+  for (const jobId of expandedJobIds) addExpandedJobContext(ids, jobId);
+  return sortedNodes(ids);
+}
+
+function nodesForActorsMap() {
+  const ids = new Set();
+  graph.nodes.filter(node => node.type === "actor").forEach(node => ids.add(node.id));
+  for (const actorId of expandedActorIds) actorJobs(actorId).forEach(job => ids.add(job.id));
+  return sortedNodes(ids);
+}
+
+function nodesForView() {
+  if (view === "capability") return nodesForCapabilityMap();
+  return nodesForActorsMap();
+}
+
+function edgesForView(nodeIds) {
+  const visibleEdges = graph.edges.filter(edge => nodeIds.has(edge.from) && nodeIds.has(edge.to));
+  if (view === "capability") {
+    return visibleEdges.filter(edge => {
+      if (["contains", "realized-by", "supports"].includes(edge.type)) return true;
+      if (expandedJobIds.has(edge.from) && ["has-process", "performed-by", "uses-tool", "evidenced-by", "measured-by", "has-gap"].includes(edge.type)) return true;
+      if (["measured-by", "has-gap"].includes(edge.type) && nodesById.get(edge.from)?.type === "capability") return true;
+      return false;
+    });
+  }
+  return visibleEdges.filter(edge => edge.type === "performed-by");
+}
+
+function layerForNode(node) {
+  if (view === "capability") {
+    if (["index", "system"].includes(node.type)) return 0;
+    if (node.type === "capability") return 1;
+    if (node.type === "job") return 2;
+    if (node.type === "process") return 3;
+    if (["actor", "tool"].includes(node.type)) return 4;
+    if (["evidence", "metric", "gap"].includes(node.type)) return 5;
+    return 6;
+  }
+  if (node.type === "actor") return 0;
+  if (node.type === "job") return 1;
+  return 2;
+}
+
+function isExpandable(node) {
+  if (view === "capability") {
+    if (node.type === "capability") return capabilityJobs(node.id).length > 0;
+    if (node.type === "job") return jobContextNodes(node.id).length > 0;
+  }
+  if (view === "actors" && node.type === "actor") return actorJobs(node.id).length > 0;
+  return false;
+}
+
+function isExpanded(node) {
+  if (view === "capability") {
+    if (node.type === "capability") return expandedCapabilityIds.has(node.id);
+    if (node.type === "job") return expandedJobIds.has(node.id);
+  }
+  if (view === "actors" && node.type === "actor") return expandedActorIds.has(node.id);
+  return false;
+}
+
+function expansionLabel(node) {
+  if (!isExpandable(node)) return "";
+  if (node.type === "capability") {
+    const count = capabilityJobs(node.id).length;
+    return count + " job" + (count === 1 ? "" : "s");
+  }
+  if (node.type === "job") return "context";
+  if (node.type === "actor") {
+    const count = actorJobs(node.id).length;
+    return count + " job" + (count === 1 ? "" : "s");
+  }
+  return "";
+}
+
+function toggleExpandedNode(node) {
+  if (view === "capability" && node.type === "capability") {
+    if (expandedCapabilityIds.has(node.id)) {
+      expandedCapabilityIds.delete(node.id);
+      capabilityJobs(node.id).forEach(job => expandedJobIds.delete(job.id));
+    } else {
+      expandedCapabilityIds.add(node.id);
+    }
+    return;
+  }
+  if (view === "capability" && node.type === "job") {
+    jobCapabilities(node.id).forEach(capability => expandedCapabilityIds.add(capability.id));
+    if (expandedJobIds.has(node.id)) expandedJobIds.delete(node.id);
+    else expandedJobIds.add(node.id);
+    return;
+  }
+  if (view === "actors" && node.type === "actor") {
+    if (expandedActorIds.has(node.id)) expandedActorIds.delete(node.id);
+    else expandedActorIds.add(node.id);
+  }
+}
+
+function rowWidth(count, gap = cardSize.gapX) {
+  if (count <= 0) return 0;
+  return count * cardSize.width + (count - 1) * gap;
+}
+
+function centerRow(nodes, y, positioned, layoutWidth, gap = cardSize.gapX) {
+  const width = rowWidth(nodes.length, gap);
+  let x = (layoutWidth - width) / 2;
+  for (const node of nodes) {
+    positioned.set(node.id, { x, y });
+    x += cardSize.width + gap;
+  }
+}
+
+function layoutCapabilityMap(nodes, viewportWidth) {
+  const visibleIds = new Set(nodes.map(node => node.id));
+  const roots = sortByLabel(nodes.filter(node => ["index", "system"].includes(node.type)));
+  const capabilities = sortByLabel(nodes.filter(node => node.type === "capability"));
+  const capabilityGroups = capabilities.map(capability => {
+    const jobGroups = capabilityJobs(capability.id)
+      .filter(job => visibleIds.has(job.id))
+      .map(job => {
+        const rows = new Map();
+        for (const node of jobContextNodes(job.id).filter(item => visibleIds.has(item.id))) {
+          const layer = layerForNode(node);
+          if (!rows.has(layer)) rows.set(layer, []);
+          rows.get(layer).push(node);
+        }
+        const rowWidths = [...rows.values()].map(row => rowWidth(row.length, cardSize.childGapX));
+        const width = Math.max(cardSize.width, ...rowWidths);
+        return { job, rows, width };
+      });
+    const jobsWidth = jobGroups.reduce((sum, group, index) => {
+      return sum + group.width + (index === 0 ? 0 : cardSize.groupGapX);
+    }, 0);
+    const width = Math.max(cardSize.width, jobsWidth);
+    return { capability, jobGroups, width };
+  });
+  const capabilityBandWidth = capabilityGroups.reduce((sum, group, index) => {
+    return sum + group.width + (index === 0 ? 0 : cardSize.groupGapX);
+  }, 0);
+  const rootBandWidth = rowWidth(roots.length, cardSize.gapX);
+  const layoutWidth = Math.max(
+    960,
+    viewportWidth || 0,
+    rootBandWidth + cardSize.margin * 2,
+    capabilityBandWidth + cardSize.margin * 2
+  );
+  const positioned = new Map();
+  const rootY = cardSize.margin;
+  const capabilityY = roots.length > 0 ? cardSize.margin + cardSize.gapY : cardSize.margin;
+  const jobY = capabilityY + cardSize.gapY;
+  let maxLayer = capabilities.length > 0 ? 1 : 0;
+  centerRow(roots, rootY, positioned, layoutWidth);
+  let x = (layoutWidth - capabilityBandWidth) / 2;
+  for (const group of capabilityGroups) {
+    const capabilityX = x + (group.width - cardSize.width) / 2;
+    positioned.set(group.capability.id, { x: capabilityX, y: capabilityY });
+    const jobsWidth = group.jobGroups.reduce((sum, jobGroup, index) => {
+      return sum + jobGroup.width + (index === 0 ? 0 : cardSize.groupGapX);
+    }, 0);
+    let jobX = x + (group.width - jobsWidth) / 2;
+    for (const jobGroup of group.jobGroups) {
+      positioned.set(jobGroup.job.id, { x: jobX + (jobGroup.width - cardSize.width) / 2, y: jobY });
+      maxLayer = Math.max(maxLayer, 2);
+      for (const [layer, row] of jobGroup.rows) {
+        const y = cardSize.margin + layer * cardSize.gapY;
+        centerRow(sortByLabel(row), y, positioned, jobGroup.width, cardSize.childGapX);
+        for (const node of row) {
+          const pos = positioned.get(node.id);
+          positioned.set(node.id, { x: pos.x + jobX, y: pos.y });
+        }
+        maxLayer = Math.max(maxLayer, layer);
+      }
+      jobX += jobGroup.width + cardSize.groupGapX;
+    }
+    x += group.width + cardSize.groupGapX;
+  }
+  const lastY = cardSize.margin + maxLayer * cardSize.gapY;
+  return {
+    positions: positioned,
+    size: {
+      width: layoutWidth,
+      height: Math.max(680, lastY + cardSize.height + cardSize.margin)
+    }
+  };
+}
+
+function layoutActorsMap(nodes, viewportWidth) {
+  const visibleIds = new Set(nodes.map(node => node.id));
+  const actors = sortByLabel(nodes.filter(node => node.type === "actor"));
+  const actorGroups = actors.map(actor => {
+    const jobs = actorJobs(actor.id).filter(job => visibleIds.has(job.id));
+    const width = Math.max(cardSize.width, rowWidth(jobs.length, cardSize.childGapX));
+    return { actor, jobs, width };
+  });
+  const bandWidth = actorGroups.reduce((sum, group, index) => {
+    return sum + group.width + (index === 0 ? 0 : cardSize.groupGapX);
+  }, 0);
+  const layoutWidth = Math.max(960, viewportWidth || 0, bandWidth + cardSize.margin * 2);
+  const positioned = new Map();
+  const actorY = cardSize.margin;
+  const jobY = cardSize.margin + cardSize.gapY;
+  let x = (layoutWidth - bandWidth) / 2;
+  for (const group of actorGroups) {
+    positioned.set(group.actor.id, { x: x + (group.width - cardSize.width) / 2, y: actorY });
+    centerRow(group.jobs, jobY, positioned, group.width, cardSize.childGapX);
+    for (const job of group.jobs) {
+      const pos = positioned.get(job.id);
+      positioned.set(job.id, { x: pos.x + x, y: pos.y });
+    }
+    x += group.width + cardSize.groupGapX;
+  }
+  const hasJobs = actorGroups.some(group => group.jobs.length > 0);
+  const lastY = hasJobs ? jobY : actorY;
+  return {
+    positions: positioned,
+    size: {
+      width: layoutWidth,
+      height: Math.max(680, lastY + cardSize.height + cardSize.margin)
+    }
+  };
+}
+
+function layout(nodes, viewportWidth = 0) {
+  if (view === "capability") return layoutCapabilityMap(nodes, viewportWidth);
+  if (view === "actors") return layoutActorsMap(nodes, viewportWidth);
+  const byLayer = new Map();
+  for (const node of nodes) {
+    const layer = layerForNode(node);
+    if (!byLayer.has(layer)) byLayer.set(layer, []);
+    byLayer.get(layer).push(node);
+  }
+  const layers = [...byLayer.keys()].sort((a, b) => a - b);
+  const layerWidths = layers.map(layer => rowWidth(byLayer.get(layer).length, cardSize.gapX));
+  const layoutWidth = Math.max(960, viewportWidth || 0, ...layerWidths.map(width => width + cardSize.margin * 2));
+  const positioned = new Map();
+  let maxHeight = 0;
+  for (const layer of layers) {
+    const group = sortByLabel(byLayer.get(layer));
+    const width = rowWidth(group.length, cardSize.gapX);
+    const startX = (layoutWidth - width) / 2;
+    group.forEach((node, index) => {
+      const x = startX + index * (cardSize.width + cardSize.gapX);
+      const y = cardSize.margin + layer * cardSize.gapY;
+      positioned.set(node.id, { x, y });
+      maxHeight = Math.max(maxHeight, y + cardSize.height + cardSize.margin);
+    });
+  }
+  return {
+    positions: positioned,
+    size: {
+      width: layoutWidth,
+      height: Math.max(680, maxHeight)
+    }
+  };
+}
+
+function renderSidebar() {
+  const counts = graph.nodes.reduce((acc, node) => (acc[node.type] = (acc[node.type] || 0) + 1, acc), {});
+  document.getElementById("typeList").innerHTML = Object.entries(counts)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([type, count]) => '<button class="type-button ' + (selectedType === type ? 'active' : '') + '" data-type="' + escapeHtml(type) + '">' + escapeHtml(typeLabels[type] || type) + ' <span class="muted">(' + count + ')</span></button>')
+    .join("");
+  document.getElementById("nodeList").innerHTML = graph.nodes
+    .filter(node => !selectedType || node.type === selectedType)
+    .sort((a, b) => a.label.localeCompare(b.label))
+    .map(node => '<button class="node-button ' + (selectedNodeId === node.id ? 'active' : '') + '" data-node="' + escapeHtml(node.id) + '">' + escapeHtml(node.label) + '<div class="muted">' + escapeHtml(node.type) + '</div></button>')
+    .join("");
+  document.querySelectorAll(".type-button").forEach(button => button.addEventListener("click", () => { selectedType = button.dataset.type; renderAll(); }));
+  document.querySelectorAll(".node-button").forEach(button => button.addEventListener("click", () => {
+    selectedNodeId = button.dataset.node;
+    const selected = nodesById.get(selectedNodeId);
+    selectedType = selected?.type || selectedType;
+    if (selected?.type === "actor") {
+      view = "actors";
+      expandedActorIds.add(selected.id);
+    } else {
+      view = "capability";
+      if (selected?.type === "capability") expandedCapabilityIds.add(selected.id);
+      if (selected?.type === "job") {
+        jobCapabilities(selected.id).forEach(capability => expandedCapabilityIds.add(capability.id));
+        expandedJobIds.add(selected.id);
+      }
+    }
+    renderAll();
+  }));
+}
+
+function isRecentDrag() {
+  return performance.now() - lastDragEndedAt < 150;
+}
+
+function selectNode(node, toggleExpandable = false) {
+  if (isRecentDrag()) return;
+  selectedNodeId = node.id;
+  selectedType = node.type;
+  if (toggleExpandable && isExpandable(node)) toggleExpandedNode(node);
+  renderAll();
+}
+
+function switchView(nextView) {
+  view = nextView;
+  renderAll();
+}
+
+function edgePath(from, to) {
+  const startX = from.x + cardSize.width / 2;
+  const startY = from.y + cardSize.height;
+  const endX = to.x + cardSize.width / 2;
+  const endY = to.y;
+  const midY = startY + Math.max(30, (endY - startY) / 2);
+  return 'M ' + startX + ' ' + startY + ' C ' + startX + ' ' + midY + ', ' + endX + ' ' + (endY - 30) + ', ' + endX + ' ' + endY;
+}
+
+function renderCanvas() {
+  const stage = document.getElementById("graphStage");
+  const canvas = document.getElementById("canvas");
+  stage.querySelectorAll(".node-card").forEach(node => node.remove());
+  const nodes = nodesForView();
+  const { positions, size } = layout(nodes, canvas.clientWidth);
+  const nodeIds = new Set(nodes.map(node => node.id));
+  const edges = edgesForView(nodeIds);
+  stage.style.width = size.width + "px";
+  stage.style.height = size.height + "px";
+  const svg = document.getElementById("edgeLayer");
+  svg.setAttribute("width", String(size.width));
+  svg.setAttribute("height", String(size.height));
+  svg.setAttribute("viewBox", "0 0 " + size.width + " " + size.height);
+  svg.innerHTML = edges.map(edge => {
+    const from = positions.get(edge.from);
+    const to = positions.get(edge.to);
+    if (!from || !to) return "";
+    return '<path d="' + edgePath(from, to) + '" fill="none" stroke="rgba(168,168,168,.38)" stroke-width="1.4" />';
+  }).join("");
+  for (const node of nodes) {
+    const pos = positions.get(node.id);
+    if (!pos) continue;
+    const expandable = isExpandable(node);
+    const expanded = isExpanded(node);
+    const card = document.createElement("div");
+    card.className = "node-card" + (node.id === selectedNodeId ? " active" : "");
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("data-node", node.id);
+    card.setAttribute("data-type", node.type);
+    card.setAttribute("data-layer", String(layerForNode(node)));
+    if (expandable) {
+      card.setAttribute("data-expandable", "true");
+      card.setAttribute("data-expanded", expanded ? "true" : "false");
+      card.setAttribute("aria-expanded", expanded ? "true" : "false");
+      card.setAttribute("data-expansion-label", expansionLabel(node));
+    }
+    card.setAttribute("aria-label", node.label + " source " + (node.sourceFile || node.source?.specId || ""));
+    card.style.left = pos.x + "px";
+    card.style.top = pos.y + "px";
+    const action = expandable ? '<span class="node-action" aria-hidden="true">' + (expanded ? '-' : '+') + '</span>' : "";
+    card.innerHTML = '<div class="node-top"><div class="node-type">' + escapeHtml(node.type) + '</div>' + action + '</div><div class="node-label">' + escapeHtml(node.label) + '</div><div class="node-source">' + sourceLink(node, node.sourceFile || node.source?.specId || "") + '</div>';
+    card.addEventListener("click", event => {
+      if (event.target instanceof Element && event.target.closest("a")) return;
+      selectNode(node, true);
+    });
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        selectNode(node, true);
+      }
+    });
+    card.querySelectorAll("a").forEach(anchor => anchor.addEventListener("click", event => event.stopPropagation()));
+    stage.appendChild(card);
+  }
+  applyPan();
+}
+
+function renderDetails() {
+  const node = graph.nodes.find(item => item.id === selectedNodeId) || graph.nodes[0];
+  if (!node) {
+    document.getElementById("details").innerHTML = '<p>No graph nodes.</p>';
+    return;
+  }
+  const outgoing = graph.edges.filter(edge => edge.from === node.id);
+  const incoming = graph.edges.filter(edge => edge.to === node.id);
+  const linked = edge => {
+    const targetId = edge.from === node.id ? edge.to : edge.from;
+    const target = graph.nodes.find(item => item.id === targetId);
+    return '<span class="pill">' + escapeHtml(edge.type) + ': ' + escapeHtml(target?.label || targetId) + '</span>';
+  };
+  const expansion = isExpandable(node)
+    ? '<span class="pill">' + (isExpanded(node) ? 'expanded' : 'collapsed') + '</span><span class="pill">' + escapeHtml(expansionLabel(node)) + '</span>'
+    : "";
+  document.getElementById("details").innerHTML = '<h3>' + escapeHtml(node.label) + '</h3>' +
+    '<p><span class="pill">' + escapeHtml(node.type) + '</span><span class="pill">' + escapeHtml(node.status || "unknown") + '</span><span class="pill">' + escapeHtml(node.confidence || "unknown") + '</span>' + expansion + '</p>' +
+    '<div class="detail-list">' +
+      '<div class="detail-row"><strong>ID</strong><br><code>' + escapeHtml(node.id) + '</code></div>' +
+      '<div class="detail-row"><strong>Source</strong><br>' + sourceLink(node) + '</div>' +
+      '<div class="detail-row"><strong>Outgoing</strong><br>' + (outgoing.map(linked).join("") || '<span class="muted">None</span>') + '</div>' +
+      '<div class="detail-row"><strong>Incoming</strong><br>' + (incoming.map(linked).join("") || '<span class="muted">None</span>') + '</div>' +
+    '</div>';
+}
+
+function renderTabs() {
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.classList.toggle("active", tab.dataset.view === view);
+    tab.setAttribute("aria-selected", tab.dataset.view === view ? "true" : "false");
+    tab.onclick = () => switchView(tab.dataset.view);
+  });
+}
+
+function applyPan() {
+  const stage = document.getElementById("graphStage");
+  stage.style.transform = 'translate(' + pan.x + 'px, ' + pan.y + 'px)';
+}
+
+function setupPan() {
+  const canvas = document.getElementById("canvas");
+  canvas.addEventListener("pointerdown", event => {
+    if (event.button !== 0) return;
+    if (event.target instanceof Element && event.target.closest(".node-card, a, button")) return;
+    dragState = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      panX: pan.x,
+      panY: pan.y,
+      moved: false
+    };
+    canvas.setPointerCapture(event.pointerId);
+    canvas.classList.add("dragging");
+  });
+  canvas.addEventListener("pointermove", event => {
+    if (!dragState || dragState.pointerId !== event.pointerId) return;
+    const dx = event.clientX - dragState.startX;
+    const dy = event.clientY - dragState.startY;
+    if (Math.abs(dx) + Math.abs(dy) > 4) dragState.moved = true;
+    if (!dragState.moved) return;
+    pan = { x: dragState.panX + dx, y: dragState.panY + dy };
+    applyPan();
+  });
+  function finishDrag(event) {
+    if (!dragState || dragState.pointerId !== event.pointerId) return;
+    if (dragState.moved) lastDragEndedAt = performance.now();
+    dragState = null;
+    canvas.classList.remove("dragging");
+    if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+  }
+  canvas.addEventListener("pointerup", finishDrag);
+  canvas.addEventListener("pointercancel", finishDrag);
+}
+
+function renderAll() {
+  renderTabs();
+  renderSidebar();
+  renderCanvas();
+  renderDetails();
+}
+setupPan();
+renderAll();
+</script>
+</body>
+</html>

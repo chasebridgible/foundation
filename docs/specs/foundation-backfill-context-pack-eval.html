@@ -114,6 +114,69 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.backfill-context-pack.eval",
+  "nodes": [
+    {
+      "id": "spec:foundation.backfill-context-pack.eval",
+      "type": "evaluation",
+      "label": "Foundation Backfill Context Pack Eval Spec",
+      "source": {
+        "specId": "foundation.backfill-context-pack.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "foundation",
+          "backfill",
+          "context-pack",
+          "test",
+          "substrate"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.backfill-context-pack.eval:depends-on:spec:foundation.backfill-context-pack.job",
+      "type": "evaluates",
+      "from": "spec:foundation.backfill-context-pack.eval",
+      "to": "spec:foundation.backfill-context-pack.job",
+      "source": {
+        "specId": "foundation.backfill-context-pack.eval",
+        "sectionId": "verification-contract"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-context-pack.eval:supports:spec:foundation.backfill-context-pack.technical",
+      "type": "supports",
+      "from": "spec:foundation.backfill-context-pack.eval",
+      "to": "spec:foundation.backfill-context-pack.technical",
+      "source": {
+        "specId": "foundation.backfill-context-pack.eval",
+        "sectionId": "verification-contract"
+      },
+      "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.backfill-context-pack.eval:depends-on:spec:foundation.backfill-spec-job-queue.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-context-pack.eval",
+      "to": "spec:foundation.backfill-spec-job-queue.job",
+      "source": {
+        "specId": "foundation.backfill-context-pack.eval",
+        "sectionId": "verification-contract"
+      },
+      "label": "depends-on"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

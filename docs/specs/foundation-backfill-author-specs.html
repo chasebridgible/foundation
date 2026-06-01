@@ -109,6 +109,151 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.backfill-author-specs.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.backfill-author-specs.job",
+      "type": "job",
+      "label": "Foundation Backfill Author Specs",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "foundation",
+          "backfill",
+          "author-specs",
+          "job",
+          "substrate"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.backfill-author-specs.job:main",
+      "type": "process",
+      "label": "Foundation Backfill Author Specs process",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.backfill-author-specs.job"
+      }
+    },
+    {
+      "id": "actor:foundation.backfill-author-specs.job:primary",
+      "type": "actor",
+      "label": "Foundation Backfill Author Specs actor",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.backfill-author-specs.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.backfill-author-specs.job:primary",
+      "type": "evidence",
+      "label": "Foundation Backfill Author Specs evidence",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.backfill-author-specs.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.backfill-author-specs.job:has-process:process:foundation.backfill-author-specs.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.backfill-author-specs.job",
+      "to": "process:foundation.backfill-author-specs.job:main",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-author-specs.job:performed-by:actor:foundation.backfill-author-specs.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.backfill-author-specs.job",
+      "to": "actor:foundation.backfill-author-specs.job:primary",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-author-specs.job:evidenced-by:evidence:foundation.backfill-author-specs.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.backfill-author-specs.job",
+      "to": "evidence:foundation.backfill-author-specs.job:primary",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-author-specs.job:depends-on:spec:foundation.backfill-specs.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-author-specs.job",
+      "to": "spec:foundation.backfill-specs.job",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-author-specs.job:contains:spec:foundation.backfill-author-specs.technical",
+      "type": "contains",
+      "from": "spec:foundation.backfill-author-specs.job",
+      "to": "spec:foundation.backfill-author-specs.technical",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-author-specs.job:contains:spec:foundation.backfill-author-specs.eval",
+      "type": "contains",
+      "from": "spec:foundation.backfill-author-specs.job",
+      "to": "spec:foundation.backfill-author-specs.eval",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-author-specs.job:depends-on:spec:foundation.backfill-process-action-map.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-author-specs.job",
+      "to": "spec:foundation.backfill-process-action-map.job",
+      "source": {
+        "specId": "foundation.backfill-author-specs.job",
+        "sectionId": "artifacts-and-state"
+      },
+      "label": "depends-on"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

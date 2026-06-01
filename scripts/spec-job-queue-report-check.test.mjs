@@ -35,8 +35,8 @@ function validCapabilityMap(status = "acceptable") {
       "backingContracts": ["session contract"],
       "failureAndRecovery": ["failed credentials", "network error"],
       "evidence": ["apps/web/login.tsx"],
-      "descriptiveSpec": "example.identity-login.descriptive",
-      "descriptiveSections": ["#capability-contract"],
+      "jobSpec": "example.identity-login.job",
+      "jobSections": ["#capability-contract"],
       "technicalSpec": "example.identity-login.technical",
       "technicalSections": ["#capability-contract"],
       "verificationTargets": ["successful login", "failed login"],
@@ -66,6 +66,43 @@ ${validCapabilityMap()}
       "upstreamCapabilityIds": ["identity-login-capability"],
       "status": "acceptable",
       "ownerSkill": "evaluate-backfill-specs",
+      "jobSpec": "example.identity-login.job",
+      "technicalSpec": "example.identity-login.technical",
+      "jobSections": ["#capability-contract"],
+      "technicalSections": ["#technical-contract"],
+      "verificationTargets": ["successful login", "failed login"],
+      "nextAction": "Continue to the next queued slice",
+      "exitCriterion": "Slice scored acceptable",
+      "blockingQuestions": [],
+      "blockingGaps": [],
+      "humanDecisions": []
+    }
+  ]
+}
+</script>`);
+
+  assert.equal(statuses(validateReport(file)).includes("fail"), false);
+});
+
+test("accepts legacy descriptive fields with warnings", () => {
+  const legacyCapabilityMap = validCapabilityMap()
+    .replace('"jobSpec": "example.identity-login.job"', '"descriptiveSpec": "example.identity-login.descriptive"')
+    .replace('"jobSections": ["#capability-contract"]', '"descriptiveSections": ["#capability-contract"]');
+  const file = writeReport(`<!DOCTYPE html>
+${legacyCapabilityMap}
+<script type="application/json" id="backfill-spec-job-queue">
+{
+  "schema": "foundation.backfill.spec-job-queue.v1",
+  "runId": "20260521-01",
+  "targetRepo": "example",
+  "queue": [
+    {
+      "sliceId": "identity-login",
+      "name": "User login",
+      "scope": "User login and failed-login recovery",
+      "upstreamCapabilityIds": ["identity-login-capability"],
+      "status": "acceptable",
+      "ownerSkill": "backfill-descriptive-spec-author",
       "descriptiveSpec": "example.identity-login.descriptive",
       "technicalSpec": "example.identity-login.technical",
       "descriptiveSections": ["#capability-contract"],
@@ -81,7 +118,9 @@ ${validCapabilityMap()}
 }
 </script>`);
 
-  assert.equal(statuses(validateReport(file)).includes("fail"), false);
+  const results = validateReport(file);
+  assert.equal(statuses(results).includes("fail"), false);
+  assert.equal(statuses(results).includes("warn"), true);
 });
 
 test("rejects a report without an embedded Spec Job Queue", () => {
@@ -135,9 +174,9 @@ ${validCapabilityMap()}
       "upstreamCapabilityIds": ["identity-login-capability"],
       "status": "acceptable",
       "ownerSkill": "evaluate-backfill-specs",
-      "descriptiveSpec": "example.identity-login.descriptive",
+      "jobSpec": "example.identity-login.job",
       "technicalSpec": "example.identity-login.technical",
-      "descriptiveSections": ["#capability-contract"],
+      "jobSections": ["#capability-contract"],
       "technicalSections": ["#technical-contract"],
       "verificationTargets": [],
       "blockingQuestions": [],

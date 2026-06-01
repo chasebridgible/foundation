@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Intake Workspace</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --emerald: #4ec9b0;
+    --amber: #d4a72c;
+    --red: #f48771;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 270px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    display: flex;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .sidebar {
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    width: var(--sidebar-w);
+  }
+  .sidebar-logo {
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 0 18px 16px;
+  }
+  .logo-mark {
+    align-items: center;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    height: 24px;
+    justify-content: center;
+    width: 24px;
+  }
+  .sidebar-title { font-size: 13px; font-weight: 500; }
+  .sidebar-sub { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; margin-top: 1px; }
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 10px 10px 4px;
+  }
+  .nav-item {
+    align-items: center;
+    border-radius: 4px;
+    color: var(--fg-2);
+    display: flex;
+    font-size: 12px;
+    gap: 8px;
+    overflow: hidden;
+    padding: 4px 10px;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .nav-item:hover, .nav-item.active { background: var(--bg-4); color: var(--fg); }
+  .nav-num {
+    color: var(--fg-3);
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-align: right;
+    width: 18px;
+  }
+  .main {
+    flex: 1;
+    max-width: 1120px;
+    min-width: 0;
+    padding: 56px 72px 120px;
+  }
+  .eyebrow { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; margin-bottom: 14px; }
+  h1 { font-size: 36px; font-weight: 600; letter-spacing: 0; line-height: 1.12; margin-bottom: 16px; }
+  h2 { font-size: 20px; font-weight: 600; letter-spacing: 0; margin-bottom: 14px; }
+  h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  strong { color: var(--fg); font-weight: 600; }
+  a { color: var(--fg); text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+  code {
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--fg);
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+    padding: 1px 4px;
+  }
+  ol, ul { color: var(--fg-2); margin: 0 0 16px 20px; }
+  li { margin-bottom: 8px; padding-left: 2px; }
+  .lede { color: var(--fg-2); font-size: 16px; line-height: 1.65; max-width: 840px; }
+  .meta-row {
+    border-top: 1px solid var(--border);
+    color: var(--fg-3);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 12px;
+    gap: 18px;
+    margin-top: 22px;
+    padding-top: 14px;
+  }
+  .doc-body { margin-top: 48px; }
+  .doc-body section { margin-top: 46px; scroll-margin-top: 24px; }
+  .doc-body section:first-child { margin-top: 0; }
+  .callout {
+    background: var(--bg-2);
+    border: 1px solid var(--border-2);
+    border-left: 3px solid var(--primary);
+    border-radius: 8px;
+    margin: 18px 0 22px;
+    padding: 14px 16px;
+  }
+  .lane-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 18px;
+  }
+  .lane-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .lane-head {
+    align-items: start;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 42px 1fr;
+    padding: 14px 16px;
+  }
+  .lane-num { color: var(--primary); font-family: var(--font-mono); font-size: 11px; padding-top: 2px; }
+  .lane-body { padding: 14px 16px 16px; }
+  .lane-body ol { font-size: 12px; line-height: 1.5; margin-bottom: 0; }
+  .status-table {
+    border-collapse: collapse;
+    margin: 18px 0 24px;
+    width: 100%;
+  }
+  .status-table th, .status-table td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  .status-table th {
+    background: var(--bg-2);
+    color: var(--fg);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .status-table td { color: var(--fg-2); font-size: 13px; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 18px; }
+  .pill {
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  .footer-note { color: var(--fg-3); font-family: var(--font-mono); font-size: 11px; margin-top: 36px; }
+  @media (max-width: 960px) {
+    body { display: block; }
+    .sidebar { height: auto; position: relative; width: 100%; }
+    .main { padding: 32px 22px 80px; }
+    h1 { font-size: 30px; }
+    .lane-grid { grid-template-columns: 1fr; }
+  }
+</style>
+<script type="application/json" id="intake-workspace-metadata">
+{
+  "schema": "foundation.business-intake-workspace.v1",
+  "id": "foundation.business-intake",
+  "title": "Business Intake Workspace",
+  "status": "draft",
+  "lastUpdated": "2026-06-01",
+  "purpose": "Single HTML intake workspace for answering business architecture questions from client artifacts, interviews, transcripts, exports, SOPs, screenshots, and observations.",
+  "answerStatuses": ["unanswered", "partial", "answered", "conflict", "stale", "reviewed"],
+  "signalTypes": ["capability", "job", "process", "actor", "tool", "source", "evidence", "metric", "gap", "risk", "decision-rule"],
+  "promotionTargets": ["capability map", "job spec", "process section", "actor registry", "source registry", "metric definition", "eval spec", "visible business graph"],
+  "sourceRegistryFields": ["sourceId", "sourceType", "location", "dateCaptured", "owner", "accessBoundary", "trustLevel", "freshness", "relatedLanes", "relatedSignals"],
+  "sourceLaneFiles": [
+    "strategy.md",
+    "value-proposition.md",
+    "capabilities-products-services.md",
+    "competitive-profile.md",
+    "financial-flows.md",
+    "organizational-structure.md",
+    "decision-making.md",
+    "time-management.md",
+    "systems-and-coordination.md",
+    "processes-and-sops.md",
+    "tech-stack.md",
+    "data-and-metrics.md",
+    "culture.md",
+    "goals.md"
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">F</div>
+    <div>
+      <div class="sidebar-title">Foundation</div>
+      <div class="sidebar-sub">Business Intake</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">On This Page</div>
+    <a href="#purpose" class="nav-item active"><span class="nav-num">01</span>Purpose</a>
+    <a href="#source-registry" class="nav-item"><span class="nav-num">02</span>Source registry</a>
+    <a href="#answer-model" class="nav-item"><span class="nav-num">03</span>Answer model</a>
+    <a href="#intake-lanes" class="nav-item"><span class="nav-num">04</span>Intake lanes</a>
+    <a href="#signals" class="nav-item"><span class="nav-num">05</span>Signals</a>
+    <a href="#promotion" class="nav-item"><span class="nav-num">06</span>Promotion</a>
+    <a href="#open-questions" class="nav-item"><span class="nav-num">07</span>Open questions</a>
+  </div>
+</nav>
+
+<main class="main">
+  <article>
+    <div class="eyebrow">foundation/docs/fundamentals/business-intake.html</div>
+    <h1>Business Intake Workspace</h1>
+    <p class="lede">This is the combined HTML workspace for business intake. It is where artifacts, transcripts, recordings, screenshots, SaaS exports, SOPs, and interviews help answer what the business can do, how work moves, who or what handles it, and what evidence supports the map.</p>
+    <div class="meta-row">
+      <span><strong>Format:</strong> HTML-native intake workspace</span>
+      <span><strong>Canonical role:</strong> draft answers and signals</span>
+      <span><strong>Not canonical:</strong> final capability or job truth</span>
+    </div>
+
+    <section class="doc-body">
+      <section id="purpose">
+        <h2>Purpose</h2>
+        <p>The Markdown files in this folder are lane references. This HTML file is the combined intake surface an operator or agent can use when a client drops in source material. The output should not be fake completeness. Each question can be unanswered, partially answered, answered, contradicted, stale, or reviewed.</p>
+        <div class="callout">
+          <p><strong>Operating rule:</strong> intake answers become durable only after review promotes them into capability specs, job specs, process sections, actor registries, source registry rows, metric definitions, eval specs, or graph metadata.</p>
+        </div>
+        <div class="pill-row">
+          <span class="pill">raw source</span>
+          <span class="pill">source registry</span>
+          <span class="pill">intake answer</span>
+          <span class="pill">graph signal</span>
+          <span class="pill">reviewed substrate</span>
+          <span class="pill">visible business graph</span>
+        </div>
+      </section>
+
+      <section id="source-registry">
+        <h2>Source Registry</h2>
+        <p>Every artifact used in intake should be registered before the system treats it as evidence. The registry can live in a separate source artifact later; this table defines the required fields for the intake loop.</p>
+        <table class="status-table">
+          <thead><tr><th>Field</th><th>Meaning</th><th>Examples</th></tr></thead>
+          <tbody>
+            <tr><td>Source ID</td><td>Stable ID used by answer rows, graph signals, specs, and evidence nodes.</td><td><code>source.transcript.2026-06-01.owner-intake</code></td></tr>
+            <tr><td>Source type</td><td>The artifact category.</td><td>Transcript, recording summary, SOP, dashboard, SaaS export, spreadsheet, screenshot, contract, observation.</td></tr>
+            <tr><td>Location</td><td>Where the source can be inspected by an authorized reviewer.</td><td>Repo path, drive link, ticket, client system URL, local file path.</td></tr>
+            <tr><td>Owner and access</td><td>Who owns it and who can read it.</td><td>Client owner, department lead, vendor, restricted HR, finance-only.</td></tr>
+            <tr><td>Trust and freshness</td><td>How reliable and current the source is.</td><td>Reviewed, firsthand, stale, conflicted, generated summary, unverified.</td></tr>
+            <tr><td>Related signals</td><td>Capabilities, jobs, actors, tools, metrics, gaps, or decisions the source informs.</td><td><code>capability.customer-onboarding</code>, <code>job.run-payroll</code>, <code>actor.ops-lead</code>.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="answer-model">
+        <h2>Answer Model</h2>
+        <p>Each intake answer should preserve the question, status, extracted facts, source refs, confidence, freshness, suggested graph signals, and open gaps.</p>
+        <table class="status-table">
+          <thead><tr><th>Status</th><th>Use when</th><th>Required follow-up</th></tr></thead>
+          <tbody>
+            <tr><td>Unanswered</td><td>No source or interview answer addresses the question.</td><td>Create a gap and route to next intake pass.</td></tr>
+            <tr><td>Partial</td><td>The source answers one part of the question but leaves ownership, process, evidence, or scope unclear.</td><td>Preserve the answer and name the missing piece.</td></tr>
+            <tr><td>Answered</td><td>The answer is coherent and source-backed, but not yet reviewed into substrate.</td><td>Suggest promotion targets.</td></tr>
+            <tr><td>Conflict</td><td>Two or more sources disagree materially.</td><td>Keep both sources linked and route to review.</td></tr>
+            <tr><td>Stale</td><td>The answer was once useful but may not reflect current reality.</td><td>Mark freshness and request a current source.</td></tr>
+            <tr><td>Reviewed</td><td>The answer has been promoted into a durable artifact or intentionally rejected.</td><td>Link the resulting spec, registry row, metric, eval, or gap.</td></tr>
+          </tbody>
+        </table>
+        <h3>Answer Row Template</h3>
+        <table class="status-table">
+          <thead><tr><th>Field</th><th>Contract</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Question ID</td><td>Stable lane and question reference.</td><td><code>lane.systems.q1</code></td></tr>
+            <tr><td>Status</td><td>One of unanswered, partial, answered, conflict, stale, or reviewed.</td><td><code>partial</code></td></tr>
+            <tr><td>Extracted answer</td><td>Short factual summary of what the source supports.</td><td>Customer work moves from web lead to sales call to scheduled kickoff, but follow-up ownership is unclear.</td></tr>
+            <tr><td>Source refs</td><td>One or more source registry IDs and optional section/time references.</td><td><code>source.transcript.2026-06-01.owner-intake#00:18:22</code></td></tr>
+            <tr><td>Confidence and freshness</td><td>How strongly the answer is supported and whether it reflects current reality.</td><td><code>medium</code>, current as of intake date.</td></tr>
+            <tr><td>Suggested signals</td><td>Candidate capability, job, process, actor, tool, metric, evidence, risk, or gap IDs.</td><td><code>capability.customer-onboarding</code>, <code>gap.owner.follow-up</code></td></tr>
+            <tr><td>Promotion target</td><td>The durable artifact that should absorb the reviewed answer.</td><td>Capability spec, job spec, process section, actor registry, metric definition, eval spec, or graph metadata.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="intake-lanes">
+        <h2>Intake Lanes</h2>
+        <p>The lanes below consolidate the business intake questions into one workspace. Agents should answer only what the available sources support, then mark unresolved areas explicitly.</p>
+        <div class="lane-grid">
+          <article class="lane-card" id="lane-strategy">
+            <div class="lane-head"><div class="lane-num">01</div><div><h3>Strategy</h3><p>Where the business is headed, what tradeoffs are acceptable, and which bets shape day-to-day choices.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>What would success look like three to five years from now, and what accidental outcomes would be disappointing?</li>
+              <li>What markets, customers, products, or geographies is the business deliberately choosing not to pursue?</li>
+              <li>Where does strategy get decided today, and where does behavior diverge from what is said?</li>
+              <li>What core bets about customers, competitors, regulation, talent, or technology are implicit?</li>
+              <li>What constraints are non-negotiable, and where have they been tested recently?</li>
+              <li>When priorities collide, what tie-breakers should people use without the owner in the room?</li>
+              <li>What external shifts would force the plan to change fastest, and what early signals matter?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-value-proposition">
+            <div class="lane-head"><div class="lane-num">02</div><div><h3>Customer And Value Proposition</h3><p>Who the business serves, what problem it solves, why customers choose it, and what proof creates trust.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>Who is the primary customer, and who buys even though they are not an ideal fit?</li>
+              <li>What job do customers hire the business for: function, emotion, risk reduction, speed, or certainty?</li>
+              <li>What promise is made implicitly, and where is the business exposed if it breaks?</li>
+              <li>What customer language explains what almost won or lost recent deals?</li>
+              <li>What alternatives do prospects consider, including doing nothing, in-house, substitutes, or other categories?</li>
+              <li>What proof makes someone believe delivery will happen, and where is proof weakest?</li>
+              <li>Where do pricing and packaging signal value, confusion, or friction?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-capabilities">
+            <div class="lane-head"><div class="lane-num">03</div><div><h3>Capabilities, Products, And Services</h3><p>What the business sells, what it must be capable of delivering, and where delivery strains.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>What do customers purchase, and how cleanly does that map to scheduling, staffing, and delivery?</li>
+              <li>For each major offering, what does done well require in skills, assets, approvals, timing, and coordination?</li>
+              <li>Where are margins strongest or weakest, and what drives the difference?</li>
+              <li>Which parts of delivery are repeatable versus custom, and where does promised customization create chaos?</li>
+              <li>What capabilities live outside the firm through vendors, contractors, platforms, or partners?</li>
+              <li>Which offerings are legacy, new, unproven, aspirational, or not operationally owned?</li>
+              <li>If one offering stopped tomorrow, what downstream effects would hit customers, cash, workload, and reputation?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-competition">
+            <div class="lane-head"><div class="lane-num">04</div><div><h3>Competitive Profile</h3><p>Named rivals, substitutes, differentiation, pricing position, and where the business is fighting the wrong battle.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>When the business wins, what reasons did the customer give or what likely mattered most?</li>
+              <li>When it loses, what do losses have in common?</li>
+              <li>Who shows up in real competitive situations, and who is mostly competition in people's heads?</li>
+              <li>What substitutes are good enough for customers?</li>
+              <li>What is hard to copy, and which advantages depend on specific people, relationships, or tacit craft?</li>
+              <li>Where does pricing sit relative to the market, and is that deliberate?</li>
+              <li>Where could competition come from in the next two years?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-money">
+            <div class="lane-head"><div class="lane-num">05</div><div><h3>Money And Financial Flows</h3><p>How cash enters and leaves, what drives profitability, and where financial surprises originate.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>How does a dollar travel from customer intent to collected cash, and where does money stall?</li>
+              <li>What are the primary revenue streams, and how concentrated are they?</li>
+              <li>What cost buckets dominate, and which have been unusually volatile?</li>
+              <li>Where is margin created and destroyed through rework, discounting, scope creep, utilization, or warranty?</li>
+              <li>What financial reports steer decisions, and what questions cannot be answered with trusted data?</li>
+              <li>What tradeoffs happen between growth, profit, cash safety, and stress?</li>
+              <li>What financial risks matter, and what early warning signs are watched?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-roles">
+            <div class="lane-head"><div class="lane-num">06</div><div><h3>Roles, Actors, And Organization</h3><p>Who exists in the organization, who reports to whom, who owns outcomes, and where responsibility is fuzzy.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>How would the org be drawn today, including contractors, fractional leaders, and key vendors?</li>
+              <li>For each critical function, who owns outcomes versus assists?</li>
+              <li>Where do informal influence and formal authority diverge?</li>
+              <li>Which roles are overloaded, underutilized, or historical?</li>
+              <li>What decisions or tasks still require the owner or a specific person?</li>
+              <li>Which handoffs between people or teams are brittle?</li>
+              <li>If one role were hired next quarter, what would they own on day thirty and day ninety?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-decisions">
+            <div class="lane-head"><div class="lane-num">07</div><div><h3>Decision Rights</h3><p>How judgment works, when the owner must be present, and what rules others or systems can safely use.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>What decision categories can only happen with the owner's input today?</li>
+              <li>For a recent hard call, what information, consultation, and tradeoffs shaped the outcome?</li>
+              <li>Where do approval chains speed up work, slow it down, or reveal trust or information problems?</li>
+              <li>What rules of thumb do experienced people use that newer people do not know?</li>
+              <li>When priorities conflict, who is allowed to decide and how is that communicated?</li>
+              <li>What exceptions happen often enough to become policy?</li>
+              <li>What would need to be spelled out for the business to run two weeks without the owner on operational decisions?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-time">
+            <div class="lane-head"><div class="lane-num">08</div><div><h3>Time And Attention</h3><p>Where leverage leaks through hours, interruptions, context switching, rework, and escalation.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>What categories of activity consume a typical week, and what feels urgent without moving outcomes?</li>
+              <li>What lands on the owner's desk because authority, information, or confidence is missing?</li>
+              <li>Where does context switching hurt most, and what triggers it?</li>
+              <li>For key roles, where does time go in practice versus leadership assumption?</li>
+              <li>What busy work looks productive, and what low-visibility work is actually critical?</li>
+              <li>Which interruptions are predictable, and which signal broken process versus healthy collaboration?</li>
+              <li>If five focused hours were reclaimed, what would stop, delegate, automate, batch, or redesign first?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-systems">
+            <div class="lane-head"><div class="lane-num">09</div><div><h3>Systems And Coordination</h3><p>How work and information move through queues, handoffs, dependencies, and feedback loops.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>End to end, how does value move from first customer touch through completion and follow-up?</li>
+              <li>Where is information created once and then re-keyed, re-explained, or lost?</li>
+              <li>Which queues are healthy buffers, and which show overload or unclear ownership?</li>
+              <li>What dependencies outside the business routinely affect delivery?</li>
+              <li>Where do exceptions and edge cases cluster, and how does the system flex?</li>
+              <li>What feedback loops show quality, cost, or timing drift early or late?</li>
+              <li>Which coordination point would have the highest redesign leverage?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-processes">
+            <div class="lane-head"><div class="lane-num">10</div><div><h3>Processes And Standard Work</h3><p>Repeatable procedures, tacit habits, documentation drift, quality gates, and scale-ready work.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>Which processes are stable and repeated enough to deserve a standard?</li>
+              <li>What documentation exists, where does it drift from reality, and what never gets written?</li>
+              <li>Where does training happen formally versus by shadowing?</li>
+              <li>What steps cause friction through missing inputs, unclear definitions, approvals, or workarounds?</li>
+              <li>Where does quality get validated, and where does rework originate?</li>
+              <li>Which processes touch customers directly?</li>
+              <li>Which best-performer process would move the needle if it could be frozen and scaled?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-tools">
+            <div class="lane-head"><div class="lane-num">11</div><div><h3>Tools And Tech Stack</h3><p>Platforms, spreadsheets, integrations, access, sources of truth, failure points, and automation openings.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>What tools run CRM, scheduling, billing, accounting, payroll, communications, docs, inventory, field ops, and support?</li>
+              <li>Which tools are sources of truth versus convenience, and where do systems disagree?</li>
+              <li>What integrations exist, and where does manual copying bridge gaps?</li>
+              <li>Who owns permissions, admin access, invoices, and password recovery?</li>
+              <li>Which migrations or regrets changed work culturally or operationally?</li>
+              <li>Where would tool failure hurt fastest, and what manual backups exist?</li>
+              <li>What tooling capability is wanted but not prioritized?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-data">
+            <div class="lane-head"><div class="lane-num">12</div><div><h3>Data And Metrics</h3><p>What gets measured, what stays qualitative, what signals feed decisions, and what data can be trusted.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>What weekly or monthly decisions are made, and what evidence is actually used?</li>
+              <li>Which metrics are trusted, distrusted, or misunderstood?</li>
+              <li>What qualitative judgment should stay qualitative or become partly quantitative?</li>
+              <li>Where would better measurement change behavior fastest without bureaucracy?</li>
+              <li>Which signals are leading versus lagging, and where is activity confused with outcome?</li>
+              <li>How clean is historical data in definitions, timestamps, ownership, and completeness?</li>
+              <li>What single dashboard or weekly snapshot would materially improve leadership conversations?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-culture">
+            <div class="lane-head"><div class="lane-num">13</div><div><h3>Culture</h3><p>How decisions get made when the manual is silent: quality, urgency, candor, blame, learning, and customer care.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>When something goes wrong in front of a customer, what does the organization do by instinct?</li>
+              <li>What behaviors are rewarded or punished in practice?</li>
+              <li>How do people give and receive feedback, and where does conflict go underground?</li>
+              <li>What rituals shape work, and which feel productive versus theatrical?</li>
+              <li>What does good enough mean in different departments?</li>
+              <li>Where does trust live: individuals, process, supervision, tooling, or documentation?</li>
+              <li>What cultural traits must scale if ten people are hired next year, and what might break?</li>
+            </ol></div>
+          </article>
+
+          <article class="lane-card" id="lane-goals">
+            <div class="lane-head"><div class="lane-num">14</div><div><h3>Goals</h3><p>Business, personal, and horizon goals that reveal priorities, timeframes, constraints, and success criteria.</p></div></div>
+            <div class="lane-body"><ol>
+              <li>Twelve months ahead, what outcomes define success or failure even if revenue looks fine?</li>
+              <li>Three to five years ahead, what is the business trying to prove and what uncertainty worries leadership?</li>
+              <li>Which goals are written, assumed, or unknown to the organization?</li>
+              <li>What three to five metrics would show business health, and which numbers get gamed or ignored?</li>
+              <li>Where is the business investing ahead of returns or harvesting, intentionally or accidentally?</li>
+              <li>What should the owner or key leader's week feel like in twelve months?</li>
+              <li>What work energizes or drains key leaders, and what drains can be eliminated?</li>
+              <li>What personal non-negotiables must strategy and operations respect?</li>
+            </ol></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="signals">
+        <h2>Signals</h2>
+        <p>Answers should create graph signals only when the source supports them. Weak or missing signals become gaps, not hidden assumptions.</p>
+        <table class="status-table">
+          <thead><tr><th>Signal</th><th>When to create it</th><th>Required evidence</th></tr></thead>
+          <tbody>
+            <tr><td>Capability</td><td>An answer names a durable outcome the business must reliably produce.</td><td>Source refs, outcome language, family, confidence, owner or owner gap.</td></tr>
+            <tr><td>Job</td><td>An answer names recurring work that makes a capability real.</td><td>Capability link, actors, inputs, outputs, process hints, evidence, confidence.</td></tr>
+            <tr><td>Process</td><td>An answer describes steps, decisions, handoffs, exceptions, or quality checks.</td><td>Job link, actor refs, tools, evidence points, open questions.</td></tr>
+            <tr><td>Actor</td><td>A person, role, vendor, partner, customer, software system, or agent performs work or makes decisions.</td><td>Actor type, jobs performed, decision rights, dependency risk.</td></tr>
+            <tr><td>Tool</td><td>A system, spreadsheet, platform, artifact, or asset is used by the work.</td><td>Jobs supported, source-of-truth status, access owner, failure risk.</td></tr>
+            <tr><td>Metric</td><td>A measurement proves performance, health, quality, risk, or improvement.</td><td>Definition, source, interpretation rule, freshness, owner.</td></tr>
+            <tr><td>Gap</td><td>Ownership, process, evidence, decision rule, source, metric, or reliability is missing or weak.</td><td>Owning capability/job, source of uncertainty, next review path.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="promotion">
+        <h2>Promotion</h2>
+        <p>The intake workspace is promoted into reviewed substrate through a review loop, not by dumping every answer into final docs.</p>
+        <ol>
+          <li>Register the source and assign stable source IDs.</li>
+          <li>Mark each answered question as unanswered, partial, answered, conflict, stale, or reviewed.</li>
+          <li>Extract facts with source refs and confidence.</li>
+          <li>Create candidate signals for capabilities, jobs, processes, actors, tools, metrics, evidence, risks, and gaps.</li>
+          <li>Group signals into provisional capability and job maps.</li>
+          <li>Promote reviewed signals into capability specs, job specs, process sections, actor registries, source registry rows, metric definitions, eval specs, and graph metadata.</li>
+          <li>Render and check the visible business graph so the client can inspect the current business architecture.</li>
+        </ol>
+      </section>
+
+      <section id="open-questions">
+        <h2>Open Questions</h2>
+        <ul>
+          <li>Which intake answer fields should become a separate machine-writable JSONL format versus staying embedded in this HTML workspace?</li>
+          <li>Which promotion steps should be fully agent-authored, and which require human review before updating durable specs?</li>
+          <li>What minimum source coverage should be required before a capability or job appears as reviewed rather than provisional?</li>
+          <li>How should client-specific private source paths be represented without leaking restricted material into broad graph views?</li>
+        </ul>
+      </section>
+    </section>
+  </article>
+
+  <p class="footer-note">Foundation fundamentals - HTML-native intake workspace</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.getElementById(link.getAttribute('href').slice(1));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(section => observer.observe(section));
+</script>
+</body>
+</html>

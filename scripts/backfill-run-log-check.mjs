@@ -13,6 +13,7 @@ const VALID_PHASES = new Set([
   "spec-job-queue",
   "context-pack",
   "process-action-map",
+  "job",
   "descriptive",
   "rendered-ux",
   "technical",
@@ -217,6 +218,8 @@ function validateEvents(parsedEvents) {
         phase: event.phase,
         validPhases: [...VALID_PHASES]
       }));
+    } else if (event.phase === "descriptive") {
+      results.push(warn(`${prefix}:legacy-phase`, "descriptive is a legacy run-log phase; use job"));
     }
 
     if (!VALID_EVENTS.has(event.event)) {

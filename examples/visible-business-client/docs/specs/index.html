@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.spec-system">
+<meta name="spec:type" content="index">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Visible Business Client Spec System</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.spec-system",
+  "title": "Visible Business Client Spec System",
+  "type": "index",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": null,
+  "children": [
+    "client.field-service.system"
+  ],
+  "relatedSpecs": [],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/index.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "template-repo",
+    "index"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.spec-system",
+  "nodes": [
+    {
+      "id": "index:visible-business-client-specs",
+      "type": "index",
+      "label": "Visible Business Client Specs",
+      "source": {
+        "specId": "client.field-service.spec-system",
+        "sectionId": "overview"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "exampleRole": "template-repo-index"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:index:visible-business-client-specs:contains:system:field-service-business",
+      "type": "contains",
+      "from": "index:visible-business-client-specs",
+      "to": "system:field-service-business",
+      "source": {
+        "specId": "client.field-service.spec-system",
+        "sectionId": "registry"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="system-index" data-spec-canonical="true">
+    <h1>Visible Business Client Spec System</h1>
+    <p>A canonical fictional client repository used to verify that Foundation can generate a visible business graph from HTML-native system, capability, job, technical, and eval specs.</p>
+  </section>
+  <article class="doc-body">
+  <section id="registry" data-spec-section="registry" data-section-type="spec-registry">
+    <h2>Spec registry</h2>
+    <table class="status-table">
+      <thead><tr><th>Spec</th><th>Type</th><th>File</th></tr></thead>
+      <tbody>
+        <tr><td><code>client.field-service.spec-system</code></td><td>index</td><td><a href="./index.html">index.html</a></td></tr>
+        <tr><td><code>client.field-service.system</code></td><td>system</td><td><a href="./client-system.html">client-system.html</a></td></tr>
+        <tr><td><code>client.field-service.schedule-work.capability</code></td><td>capability</td><td><a href="./schedule-work-capability.html">schedule-work-capability.html</a></td></tr>
+        <tr><td><code>client.field-service.deliver-service.capability</code></td><td>capability</td><td><a href="./deliver-service-capability.html">deliver-service-capability.html</a></td></tr>
+        <tr><td><code>client.field-service.collect-payment.capability</code></td><td>capability</td><td><a href="./collect-payment-capability.html">collect-payment-capability.html</a></td></tr>
+        <tr><td><code>client.field-service.protect-relationship.capability</code></td><td>capability</td><td><a href="./protect-relationship-capability.html">protect-relationship-capability.html</a></td></tr>
+        <tr><td><code>client.field-service.maintain-readiness.capability</code></td><td>capability</td><td><a href="./maintain-readiness-capability.html">maintain-readiness-capability.html</a></td></tr>
+        <tr><td><code>client.field-service.triage-service-request.job</code></td><td>job</td><td><a href="./triage-service-request-job.html">triage-service-request-job.html</a></td></tr>
+        <tr><td><code>client.field-service.book-appointment.job</code></td><td>job</td><td><a href="./book-appointment-job.html">book-appointment-job.html</a></td></tr>
+        <tr><td><code>client.field-service.dispatch-technician.job</code></td><td>job</td><td><a href="./dispatch-technician-job.html">dispatch-technician-job.html</a></td></tr>
+        <tr><td><code>client.field-service.prepare-visit.job</code></td><td>job</td><td><a href="./prepare-visit-job.html">prepare-visit-job.html</a></td></tr>
+        <tr><td><code>client.field-service.complete-service-visit.job</code></td><td>job</td><td><a href="./complete-service-visit-job.html">complete-service-visit-job.html</a></td></tr>
+        <tr><td><code>client.field-service.close-work-order.job</code></td><td>job</td><td><a href="./close-work-order-job.html">close-work-order-job.html</a></td></tr>
+        <tr><td><code>client.field-service.create-invoice.job</code></td><td>job</td><td><a href="./create-invoice-job.html">create-invoice-job.html</a></td></tr>
+        <tr><td><code>client.field-service.collect-payment.job</code></td><td>job</td><td><a href="./collect-payment-job.html">collect-payment-job.html</a></td></tr>
+        <tr><td><code>client.field-service.resolve-payment-exception.job</code></td><td>job</td><td><a href="./resolve-payment-exception-job.html">resolve-payment-exception-job.html</a></td></tr>
+        <tr><td><code>client.field-service.send-arrival-update.job</code></td><td>job</td><td><a href="./send-arrival-update-job.html">send-arrival-update-job.html</a></td></tr>
+        <tr><td><code>client.field-service.handle-service-issue.job</code></td><td>job</td><td><a href="./handle-service-issue-job.html">handle-service-issue-job.html</a></td></tr>
+        <tr><td><code>client.field-service.request-review.job</code></td><td>job</td><td><a href="./request-review-job.html">request-review-job.html</a></td></tr>
+        <tr><td><code>client.field-service.plan-daily-capacity.job</code></td><td>job</td><td><a href="./plan-daily-capacity-job.html">plan-daily-capacity-job.html</a></td></tr>
+        <tr><td><code>client.field-service.restock-truck.job</code></td><td>job</td><td><a href="./restock-truck-job.html">restock-truck-job.html</a></td></tr>
+        <tr><td><code>client.field-service.workflow.technical</code></td><td>technical</td><td><a href="./client-workflow-technical.html">client-workflow-technical.html</a></td></tr>
+        <tr><td><code>client.field-service.workflow.eval</code></td><td>eval</td><td><a href="./client-workflow-eval.html">client-workflow-eval.html</a></td></tr>
+      </tbody>
+    </table><script type="application/json" id="spec-registry">
+{
+  "registryVersion": "1.0",
+  "lastUpdated": "2026-06-01",
+  "specs": [
+    {
+      "id": "client.field-service.spec-system",
+      "title": "Visible Business Client Spec System",
+      "file": "visible-business-client/docs/specs/index.html",
+      "type": "index"
+    },
+    {
+      "id": "client.field-service.system",
+      "title": "Field Service Business System",
+      "file": "visible-business-client/docs/specs/client-system.html",
+      "type": "system"
+    },
+    {
+      "id": "client.field-service.schedule-work.capability",
+      "title": "Schedule Service Work Capability",
+      "file": "visible-business-client/docs/specs/schedule-work-capability.html",
+      "type": "capability"
+    },
+    {
+      "id": "client.field-service.deliver-service.capability",
+      "title": "Deliver Service Visit Capability",
+      "file": "visible-business-client/docs/specs/deliver-service-capability.html",
+      "type": "capability"
+    },
+    {
+      "id": "client.field-service.collect-payment.capability",
+      "title": "Collect Service Payment Capability",
+      "file": "visible-business-client/docs/specs/collect-payment-capability.html",
+      "type": "capability"
+    },
+    {
+      "id": "client.field-service.protect-relationship.capability",
+      "title": "Protect Customer Relationship Capability",
+      "file": "visible-business-client/docs/specs/protect-relationship-capability.html",
+      "type": "capability"
+    },
+    {
+      "id": "client.field-service.maintain-readiness.capability",
+      "title": "Maintain Technician Readiness Capability",
+      "file": "visible-business-client/docs/specs/maintain-readiness-capability.html",
+      "type": "capability"
+    },
+    {
+      "id": "client.field-service.triage-service-request.job",
+      "title": "Triage Service Request Job",
+      "file": "visible-business-client/docs/specs/triage-service-request-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.book-appointment.job",
+      "title": "Book Service Appointment Job",
+      "file": "visible-business-client/docs/specs/book-appointment-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.dispatch-technician.job",
+      "title": "Dispatch Technician Job",
+      "file": "visible-business-client/docs/specs/dispatch-technician-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.prepare-visit.job",
+      "title": "Prepare Service Visit Job",
+      "file": "visible-business-client/docs/specs/prepare-visit-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.complete-service-visit.job",
+      "title": "Complete Service Visit Job",
+      "file": "visible-business-client/docs/specs/complete-service-visit-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.close-work-order.job",
+      "title": "Close Work Order Job",
+      "file": "visible-business-client/docs/specs/close-work-order-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.create-invoice.job",
+      "title": "Create Service Invoice Job",
+      "file": "visible-business-client/docs/specs/create-invoice-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.collect-payment.job",
+      "title": "Collect Service Payment Job",
+      "file": "visible-business-client/docs/specs/collect-payment-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.resolve-payment-exception.job",
+      "title": "Resolve Payment Exception Job",
+      "file": "visible-business-client/docs/specs/resolve-payment-exception-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.send-arrival-update.job",
+      "title": "Send Arrival Update Job",
+      "file": "visible-business-client/docs/specs/send-arrival-update-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.handle-service-issue.job",
+      "title": "Handle Service Issue Job",
+      "file": "visible-business-client/docs/specs/handle-service-issue-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.request-review.job",
+      "title": "Request Customer Review Job",
+      "file": "visible-business-client/docs/specs/request-review-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.plan-daily-capacity.job",
+      "title": "Plan Daily Capacity Job",
+      "file": "visible-business-client/docs/specs/plan-daily-capacity-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.restock-truck.job",
+      "title": "Restock Technician Truck Job",
+      "file": "visible-business-client/docs/specs/restock-truck-job.html",
+      "type": "job"
+    },
+    {
+      "id": "client.field-service.workflow.technical",
+      "title": "Field Service Workflow Technical Contract",
+      "file": "visible-business-client/docs/specs/client-workflow-technical.html",
+      "type": "technical"
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "title": "Field Service Workflow Evaluation",
+      "file": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "type": "eval"
+    }
+  ]
+}
+</script>
+  </section>
+  <section id="graph-contract" data-spec-section="graph-contract" data-section-type="graph-contract">
+    <h2>Graph contract</h2>
+    <p>Each spec owns its HTML prose and graph metadata. The generated canvas and JSON files under docs/visible-business-graph are derived artifacts.</p>
+  </section>
+  </article>
+</main>
+</body>
+</html>

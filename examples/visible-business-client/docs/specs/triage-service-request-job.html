@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.triage-service-request.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Triage Service Request Job</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.triage-service-request.job",
+  "title": "Triage Service Request Job",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "high",
+  "parent": "client.field-service.schedule-work.capability",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.schedule-work.capability",
+      "relationship": "supports",
+      "sections": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "informed-by",
+      "sections": [
+        "data-contracts"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/triage-service-request-job.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "JOB-TRIAGE-SERVICE-REQUEST-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.triage-service-request.job#job-intent",
+        "client.field-service.triage-service-request.job#process"
+      ],
+      "evidence": "Triage service request appears with process, actor, tool, and evidence nodes in the expected graph."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "job",
+    "schedule-work",
+    "triage-service-request"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.triage-service-request.job",
+  "nodes": [
+    {
+      "id": "job:field-service:triage-service-request",
+      "type": "job",
+      "label": "Triage service request",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "capability": "Schedule service work"
+      }
+    },
+    {
+      "id": "process:field-service:triage-service-request",
+      "type": "process",
+      "label": "Triage service request process",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "stepCount": 4
+      }
+    },
+    {
+      "id": "evidence:field-service:request-triage",
+      "type": "evidence",
+      "label": "Request triage record",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "proves": "Triage service request"
+      }
+    },
+    {
+      "id": "gap:field-service:emergency-priority-rules",
+      "type": "gap",
+      "label": "Emergency priority rules need owner definition",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "revision"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "ownerNeeded": true
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:job:field-service:triage-service-request:supports:cap:field-service:schedule-work",
+      "type": "supports",
+      "from": "job:field-service:triage-service-request",
+      "to": "cap:field-service:schedule-work",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:job:field-service:triage-service-request:has-process:process:field-service:triage-service-request",
+      "type": "has-process",
+      "from": "job:field-service:triage-service-request",
+      "to": "process:field-service:triage-service-request",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:job:field-service:triage-service-request:performed-by:actor:customer-coordinator",
+      "type": "performed-by",
+      "from": "job:field-service:triage-service-request",
+      "to": "actor:customer-coordinator",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "current-handling"
+      }
+    },
+    {
+      "id": "edge:job:field-service:triage-service-request:uses-tool:tool:field-service:crm",
+      "type": "uses-tool",
+      "from": "job:field-service:triage-service-request",
+      "to": "tool:field-service:crm",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:triage-service-request:uses-tool:tool:field-service:customer-messaging",
+      "type": "uses-tool",
+      "from": "job:field-service:triage-service-request",
+      "to": "tool:field-service:customer-messaging",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:triage-service-request:evidenced-by:evidence:field-service:request-triage",
+      "type": "evidenced-by",
+      "from": "job:field-service:triage-service-request",
+      "to": "evidence:field-service:request-triage",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:job:field-service:triage-service-request:has-gap:gap:field-service:emergency-priority-rules",
+      "type": "has-gap",
+      "from": "job:field-service:triage-service-request",
+      "to": "gap:field-service:emergency-priority-rules",
+      "source": {
+        "specId": "client.field-service.triage-service-request.job",
+        "sectionId": "revision"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <h1>Triage Service Request Job</h1>
+    <p>Classify the inbound service request so the business knows whether to schedule, escalate, or reject it.</p>
+  </section>
+  <article class="doc-body">
+  <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+    <h2>Capability supported</h2>
+    <p>Supports Schedule service work.</p>
+  </section>
+  <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+    <h2>Current handling</h2>
+    <p>The customer coordinator owns inbound requests and asks enough questions to determine category, urgency, and location.</p>    <table class="status-table">
+      <thead><tr><th>Actor</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Customer coordinator</td><td>Owns intake, scheduling, customer updates, and review requests.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="process" data-spec-section="process" data-section-type="process-contract">
+    <h2>Process</h2>
+    <ol>
+      <li>Capture customer identity and service address.</li>
+      <li>Classify service category, urgency, and access constraints.</li>
+      <li>Flag emergency or out-of-scope requests for owner decision.</li>
+      <li>Pass schedulable requests to appointment booking.</li>
+    </ol>
+  </section>
+  <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+    <h2>Context, tools, and interfaces</h2>
+    <table class="status-table">
+      <thead><tr><th>Tool</th><th>Use in job</th></tr></thead>
+      <tbody>
+        <tr><td>CRM schedule board</td><td>Customer record, service category, appointment window, and job status.</td></tr>
+        <tr><td>Customer messaging</td><td>Confirmations, arrival updates, issue recovery, and review requests.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>A triage record with category, priority, address, and next state proves the request is ready for scheduling.</p>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>Emergency priority rules need owner definition</p>
+  </section>
+  </article>
+</main>
+</body>
+</html>

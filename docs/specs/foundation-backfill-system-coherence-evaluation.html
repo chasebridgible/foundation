@@ -109,6 +109,151 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.backfill-system-coherence-evaluation.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.backfill-system-coherence-evaluation.job",
+      "type": "job",
+      "label": "Foundation Backfill Evaluate System Coherence",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "foundation",
+          "backfill",
+          "system-coherence-evaluation",
+          "job",
+          "substrate"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.backfill-system-coherence-evaluation.job:main",
+      "type": "process",
+      "label": "Foundation Backfill Evaluate System Coherence process",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.backfill-system-coherence-evaluation.job"
+      }
+    },
+    {
+      "id": "actor:foundation.backfill-system-coherence-evaluation.job:primary",
+      "type": "actor",
+      "label": "Foundation Backfill Evaluate System Coherence actor",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.backfill-system-coherence-evaluation.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.backfill-system-coherence-evaluation.job:primary",
+      "type": "evidence",
+      "label": "Foundation Backfill Evaluate System Coherence evidence",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.backfill-system-coherence-evaluation.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.backfill-system-coherence-evaluation.job:has-process:process:foundation.backfill-system-coherence-evaluation.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.backfill-system-coherence-evaluation.job",
+      "to": "process:foundation.backfill-system-coherence-evaluation.job:main",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-system-coherence-evaluation.job:performed-by:actor:foundation.backfill-system-coherence-evaluation.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.backfill-system-coherence-evaluation.job",
+      "to": "actor:foundation.backfill-system-coherence-evaluation.job:primary",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-system-coherence-evaluation.job:evidenced-by:evidence:foundation.backfill-system-coherence-evaluation.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.backfill-system-coherence-evaluation.job",
+      "to": "evidence:foundation.backfill-system-coherence-evaluation.job:primary",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-system-coherence-evaluation.job:depends-on:spec:foundation.backfill-specs.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-system-coherence-evaluation.job",
+      "to": "spec:foundation.backfill-specs.job",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-system-coherence-evaluation.job:contains:spec:foundation.backfill-system-coherence-evaluation.technical",
+      "type": "contains",
+      "from": "spec:foundation.backfill-system-coherence-evaluation.job",
+      "to": "spec:foundation.backfill-system-coherence-evaluation.technical",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-system-coherence-evaluation.job:contains:spec:foundation.backfill-system-coherence-evaluation.eval",
+      "type": "contains",
+      "from": "spec:foundation.backfill-system-coherence-evaluation.job",
+      "to": "spec:foundation.backfill-system-coherence-evaluation.eval",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-system-coherence-evaluation.job:depends-on:spec:foundation.backfill-job-slice-evaluation.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-system-coherence-evaluation.job",
+      "to": "spec:foundation.backfill-job-slice-evaluation.job",
+      "source": {
+        "specId": "foundation.backfill-system-coherence-evaluation.job",
+        "sectionId": "artifacts-and-state"
+      },
+      "label": "depends-on"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

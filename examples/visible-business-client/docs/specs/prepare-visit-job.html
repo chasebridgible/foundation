@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.prepare-visit.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Prepare Service Visit Job</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.prepare-visit.job",
+  "title": "Prepare Service Visit Job",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "high",
+  "parent": "client.field-service.deliver-service.capability",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.deliver-service.capability",
+      "relationship": "supports",
+      "sections": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "informed-by",
+      "sections": [
+        "data-contracts"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/prepare-visit-job.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "JOB-PREPARE-VISIT-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.prepare-visit.job#job-intent",
+        "client.field-service.prepare-visit.job#process"
+      ],
+      "evidence": "Prepare service visit appears with process, actor, tool, and evidence nodes in the expected graph."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "job",
+    "deliver-service",
+    "prepare-visit"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.prepare-visit.job",
+  "nodes": [
+    {
+      "id": "job:field-service:prepare-visit",
+      "type": "job",
+      "label": "Prepare service visit",
+      "source": {
+        "specId": "client.field-service.prepare-visit.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "capability": "Deliver service visit"
+      }
+    },
+    {
+      "id": "process:field-service:prepare-visit",
+      "type": "process",
+      "label": "Prepare service visit process",
+      "source": {
+        "specId": "client.field-service.prepare-visit.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "stepCount": 4
+      }
+    },
+    {
+      "id": "evidence:field-service:visit-readiness-checklist",
+      "type": "evidence",
+      "label": "Visit readiness checklist",
+      "source": {
+        "specId": "client.field-service.prepare-visit.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "proves": "Prepare service visit"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:job:field-service:prepare-visit:supports:cap:field-service:deliver-service",
+      "type": "supports",
+      "from": "job:field-service:prepare-visit",
+      "to": "cap:field-service:deliver-service",
+      "source": {
+        "specId": "client.field-service.prepare-visit.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:job:field-service:prepare-visit:has-process:process:field-service:prepare-visit",
+      "type": "has-process",
+      "from": "job:field-service:prepare-visit",
+      "to": "process:field-service:prepare-visit",
+      "source": {
+        "specId": "client.field-service.prepare-visit.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:job:field-service:prepare-visit:performed-by:actor:technician",
+      "type": "performed-by",
+      "from": "job:field-service:prepare-visit",
+      "to": "actor:technician",
+      "source": {
+        "specId": "client.field-service.prepare-visit.job",
+        "sectionId": "current-handling"
+      }
+    },
+    {
+      "id": "edge:job:field-service:prepare-visit:uses-tool:tool:field-service:mobile-work-order",
+      "type": "uses-tool",
+      "from": "job:field-service:prepare-visit",
+      "to": "tool:field-service:mobile-work-order",
+      "source": {
+        "specId": "client.field-service.prepare-visit.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:prepare-visit:uses-tool:tool:field-service:inventory-log",
+      "type": "uses-tool",
+      "from": "job:field-service:prepare-visit",
+      "to": "tool:field-service:inventory-log",
+      "source": {
+        "specId": "client.field-service.prepare-visit.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:prepare-visit:evidenced-by:evidence:field-service:visit-readiness-checklist",
+      "type": "evidenced-by",
+      "from": "job:field-service:prepare-visit",
+      "to": "evidence:field-service:visit-readiness-checklist",
+      "source": {
+        "specId": "client.field-service.prepare-visit.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <h1>Prepare Service Visit Job</h1>
+    <p>Review job context and required materials before arriving at the customer site.</p>
+  </section>
+  <article class="doc-body">
+  <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+    <h2>Capability supported</h2>
+    <p>Supports Deliver service visit.</p>
+  </section>
+  <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+    <h2>Current handling</h2>
+    <p>The technician checks route notes, customer constraints, and truck stock before the visit.</p>    <table class="status-table">
+      <thead><tr><th>Actor</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Technician</td><td>Completes work, records job evidence, and communicates field status.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="process" data-spec-section="process" data-section-type="process-contract">
+    <h2>Process</h2>
+    <ol>
+      <li>Open assigned work order.</li>
+      <li>Review service category, notes, and access instructions.</li>
+      <li>Confirm critical materials are on the truck.</li>
+      <li>Mark visit ready or raise a readiness exception.</li>
+    </ol>
+  </section>
+  <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+    <h2>Context, tools, and interfaces</h2>
+    <table class="status-table">
+      <thead><tr><th>Tool</th><th>Use in job</th></tr></thead>
+      <tbody>
+        <tr><td>Mobile work order app</td><td>Technician checklist, photos, parts, signatures, and completion notes.</td></tr>
+        <tr><td>Truck inventory log</td><td>Truck stock, parts usage, replenishment, and low-stock exceptions.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>A readiness checklist tied to the work order proves the visit was prepared.</p>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>No active graph gap is assigned to this job.</p>
+  </section>
+  </article>
+</main>
+</body>
+</html>

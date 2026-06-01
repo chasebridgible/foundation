@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.plan-daily-capacity.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Plan Daily Capacity Job</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.plan-daily-capacity.job",
+  "title": "Plan Daily Capacity Job",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "high",
+  "parent": "client.field-service.maintain-readiness.capability",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.maintain-readiness.capability",
+      "relationship": "supports",
+      "sections": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "informed-by",
+      "sections": [
+        "data-contracts"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/plan-daily-capacity-job.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "JOB-PLAN-DAILY-CAPACITY-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.plan-daily-capacity.job#job-intent",
+        "client.field-service.plan-daily-capacity.job#process"
+      ],
+      "evidence": "Plan daily capacity appears with process, actor, tool, and evidence nodes in the expected graph."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "job",
+    "maintain-readiness",
+    "plan-daily-capacity"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.plan-daily-capacity.job",
+  "nodes": [
+    {
+      "id": "job:field-service:plan-daily-capacity",
+      "type": "job",
+      "label": "Plan daily capacity",
+      "source": {
+        "specId": "client.field-service.plan-daily-capacity.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "capability": "Maintain technician readiness"
+      }
+    },
+    {
+      "id": "process:field-service:plan-daily-capacity",
+      "type": "process",
+      "label": "Plan daily capacity process",
+      "source": {
+        "specId": "client.field-service.plan-daily-capacity.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "stepCount": 4
+      }
+    },
+    {
+      "id": "evidence:field-service:daily-capacity-plan",
+      "type": "evidence",
+      "label": "Daily capacity plan",
+      "source": {
+        "specId": "client.field-service.plan-daily-capacity.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "proves": "Plan daily capacity"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:job:field-service:plan-daily-capacity:supports:cap:field-service:maintain-readiness",
+      "type": "supports",
+      "from": "job:field-service:plan-daily-capacity",
+      "to": "cap:field-service:maintain-readiness",
+      "source": {
+        "specId": "client.field-service.plan-daily-capacity.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:job:field-service:plan-daily-capacity:has-process:process:field-service:plan-daily-capacity",
+      "type": "has-process",
+      "from": "job:field-service:plan-daily-capacity",
+      "to": "process:field-service:plan-daily-capacity",
+      "source": {
+        "specId": "client.field-service.plan-daily-capacity.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:job:field-service:plan-daily-capacity:performed-by:actor:service-manager",
+      "type": "performed-by",
+      "from": "job:field-service:plan-daily-capacity",
+      "to": "actor:service-manager",
+      "source": {
+        "specId": "client.field-service.plan-daily-capacity.job",
+        "sectionId": "current-handling"
+      }
+    },
+    {
+      "id": "edge:job:field-service:plan-daily-capacity:uses-tool:tool:field-service:route-board",
+      "type": "uses-tool",
+      "from": "job:field-service:plan-daily-capacity",
+      "to": "tool:field-service:route-board",
+      "source": {
+        "specId": "client.field-service.plan-daily-capacity.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:plan-daily-capacity:uses-tool:tool:field-service:skill-roster",
+      "type": "uses-tool",
+      "from": "job:field-service:plan-daily-capacity",
+      "to": "tool:field-service:skill-roster",
+      "source": {
+        "specId": "client.field-service.plan-daily-capacity.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:plan-daily-capacity:evidenced-by:evidence:field-service:daily-capacity-plan",
+      "type": "evidenced-by",
+      "from": "job:field-service:plan-daily-capacity",
+      "to": "evidence:field-service:daily-capacity-plan",
+      "source": {
+        "specId": "client.field-service.plan-daily-capacity.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <h1>Plan Daily Capacity Job</h1>
+    <p>Know available technician capacity before promising customer windows.</p>
+  </section>
+  <article class="doc-body">
+  <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+    <h2>Capability supported</h2>
+    <p>Supports Maintain technician readiness.</p>
+  </section>
+  <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+    <h2>Current handling</h2>
+    <p>The service manager reviews technician availability, skills, and territory pressure before dispatch.</p>    <table class="status-table">
+      <thead><tr><th>Actor</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Service manager</td><td>Owns quality recovery, priority rules, and daily capacity tradeoffs.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="process" data-spec-section="process" data-section-type="process-contract">
+    <h2>Process</h2>
+    <ol>
+      <li>Review booked demand and open requests.</li>
+      <li>Confirm technician availability, skill, and route constraints.</li>
+      <li>Name capacity risks before scheduling commitments.</li>
+      <li>Publish daily capacity state for coordinators and dispatch.</li>
+    </ol>
+  </section>
+  <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+    <h2>Context, tools, and interfaces</h2>
+    <table class="status-table">
+      <thead><tr><th>Tool</th><th>Use in job</th></tr></thead>
+      <tbody>
+        <tr><td>Route board</td><td>Technician assignments, geography, arrival estimates, and route load.</td></tr>
+        <tr><td>Technician skill roster</td><td>Skill, license, territory, capacity, and PTO constraints.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>A daily capacity plan with exceptions proves the team knows what can be promised.</p>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>No active graph gap is assigned to this job.</p>
+  </section>
+  </article>
+</main>
+</body>
+</html>

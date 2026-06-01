@@ -17,8 +17,13 @@ Use inside `backfill-specs` after job drafting for visible capabilities.
 - lightweight interaction for important state changes
 - notes mapping rendered states to flow/state sections
 - evidence links when useful
+- `graph-metadata` updates when the rendered UX adds, removes, or clarifies job, process, actor, tool, evidence, metric, or gap nodes
 
 Use inline HTML/CSS/JS that works from disk.
+
+## Graph Metadata
+
+Rendered UX examples are evidence for job/process behavior, not a separate source of truth. When adding or revising rendered UX inside a job spec, keep `graph-metadata` aligned with the prose and rendered states: add evidence nodes for the rendered example only when it is useful evidence, link them with `evidenced-by`, and preserve source section IDs that point back to the job spec sections. Run `npm run foundation:visible-business-graph:check -- --repo <repo>` after spec edits.
 
 ## Nonvisual Slices
 

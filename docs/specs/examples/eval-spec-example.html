@@ -43,6 +43,68 @@
   "tags": ["example", "fired-up-pizza", "eval", "orders"]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "fup.kitchen-queue.eval",
+  "nodes": [
+    {
+      "id": "spec:fup.kitchen-queue.eval",
+      "type": "evaluation",
+      "label": "Fired Up Pizza Kitchen Queue - Eval Spec Example",
+      "source": {
+        "specId": "fup.kitchen-queue.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "example",
+          "fired-up-pizza",
+          "eval",
+          "orders"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:fup.kitchen-queue.eval:depends-on:spec:fup.kitchen-queue.job",
+      "type": "evaluates",
+      "from": "spec:fup.kitchen-queue.eval",
+      "to": "spec:fup.kitchen-queue.job",
+      "source": {
+        "specId": "fup.kitchen-queue.eval",
+        "sectionId": "verification-contract"
+      }
+    },
+    {
+      "id": "edge:spec:fup.kitchen-queue.eval:evaluates:spec:fup.kitchen-queue.job",
+      "type": "evaluates",
+      "from": "spec:fup.kitchen-queue.eval",
+      "to": "spec:fup.kitchen-queue.job",
+      "source": {
+        "specId": "fup.kitchen-queue.eval",
+        "sectionId": "verification-contract"
+      },
+      "label": "validates"
+    },
+    {
+      "id": "edge:spec:fup.kitchen-queue.eval:evaluates:spec:fup.kitchen-queue.technical",
+      "type": "evaluates",
+      "from": "spec:fup.kitchen-queue.eval",
+      "to": "spec:fup.kitchen-queue.technical",
+      "source": {
+        "specId": "fup.kitchen-queue.eval",
+        "sectionId": "verification-contract"
+      },
+      "label": "validates"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

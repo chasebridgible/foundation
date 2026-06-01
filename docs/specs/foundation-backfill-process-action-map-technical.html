@@ -96,6 +96,69 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.backfill-process-action-map.technical",
+  "nodes": [
+    {
+      "id": "spec:foundation.backfill-process-action-map.technical",
+      "type": "technical-contract",
+      "label": "Foundation Backfill Process / Action Map Technical Spec",
+      "source": {
+        "specId": "foundation.backfill-process-action-map.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "foundation",
+          "backfill",
+          "process-action-map",
+          "technical",
+          "substrate"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.backfill-process-action-map.technical:depends-on:spec:foundation.backfill-process-action-map.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-process-action-map.technical",
+      "to": "spec:foundation.backfill-process-action-map.job",
+      "source": {
+        "specId": "foundation.backfill-process-action-map.technical",
+        "sectionId": "required-depth"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-process-action-map.technical:supports:spec:foundation.backfill-process-action-map.eval",
+      "type": "supports",
+      "from": "spec:foundation.backfill-process-action-map.technical",
+      "to": "spec:foundation.backfill-process-action-map.eval",
+      "source": {
+        "specId": "foundation.backfill-process-action-map.technical",
+        "sectionId": "required-depth"
+      },
+      "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.backfill-process-action-map.technical:depends-on:spec:foundation.backfill-context-pack.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-process-action-map.technical",
+      "to": "spec:foundation.backfill-context-pack.job",
+      "source": {
+        "specId": "foundation.backfill-process-action-map.technical",
+        "sectionId": "required-depth"
+      },
+      "label": "depends-on"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

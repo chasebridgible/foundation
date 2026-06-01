@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.workflow.technical">
+<meta name="spec:type" content="technical">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Field Service Workflow Technical Contract</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.workflow.technical",
+  "title": "Field Service Workflow Technical Contract",
+  "type": "technical",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": "client.field-service.system",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.schedule-work.capability",
+      "relationship": "supports",
+      "sections": [
+        "outcome-contract"
+      ]
+    },
+    {
+      "id": "client.field-service.deliver-service.capability",
+      "relationship": "supports",
+      "sections": [
+        "outcome-contract"
+      ]
+    },
+    {
+      "id": "client.field-service.collect-payment.capability",
+      "relationship": "supports",
+      "sections": [
+        "outcome-contract"
+      ]
+    },
+    {
+      "id": "client.field-service.protect-relationship.capability",
+      "relationship": "supports",
+      "sections": [
+        "outcome-contract"
+      ]
+    },
+    {
+      "id": "client.field-service.maintain-readiness.capability",
+      "relationship": "supports",
+      "sections": [
+        "outcome-contract"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/client-workflow-technical.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "technical"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.workflow.technical",
+  "nodes": [
+    {
+      "id": "technical:field-service:workflow",
+      "type": "technical-contract",
+      "label": "Field service workflow technical contract",
+      "source": {
+        "specId": "client.field-service.workflow.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "contract": "service job identity links workflow evidence"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:technical:field-service:workflow:supports:system:field-service-business",
+      "type": "supports",
+      "from": "technical:field-service:workflow",
+      "to": "system:field-service-business",
+      "source": {
+        "specId": "client.field-service.workflow.technical",
+        "sectionId": "identity-linkage-contract"
+      }
+    },
+    {
+      "id": "edge:technical:field-service:workflow:supports:cap:field-service:schedule-work",
+      "type": "supports",
+      "from": "technical:field-service:workflow",
+      "to": "cap:field-service:schedule-work",
+      "source": {
+        "specId": "client.field-service.workflow.technical",
+        "sectionId": "data-contracts"
+      }
+    },
+    {
+      "id": "edge:technical:field-service:workflow:supports:cap:field-service:deliver-service",
+      "type": "supports",
+      "from": "technical:field-service:workflow",
+      "to": "cap:field-service:deliver-service",
+      "source": {
+        "specId": "client.field-service.workflow.technical",
+        "sectionId": "data-contracts"
+      }
+    },
+    {
+      "id": "edge:technical:field-service:workflow:supports:cap:field-service:collect-payment",
+      "type": "supports",
+      "from": "technical:field-service:workflow",
+      "to": "cap:field-service:collect-payment",
+      "source": {
+        "specId": "client.field-service.workflow.technical",
+        "sectionId": "data-contracts"
+      }
+    },
+    {
+      "id": "edge:technical:field-service:workflow:supports:cap:field-service:protect-relationship",
+      "type": "supports",
+      "from": "technical:field-service:workflow",
+      "to": "cap:field-service:protect-relationship",
+      "source": {
+        "specId": "client.field-service.workflow.technical",
+        "sectionId": "data-contracts"
+      }
+    },
+    {
+      "id": "edge:technical:field-service:workflow:supports:cap:field-service:maintain-readiness",
+      "type": "supports",
+      "from": "technical:field-service:workflow",
+      "to": "cap:field-service:maintain-readiness",
+      "source": {
+        "specId": "client.field-service.workflow.technical",
+        "sectionId": "data-contracts"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
+    <h1>Field Service Workflow Technical Contract</h1>
+    <p>The example client requires every operating artifact to retain a service job identity so scheduling, dispatch, field work, payment, customer communication, and readiness evidence can join into one business graph.</p>
+  </section>
+  <article class="doc-body">
+  <section id="identity-linkage-contract" data-spec-section="identity-linkage-contract" data-section-type="contract">
+    <h2>Identity linkage contract</h2>
+    <ul>
+      <li>Every appointment, route assignment, work order, invoice, receipt, issue case, review request, capacity plan, and truck restock exception carries a stable service job, customer, or technician reference.</li>
+      <li>Derived canvas artifacts may cache graph JSON but never become the source of truth.</li>
+      <li>Missing identity links are failure states because the business cannot see how work was handled.</li>
+    </ul>
+  </section>
+  <section id="data-contracts" data-spec-section="data-contracts" data-section-type="contracts">
+    <h2>Data contracts</h2>
+    <table class="status-table">
+      <thead><tr><th>Artifact</th><th>Required relationship</th></tr></thead>
+      <tbody>
+        <tr><td>Appointment</td><td>customer + service request + scheduled window</td></tr>
+        <tr><td>Dispatch assignment</td><td>appointment + technician + route</td></tr>
+        <tr><td>Work order</td><td>dispatch assignment + technician outcome</td></tr>
+        <tr><td>Invoice and receipt</td><td>closed work order + customer</td></tr>
+        <tr><td>Issue/review/readiness artifacts</td><td>service job, technician, or owner review context</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+    <h2>Failure modes</h2>
+    <ul>
+      <li>Payment evidence without a closed work order is not acceptable.</li>
+      <li>Customer communication without a service job reference cannot prove relationship handling.</li>
+      <li>Capacity and stock exceptions must have owners before they can be considered resolved.</li>
+    </ul>
+  </section>
+  <section id="graph-support" data-spec-section="graph-support" data-section-type="graph-contract">
+    <h2>Graph support</h2>
+    <p>This technical spec supports every capability node and the root system node so canvas users can see the implementation contract behind the operating graph.</p>
+  </section>
+  </article>
+</main>
+</body>
+</html>

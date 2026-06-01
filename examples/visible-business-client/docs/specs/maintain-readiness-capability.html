@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.maintain-readiness.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Maintain Technician Readiness Capability</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.maintain-readiness.capability",
+  "title": "Maintain Technician Readiness Capability",
+  "type": "capability",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": "client.field-service.system",
+  "children": [
+    "client.field-service.plan-daily-capacity.job",
+    "client.field-service.restock-truck.job"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "supported-by",
+      "sections": [
+        "identity-linkage-contract"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/maintain-readiness-capability.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "CAP-MAINTAIN-READINESS-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.maintain-readiness.capability#capability-intent"
+      ],
+      "evidence": "Maintain technician readiness is present in the expected graph fixture and canvas."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "capability",
+    "maintain-readiness"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.maintain-readiness.capability",
+  "nodes": [
+    {
+      "id": "cap:field-service:maintain-readiness",
+      "type": "capability",
+      "label": "Maintain technician readiness",
+      "source": {
+        "specId": "client.field-service.maintain-readiness.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "outcome": "Technician capacity, skills, and truck materials are ready before customer commitments are made."
+      }
+    },
+    {
+      "id": "metric:field-service:readiness-score",
+      "type": "metric",
+      "label": "Technician readiness score",
+      "source": {
+        "specId": "client.field-service.maintain-readiness.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "target": "Daily capacity and critical truck stock are reviewed before dispatch."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:cap:field-service:maintain-readiness:realized-by:job:field-service:plan-daily-capacity",
+      "type": "realized-by",
+      "from": "cap:field-service:maintain-readiness",
+      "to": "job:field-service:plan-daily-capacity",
+      "source": {
+        "specId": "client.field-service.maintain-readiness.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:maintain-readiness:realized-by:job:field-service:restock-truck",
+      "type": "realized-by",
+      "from": "cap:field-service:maintain-readiness",
+      "to": "job:field-service:restock-truck",
+      "source": {
+        "specId": "client.field-service.maintain-readiness.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:maintain-readiness:measured-by:metric:field-service:readiness-score",
+      "type": "measured-by",
+      "from": "cap:field-service:maintain-readiness",
+      "to": "metric:field-service:readiness-score",
+      "source": {
+        "specId": "client.field-service.maintain-readiness.capability",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:maintain-readiness:has-gap:gap:field-service:truck-min-max",
+      "type": "has-gap",
+      "from": "cap:field-service:maintain-readiness",
+      "to": "gap:field-service:truck-min-max",
+      "source": {
+        "specId": "client.field-service.maintain-readiness.capability",
+        "sectionId": "revision"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+    <h1>Maintain Technician Readiness Capability</h1>
+    <p>Technician capacity, skills, and truck materials are ready before customer commitments are made.</p>
+  </section>
+  <article class="doc-body">
+  <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="outcome-contract">
+    <h2>Outcome contract</h2>
+    <p>Technician capacity, skills, and truck materials are ready before customer commitments are made.</p>    <ul>
+      <li>Capacity promises depend on technician availability, skill match, territory, and material readiness.</li>
+      <li>Truck restock gaps must be visible before they affect a customer appointment.</li>
+      <li>Owner review resolves capacity and inventory exceptions that cross teams.</li>
+    </ul>
+  </section>
+  <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+    <h2>Jobs</h2>
+    <table class="status-table">
+      <thead><tr><th>Job</th><th>Actor</th><th>Outcome</th></tr></thead>
+      <tbody>
+        <tr><td><a href="./plan-daily-capacity-job.html">Plan daily capacity</a></td><td>Service manager</td><td>Know available technician capacity before promising customer windows.</td></tr>
+        <tr><td><a href="./restock-truck-job.html">Restock technician truck</a></td><td>Inventory coordinator</td><td>Replenish critical truck materials before they block customer work.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>Technician readiness score: Daily capacity and critical truck stock are reviewed before dispatch.</p>    <ul>
+      <li>Daily capacity plan proves Plan daily capacity.</li>
+      <li>Truck restock confirmation proves Restock technician truck.</li>
+    </ul>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>The following gaps stay visible on the graph until resolved.</p>    <ul>
+      <li>Truck stock min/max rules need owner review</li>
+    </ul>
+  </section>
+  </article>
+</main>
+</body>
+</html>

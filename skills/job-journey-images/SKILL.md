@@ -65,6 +65,10 @@ node <skill-dir>/scripts/validate-process-assets.mjs \
   --require-decks
 ```
 
+## Graph Metadata
+
+Generated images and one-slide process canvases are evidence artifacts. When a job spec, capability spec, or process doc references them, update that spec's `graph-metadata` so the relevant process or job node is linked to an `evidence` node with `evidenced-by`. Do not make the image or deck the canonical process source; the source spec or source document remains canonical. After spec edits, run `npm run foundation:visible-business-graph:check -- --repo <target-repo>`.
+
 ## One-Slide Process Canvas
 
 When the user asks for a process deck, create one PowerPoint file per process, with one slide per file:

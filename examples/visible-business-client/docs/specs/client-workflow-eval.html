@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.workflow.eval">
+<meta name="spec:type" content="eval">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Field Service Workflow Evaluation</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.workflow.eval",
+  "title": "Field Service Workflow Evaluation",
+  "type": "eval",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": "client.field-service.system",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.system",
+      "relationship": "validates",
+      "sections": [
+        "evidence-and-revision"
+      ]
+    },
+    {
+      "id": "client.field-service.schedule-work.capability",
+      "relationship": "validates",
+      "sections": [
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "client.field-service.deliver-service.capability",
+      "relationship": "validates",
+      "sections": [
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "client.field-service.collect-payment.capability",
+      "relationship": "validates",
+      "sections": [
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "client.field-service.protect-relationship.capability",
+      "relationship": "validates",
+      "sections": [
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "client.field-service.maintain-readiness.capability",
+      "relationship": "validates",
+      "sections": [
+        "evidence-and-evaluation"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "eval"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.workflow.eval",
+  "nodes": [
+    {
+      "id": "evaluation:field-service:workflow",
+      "type": "evaluation",
+      "label": "Field service workflow evaluation",
+      "source": {
+        "specId": "client.field-service.workflow.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "evaluates": "visible business graph completeness"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:evaluation:field-service:workflow:evaluates:system:field-service-business",
+      "type": "evaluates",
+      "from": "evaluation:field-service:workflow",
+      "to": "system:field-service-business",
+      "source": {
+        "specId": "client.field-service.workflow.eval",
+        "sectionId": "verification-contract"
+      }
+    },
+    {
+      "id": "edge:evaluation:field-service:workflow:evaluates:cap:field-service:schedule-work",
+      "type": "evaluates",
+      "from": "evaluation:field-service:workflow",
+      "to": "cap:field-service:schedule-work",
+      "source": {
+        "specId": "client.field-service.workflow.eval",
+        "sectionId": "acceptance-mapping"
+      }
+    },
+    {
+      "id": "edge:evaluation:field-service:workflow:evaluates:cap:field-service:deliver-service",
+      "type": "evaluates",
+      "from": "evaluation:field-service:workflow",
+      "to": "cap:field-service:deliver-service",
+      "source": {
+        "specId": "client.field-service.workflow.eval",
+        "sectionId": "acceptance-mapping"
+      }
+    },
+    {
+      "id": "edge:evaluation:field-service:workflow:evaluates:cap:field-service:collect-payment",
+      "type": "evaluates",
+      "from": "evaluation:field-service:workflow",
+      "to": "cap:field-service:collect-payment",
+      "source": {
+        "specId": "client.field-service.workflow.eval",
+        "sectionId": "acceptance-mapping"
+      }
+    },
+    {
+      "id": "edge:evaluation:field-service:workflow:evaluates:cap:field-service:protect-relationship",
+      "type": "evaluates",
+      "from": "evaluation:field-service:workflow",
+      "to": "cap:field-service:protect-relationship",
+      "source": {
+        "specId": "client.field-service.workflow.eval",
+        "sectionId": "acceptance-mapping"
+      }
+    },
+    {
+      "id": "edge:evaluation:field-service:workflow:evaluates:cap:field-service:maintain-readiness",
+      "type": "evaluates",
+      "from": "evaluation:field-service:workflow",
+      "to": "cap:field-service:maintain-readiness",
+      "source": {
+        "specId": "client.field-service.workflow.eval",
+        "sectionId": "acceptance-mapping"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
+    <h1>Field Service Workflow Evaluation</h1>
+    <p>The example is acceptable only when a local graph build can show the business system, all capabilities, all jobs, actors, tools, evidence, metrics, and gaps with clickable source HTML links.</p>
+  </section>
+  <article class="doc-body">
+  <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
+    <h2>Acceptance mapping</h2>
+    <table class="status-table">
+      <thead><tr><th>Acceptance</th><th>Mapped graph requirement</th></tr></thead>
+      <tbody>
+        <tr><td>Capability completeness</td><td>Five capability nodes connect to the system and their jobs.</td></tr>
+        <tr><td>Job completeness</td><td>Every job node has a process, actor, tool, and evidence edge.</td></tr>
+        <tr><td>Traceability</td><td>Every node and edge resolves to an HTML source section.</td></tr>
+        <tr><td>Support contracts</td><td>Technical and eval specs are linked to the system and capabilities.</td></tr>
+        <tr><td>Visual usefulness</td><td>Canvas views show capability map, capability detail, job/process detail, actor dependencies, tools, evidence, and gaps.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
+    <h2>Coverage plan</h2>
+    <ul>
+      <li>Run graph check against the example repository.</li>
+      <li>Build business-graph.json.</li>
+      <li>Render canvas.html.</li>
+      <li>Run the expected graph fixture eval.</li>
+      <li>Open the local canvas and confirm source links, tabs, and graph nodes render.</li>
+    </ul>
+  </section>
+  <section id="graph-evaluation" data-spec-section="graph-evaluation" data-section-type="graph-evaluation">
+    <h2>Graph evaluation</h2>
+    <p>The expected graph fixture under docs/visible-business-graph/expected-graph.json is the deterministic acceptance source for this example.</p>
+  </section>
+  </article>
+</main>
+</body>
+</html>

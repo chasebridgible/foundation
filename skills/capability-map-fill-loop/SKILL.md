@@ -32,6 +32,10 @@ Load only the context needed for the current step:
 - Refresh changed upstream surfaces: `npm run foundation:capability-map:refresh -- --repo <repo> --run-id <run-id>`
 - Record report state: `npm run foundation:capability-map:report -- --repo <repo> --run-id <run-id> --report <active-report>`
 
+## Graph Metadata Support
+
+Capability Map rows are the handoff source for capability graph nodes and capability-to-job edges. Preserve stable capability names, actor/outcome/object boundaries, candidate job slices, source surface IDs, evidence paths, metrics, gaps, confidence, and split reasons. When capability specs or job specs are created or revised from this map, the author must update `graph-metadata` with `capability`, `job`, `evidence`, `metric`, and `gap` nodes as appropriate and run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
+
 ## Required Loop
 
 1. Use `--next` to select a pending or failed surface target.
@@ -43,7 +47,7 @@ Load only the context needed for the current step:
 7. Repeat until every ready surface is owned by a `ready-for-queue` or `needs-split` capability row for the Job / Spec Queue.
 8. Run handoff check and eval once the layer is terminal.
 9. Revise every row named in eval `revisionTargets`; warnings are not handoff-ready.
-10. Rerun check and eval until `revisionTargets` is empty, then record report state.
+10. Rerun check and eval until `revisionTargets` is empty, run the visible business graph check when specs already exist, then record report state.
 
 ## Capability JSON Shape
 

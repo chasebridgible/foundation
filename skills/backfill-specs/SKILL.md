@@ -29,6 +29,7 @@ Read the Surface / Function Map or Capability Map specs before starting or resum
 - Split capabilities when actors, outcomes, objects, state models, permission models, contracts, recovery behavior, or verification targets differ.
 - Job specs stay architecture-agnostic unless implementation details are user-visible or required constraints. A job spec is the contract for the capability-backed body of work and contains the process by default.
 - Technical specs are contract-first: required contracts, current evidence, architecture constraints, implementation latitude.
+- Authored specs must include `graph-metadata` so the repo's capabilities, jobs, processes, actors, tools, evidence, metrics, evals, and gaps can render in the Visible Business Graph.
 - Each slice must be evaluated, revised, and re-evaluated until acceptable before closure.
 - Acceptable means evaluator total >= 96, every category >= 9, rebuild readiness = 10, and no attached capability needs split.
 - Backfilled specs start as `status: draft` with low or medium confidence.
@@ -90,6 +91,7 @@ Repeat until capability coverage is closed:
     - `npm run backfill:queue:check -- <target-repo>/docs/specs/backfill/review-report-YYYYMMDD-NN.html`
     - `npm run backfill:run-log:check -- <target-repo>/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl`
     - target registry/spec checks required by its `AGENTS.md`
+    - `npm run foundation:visible-business-graph:check -- --repo <target-repo>` after spec graph metadata exists
 18. Update report status, Capability Map, remaining Job / Spec Queue, run-log sequence, and next action.
 
 After all capability rows are acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope, run `evaluate-backfill-specs` on the full graph to Evaluate System Coherence. If system-coherence evaluation needs revision, route it back through the loop.
@@ -114,8 +116,8 @@ Backfill is complete when:
 - every relevant capability row is acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope
 - every manifest file has a mapped Artifact Inventory row, and every relevant evidence surface maps to a capability row or non-behavioral support note
 - graph-level evaluation is acceptable
-- queue, run log, registry, and spec checks pass
+- queue, run log, registry, spec checks, and visible business graph checks pass
 
 ## Handoff
 
-Report specs changed, capability coverage status, evaluation result/report path, validation commands/results, review report path, run log path/latest sequence, unresolved decisions, and remaining review queue.
+Report specs changed, capability coverage status, graph-check status, evaluation result/report path, validation commands/results, review report path, run log path/latest sequence, unresolved decisions, and remaining review queue.

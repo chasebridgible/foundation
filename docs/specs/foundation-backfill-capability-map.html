@@ -120,6 +120,151 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.backfill-capability-map.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.backfill-capability-map.job",
+      "type": "job",
+      "label": "Foundation Backfill Capability Map",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "foundation",
+          "backfill",
+          "capability-map",
+          "job",
+          "substrate"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.backfill-capability-map.job:main",
+      "type": "process",
+      "label": "Foundation Backfill Capability Map process",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.backfill-capability-map.job"
+      }
+    },
+    {
+      "id": "actor:foundation.backfill-capability-map.job:primary",
+      "type": "actor",
+      "label": "Foundation Backfill Capability Map actor",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.backfill-capability-map.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.backfill-capability-map.job:primary",
+      "type": "evidence",
+      "label": "Foundation Backfill Capability Map evidence",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.backfill-capability-map.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.job:has-process:process:foundation.backfill-capability-map.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.backfill-capability-map.job",
+      "to": "process:foundation.backfill-capability-map.job:main",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.job:performed-by:actor:foundation.backfill-capability-map.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.backfill-capability-map.job",
+      "to": "actor:foundation.backfill-capability-map.job:primary",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.job:evidenced-by:evidence:foundation.backfill-capability-map.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.backfill-capability-map.job",
+      "to": "evidence:foundation.backfill-capability-map.job:primary",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.job:depends-on:spec:foundation.backfill-specs.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-capability-map.job",
+      "to": "spec:foundation.backfill-specs.job",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.job:contains:spec:foundation.backfill-capability-map.technical",
+      "type": "contains",
+      "from": "spec:foundation.backfill-capability-map.job",
+      "to": "spec:foundation.backfill-capability-map.technical",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.job:contains:spec:foundation.backfill-capability-map.eval",
+      "type": "contains",
+      "from": "spec:foundation.backfill-capability-map.job",
+      "to": "spec:foundation.backfill-capability-map.eval",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.job:depends-on:spec:foundation.backfill-surface-function-map.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-capability-map.job",
+      "to": "spec:foundation.backfill-surface-function-map.job",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "artifacts-and-state"
+      },
+      "label": "depends-on"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">
