@@ -21,6 +21,7 @@ const VALID_CAPABILITY_STATUSES = new Set([
   "ready-for-queue",
   "queued",
   "in-progress",
+  "needs-job",
   "needs-descriptive",
   "needs-technical",
   "needs-evaluation",
@@ -33,6 +34,7 @@ const VALID_CAPABILITY_STATUSES = new Set([
 
 const VALID_OWNER_SKILLS = new Set([
   "backfill-context-pack",
+  "backfill-job-spec-author",
   "backfill-descriptive-spec-author",
   "backfill-rendered-ux-spec",
   "backfill-technical-spec-author",
@@ -114,6 +116,38 @@ function isStringArray(value) {
   return Array.isArray(value) && value.every(isString);
 }
 
+function hasOwn(object, field) {
+  return Boolean(object && Object.prototype.hasOwnProperty.call(object, field));
+}
+
+function preferredField(object, primary, legacy) {
+  return hasOwn(object, primary) ? object[primary] : object?.[legacy];
+}
+
+function warnLegacyField(results, object, prefix, primary, legacy) {
+  if (hasOwn(object, legacy) && !hasOwn(object, primary)) {
+    results.push(warn(`${prefix}:legacy-${legacy}`, `${legacy} is legacy; use ${primary}`));
+  }
+}
+
+function validateNullableStringField(results, object, prefix, primary, legacy) {
+  warnLegacyField(results, object, prefix, primary, legacy);
+  const value = preferredField(object, primary, legacy);
+  if (!isNullableString(value)) {
+    results.push(fail(`${prefix}:${primary}`, `${primary} must be a string, null, or omitted`));
+  }
+  return value;
+}
+
+function validateStringArrayField(results, object, prefix, primary, legacy) {
+  warnLegacyField(results, object, prefix, primary, legacy);
+  const value = preferredField(object, primary, legacy);
+  if (!isStringArray(value)) {
+    results.push(fail(`${prefix}:${primary}`, `${primary} must be an array of non-empty strings`));
+  }
+  return value;
+}
+
 function validateCapabilityMap(matrix) {
   const results = [];
 
@@ -162,7 +196,6 @@ function validateCapabilityMap(matrix) {
       "backingContracts",
       "failureAndRecovery",
       "evidence",
-      "descriptiveSections",
       "technicalSections",
       "verificationTargets",
       "blockingGaps",
@@ -173,9 +206,8 @@ function validateCapabilityMap(matrix) {
       }
     }
 
-    if (!isNullableString(capability?.descriptiveSpec)) {
-      results.push(fail(`${prefix}:descriptive-spec`, "descriptiveSpec must be a string, null, or omitted"));
-    }
+    const jobSpec = validateNullableStringField(results, capability, prefix, "jobSpec", "descriptiveSpec");
+    const jobSections = validateStringArrayField(results, capability, prefix, "jobSections", "descriptiveSections");
     if (!isNullableString(capability?.technicalSpec)) {
       results.push(fail(`${prefix}:technical-spec`, "technicalSpec must be a string, null, or omitted"));
     }
@@ -197,9 +229,9 @@ function validateCapabilityMap(matrix) {
       if (capability?.splitNeeded === true || capability?.status === "needs-split") {
         results.push(fail(`${prefix}:acceptable-split`, "Acceptable capabilities cannot need split"));
       }
-      if (!isString(capability?.descriptiveSpec)) results.push(fail(`${prefix}:acceptable-descriptive-spec`, "Acceptable capabilities must name a descriptiveSpec"));
+      if (!isString(jobSpec)) results.push(fail(`${prefix}:acceptable-job-spec`, "Acceptable capabilities must name a jobSpec"));
       if (!isString(capability?.technicalSpec)) results.push(fail(`${prefix}:acceptable-technical-spec`, "Acceptable capabilities must name a technicalSpec"));
-      if (!isStringArray(capability?.descriptiveSections) || capability.descriptiveSections.length === 0) results.push(fail(`${prefix}:acceptable-descriptive-sections`, "Acceptable capabilities must include descriptiveSections"));
+      if (!isStringArray(jobSections) || jobSections.length === 0) results.push(fail(`${prefix}:acceptable-job-sections`, "Acceptable capabilities must include jobSections"));
       if (!isStringArray(capability?.technicalSections) || capability.technicalSections.length === 0) results.push(fail(`${prefix}:acceptable-technical-sections`, "Acceptable capabilities must include technicalSections"));
       if (!isStringArray(capability?.verificationTargets) || capability.verificationTargets.length === 0) results.push(fail(`${prefix}:acceptable-verification-targets`, "Acceptable capabilities must include verificationTargets"));
       if (!isStringArray(capability?.evidence) || capability.evidence.length === 0) results.push(fail(`${prefix}:acceptable-evidence`, "Acceptable capabilities must include evidence"));
@@ -278,11 +310,15 @@ function validateQueue(queue, capabilityIds = null) {
       }));
     } else {
       results.push(pass(`${prefix}:owner-skill`, `Slice ownerSkill is ${slice.ownerSkill}`));
+      if (slice.ownerSkill === "backfill-descriptive-spec-author") {
+        results.push(warn(`${prefix}:legacy-owner-skill`, "backfill-descriptive-spec-author is legacy; use backfill-job-spec-author"));
+      }
     }
 
-    if (!isNullableString(slice?.descriptiveSpec)) {
-      results.push(fail(`${prefix}:descriptive-spec`, "descriptiveSpec must be a string, null, or omitted"));
-    }
+    const jobSpec = validateNullableStringField(results, slice, prefix, "jobSpec", "descriptiveSpec");
+    const jobSections = hasOwn(slice, "jobSections") || hasOwn(slice, "descriptiveSections")
+      ? validateStringArrayField(results, slice, prefix, "jobSections", "descriptiveSections")
+      : undefined;
     if (!isNullableString(slice?.technicalSpec)) {
       results.push(fail(`${prefix}:technical-spec`, "technicalSpec must be a string, null, or omitted"));
     }
@@ -297,9 +333,9 @@ function validateQueue(queue, capabilityIds = null) {
     }
 
     if (slice?.status === "acceptable") {
-      if (!isString(slice?.descriptiveSpec)) results.push(fail(`${prefix}:acceptable-descriptive-spec`, "Acceptable slices must name a descriptiveSpec"));
+      if (!isString(jobSpec)) results.push(fail(`${prefix}:acceptable-job-spec`, "Acceptable slices must name a jobSpec"));
       if (!isString(slice?.technicalSpec)) results.push(fail(`${prefix}:acceptable-technical-spec`, "Acceptable slices must name a technicalSpec"));
-      if (!isStringArray(slice?.descriptiveSections) || slice.descriptiveSections.length === 0) results.push(fail(`${prefix}:acceptable-descriptive-sections`, "Acceptable slices must include descriptiveSections"));
+      if (!isStringArray(jobSections) || jobSections.length === 0) results.push(fail(`${prefix}:acceptable-job-sections`, "Acceptable slices must include jobSections"));
       if (!isStringArray(slice?.technicalSections) || slice.technicalSections.length === 0) results.push(fail(`${prefix}:acceptable-technical-sections`, "Acceptable slices must include technicalSections"));
       if (!isStringArray(slice?.verificationTargets) || slice.verificationTargets.length === 0) results.push(fail(`${prefix}:acceptable-verification-targets`, "Acceptable slices must include verificationTargets"));
     }

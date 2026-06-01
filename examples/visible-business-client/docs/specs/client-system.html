@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.system">
+<meta name="spec:type" content="system">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Field Service Business System</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.system",
+  "title": "Field Service Business System",
+  "type": "system",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": "client.field-service.spec-system",
+  "children": [
+    "client.field-service.schedule-work.capability",
+    "client.field-service.deliver-service.capability",
+    "client.field-service.collect-payment.capability",
+    "client.field-service.protect-relationship.capability",
+    "client.field-service.maintain-readiness.capability"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "child",
+      "sections": [
+        "identity-linkage-contract"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validates",
+      "sections": [
+        "verification-contract"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/client-system.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "CLIENT-SYS-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.system#system-intent"
+      ],
+      "evidence": "Example evaluation confirms all core operating capabilities, jobs, actors, tools, evidence, metrics, and gaps render into the graph."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "system"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.system",
+  "nodes": [
+    {
+      "id": "system:field-service-business",
+      "type": "system",
+      "label": "Field service business",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "system-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "industry": "residential field service",
+        "exampleRole": "business-root"
+      }
+    },
+    {
+      "id": "actor:customer",
+      "type": "actor",
+      "label": "Customer",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "role": "Requests service, confirms expectations, pays, and gives feedback."
+      }
+    },
+    {
+      "id": "actor:customer-coordinator",
+      "type": "actor",
+      "label": "Customer coordinator",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "role": "Owns intake, scheduling, customer updates, and review requests."
+      }
+    },
+    {
+      "id": "actor:dispatcher",
+      "type": "actor",
+      "label": "Dispatcher",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "role": "Turns scheduled work into technician-ready route assignments."
+      }
+    },
+    {
+      "id": "actor:technician",
+      "type": "actor",
+      "label": "Technician",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "role": "Completes work, records job evidence, and communicates field status."
+      }
+    },
+    {
+      "id": "actor:service-manager",
+      "type": "actor",
+      "label": "Service manager",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "role": "Owns quality recovery, priority rules, and daily capacity tradeoffs."
+      }
+    },
+    {
+      "id": "actor:billing-coordinator",
+      "type": "actor",
+      "label": "Billing coordinator",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "role": "Owns invoices, payment follow-up, receipts, and open balance exceptions."
+      }
+    },
+    {
+      "id": "actor:inventory-coordinator",
+      "type": "actor",
+      "label": "Inventory coordinator",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "role": "Keeps technician trucks stocked and records material exceptions."
+      }
+    },
+    {
+      "id": "actor:owner-operator",
+      "type": "actor",
+      "label": "Owner operator",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "role": "Reviews operating evidence and resolves cross-capability gaps."
+      }
+    },
+    {
+      "id": "tool:field-service:crm",
+      "type": "tool",
+      "label": "CRM schedule board",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "purpose": "Customer record, service category, appointment window, and job status."
+      }
+    },
+    {
+      "id": "tool:field-service:route-board",
+      "type": "tool",
+      "label": "Route board",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "purpose": "Technician assignments, geography, arrival estimates, and route load."
+      }
+    },
+    {
+      "id": "tool:field-service:mobile-work-order",
+      "type": "tool",
+      "label": "Mobile work order app",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "purpose": "Technician checklist, photos, parts, signatures, and completion notes."
+      }
+    },
+    {
+      "id": "tool:field-service:payment-system",
+      "type": "tool",
+      "label": "Payment system",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "purpose": "Invoices, payment links, receipts, refunds, and aging status."
+      }
+    },
+    {
+      "id": "tool:field-service:inventory-log",
+      "type": "tool",
+      "label": "Truck inventory log",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "purpose": "Truck stock, parts usage, replenishment, and low-stock exceptions."
+      }
+    },
+    {
+      "id": "tool:field-service:customer-messaging",
+      "type": "tool",
+      "label": "Customer messaging",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "purpose": "Confirmations, arrival updates, issue recovery, and review requests."
+      }
+    },
+    {
+      "id": "tool:field-service:skill-roster",
+      "type": "tool",
+      "label": "Technician skill roster",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "purpose": "Skill, license, territory, capacity, and PTO constraints."
+      }
+    },
+    {
+      "id": "tool:field-service:review-dashboard",
+      "type": "tool",
+      "label": "Review dashboard",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "purpose": "Review requests, customer satisfaction signals, and follow-up status."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:system:field-service-business:contains:cap:field-service:schedule-work",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "cap:field-service:schedule-work",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "capability-map"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:cap:field-service:deliver-service",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "cap:field-service:deliver-service",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "capability-map"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:cap:field-service:collect-payment",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "cap:field-service:collect-payment",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "capability-map"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:cap:field-service:protect-relationship",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "cap:field-service:protect-relationship",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "capability-map"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:cap:field-service:maintain-readiness",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "cap:field-service:maintain-readiness",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "capability-map"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:actor:customer",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "actor:customer",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:actor:customer-coordinator",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "actor:customer-coordinator",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:actor:dispatcher",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "actor:dispatcher",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:actor:technician",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "actor:technician",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:actor:service-manager",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "actor:service-manager",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:actor:billing-coordinator",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "actor:billing-coordinator",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:actor:inventory-coordinator",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "actor:inventory-coordinator",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:actor:owner-operator",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "actor:owner-operator",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:tool:field-service:crm",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "tool:field-service:crm",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:tool:field-service:route-board",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "tool:field-service:route-board",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:tool:field-service:mobile-work-order",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "tool:field-service:mobile-work-order",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:tool:field-service:payment-system",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "tool:field-service:payment-system",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:tool:field-service:inventory-log",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "tool:field-service:inventory-log",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:tool:field-service:customer-messaging",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "tool:field-service:customer-messaging",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:tool:field-service:skill-roster",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "tool:field-service:skill-roster",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    },
+    {
+      "id": "edge:system:field-service-business:contains:tool:field-service:review-dashboard",
+      "type": "contains",
+      "from": "system:field-service-business",
+      "to": "tool:field-service:review-dashboard",
+      "source": {
+        "specId": "client.field-service.system",
+        "sectionId": "actors-and-tools"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="system-intent" data-spec-section="system-intent" data-section-type="system-intent" data-spec-canonical="true">
+    <h1>Field Service Business System</h1>
+    <p>Brightline Home Services is a fictional residential field service business. The system must reliably receive customer requests, schedule work, dispatch and prepare technicians, complete service visits, collect payment, protect customer relationships, and keep technician capacity ready.</p>
+  </section>
+  <article class="doc-body">
+  <section id="capability-map" data-spec-section="capability-map" data-section-type="capability-map">
+    <h2>Capability map</h2>
+    <table class="status-table">
+      <thead><tr><th>Capability</th><th>Outcome</th><th>Owner spec</th></tr></thead>
+      <tbody>
+        <tr><td>Schedule service work</td><td>Customers receive a confirmed visit window with enough context for the business to dispatch the right technician.</td><td><code>client.field-service.schedule-work.capability</code></td></tr>
+        <tr><td>Deliver service visit</td><td>Technicians arrive prepared, complete the promised work, and produce enough evidence to close the work order.</td><td><code>client.field-service.deliver-service.capability</code></td></tr>
+        <tr><td>Collect service payment</td><td>Completed work turns into collected cash or a named open balance with an accountable owner.</td><td><code>client.field-service.collect-payment.capability</code></td></tr>
+        <tr><td>Protect customer relationship</td><td>Customers know what is happening, can recover from service issues, and are asked for feedback at the right time.</td><td><code>client.field-service.protect-relationship.capability</code></td></tr>
+        <tr><td>Maintain technician readiness</td><td>Technician capacity, skills, and truck materials are ready before customer commitments are made.</td><td><code>client.field-service.maintain-readiness.capability</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="actors-and-tools" data-spec-section="actors-and-tools" data-section-type="actor-tool-map">
+    <h2>Actors and tools</h2>
+    <table class="status-table">
+      <thead><tr><th>Actor</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Customer</td><td>Requests service, confirms expectations, pays, and gives feedback.</td></tr>
+        <tr><td>Customer coordinator</td><td>Owns intake, scheduling, customer updates, and review requests.</td></tr>
+        <tr><td>Dispatcher</td><td>Turns scheduled work into technician-ready route assignments.</td></tr>
+        <tr><td>Technician</td><td>Completes work, records job evidence, and communicates field status.</td></tr>
+        <tr><td>Service manager</td><td>Owns quality recovery, priority rules, and daily capacity tradeoffs.</td></tr>
+        <tr><td>Billing coordinator</td><td>Owns invoices, payment follow-up, receipts, and open balance exceptions.</td></tr>
+        <tr><td>Inventory coordinator</td><td>Keeps technician trucks stocked and records material exceptions.</td></tr>
+        <tr><td>Owner operator</td><td>Reviews operating evidence and resolves cross-capability gaps.</td></tr>
+      </tbody>
+    </table>
+    <table class="status-table">
+      <thead><tr><th>Tool</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>CRM schedule board</td><td>Customer record, service category, appointment window, and job status.</td></tr>
+        <tr><td>Route board</td><td>Technician assignments, geography, arrival estimates, and route load.</td></tr>
+        <tr><td>Mobile work order app</td><td>Technician checklist, photos, parts, signatures, and completion notes.</td></tr>
+        <tr><td>Payment system</td><td>Invoices, payment links, receipts, refunds, and aging status.</td></tr>
+        <tr><td>Truck inventory log</td><td>Truck stock, parts usage, replenishment, and low-stock exceptions.</td></tr>
+        <tr><td>Customer messaging</td><td>Confirmations, arrival updates, issue recovery, and review requests.</td></tr>
+        <tr><td>Technician skill roster</td><td>Skill, license, territory, capacity, and PTO constraints.</td></tr>
+        <tr><td>Review dashboard</td><td>Review requests, customer satisfaction signals, and follow-up status.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="operating-loop" data-spec-section="operating-loop" data-section-type="operating-loop">
+    <h2>Operating loop</h2>
+    <ol>
+      <li>Request enters triage.</li>
+      <li>Appointment is booked and dispatched against capacity.</li>
+      <li>Technician prepares, completes, and closes the visit.</li>
+      <li>Billing invoices and collects payment or names an exception owner.</li>
+      <li>Customer communication and technician readiness evidence feed the owner review loop.</li>
+    </ol>
+  </section>
+  <section id="evidence-and-revision" data-spec-section="evidence-and-revision" data-section-type="verification-contract">
+    <h2>Evidence and revision</h2>
+    <p>The graph must expose the business as a connected operating system: capabilities connect to jobs, jobs connect to process, actors, tools, evidence, metrics, and gaps, and technical/eval specs link back to what they support or evaluate.</p>
+  </section>
+  </article>
+</main>
+</body>
+</html>

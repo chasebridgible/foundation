@@ -192,6 +192,154 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.html-docs-navigation.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.html-docs-navigation.job",
+      "type": "job",
+      "label": "Foundation HTML Docs Navigation",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "overview"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "foundation",
+          "docs",
+          "navigation",
+          "html"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.html-docs-navigation.job:main",
+      "type": "process",
+      "label": "Foundation HTML Docs Navigation process",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "overview"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.html-docs-navigation.job"
+      }
+    },
+    {
+      "id": "actor:foundation.html-docs-navigation.job:primary",
+      "type": "actor",
+      "label": "Foundation HTML Docs Navigation actor",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "overview"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.html-docs-navigation.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.html-docs-navigation.job:primary",
+      "type": "evidence",
+      "label": "Foundation HTML Docs Navigation evidence",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "overview"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.html-docs-navigation.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.html-docs-navigation.job:has-process:process:foundation.html-docs-navigation.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.html-docs-navigation.job",
+      "to": "process:foundation.html-docs-navigation.job:main",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.html-docs-navigation.job:performed-by:actor:foundation.html-docs-navigation.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.html-docs-navigation.job",
+      "to": "actor:foundation.html-docs-navigation.job:primary",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.html-docs-navigation.job:evidenced-by:evidence:foundation.html-docs-navigation.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.html-docs-navigation.job",
+      "to": "evidence:foundation.html-docs-navigation.job:primary",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.html-docs-navigation.job:depends-on:spec:foundation.spec-system",
+      "type": "depends-on",
+      "from": "spec:foundation.html-docs-navigation.job",
+      "to": "spec:foundation.spec-system",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "overview"
+      },
+      "label": "depends-on"
+    },
+    {
+      "id": "edge:spec:foundation.html-docs-navigation.job:depends-on:spec:foundation.workspace-model.job",
+      "type": "depends-on",
+      "from": "spec:foundation.html-docs-navigation.job",
+      "to": "spec:foundation.workspace-model.job",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "product-intent"
+      },
+      "label": "depends-on"
+    },
+    {
+      "id": "edge:spec:foundation.html-docs-navigation.job:depends-on:spec:foundation.spec-process",
+      "type": "depends-on",
+      "from": "spec:foundation.html-docs-navigation.job",
+      "to": "spec:foundation.spec-process",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "overview"
+      },
+      "label": "depends-on"
+    },
+    {
+      "id": "edge:spec:foundation.html-docs-navigation.job:depends-on:spec:foundation.spec-linking",
+      "type": "depends-on",
+      "from": "spec:foundation.html-docs-navigation.job",
+      "to": "spec:foundation.spec-linking",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "overview"
+      },
+      "label": "depends-on"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

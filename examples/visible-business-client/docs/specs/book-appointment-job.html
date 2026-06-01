@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.book-appointment.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Book Service Appointment Job</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.book-appointment.job",
+  "title": "Book Service Appointment Job",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "high",
+  "parent": "client.field-service.schedule-work.capability",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.schedule-work.capability",
+      "relationship": "supports",
+      "sections": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "informed-by",
+      "sections": [
+        "data-contracts"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/book-appointment-job.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "JOB-BOOK-APPOINTMENT-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.book-appointment.job#job-intent",
+        "client.field-service.book-appointment.job#process"
+      ],
+      "evidence": "Book service appointment appears with process, actor, tool, and evidence nodes in the expected graph."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "job",
+    "schedule-work",
+    "book-appointment"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.book-appointment.job",
+  "nodes": [
+    {
+      "id": "job:field-service:book-appointment",
+      "type": "job",
+      "label": "Book service appointment",
+      "source": {
+        "specId": "client.field-service.book-appointment.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "capability": "Schedule service work"
+      }
+    },
+    {
+      "id": "process:field-service:book-appointment",
+      "type": "process",
+      "label": "Book service appointment process",
+      "source": {
+        "specId": "client.field-service.book-appointment.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "stepCount": 4
+      }
+    },
+    {
+      "id": "evidence:field-service:appointment-confirmation",
+      "type": "evidence",
+      "label": "Appointment confirmation",
+      "source": {
+        "specId": "client.field-service.book-appointment.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "proves": "Book service appointment"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:job:field-service:book-appointment:supports:cap:field-service:schedule-work",
+      "type": "supports",
+      "from": "job:field-service:book-appointment",
+      "to": "cap:field-service:schedule-work",
+      "source": {
+        "specId": "client.field-service.book-appointment.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:job:field-service:book-appointment:has-process:process:field-service:book-appointment",
+      "type": "has-process",
+      "from": "job:field-service:book-appointment",
+      "to": "process:field-service:book-appointment",
+      "source": {
+        "specId": "client.field-service.book-appointment.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:job:field-service:book-appointment:performed-by:actor:customer-coordinator",
+      "type": "performed-by",
+      "from": "job:field-service:book-appointment",
+      "to": "actor:customer-coordinator",
+      "source": {
+        "specId": "client.field-service.book-appointment.job",
+        "sectionId": "current-handling"
+      }
+    },
+    {
+      "id": "edge:job:field-service:book-appointment:uses-tool:tool:field-service:crm",
+      "type": "uses-tool",
+      "from": "job:field-service:book-appointment",
+      "to": "tool:field-service:crm",
+      "source": {
+        "specId": "client.field-service.book-appointment.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:book-appointment:uses-tool:tool:field-service:customer-messaging",
+      "type": "uses-tool",
+      "from": "job:field-service:book-appointment",
+      "to": "tool:field-service:customer-messaging",
+      "source": {
+        "specId": "client.field-service.book-appointment.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:book-appointment:evidenced-by:evidence:field-service:appointment-confirmation",
+      "type": "evidenced-by",
+      "from": "job:field-service:book-appointment",
+      "to": "evidence:field-service:appointment-confirmation",
+      "source": {
+        "specId": "client.field-service.book-appointment.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <h1>Book Service Appointment Job</h1>
+    <p>Offer and confirm a customer appointment window that can be dispatched.</p>
+  </section>
+  <article class="doc-body">
+  <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+    <h2>Capability supported</h2>
+    <p>Supports Schedule service work.</p>
+  </section>
+  <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+    <h2>Current handling</h2>
+    <p>The customer coordinator receives request details and owns the customer confirmation.</p>    <table class="status-table">
+      <thead><tr><th>Actor</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Customer coordinator</td><td>Owns intake, scheduling, customer updates, and review requests.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="process" data-spec-section="process" data-section-type="process-contract">
+    <h2>Process</h2>
+    <ol>
+      <li>Review triage record and customer constraints.</li>
+      <li>Offer available windows with service category context.</li>
+      <li>Confirm appointment and customer expectations.</li>
+      <li>Send appointment confirmation and preserve the message record.</li>
+    </ol>
+  </section>
+  <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+    <h2>Context, tools, and interfaces</h2>
+    <table class="status-table">
+      <thead><tr><th>Tool</th><th>Use in job</th></tr></thead>
+      <tbody>
+        <tr><td>CRM schedule board</td><td>Customer record, service category, appointment window, and job status.</td></tr>
+        <tr><td>Customer messaging</td><td>Confirmations, arrival updates, issue recovery, and review requests.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>A confirmed CRM appointment and sent customer confirmation prove the visit is scheduled.</p>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>No active graph gap is assigned to this job.</p>
+  </section>
+  </article>
+</main>
+</body>
+</html>

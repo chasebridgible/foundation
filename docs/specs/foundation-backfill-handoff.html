@@ -109,6 +109,151 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.backfill-handoff.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.backfill-handoff.job",
+      "type": "job",
+      "label": "Foundation Backfill Handoff",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "foundation",
+          "backfill",
+          "handoff",
+          "job",
+          "substrate"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.backfill-handoff.job:main",
+      "type": "process",
+      "label": "Foundation Backfill Handoff process",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.backfill-handoff.job"
+      }
+    },
+    {
+      "id": "actor:foundation.backfill-handoff.job:primary",
+      "type": "actor",
+      "label": "Foundation Backfill Handoff actor",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.backfill-handoff.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.backfill-handoff.job:primary",
+      "type": "evidence",
+      "label": "Foundation Backfill Handoff evidence",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.backfill-handoff.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.backfill-handoff.job:has-process:process:foundation.backfill-handoff.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.backfill-handoff.job",
+      "to": "process:foundation.backfill-handoff.job:main",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-handoff.job:performed-by:actor:foundation.backfill-handoff.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.backfill-handoff.job",
+      "to": "actor:foundation.backfill-handoff.job:primary",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-handoff.job:evidenced-by:evidence:foundation.backfill-handoff.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.backfill-handoff.job",
+      "to": "evidence:foundation.backfill-handoff.job:primary",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-handoff.job:depends-on:spec:foundation.backfill-specs.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-handoff.job",
+      "to": "spec:foundation.backfill-specs.job",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-handoff.job:contains:spec:foundation.backfill-handoff.technical",
+      "type": "contains",
+      "from": "spec:foundation.backfill-handoff.job",
+      "to": "spec:foundation.backfill-handoff.technical",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-handoff.job:contains:spec:foundation.backfill-handoff.eval",
+      "type": "contains",
+      "from": "spec:foundation.backfill-handoff.job",
+      "to": "spec:foundation.backfill-handoff.eval",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-handoff.job:depends-on:spec:foundation.backfill-system-coherence-evaluation.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-handoff.job",
+      "to": "spec:foundation.backfill-system-coherence-evaluation.job",
+      "source": {
+        "specId": "foundation.backfill-handoff.job",
+        "sectionId": "artifacts-and-state"
+      },
+      "label": "depends-on"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

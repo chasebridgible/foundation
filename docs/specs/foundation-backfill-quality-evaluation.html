@@ -153,6 +153,68 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.backfill-quality-evaluation.eval",
+  "nodes": [
+    {
+      "id": "spec:foundation.backfill-quality-evaluation.eval",
+      "type": "evaluation",
+      "label": "Foundation Backfill Quality Evaluation",
+      "source": {
+        "specId": "foundation.backfill-quality-evaluation.eval",
+        "sectionId": "purpose"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "process",
+          "foundation",
+          "backfill",
+          "evaluation",
+          "llm-judge"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.backfill-quality-evaluation.eval:depends-on:spec:foundation.backfill-specs.job",
+      "type": "evaluates",
+      "from": "spec:foundation.backfill-quality-evaluation.eval",
+      "to": "spec:foundation.backfill-specs.job",
+      "source": {
+        "specId": "foundation.backfill-quality-evaluation.eval",
+        "sectionId": "purpose"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-quality-evaluation.eval:contains:spec:foundation.backfill-golden-example",
+      "type": "contains",
+      "from": "spec:foundation.backfill-quality-evaluation.eval",
+      "to": "spec:foundation.backfill-golden-example",
+      "source": {
+        "specId": "foundation.backfill-quality-evaluation.eval",
+        "sectionId": "purpose"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-quality-evaluation.eval:supports:spec:foundation.backfill-orchestration.technical",
+      "type": "supports",
+      "from": "spec:foundation.backfill-quality-evaluation.eval",
+      "to": "spec:foundation.backfill-orchestration.technical",
+      "source": {
+        "specId": "foundation.backfill-quality-evaluation.eval",
+        "sectionId": "purpose"
+      },
+      "label": "sibling"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

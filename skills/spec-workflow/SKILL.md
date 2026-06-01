@@ -14,9 +14,10 @@ Use this skill as the execution wrapper for the repo's HTML-native spec system. 
 3. If implementing behavior, load only the relevant job, eval, and technical spec sections. Prefer the lowest-level owning spec over broad parent specs.
 4. If no spec covers the behavior, create or update the spec before changing durable behavior.
 5. Identify the risk tier from `docs/specs/process.html#risk-tiers` and scale spec/test depth to that tier.
-6. Keep prose, `spec-metadata`, HTML meta tags, visible path lists, and coverage tables aligned.
+6. Keep prose, `spec-metadata`, `graph-metadata`, HTML meta tags, visible path lists, and coverage tables aligned.
 7. If `spec-metadata` changes, run `npm run spec:registry`, then `npm run spec:check`.
-8. Before handoff, run `npm run spec:check` and report any remaining semantic review risk.
+8. If `graph-metadata` changes, run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
+9. Before handoff, run `npm run spec:check` and graph check, then report any remaining semantic review risk.
 
 ## Authoring Rules
 
@@ -24,6 +25,7 @@ Use this skill as the execution wrapper for the repo's HTML-native spec system. 
 - Copy the closest template in `docs/specs/templates/`: system for whole-system intent, capability for a reliable outcome, job for the work contract and process, technical for implementation behavior, or eval for verification.
 - Use `npm run spec:new -- --type job --id product.feature.job --title "Feature Job Spec" --out docs/specs/features/feature-job.html` for a valid starter file.
 - Fill `spec-metadata` before generating the spec content.
+- Fill `graph-metadata` before handoff. Every system, capability, job, technical, eval, template, and index spec must expose graph nodes and edges.
 - Use stable dotted spec IDs.
 - Set exactly one section with `data-spec-canonical="true"`.
 - Use `ownedPaths` only for files the spec directly owns. Use `implementationPaths` for navigation references.
@@ -36,6 +38,7 @@ When code behavior changes, update the relevant specs and tests in the same chan
 - Intended work or product behavior change: update the job spec and mapped eval acceptance.
 - Internal implementation behavior change: update technical spec at depth proportional to implementation risk.
 - Test, business check, evidence path addition, rename, deletion, or gap: update the eval spec coverage metadata and visible coverage table.
+- Capability, job, actor, process, tool, evidence, metric, eval, template, or gap relationship change: update `graph-metadata` and run the visible business graph check.
 - Path move or deletion: update `ownedPaths`, `implementationPaths`, coverage paths, and visible path lists.
 - Spec retirement or replacement: update status, `replacedBy`, parent/child links, and related specs.
 
@@ -52,7 +55,7 @@ If uncertain, choose the higher tier until the spec or tests make the risk small
 
 ## Review Boundary
 
-`npm run spec:check` proves the registry is current and references resolve. It does not prove the mappings are semantically true.
+`npm run spec:check` proves the registry is current and references resolve. `npm run foundation:visible-business-graph:check -- --repo <repo>` proves graph metadata resolves. Neither proves the mappings are semantically true.
 
 Before final handoff, check:
 
@@ -61,6 +64,7 @@ Before final handoff, check:
 - `implementationPaths`: references are navigational, not hidden ownership.
 - `coverage.mapsTo`: evidence actually verifies the mapped section.
 - Visible prose agrees with metadata.
+- Graph metadata agrees with visible prose and spec metadata.
 - Spec depth matches the risk tier.
 
 ## Protected Main Flow

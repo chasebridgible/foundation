@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.resolve-payment-exception.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Resolve Payment Exception Job</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.resolve-payment-exception.job",
+  "title": "Resolve Payment Exception Job",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "high",
+  "parent": "client.field-service.collect-payment.capability",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.collect-payment.capability",
+      "relationship": "supports",
+      "sections": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "informed-by",
+      "sections": [
+        "data-contracts"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/resolve-payment-exception-job.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "JOB-RESOLVE-PAYMENT-EXCEPTION-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.resolve-payment-exception.job#job-intent",
+        "client.field-service.resolve-payment-exception.job#process"
+      ],
+      "evidence": "Resolve payment exception appears with process, actor, tool, and evidence nodes in the expected graph."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "job",
+    "collect-payment",
+    "resolve-payment-exception"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.resolve-payment-exception.job",
+  "nodes": [
+    {
+      "id": "job:field-service:resolve-payment-exception",
+      "type": "job",
+      "label": "Resolve payment exception",
+      "source": {
+        "specId": "client.field-service.resolve-payment-exception.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "capability": "Collect service payment"
+      }
+    },
+    {
+      "id": "process:field-service:resolve-payment-exception",
+      "type": "process",
+      "label": "Resolve payment exception process",
+      "source": {
+        "specId": "client.field-service.resolve-payment-exception.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "stepCount": 4
+      }
+    },
+    {
+      "id": "evidence:field-service:payment-exception-resolution",
+      "type": "evidence",
+      "label": "Payment exception resolution",
+      "source": {
+        "specId": "client.field-service.resolve-payment-exception.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "proves": "Resolve payment exception"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:job:field-service:resolve-payment-exception:supports:cap:field-service:collect-payment",
+      "type": "supports",
+      "from": "job:field-service:resolve-payment-exception",
+      "to": "cap:field-service:collect-payment",
+      "source": {
+        "specId": "client.field-service.resolve-payment-exception.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:job:field-service:resolve-payment-exception:has-process:process:field-service:resolve-payment-exception",
+      "type": "has-process",
+      "from": "job:field-service:resolve-payment-exception",
+      "to": "process:field-service:resolve-payment-exception",
+      "source": {
+        "specId": "client.field-service.resolve-payment-exception.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:job:field-service:resolve-payment-exception:performed-by:actor:billing-coordinator",
+      "type": "performed-by",
+      "from": "job:field-service:resolve-payment-exception",
+      "to": "actor:billing-coordinator",
+      "source": {
+        "specId": "client.field-service.resolve-payment-exception.job",
+        "sectionId": "current-handling"
+      }
+    },
+    {
+      "id": "edge:job:field-service:resolve-payment-exception:performed-by:actor:service-manager",
+      "type": "performed-by",
+      "from": "job:field-service:resolve-payment-exception",
+      "to": "actor:service-manager",
+      "source": {
+        "specId": "client.field-service.resolve-payment-exception.job",
+        "sectionId": "current-handling"
+      }
+    },
+    {
+      "id": "edge:job:field-service:resolve-payment-exception:uses-tool:tool:field-service:payment-system",
+      "type": "uses-tool",
+      "from": "job:field-service:resolve-payment-exception",
+      "to": "tool:field-service:payment-system",
+      "source": {
+        "specId": "client.field-service.resolve-payment-exception.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:resolve-payment-exception:uses-tool:tool:field-service:crm",
+      "type": "uses-tool",
+      "from": "job:field-service:resolve-payment-exception",
+      "to": "tool:field-service:crm",
+      "source": {
+        "specId": "client.field-service.resolve-payment-exception.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:job:field-service:resolve-payment-exception:evidenced-by:evidence:field-service:payment-exception-resolution",
+      "type": "evidenced-by",
+      "from": "job:field-service:resolve-payment-exception",
+      "to": "evidence:field-service:payment-exception-resolution",
+      "source": {
+        "specId": "client.field-service.resolve-payment-exception.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <h1>Resolve Payment Exception Job</h1>
+    <p>Resolve failed, disputed, refunded, or aged payment states without losing accountability.</p>
+  </section>
+  <article class="doc-body">
+  <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+    <h2>Capability supported</h2>
+    <p>Supports Collect service payment.</p>
+  </section>
+  <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+    <h2>Current handling</h2>
+    <p>Billing owns the exception queue and routes disputed work to the service manager.</p>    <table class="status-table">
+      <thead><tr><th>Actor</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Billing coordinator</td><td>Owns invoices, payment follow-up, receipts, and open balance exceptions.</td></tr>
+        <tr><td>Service manager</td><td>Owns quality recovery, priority rules, and daily capacity tradeoffs.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="process" data-spec-section="process" data-section-type="process-contract">
+    <h2>Process</h2>
+    <ol>
+      <li>Review failed charge, dispute, refund, or aged invoice.</li>
+      <li>Name the next owner and customer promise.</li>
+      <li>Apply adjustment, retry, refund, or escalation.</li>
+      <li>Close exception with reason and evidence.</li>
+    </ol>
+  </section>
+  <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+    <h2>Context, tools, and interfaces</h2>
+    <table class="status-table">
+      <thead><tr><th>Tool</th><th>Use in job</th></tr></thead>
+      <tbody>
+        <tr><td>Payment system</td><td>Invoices, payment links, receipts, refunds, and aging status.</td></tr>
+        <tr><td>CRM schedule board</td><td>Customer record, service category, appointment window, and job status.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>A closed payment exception with owner, reason, and resulting balance proves the issue is resolved.</p>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>No active graph gap is assigned to this job.</p>
+  </section>
+  </article>
+</main>
+</body>
+</html>

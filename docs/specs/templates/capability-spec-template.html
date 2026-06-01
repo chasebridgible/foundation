@@ -34,6 +34,77 @@
   "tags": ["template", "capability"]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.spec-template.capability",
+  "nodes": [
+    {
+      "id": "spec:foundation.spec-template.capability",
+      "type": "template",
+      "label": "Capability Spec Template",
+      "source": {
+        "specId": "foundation.spec-template.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "template",
+        "tags": [
+          "template",
+          "capability"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.spec-template.capability:depends-on:spec:foundation.spec-system",
+      "type": "depends-on",
+      "from": "spec:foundation.spec-template.capability",
+      "to": "spec:foundation.spec-system",
+      "source": {
+        "specId": "foundation.spec-template.capability",
+        "sectionId": "capability-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.spec-template.capability:templates:spec:foundation.spec-template.system",
+      "type": "templates",
+      "from": "spec:foundation.spec-template.capability",
+      "to": "spec:foundation.spec-template.system",
+      "source": {
+        "specId": "foundation.spec-template.capability",
+        "sectionId": "capability-intent"
+      },
+      "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.spec-template.capability:templates:spec:foundation.spec-template.job",
+      "type": "templates",
+      "from": "spec:foundation.spec-template.capability",
+      "to": "spec:foundation.spec-template.job",
+      "source": {
+        "specId": "foundation.spec-template.capability",
+        "sectionId": "capability-intent"
+      },
+      "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.spec-template.capability:templates:spec:foundation.spec-template.eval",
+      "type": "templates",
+      "from": "spec:foundation.spec-template.capability",
+      "to": "spec:foundation.spec-template.eval",
+      "source": {
+        "specId": "foundation.spec-template.capability",
+        "sectionId": "capability-intent"
+      },
+      "label": "sibling"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

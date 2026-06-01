@@ -18,14 +18,14 @@ function makeFoundation(root) {
   fs.mkdirSync(path.join(root, ".git"), { recursive: true });
   write(path.join(root, "AGENTS.md"), "# AGENTS.md\n");
   for (const skill of [
-    "descriptive-spec-interview",
+    "job-spec-interview",
     "backfill-specs",
     "artifact-inventory-fill-loop",
     "surface-function-map-fill-loop",
     "capability-map-fill-loop",
     "backfill-artifact-inventory",
     "backfill-process-action-map",
-    "backfill-descriptive-spec-author",
+    "backfill-job-spec-author",
     "backfill-rendered-ux-spec",
     "backfill-technical-spec-author",
     "backfill-spec-adequacy-review",

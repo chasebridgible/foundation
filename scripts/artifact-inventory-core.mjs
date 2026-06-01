@@ -1329,7 +1329,7 @@ function inferSpecLinks(repoRoot, row) {
   const sectionRefs = specSectionSet(specRegistry);
   const candidatesByDomain = {
     "web-app": [
-      ["sandia.web-app.descriptive", "flow-map", "implements"],
+      ["sandia.web-app.job", "flow-map", "implements"],
       ["sandia.web-app.technical", "route-contracts", "implements"]
     ],
     "backend-api": [["sandia.backend.api.technical", "route-contracts", "implements"]],
@@ -1340,7 +1340,7 @@ function inferSpecLinks(repoRoot, row) {
     "spec-system": [["sandia.spec-system", "overview", "documents"]],
     "backfill-process": [["sandia.backfill.20260521-01.report", "artifact-inventory-checkpoint", "documents"]],
     "repo-foundation": [["sandia.system.technical", "required-depth", "supports"]],
-    "repo-support": [["sandia.system.descriptive", "product-intent", "supports"]]
+    "repo-support": [["sandia.system", "product-intent", "supports"]]
   };
 
   const candidates = candidatesByDomain[row.domain] || candidatesByDomain["repo-support"];

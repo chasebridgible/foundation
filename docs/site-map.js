@@ -7,7 +7,7 @@ window.SubstrateSiteMap = {
       "sourcePath": "docs"
     }
   ],
-  "fileCount": 66,
+  "fileCount": 72,
   "items": [
     {
       "type": "folder",
@@ -37,6 +37,14 @@ window.SubstrateSiteMap = {
           "title": "Business Capability Map",
           "path": "fundamentals/business-capability-map.html",
           "sourcePath": "docs/fundamentals/business-capability-map.html",
+          "rootPath": "docs"
+        },
+        {
+          "type": "file",
+          "name": "business-intake.html",
+          "title": "Business Intake Workspace",
+          "path": "fundamentals/business-intake.html",
+          "sourcePath": "docs/fundamentals/business-intake.html",
           "rootPath": "docs"
         },
         {
@@ -77,6 +85,14 @@ window.SubstrateSiteMap = {
           "title": "System Philosophy",
           "path": "fundamentals/system-philosophy.html",
           "sourcePath": "docs/fundamentals/system-philosophy.html",
+          "rootPath": "docs"
+        },
+        {
+          "type": "file",
+          "name": "visible-business-foundation.html",
+          "title": "Visible Business Foundation",
+          "path": "fundamentals/visible-business-foundation.html",
+          "sourcePath": "docs/fundamentals/visible-business-foundation.html",
           "rootPath": "docs"
         }
       ]
@@ -643,6 +659,49 @@ window.SubstrateSiteMap = {
           "sourcePath": "docs/specs/process.html",
           "rootPath": "docs",
           "specId": "foundation.spec-process"
+        },
+        {
+          "type": "file",
+          "name": "visible-business-graph-eval.html",
+          "title": "Visible Business Graph Evaluation",
+          "path": "specs/visible-business-graph-eval.html",
+          "sourcePath": "docs/specs/visible-business-graph-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.visible-business-graph.eval"
+        },
+        {
+          "type": "file",
+          "name": "visible-business-graph-technical.html",
+          "title": "Visible Business Graph Technical Spec",
+          "path": "specs/visible-business-graph-technical.html",
+          "sourcePath": "docs/specs/visible-business-graph-technical.html",
+          "rootPath": "docs",
+          "specId": "foundation.visible-business-graph.technical"
+        },
+        {
+          "type": "file",
+          "name": "visible-business-graph.html",
+          "title": "Visible Business Graph",
+          "path": "specs/visible-business-graph.html",
+          "sourcePath": "docs/specs/visible-business-graph.html",
+          "rootPath": "docs",
+          "specId": "foundation.visible-business-graph.system"
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "visible-business-graph",
+      "title": "Visible Business Graph",
+      "sourcePath": "docs/visible-business-graph",
+      "items": [
+        {
+          "type": "file",
+          "name": "foundation-canvas.html",
+          "title": "foundation Visible Business Graph",
+          "path": "visible-business-graph/foundation-canvas.html",
+          "sourcePath": "docs/visible-business-graph/foundation-canvas.html",
+          "rootPath": "docs"
         }
       ]
     }

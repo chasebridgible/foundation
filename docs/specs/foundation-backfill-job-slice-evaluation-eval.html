@@ -96,6 +96,69 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.backfill-job-slice-evaluation.eval",
+  "nodes": [
+    {
+      "id": "spec:foundation.backfill-job-slice-evaluation.eval",
+      "type": "evaluation",
+      "label": "Foundation Backfill Evaluate Job Slices Eval Spec",
+      "source": {
+        "specId": "foundation.backfill-job-slice-evaluation.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "foundation",
+          "backfill",
+          "job-slice-evaluation",
+          "test",
+          "substrate"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.backfill-job-slice-evaluation.eval:depends-on:spec:foundation.backfill-job-slice-evaluation.job",
+      "type": "evaluates",
+      "from": "spec:foundation.backfill-job-slice-evaluation.eval",
+      "to": "spec:foundation.backfill-job-slice-evaluation.job",
+      "source": {
+        "specId": "foundation.backfill-job-slice-evaluation.eval",
+        "sectionId": "verification-contract"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-job-slice-evaluation.eval:supports:spec:foundation.backfill-job-slice-evaluation.technical",
+      "type": "supports",
+      "from": "spec:foundation.backfill-job-slice-evaluation.eval",
+      "to": "spec:foundation.backfill-job-slice-evaluation.technical",
+      "source": {
+        "specId": "foundation.backfill-job-slice-evaluation.eval",
+        "sectionId": "verification-contract"
+      },
+      "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.backfill-job-slice-evaluation.eval:depends-on:spec:foundation.backfill-author-specs.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-job-slice-evaluation.eval",
+      "to": "spec:foundation.backfill-author-specs.job",
+      "source": {
+        "specId": "foundation.backfill-job-slice-evaluation.eval",
+        "sectionId": "verification-contract"
+      },
+      "label": "depends-on"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

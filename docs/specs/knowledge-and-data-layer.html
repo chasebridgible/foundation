@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.knowledge-data-layer.system">
 <meta name="spec:type" content="system">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-31">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Knowledge and Data Layer</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,11 +16,13 @@
   "title": "Knowledge and Data Layer",
   "type": "system",
   "status": "draft",
-  "lastUpdated": "2026-05-31",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "on-trigger",
   "confidence": "medium",
   "parent": null,
-  "children": [],
+  "children": [
+    "foundation.visible-business-graph.system"
+  ],
   "relatedSpecs": [
     {
       "id": "foundation.backfill-artifact-inventory.job",
@@ -57,6 +59,15 @@
         "interface-journey",
         "ux-contracts"
       ]
+    },
+    {
+      "id": "foundation.visible-business-graph.system",
+      "relationship": "child",
+      "sections": [
+        "system-intent",
+        "graph-contract",
+        "view-contracts"
+      ]
     }
   ],
   "ownedPaths": [
@@ -68,34 +79,16 @@
   ],
   "implementationPaths": [
     {
-      "path": "foundation/core-files/README.md",
+      "path": "foundation/docs/fundamentals/business-intake.html",
       "kind": "doc",
       "ownership": "reference",
-      "notes": "Core-files reading order and intake-lane framing."
+      "notes": "Combined HTML intake workspace for source registration, answer status, evidence extraction, graph signals, and promotion targets."
     },
     {
-      "path": "foundation/core-files/capabilities-products-services.md",
+      "path": "foundation/docs/fundamentals/visible-business-foundation.html",
       "kind": "doc",
       "ownership": "reference",
-      "notes": "Intake lane for offerings, capabilities, and delivery strain."
-    },
-    {
-      "path": "foundation/core-files/systems-and-coordination.md",
-      "kind": "doc",
-      "ownership": "reference",
-      "notes": "Intake lane for work movement, handoffs, queues, dependencies, and feedback loops."
-    },
-    {
-      "path": "foundation/core-files/processes-and-sops.md",
-      "kind": "doc",
-      "ownership": "reference",
-      "notes": "Intake lane for repeatable procedures and documented standard work."
-    },
-    {
-      "path": "foundation/core-files/data-and-metrics.md",
-      "kind": "doc",
-      "ownership": "reference",
-      "notes": "Intake lane for metrics, evidence, and trusted business signals."
+      "notes": "Core concept that business substrate should make business architecture inspectable and connected to reality."
     },
     {
       "path": "foundation/docs/fundamentals/system-philosophy.html",
@@ -120,6 +113,12 @@
       "kind": "doc",
       "ownership": "reference",
       "notes": "Source-of-record and derived retrieval mechanics that inform this layer."
+    },
+    {
+      "path": "foundation/docs/specs/visible-business-graph.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Child system spec for making capabilities, jobs, actors, processes, tools, evidence, and gaps visible as a derived business graph."
     }
   ],
   "coverage": [
@@ -144,6 +143,93 @@
     "source-registry",
     "context-pack",
     "substrate"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.knowledge-data-layer.system",
+  "nodes": [
+    {
+      "id": "spec:foundation.knowledge-data-layer.system",
+      "type": "system",
+      "label": "Knowledge and Data Layer",
+      "source": {
+        "specId": "foundation.knowledge-data-layer.system",
+        "sectionId": "product-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "system",
+        "tags": [
+          "system",
+          "knowledge-layer",
+          "data-layer",
+          "business-operating-system",
+          "source-registry",
+          "context-pack",
+          "substrate"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.knowledge-data-layer.system:contains:spec:foundation.visible-business-graph.system",
+      "type": "contains",
+      "from": "spec:foundation.knowledge-data-layer.system",
+      "to": "spec:foundation.visible-business-graph.system",
+      "source": {
+        "specId": "foundation.knowledge-data-layer.system",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.knowledge-data-layer.system:supports:spec:foundation.backfill-artifact-inventory.job",
+      "type": "supports",
+      "from": "spec:foundation.knowledge-data-layer.system",
+      "to": "spec:foundation.backfill-artifact-inventory.job",
+      "source": {
+        "specId": "foundation.knowledge-data-layer.system",
+        "sectionId": "product-intent"
+      },
+      "label": "informs"
+    },
+    {
+      "id": "edge:spec:foundation.knowledge-data-layer.system:supports:spec:foundation.backfill-context-pack.job",
+      "type": "supports",
+      "from": "spec:foundation.knowledge-data-layer.system",
+      "to": "spec:foundation.backfill-context-pack.job",
+      "source": {
+        "specId": "foundation.knowledge-data-layer.system",
+        "sectionId": "product-intent"
+      },
+      "label": "informs"
+    },
+    {
+      "id": "edge:spec:foundation.knowledge-data-layer.system:supports:spec:foundation.backfill-capability-map.job",
+      "type": "supports",
+      "from": "spec:foundation.knowledge-data-layer.system",
+      "to": "spec:foundation.backfill-capability-map.job",
+      "source": {
+        "specId": "foundation.knowledge-data-layer.system",
+        "sectionId": "product-intent"
+      },
+      "label": "informs"
+    },
+    {
+      "id": "edge:spec:foundation.knowledge-data-layer.system:supports:spec:foundation.backfill-specs.job",
+      "type": "supports",
+      "from": "spec:foundation.knowledge-data-layer.system",
+      "to": "spec:foundation.backfill-specs.job",
+      "source": {
+        "specId": "foundation.knowledge-data-layer.system",
+        "sectionId": "product-intent"
+      },
+      "label": "informs"
+    }
   ]
 }
 </script>
@@ -338,13 +424,13 @@
     <p class="lede">The Knowledge and Data Layer turns business intake, existing organizational sources, and operating data into durable substrate that people and agents can use to understand, improve, and evaluate a business system.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> draft</div>
-      <div><strong>Updated:</strong> 2026-05-31</div>
+      <div><strong>Updated:</strong> 2026-06-01</div>
       <div><strong>Confidence:</strong> medium</div>
       <div><strong>Scope:</strong> high-level system spec</div>
     </div>
     <h3>Intent</h3>
     <p>This spec defines the first durable shape for an Orderly Systems knowledge and data layer. The layer should capture how a business works, connect that understanding to the organization's existing sources, collect operating data where useful, and produce context, evidence, and evaluation for business improvement work.</p>
-    <p>The system has two cooperating loops. The <strong>knowledge loop</strong> asks the core-files questions, reads existing sources, and turns answers into canonical operating substrate. The <strong>data loop</strong> brings SaaS and existing business data into an Orderly-managed database so <strong>Reality answers</strong> can use current measurements instead of only interview memory or static documents. Evaluation then judges those answers against intent.</p>
+    <p>The system has two cooperating loops. The <strong>knowledge loop</strong> uses the combined <a href="../fundamentals/business-intake.html">business intake workspace</a> to ask business intake questions, read existing sources, mark answer status, and turn reviewed answers into canonical operating substrate. The <strong>data loop</strong> brings SaaS and existing business data into an Orderly-managed database so <strong>Reality answers</strong> can use current measurements instead of only interview memory or static documents. Evaluation then judges those answers against intent. The <a data-spec-link="foundation.visible-business-graph.system" href="./visible-business-graph.html">Visible Business Graph</a> child spec defines how that substrate can become an inspectable graph of capabilities, jobs, actors, processes, tools, evidence, and gaps.</p>
     <h3>Out of scope</h3>
     <p>This draft does not choose a database, vector store, sync vendor, SaaS connector set, permission model, or UI. It defines the conceptual contract that those implementation decisions must satisfy later.</p>
   </section>
@@ -485,10 +571,10 @@
       <table class="status-table">
         <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
         <tbody>
-          <tr><td>Actor</td><td>Orderly Systems operator, agent, or client stakeholder trying to understand or improve a business system.</td><td>Business Operating System and core-files intake lanes.</td></tr>
+          <tr><td>Actor</td><td>Orderly Systems operator, agent, or client stakeholder trying to understand or improve a business system.</td><td>Business Operating System and the business intake workspace.</td></tr>
           <tr><td>Intended outcome</td><td>A business can be understood well enough that an operator can name its capabilities, jobs, processes, actors, tools, context, evidence, and improvement opportunities from cited sources and current data.</td><td>System Philosophy vocabulary and user feedback.</td></tr>
           <tr><td>Domain objects</td><td>Source registry row, intake answer, operating database table, capability spec, job spec with process section, metric definition, decision rule, eval spec, context pack, and revision record.</td><td>This spec.</td></tr>
-          <tr><td>Primary actions</td><td>Ask core-files questions, register sources, ingest selected data, classify source meaning, create substrate artifacts, build context packs, evaluate evidence, revise artifacts.</td><td>Core-files and GBrain mechanics.</td></tr>
+          <tr><td>Primary actions</td><td>Ask business intake questions in the HTML intake workspace, register sources, mark answer status, ingest selected data, classify source meaning, create substrate artifacts, build context packs, evaluate evidence, revise artifacts.</td><td>Business intake workspace and GBrain mechanics.</td></tr>
           <tr><td>Success signal</td><td>The system can answer a business question or recommend an improvement with citations, current data evidence where available, confidence, gaps, and the substrate artifact that should change next.</td><td>Manual acceptance until eval specs exist.</td></tr>
           <tr><td>Boundary</td><td>The database is not the whole knowledge layer. Retrieval is not the source of truth. Canonical meaning belongs in substrate artifacts that can be reviewed, versioned, and revised.</td><td>GBrain mechanics and Compounding Systems substrate rule.</td></tr>
         </tbody>
@@ -498,7 +584,7 @@
     <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
       <h2>Interface journey</h2>
       <ol>
-        <li><strong>Initialize:</strong> choose a client or business unit, create a source namespace, and load the core-files intake lanes.</li>
+        <li><strong>Initialize:</strong> choose a client or business unit, create a source namespace, and load <code>docs/fundamentals/business-intake.html</code>.</li>
         <li><strong>Interview and observe:</strong> collect business intake answers from conversations, meetings, existing documents, and real work.</li>
         <li><strong>Register sources:</strong> create source-registry rows for documents, files, tools, dashboards, spreadsheets, meeting notes, SaaS objects, and data exports.</li>
         <li><strong>Classify meaning:</strong> link each source to the capabilities, jobs, processes, actors, tools, metrics, risks, decisions, or evidence it informs.</li>
@@ -577,10 +663,12 @@
         <li><a data-spec-link="foundation.backfill-context-pack.job" href="./foundation-backfill-context-pack.html">foundation.backfill-context-pack.job</a> - bounded retrieval product pattern.</li>
         <li><a data-spec-link="foundation.backfill-capability-map.job" href="./foundation-backfill-capability-map.html">foundation.backfill-capability-map.job</a> - capability synthesis pattern.</li>
         <li><a data-spec-link="foundation.backfill-specs.job" href="./foundation-backfill-specs.html">foundation.backfill-specs.job</a> - backfill workflow this business version may mirror.</li>
+        <li><a data-spec-link="foundation.visible-business-graph.system" href="./visible-business-graph.html">foundation.visible-business-graph.system</a> - derived graph and client-facing view contract for business substrate.</li>
       </ul>
       <h3>Reference documents</h3>
       <ul class="path-list">
-        <li><code>core-files/README.md</code> - core-files intake lanes and reading order.</li>
+        <li><code>docs/fundamentals/business-intake.html</code> - combined HTML intake workspace and answer/signal model.</li>
+        <li><code>docs/fundamentals/visible-business-foundation.html</code> - core concept for inspectable business architecture.</li>
         <li><code>docs/fundamentals/system-philosophy.html</code> - root vocabulary and operating loop.</li>
         <li><code>docs/fundamentals/business-operating-system.html</code> - business-system application.</li>
         <li><code>docs/fundamentals/compounding-systems.html</code> - substrate and compounding-system framework.</li>

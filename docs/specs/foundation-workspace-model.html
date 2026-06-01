@@ -108,6 +108,181 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.workspace-model.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.workspace-model.job",
+      "type": "job",
+      "label": "Foundation Workspace Model",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "foundation",
+          "workspace",
+          "substrate"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.workspace-model.job:main",
+      "type": "process",
+      "label": "Foundation Workspace Model process",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.workspace-model.job"
+      }
+    },
+    {
+      "id": "actor:foundation.workspace-model.job:primary",
+      "type": "actor",
+      "label": "Foundation Workspace Model actor",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.workspace-model.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.workspace-model.job:primary",
+      "type": "evidence",
+      "label": "Foundation Workspace Model evidence",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.workspace-model.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.workspace-model.job:has-process:process:foundation.workspace-model.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "process:foundation.workspace-model.job:main",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.workspace-model.job:performed-by:actor:foundation.workspace-model.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "actor:foundation.workspace-model.job:primary",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.workspace-model.job:evidenced-by:evidence:foundation.workspace-model.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "evidence:foundation.workspace-model.job:primary",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.workspace-model.job:depends-on:spec:foundation.spec-system",
+      "type": "depends-on",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "spec:foundation.spec-system",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.workspace-model.job:contains:spec:foundation.backfill-specs.job",
+      "type": "contains",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "spec:foundation.backfill-specs.job",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.workspace-model.job:contains:spec:foundation.agents-load-canary.eval",
+      "type": "contains",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "spec:foundation.agents-load-canary.eval",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.workspace-model.job:contains:spec:foundation.workspace-doctor.technical",
+      "type": "contains",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "spec:foundation.workspace-doctor.technical",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.workspace-model.job:contains:spec:foundation.workspace-doctor.eval",
+      "type": "contains",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "spec:foundation.workspace-doctor.eval",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.workspace-model.job:supports:spec:foundation.spec-process",
+      "type": "supports",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "spec:foundation.spec-process",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      },
+      "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.workspace-model.job:supports:spec:foundation.spec-linking",
+      "type": "supports",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "spec:foundation.spec-linking",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "overview"
+      },
+      "label": "sibling"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

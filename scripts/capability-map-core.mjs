@@ -95,6 +95,10 @@ function normalizeNullableString(value) {
   return isNonEmptyString(value) ? value.trim() : null;
 }
 
+function preferredField(source, primary, legacy) {
+  return source?.[primary] !== undefined ? source[primary] : source?.[legacy];
+}
+
 function slug(value) {
   return String(value || "")
     .toLowerCase()
@@ -168,9 +172,9 @@ function createPendingCapabilityRow(surfaceRow) {
     backingContracts: [],
     failureAndRecovery: [],
     evidence: [],
-    descriptiveSpec: null,
+    jobSpec: null,
     technicalSpec: null,
-    descriptiveSections: [],
+    jobSections: [],
     technicalSections: [],
     verificationTargets: [],
     blockingGaps: [],
@@ -359,9 +363,9 @@ function createAgentMarkedCapabilityRow(surfaceById, selectedSurfaceIds, spec) {
     backingContracts: normalizeStringList(spec.backingContracts),
     failureAndRecovery: normalizeStringList(spec.failureAndRecovery),
     evidence: normalizeStringList(spec.evidence).length > 0 ? normalizeStringList(spec.evidence) : defaultEvidence,
-    descriptiveSpec: normalizeNullableString(spec.descriptiveSpec),
+    jobSpec: normalizeNullableString(preferredField(spec, "jobSpec", "descriptiveSpec")),
     technicalSpec: normalizeNullableString(spec.technicalSpec),
-    descriptiveSections: normalizeStringList(spec.descriptiveSections),
+    jobSections: normalizeStringList(preferredField(spec, "jobSections", "descriptiveSections")),
     technicalSections: normalizeStringList(spec.technicalSections),
     verificationTargets: normalizeStringList(spec.verificationTargets),
     blockingGaps: normalizeStringList(spec.blockingGaps),
@@ -517,7 +521,6 @@ function validateCapabilityRowShape(row, prefix, results) {
     "backingContracts",
     "failureAndRecovery",
     "evidence",
-    "descriptiveSections",
     "technicalSections",
     "verificationTargets",
     "blockingGaps",
@@ -525,6 +528,10 @@ function validateCapabilityRowShape(row, prefix, results) {
     "splitCriteria"
   ]) {
     if (!Array.isArray(row?.[field])) results.push(fail(`${prefix}:${field}`, `${field} must be an array`));
+  }
+  const jobSections = preferredField(row, "jobSections", "descriptiveSections");
+  if (!Array.isArray(jobSections)) {
+    results.push(fail(`${prefix}:jobSections`, "jobSections must be an array"));
   }
   if (!Array.isArray(row?.upstreamSurfaceRefs) || !row.upstreamSurfaceRefs.every(ref => ref && typeof ref === "object" && !Array.isArray(ref))) {
     results.push(fail(`${prefix}:upstream-surface-refs`, "upstreamSurfaceRefs must be an array of objects"));
@@ -936,9 +943,9 @@ function toReportCapability(row) {
     backingContracts: row.backingContracts,
     failureAndRecovery: row.failureAndRecovery,
     evidence: row.evidence,
-    descriptiveSpec: row.descriptiveSpec,
+    jobSpec: preferredField(row, "jobSpec", "descriptiveSpec"),
     technicalSpec: row.technicalSpec,
-    descriptiveSections: row.descriptiveSections,
+    jobSections: preferredField(row, "jobSections", "descriptiveSections") || [],
     technicalSections: row.technicalSections,
     verificationTargets: row.verificationTargets,
     blockingGaps: row.blockingGaps,

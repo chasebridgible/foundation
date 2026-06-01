@@ -23,17 +23,21 @@ Use this skill to connect a target repo to Foundation. The model is defined in `
    - If the target repo has `package.json`, add a `site-map` script that runs `node docs/generate-site-map.mjs`.
    - Ensure durable HTML docs under `docs/` load the local `site-map.js` and `site-nav.js` scripts.
    - Preserve the target repo's spec registry as the semantic lookup for system specs, capability specs, job specs, technical specs, eval specs, paths, and coverage.
-7. Configure CI to check out a pinned Foundation revision, not an implicit local sibling path.
-8. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation and resolve failures before handoff.
+7. Ensure target specs are graph-compatible:
+   - New target specs must use Foundation templates or `docs/specs/new-spec.mjs` so `graph-metadata` is present from creation.
+   - Target `AGENTS.md` should tell agents to run `npm run foundation:visible-business-graph:check -- --repo <target-repo>` after spec graph changes.
+   - Generated canvas artifacts remain derived outputs, not source of truth.
+8. Configure CI to check out a pinned Foundation revision, not an implicit local sibling path.
+9. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation and resolve failures before handoff.
 
 ## Target Repo Adapter
 
 1. Rewrite the target repo README for the target product or client repo.
 2. Create target-owned spec directories when the repo starts carrying product specs.
 3. Use target-owned spec IDs. Do not create target product specs under `foundation.*`.
-4. Record local test, build, development, and active backfill report paths in the target repo adapter.
+4. Record local test, build, development, active backfill report paths, and graph validation command in the target repo adapter.
 5. Route shared process improvements back to Foundation.
-6. Route product behavior, project knowledge, ADRs, tests, and implementation paths to the target repo.
+6. Route product behavior, project knowledge, ADRs, tests, implementation paths, and generated business graph artifacts to the target repo.
 
 ## Existing Repo Adoption
 
@@ -62,6 +66,7 @@ After the target repo is connected:
 - Product specs and project facts live in the target repo.
 - Durable HTML docs in the target repo render a left sidebar from the target repo's own folder tree.
 - The target repo spec registry remains separate from visual document navigation.
+- Target specs are created with `graph-metadata`, and the target adapter names the visible business graph check.
 - Shared process changes live in Foundation.
 - Existing repo adoption routes to Backfill Specs after setup.
 - CI checks out a pinned Foundation revision before running Foundation-backed validation.

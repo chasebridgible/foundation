@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.collect-payment.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Collect Service Payment Capability</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.collect-payment.capability",
+  "title": "Collect Service Payment Capability",
+  "type": "capability",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": "client.field-service.system",
+  "children": [
+    "client.field-service.create-invoice.job",
+    "client.field-service.collect-payment.job",
+    "client.field-service.resolve-payment-exception.job"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "supported-by",
+      "sections": [
+        "identity-linkage-contract"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/collect-payment-capability.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "CAP-COLLECT-PAYMENT-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.collect-payment.capability#capability-intent"
+      ],
+      "evidence": "Collect service payment is present in the expected graph fixture and canvas."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "capability",
+    "collect-payment"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.collect-payment.capability",
+  "nodes": [
+    {
+      "id": "cap:field-service:collect-payment",
+      "type": "capability",
+      "label": "Collect service payment",
+      "source": {
+        "specId": "client.field-service.collect-payment.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "outcome": "Completed work turns into collected cash or a named open balance with an accountable owner."
+      }
+    },
+    {
+      "id": "metric:field-service:days-to-collect",
+      "type": "metric",
+      "label": "Days to collect",
+      "source": {
+        "specId": "client.field-service.collect-payment.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "target": "Most completed jobs are collected before the next business day."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:cap:field-service:collect-payment:realized-by:job:field-service:create-invoice",
+      "type": "realized-by",
+      "from": "cap:field-service:collect-payment",
+      "to": "job:field-service:create-invoice",
+      "source": {
+        "specId": "client.field-service.collect-payment.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:collect-payment:realized-by:job:field-service:collect-payment",
+      "type": "realized-by",
+      "from": "cap:field-service:collect-payment",
+      "to": "job:field-service:collect-payment",
+      "source": {
+        "specId": "client.field-service.collect-payment.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:collect-payment:realized-by:job:field-service:resolve-payment-exception",
+      "type": "realized-by",
+      "from": "cap:field-service:collect-payment",
+      "to": "job:field-service:resolve-payment-exception",
+      "source": {
+        "specId": "client.field-service.collect-payment.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:collect-payment:measured-by:metric:field-service:days-to-collect",
+      "type": "measured-by",
+      "from": "cap:field-service:collect-payment",
+      "to": "metric:field-service:days-to-collect",
+      "source": {
+        "specId": "client.field-service.collect-payment.capability",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:collect-payment:has-gap:gap:field-service:refund-owner",
+      "type": "has-gap",
+      "from": "cap:field-service:collect-payment",
+      "to": "gap:field-service:refund-owner",
+      "source": {
+        "specId": "client.field-service.collect-payment.capability",
+        "sectionId": "revision"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+    <h1>Collect Service Payment Capability</h1>
+    <p>Completed work turns into collected cash or a named open balance with an accountable owner.</p>
+  </section>
+  <article class="doc-body">
+  <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="outcome-contract">
+    <h2>Outcome contract</h2>
+    <p>Completed work turns into collected cash or a named open balance with an accountable owner.</p>    <ul>
+      <li>Invoices must trace back to a closed work order and approved amount.</li>
+      <li>Receipts must trace back to the customer, service job, invoice, and payment method.</li>
+      <li>Refund and open-balance exception ownership stays visible until assigned.</li>
+    </ul>
+  </section>
+  <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+    <h2>Jobs</h2>
+    <table class="status-table">
+      <thead><tr><th>Job</th><th>Actor</th><th>Outcome</th></tr></thead>
+      <tbody>
+        <tr><td><a href="./create-invoice-job.html">Create service invoice</a></td><td>Billing coordinator</td><td>Turn a closed work order into a customer invoice with traceable line items.</td></tr>
+        <tr><td><a href="./collect-payment-job.html">Collect service payment</a></td><td>Billing coordinator</td><td>Collect payment and record receipt or open balance.</td></tr>
+        <tr><td><a href="./resolve-payment-exception-job.html">Resolve payment exception</a></td><td>Billing coordinator</td><td>Resolve failed, disputed, refunded, or aged payment states without losing accountability.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>Days to collect: Most completed jobs are collected before the next business day.</p>    <ul>
+      <li>Issued invoice proves Create service invoice.</li>
+      <li>Paid invoice receipt proves Collect service payment.</li>
+      <li>Payment exception resolution proves Resolve payment exception.</li>
+    </ul>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>The following gaps stay visible on the graph until resolved.</p>    <ul>
+      <li>Refund exception owner unclear</li>
+    </ul>
+  </section>
+  </article>
+</main>
+</body>
+</html>

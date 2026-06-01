@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-linking">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-31">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Spec Linking Model</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,14 +16,15 @@
   "title": "Spec Linking Model",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-05-31",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": "foundation.spec-system",
   "children": [],
   "relatedSpecs": [
     { "id": "foundation.spec-system", "relationship": "parent", "sections": ["registry"] },
-    { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["update-obligations"] }
+    { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["update-obligations"] },
+    { "id": "foundation.visible-business-graph.system", "relationship": "informs", "sections": ["metadata-contract", "graph-contract"] }
   ],
   "ownedPaths": [
     { "path": "foundation/docs/specs/linking.html", "kind": "doc", "ownership": "direct" }
@@ -31,6 +32,67 @@
   "implementationPaths": [],
   "coverage": [],
   "tags": ["linking", "registry", "metadata"]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.spec-linking",
+  "nodes": [
+    {
+      "id": "spec:foundation.spec-linking",
+      "type": "technical-contract",
+      "label": "Spec Linking Model",
+      "source": {
+        "specId": "foundation.spec-linking",
+        "sectionId": "overview"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "linking",
+          "registry",
+          "metadata"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.spec-linking:depends-on:spec:foundation.spec-system",
+      "type": "depends-on",
+      "from": "spec:foundation.spec-linking",
+      "to": "spec:foundation.spec-system",
+      "source": {
+        "specId": "foundation.spec-linking",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.spec-linking:supports:spec:foundation.spec-process",
+      "type": "supports",
+      "from": "spec:foundation.spec-linking",
+      "to": "spec:foundation.spec-process",
+      "source": {
+        "specId": "foundation.spec-linking",
+        "sectionId": "overview"
+      },
+      "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.spec-linking:supports:spec:foundation.visible-business-graph.system",
+      "type": "supports",
+      "from": "spec:foundation.spec-linking",
+      "to": "spec:foundation.visible-business-graph.system",
+      "source": {
+        "specId": "foundation.spec-linking",
+        "sectionId": "overview"
+      },
+      "label": "informs"
+    }
+  ]
 }
 </script>
 </head>
@@ -76,12 +138,13 @@
           <tr><td>Stable file path</td><td><code>foundation/docs/specs/examples/eval-spec-example.html</code></td><td>Filesystem discovery and durable linking.</td></tr>
           <tr><td>HTML meta tags</td><td><code>&lt;meta name="spec:id" content="fup.kitchen-queue.eval"&gt;</code></td><td>Cheap parse without loading body content.</td></tr>
           <tr><td>Embedded JSON</td><td><code>&lt;script type="application/json" id="spec-metadata"&gt;</code></td><td>Canonical metadata: links, paths, coverage, status, cadence, confidence.</td></tr>
+          <tr><td>Graph JSON</td><td><code>&lt;script type="application/json" id="graph-metadata"&gt;</code></td><td>Visible Business Graph metadata: nodes, edges, source sections, and graph-compatible relationships.</td></tr>
           <tr><td>Section attributes</td><td><code>&lt;section id="states-and-rules" data-spec-section="states-and-rules"&gt;</code></td><td>Precise section loading and acceptance mapping.</td></tr>
           <tr><td>Canonical section marker</td><td><code>data-spec-canonical="true"</code></td><td>One section per spec can define the generated registry entry point.</td></tr>
           <tr><td>Link attributes</td><td><code>&lt;a data-spec-link=&quot;fup.kitchen-queue.eval&quot; href=&quot;./eval-spec-example.html&quot;&gt;</code></td><td>Human links that still resolve by stable ID.</td></tr>
         </tbody>
       </table>
-      <p>Human-facing links can use friendly labels. If a page uses wiki-style aliases or natural prose links, it still needs <code>data-spec-link</code> or canonical <code>spec-metadata</code> so agents can resolve them without visual inference.</p>
+      <p>Human-facing links can use friendly labels. If a page uses wiki-style aliases or natural prose links, it still needs <code>data-spec-link</code>, canonical <code>spec-metadata</code>, or graph edges in <code>graph-metadata</code> so agents can resolve them without visual inference.</p>
     </section>
 
     <section id="multi-level-specs" data-spec-section="multi-level-specs" data-section-type="graph-rule">
@@ -108,6 +171,7 @@
       <h2>Resolution algorithm</h2>
       <ol>
         <li>Parse <code>foundation/docs/specs/index.html#spec-registry</code>, the generated index built from each HTML spec's canonical <code>spec-metadata</code>.</li>
+        <li>Parse each relevant spec's <code>graph-metadata</code> when the task involves capabilities, jobs, actors, processes, evidence, evals, templates, or canvas rendering.</li>
         <li>If starting from a code path, match exact path in <code>ownedPaths</code>, then fallback to <code>implementationPaths</code>.</li>
         <li>If multiple specs match, prefer direct ownership over reference ownership, then prefer lower-level child specs over parents.</li>
         <li>Load the job spec for intent and process, the eval spec for done conditions, and the technical spec for implementation contracts when software, data, automation, infrastructure, or integrations are involved.</li>
@@ -127,6 +191,7 @@
           <tr><td>File deleted</td><td>Remove or replace path references, and explain whether spec ownership moved to a child spec.</td><td>No generated registry entry points at a missing file unless status is retired and notes explain why.</td></tr>
           <tr><td>Test renamed</td><td>Update eval spec coverage and regenerate the registry.</td><td>Acceptance IDs still map to the right section IDs.</td></tr>
           <tr><td>Feature split</td><td>Create child specs or re-home ownership, then remove duplicated paths from parents.</td><td>High-level spec links to children instead of owning every leaf path.</td></tr>
+          <tr><td>Graph relationship changed</td><td>Update the relevant <code>graph-metadata</code> node or edge, then run the graph check.</td><td>Canvas and source specs agree about capabilities, jobs, actors, evidence, and support relationships.</td></tr>
         </tbody>
       </table>
     </section>

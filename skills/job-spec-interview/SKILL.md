@@ -33,7 +33,7 @@ If the request is about how something should look, feel, behave, or be performed
 - When the user is vague, either ask a sharper question or propose a labeled assumption. Do not silently convert guesses into product truth.
 - Keep the current job template as the canonical structure for new work.
 - Do not write files until the user explicitly approves with language like "build the spec", "write it", "go ahead", or "we're good".
-- When building files, follow the repo's `spec-workflow` obligations: read the registry, use the relevant template or scaffold, update metadata and prose together, regenerate the registry, and run `npm run spec:check`.
+- When building files, follow the repo's `spec-workflow` obligations: read the registry, use the relevant template or scaffold, update `spec-metadata`, `graph-metadata`, and prose together, regenerate the registry, and run `npm run spec:check` plus the visible business graph check.
 
 ## Interview Flow
 
@@ -117,7 +117,8 @@ When the user approves building the spec:
    - Stable dotted `id`.
    - Accurate `title`, `type`, `status`, `lastUpdated`, `reviewCadence`, and `confidence`.
    - Parent, child, related spec, path, and coverage fields only when known.
-5. Write the job prose from the interview ledger:
+5. Fill `graph-metadata` with the job node, supporting capability edge, process node, actor node(s), tool node(s), evidence/metric/gap node(s), and source sections.
+6. Write the job prose from the interview ledger:
    - Job intent.
    - Capability supported.
    - Current reality.
@@ -125,10 +126,11 @@ When the user approves building the spec:
    - Context, tools, and interfaces.
    - Evidence and evaluation.
    - Revision target.
-6. Include downstream technical/eval handoff notes in the final response. Put them in the spec only when they are visible or part of the job contract.
-7. Run `npm run spec:registry` if metadata changed.
-8. Run `npm run spec:check`.
-9. Report remaining assumptions, unresolved semantic-review risk, and suggested next phase.
+7. Include downstream technical/eval handoff notes in the final response. Put them in the spec only when they are visible or part of the job contract.
+8. Run `npm run spec:registry` if metadata changed.
+9. Run `npm run spec:check`.
+10. Run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
+11. Report remaining assumptions, unresolved semantic-review risk, graph-check status, and suggested next phase.
 
 ## Depth Calibration
 

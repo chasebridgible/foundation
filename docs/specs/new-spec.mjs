@@ -2,6 +2,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  createDefaultGraphMetadata,
+  graphScript
+} from "../../scripts/visible-business-graph-core.mjs";
 
 const specsDir = path.dirname(fileURLToPath(import.meta.url));
 const docsDir = path.dirname(specsDir);
@@ -83,6 +87,7 @@ Optional:
   --review-cadence    per-change, monthly, quarterly, or on-trigger (default: per-change)
   --tag               repeatable tag
   --force             overwrite an existing file
+  --print             print scaffold HTML without writing the file
   --dry-run           validate inputs without writing the file`;
 }
 
@@ -92,7 +97,7 @@ function parseArgs(argv) {
     const token = argv[index];
     if (!token.startsWith("--")) throw new Error(`Unexpected argument: ${token}`);
     const key = token.slice(2);
-    if (key === "force" || key === "dry-run") {
+    if (key === "force" || key === "dry-run" || key === "print") {
       args[key] = true;
       continue;
     }
@@ -164,6 +169,7 @@ function renderSpec({ args, outputPath }) {
   const siteMap = relativeFromOutput(outputPath, path.join(docsDir, "site-map.js"));
   const siteNav = relativeFromOutput(outputPath, path.join(docsDir, "site-nav.js"));
   const firstSection = sections[0][0];
+  const graphMetadata = createDefaultGraphMetadata(metadata, sections.map(([id]) => id));
 
   const nav = sections.map(([id, , title], index) => {
     const active = index === 0 ? " active" : "";
@@ -194,6 +200,7 @@ function renderSpec({ args, outputPath }) {
 <script type="application/json" id="spec-metadata">
 ${JSON.stringify(metadata, null, 2)}
 </script>
+${graphScript(graphMetadata)}
 </head>
 <body>
 <nav class="sidebar">
@@ -264,7 +271,9 @@ if (fs.existsSync(outputPath) && !args.force) fail(`${args.out} already exists; 
 
 const content = renderSpec({ args, outputPath });
 
-if (args["dry-run"]) {
+if (args.print) {
+  console.log(content);
+} else if (args["dry-run"]) {
   console.log(`Spec scaffold is valid: ${slash(path.relative(repoRoot, outputPath))}`);
 } else {
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });

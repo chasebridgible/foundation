@@ -132,6 +132,69 @@
   ]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.backfill-capability-map.technical",
+  "nodes": [
+    {
+      "id": "spec:foundation.backfill-capability-map.technical",
+      "type": "technical-contract",
+      "label": "Foundation Backfill Capability Map Technical Spec",
+      "source": {
+        "specId": "foundation.backfill-capability-map.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "foundation",
+          "backfill",
+          "capability-map",
+          "technical",
+          "substrate"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.technical:depends-on:spec:foundation.backfill-capability-map.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-capability-map.technical",
+      "to": "spec:foundation.backfill-capability-map.job",
+      "source": {
+        "specId": "foundation.backfill-capability-map.technical",
+        "sectionId": "required-depth"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.technical:supports:spec:foundation.backfill-capability-map.eval",
+      "type": "supports",
+      "from": "spec:foundation.backfill-capability-map.technical",
+      "to": "spec:foundation.backfill-capability-map.eval",
+      "source": {
+        "specId": "foundation.backfill-capability-map.technical",
+        "sectionId": "required-depth"
+      },
+      "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.technical:depends-on:spec:foundation.backfill-surface-function-map.job",
+      "type": "depends-on",
+      "from": "spec:foundation.backfill-capability-map.technical",
+      "to": "spec:foundation.backfill-surface-function-map.job",
+      "source": {
+        "specId": "foundation.backfill-capability-map.technical",
+        "sectionId": "required-depth"
+      },
+      "label": "depends-on"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

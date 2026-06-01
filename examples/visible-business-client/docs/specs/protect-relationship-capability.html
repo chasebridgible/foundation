@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="client.field-service.protect-relationship.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Protect Customer Relationship Capability</title>
+<link rel="stylesheet" href="../../../../docs/specs/spec-system.css">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "client.field-service.protect-relationship.capability",
+  "title": "Protect Customer Relationship Capability",
+  "type": "capability",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "monthly",
+  "confidence": "high",
+  "parent": "client.field-service.system",
+  "children": [
+    "client.field-service.send-arrival-update.job",
+    "client.field-service.handle-service-issue.job",
+    "client.field-service.request-review.job"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "client.field-service.workflow.technical",
+      "relationship": "supported-by",
+      "sections": [
+        "identity-linkage-contract"
+      ]
+    },
+    {
+      "id": "client.field-service.workflow.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "visible-business-client/docs/specs/protect-relationship-capability.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "CAP-PROTECT-RELATIONSHIP-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "visible-business-client/docs/specs/client-workflow-eval.html",
+      "mapsTo": [
+        "client.field-service.protect-relationship.capability#capability-intent"
+      ],
+      "evidence": "Protect customer relationship is present in the expected graph fixture and canvas."
+    }
+  ],
+  "tags": [
+    "example",
+    "visible-business-graph",
+    "field-service",
+    "capability",
+    "protect-relationship"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "client.field-service.protect-relationship.capability",
+  "nodes": [
+    {
+      "id": "cap:field-service:protect-relationship",
+      "type": "capability",
+      "label": "Protect customer relationship",
+      "source": {
+        "specId": "client.field-service.protect-relationship.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "outcome": "Customers know what is happening, can recover from service issues, and are asked for feedback at the right time."
+      }
+    },
+    {
+      "id": "metric:field-service:issue-recovery-time",
+      "type": "metric",
+      "label": "Issue recovery time",
+      "source": {
+        "specId": "client.field-service.protect-relationship.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "target": "Service issues receive owner response before the next service day."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:cap:field-service:protect-relationship:realized-by:job:field-service:send-arrival-update",
+      "type": "realized-by",
+      "from": "cap:field-service:protect-relationship",
+      "to": "job:field-service:send-arrival-update",
+      "source": {
+        "specId": "client.field-service.protect-relationship.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:protect-relationship:realized-by:job:field-service:handle-service-issue",
+      "type": "realized-by",
+      "from": "cap:field-service:protect-relationship",
+      "to": "job:field-service:handle-service-issue",
+      "source": {
+        "specId": "client.field-service.protect-relationship.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:protect-relationship:realized-by:job:field-service:request-review",
+      "type": "realized-by",
+      "from": "cap:field-service:protect-relationship",
+      "to": "job:field-service:request-review",
+      "source": {
+        "specId": "client.field-service.protect-relationship.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:protect-relationship:measured-by:metric:field-service:issue-recovery-time",
+      "type": "measured-by",
+      "from": "cap:field-service:protect-relationship",
+      "to": "metric:field-service:issue-recovery-time",
+      "source": {
+        "specId": "client.field-service.protect-relationship.capability",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:cap:field-service:protect-relationship:has-gap:gap:field-service:review-suppression-rule",
+      "type": "has-gap",
+      "from": "cap:field-service:protect-relationship",
+      "to": "gap:field-service:review-suppression-rule",
+      "source": {
+        "specId": "client.field-service.protect-relationship.capability",
+        "sectionId": "revision"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="main">
+  <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+    <h1>Protect Customer Relationship Capability</h1>
+    <p>Customers know what is happening, can recover from service issues, and are asked for feedback at the right time.</p>
+  </section>
+  <article class="doc-body">
+  <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="outcome-contract">
+    <h2>Outcome contract</h2>
+    <p>Customers know what is happening, can recover from service issues, and are asked for feedback at the right time.</p>    <ul>
+      <li>Arrival updates must be based on current route state, not stale appointment assumptions.</li>
+      <li>Service issues need a named owner, recovery promise, and follow-up evidence.</li>
+      <li>Review requests are sent only after the job is closed and no unresolved issue is open.</li>
+    </ul>
+  </section>
+  <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+    <h2>Jobs</h2>
+    <table class="status-table">
+      <thead><tr><th>Job</th><th>Actor</th><th>Outcome</th></tr></thead>
+      <tbody>
+        <tr><td><a href="./send-arrival-update-job.html">Send arrival update</a></td><td>Customer coordinator</td><td>Keep the customer informed when technician arrival changes.</td></tr>
+        <tr><td><a href="./handle-service-issue-job.html">Handle service issue</a></td><td>Service manager</td><td>Own customer complaints, callbacks, damage reports, and incomplete work until recovery is clear.</td></tr>
+        <tr><td><a href="./request-review-job.html">Request customer review</a></td><td>Customer coordinator</td><td>Ask satisfied customers for a review without contacting unresolved issue cases.</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+    <h2>Evidence and evaluation</h2>
+    <p>Issue recovery time: Service issues receive owner response before the next service day.</p>    <ul>
+      <li>Arrival message log proves Send arrival update.</li>
+      <li>Service recovery case proves Handle service issue.</li>
+      <li>Review request log proves Request customer review.</li>
+    </ul>
+  </section>
+  <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+    <h2>Revision</h2>
+    <p>The following gaps stay visible on the graph until resolved.</p>    <ul>
+      <li>Review suppression rule needs confirmation</li>
+    </ul>
+  </section>
+  </article>
+</main>
+</body>
+</html>

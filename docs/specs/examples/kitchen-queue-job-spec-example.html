@@ -40,6 +40,140 @@
   "tags": ["example", "fired-up-pizza", "kitchen", "orders"]
 }
 </script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "fup.kitchen-queue.job",
+  "nodes": [
+    {
+      "id": "spec:fup.kitchen-queue.job",
+      "type": "job",
+      "label": "Fired Up Pizza Kitchen Queue - Job Spec Example",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "example",
+          "fired-up-pizza",
+          "kitchen",
+          "orders"
+        ]
+      }
+    },
+    {
+      "id": "process:fup.kitchen-queue.job:main",
+      "type": "process",
+      "label": "Fired Up Pizza Kitchen Queue - Job Spec Example process",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "fup.kitchen-queue.job"
+      }
+    },
+    {
+      "id": "actor:fup.kitchen-queue.job:primary",
+      "type": "actor",
+      "label": "Fired Up Pizza Kitchen Queue - Job Spec Example actor",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "fup.kitchen-queue.job"
+      }
+    },
+    {
+      "id": "evidence:fup.kitchen-queue.job:primary",
+      "type": "evidence",
+      "label": "Fired Up Pizza Kitchen Queue - Job Spec Example evidence",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "fup.kitchen-queue.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:fup.kitchen-queue.job:has-process:process:fup.kitchen-queue.job:main",
+      "type": "has-process",
+      "from": "spec:fup.kitchen-queue.job",
+      "to": "process:fup.kitchen-queue.job:main",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:fup.kitchen-queue.job:performed-by:actor:fup.kitchen-queue.job:primary",
+      "type": "performed-by",
+      "from": "spec:fup.kitchen-queue.job",
+      "to": "actor:fup.kitchen-queue.job:primary",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:fup.kitchen-queue.job:evidenced-by:evidence:fup.kitchen-queue.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:fup.kitchen-queue.job",
+      "to": "evidence:fup.kitchen-queue.job:primary",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:fup.kitchen-queue.job:contains:spec:fup.kitchen-queue.technical",
+      "type": "contains",
+      "from": "spec:fup.kitchen-queue.job",
+      "to": "spec:fup.kitchen-queue.technical",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:fup.kitchen-queue.job:contains:spec:fup.kitchen-queue.eval",
+      "type": "contains",
+      "from": "spec:fup.kitchen-queue.job",
+      "to": "spec:fup.kitchen-queue.eval",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:fup.kitchen-queue.job:evidenced-by:spec:fup.kitchen-queue.eval",
+      "type": "evidenced-by",
+      "from": "spec:fup.kitchen-queue.job",
+      "to": "spec:fup.kitchen-queue.eval",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      },
+      "label": "validated-by"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="sidebar">

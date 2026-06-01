@@ -5,7 +5,7 @@ description: Evaluate Job Slices and Evaluate System Coherence for a Foundation 
 
 # Evaluate Job Slices And System Coherence
 
-Use to judge semantic quality after registry, metadata, queue, and run-log checks are structurally valid.
+Use to judge semantic quality after registry, metadata, visible business graph, queue, and run-log checks are structurally valid.
 
 ## Calibrate
 
@@ -25,6 +25,7 @@ The golden example is the minimum shape of excellent, not a loose sample. Merely
 - job and technical specs named by the report
 - rendered UX sections for visible capability work
 - evidence paths needed to audit traceability
+- visible business graph check output when graph metadata exists
 
 ## Rubric
 
@@ -40,6 +41,7 @@ Score each category `0-10`, total `0-100`:
 8. architecture flexibility: contracts, evidence, constraints, latitude
 9. review questions and discrepancy handling
 10. spec-only rebuild readiness
+11. visible graph usefulness is assessed inside the relevant categories: capability coverage, evidence traceability, process/state specificity, and rebuild readiness.
 
 Bands:
 
@@ -57,6 +59,7 @@ Acceptable requires:
 - total >= 96
 - every category >= 9
 - spec-only rebuild readiness = 10
+- visible business graph check passes when graph metadata exists
 - evaluated capability rows acceptable
 - no evaluated capability row needs split
 - remaining questions are isolated non-blocking human decisions
