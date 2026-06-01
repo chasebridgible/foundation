@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.business-intake-fill-loop.technical">
+<meta name="spec:type" content="technical">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Business Intake Fill Loop Technical Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.business-intake-fill-loop.technical",
+  "title": "Business Intake Fill Loop Technical Spec",
+  "type": "technical",
+  "status": "draft",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.business-intake-fill-loop.job",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.business-intake-fill-loop.job",
+      "relationship": "parent",
+      "sections": [
+        "process",
+        "context-tools-and-interfaces",
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "foundation.visible-business-graph.technical",
+      "relationship": "informs",
+      "sections": [
+        "contracts",
+        "paths-and-coverage"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/business-intake-fill-loop-technical.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Skill body that implements this technical sequence for agents."
+    },
+    {
+      "path": "foundation/scripts/visible-business-graph-check.mjs",
+      "kind": "source",
+      "ownership": "reference",
+      "notes": "Graph validation command used after target specs are promoted."
+    },
+    {
+      "path": "foundation/scripts/visible-business-graph-build.mjs",
+      "kind": "source",
+      "ownership": "reference",
+      "notes": "Graph build command used to produce derived graph JSON."
+    },
+    {
+      "path": "foundation/scripts/visible-business-graph-render.mjs",
+      "kind": "source",
+      "ownership": "reference",
+      "notes": "Canvas render command used after graph build."
+    },
+    {
+      "path": "foundation/scripts/visible-business-graph-eval.mjs",
+      "kind": "source",
+      "ownership": "reference",
+      "notes": "Optional expected-fixture evaluator for client graph outputs."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "BIFL-T-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+      "mapsTo": [
+        "foundation.business-intake-fill-loop.technical#internal-sequence",
+        "foundation.business-intake-fill-loop.technical#contracts"
+      ],
+      "evidence": "The skill names the source registration, answer extraction, signal extraction, promotion, graph build, render, and eval commands."
+    }
+  ],
+  "tags": [
+    "technical",
+    "intake",
+    "visible-business"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.business-intake-fill-loop.technical",
+  "nodes": [
+    {
+      "id": "spec:foundation.business-intake-fill-loop.technical",
+      "type": "technical-contract",
+      "label": "Business Intake Fill Loop Technical Spec",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "technical",
+          "intake",
+          "visible-business"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.technical:depends-on:spec:foundation.business-intake-fill-loop.job",
+      "type": "supports",
+      "from": "spec:foundation.business-intake-fill-loop.technical",
+      "to": "spec:foundation.business-intake-fill-loop.job",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.technical",
+        "sectionId": "required-depth"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.technical:depends-on:spec:foundation.visible-business-graph.technical",
+      "type": "depends-on",
+      "from": "spec:foundation.business-intake-fill-loop.technical",
+      "to": "spec:foundation.visible-business-graph.technical",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.technical",
+        "sectionId": "contracts"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+    <div>
+      <div class="sidebar-title">Business Intake Fill Loop Technical Spec</div>
+      <div class="sidebar-sub">technical spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#required-depth"><span class="nav-num">01</span>Required depth</a>
+    <a class="nav-item" href="#internal-sequence"><span class="nav-num">02</span>Internal sequence</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">03</span>Contracts</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">04</span>Failure modes</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">05</span>Paths and coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/business-intake-fill-loop-technical.html</div>
+    <h1>Business Intake Fill Loop Technical Spec</h1>
+    <p class="lede">Define the technical sequence and artifact contracts for converting intake sources into graph-compatible target specs and derived canvas outputs.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> draft</div>
+      <div><strong>Updated:</strong> 2026-06-01</div>
+      <div><strong>Canonical section:</strong> <a href="#required-depth">#required-depth</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
+      <h1>Required depth</h1>
+      <p>This is a T4 workflow because it creates a new repeatable job and target-repo artifact set. It requires explicit source labels, stable IDs, graph-compatible specs, and evaluation evidence, but does not require a database, server, authentication layer, or automated extraction engine in v1.</p>
+    </section>
+
+    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
+      <h2>Internal sequence</h2>
+      <ol>
+        <li>Normalize input source paths and copy or reference them in the target repo.</li>
+        <li>Create source registry rows before claim extraction.</li>
+        <li>Extract answer rows with statuses, source refs, confidence, freshness, and suggested signals.</li>
+        <li>Create target-owned specs with stable IDs and `graph-metadata` script blocks.</li>
+        <li>Build graph JSON from target specs and render static canvas HTML from graph JSON.</li>
+        <li>Optionally evaluate against an expected graph fixture with required nodes, edges, node-type counts, and canvas text.</li>
+      </ol>
+    </section>
+
+    <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
+      <h2>Contracts</h2>
+      <table class="status-table">
+        <thead><tr><th>Contract</th><th>Requirement</th></tr></thead>
+        <tbody>
+          <tr><td>Source registry</td><td>Every material source has stable ID, source type, path or URL, date captured, owner/origin, trust level, freshness, access boundary, and related lanes.</td></tr>
+          <tr><td>Answer row</td><td>Every extracted answer has lane/question ID, status, extracted answer, source refs, confidence, freshness, suggested signals, gaps, and promotion target.</td></tr>
+          <tr><td>Signal row</td><td>Every promoted signal identifies type, stable ID, label, source refs, owning capability or job, confidence, and review state.</td></tr>
+          <tr><td>Target spec</td><td>Every target spec has HTML-readable content, `spec-metadata`, `graph-metadata`, stable section IDs, and source references in prose or attributes.</td></tr>
+          <tr><td>Derived graph</td><td>Graph JSON and canvas HTML are built from target specs and can be deleted/rebuilt without losing meaning.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+      <h2>Failure modes</h2>
+      <ul>
+        <li><strong>Unsupported certainty:</strong> a claim appears in a capability or job without a source ref or explicit gap.</li>
+        <li><strong>Hidden incompleteness:</strong> unanswered lanes are omitted rather than represented as gaps.</li>
+        <li><strong>Graph drift:</strong> visible prose and `graph-metadata` disagree.</li>
+        <li><strong>Source leakage:</strong> private source contents are copied into broad artifacts without respecting access boundaries.</li>
+        <li><strong>Canvas as truth:</strong> derived graph/canvas files are manually edited instead of rebuilding from specs.</li>
+      </ul>
+    </section>
+
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Paths and coverage</h2>
+      <p>The skill is the implementation surface. Validation uses Foundation `spec:check` and visible business graph commands for Foundation, and graph check/build/render/eval commands for each target repo.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Business Intake Fill Loop Technical Spec · generated starter spec</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

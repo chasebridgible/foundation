@@ -31,7 +31,8 @@ function makeFoundation(root) {
     "backfill-spec-adequacy-review",
     "evaluate-backfill-specs",
     "spec-workflow",
-    "install-foundation-substrate"
+    "install-foundation-substrate",
+    "business-intake-fill-loop"
   ]) {
     write(path.join(root, "skills", skill, "SKILL.md"), `---\nname: ${skill}\ndescription: test\n---\n`);
   }

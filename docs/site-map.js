@@ -7,7 +7,7 @@ window.SubstrateSiteMap = {
       "sourcePath": "docs"
     }
   ],
-  "fileCount": 72,
+  "fileCount": 75,
   "items": [
     {
       "type": "folder",
@@ -290,6 +290,33 @@ window.SubstrateSiteMap = {
               "specId": "foundation.spec-template.technical"
             }
           ]
+        },
+        {
+          "type": "file",
+          "name": "business-intake-fill-loop-eval.html",
+          "title": "Business Intake Fill Loop Evaluation",
+          "path": "specs/business-intake-fill-loop-eval.html",
+          "sourcePath": "docs/specs/business-intake-fill-loop-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.business-intake-fill-loop.eval"
+        },
+        {
+          "type": "file",
+          "name": "business-intake-fill-loop-technical.html",
+          "title": "Business Intake Fill Loop Technical Spec",
+          "path": "specs/business-intake-fill-loop-technical.html",
+          "sourcePath": "docs/specs/business-intake-fill-loop-technical.html",
+          "rootPath": "docs",
+          "specId": "foundation.business-intake-fill-loop.technical"
+        },
+        {
+          "type": "file",
+          "name": "business-intake-fill-loop.html",
+          "title": "Business Intake Fill Loop",
+          "path": "specs/business-intake-fill-loop.html",
+          "sourcePath": "docs/specs/business-intake-fill-loop.html",
+          "rootPath": "docs",
+          "specId": "foundation.business-intake-fill-loop.job"
         },
         {
           "type": "file",
