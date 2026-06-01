@@ -43,12 +43,12 @@
         "id": {
           "type": "string",
           "pattern": "^[a-z0-9][a-z0-9.-]*[a-z0-9]$",
-          "description": "Stable spec ID. Use dotted namespaces, for example fup.kitchen-queue.descriptive."
+          "description": "Stable spec ID. Use dotted namespaces, for example fup.kitchen-queue.job."
         },
         "title": { "type": "string" },
         "type": {
           "type": "string",
-          "enum": ["descriptive", "technical", "eval", "process", "linking", "index", "template"]
+          "enum": ["system", "capability", "job", "technical", "eval", "index", "template"]
         },
         "status": {
           "type": "string",
@@ -171,7 +171,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "description": "Spec section references, for example fup.kitchen-queue.descriptive#states-and-rules."
+            "description": "Spec section references, for example fup.kitchen-queue.job#states-and-rules."
           }
         },
         "command": { "type": "string" },

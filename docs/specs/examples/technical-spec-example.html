@@ -19,10 +19,10 @@
   "lastUpdated": "2026-05-11",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "fup.kitchen-queue.descriptive",
+  "parent": "fup.kitchen-queue.job",
   "children": [],
   "relatedSpecs": [
-    { "id": "fup.kitchen-queue.descriptive", "relationship": "parent", "sections": ["states-and-rules", "ux-contracts"] },
+    { "id": "fup.kitchen-queue.job", "relationship": "parent", "sections": ["states-and-rules", "ux-contracts"] },
     { "id": "fup.kitchen-queue.eval", "relationship": "validated-by", "sections": ["risk-based-signal-choice"] }
   ],
   "ownedPaths": [
@@ -72,7 +72,7 @@
     <p class="lede">Every software task needs a technical spec. This example needs a deeper one because there are many plausible ways to move order state in real time. This spec chooses a server-authoritative status transition model with websocket fanout and stale-write protection.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Parent:</strong> <a data-spec-link="fup.kitchen-queue.descriptive" href="./descriptive-spec-example.html">fup.kitchen-queue.descriptive</a></div>
+      <div><strong>Parent:</strong> <a data-spec-link="fup.kitchen-queue.job" href="./kitchen-queue-job-spec-example.html">fup.kitchen-queue.job</a></div>
       <div><strong>Updated:</strong> 2026-05-11</div>
     </div>
     <h3>Non-goals</h3>
@@ -156,7 +156,7 @@
       <h2>Boundaries and abstraction level</h2>
       <ul>
         <li><strong>Owns:</strong> kitchen status mutation route, status transition helper, websocket event payload, reconnect catch-up query, order item status migration.</li>
-        <li><strong>References:</strong> kitchen page rendering from <a data-spec-link="fup.kitchen-queue.descriptive" href="./descriptive-spec-example.html">descriptive spec</a>.</li>
+        <li><strong>References:</strong> kitchen page rendering from the <a data-spec-link="fup.kitchen-queue.job" href="./kitchen-queue-job-spec-example.html">job spec</a>.</li>
         <li><strong>Does not own:</strong> Stripe webhook handling, menu CRUD, staff PIN auth internals, customer checkout.</li>
       </ul>
     </section>

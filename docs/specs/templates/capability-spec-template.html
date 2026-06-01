@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.spec-template.capability">
+<meta name="spec:type" content="template">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-31">
+<title>Capability Spec Template</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.spec-template.capability",
+  "title": "Capability Spec Template",
+  "type": "template",
+  "status": "active",
+  "lastUpdated": "2026-05-31",
+  "reviewCadence": "quarterly",
+  "confidence": "high",
+  "parent": "foundation.spec-system",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.spec-template.system", "relationship": "sibling", "sections": ["capability-map"] },
+    { "id": "foundation.spec-template.job", "relationship": "sibling", "sections": ["capability-supported", "process"] },
+    { "id": "foundation.spec-template.eval", "relationship": "sibling", "sections": ["verification-contract"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/templates/capability-spec-template.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": ["template", "capability"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Capability Spec</div>
+      <div class="sidebar-sub">template</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Required</div>
+    <a class="nav-item active" href="#capability-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#outcome-contract"><span class="nav-num">02</span>Outcome</a>
+    <a class="nav-item" href="#jobs"><span class="nav-num">03</span>Jobs</a>
+    <a class="nav-item" href="#interfaces-and-sources"><span class="nav-num">04</span>Interfaces</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">05</span>Evidence</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">Template · capability spec</div>
+    <h1>[Capability name] capability spec</h1>
+    <p class="lede">A capability spec defines what the system must reliably be able to do under real constraints. It names the outcome, boundaries, jobs that make the capability real, and evidence used to judge performance.</p>
+    <div class="meta-row">
+      <div><strong>Template status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-31</div>
+    </div>
+    <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace metadata, visible placeholders, related spec IDs, owned paths, coverage entries, and domain language before using it to drive work.</div>
+  </section>
+
+  <article class="doc-body">
+    <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="contracts">
+      <h2>Outcome contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Actor or beneficiary</td><td>[person, agent, system, customer, operator]</td><td>[source]</td></tr>
+          <tr><td>Reliable outcome</td><td>[what the system must be able to produce]</td><td>[source]</td></tr>
+          <tr><td>Domain object</td><td>[job, order, user, customer, invoice, report, screen, data object]</td><td>[source]</td></tr>
+          <tr><td>Constraints</td><td>[quality, timing, risk, compliance, cost, security, margin, reliability]</td><td>[source]</td></tr>
+          <tr><td>Failure mode</td><td>[what happens when this capability is weak or missing]</td><td>[source]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+      <h2>Jobs</h2>
+      <p>List the job specs required for this capability to exist, operate, or improve. A job spec is the contract for one body of work. SOPs, checklists, process maps, and workflow detail live inside the job spec unless they are rendered as linked views.</p>
+      <table class="status-table">
+        <thead><tr><th>Job</th><th>Purpose</th><th>Spec</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>[job name]</td><td>[why this job exists]</td><td><code>[job-spec-id]</code></td><td>draft/active/gap</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interfaces-and-sources" data-spec-section="interfaces-and-sources" data-section-type="interfaces">
+      <h2>Interfaces and sources</h2>
+      <p>Name where this capability appears, is operated, or is observed. In software this may be a route, component, API, command, worker, table, or dashboard. In business this may be a sales call, offer, intake form, invoice, SOP, meeting, system record, or dashboard.</p>
+      <ul>
+        <li><strong>Operating interfaces:</strong> [where actors act].</li>
+        <li><strong>Source artifacts:</strong> [files, records, docs, exports, meetings, logs].</li>
+        <li><strong>Tools:</strong> [software, SaaS, scripts, workflows, agents, physical tools].</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <p>Name what reality must show and which eval spec judges it.</p>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Eval spec</th><th>Revision target</th></tr></thead>
+        <tbody>
+          <tr><td>[observable signal]</td><td><code>[eval-spec-id]</code></td><td>[capability/job/process/context/spec update]</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Capability spec template · replace placeholders before use</p>
+</main>
+<script src="../../site-map.js"></script>
+<script src="../../site-nav.js"></script>
+</body>
+</html>

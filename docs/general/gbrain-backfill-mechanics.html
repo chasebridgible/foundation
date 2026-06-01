@@ -274,10 +274,10 @@
     <p>Make Context Packs reproducible. A future agent should be able to re-run pack generation from the queue row and get a comparable result, then inspect differences.</p>
 
     <h3>Process / Action Map</h3>
-    <p>GBrain's diarization pattern matters here: read many documents, produce one structured judgment artifact. Process / Action Map should read the Context Pack and produce states, rules, permissions, edge cases, empty/loading/error behavior, and visible/operator behavior. The output should be structured enough to evaluate and specific enough to author descriptive specs.</p>
+    <p>GBrain's diarization pattern matters here: read many documents, produce one structured judgment artifact. Process / Action Map should read the Context Pack and produce states, rules, permissions, edge cases, empty/loading/error behavior, and visible/operator behavior. The output should be structured enough to evaluate and specific enough to author job specs.</p>
 
     <h3>Author Specs</h3>
-    <p>GBrain's thin-harness/fat-skills split says Author Specs should live mostly in skills, while the harness only manages artifacts and gates. Keep the descriptive spec skill architecture-agnostic. Keep the technical spec skill contract-first. Use deterministic validators to enforce metadata, owned paths, related specs, evidence links, and coverage.</p>
+    <p>GBrain's thin-harness/fat-skills split says Author Specs should live mostly in skills, while the harness only manages artifacts and gates. Keep the job spec skill architecture-agnostic. Keep the technical spec skill contract-first. Use deterministic validators to enforce metadata, owned paths, related specs, evidence links, and coverage.</p>
 
     <h3>Evaluate Job Slices And Revision</h3>
     <p>GBrain's eval gate is a better pattern than one-time judging. Foundation should require create -> evaluate -> revise -> acceptable. The evaluator should write structured receipts that include scores, findings, sampled evidence, model/rubric versions, and what changed after revision.</p>

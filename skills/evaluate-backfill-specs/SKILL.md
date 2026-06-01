@@ -22,7 +22,7 @@ The golden example is the minimum shape of excellent, not a loose sample. Merely
 - target `AGENTS.md`
 - dated backfill report, Capability Map, Artifact Inventory, Job / Spec Queue
 - top-level system/app spec
-- descriptive and technical specs named by the report
+- job and technical specs named by the report
 - rendered UX sections for visible capability work
 - evidence paths needed to audit traceability
 
@@ -33,7 +33,7 @@ Score each category `0-10`, total `0-100`:
 1. Job / Spec Queue and resumability
 2. capability coverage, inventory coverage, and slice boundaries
 3. evidence traceability
-4. descriptive intent quality
+4. job intent quality
 5. Process / Action Map and state specificity
 6. rendered UX quality for visible capability work
 7. technical contract quality

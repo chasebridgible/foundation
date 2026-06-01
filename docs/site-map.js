@@ -7,7 +7,7 @@ window.SubstrateSiteMap = {
       "sourcePath": "docs"
     }
   ],
-  "fileCount": 62,
+  "fileCount": 66,
   "items": [
     {
       "type": "folder",
@@ -177,12 +177,12 @@ window.SubstrateSiteMap = {
             },
             {
               "type": "file",
-              "name": "descriptive-spec-example.html",
-              "title": "Fired Up Pizza Kitchen Queue - Descriptive Spec Example",
-              "path": "specs/examples/descriptive-spec-example.html",
-              "sourcePath": "docs/specs/examples/descriptive-spec-example.html",
+              "name": "business-job-spec-example.html",
+              "title": "Pay Employees Accurately and On Time - Business Job Spec Example",
+              "path": "specs/examples/business-job-spec-example.html",
+              "sourcePath": "docs/specs/examples/business-job-spec-example.html",
               "rootPath": "docs",
-              "specId": "fup.kitchen-queue.descriptive"
+              "specId": "example.business.pay-employees.job"
             },
             {
               "type": "file",
@@ -192,6 +192,24 @@ window.SubstrateSiteMap = {
               "sourcePath": "docs/specs/examples/eval-spec-example.html",
               "rootPath": "docs",
               "specId": "fup.kitchen-queue.eval"
+            },
+            {
+              "type": "file",
+              "name": "kitchen-queue-job-spec-example.html",
+              "title": "Fired Up Pizza Kitchen Queue - Job Spec Example",
+              "path": "specs/examples/kitchen-queue-job-spec-example.html",
+              "sourcePath": "docs/specs/examples/kitchen-queue-job-spec-example.html",
+              "rootPath": "docs",
+              "specId": "fup.kitchen-queue.job"
+            },
+            {
+              "type": "file",
+              "name": "software-job-spec-example.html",
+              "title": "Manage Notification Preferences - Software Job Spec Example",
+              "path": "specs/examples/software-job-spec-example.html",
+              "sourcePath": "docs/specs/examples/software-job-spec-example.html",
+              "rootPath": "docs",
+              "specId": "example.software.notification-preferences.job"
             },
             {
               "type": "file",
@@ -212,12 +230,12 @@ window.SubstrateSiteMap = {
           "items": [
             {
               "type": "file",
-              "name": "descriptive-spec-template.html",
-              "title": "Descriptive Spec Template",
-              "path": "specs/templates/descriptive-spec-template.html",
-              "sourcePath": "docs/specs/templates/descriptive-spec-template.html",
+              "name": "capability-spec-template.html",
+              "title": "Capability Spec Template",
+              "path": "specs/templates/capability-spec-template.html",
+              "sourcePath": "docs/specs/templates/capability-spec-template.html",
               "rootPath": "docs",
-              "specId": "foundation.spec-template.descriptive"
+              "specId": "foundation.spec-template.capability"
             },
             {
               "type": "file",
@@ -227,6 +245,24 @@ window.SubstrateSiteMap = {
               "sourcePath": "docs/specs/templates/eval-spec-template.html",
               "rootPath": "docs",
               "specId": "foundation.spec-template.eval"
+            },
+            {
+              "type": "file",
+              "name": "job-spec-template.html",
+              "title": "Job Spec Template",
+              "path": "specs/templates/job-spec-template.html",
+              "sourcePath": "docs/specs/templates/job-spec-template.html",
+              "rootPath": "docs",
+              "specId": "foundation.spec-template.job"
+            },
+            {
+              "type": "file",
+              "name": "system-spec-template.html",
+              "title": "System Spec Template",
+              "path": "specs/templates/system-spec-template.html",
+              "sourcePath": "docs/specs/templates/system-spec-template.html",
+              "rootPath": "docs",
+              "specId": "foundation.spec-template.system"
             },
             {
               "type": "file",
@@ -273,7 +309,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-artifact-inventory.html",
           "sourcePath": "docs/specs/foundation-backfill-artifact-inventory.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-artifact-inventory.descriptive"
+          "specId": "foundation.backfill-artifact-inventory.job"
         },
         {
           "type": "file",
@@ -300,7 +336,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-author-specs.html",
           "sourcePath": "docs/specs/foundation-backfill-author-specs.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-author-specs.descriptive"
+          "specId": "foundation.backfill-author-specs.job"
         },
         {
           "type": "file",
@@ -327,7 +363,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-capability-map.html",
           "sourcePath": "docs/specs/foundation-backfill-capability-map.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-capability-map.descriptive"
+          "specId": "foundation.backfill-capability-map.job"
         },
         {
           "type": "file",
@@ -354,7 +390,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-context-pack.html",
           "sourcePath": "docs/specs/foundation-backfill-context-pack.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-context-pack.descriptive"
+          "specId": "foundation.backfill-context-pack.job"
         },
         {
           "type": "file",
@@ -381,7 +417,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-handoff.html",
           "sourcePath": "docs/specs/foundation-backfill-handoff.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-handoff.descriptive"
+          "specId": "foundation.backfill-handoff.job"
         },
         {
           "type": "file",
@@ -408,7 +444,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-job-slice-evaluation.html",
           "sourcePath": "docs/specs/foundation-backfill-job-slice-evaluation.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-job-slice-evaluation.descriptive"
+          "specId": "foundation.backfill-job-slice-evaluation.job"
         },
         {
           "type": "file",
@@ -444,16 +480,16 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-process-action-map.html",
           "sourcePath": "docs/specs/foundation-backfill-process-action-map.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-process-action-map.descriptive"
+          "specId": "foundation.backfill-process-action-map.job"
         },
         {
           "type": "file",
           "name": "foundation-backfill-quality-evaluation.html",
-          "title": "Foundation Backfill Evaluation Process",
+          "title": "Foundation Backfill Quality Evaluation",
           "path": "specs/foundation-backfill-quality-evaluation.html",
           "sourcePath": "docs/specs/foundation-backfill-quality-evaluation.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-quality-evaluation.process"
+          "specId": "foundation.backfill-quality-evaluation.eval"
         },
         {
           "type": "file",
@@ -480,7 +516,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-spec-job-queue.html",
           "sourcePath": "docs/specs/foundation-backfill-spec-job-queue.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-spec-job-queue.descriptive"
+          "specId": "foundation.backfill-spec-job-queue.job"
         },
         {
           "type": "file",
@@ -489,7 +525,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-specs.html",
           "sourcePath": "docs/specs/foundation-backfill-specs.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-specs.descriptive"
+          "specId": "foundation.backfill-specs.job"
         },
         {
           "type": "file",
@@ -516,7 +552,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-surface-function-map.html",
           "sourcePath": "docs/specs/foundation-backfill-surface-function-map.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-surface-function-map.descriptive"
+          "specId": "foundation.backfill-surface-function-map.job"
         },
         {
           "type": "file",
@@ -543,7 +579,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-backfill-system-coherence-evaluation.html",
           "sourcePath": "docs/specs/foundation-backfill-system-coherence-evaluation.html",
           "rootPath": "docs",
-          "specId": "foundation.backfill-system-coherence-evaluation.descriptive"
+          "specId": "foundation.backfill-system-coherence-evaluation.job"
         },
         {
           "type": "file",
@@ -552,7 +588,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-html-docs-navigation.html",
           "sourcePath": "docs/specs/foundation-html-docs-navigation.html",
           "rootPath": "docs",
-          "specId": "foundation.html-docs-navigation.descriptive"
+          "specId": "foundation.html-docs-navigation.job"
         },
         {
           "type": "file",
@@ -579,7 +615,7 @@ window.SubstrateSiteMap = {
           "path": "specs/foundation-workspace-model.html",
           "sourcePath": "docs/specs/foundation-workspace-model.html",
           "rootPath": "docs",
-          "specId": "foundation.workspace-model.descriptive"
+          "specId": "foundation.workspace-model.job"
         },
         {
           "type": "file",
@@ -588,7 +624,7 @@ window.SubstrateSiteMap = {
           "path": "specs/knowledge-and-data-layer.html",
           "sourcePath": "docs/specs/knowledge-and-data-layer.html",
           "rootPath": "docs",
-          "specId": "foundation.knowledge-data-layer.descriptive"
+          "specId": "foundation.knowledge-data-layer.system"
         },
         {
           "type": "file",

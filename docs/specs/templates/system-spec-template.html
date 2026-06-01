@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.spec-template.system">
+<meta name="spec:type" content="template">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-31">
+<title>System Spec Template</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.spec-template.system",
+  "title": "System Spec Template",
+  "type": "template",
+  "status": "active",
+  "lastUpdated": "2026-05-31",
+  "reviewCadence": "quarterly",
+  "confidence": "high",
+  "parent": "foundation.spec-system",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.spec-template.capability", "relationship": "sibling", "sections": ["capability-intent", "jobs"] },
+    { "id": "foundation.spec-template.job", "relationship": "sibling", "sections": ["job-intent", "process"] },
+    { "id": "foundation.spec-template.eval", "relationship": "sibling", "sections": ["verification-contract"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/templates/system-spec-template.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": ["template", "system"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">S</div>
+    <div>
+      <div class="sidebar-title">System Spec</div>
+      <div class="sidebar-sub">template</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Required</div>
+    <a class="nav-item active" href="#system-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#capability-map"><span class="nav-num">02</span>Capabilities</a>
+    <a class="nav-item" href="#operating-loop"><span class="nav-num">03</span>Loop</a>
+    <a class="nav-item" href="#spec-graph"><span class="nav-num">04</span>Spec graph</a>
+    <a class="nav-item" href="#evidence-and-revision"><span class="nav-num">05</span>Evidence</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="system-intent" data-spec-section="system-intent" data-section-type="system-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">Template · system spec</div>
+    <h1>[System name] system spec</h1>
+    <p class="lede">A system spec defines the durable intent, boundaries, capability families, operating loop, and evidence model for a whole system. It should be broad enough to orient agents and specific enough to decide what capability or job spec owns the next change.</p>
+    <div class="meta-row">
+      <div><strong>Template status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-31</div>
+    </div>
+    <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace metadata, visible placeholders, related spec IDs, owned paths, coverage entries, and domain language before using it to drive work.</div>
+    <h3>Intent</h3>
+    <p>State the goal this system exists to produce and the real-world result that should become more reliable because the system exists.</p>
+    <h3>Boundary</h3>
+    <p>Name what the system includes, what it interfaces with, and which adjacent systems are out of scope.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-map" data-spec-section="capability-map" data-section-type="capability-map">
+      <h2>Capability map</h2>
+      <p>List the capability specs this system depends on. Do not duplicate every job or process here; link child specs where the details live.</p>
+      <table class="status-table">
+        <thead><tr><th>Capability</th><th>Outcome</th><th>Owner spec</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>[capability name]</td><td>[reliable outcome]</td><td><code>[capability-spec-id]</code></td><td>draft/active/gap</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="operating-loop" data-spec-section="operating-loop" data-section-type="operating-loop">
+      <h2>Operating loop</h2>
+      <p>Describe how intent becomes action and how reality updates the system.</p>
+      <ol>
+        <li><strong>Intent:</strong> [goal, promise, or desired outcome].</li>
+        <li><strong>Context:</strong> [knowledge, state, constraints, actors, tools, risks, and evidence needed to act].</li>
+        <li><strong>Execution:</strong> [jobs, processes, actions, and decisions].</li>
+        <li><strong>Evidence:</strong> [signals collected from reality].</li>
+        <li><strong>Evaluation:</strong> [how evidence is judged against intent].</li>
+        <li><strong>Revision:</strong> [which specs, rules, context, processes, or systems update].</li>
+      </ol>
+    </section>
+
+    <section id="spec-graph" data-spec-section="spec-graph" data-section-type="linking">
+      <h2>Spec graph</h2>
+      <p>Name the child system, capability, job, technical, and eval specs that make this system navigable.</p>
+      <ul>
+        <li><strong>Capability specs:</strong> [links].</li>
+        <li><strong>Job specs:</strong> [links].</li>
+        <li><strong>Technical specs:</strong> [links when software, automation, data, or infrastructure is involved].</li>
+        <li><strong>Eval specs:</strong> [links for judgment and acceptance].</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-revision" data-spec-section="evidence-and-revision" data-section-type="verification-contract">
+      <h2>Evidence and revision</h2>
+      <p>Define the evidence sources that tell the system whether it is working and the artifacts that must change when reality disagrees with intent.</p>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Eval spec</th><th>Revision target</th></tr></thead>
+        <tbody>
+          <tr><td>[metric, test, review, observation, dashboard, customer outcome]</td><td><code>[eval-spec-id]</code></td><td>[system/capability/job/process/context update]</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">System spec template · replace placeholders before use</p>
+</main>
+<script src="../../site-map.js"></script>
+<script src="../../site-nav.js"></script>
+</body>
+</html>

@@ -19,10 +19,10 @@
   "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.workspace-model.descriptive",
+  "parent": "foundation.workspace-model.job",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.workspace-model.descriptive", "relationship": "parent", "sections": ["states-and-rules", "ux-contracts"] },
+    { "id": "foundation.workspace-model.job", "relationship": "parent", "sections": ["states-and-rules", "ux-contracts"] },
     { "id": "foundation.workspace-doctor.technical", "relationship": "sibling", "sections": ["contracts", "failure-modes"] },
     { "id": "foundation.spec-process", "relationship": "informs", "sections": ["semantic-review", "update-obligations"] }
   ],
@@ -80,7 +80,7 @@
       "level": "manual",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-workspace-doctor-eval.html",
-      "mapsTo": ["foundation.workspace-model.descriptive#ux-contracts"],
+      "mapsTo": ["foundation.workspace-model.job#ux-contracts"],
       "evidence": "Run doctor against a real target repo after that repo has a pinned Foundation CI workflow.",
       "notes": "This requires a target repo fixture or real repo with GitHub workflow shape."
     }
@@ -141,7 +141,7 @@
           <tr><td>FWD-A2</td><td>A target repo whose adapter points to Foundation passes the adapter checks.</td><td><code>foundation.workspace-doctor.technical#contracts</code></td><td>existing</td></tr>
           <tr><td>FWD-A3</td><td>A target repo adapter that copies Foundation-owned rules fails with a duplicated-rule report.</td><td><code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>
           <tr><td>FWD-A4</td><td>A target repo spec using a <code>foundation.*</code> ID fails namespace validation.</td><td><code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>
-          <tr><td>FWD-A5</td><td>A real target repo with pinned Foundation CI can be diagnosed without failures.</td><td><code>foundation.workspace-model.descriptive#ux-contracts</code></td><td>planned</td></tr>
+          <tr><td>FWD-A5</td><td>A real target repo with pinned Foundation CI can be diagnosed without failures.</td><td><code>foundation.workspace-model.job#ux-contracts</code></td><td>planned</td></tr>
         </tbody>
       </table>
     </section>

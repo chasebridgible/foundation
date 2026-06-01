@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="spec:id" content="foundation.backfill-artifact-inventory.descriptive">
-<meta name="spec:type" content="descriptive">
+<meta name="spec:id" content="foundation.backfill-artifact-inventory.job">
+<meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-27">
 <title>Foundation Artifact Inventory</title>
@@ -12,21 +12,21 @@
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
-  "id": "foundation.backfill-artifact-inventory.descriptive",
+  "id": "foundation.backfill-artifact-inventory.job",
   "title": "Foundation Artifact Inventory",
-  "type": "descriptive",
+  "type": "job",
   "status": "active",
   "lastUpdated": "2026-05-27",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-specs.descriptive",
+  "parent": "foundation.backfill-specs.job",
   "children": [
     "foundation.backfill-artifact-inventory.technical",
     "foundation.backfill-artifact-inventory.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-specs.descriptive",
+      "id": "foundation.backfill-specs.job",
       "relationship": "parent",
       "sections": [
         "product-intent",
@@ -99,8 +99,8 @@
       "status": "existing",
       "path": "foundation/scripts/artifact-inventory.test.mjs",
       "mapsTo": [
-        "foundation.backfill-artifact-inventory.descriptive#states-and-rules",
-        "foundation.backfill-artifact-inventory.descriptive#ux-contracts"
+        "foundation.backfill-artifact-inventory.job#states-and-rules",
+        "foundation.backfill-artifact-inventory.job#ux-contracts"
       ],
       "evidence": "Artifact Inventory tests cover deterministic init, handoff checks, JSONL eval receipts, derived HTML summaries, report state, and changed-file refresh."
     },
@@ -110,13 +110,13 @@
       "status": "existing",
       "path": "foundation/scripts/artifact-inventory.test.mjs",
       "mapsTo": [
-        "foundation.backfill-artifact-inventory.descriptive#system-relationship"
+        "foundation.backfill-artifact-inventory.job#system-relationship"
       ],
       "evidence": "Artifact Inventory graph-check tests verify file-to-spec, file-to-capability, and file-to-verification-or-gap links."
     }
   ],
   "tags": [
-    "descriptive",
+    "job",
     "foundation",
     "backfill",
     "artifact-inventory",
@@ -132,7 +132,7 @@
     <div class="logo-mark">D</div>
     <div>
       <div class="sidebar-title">Artifact Inventory</div>
-      <div class="sidebar-sub">descriptive spec</div>
+      <div class="sidebar-sub">job spec</div>
     </div>
   </div>
   <div class="nav-section">
@@ -158,14 +158,14 @@
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
       <div><strong>Updated:</strong> 2026-05-27</div>
-      <div><strong>Parent:</strong> foundation.backfill-specs.descriptive</div>
+      <div><strong>Parent:</strong> foundation.backfill-specs.job</div>
     </div>
     <h3>Intent</h3>
     <p>The Artifact Inventory fill loop turns raw repository files into a complete, structured evidence index. The agent should not rely on memory to understand the repo. It should generate a file manifest, create an inventory row for every repo-owned file, inspect bounded batches, update rows, run checks, and resume from the Artifact Inventory until all files are mapped.</p>
     <p>The Artifact Inventory is a core Foundation substrate, not only a one-time backfill artifact. V1 includes both bootstrap backfill and steady-state changed-file refresh from the start. Backfill uses it as the bootstrap path when a target repo does not yet have inventory state. Normal build work uses it as the implementation index that keeps files, specs, capabilities, and verification targets connected as the repo changes.</p>
     <p>The target is rebuild-grade evidence: downstream agents should be able to ask which files implement a capability, which spec sections define intended behavior, which tests or evals protect the behavior, and which inventory rows are stale or low-confidence without rediscovering the whole repo.</p>
     <h3>Out of scope</h3>
-    <p>This spec does not define capability clustering, descriptive Author Specs, or code cleanup. It defines the file-level substrate those workflows consume. Backfill, spec workflow, and future build agents may call the same <code>artifact-inventory</code> commands for different lifecycle phases.</p>
+    <p>This spec does not define capability clustering, job Author Specs, or code cleanup. It defines the file-level substrate those workflows consume. Backfill, spec workflow, and future build agents may call the same <code>artifact-inventory</code> commands for different lifecycle phases.</p>
   </section>
 
   <article class="doc-body">
@@ -287,12 +287,12 @@
       <ul>
         <li><a data-spec-link="foundation.backfill-artifact-inventory.technical" href="./foundation-backfill-artifact-inventory-technical.html">foundation.backfill-artifact-inventory.technical</a> - Artifact Inventory artifacts, schema, loop, and checker architecture.</li>
         <li><a data-spec-link="foundation.backfill-artifact-inventory.eval" href="./foundation-backfill-artifact-inventory-eval.html">foundation.backfill-artifact-inventory.eval</a> - deterministic checks and eval gates.</li>
-        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a> - parent backfill workflow.</li>
+        <li><a data-spec-link="foundation.backfill-specs.job" href="./foundation-backfill-specs.html">foundation.backfill-specs.job</a> - parent backfill workflow.</li>
         <li><a data-spec-link="foundation.spec-system" href="./index.html">foundation.spec-system</a> - generated spec registry that the Artifact Inventory complements.</li>
       </ul>
       <h3>Directly owned paths</h3>
       <ul class="path-list">
-        <li data-implementation-path="foundation/docs/specs/foundation-backfill-artifact-inventory.html"><code>foundation/docs/specs/foundation-backfill-artifact-inventory.html</code> - descriptive contract for the artifact-inventory layer.</li>
+        <li data-implementation-path="foundation/docs/specs/foundation-backfill-artifact-inventory.html"><code>foundation/docs/specs/foundation-backfill-artifact-inventory.html</code> - job contract for the artifact-inventory layer.</li>
       </ul>
     </section>
 
@@ -309,7 +309,7 @@
   </article>
 
   <hr>
-  <p class="footer-note">Foundation Backfill Artifact Inventory · draft descriptive spec</p>
+  <p class="footer-note">Foundation Backfill Artifact Inventory · draft job spec</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

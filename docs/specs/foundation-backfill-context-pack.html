@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="spec:id" content="foundation.backfill-context-pack.descriptive">
-<meta name="spec:type" content="descriptive">
+<meta name="spec:id" content="foundation.backfill-context-pack.job">
+<meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
 <title>Foundation Backfill Context Pack</title>
@@ -12,21 +12,21 @@
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
-  "id": "foundation.backfill-context-pack.descriptive",
+  "id": "foundation.backfill-context-pack.job",
   "title": "Foundation Backfill Context Pack",
-  "type": "descriptive",
+  "type": "job",
   "status": "active",
   "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-specs.descriptive",
+  "parent": "foundation.backfill-specs.job",
   "children": [
     "foundation.backfill-context-pack.technical",
     "foundation.backfill-context-pack.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-specs.descriptive",
+      "id": "foundation.backfill-specs.job",
       "relationship": "parent",
       "sections": [
         "interface-journey",
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-spec-job-queue.descriptive",
+      "id": "foundation.backfill-spec-job-queue.job",
       "relationship": "depends-on",
       "sections": [
         "artifacts-and-state",
@@ -131,8 +131,8 @@
       "status": "existing",
       "path": "foundation/scripts/context-pack.test.mjs",
       "mapsTo": [
-        "foundation.backfill-context-pack.descriptive#artifacts-and-state",
-        "foundation.backfill-context-pack.descriptive#handoff-gate"
+        "foundation.backfill-context-pack.job#artifacts-and-state",
+        "foundation.backfill-context-pack.job#handoff-gate"
       ],
       "evidence": "Context Pack tests cover initialization from Define Spec Jobs handoff, durable pack artifacts, exact evidence requirements, eval receipts, refresh invalidation, and report handoff state."
     }
@@ -141,7 +141,7 @@
     "foundation",
     "backfill",
     "context-pack",
-    "descriptive",
+    "job",
     "substrate"
   ]
 }
@@ -153,7 +153,7 @@
     <div class="logo-mark">D</div>
     <div>
       <div class="sidebar-title">Foundation Backfill Context Pack</div>
-      <div class="sidebar-sub">descriptive spec</div>
+      <div class="sidebar-sub">job spec</div>
     </div>
   </div>
   <div class="nav-section">
@@ -232,7 +232,7 @@
       <ul>
         <li><a data-spec-link="foundation.backfill-context-pack.technical" href="./foundation-backfill-context-pack-technical.html">foundation.backfill-context-pack.technical</a></li>
         <li><a data-spec-link="foundation.backfill-context-pack.eval" href="./foundation-backfill-context-pack-eval.html">foundation.backfill-context-pack.eval</a></li>
-        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a></li>
+        <li><a data-spec-link="foundation.backfill-specs.job" href="./foundation-backfill-specs.html">foundation.backfill-specs.job</a></li>
       </ul>
     </section>
   </article>

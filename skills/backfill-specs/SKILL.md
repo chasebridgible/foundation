@@ -5,7 +5,7 @@ description: Orchestrate a complete existing-repo spec backfill by running Found
 
 # Backfill Specs
 
-Use after a target repo is connected to Foundation. Produce a capability-covered draft descriptive + technical spec graph for the whole repo. Leave existing code and old docs in place.
+Use after a target repo is connected to Foundation. Produce a capability-covered draft job + technical spec graph for the whole repo. Leave existing code and old docs in place.
 
 Detailed contracts live in:
 
@@ -27,7 +27,7 @@ Read the Surface / Function Map or Capability Map specs before starting or resum
 - Capability formula: actor + intended outcome + domain object + actions + state model + permissions/rules + visible or operator experience + backing contracts + failure/recovery + evidence.
 - Routes, screens, endpoints, tables, jobs, workflows, and infrastructure resources are evidence surfaces, not completion units.
 - Split capabilities when actors, outcomes, objects, state models, permission models, contracts, recovery behavior, or verification targets differ.
-- Descriptive specs stay architecture-agnostic unless implementation details are user-visible or required constraints.
+- Job specs stay architecture-agnostic unless implementation details are user-visible or required constraints. A job spec is the contract for the capability-backed body of work and contains the process by default.
 - Technical specs are contract-first: required contracts, current evidence, architecture constraints, implementation latitude.
 - Each slice must be evaluated, revised, and re-evaluated until acceptable before closure.
 - Acceptable means evaluator total >= 96, every category >= 9, rebuild readiness = 10, and no attached capability needs split.
@@ -39,7 +39,7 @@ In the target repo:
 
 - `docs/specs/backfill/review-report-YYYYMMDD-NN.html`
 - `docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl`
-- draft descriptive and technical specs in `docs/specs/`
+- draft job and technical specs in `docs/specs/`
 - `docs/specs/backfill/file-manifest-YYYYMMDD-NN.json`
 - Artifact Inventory artifacts: `docs/specs/backfill/artifact-inventory-YYYYMMDD-NN.jsonl`, `artifact-inventory-eval-YYYYMMDD-NN.jsonl`, and `artifact-inventory-eval-summary-YYYYMMDD-NN.html`
 - Surface / Function Map artifacts: `docs/specs/backfill/surface-function-map-YYYYMMDD-NN.jsonl`, `surface-function-map-eval-YYYYMMDD-NN.jsonl`, and `surface-function-map-eval-summary-YYYYMMDD-NN.html`
@@ -76,10 +76,10 @@ Repeat until capability coverage is closed:
 4. Map Capabilities: every ready surface must map to a `ready-for-queue` or `needs-split` capability row.
 5. Apply the split rule; rows needing split cannot close.
 6. Define Spec Jobs by refreshing the Job / Spec Queue from capability rows.
-7. Pick the next capability-backed slice that is queued, in progress, needs split, needs descriptive, needs technical, needs evaluation, needs revision, or revision-ready.
+7. Pick the next capability-backed slice that is queued, in progress, needs split, needs job, needs technical, needs evaluation, needs revision, or revision-ready.
 8. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
 9. Use `backfill-process-action-map` to Map Processes for user/operator-visible capability slices.
-10. Use `backfill-descriptive-spec-author`.
+10. Use `backfill-job-spec-author`.
 11. Use `backfill-rendered-ux-spec` when the capability has visible UX.
 12. Use `backfill-technical-spec-author`.
 13. Use `backfill-spec-adequacy-review` to Review Spec Adequacy; revise before evaluator scoring if it fails.
@@ -101,7 +101,7 @@ After all capability rows are acceptable, parent-owned with a precise reason, bl
 - `skills/surface-function-map-fill-loop/SKILL.md` - Map Surfaces
 - `skills/capability-map-fill-loop/SKILL.md` - Map Capabilities
 - `skills/backfill-process-action-map/SKILL.md` - Map Processes
-- `skills/backfill-descriptive-spec-author/SKILL.md`
+- `skills/backfill-job-spec-author/SKILL.md`
 - `skills/backfill-rendered-ux-spec/SKILL.md`
 - `skills/backfill-technical-spec-author/SKILL.md`
 - `skills/backfill-spec-adequacy-review/SKILL.md` - Review Spec Adequacy

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="example.software.notification-preferences.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-31">
+<title>Manage Notification Preferences - Software Job Spec Example</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "example.software.notification-preferences.job",
+  "title": "Manage Notification Preferences - Software Job Spec Example",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-05-31",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": null,
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.spec-template.job", "relationship": "informs", "sections": ["job-intent", "process", "evidence-and-evaluation"] },
+    { "id": "foundation.spec-template.technical", "relationship": "informs", "sections": ["internal-sequence"] },
+    { "id": "foundation.spec-template.eval", "relationship": "informs", "sections": ["acceptance-mapping"] }
+  ],
+  "ownedPaths": [
+    { "path": "app/settings/notifications/page.tsx", "kind": "source", "ownership": "abstract" },
+    { "path": "app/api/notification-preferences/route.ts", "kind": "source", "ownership": "abstract" }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    { "id": "NP-J1", "level": "e2e", "status": "planned", "path": "tests/e2e/notification-preferences.spec.ts", "mapsTo": ["example.software.notification-preferences.job#process"], "evidence": "A user can change a preference, refresh, and see the saved state." }
+  ],
+  "tags": ["example", "software", "job-spec", "settings"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">J</div>
+    <div>
+      <div class="sidebar-title">Software Job</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Example</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context/tools</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence/eval</a>
+    <a class="nav-item" href="#technical-boundary"><span class="nav-num">08</span>Technical boundary</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">Example · example.software.notification-preferences.job</div>
+    <h1>Let a user manage notification preferences</h1>
+    <p class="lede">This job spec describes the user-facing and operator-facing body of work required for a signed-in user to view, change, save, and trust notification preferences.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active example</div>
+      <div><strong>Type:</strong> job</div>
+      <div><strong>Updated:</strong> 2026-05-31</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability">
+      <h2>Capability supported</h2>
+      <p><strong>Users control communication preferences</strong> is the capability. The job is the named body of work that makes one user preference change possible and trustworthy.</p>
+      <table class="status-table">
+        <thead><tr><th>Layer</th><th>Example</th><th>What changes in software</th></tr></thead>
+        <tbody>
+          <tr><td>Capability</td><td>Users can control how the system contacts them.</td><td>The product can reliably support a class of preference outcomes.</td></tr>
+          <tr><td>Job</td><td>Manage notification preferences.</td><td>The user-facing contract for the work, states, rules, and process.</td></tr>
+          <tr><td>Technical spec</td><td>Persist preferences, authorize writes, emit audit event.</td><td>The implementation contract that supports the job.</td></tr>
+          <tr><td>Eval spec</td><td>Judge saved state, permission boundaries, and regression signals.</td><td>The evidence contract for accepting the work.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling to capture</h2>
+      <p>A real version would name the existing settings surfaces, preference fields, defaults, communication providers, permissions, legal constraints, and current failure modes such as stale state, duplicate notifications, or hidden unsubscribe logic.</p>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <p>If this job is being redesigned, the proposed handling names the changed interface, actor, provider contract, evidence rule, or recovery path. After the eval accepts it, the proposal becomes current handling and the old behavior moves into revision history.</p>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process">
+      <h2>Process inside the job</h2>
+      <ol>
+        <li><strong>Open settings.</strong> A signed-in user reaches notification preferences from account settings.</li>
+        <li><strong>See current state.</strong> The screen shows email, SMS, and product update preferences using labels that match actual system behavior.</li>
+        <li><strong>Change a preference.</strong> The user toggles a preference, sees a stable pending state, and cannot accidentally submit conflicting choices.</li>
+        <li><strong>Save.</strong> The system persists the change for the current account and shows a confirmation only after the server accepts it.</li>
+        <li><strong>Recover from failure.</strong> If the save fails, the screen restores the last accepted state and tells the user what happened.</li>
+        <li><strong>Prove the result.</strong> A refresh, audit event, and downstream provider state show the preference was applied.</li>
+      </ol>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, actors, tools, and interfaces</h2>
+      <table class="status-table">
+        <thead><tr><th>Need</th><th>Example</th><th>Question to answer</th></tr></thead>
+        <tbody>
+          <tr><td>Actors</td><td>User, settings UI, API route, preference service, notification provider.</td><td>Who or what performs each action?</td></tr>
+          <tr><td>Context</td><td>Signed-in user, account permissions, current preferences, provider status, legal requirements.</td><td>What must the actor know to act well?</td></tr>
+          <tr><td>Tools</td><td>Settings page, API, database, provider SDK, audit log, test runner.</td><td>What does the actor rely on?</td></tr>
+          <tr><td>Interfaces</td><td>Settings screen, save endpoint, database row, provider subscription state, audit event.</td><td>Where can action happen or evidence appear?</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="evaluation">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Passing condition</th><th>Revision trigger</th></tr></thead>
+        <tbody>
+          <tr><td>Browser flow</td><td>User changes a preference, refreshes, and sees the accepted value.</td><td>Saved value disappears, duplicates, or contradicts provider state.</td></tr>
+          <tr><td>API response</td><td>Unauthorized user cannot change another account's preferences.</td><td>Permission bypass or ambiguous error state.</td></tr>
+          <tr><td>Provider state</td><td>Downstream subscription reflects the accepted preference.</td><td>Provider update fails silently or drifts from local state.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="technical-boundary" data-spec-section="technical-boundary" data-section-type="technical-boundary">
+      <h2>Technical boundary</h2>
+      <p>The job spec owns the intended behavior and process. A technical spec is still required before implementation because it must choose the data model, API contract, authorization rule, provider integration, migration, and failure-handling mechanics.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Software job spec example · technical and eval specs support the job</p>
+</main>
+<script src="../../site-map.js"></script>
+<script src="../../site-nav.js"></script>
+</body>
+</html>

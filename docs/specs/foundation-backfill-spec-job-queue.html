@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="spec:id" content="foundation.backfill-spec-job-queue.descriptive">
-<meta name="spec:type" content="descriptive">
+<meta name="spec:id" content="foundation.backfill-spec-job-queue.job">
+<meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
 <title>Foundation Backfill Define Spec Jobs</title>
@@ -12,21 +12,21 @@
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
-  "id": "foundation.backfill-spec-job-queue.descriptive",
+  "id": "foundation.backfill-spec-job-queue.job",
   "title": "Foundation Backfill Define Spec Jobs",
-  "type": "descriptive",
+  "type": "job",
   "status": "active",
   "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-specs.descriptive",
+  "parent": "foundation.backfill-specs.job",
   "children": [
     "foundation.backfill-spec-job-queue.technical",
     "foundation.backfill-spec-job-queue.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-specs.descriptive",
+      "id": "foundation.backfill-specs.job",
       "relationship": "parent",
       "sections": [
         "interface-journey",
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-capability-map.descriptive",
+      "id": "foundation.backfill-capability-map.job",
       "relationship": "depends-on",
       "sections": [
         "artifacts-and-state",
@@ -131,8 +131,8 @@
       "status": "existing",
       "path": "foundation/scripts/spec-job-queue.test.mjs",
       "mapsTo": [
-        "foundation.backfill-spec-job-queue.descriptive#artifacts-and-state",
-        "foundation.backfill-spec-job-queue.descriptive#handoff-gate"
+        "foundation.backfill-spec-job-queue.job#artifacts-and-state",
+        "foundation.backfill-spec-job-queue.job#handoff-gate"
       ],
       "evidence": "Define Spec Jobs tests cover initialization from Capability Map handoff, Job / Spec Queue artifacts, needs-split child slice enforcement, eval receipts, refresh invalidation, and report handoff state."
     }
@@ -141,7 +141,7 @@
     "foundation",
     "backfill",
     "spec-job-queue",
-    "descriptive",
+    "job",
     "substrate"
   ]
 }
@@ -153,7 +153,7 @@
     <div class="logo-mark">D</div>
     <div>
       <div class="sidebar-title">Foundation Backfill Define Spec Jobs</div>
-      <div class="sidebar-sub">descriptive spec</div>
+      <div class="sidebar-sub">job spec</div>
     </div>
   </div>
   <div class="nav-section">
@@ -235,7 +235,7 @@
       <ul>
         <li><a data-spec-link="foundation.backfill-spec-job-queue.technical" href="./foundation-backfill-spec-job-queue-technical.html">foundation.backfill-spec-job-queue.technical</a></li>
         <li><a data-spec-link="foundation.backfill-spec-job-queue.eval" href="./foundation-backfill-spec-job-queue-eval.html">foundation.backfill-spec-job-queue.eval</a></li>
-        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a></li>
+        <li><a data-spec-link="foundation.backfill-specs.job" href="./foundation-backfill-specs.html">foundation.backfill-specs.job</a></li>
       </ul>
     </section>
   </article>

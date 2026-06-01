@@ -19,11 +19,11 @@
   "lastUpdated": "2026-05-28",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-surface-function-map.descriptive",
+  "parent": "foundation.backfill-surface-function-map.job",
   "children": [],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-surface-function-map.descriptive",
+      "id": "foundation.backfill-surface-function-map.job",
       "relationship": "parent",
       "sections": [
         "product-intent",
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-artifact-inventory.descriptive",
+      "id": "foundation.backfill-artifact-inventory.job",
       "relationship": "depends-on",
       "sections": [
         "states-and-rules",
@@ -158,7 +158,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-surface-function-map-technical.html</div>
     <h1>Foundation Backfill Surface / Function Map Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Surface / Function Map deterministic enough for checks and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-28</div><div><strong>Parent:</strong> foundation.backfill-surface-function-map.descriptive</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-28</div><div><strong>Parent:</strong> foundation.backfill-surface-function-map.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory. Surface / Function Map is scoped to files that can define capability surfaces; Artifact Inventory remains the exhaustive artifact ledger.</p>
   </section>
 

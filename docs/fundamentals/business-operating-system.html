@@ -417,8 +417,8 @@
     <div class="loop-copy">Update the job, process, actor assignment, metric, offer, or capability map.</div>
   </div>
 </div>
-<p><strong>Intent.</strong> Capture the desired result in a form both humans and agents can understand. That may mean defining a capability, writing a job record, standardizing an existing document, sitting in on a meeting, interviewing an employee, or turning a messy conversation into a clear operating artifact.</p>
-<p><strong>Context.</strong> Use the job record, business context, and available data to choose what needs to be done and why. Context names the constraints, actor candidates, expected outcome, tools, and evidence that will decide whether the action worked.</p>
+<p><strong>Intent.</strong> Capture the desired result in a form both humans and agents can understand. That may mean defining a capability, writing a job spec, standardizing an existing document, sitting in on a meeting, interviewing an employee, or turning a messy conversation into a clear operating artifact.</p>
+<p><strong>Context.</strong> Use the job spec, business context, and available data to choose what needs to be done and why. Context names the constraints, actor candidates, expected outcome, tools, and evidence that will decide whether the action worked.</p>
 <p><strong>Execution.</strong> Implement the chosen intervention. Sometimes that is a checklist. Sometimes it is a spreadsheet. Sometimes it is an app, automation, agent skill, operating cadence, training artifact, or recommendation the business implements itself. The actor is selected after the job is understood, not before.</p>
 <p><strong>Evidence, evaluation, and revision.</strong> The loop compounds only when measured reality enters the data layer, gets interpreted against intent, and changes the next job definition, decision, process, actor assignment, or action. Measurement can be data, manager review, customer response, audit trail, task completion, error rate, revenue, margin, cycle time, or any other signal tied to the job. Measurement without operating-system update is reporting. Measurement with operating-system update is compounding.</p>
 <p>When a step fails, go back to the smallest correction. If the actor did the wrong thing, inspect the job definition. If the metric did not answer the question, revise the data capture. If the process worked once but cannot be repeated, turn the successful path into a checklist or skill. The loop is the recovery mechanism and the learning mechanism.</p>
@@ -459,20 +459,22 @@
 <section id="4-jobs-are-the-unit-of-change" class="level2 spec-section">
 <h2>4. Jobs are the unit of change.</h2>
 <p>A capability says what the business can reliably do. A job says what work must happen for that capability to exist, operate, or improve. For example, <em>pay employees accurately and on time</em> is a capability; <em>run payroll for this pay period</em> is a job; approving hours, calculating pay, resolving exceptions, and recording proof are process steps and actions inside that job.</p>
-<p>Jobs have their own specs, which say what needs to happen, why it matters, which capability the job supports, how it is currently done, who owns it, what inputs it needs, what output it creates, and how success is verified. Because a job carries intent, the spec can describe strategy work, relationship work, decision work, creative work, physical work, or routine operational work without changing shape.</p>
+<p>Jobs have their own specs, which say what needs to happen, why it matters, which capability the job supports, how it is currently done, who owns it, what inputs it needs, what process performs it, what output it creates, and how success is verified. Because a job carries intent, the spec can describe strategy work, relationship work, decision work, creative work, physical work, or routine operational work without changing shape.</p>
 <p>A complete job spec should answer:</p>
 <ul>
 <li><strong>Purpose:</strong> what business outcome this job protects or creates.</li>
 <li><strong>Trigger:</strong> when the job starts.</li>
 <li><strong>Actor:</strong> who or what currently does it: person, agent, software, vendor, or hybrid.</li>
 <li><strong>Inputs:</strong> what information, materials, approvals, or system access are required.</li>
-<li><strong>Process:</strong> the steps, checklist, decision tree, or workflow.</li>
+<li><strong>Process:</strong> the steps, checklist, decision tree, SOP, or workflow.</li>
 <li><strong>Success criteria:</strong> what "done" means and what quality bar applies.</li>
 <li><strong>Measurement:</strong> which signal proves the job is working or failing.</li>
 <li><strong>Escalation:</strong> what happens when the actor cannot complete the job safely.</li>
 <li><strong>Revision history:</strong> what changed, when, why, and what evidence justified the change.</li>
 </ul>
-<p>A job can have an eval spec. In business language that may be an eval, acceptance criteria, scorecard, audit, quality gate, or metric definition. The point is not the label. The point is that evidence must be named before the system can improve the job.</p>
+<p>The process belongs inside the job spec by default. SOPs, checklists, process maps, decision trees, and operating briefs are sections or views of the job spec, not separate source-of-truth types. Create a separate linked artifact only when a long checklist, diagram, workflow file, or training aid makes the job easier to use in practice.</p>
+<p>A job can have an eval spec. Acceptance criteria, scorecards, audits, quality gates, metric definitions, and manager reviews are ways to judge evidence; the canonical artifact is the eval spec when that judgment needs to be reusable.</p>
+<p>A job spec can carry both <strong>current handling</strong> and <strong>proposed handling</strong>. Current handling describes how the job works now. Proposed handling describes a changed actor, process, tool, or evidence rule. When the proposal is accepted, it becomes current handling and the old version moves into revision history. That keeps the system from accumulating dead parallel documents.</p>
 <p>Once the job is legible, the business can ask better questions. Should this stay human? Should an agent advise the human? Should software automate the whole thing? Should a checklist reduce variance? Should the job disappear because another process makes it unnecessary?</p>
 <p>The pilot turbulence example makes the point. "Turn on the fasten seatbelt sign and make an announcement when turbulence matters" is one job. The current actor may be the pilot. The future actor may be flight-data software, onboard sensors, and an automated announcement system. The deeper job, flying the plane, requires a much more serious system before it can be delegated to autopilot. Same structure, different stakes.</p>
 <p>The Business Operating System exists to make that question answerable: identify the jobs, understand the value and risk of changing the actor, then build or recommend the system that puts the right work on autopilot without pretending every job should be automated.</p>
@@ -518,7 +520,7 @@
 <p><strong>Job board.</strong> The board is the current work interface. It answers: what jobs exist, what tasks are active, who owns them, what is blocked, what evidence is missing, and what changed recently. Business owners should be able to see all jobs and how they are handled without manually interviewing the whole company.</p>
 <p><strong>Actor.</strong> The actor does the job. Sometimes the actor is an employee following a checklist. Sometimes it is an agent that drafts a recommendation. Sometimes it is software that automates the action. Sometimes it is a human approving an agent's work. The operating system should name the actor explicitly instead of hiding delegation inside informal habits.</p>
 <p><strong>Revision.</strong> The revision layer closes the loop. It decides whether the job is healthy, whether the actor is appropriate, whether the process needs revision, and whether new work should be created.</p>
-<p>The key interface is guided intake. Employees should be able to answer structured questions about what happened, what changed, what failed, or what process they followed. The system turns those answers into updates to jobs, tasks, SOPs, decision records, and metrics.</p>
+<p>The key interface is guided intake. Employees should be able to answer structured questions about what happened, what changed, what failed, or what process they followed. The system turns those answers into updates to job specs, tasks, decision records, and metrics.</p>
 <hr />
 </section>
 
@@ -537,7 +539,7 @@
 </ul>
 <p><strong>Iterating</strong> (current best implementation):</p>
 <ul>
-<li>The exact document structure for a job registry, SOP library, decision log, metric dictionary, and offer map.</li>
+<li>The exact document structure for a job spec registry, decision log, metric dictionary, and offer map.</li>
 <li>Whether the interface starts as files, sheets, a custom app, a GBrain-style knowledge interface, or a hybrid.</li>
 <li>The exact owner, steward, board, and actor roles for a given business.</li>
 <li>Which agent skills handle intake, job updates, process drafting, data interpretation, and owner reporting.</li>

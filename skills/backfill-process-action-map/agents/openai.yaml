@@ -1,4 +1,4 @@
 interface:
   display_name: "Backfill Process / Action Map"
   short_description: "Map concrete processes and actions"
-  default_prompt: "Use $backfill-process-action-map to derive the Process / Action Map from this repo evidence before drafting descriptive specs."
+  default_prompt: "Use $backfill-process-action-map to derive the Process / Action Map from this repo evidence before drafting job specs."

@@ -476,7 +476,7 @@
         <div class="card">
           <div class="card-label">Revision cadence</div>
           <div class="card-title">How learning changes future work</div>
-          <div class="card-copy">Update job records, processes, actor assignments, context, capabilities, offers, and decision rules when reality teaches the system.</div>
+          <div class="card-copy">Update job specs, process sections, actor assignments, context, capabilities, offers, and decision rules when reality teaches the system.</div>
         </div>
       </div>
       <hr>
@@ -558,7 +558,7 @@
           </div>
         </div>
       </div>
-      <p>That means Orderly Systems does not have to perform every operating task directly. If shelves need to be stocked, the work may be to define the stocking job, create the checklist or app employees use, route the task, collect evidence that it happened, and revise the process when it fails.</p>
+      <p>That means Orderly Systems does not have to perform every operating task directly. If shelves need to be stocked, the work may be to define the stocking job, put the checklist inside the job spec, create the app employees use, route the task, collect evidence that it happened, and revise the job when it fails.</p>
       <hr>
     </section>
 
@@ -675,6 +675,7 @@
         </div>
       </div>
       <p>This is the layer that lets Orderly Systems define the business clearly enough to improve it. The detailed draft is the <a href="../specs/knowledge-and-data-layer.html">Knowledge and Data Layer spec</a>.</p>
+      <p>The first half of the build is the operating substrate: capability map, job specs, source registry, intake, evidence model, and eval specs. The second half is the client value layer: database ingestion, dashboards, app surfaces, context packs, and review views that let the client see capabilities, jobs, evidence, gaps, proposed changes, and accepted revisions directly.</p>
       <hr>
     </section>
 
@@ -692,7 +693,7 @@
           <div class="loop-row"><div class="loop-name">Execution</div><div class="loop-copy">Run the job through the right actor: person, process, software, agent, vendor, or hybrid.</div><div class="loop-example">process change, app feature, agent workflow, operating cadence</div></div>
           <div class="loop-row"><div class="loop-name">Evidence</div><div class="loop-copy">Collect the signal from reality after the work runs.</div><div class="loop-example">metric movement, audit result, customer response, test, review</div></div>
           <div class="loop-row"><div class="loop-name">Evaluation</div><div class="loop-copy">Compare evidence against intent and decide accept, revise, continue, or stop.</div><div class="loop-example">scorecard, eval spec, owner review, quality gate</div></div>
-          <div class="loop-row"><div class="loop-name">Revision</div><div class="loop-copy">Update the artifact that guides future work.</div><div class="loop-example">job record, process, offer, metric definition, capability map</div></div>
+          <div class="loop-row"><div class="loop-name">Revision</div><div class="loop-copy">Update the artifact that guides future work.</div><div class="loop-example">job spec, offer, metric definition, capability map</div></div>
         </div>
       </div>
       <p>This is why the work is not just implementation. A business improves when reality updates the artifacts that guide future action.</p>
@@ -711,14 +712,14 @@
     <section id="7-the-offer" class="level2 spec-section">
       <h2>7. The offer</h2>
       <p>Orderly Systems builds Business Operating System infrastructure for companies that need clearer operations, better data, and more leverage from people, software, and agents.</p>
-      <p><strong>The offer:</strong> we turn the operating reality of a business into a living context and spec system of jobs, actors, processes, data, measures, and update rules, then use that system to improve performance over time.</p>
+      <p><strong>The offer:</strong> we turn the operating reality of a business into a living context and spec system of capabilities, jobs, actors, processes, data, measures, and update rules, then use that system to improve performance over time.</p>
       <p><strong>What we do for a business:</strong></p>
       <ul>
         <li><strong>Define the business.</strong> Clarify the offers, customer promises, constraints, roles, systems, and outcomes that matter.</li>
         <li><strong>Map the jobs.</strong> Identify the work the business must do to fulfill its offers, grow, avoid failure, and improve margins.</li>
-        <li><strong>Write the job specs.</strong> Capture purpose, trigger, actor, inputs, process, success criteria, measurement, escalation, and revision history.</li>
+        <li><strong>Write the job specs.</strong> Capture purpose, trigger, actor, inputs, current handling, proposed handling, process, success criteria, measurement, escalation, and revision history. SOPs, checklists, and process maps live inside the job spec unless they are rendered as linked views.</li>
         <li><strong>Find the gaps.</strong> Identify unowned jobs, unclear decisions, weak handoffs, missing data, broken processes, and places where the actor no longer fits the work.</li>
-        <li><strong>Design the operating system.</strong> Create the job board, SOPs, checklists, data definitions, dashboards, decision rules, and intake paths the business needs.</li>
+        <li><strong>Design the operating system.</strong> Create the job board, job specs, data definitions, dashboards, decision rules, and intake paths the business needs.</li>
         <li><strong>Implement the right intervention.</strong> Build or recommend processes, software, automations, agent workflows, training artifacts, or human handoffs.</li>
         <li><strong>Set up the data layer.</strong> Route the events, metrics, outcomes, and exceptions needed to understand whether the business is working.</li>
         <li><strong>Close the revision loop.</strong> Turn measured reality into updates to job definitions, decisions, processes, actor assignments, and future actions.</li>

@@ -29,7 +29,7 @@ For each capability process, record:
 - success outcome
 - empty, loading, partial, error, offline, retry, permission, and recovery paths
 - evidence paths
-- proposed descriptive spec owner
+- proposed job spec owner
 - unresolved human decisions
 
 ## Split

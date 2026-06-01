@@ -19,10 +19,10 @@
   "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.workspace-model.descriptive",
+  "parent": "foundation.workspace-model.job",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.workspace-model.descriptive", "relationship": "parent", "sections": ["states-and-rules", "ux-contracts"] },
+    { "id": "foundation.workspace-model.job", "relationship": "parent", "sections": ["states-and-rules", "ux-contracts"] },
     { "id": "foundation.workspace-doctor.eval", "relationship": "sibling", "sections": ["verification-contract", "acceptance-mapping"] },
     { "id": "foundation.spec-process", "relationship": "informs", "sections": ["spec-authoring", "semantic-review"] }
   ],
@@ -144,11 +144,11 @@
         <tbody>
           <tr><td>Canonical Foundation path</td><td>Fail when missing or not a Git repo.</td><td>Agents and CI need a durable shared substrate location.</td></tr>
           <tr><td>Foundation <code>AGENTS.md</code></td><td>Fail when missing.</td><td>The shared rulebook is the entry point for Foundation behavior.</td></tr>
-          <tr><td>Required skills</td><td>Fail when descriptive spec interview, backfill orchestrator/sub-skills, Artifact Inventory fill loop, Surface / Function Map fill loop, Capability Map fill loop, backfill evaluator, spec workflow, or target repo setup skills are missing.</td><td>The workspace model depends on skills as executable process.</td></tr>
+          <tr><td>Required skills</td><td>Fail when job spec interview, backfill orchestrator/sub-skills, Artifact Inventory fill loop, Surface / Function Map fill loop, Capability Map fill loop, backfill evaluator, spec workflow, or target repo setup skills are missing.</td><td>The workspace model depends on skills as executable process.</td></tr>
           <tr><td>Global Codex pointer</td><td>Fail when missing or not pointing to the canonical Foundation path and Foundation <code>AGENTS.md</code>.</td><td>Starting in a target repo should still discover Foundation.</td></tr>
           <tr><td>Foundation spec check</td><td>Fail when registry or spec metadata checks fail; warn only when skipped by flag.</td><td>Foundation cannot be canonical if its own registry is stale or invalid.</td></tr>
           <tr><td>Target repo adapter</td><td>Fail when missing, not pointing to Foundation, or duplicating Foundation-owned rules.</td><td>Local instructions should refine project context, not fork shared process.</td></tr>
-          <tr><td>Target spec namespace</td><td>Warn when no target specs exist; fail when target specs use <code>foundation.*</code> IDs.</td><td>Shared-process specs live in Foundation; product specs live in the target namespace.</td></tr>
+          <tr><td>Target spec namespace</td><td>Warn when no target specs exist; fail when target specs use <code>foundation.*</code> IDs.</td><td>Shared workflow specs live in Foundation; product specs live in the target namespace.</td></tr>
           <tr><td>Target CI pin</td><td>Warn when CI is absent, does not mention Foundation, or mentions Foundation without a pinned commit SHA.</td><td>CI maturity should be visible without blocking early local setup.</td></tr>
         </tbody>
       </table>

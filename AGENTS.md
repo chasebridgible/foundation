@@ -1,7 +1,7 @@
 # AGENTS.md
 
 - Specs are HTML-native durable contracts. Start at `docs/specs/index.html` before behavior-changing software work or spec authoring.
-- Use the Descriptive Spec Interview skill at `skills/descriptive-spec-interview/SKILL.md` when turning fuzzy user-facing intent into a descriptive spec.
+- Use the Job Spec Interview skill at `skills/job-spec-interview/SKILL.md` when turning fuzzy intent into a job spec.
 - Use `docs/principles/sw-design-principles.html` before user-facing UI, rendered-UX, accessibility, responsive layout, or visual-verification work.
 - Use the Backfill Specs skill at `skills/backfill-specs/SKILL.md` when converting an existing repo into a capability-covered, intent-rigid, architecture-flexible spec graph with dated report and JSONL run log.
 - Use the Artifact Inventory Fill Loop skill at `skills/artifact-inventory-fill-loop/SKILL.md` when creating, filling, refreshing, checking, or evaluating a target repo artifact inventory.

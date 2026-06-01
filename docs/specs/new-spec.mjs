@@ -8,15 +8,32 @@ const docsDir = path.dirname(specsDir);
 const repoRoot = path.dirname(docsDir);
 const repoName = path.basename(repoRoot);
 const typeAliases = new Map([["test", "eval"]]);
-const allowedTypes = new Set(["descriptive", "technical", "eval", "process", "linking", "template"]);
+const allowedTypes = new Set(["system", "capability", "job", "technical", "eval"]);
 
 const typeSections = {
-  descriptive: [
-    ["product-intent", "product-intent", "Product intent"],
-    ["user-model", "user-model", "User model"],
-    ["interface-journey", "journey", "Interface journey"],
-    ["states-and-rules", "states-rules", "States and rules"],
-    ["eval-coverage", "coverage", "Eval coverage"]
+  system: [
+    ["system-intent", "system-intent", "System intent"],
+    ["capability-map", "capability-map", "Capability map"],
+    ["operating-loop", "operating-loop", "Operating loop"],
+    ["spec-graph", "linking", "Spec graph"],
+    ["evidence-and-revision", "verification-contract", "Evidence and revision"]
+  ],
+  capability: [
+    ["capability-intent", "capability-intent", "Capability intent"],
+    ["outcome-contract", "contracts", "Outcome contract"],
+    ["jobs", "job-map", "Jobs"],
+    ["interfaces-and-sources", "interfaces", "Interfaces and sources"],
+    ["evidence-and-evaluation", "verification-contract", "Evidence and evaluation"]
+  ],
+  job: [
+    ["job-intent", "job-intent", "Job intent"],
+    ["capability-supported", "capability-link", "Capability supported"],
+    ["current-handling", "current-state", "Current handling"],
+    ["proposed-handling", "proposed-state", "Proposed handling"],
+    ["process", "process-contract", "Process"],
+    ["context-tools-and-interfaces", "context", "Context, tools, and interfaces"],
+    ["evidence-and-evaluation", "verification-contract", "Evidence and evaluation"],
+    ["revision", "maintenance", "Revision"]
   ],
   technical: [
     ["required-depth", "decision-rule", "Required depth"],
@@ -51,10 +68,10 @@ const typeSections = {
 
 function usage() {
   return `Usage:
-  npm run spec:new -- --type descriptive --id product.feature.descriptive --title "Feature Descriptive Spec" --out docs/specs/features/feature-descriptive.html
+  npm run spec:new -- --type job --id product.feature.job --title "Feature Job Spec" --out docs/specs/features/feature-job.html
 
 Required:
-  --type              descriptive, technical, eval, process, linking, or template
+  --type              system, capability, job, technical, or eval
   --id                stable dotted spec id
   --title             human-readable spec title
   --out               output .html path under docs/specs

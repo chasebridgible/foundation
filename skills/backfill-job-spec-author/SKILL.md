@@ -1,11 +1,11 @@
 ---
-name: backfill-descriptive-spec-author
-description: Author architecture-agnostic, intent-grade descriptive specs from capability rows, Context Packs, and the Process / Action Map during a Foundation backfill. Use inside Backfill Specs after Gather Context and Map Processes, before rendered UX and Review Spec Adequacy.
+name: backfill-job-spec-author
+description: Author architecture-agnostic, intent-grade job specs from capability rows, Context Packs, and the Process / Action Map during a Foundation backfill. Use inside Backfill Specs after Gather Context and Map Processes, before rendered UX and Review Spec Adequacy.
 ---
 
-# Backfill Descriptive Spec Author
+# Backfill Job Spec Author
 
-Use inside `backfill-specs` to write what the system is intended to make possible for users and operators. Code is evidence; the descriptive spec is the intent contract.
+Use inside `backfill-specs` to write what the system is intended to make possible for users and operators. Code is evidence; the job spec is the intent contract for the capability-backed body of work.
 
 ## Inputs
 

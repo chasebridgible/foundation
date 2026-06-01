@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.spec-template.job">
+<meta name="spec:type" content="template">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-31">
+<title>Job Spec Template</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.spec-template.job",
+  "title": "Job Spec Template",
+  "type": "template",
+  "status": "active",
+  "lastUpdated": "2026-05-31",
+  "reviewCadence": "quarterly",
+  "confidence": "high",
+  "parent": "foundation.spec-system",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.spec-template.capability", "relationship": "sibling", "sections": ["jobs"] },
+    { "id": "foundation.spec-template.technical", "relationship": "sibling", "sections": ["required-depth", "capability-contract"] },
+    { "id": "foundation.spec-template.eval", "relationship": "sibling", "sections": ["verification-contract", "acceptance-mapping"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/templates/job-spec-template.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": ["template", "job"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">J</div>
+    <div>
+      <div class="sidebar-title">Job Spec</div>
+      <div class="sidebar-sub">template</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Required</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">08</span>Revision</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">Template · job spec</div>
+    <h1>[Job name] job spec</h1>
+    <p class="lede">A job spec is the contract for a named body of work required for a capability to exist, operate, or improve. It is the source of truth for the job's intent, current handling, proposed handling, process, context, evidence, and revision history.</p>
+    <div class="meta-row">
+      <div><strong>Template status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-05-31</div>
+    </div>
+    <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace metadata, visible placeholders, related spec IDs, owned paths, coverage entries, and domain language before using it to drive work.</div>
+    <h3>Intent</h3>
+    <p>State what this job is meant to make true and why the capability needs it.</p>
+    <h3>Trigger</h3>
+    <p>Name when this job starts: user action, business event, scheduled run, incident, request, opportunity, handoff, or evidence signal.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <p>Link the capability spec this job supports. If one job supports multiple capabilities, name the primary capability and explain why the job is not too broad.</p>
+      <table class="status-table">
+        <thead><tr><th>Capability</th><th>How this job supports it</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td><code>[capability-spec-id]</code></td><td>[relationship]</td><td>[source]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling</h2>
+      <p>Describe how the job currently happens, including known gaps. In software, cite current interfaces, files, commands, tests, logs, or users. In business, cite roles, docs, SaaS records, meetings, dashboards, SOPs, customers, or owner knowledge.</p>
+      <ul>
+        <li><strong>Current actor:</strong> [person, agent, system, vendor, workflow, hybrid].</li>
+        <li><strong>Current path:</strong> [plain-language summary].</li>
+        <li><strong>Known gaps:</strong> [missing context, weak process, unclear evidence, owner dependency, implementation risk].</li>
+      </ul>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <p>Use this section when the job is being redesigned. Keep the proposal in the same job spec so current and future handling do not become competing documents.</p>
+      <ul>
+        <li><strong>Proposed actor:</strong> [person, agent, software, vendor, workflow, hybrid, or unchanged].</li>
+        <li><strong>Proposed path:</strong> [plain-language summary of the changed handling].</li>
+        <li><strong>Reason for change:</strong> [capability gap, evidence signal, cost, risk, quality, speed, reliability].</li>
+        <li><strong>Decision state:</strong> proposed / accepted / rejected / superseded.</li>
+      </ul>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <p>Define the repeatable path that performs the job. SOPs, checklists, process maps, decision trees, and handoff steps belong here by default. If a long checklist, diagram, or operating aid is useful as a separate file, link it as a view of this job spec instead of making it a competing source of truth.</p>
+      <ol>
+        <li><strong>Prepare:</strong> [context, permissions, inputs, source data, examples].</li>
+        <li><strong>Decide:</strong> [decision criteria, branches, escalation rules].</li>
+        <li><strong>Act:</strong> [actions taken in software, business, communication, data, or physical reality].</li>
+        <li><strong>Check:</strong> [quality gate, review, automated test, metric, checklist, acceptance signal].</li>
+        <li><strong>Handoff or close:</strong> [what becomes true and where it is recorded].</li>
+      </ol>
+      <div class="callout info"><strong>View rule:</strong> reusable or regulated process detail can be rendered as a linked SOP, checklist, diagram, workflow file, or skill. The job spec still names the job intent, owning capability, current process, evidence, and revision rules.</div>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <table class="status-table">
+        <thead><tr><th>Layer</th><th>Required detail</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Context</td><td>[what the actor needs to know]</td><td>[source]</td></tr>
+          <tr><td>Tools</td><td>[what the actor relies on]</td><td>[source]</td></tr>
+          <tr><td>Interfaces</td><td>[where work appears, happens, or is observed]</td><td>[source]</td></tr>
+          <tr><td>Actor candidates</td><td>[human, agent, software, vendor, workflow, hybrid]</td><td>[source]</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <p>Define what evidence proves the job worked and which eval spec judges it. Tests, audits, scorecards, screenshots, traces, customer outcomes, revenue movement, manager review, and production behavior are all evidence sources when they are tied to intent.</p>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Acceptance condition</th><th>Eval spec or gap</th></tr></thead>
+        <tbody>
+          <tr><td>[observable signal]</td><td>[what must be true]</td><td><code>[eval-spec-id]</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <p>Name what changes when this job misses: the job spec, technical spec, eval spec, context pack, source registry, decision rule, actor assignment, tool, or capability spec. When a proposed handling is accepted, promote it to current handling and move the old handling into revision history. Rejected proposals should remain as brief decision notes, not living parallel docs.</p>
+      <ul>
+        <li><strong>Revision target:</strong> [artifact or system layer].</li>
+        <li><strong>Update trigger:</strong> [failed eval, new source, changed process, repeated exception, user/customer outcome].</li>
+        <li><strong>Promotion rule:</strong> [what evidence or decision makes proposed handling become current handling].</li>
+      </ul>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Job spec template · work contract for a body of work</p>
+</main>
+<script src="../../site-map.js"></script>
+<script src="../../site-nav.js"></script>
+</body>
+</html>

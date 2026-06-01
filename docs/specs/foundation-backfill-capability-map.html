@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="spec:id" content="foundation.backfill-capability-map.descriptive">
-<meta name="spec:type" content="descriptive">
+<meta name="spec:id" content="foundation.backfill-capability-map.job">
+<meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-29">
 <title>Foundation Backfill Capability Map</title>
@@ -12,21 +12,21 @@
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
-  "id": "foundation.backfill-capability-map.descriptive",
+  "id": "foundation.backfill-capability-map.job",
   "title": "Foundation Backfill Capability Map",
-  "type": "descriptive",
+  "type": "job",
   "status": "active",
   "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-specs.descriptive",
+  "parent": "foundation.backfill-specs.job",
   "children": [
     "foundation.backfill-capability-map.technical",
     "foundation.backfill-capability-map.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-specs.descriptive",
+      "id": "foundation.backfill-specs.job",
       "relationship": "parent",
       "sections": [
         "interface-journey",
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-surface-function-map.descriptive",
+      "id": "foundation.backfill-surface-function-map.job",
       "relationship": "depends-on",
       "sections": [
         "artifacts-and-state",
@@ -105,8 +105,8 @@
       "status": "existing",
       "path": "foundation/scripts/capability-map.test.mjs",
       "mapsTo": [
-        "foundation.backfill-capability-map.descriptive#artifacts-and-state",
-        "foundation.backfill-capability-map.descriptive#handoff-gate"
+        "foundation.backfill-capability-map.job#artifacts-and-state",
+        "foundation.backfill-capability-map.job#handoff-gate"
       ],
       "evidence": "Capability Map tests cover initialization from Surface / Function Map handoff, pending and terminal states, coverage of ready surfaces, split flags, checker output, eval receipts, HTML summary, refresh invalidation, and report handoff state."
     }
@@ -115,7 +115,7 @@
     "foundation",
     "backfill",
     "capability-map",
-    "descriptive",
+    "job",
     "substrate"
   ]
 }
@@ -127,7 +127,7 @@
     <div class="logo-mark">D</div>
     <div>
       <div class="sidebar-title">Foundation Backfill Capability Map</div>
-      <div class="sidebar-sub">descriptive spec</div>
+      <div class="sidebar-sub">job spec</div>
     </div>
   </div>
   <div class="nav-section">
@@ -208,7 +208,7 @@
       <ul>
         <li><a data-spec-link="foundation.backfill-capability-map.technical" href="./foundation-backfill-capability-map-technical.html">foundation.backfill-capability-map.technical</a></li>
         <li><a data-spec-link="foundation.backfill-capability-map.eval" href="./foundation-backfill-capability-map-eval.html">foundation.backfill-capability-map.eval</a></li>
-        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a></li>
+        <li><a data-spec-link="foundation.backfill-specs.job" href="./foundation-backfill-specs.html">foundation.backfill-specs.job</a></li>
       </ul>
     </section>
   </article>
