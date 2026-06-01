@@ -6,6 +6,7 @@ import {
   parseCliArgs,
   readJson
 } from "./visible-business-graph-core.mjs";
+import { siteNavScriptTags } from "./html-nav-includes.mjs";
 
 const TYPE_LABELS = {
   system: "Systems",
@@ -774,6 +775,7 @@ function renderAll() {
 setupPan();
 renderAll();
 </script>
+${siteNavScriptTags({ repoRoot, htmlPath: outPath })}
 </body>
 </html>
 `;
