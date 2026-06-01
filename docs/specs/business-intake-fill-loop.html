@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.business-intake-fill-loop.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Business Intake Fill Loop</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.business-intake-fill-loop.job",
+  "title": "Business Intake Fill Loop",
+  "type": "job",
+  "status": "draft",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.knowledge-data-layer.system",
+  "children": [
+    "foundation.business-intake-fill-loop.technical",
+    "foundation.business-intake-fill-loop.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.knowledge-data-layer.system",
+      "relationship": "parent",
+      "sections": [
+        "system-model",
+        "interface-journey",
+        "states-and-rules"
+      ]
+    },
+    {
+      "id": "foundation.visible-business-graph.system",
+      "relationship": "informs",
+      "sections": [
+        "graph-contract",
+        "metadata-contract",
+        "view-contracts"
+      ]
+    },
+    {
+      "id": "foundation.business-intake-fill-loop.technical",
+      "relationship": "child",
+      "sections": [
+        "contracts",
+        "failure-modes"
+      ]
+    },
+    {
+      "id": "foundation.business-intake-fill-loop.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/business-intake-fill-loop.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/business-intake-fill-loop/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/fundamentals/business-intake.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Canonical intake workspace fields, lanes, statuses, signals, and promotion targets."
+    },
+    {
+      "path": "foundation/docs/fundamentals/visible-business-foundation.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Core concept for making a business inspectable from HTML substrate."
+    },
+    {
+      "path": "foundation/scripts/visible-business-graph-core.mjs",
+      "kind": "source",
+      "ownership": "reference",
+      "notes": "Graph metadata validation and graph build contracts used after promotion."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "BIFL-D-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+      "mapsTo": [
+        "foundation.business-intake-fill-loop.job#process",
+        "foundation.business-intake-fill-loop.job#evidence-and-evaluation"
+      ],
+      "evidence": "The skill defines source registration, answer rows, signal extraction, promotion, graph build, graph render, and evaluation handoff steps."
+    }
+  ],
+  "tags": [
+    "job",
+    "intake",
+    "visible-business"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.business-intake-fill-loop.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.business-intake-fill-loop.job",
+      "type": "job",
+      "label": "Business Intake Fill Loop",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "job-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "intake",
+          "visible-business"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.business-intake-fill-loop.job:main",
+      "type": "process",
+      "label": "Business Intake Fill Loop process",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "process"
+      },
+      "status": "draft",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.business-intake-fill-loop.job"
+      }
+    },
+    {
+      "id": "actor:foundation.business-intake-fill-loop.job:primary",
+      "type": "actor",
+      "label": "Business intake operator or agent",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "job-intent"
+      },
+      "status": "draft",
+      "confidence": "low",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.business-intake-fill-loop.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.business-intake-fill-loop.job:primary",
+      "type": "evidence",
+      "label": "Business intake source-backed evaluation",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "draft",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.business-intake-fill-loop.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.job:has-process:process:foundation.business-intake-fill-loop.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.business-intake-fill-loop.job",
+      "to": "process:foundation.business-intake-fill-loop.job:main",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.job:performed-by:actor:foundation.business-intake-fill-loop.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.business-intake-fill-loop.job",
+      "to": "actor:foundation.business-intake-fill-loop.job:primary",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "job-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.job:evidenced-by:evidence:foundation.business-intake-fill-loop.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.business-intake-fill-loop.job",
+      "to": "evidence:foundation.business-intake-fill-loop.job:primary",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.job:depends-on:spec:foundation.knowledge-data-layer.system",
+      "type": "depends-on",
+      "from": "spec:foundation.business-intake-fill-loop.job",
+      "to": "spec:foundation.knowledge-data-layer.system",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "job-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.job:depends-on:spec:foundation.visible-business-graph.system",
+      "type": "depends-on",
+      "from": "spec:foundation.business-intake-fill-loop.job",
+      "to": "spec:foundation.visible-business-graph.system",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.job:contains:spec:foundation.business-intake-fill-loop.technical",
+      "type": "contains",
+      "from": "spec:foundation.business-intake-fill-loop.job",
+      "to": "spec:foundation.business-intake-fill-loop.technical",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.job:contains:spec:foundation.business-intake-fill-loop.eval",
+      "type": "contains",
+      "from": "spec:foundation.business-intake-fill-loop.job",
+      "to": "spec:foundation.business-intake-fill-loop.eval",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">J</div>
+    <div>
+      <div class="sidebar-title">Business Intake Fill Loop</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Job intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability supported</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current handling</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed handling</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context, tools, and interfaces</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence and evaluation</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">08</span>Revision</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/business-intake-fill-loop.html</div>
+    <h1>Business Intake Fill Loop</h1>
+    <p class="lede">Turn source artifacts into reviewed business graph substrate: source registry rows, intake answer rows, capability and job signals, promoted HTML specs, and a derived visible business canvas.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> draft</div>
+      <div><strong>Updated:</strong> 2026-06-01</div>
+      <div><strong>Canonical section:</strong> <a href="#job-intent">#job-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+      <h1>Job intent</h1>
+      <p>The Business Intake Fill Loop gives agents a repeatable way to convert client artifacts into source-backed operating knowledge. The job starts with raw sources and ends with a target repo that can show a business as capabilities, jobs, actors, processes, tools, evidence, metrics, and gaps.</p>
+      <p>The actor may be a human operator, an agent, or a human-agent pair. The output is not a narrative summary; it is reviewed substrate that can be inspected by humans and parsed by graph tooling.</p>
+    </section>
+
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <p>This job supports the Knowledge and Data Layer capability to turn intake, source files, and operating observations into durable substrate. It also supports the Visible Business Graph capability by making graph-compatible specs the promotion target.</p>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling</h2>
+      <p>Foundation has a business intake workspace and visible graph tooling, but intake execution can still happen ad hoc: sources may be summarized without stable source IDs, capabilities may be inferred without answer status, and graph gaps may not be preserved as first-class outputs.</p>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <p>Agents use `skills/business-intake-fill-loop/SKILL.md` as the repeatable workflow. Each source is registered, each material answer receives a status and source refs, signals are extracted into capabilities/jobs/processes/actors/tools/evidence/metrics/gaps, and reviewed signals are promoted into target-owned specs with `graph-metadata`.</p>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <ol>
+        <li><strong>Prepare target repo:</strong> connect or create the target repo, install Foundation adapter files, and confirm target docs/spec paths.</li>
+        <li><strong>Register sources:</strong> copy or reference each artifact and create stable source IDs with owner, date, trust, freshness, access, and related lanes.</li>
+        <li><strong>Extract answers:</strong> fill answer rows for business intake lanes and mark status as unanswered, partial, answered, conflict, stale, or reviewed.</li>
+        <li><strong>Extract signals:</strong> identify candidate capabilities, jobs, processes, actors, tools, evidence, metrics, risks, gaps, and decision rules.</li>
+        <li><strong>Promote substrate:</strong> author target system, capability, job, technical, and eval specs only from reviewed signals and explicit gaps.</li>
+        <li><strong>Build graph:</strong> run graph check/build/render commands against the target repo and treat graph/canvas files as derived artifacts.</li>
+        <li><strong>Evaluate:</strong> compare graph nodes, edges, source refs, and canvas usefulness against the source registry and expected fixture where present.</li>
+        <li><strong>Revise:</strong> route weak or unsupported claims back to answer rows, source registry, specs, or gaps.</li>
+      </ol>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <ul>
+        <li><code>docs/fundamentals/business-intake.html</code> defines intake lanes, statuses, source registry fields, signal types, and promotion targets.</li>
+        <li><code>skills/business-intake-fill-loop/SKILL.md</code> defines the procedural workflow agents follow.</li>
+        <li>Target repos own client facts, source copies, source registries, HTML specs, graph fixtures, and generated canvases.</li>
+        <li>Foundation graph commands validate, build, render, and evaluate the promoted substrate.</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <p>Acceptable evidence includes a target source registry, answer rows with statuses and source refs, graph-compatible target specs, passing graph check, generated graph JSON, generated canvas HTML, and an eval result with no unsupported required nodes or edges.</p>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <p>If a pilot exposes missing workflow steps, update this spec, the technical spec, the eval spec, and the skill together. Shared process improvements remain in Foundation; client-specific findings remain in the target repo.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Business Intake Fill Loop · generated starter spec</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

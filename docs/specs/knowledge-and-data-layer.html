@@ -21,6 +21,7 @@
   "confidence": "medium",
   "parent": null,
   "children": [
+    "foundation.business-intake-fill-loop.job",
     "foundation.visible-business-graph.system"
   ],
   "relatedSpecs": [
@@ -58,6 +59,15 @@
         "product-intent",
         "interface-journey",
         "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.business-intake-fill-loop.job",
+      "relationship": "child",
+      "sections": [
+        "job-intent",
+        "process",
+        "evidence-and-evaluation"
       ]
     },
     {
@@ -113,6 +123,12 @@
       "kind": "doc",
       "ownership": "reference",
       "notes": "Source-of-record and derived retrieval mechanics that inform this layer."
+    },
+    {
+      "path": "foundation/docs/specs/business-intake-fill-loop.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Child job spec for source registration, intake answer extraction, graph signal promotion, and target repo canvas evaluation."
     },
     {
       "path": "foundation/docs/specs/visible-business-graph.html",
@@ -176,6 +192,16 @@
     }
   ],
   "edges": [
+    {
+      "id": "edge:spec:foundation.knowledge-data-layer.system:contains:spec:foundation.business-intake-fill-loop.job",
+      "type": "contains",
+      "from": "spec:foundation.knowledge-data-layer.system",
+      "to": "spec:foundation.business-intake-fill-loop.job",
+      "source": {
+        "specId": "foundation.knowledge-data-layer.system",
+        "sectionId": "product-intent"
+      }
+    },
     {
       "id": "edge:spec:foundation.knowledge-data-layer.system:contains:spec:foundation.visible-business-graph.system",
       "type": "contains",

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.business-intake-fill-loop.eval">
+<meta name="spec:type" content="eval">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Business Intake Fill Loop Evaluation</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.business-intake-fill-loop.eval",
+  "title": "Business Intake Fill Loop Evaluation",
+  "type": "eval",
+  "status": "draft",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.business-intake-fill-loop.job",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.business-intake-fill-loop.job",
+      "relationship": "parent",
+      "sections": [
+        "job-intent",
+        "process",
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "foundation.business-intake-fill-loop.technical",
+      "relationship": "sibling",
+      "sections": [
+        "contracts",
+        "failure-modes"
+      ]
+    },
+    {
+      "id": "foundation.visible-business-graph.eval",
+      "relationship": "informs",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/business-intake-fill-loop-eval.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Skill under evaluation."
+    },
+    {
+      "path": "foundation/scripts/visible-business-graph-eval.mjs",
+      "kind": "source",
+      "ownership": "reference",
+      "notes": "Expected-fixture graph and canvas evaluator used by target repos."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "BIFL-E-1",
+      "level": "manual",
+      "status": "existing",
+      "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+      "mapsTo": [
+        "foundation.business-intake-fill-loop.eval#verification-contract",
+        "foundation.business-intake-fill-loop.eval#acceptance-mapping"
+      ],
+      "evidence": "Skill exit criteria require source registry path, capability/job coverage status, graph/canvas paths, evaluation result, validation commands, and remaining gaps."
+    }
+  ],
+  "tags": [
+    "eval",
+    "intake",
+    "visible-business"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.business-intake-fill-loop.eval",
+  "nodes": [
+    {
+      "id": "spec:foundation.business-intake-fill-loop.eval",
+      "type": "evaluation",
+      "label": "Business Intake Fill Loop Evaluation",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "intake",
+          "visible-business"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.eval:depends-on:spec:foundation.business-intake-fill-loop.job",
+      "type": "evaluates",
+      "from": "spec:foundation.business-intake-fill-loop.eval",
+      "to": "spec:foundation.business-intake-fill-loop.job",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.eval",
+        "sectionId": "verification-contract"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.eval:evaluates:spec:foundation.business-intake-fill-loop.technical",
+      "type": "evaluates",
+      "from": "spec:foundation.business-intake-fill-loop.eval",
+      "to": "spec:foundation.business-intake-fill-loop.technical",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.eval",
+        "sectionId": "acceptance-mapping"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">E</div>
+    <div>
+      <div class="sidebar-title">Business Intake Fill Loop Evaluation</div>
+      <div class="sidebar-sub">eval spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#verification-contract"><span class="nav-num">01</span>Verification contract</a>
+    <a class="nav-item" href="#acceptance-mapping"><span class="nav-num">02</span>Acceptance mapping</a>
+    <a class="nav-item" href="#coverage-plan"><span class="nav-num">03</span>Coverage plan</a>
+    <a class="nav-item" href="#commands-and-evidence"><span class="nav-num">04</span>Commands and evidence</a>
+    <a class="nav-item" href="#gaps-and-followups"><span class="nav-num">05</span>Gaps and follow-ups</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/business-intake-fill-loop-eval.html</div>
+    <h1>Business Intake Fill Loop Evaluation</h1>
+    <p class="lede">Evaluate whether a business intake run turns provided sources into a source-backed, graph-compatible, human-inspectable client substrate without hiding uncertainty.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> draft</div>
+      <div><strong>Updated:</strong> 2026-06-01</div>
+      <div><strong>Canonical section:</strong> <a href="#verification-contract">#verification-contract</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
+      <h1>Verification contract</h1>
+      <p>An intake run is acceptable when every material source is registered, promoted capabilities and jobs are backed by source refs or explicit gaps, target specs pass graph validation, the canvas renders from derived graph JSON, and the handoff identifies remaining unresolved decisions.</p>
+    </section>
+
+    <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
+      <h2>Acceptance mapping</h2>
+      <table class="status-table">
+        <thead><tr><th>Acceptance</th><th>Maps to</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Source coverage</td><td><code>job#process</code></td><td>Source registry lists each provided artifact with stable source ID and access/freshness notes.</td></tr>
+          <tr><td>Intake honesty</td><td><code>job#process</code></td><td>Answer rows show answered, partial, conflict, stale, and unanswered states rather than implied completeness.</td></tr>
+          <tr><td>Graph compatibility</td><td><code>technical#contracts</code></td><td>Graph check passes for target specs.</td></tr>
+          <tr><td>Human usefulness</td><td><code>job#evidence-and-evaluation</code></td><td>Canvas renders system/capability overview and expandable jobs with actors, tools, evidence, metrics, and gaps.</td></tr>
+          <tr><td>Revision path</td><td><code>job#revision</code></td><td>Remaining gaps name the source, capability/job affected, and next review action.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
+      <h2>Coverage plan</h2>
+      <p>Use a target repo pilot as the primary evaluation surface. For deterministic pilots, include `expected-graph.json` with required nodes, required edges, minimum node-type counts, and canvas text that must appear.</p>
+    </section>
+
+    <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">
+      <h2>Commands and evidence</h2>
+      <ul>
+        <li><code>npm run spec:check</code> after Foundation spec or skill metadata changes.</li>
+        <li><code>npm run foundation:visible-business-graph:check -- --repo .</code> after Foundation graph metadata changes.</li>
+        <li><code>npm run foundation:visible-business-graph:check -- --repo &lt;target-repo&gt;</code> after target graph metadata changes.</li>
+        <li><code>npm run foundation:visible-business-graph:eval -- --repo &lt;target-repo&gt; --graph ... --canvas ... --expected ...</code> when an expected graph fixture exists.</li>
+      </ul>
+    </section>
+
+    <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
+      <h2>Gaps and follow-ups</h2>
+      <p>V1 is manual-agent-driven. Future revisions may add deterministic source-registry and answer-row validators, but those should follow pilot evidence rather than precede it.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Business Intake Fill Loop Evaluation · generated starter spec</p>
+</main>
+<script src="../site-map.js"></script>
+<script src="../site-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Business Intake Fill Loop"
+  short_description: "Turn source artifacts into reviewed business graph substrate."
+  default_prompt: "Use this skill to register business intake sources, extract answer rows and graph signals, promote reviewed capabilities and jobs, and render/evaluate the visible business graph."

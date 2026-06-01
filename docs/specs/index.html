@@ -1112,6 +1112,281 @@
       ]
     },
     {
+      "id": "foundation.business-intake-fill-loop.eval",
+      "title": "Business Intake Fill Loop Evaluation",
+      "type": "eval",
+      "status": "draft",
+      "file": "foundation/docs/specs/business-intake-fill-loop-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.business-intake-fill-loop.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.business-intake-fill-loop.job",
+          "relationship": "parent",
+          "sections": [
+            "job-intent",
+            "process",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.business-intake-fill-loop.technical",
+          "relationship": "sibling",
+          "sections": [
+            "contracts",
+            "failure-modes"
+          ]
+        },
+        {
+          "id": "foundation.visible-business-graph.eval",
+          "relationship": "informs",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/business-intake-fill-loop-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Skill under evaluation."
+        },
+        {
+          "path": "foundation/scripts/visible-business-graph-eval.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Expected-fixture graph and canvas evaluator used by target repos."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BIFL-E-1",
+          "level": "manual",
+          "status": "existing",
+          "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+          "mapsTo": [
+            "foundation.business-intake-fill-loop.eval#verification-contract",
+            "foundation.business-intake-fill-loop.eval#acceptance-mapping"
+          ],
+          "evidence": "Skill exit criteria require source registry path, capability/job coverage status, graph/canvas paths, evaluation result, validation commands, and remaining gaps."
+        }
+      ],
+      "tags": [
+        "eval",
+        "intake",
+        "visible-business"
+      ]
+    },
+    {
+      "id": "foundation.business-intake-fill-loop.technical",
+      "title": "Business Intake Fill Loop Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/business-intake-fill-loop-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.business-intake-fill-loop.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.business-intake-fill-loop.job",
+          "relationship": "parent",
+          "sections": [
+            "process",
+            "context-tools-and-interfaces",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.visible-business-graph.technical",
+          "relationship": "informs",
+          "sections": [
+            "contracts",
+            "paths-and-coverage"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/business-intake-fill-loop-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Skill body that implements this technical sequence for agents."
+        },
+        {
+          "path": "foundation/scripts/visible-business-graph-check.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Graph validation command used after target specs are promoted."
+        },
+        {
+          "path": "foundation/scripts/visible-business-graph-build.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Graph build command used to produce derived graph JSON."
+        },
+        {
+          "path": "foundation/scripts/visible-business-graph-render.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Canvas render command used after graph build."
+        },
+        {
+          "path": "foundation/scripts/visible-business-graph-eval.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Optional expected-fixture evaluator for client graph outputs."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BIFL-T-1",
+          "level": "manual",
+          "status": "existing",
+          "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+          "mapsTo": [
+            "foundation.business-intake-fill-loop.technical#internal-sequence",
+            "foundation.business-intake-fill-loop.technical#contracts"
+          ],
+          "evidence": "The skill names the source registration, answer extraction, signal extraction, promotion, graph build, render, and eval commands."
+        }
+      ],
+      "tags": [
+        "technical",
+        "intake",
+        "visible-business"
+      ]
+    },
+    {
+      "id": "foundation.business-intake-fill-loop.job",
+      "title": "Business Intake Fill Loop",
+      "type": "job",
+      "status": "draft",
+      "file": "foundation/docs/specs/business-intake-fill-loop.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.knowledge-data-layer.system",
+      "children": [
+        "foundation.business-intake-fill-loop.technical",
+        "foundation.business-intake-fill-loop.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.knowledge-data-layer.system",
+          "relationship": "parent",
+          "sections": [
+            "system-model",
+            "interface-journey",
+            "states-and-rules"
+          ]
+        },
+        {
+          "id": "foundation.visible-business-graph.system",
+          "relationship": "informs",
+          "sections": [
+            "graph-contract",
+            "metadata-contract",
+            "view-contracts"
+          ]
+        },
+        {
+          "id": "foundation.business-intake-fill-loop.technical",
+          "relationship": "child",
+          "sections": [
+            "contracts",
+            "failure-modes"
+          ]
+        },
+        {
+          "id": "foundation.business-intake-fill-loop.eval",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/business-intake-fill-loop.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/business-intake-fill-loop/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/fundamentals/business-intake.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Canonical intake workspace fields, lanes, statuses, signals, and promotion targets."
+        },
+        {
+          "path": "foundation/docs/fundamentals/visible-business-foundation.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Core concept for making a business inspectable from HTML substrate."
+        },
+        {
+          "path": "foundation/scripts/visible-business-graph-core.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Graph metadata validation and graph build contracts used after promotion."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "BIFL-D-1",
+          "level": "manual",
+          "status": "existing",
+          "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+          "mapsTo": [
+            "foundation.business-intake-fill-loop.job#process",
+            "foundation.business-intake-fill-loop.job#evidence-and-evaluation"
+          ],
+          "evidence": "The skill defines source registration, answer rows, signal extraction, promotion, graph build, graph render, and evaluation handoff steps."
+        }
+      ],
+      "tags": [
+        "job",
+        "intake",
+        "visible-business"
+      ]
+    },
+    {
       "id": "foundation.backfill-golden-example",
       "title": "Foundation Backfill Golden Example",
       "type": "eval",
@@ -6305,6 +6580,7 @@
       "confidence": "medium",
       "parent": null,
       "children": [
+        "foundation.business-intake-fill-loop.job",
         "foundation.visible-business-graph.system"
       ],
       "relatedSpecs": [
@@ -6342,6 +6618,15 @@
             "product-intent",
             "interface-journey",
             "ux-contracts"
+          ]
+        },
+        {
+          "id": "foundation.business-intake-fill-loop.job",
+          "relationship": "child",
+          "sections": [
+            "job-intent",
+            "process",
+            "evidence-and-evaluation"
           ]
         },
         {
@@ -6397,6 +6682,12 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Source-of-record and derived retrieval mechanics that inform this layer."
+        },
+        {
+          "path": "foundation/docs/specs/business-intake-fill-loop.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Child job spec for source registration, intake answer extraction, graph signal promotion, and target repo canvas evaluation."
         },
         {
           "path": "foundation/docs/specs/visible-business-graph.html",

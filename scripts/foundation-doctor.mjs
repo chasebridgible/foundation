@@ -20,7 +20,8 @@ const requiredSkills = [
   "backfill-spec-adequacy-review",
   "evaluate-backfill-specs",
   "spec-workflow",
-  "install-foundation-substrate"
+  "install-foundation-substrate",
+  "business-intake-fill-loop"
 ];
 const docsNavAssetPaths = [
   "docs/generate-site-map.mjs",
