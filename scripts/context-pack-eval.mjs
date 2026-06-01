@@ -17,6 +17,7 @@ import {
   validateContextPack,
   writeJsonl
 } from "./context-pack-core.mjs";
+import { siteNavScriptTags } from "./html-nav-includes.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 
@@ -81,6 +82,7 @@ function renderHtmlSummary({ runId, repoRoot, packPath, packFingerprint, receipt
     </section>
   </article>
 </main>
+${siteNavScriptTags({ repoRoot, htmlPath: summaryPath })}
 </body>
 </html>
 `;

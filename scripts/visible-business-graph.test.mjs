@@ -237,9 +237,9 @@ function createCanvasHarness({ canvasWidth = 1200 } = {}) {
 }
 
 function extractCanvasScript(canvasHtml) {
-  const match = canvasHtml.match(/<script>\n([\s\S]*)\n<\/script>\n<\/body>/);
-  assert.ok(match, "generated canvas should contain one executable script block");
-  return match[1];
+  const matches = [...canvasHtml.matchAll(/<script>\n([\s\S]*?)\n<\/script>/g)];
+  assert.equal(matches.length, 1, "generated canvas should contain one inline executable script block");
+  return matches[0][1];
 }
 
 function executeCanvas(canvasHtml, options) {
@@ -344,6 +344,8 @@ test("example client builds, renders, and evaluates", () => {
   assert.match(canvas, /pointerdown/);
   assert.match(canvas, /pointermove/);
   assert.match(canvas, /translate\(/);
+  assert.match(canvas, /src="\.\.\/site-map\.js"/);
+  assert.match(canvas, /src="\.\.\/site-nav\.js"/);
 
   const harness = executeCanvas(canvas, { canvasWidth: 1280 });
   let cards = harness.graphStage.querySelectorAll(".node-card");

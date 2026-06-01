@@ -16,6 +16,7 @@ import {
   validateRegistry,
   writeJsonl
 } from "./artifact-inventory-core.mjs";
+import { siteNavScriptTags } from "./html-nav-includes.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 
@@ -180,6 +181,7 @@ function renderHtmlSummary({ runId, repoRoot, registryPath, receiptPath, summary
     </section>
   </article>
 </main>
+${siteNavScriptTags({ repoRoot, htmlPath: summaryPath })}
 </body>
 </html>
 `;
