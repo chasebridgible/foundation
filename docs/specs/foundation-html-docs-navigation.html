@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="spec:id" content="foundation.html-docs-navigation.descriptive">
-<meta name="spec:type" content="descriptive">
+<meta name="spec:id" content="foundation.html-docs-navigation.job">
+<meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-30">
 <title>Foundation HTML Docs Navigation</title>
@@ -12,9 +12,9 @@
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
-  "id": "foundation.html-docs-navigation.descriptive",
+  "id": "foundation.html-docs-navigation.job",
   "title": "Foundation HTML Docs Navigation",
-  "type": "descriptive",
+  "type": "job",
   "status": "active",
   "lastUpdated": "2026-05-30",
   "reviewCadence": "per-change",
@@ -32,7 +32,7 @@
       ]
     },
     {
-      "id": "foundation.workspace-model.descriptive",
+      "id": "foundation.workspace-model.job",
       "relationship": "depends-on",
       "sections": [
         "product-intent",
@@ -143,7 +143,7 @@
       "path": "foundation/docs/generate-site-map.mjs",
       "command": "npm run site-map",
       "mapsTo": [
-        "foundation.html-docs-navigation.descriptive#states-and-rules"
+        "foundation.html-docs-navigation.job#states-and-rules"
       ],
       "evidence": "Generated navigation data preserves the docs folder tree instead of emitting hand-curated content categories.",
       "notes": "Generator emits a folder tree with stable file nodes derived from the configured HTML document roots."
@@ -154,8 +154,8 @@
       "status": "existing",
       "path": "foundation/docs/site-nav.js",
       "mapsTo": [
-        "foundation.html-docs-navigation.descriptive#ux-contracts",
-        "foundation.html-docs-navigation.descriptive#design-placeholders"
+        "foundation.html-docs-navigation.job#ux-contracts",
+        "foundation.html-docs-navigation.job#design-placeholders"
       ],
       "evidence": "Rendered desktop and mobile screenshots show the current document highlighted inside its real folder path, with no overflow or hidden primary navigation.",
       "notes": "Renderer consumes the folder tree, preserves spec link attributes, expands the selected path, and can create a sidebar for bare durable HTML docs."
@@ -166,7 +166,7 @@
       "status": "existing",
       "path": "foundation/docs/general/gbrain-backfill-mechanics.html",
       "mapsTo": [
-        "foundation.html-docs-navigation.descriptive#edge-cases"
+        "foundation.html-docs-navigation.job#edge-cases"
       ],
       "evidence": "Every durable HTML document included in the navigation either renders the shared navigation itself or is explicitly excluded from the navigable corpus.",
       "notes": "The GBrain mechanics page now loads the shared site-map and site-nav scripts."
@@ -177,14 +177,14 @@
       "status": "existing",
       "path": "foundation/skills/install-foundation-substrate/SKILL.md",
       "mapsTo": [
-        "foundation.html-docs-navigation.descriptive#foundation-based-repo-setup"
+        "foundation.html-docs-navigation.job#foundation-based-repo-setup"
       ],
       "evidence": "A target repo connected to Foundation receives or verifies local HTML docs navigation so its own durable HTML files render with the same folder-derived sidebar.",
       "notes": "The install skill and Foundation doctor describe and verify target-local docs navigation assets while preserving target-owned spec registry resolution."
     }
   ],
   "tags": [
-    "descriptive",
+    "job",
     "foundation",
     "docs",
     "navigation",
@@ -199,7 +199,7 @@
     <div class="logo-mark">D</div>
     <div>
       <div class="sidebar-title">Foundation HTML Docs Navigation</div>
-      <div class="sidebar-sub">descriptive spec</div>
+      <div class="sidebar-sub">job spec</div>
     </div>
   </div>
   <div class="nav-section">
@@ -358,7 +358,7 @@
       <h2>Links and paths</h2>
       <h3>Owning paths</h3>
       <ul class="path-list">
-        <li><code>foundation/docs/specs/foundation-html-docs-navigation.html</code> - this descriptive contract.</li>
+        <li><code>foundation/docs/specs/foundation-html-docs-navigation.html</code> - this job contract.</li>
         <li><code>foundation/docs/generate-site-map.mjs</code> - generator that should derive navigation data from folder structure.</li>
         <li><code>foundation/docs/site-map.js</code> - generated navigation data consumed by rendered pages.</li>
         <li><code>foundation/docs/site-nav.js</code> - client-side renderer that injects the shared document navigation into HTML pages.</li>
@@ -376,7 +376,7 @@
       <h3>Related specs</h3>
       <ul>
         <li><a data-spec-link="foundation.spec-system" href="./index.html">foundation.spec-system</a> - registry-backed spec entry point that this navigation should remain separate from.</li>
-        <li><a data-spec-link="foundation.workspace-model.descriptive" href="./foundation-workspace-model.html">foundation.workspace-model.descriptive</a> - target repo setup model this feature must join.</li>
+        <li><a data-spec-link="foundation.workspace-model.job" href="./foundation-workspace-model.html">foundation.workspace-model.job</a> - target repo setup model this feature must join.</li>
         <li><a data-spec-link="foundation.spec-process" href="./process.html">foundation.spec-process</a> - authoring and update obligations for this spec.</li>
         <li><a data-spec-link="foundation.spec-linking" href="./linking.html">foundation.spec-linking</a> - path ownership and reference rules for moving ownership out of the spec-system index.</li>
       </ul>

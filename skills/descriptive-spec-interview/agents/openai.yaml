@@ -1,4 +1,0 @@
-interface:
-  display_name: "Descriptive Spec Interview"
-  short_description: "Interview for user-facing descriptive specs"
-  default_prompt: "Use $descriptive-spec-interview to ask focused questions, resolve material ambiguity, and create a descriptive HTML spec when I approve building it."

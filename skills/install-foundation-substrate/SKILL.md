@@ -22,7 +22,7 @@ Use this skill to connect a target repo to Foundation. The model is defined in `
    - Generate the target repo's own `docs/site-map.js`; it must reflect the target repo's folders, not Foundation's folders.
    - If the target repo has `package.json`, add a `site-map` script that runs `node docs/generate-site-map.mjs`.
    - Ensure durable HTML docs under `docs/` load the local `site-map.js` and `site-nav.js` scripts.
-   - Preserve the target repo's spec registry as the semantic lookup for specs, capabilities, jobs, processes, paths, and coverage.
+   - Preserve the target repo's spec registry as the semantic lookup for system specs, capability specs, job specs, technical specs, eval specs, paths, and coverage.
 7. Configure CI to check out a pinned Foundation revision, not an implicit local sibling path.
 8. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation and resolve failures before handoff.
 
@@ -40,7 +40,7 @@ Use this skill to connect a target repo to Foundation. The model is defined in `
 After the target repo is connected:
 
 1. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation.
-2. Use `skills/backfill-specs/SKILL.md` to inspect existing repo behavior and create draft descriptive and technical specs.
+2. Use `skills/backfill-specs/SKILL.md` to inspect existing repo behavior and create draft job and technical specs.
 3. Keep the active dated backfill report named in the target repo adapter while the backfill is in progress.
 4. Use a later eval-backfill workflow for eval specs and acceptance mapping.
 

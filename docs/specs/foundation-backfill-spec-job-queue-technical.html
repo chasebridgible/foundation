@@ -19,11 +19,11 @@
   "lastUpdated": "2026-05-29",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-spec-job-queue.descriptive",
+  "parent": "foundation.backfill-spec-job-queue.job",
   "children": [],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-spec-job-queue.descriptive",
+      "id": "foundation.backfill-spec-job-queue.job",
       "relationship": "parent",
       "sections": [
         "product-intent",
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-capability-map.descriptive",
+      "id": "foundation.backfill-capability-map.job",
       "relationship": "depends-on",
       "sections": [
         "artifacts-and-state",
@@ -166,7 +166,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-spec-job-queue-technical.html</div>
     <h1>Foundation Backfill Define Spec Jobs Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Define Spec Jobs deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-spec-job-queue.descriptive</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-spec-job-queue.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 

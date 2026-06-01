@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="spec:id" content="foundation.backfill-author-specs.descriptive">
-<meta name="spec:type" content="descriptive">
+<meta name="spec:id" content="foundation.backfill-author-specs.job">
+<meta name="spec:type" content="job">
 <meta name="spec:status" content="draft">
 <meta name="spec:last-updated" content="2026-05-26">
 <title>Foundation Backfill Author Specs</title>
@@ -12,21 +12,21 @@
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
-  "id": "foundation.backfill-author-specs.descriptive",
+  "id": "foundation.backfill-author-specs.job",
   "title": "Foundation Backfill Author Specs",
-  "type": "descriptive",
+  "type": "job",
   "status": "draft",
   "lastUpdated": "2026-05-26",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-specs.descriptive",
+  "parent": "foundation.backfill-specs.job",
   "children": [
     "foundation.backfill-author-specs.technical",
     "foundation.backfill-author-specs.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-specs.descriptive",
+      "id": "foundation.backfill-specs.job",
       "relationship": "parent",
       "sections": [
         "interface-journey",
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-process-action-map.descriptive",
+      "id": "foundation.backfill-process-action-map.job",
       "relationship": "depends-on",
       "sections": [
         "artifacts-and-state",
@@ -95,16 +95,16 @@
       "status": "planned",
       "path": "foundation/docs/specs/foundation-backfill-author-specs.html",
       "mapsTo": [
-        "foundation.backfill-author-specs.descriptive#handoff-gate"
+        "foundation.backfill-author-specs.job#handoff-gate"
       ],
-      "evidence": "Planned Foundation Backfill Author Specs descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+      "evidence": "Planned Foundation Backfill Author Specs job coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
     }
   ],
   "tags": [
     "foundation",
     "backfill",
     "author-specs",
-    "descriptive",
+    "job",
     "substrate"
   ]
 }
@@ -116,7 +116,7 @@
     <div class="logo-mark">D</div>
     <div>
       <div class="sidebar-title">Foundation Backfill Author Specs</div>
-      <div class="sidebar-sub">descriptive spec</div>
+      <div class="sidebar-sub">job spec</div>
     </div>
   </div>
   <div class="nav-section">
@@ -134,7 +134,7 @@
   <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-author-specs.html</div>
     <h1>Foundation Backfill Author Specs</h1>
-    <p class="lede">Author Specs creates architecture-agnostic descriptive specs and contract-first technical specs from queued slices, Context Packs, and process/action rows. This layer answers: <strong>What descriptive and technical specs make this slice rebuild-grade?</strong></p>
+    <p class="lede">Author Specs creates architecture-agnostic job specs and contract-first technical specs from queued slices, Context Packs, and process/action rows. This layer answers: <strong>What job and technical specs make this slice rebuild-grade?</strong></p>
     <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Process / Action Map</div><div><strong>Next:</strong> Evaluate Job Slices</div></div>
     <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
@@ -161,7 +161,7 @@
       <ol>
         <li><strong>Initialize:</strong> create the canonical Foundation Backfill Author Specs artifact from Process / Action Map handoff output.</li>
         <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
-        <li><strong>Fill:</strong> agent writes or updates descriptive and technical specs for the slice, maps sections to capability and evidence IDs, separates intent from architecture, and records review questions without blocking unrelated coverage.</li>
+        <li><strong>Fill:</strong> agent writes or updates job and technical specs for the slice, maps sections to capability and evidence IDs, separates intent from architecture, and records review questions without blocking unrelated coverage.</li>
         <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
         <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>
         <li><strong>Revise:</strong> route failed rows back to the fill loop with row IDs and findings.</li>
@@ -180,7 +180,7 @@
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>each queued slice has draft descriptive and technical specs or a documented non-spec owner; checker passes; eval receipt and HTML summary exist; report names next layer as Evaluate Job Slices.</p>
+      <p>Each queued slice has draft job and technical specs or a documented non-spec owner; checker passes; eval receipt and HTML summary exist; report names next layer as Evaluate Job Slices.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
         <li>All rows are in valid terminal or explicitly blocked states.</li>
@@ -195,7 +195,7 @@
       <ul>
         <li><a data-spec-link="foundation.backfill-author-specs.technical" href="./foundation-backfill-author-specs-technical.html">foundation.backfill-author-specs.technical</a></li>
         <li><a data-spec-link="foundation.backfill-author-specs.eval" href="./foundation-backfill-author-specs-eval.html">foundation.backfill-author-specs.eval</a></li>
-        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a></li>
+        <li><a data-spec-link="foundation.backfill-specs.job" href="./foundation-backfill-specs.html">foundation.backfill-specs.job</a></li>
       </ul>
     </section>
   </article>

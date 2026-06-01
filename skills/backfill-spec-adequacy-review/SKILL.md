@@ -1,6 +1,6 @@
 ---
 name: backfill-spec-adequacy-review
-description: Review a backfilled capability slice before evaluator scoring. Use inside Backfill Specs after descriptive, rendered UX, and technical specs are written to verify coverage, split boundaries, specificity, traceability, contract preservation, architecture flexibility, and spec-only rebuild readiness.
+description: Review a backfilled capability slice before evaluator scoring. Use inside Backfill Specs after job, rendered UX, and technical specs are written to verify coverage, split boundaries, specificity, traceability, contract preservation, architecture flexibility, and spec-only rebuild readiness.
 ---
 
 # Review Spec Adequacy
@@ -13,11 +13,11 @@ Could a future build agent implement the intended behavior from the specs while 
 
 ## Check
 
-- capability rows have descriptive spec sections, technical spec sections, evidence, verification targets, status
+- capability rows have job spec sections, technical spec sections, evidence, verification targets, status
 - no attached row remains `needs-split`
 - evidence surfaces are owned, parent-owned with reason, out of scope, or blocked by human decision
 - visible/operator entry points map to concrete process/action rows
-- descriptive specs cover intent, actors, journeys, states, rules, edge cases, recovery, and evidence
+- job specs cover intent, actors, journeys, states, rules, edge cases, recovery, process, and evidence
 - visible behavior includes rendered HTML-native UX or a nonvisual explanation
 - technical specs cover data, APIs, services/jobs, permissions, integrations, timing, failures, observability, boundaries
 - technical specs separate required contracts, current evidence, constraints, and latitude

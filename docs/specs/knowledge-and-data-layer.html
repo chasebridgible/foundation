@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="spec:id" content="foundation.knowledge-data-layer.descriptive">
-<meta name="spec:type" content="descriptive">
+<meta name="spec:id" content="foundation.knowledge-data-layer.system">
+<meta name="spec:type" content="system">
 <meta name="spec:status" content="draft">
 <meta name="spec:last-updated" content="2026-05-31">
 <title>Knowledge and Data Layer</title>
@@ -12,9 +12,9 @@
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
-  "id": "foundation.knowledge-data-layer.descriptive",
+  "id": "foundation.knowledge-data-layer.system",
   "title": "Knowledge and Data Layer",
-  "type": "descriptive",
+  "type": "system",
   "status": "draft",
   "lastUpdated": "2026-05-31",
   "reviewCadence": "on-trigger",
@@ -23,7 +23,7 @@
   "children": [],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-artifact-inventory.descriptive",
+      "id": "foundation.backfill-artifact-inventory.job",
       "relationship": "informs",
       "sections": [
         "product-intent",
@@ -32,7 +32,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-context-pack.descriptive",
+      "id": "foundation.backfill-context-pack.job",
       "relationship": "informs",
       "sections": [
         "product-intent",
@@ -41,7 +41,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-capability-map.descriptive",
+      "id": "foundation.backfill-capability-map.job",
       "relationship": "informs",
       "sections": [
         "product-intent",
@@ -50,7 +50,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-specs.descriptive",
+      "id": "foundation.backfill-specs.job",
       "relationship": "informs",
       "sections": [
         "product-intent",
@@ -129,15 +129,15 @@
       "status": "planned",
       "path": "foundation/docs/specs/knowledge-and-data-layer.html",
       "mapsTo": [
-        "foundation.knowledge-data-layer.descriptive#system-model",
-        "foundation.knowledge-data-layer.descriptive#states-and-rules",
-        "foundation.knowledge-data-layer.descriptive#open-questions"
+        "foundation.knowledge-data-layer.system#system-model",
+        "foundation.knowledge-data-layer.system#states-and-rules",
+        "foundation.knowledge-data-layer.system#open-questions"
       ],
       "evidence": "Review this draft against the first real client intake and source inventory; promote or revise once the layer can answer one operating question with cited sources and data evidence."
     }
   ],
   "tags": [
-    "descriptive",
+    "system",
     "knowledge-layer",
     "data-layer",
     "business-operating-system",
@@ -313,7 +313,7 @@
     <div class="logo-mark">K</div>
     <div>
       <div class="sidebar-title">Knowledge and Data</div>
-      <div class="sidebar-sub">descriptive spec</div>
+      <div class="sidebar-sub">system spec</div>
     </div>
   </div>
   <div class="nav-section">
@@ -340,7 +340,7 @@
       <div><strong>Status:</strong> draft</div>
       <div><strong>Updated:</strong> 2026-05-31</div>
       <div><strong>Confidence:</strong> medium</div>
-      <div><strong>Scope:</strong> high-level descriptive spec</div>
+      <div><strong>Scope:</strong> high-level system spec</div>
     </div>
     <h3>Intent</h3>
     <p>This spec defines the first durable shape for an Orderly Systems knowledge and data layer. The layer should capture how a business works, connect that understanding to the organization's existing sources, collect operating data where useful, and produce context, evidence, and evaluation for business improvement work.</p>
@@ -487,7 +487,7 @@
         <tbody>
           <tr><td>Actor</td><td>Orderly Systems operator, agent, or client stakeholder trying to understand or improve a business system.</td><td>Business Operating System and core-files intake lanes.</td></tr>
           <tr><td>Intended outcome</td><td>A business can be understood well enough that an operator can name its capabilities, jobs, processes, actors, tools, context, evidence, and improvement opportunities from cited sources and current data.</td><td>System Philosophy vocabulary and user feedback.</td></tr>
-          <tr><td>Domain objects</td><td>Source registry row, intake answer, operating database table, capability spec, job spec, process spec, metric definition, decision rule, eval spec, context pack, and revision record.</td><td>This spec.</td></tr>
+          <tr><td>Domain objects</td><td>Source registry row, intake answer, operating database table, capability spec, job spec with process section, metric definition, decision rule, eval spec, context pack, and revision record.</td><td>This spec.</td></tr>
           <tr><td>Primary actions</td><td>Ask core-files questions, register sources, ingest selected data, classify source meaning, create substrate artifacts, build context packs, evaluate evidence, revise artifacts.</td><td>Core-files and GBrain mechanics.</td></tr>
           <tr><td>Success signal</td><td>The system can answer a business question or recommend an improvement with citations, current data evidence where available, confidence, gaps, and the substrate artifact that should change next.</td><td>Manual acceptance until eval specs exist.</td></tr>
           <tr><td>Boundary</td><td>The database is not the whole knowledge layer. Retrieval is not the source of truth. Canonical meaning belongs in substrate artifacts that can be reviewed, versioned, and revised.</td><td>GBrain mechanics and Compounding Systems substrate rule.</td></tr>
@@ -502,12 +502,12 @@
         <li><strong>Interview and observe:</strong> collect business intake answers from conversations, meetings, existing documents, and real work.</li>
         <li><strong>Register sources:</strong> create source-registry rows for documents, files, tools, dashboards, spreadsheets, meeting notes, SaaS objects, and data exports.</li>
         <li><strong>Classify meaning:</strong> link each source to the capabilities, jobs, processes, actors, tools, metrics, risks, decisions, or evidence it informs.</li>
-        <li><strong>Build substrate:</strong> turn the strongest answers into canonical artifacts such as capability maps, job specs, process specs, role specs, metric definitions, and eval specs.</li>
+        <li><strong>Build substrate:</strong> turn the strongest answers into canonical artifacts such as capability maps, job specs with process sections, role specs, metric definitions, and eval specs.</li>
         <li><strong>Ingest data:</strong> pull selected SaaS or existing data into an Orderly operating database when the data can produce useful measurements for Reality answers.</li>
         <li><strong>Assemble context:</strong> build a bounded context pack for one question, job, capability, recommendation, automation, or implementation path.</li>
         <li><strong>Act:</strong> produce a recommendation, process, software system, agent workflow, checklist, dashboard, or handoff.</li>
         <li><strong>Evaluate:</strong> compare evidence against intent. Evidence may come from source documents, observed work, human review, or Reality answers produced from the operating database.</li>
-        <li><strong>Revise:</strong> update the relevant substrate, source-registry rows, data definitions, process specs, or eval specs so future work starts from better context.</li>
+        <li><strong>Revise:</strong> update the relevant substrate, source-registry rows, data definitions, job specs, or eval specs so future work starts from better context.</li>
       </ol>
     </section>
 
@@ -562,7 +562,7 @@
         <li><strong>First useful vertical:</strong> Which lane should prove the system first: capabilities, processes, data/metrics, or systems/coordination?</li>
         <li><strong>Registry name:</strong> Should the business-facing term be Organization Source Registry, Business Source Registry, or another name?</li>
         <li><strong>Data path:</strong> Which operating measurements should feed Reality answers first, and which metric definitions are required before those measurements can be trusted?</li>
-        <li><strong>Canonical artifact set:</strong> Which artifacts are required in V1: capability map, job specs, process specs, role specs, metric definitions, source registry, and context packs?</li>
+        <li><strong>Canonical artifact set:</strong> Which artifacts are required in V1: capability map, job specs with embedded process sections, role specs, metric definitions, source registry, and context packs?</li>
         <li><strong>Access model:</strong> How should the system represent private, client-owned, employee-owned, and vendor-owned sources?</li>
         <li><strong>Freshness rules:</strong> What should force a source row, data pull, context pack, or substrate artifact back into review?</li>
         <li><strong>Client delivery shape:</strong> Does Orderly host the registry and operating database, install them into the client's environment, or export portable artifacts?</li>
@@ -573,10 +573,10 @@
       <h2>Related specs and implementation paths</h2>
       <h3>Related specs</h3>
       <ul>
-        <li><a data-spec-link="foundation.backfill-artifact-inventory.descriptive" href="./foundation-backfill-artifact-inventory.html">foundation.backfill-artifact-inventory.descriptive</a> - code-side source registry pattern.</li>
-        <li><a data-spec-link="foundation.backfill-context-pack.descriptive" href="./foundation-backfill-context-pack.html">foundation.backfill-context-pack.descriptive</a> - bounded retrieval product pattern.</li>
-        <li><a data-spec-link="foundation.backfill-capability-map.descriptive" href="./foundation-backfill-capability-map.html">foundation.backfill-capability-map.descriptive</a> - capability synthesis pattern.</li>
-        <li><a data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">foundation.backfill-specs.descriptive</a> - backfill workflow this business version may mirror.</li>
+        <li><a data-spec-link="foundation.backfill-artifact-inventory.job" href="./foundation-backfill-artifact-inventory.html">foundation.backfill-artifact-inventory.job</a> - code-side source registry pattern.</li>
+        <li><a data-spec-link="foundation.backfill-context-pack.job" href="./foundation-backfill-context-pack.html">foundation.backfill-context-pack.job</a> - bounded retrieval product pattern.</li>
+        <li><a data-spec-link="foundation.backfill-capability-map.job" href="./foundation-backfill-capability-map.html">foundation.backfill-capability-map.job</a> - capability synthesis pattern.</li>
+        <li><a data-spec-link="foundation.backfill-specs.job" href="./foundation-backfill-specs.html">foundation.backfill-specs.job</a> - backfill workflow this business version may mirror.</li>
       </ul>
       <h3>Reference documents</h3>
       <ul class="path-list">
@@ -600,7 +600,7 @@
   </article>
 
   <hr>
-  <p class="footer-note">Knowledge and Data Layer - draft descriptive spec</p>
+  <p class="footer-note">Knowledge and Data Layer - draft system spec</p>
 </main>
 <script src="../site-map.js"></script>
 <script src="../site-nav.js"></script>

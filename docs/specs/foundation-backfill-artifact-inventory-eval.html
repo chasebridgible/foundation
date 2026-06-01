@@ -19,11 +19,11 @@
   "lastUpdated": "2026-05-27",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-artifact-inventory.descriptive",
+  "parent": "foundation.backfill-artifact-inventory.job",
   "children": [],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-artifact-inventory.descriptive",
+      "id": "foundation.backfill-artifact-inventory.job",
       "relationship": "parent",
       "sections": [
         "product-intent",
@@ -41,7 +41,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-quality-evaluation.process",
+      "id": "foundation.backfill-quality-evaluation.eval",
       "relationship": "sibling",
       "sections": [
         "scoring-rubric",
@@ -99,7 +99,7 @@
       "status": "existing",
       "path": "foundation/scripts/artifact-inventory.test.mjs",
       "mapsTo": [
-        "foundation.backfill-artifact-inventory.descriptive#ux-contracts"
+        "foundation.backfill-artifact-inventory.job#ux-contracts"
       ],
       "evidence": "Artifact Inventory tests prove JSONL eval receipts, derived HTML summaries, report handoff state, and full-run acceptability mechanics; Sandia Oil calibration remains the real-repo proof target."
     },
@@ -109,7 +109,7 @@
       "status": "existing",
       "path": "foundation/scripts/artifact-inventory.test.mjs",
       "mapsTo": [
-        "foundation.backfill-artifact-inventory.descriptive#system-relationship",
+        "foundation.backfill-artifact-inventory.job#system-relationship",
         "foundation.backfill-artifact-inventory.technical#graph-links"
       ],
       "evidence": "Strict graph-link tests verify file-to-spec, file-to-capability, and file-to-verification-or-explicit-gap relationships."
@@ -156,7 +156,7 @@
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
       <div><strong>Updated:</strong> 2026-05-27</div>
-      <div><strong>Parent:</strong> foundation.backfill-artifact-inventory.descriptive</div>
+      <div><strong>Parent:</strong> foundation.backfill-artifact-inventory.job</div>
     </div>
     <p>If this evidence passes, a reviewer can trust that every repo-owned file has a current inventory row, sampled rows describe source files accurately enough for downstream surface/capability inference, and behavior-bearing rows connect to the intended specs, capabilities, and verification evidence once those artifacts exist.</p>
   </section>
@@ -167,17 +167,17 @@
       <table class="status-table">
         <thead><tr><th>ID</th><th>Condition</th><th>Maps to</th><th>Must prove</th></tr></thead>
         <tbody>
-          <tr><td>AC-1</td><td>The repo-owned file set is deterministic.</td><td><code>foundation.backfill-artifact-inventory.descriptive#capability-contract</code></td><td>Manifest rules define tracked, untracked non-ignored, and explicitly included files before semantic mapping begins.</td></tr>
-          <tr><td>AC-2</td><td>Every repo-owned file appears in the manifest and Artifact Inventory exactly once.</td><td><code>foundation.backfill-artifact-inventory.descriptive#states-and-rules</code></td><td>No missing paths, duplicate paths, or unregistered manifest entries.</td></tr>
+          <tr><td>AC-1</td><td>The repo-owned file set is deterministic.</td><td><code>foundation.backfill-artifact-inventory.job#capability-contract</code></td><td>Manifest rules define tracked, untracked non-ignored, and explicitly included files before semantic mapping begins.</td></tr>
+          <tr><td>AC-2</td><td>Every repo-owned file appears in the manifest and Artifact Inventory exactly once.</td><td><code>foundation.backfill-artifact-inventory.job#states-and-rules</code></td><td>No missing paths, duplicate paths, or unregistered manifest entries.</td></tr>
           <tr><td>AC-3</td><td>Canonical artifacts exist for the run.</td><td><code>foundation.backfill-artifact-inventory.technical#data-model</code></td><td>Manifest JSON, Artifact Inventory JSONL, checker output, and eval JSONL receipt and HTML summary use the same dated run ID.</td></tr>
           <tr><td>AC-4</td><td>Inventory status remains minimal.</td><td><code>foundation.backfill-artifact-inventory.technical#contracts</code></td><td>Status enum allows only <code>pending</code> and <code>mapped</code>.</td></tr>
           <tr><td>AC-5</td><td>Mapped rows are fresh.</td><td><code>foundation.backfill-artifact-inventory.technical#contracts</code></td><td>Inventory content identity and size match the current file.</td></tr>
           <tr><td>AC-6</td><td>Mapped rows have enough structured meaning.</td><td><code>foundation.backfill-artifact-inventory.technical#data-model</code></td><td>Required fields are present; mapped rows do not rely on <code>unknown</code> classifications or vague summaries.</td></tr>
-          <tr><td>AC-7</td><td>Large or multi-role files are described thoroughly.</td><td><code>foundation.backfill-artifact-inventory.descriptive#states-and-rules</code></td><td>Rows include responsibilities or sections for behavior-bearing large files.</td></tr>
+          <tr><td>AC-7</td><td>Large or multi-role files are described thoroughly.</td><td><code>foundation.backfill-artifact-inventory.job#states-and-rules</code></td><td>Rows include responsibilities or sections for behavior-bearing large files.</td></tr>
           <tr><td>AC-8</td><td>The loop is resumable.</td><td><code>foundation.backfill-artifact-inventory.technical#concurrency-and-timing</code></td><td>Pending rows and checkpoint state identify the next batch after compaction, interruption, or handoff.</td></tr>
           <tr><td>AC-9</td><td>Handoff is gated.</td><td><code>foundation.backfill-artifact-inventory.technical#contracts</code></td><td>Surface / Function Map work starts only after zero pending rows, checker pass, eval pass, no blocking review flags, and current Sandia Oil calibration evidence or a human-authored expected Artifact Inventory when available.</td></tr>
-          <tr><td>AC-10</td><td>Sandia Oil calibration detects obvious inventory misses.</td><td><code>foundation.backfill-artifact-inventory.descriptive#ux-contracts</code></td><td>Cold backfill output is inspected against a tractable repo before large-repo use; it becomes a fixture only after expected rows are human-authored.</td></tr>
-          <tr><td>AC-11</td><td>Behavior-bearing files link to the intent graph.</td><td><code>foundation.backfill-artifact-inventory.descriptive#system-relationship</code>, <code>foundation.backfill-artifact-inventory.technical#graph-links</code></td><td>Strict mode requires each behavior-bearing mapped row to resolve to a capability, spec section, and verification target or explicit test gap.</td></tr>
+          <tr><td>AC-10</td><td>Sandia Oil calibration detects obvious inventory misses.</td><td><code>foundation.backfill-artifact-inventory.job#ux-contracts</code></td><td>Cold backfill output is inspected against a tractable repo before large-repo use; it becomes a fixture only after expected rows are human-authored.</td></tr>
+          <tr><td>AC-11</td><td>Behavior-bearing files link to the intent graph.</td><td><code>foundation.backfill-artifact-inventory.job#system-relationship</code>, <code>foundation.backfill-artifact-inventory.technical#graph-links</code></td><td>Strict mode requires each behavior-bearing mapped row to resolve to a capability, spec section, and verification target or explicit test gap.</td></tr>
           <tr><td>AC-12</td><td>Steady-state changes keep the registry current.</td><td><code>foundation.backfill-artifact-inventory.technical#lifecycle-modes</code></td><td>Changed files are invalidated or refreshed, and broken graph links are reported before build handoff.</td></tr>
           <tr><td>AC-13</td><td>Generated inventory artifacts do not create recursive hashes.</td><td><code>foundation.backfill-artifact-inventory.technical#contracts</code></td><td>Current-run generated manifest, Artifact Inventory, and evaluation files are excluded from the input snapshot or represented by an explicitly defined self-entry convention.</td></tr>
         </tbody>
@@ -275,7 +275,7 @@
 
     <section id="coevolution-rule" data-spec-section="coevolution-rule" data-section-type="maintenance">
       <h2>Co-evolution rule</h2>
-      <div class="callout warning"><strong>Required:</strong> changes to Artifact Inventory schema, status model, manifest definition, graph-link model, lifecycle modes, checker behavior, or eval rubric must update the descriptive, technical, and eval specs together.</div>
+      <div class="callout warning"><strong>Required:</strong> changes to Artifact Inventory schema, status model, manifest definition, graph-link model, lifecycle modes, checker behavior, or eval rubric must update the job, technical, and eval specs together.</div>
       <p>When implementation exists, fixture outputs, Sandia Oil calibration evidence, and any human-authored expected Artifact Inventory must be updated in the same change as schema or rubric changes.</p>
     </section>
   </article>

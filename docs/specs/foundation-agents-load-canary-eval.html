@@ -19,10 +19,10 @@
   "lastUpdated": "2026-05-20",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.workspace-model.descriptive",
+  "parent": "foundation.workspace-model.job",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.workspace-model.descriptive", "relationship": "parent", "sections": ["ux-contracts", "test-coverage"] },
+    { "id": "foundation.workspace-model.job", "relationship": "parent", "sections": ["ux-contracts", "test-coverage"] },
     { "id": "foundation.workspace-doctor.eval", "relationship": "sibling", "sections": ["coverage-plan", "gaps-and-followups"] }
   ],
   "ownedPaths": [
@@ -43,7 +43,7 @@
       "level": "manual",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html",
-      "mapsTo": ["foundation.workspace-model.descriptive#ux-contracts"],
+      "mapsTo": ["foundation.workspace-model.job#ux-contracts"],
       "evidence": "A cold agent session returns the temporary global canary phrase.",
       "notes": "Proves the global Codex instruction layer loaded."
     },
@@ -52,7 +52,7 @@
       "level": "manual",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html",
-      "mapsTo": ["foundation.workspace-model.descriptive#ux-contracts"],
+      "mapsTo": ["foundation.workspace-model.job#ux-contracts"],
       "evidence": "A cold agent session returns the temporary Foundation canary phrase.",
       "notes": "Proves the global pointer led the agent into Foundation AGENTS.md."
     },
@@ -61,7 +61,7 @@
       "level": "manual",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html",
-      "mapsTo": ["foundation.workspace-model.descriptive#ux-contracts"],
+      "mapsTo": ["foundation.workspace-model.job#ux-contracts"],
       "evidence": "A cold agent session started in a target repo returns the temporary target adapter canary phrase.",
       "notes": "Proves target repo AGENTS.md is composing with Foundation for repo-local work."
     }
@@ -137,7 +137,7 @@
           <tr><td>Global phrase is missing.</td><td>The global Codex instruction layer was not loaded or the run was not cold.</td><td>Check the Codex global config path and repeat with a fresh session.</td></tr>
           <tr><td>Global phrase appears but Foundation phrase is missing.</td><td>The global layer loaded, but the Foundation pointer was not followed into Foundation <code>AGENTS.md</code>.</td><td>Inspect <code>~/.codex/AGENTS.md</code> wording and the Foundation path it names.</td></tr>
           <tr><td>Global and Foundation phrases appear but target phrase is missing.</td><td>The target repo adapter did not load for the selected starting directory.</td><td>Confirm the session started inside the target repo and that the target adapter is named <code>AGENTS.md</code>.</td></tr>
-          <tr><td>All phrases appear, but the real task still misses the right skill.</td><td>Instruction loading is working; skill discovery or routing needs improvement.</td><td>Run the descriptive spec pilot and ratchet the relevant Foundation skill or local adapter.</td></tr>
+          <tr><td>All phrases appear, but the real task still misses the right skill.</td><td>Instruction loading is working; skill discovery or routing needs improvement.</td><td>Run the job spec pilot and ratchet the relevant Foundation skill or local adapter.</td></tr>
         </tbody>
       </table>
     </section>

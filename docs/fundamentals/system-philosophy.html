@@ -1137,7 +1137,7 @@
               <div class="operating-stage-rule">how revision sticks</div>
             </div>
             <div class="operating-grid two">
-              <div class="operating-chip"><strong>Update the artifact</strong>Spec, process, skill, capability, context pack, decision rule, or eval spec.</div>
+              <div class="operating-chip"><strong>Update the artifact</strong>Spec, job process, skill, capability, context pack, decision rule, or eval spec.</div>
               <div class="operating-chip"><strong>Start the next loop</strong>Sharper intent and better context change what happens next.</div>
             </div>
           </div>
@@ -1146,7 +1146,7 @@
       <p>The visual carries the loop. The important distinction is timing: intent and context come before action; evidence comes after action; evaluation judges the evidence; revision updates the system so the next loop starts with better context.</p>
       <p><strong>Knowledge</strong> is stored understanding: facts, history, decisions, definitions, examples, data, principles, and notes. <strong>Context</strong> is knowledge prepared for action: the relevant subset of knowledge plus the current goal, constraints, state, actor, tools, risks, examples, decision criteria, and evidence needed for the current job.</p>
       <p><strong>Data</strong> is recorded fact or event history. <strong>Evidence</strong> is the part of reality selected to judge whether intent became result. <strong>Evaluation</strong> compares evidence against intent. <strong>Revision</strong> updates the system so the next action starts from what was learned.</p>
-      <p><strong>Specs</strong> can attach to any layer where intent, context, and evidence need to be preserved: the system, a capability, a job, a process, an action, or an evaluation. An <strong>eval spec</strong> is the spec for judging evidence. It names what must be observed, measured, or checked, the passing condition, and what the system should update when evidence comes back. A test is one way to collect evidence for an eval; evaluation is the broader category.</p>
+      <p><strong>Specs</strong> preserve intent, context, process, and evidence at the layer where work happens. The shared spec types are <strong>system</strong>, <strong>capability</strong>, <strong>job</strong>, <strong>technical</strong>, and <strong>eval</strong>. A <strong>job spec</strong> is the contract for a body of work and contains its process, SOP, checklist, or workflow by default. A <strong>technical spec</strong> defines software, data, automation, infrastructure, or integration implementation details. An <strong>eval spec</strong> defines how evidence will be judged. A test is one way to collect evidence for an eval; evaluation is the broader category.</p>
       <hr>
     </section>
 
@@ -1223,7 +1223,7 @@
       </div>
       <p>This vocabulary is a diagnostic tool. When a result misses, it gives the operator a smaller layer to inspect: spec clarity, capability, job ownership, process clarity, action quality, actor fit, context, tool fit, evidence, evaluation, or revision.</p>
       <p><strong>Capability and job are different layers.</strong> A capability names what the system can reliably do. A job names the work required for that capability to exist, operate, or improve. For example, <em>pay employees accurately and on time</em> is a capability; <em>run payroll for this pay period</em> is a job; approving hours, calculating pay, resolving exceptions, and recording proof are process steps and actions inside the job.</p>
-      <p><strong>Specs carry intent at every layer.</strong> Use a spec wherever a layer needs explicit intent, context, and evidence: the system, a capability, a job, a process, an action, or an evaluation.</p>
+      <p><strong>Specs carry intent at every layer.</strong> Use a spec wherever a layer needs explicit intent, context, process, and evidence. System specs orient the whole system. Capability specs define reliable outcomes. Job specs define bodies of work and include the process, SOP, checklist, or workflow by default. Technical specs define implementation contracts when software, data, automation, infrastructure, or integrations are involved. Eval specs define how evidence is judged.</p>
       <p><strong>Interfaces are where the system is exposed or operated.</strong> In software, an interface can be a screen, route, command, schema, workflow file, dashboard, or document. In business, an interface can be an offer, sales call, intake form, fulfillment handoff, customer dashboard, invoice, SOP, metric report, or decision meeting. An interface shows where an actor can act or where evidence can be observed; the process then names the action, actor, tool, context, and eval spec for that place. Older backfill documents may use <em>surface</em> for this idea, but the broader system vocabulary is interface.</p>
       <hr>
     </section>
@@ -1275,7 +1275,7 @@ Skill: the reusable workflow that tells an agent how to run that process
 Actions: read files, identify state model, edit component, run tests, capture screenshots
 Evidence: tests pass, playback states render, gestures work, errors recover
 Evaluation: compare that evidence against the eval spec and decide pass, revise, continue, or stop</code></pre>
-      <p>Specs, eval specs, and skills work together. The spec names intent. The eval spec names how evidence will be judged. The skill names the workflow. Together they tell an actor how to do a job in pursuit of a capability.</p>
+      <p>Job specs, eval specs, technical specs, and skills work together. The job spec names intent, current handling, proposed handling, and process. The eval spec names how evidence will be judged. The technical spec names implementation contracts when software or automation is involved. The skill names the reusable workflow an agent can follow. Together they tell an actor how to do a job in pursuit of a capability.</p>
       <hr>
     </section>
 
@@ -1285,7 +1285,7 @@ Evaluation: compare that evidence against the eval spec and decide pass, revise,
       <p><strong>Context</strong> is knowledge prepared for action. It is the relevant subset of knowledge, plus the current goal, constraints, state, actor, tools, risk, and evidence needed for a specific job. Knowledge becomes useful when the system can turn it into context for action.</p>
       <p>A knowledge base is one implementation of context substrate. Its job is to preserve the operating mind of the business so future actors can act with the right goals, promises, constraints, standards, history, decisions, and examples in view.</p>
       <p>Orderly Systems starts by asking questions because intake is how hidden work becomes visible. The intake process discovers the business system: what the owner is trying to accomplish, what the business promises, which capabilities matter, which jobs produce them, who does the jobs today, what process is followed, what context is missing, what decisions happen, what evidence is trusted, and where the system fails.</p>
-      <p>That discovery process should become operating substrate: capability maps, job records, process maps, decision rules, metric definitions, offer context, actor assignments, evidence requirements, and update rules. Substrate is the durable memory layer inside the system. It is not the whole system: the system also includes actors, tools, intake, execution, evidence, evaluation, and revision. The exact artifact names should fit the business domain. The function is stable: make context reusable so the next human, agent, or system performs better.</p>
+      <p>That discovery process should become operating substrate: capability maps, job specs, decision rules, metric definitions, offer context, actor assignments, evidence requirements, and update rules. Substrate is the durable memory layer inside the system. It is not the whole system: the system also includes actors, tools, intake, execution, evidence, evaluation, and revision. The exact artifact names should fit the business domain. The function is stable: make context reusable so the next human, agent, or system performs better.</p>
       <p>A document entry is useful when it changes future action. A metric is useful when it changes a decision. An intake answer is useful when it updates a job, process, actor assignment, offer, or capability map. Otherwise the business has collected information without improving the system.</p>
       <hr>
     </section>
@@ -1330,7 +1330,8 @@ Evaluation: compare that evidence against the eval spec and decide pass, revise,
         <li>The useful vocabulary is goal, spec, capability, job, process, action, actor, tool, context, evidence, evaluation, and revision.</li>
         <li>Business is a recurring application of the root system: build value, deliver value, and capture money.</li>
         <li>Software development makes the system visible through specs, context, capability-producing jobs, workflows, tools, evidence, evaluation, and revision.</li>
-        <li>Specs live wherever intent needs to be preserved: system, capability, job, process, action, and evaluation.</li>
+        <li>The shared spec types are system, capability, job, technical, and eval.</li>
+        <li>A job spec is the contract for a body of work; its process lives inside the job spec unless a separate linked view would make the work easier to run.</li>
         <li>A capability is the ability to reliably produce an outcome under real constraints.</li>
         <li>A skill is the software-development form of a process or workflow.</li>
         <li>Knowledge becomes useful when it becomes context for action.</li>
@@ -1339,9 +1340,9 @@ Evaluation: compare that evidence against the eval spec and decide pass, revise,
       </ul>
       <p><strong>Iterating</strong> (current best implementation):</p>
       <ul>
-        <li>The exact artifact names for system specs, capability specs, job specs, process specs, action specs, and eval specs.</li>
+        <li>The remaining migration path from older spec IDs and backfill layer names to system, capability, job, technical, and eval language.</li>
         <li>The final vocabulary for distribution, sales, marketing, offer creation, value capture, and business performance capabilities.</li>
-        <li>The document structure for job specs, process specs, capability maps, offer artifacts, distribution artifacts, learning logs, and business-stack registries.</li>
+        <li>The document structure for capability maps, offer artifacts, distribution artifacts, learning logs, and business-stack registries.</li>
         <li>How much of this vocabulary should move into <code>sw-definitions.html</code>, Business Operating System specs, and future skills.</li>
         <li>The first practical workflow that turns System Philosophy into daily execution and revision.</li>
       </ul>
@@ -1358,7 +1359,7 @@ Evaluation: compare that evidence against the eval spec and decide pass, revise,
         <li><strong>Company and domain applications:</strong> <code>orderly-systems.html</code>, <code>business-operating-system.html</code>, and <code>software-operating-system.html</code>.</li>
         <li><strong>Inventories and maps:</strong> name the domain first and the artifact second, as in <code>business-capability-map.html</code>.</li>
         <li><strong>Principles:</strong> use <code>{domain}-principles.html</code>, with <code>core-principles.html</code> reserved for cross-domain rules.</li>
-        <li><strong>Specs:</strong> use descriptive specs as the family root, then add <code>-technical</code> and <code>-eval</code> for implementation and evaluation contracts.</li>
+        <li><strong>Specs:</strong> use system, capability, job, technical, and eval specs. Job specs are the canonical work-scope specs.</li>
       </ol>
       <p><strong>Recommended reading order:</strong> start with System Philosophy, then Orderly Systems, The Compounding System, Definitions, Business Capability Map, Business Operating System, Software Operating System, Core Principles, domain principle documents, and finally the Spec System documents.</p>
       <div class="related-grid">

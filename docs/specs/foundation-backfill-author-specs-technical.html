@@ -19,11 +19,11 @@
   "lastUpdated": "2026-05-26",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-author-specs.descriptive",
+  "parent": "foundation.backfill-author-specs.job",
   "children": [],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-author-specs.descriptive",
+      "id": "foundation.backfill-author-specs.job",
       "relationship": "parent",
       "sections": [
         "product-intent",
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-process-action-map.descriptive",
+      "id": "foundation.backfill-process-action-map.job",
       "relationship": "depends-on",
       "sections": [
         "artifacts-and-state",
@@ -122,7 +122,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-author-specs-technical.html</div>
     <h1>Foundation Backfill Author Specs Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Author Specs deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-author-specs.descriptive</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -145,7 +145,7 @@
         <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
         <tr><td>Deterministic checker</td><td>validates every drafted spec has schema-safe metadata, parent/child links, owned paths, implementation paths, coverage maps, canonical sections, and queue/capability references.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>samples specs against Process / Action Map rows and Context Packs to judge specificity, architecture flexibility, required contracts, edge cases, visible UX/operator behavior, and source-backed claims.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Handoff gate</td><td>each queued slice has draft descriptive and technical specs or a documented non-spec owner; checker passes; eval receipt and HTML summary exist; report names next layer as Evaluate Job Slices.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Handoff gate</td><td>each queued slice has draft job and technical specs or a documented non-spec owner; checker passes; eval receipt and HTML summary exist; report names next layer as Evaluate Job Slices.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 

@@ -7,7 +7,7 @@ This repo is both the reference implementation and the shared system other repos
 ## What This Repo Contains
 
 - `AGENTS.md`: the small always-loaded rulebook that points agents to the spec system and protected-main workflow.
-- `skills/`: reusable workflow skills, including descriptive spec interview, spec workflow, Foundation target-repo setup, orchestrated existing repo spec backfill, and backfill evaluation.
+- `skills/`: reusable workflow skills, including job spec interview, spec workflow, Foundation target-repo setup, orchestrated existing repo spec backfill, and backfill evaluation.
 - `docs/specs/`: the HTML-native spec system, templates, examples, registry generator, checker, schema, and `spec:new` scaffold command.
 - `docs/specs/foundation-workspace-model.html`: the workspace model for using one canonical Foundation repo from many target repos.
 - `docs/principles/`: durable principles for agentic software work, AI evals, software design, and compounding systems.
@@ -30,7 +30,7 @@ This repo is both the reference implementation and the shared system other repos
 9. Read [The Foundation Workspace Model](docs/specs/foundation-workspace-model.html) when setting up cross-repo use, global Codex instructions, target repo adapters, or CI integration.
 10. Read [Foundation Backfill Specs](docs/specs/foundation-backfill-specs.html) when adopting an existing repo into the spec system.
 11. Read [Foundation Backfill Orchestration Technical Spec](docs/specs/foundation-backfill-orchestration-technical.html) when changing the backfill skill chain, coverage ledger, or adequacy gate.
-12. Read [Foundation Backfill Evaluation Process](docs/specs/foundation-backfill-quality-evaluation.html) when changing the evaluator rubric, golden example, or quality gate.
+12. Read [Foundation Backfill Quality Evaluation](docs/specs/foundation-backfill-quality-evaluation.html) when changing the evaluator rubric, golden example, or quality gate.
 
 ## Use Foundation From A Target Repo
 
@@ -72,7 +72,7 @@ Set up each target repo as a consumer of canonical Foundation.
 
 3. Use Foundation-owned workflows:
    - Use Foundation `AGENTS.md` for shared routing.
-   - Use Foundation skills for descriptive spec interview, spec workflow, and setup.
+   - Use Foundation skills for job spec interview, spec workflow, and setup.
    - Use Foundation specs, principles, templates, and validators as the shared process source.
 
 4. Configure GitHub for the target repo:
@@ -85,7 +85,7 @@ Set up each target repo as a consumer of canonical Foundation.
 
 5. Confirm setup:
    - Codex can start in the target repo, read global Codex instructions, read Foundation `AGENTS.md`, then read the target repo adapter.
-   - A user-facing spec request in the target repo routes to Foundation `skills/descriptive-spec-interview/SKILL.md`.
+   - A user-facing spec request in the target repo routes to Foundation `skills/job-spec-interview/SKILL.md`.
    - Shared process changes are made in Foundation; target product truth remains in the target repo.
    - `npm run foundation:doctor -- --repo /path/to/target-repo` reports no failures.
 
@@ -95,9 +95,9 @@ Use this sequence when a repo already has substantial code, docs, plans, or test
 
 1. Use `skills/install-foundation-substrate/SKILL.md` to connect the repo to Foundation.
 2. Run `npm run foundation:doctor -- --repo /path/to/target-repo`.
-3. Use `skills/backfill-specs/SKILL.md` to orchestrate Artifact Inventory, Surface / Function Map, Capability Map, Define Spec Jobs, Context Pack, Process / Action Map, descriptive specs, rendered UX, technical specs, and Review Spec Adequacy until capability coverage is complete.
+3. Use `skills/backfill-specs/SKILL.md` to orchestrate Artifact Inventory, Surface / Function Map, Capability Map, Define Spec Jobs, Context Pack, Process / Action Map, job specs, rendered UX, technical specs, and Review Spec Adequacy until capability coverage is complete.
 4. Keep the active dated report and run-log JSONL named in the target repo `AGENTS.md` while backfill is in progress; the report owns the Capability Map and Job / Spec Queue.
-5. Keep descriptive specs architecture-agnostic and technical specs contract-first: required contracts, current evidence, architecture constraints, and implementation latitude.
+5. Keep job specs architecture-agnostic and technical specs contract-first: required contracts, current evidence, architecture constraints, and implementation latitude.
 6. Run `npm run backfill:queue:check -- /path/to/target-repo/docs/specs/backfill/review-report-YYYYMMDD-NN.html` after Capability Map or Job / Spec Queue updates so durable run state stays machine-checkable.
 7. Run `npm run backfill:run-log:check -- /path/to/target-repo/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl` after run-log updates so execution observability stays machine-checkable.
 8. Use `skills/evaluate-backfill-specs/SKILL.md` to score capability-backed slices and the completed graph, revise weak categories, and mark only strict 96+ results acceptable.
@@ -127,7 +127,7 @@ Use `skills/install-foundation-substrate/SKILL.md` when connecting a target repo
 
 Specs are HTML-native durable contracts for what should exist. Each spec's embedded `spec-metadata` is canonical; the registry in `docs/specs/index.html` is generated from those HTML specs.
 
-When code behavior changes, update the relevant descriptive, technical, and eval specs in the same commit. If spec metadata changes, run `npm run spec:registry`, then `npm run spec:check`.
+When code behavior changes, update the relevant job, technical, and eval specs in the same commit. If spec metadata changes, run `npm run spec:registry`, then `npm run spec:check`.
 
 ## Thesis
 

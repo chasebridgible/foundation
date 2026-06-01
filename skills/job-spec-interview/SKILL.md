@@ -1,11 +1,11 @@
 ---
-name: descriptive-spec-interview
-description: Conversationally create or revise user-facing descriptive specs for the HTML-native spec system. Use when the user asks to create a spec, create a descriptive spec, define how a feature should look or work, turn an idea into a spec, ask questions before writing a spec, or revise the product/user-experience intent of an existing descriptive spec. If the user asks generically to "create a spec", use this skill to route whether they mean descriptive, technical, test, or existing-spec revision.
+name: job-spec-interview
+description: Conversationally create or revise job specs for the HTML-native spec system. Use when the user asks to create a job spec, define how a feature or business job should work, turn an idea into a spec, ask questions before writing a spec, or revise product/user/operator intent. If the user asks generically to "create a spec", use this skill to route whether they mean system, capability, job, technical, eval, or existing-spec revision.
 ---
 
-# Descriptive Spec Interview
+# Job Spec Interview
 
-Use this skill to turn fuzzy product intent into a strong descriptive spec. The descriptive spec is the human-heavy phase: what the thing is, who it serves, how it should look, how it should function, what states and edge cases exist, and what would make the result unacceptable.
+Use this skill to turn fuzzy product, operator, or business intent into a strong job spec. A job spec is the contract for a body of work: what the job is, who or what it serves, what process performs it, what states and edge cases exist, what evidence proves it worked, and what would make the result unacceptable.
 
 Technical and eval specs are later phases. Capture downstream notes, but do not let this skill become a technical-spec workflow.
 
@@ -13,12 +13,14 @@ Technical and eval specs are later phases. Capture downstream notes, but do not 
 
 If the user asks to "create a spec" without specifying the kind, ask which path they want:
 
-- Descriptive spec: user-facing behavior, UX, states, rules, and product intent.
+- System spec: whole-system intent, boundaries, capabilities, and evidence loop.
+- Capability spec: reliable outcome, constraints, jobs, interfaces, and evidence.
+- Job spec: contract for a body of work, including process, actors, context, states, rules, and evidence.
 - Technical spec: implementation contract for an existing or planned system.
-- Test spec: verification contract and acceptance mapping.
+- Eval spec: verification contract and acceptance mapping.
 - Existing spec revision: update a current spec.
 
-If the request is about how something should look, feel, or behave for users, default to descriptive and begin the interview.
+If the request is about how something should look, feel, behave, or be performed, default to job spec and begin the interview.
 
 ## Operating Rules
 
@@ -29,7 +31,7 @@ If the request is about how something should look, feel, or behave for users, de
   - `Unresolved`: decisions that would materially change product intent, user flow, state rules, acceptance, or visible behavior if guessed wrong.
 - Do not block on every unknown. Block on material ambiguity.
 - When the user is vague, either ask a sharper question or propose a labeled assumption. Do not silently convert guesses into product truth.
-- Keep the current descriptive template as the canonical structure. Adapt depth, not structure.
+- Keep the current job template as the canonical structure for new work.
 - Do not write files until the user explicitly approves with language like "build the spec", "write it", "go ahead", or "we're good".
 - When building files, follow the repo's `spec-workflow` obligations: read the registry, use the relevant template or scaffold, update metadata and prose together, regenerate the registry, and run `npm run spec:check`.
 
@@ -39,12 +41,12 @@ If the request is about how something should look, feel, or behave for users, de
 
 Start by identifying the spec altitude:
 
-- `Concept spec`: high-level feature or product direction; may later split into child specs.
-- `Feature spec`: a concrete user-facing capability.
-- `Flow spec`: a detailed journey across screens or states.
-- `Interaction spec`: a narrow behavior such as a modal, empty state, save action, notification, or setting.
+- `System spec`: high-level system direction; may later split into capability and job specs.
+- `Capability spec`: a reliable outcome the system must be able to produce.
+- `Job spec`: a concrete body of work that supports a capability.
+- `Flow or interaction job spec`: a detailed user/operator journey, process, or narrow behavior.
 
-Ask for enough context to name the feature, target user, core promise, and rough boundary.
+Ask for enough context to name the job, target actor or user, core promise, supporting capability, and rough boundary.
 
 ### 2. Discover User Intent
 
@@ -100,7 +102,7 @@ Before writing the spec, summarize:
 
 Then give a clear gate:
 
-> I can draft the descriptive spec now. The unresolved items above are either material blockers or can be drafted as labeled assumptions. Tell me whether to answer them first or build the spec with assumptions.
+> I can draft the job spec now. The unresolved items above are either material blockers or can be drafted as labeled assumptions. Tell me whether to answer them first or build the spec with assumptions.
 
 If unresolved items would make the feature fundamentally different, recommend answering them before building. If they are minor, offer to proceed with assumptions.
 
@@ -109,28 +111,28 @@ If unresolved items would make the feature fundamentally different, recommend an
 When the user approves building the spec:
 
 1. Read `docs/specs/index.html` and search for an existing owning spec.
-2. If revising, load the relevant descriptive spec sections and preserve its established structure.
-3. If creating, use `npm run spec:new -- --type descriptive ...` or copy `docs/specs/templates/descriptive-spec-template.html`.
+2. If revising, load the relevant job spec sections and preserve its established structure.
+3. If creating, use `npm run spec:new -- --type job ...` or copy `docs/specs/templates/job-spec-template.html`.
 4. Fill `spec-metadata` before relying on prose:
    - Stable dotted `id`.
    - Accurate `title`, `type`, `status`, `lastUpdated`, `reviewCadence`, and `confidence`.
    - Parent, child, related spec, path, and coverage fields only when known.
-5. Write the descriptive prose from the interview ledger:
-   - Product intent.
-   - User model.
-   - Interface journey.
-   - States and rules.
-   - Edge cases and recovery.
-   - UX-visible hidden mechanics.
-   - Related specs, paths, placeholders, and test coverage mapping where available.
-6. Include downstream technical/test handoff notes in the final response. Put them in the spec only when they are UX-visible or part of the descriptive contract.
+5. Write the job prose from the interview ledger:
+   - Job intent.
+   - Capability supported.
+   - Current reality.
+   - Process.
+   - Context, tools, and interfaces.
+   - Evidence and evaluation.
+   - Revision target.
+6. Include downstream technical/eval handoff notes in the final response. Put them in the spec only when they are visible or part of the job contract.
 7. Run `npm run spec:registry` if metadata changed.
 8. Run `npm run spec:check`.
 9. Report remaining assumptions, unresolved semantic-review risk, and suggested next phase.
 
 ## Depth Calibration
 
-Use the same descriptive shape at different depth:
+Use the same job spec shape at different depth:
 
 - Concept specs may keep interface details lighter and emphasize promise, boundaries, and future child specs.
 - Feature specs should describe complete user behavior and main states.

@@ -1,13 +1,13 @@
 ---
 name: backfill-rendered-ux-spec
-description: Add rendered and lightly interactive HTML-native UX examples to descriptive specs during a Foundation backfill. Use when a backfilled capability has user-facing UI, visible states, workflows, forms, comments, menus, filters, approvals, inline editing, or other inspectable interaction.
+description: Add rendered and lightly interactive HTML-native UX examples to job specs during a Foundation backfill. Use when a backfilled capability has user-facing UI, visible states, workflows, forms, comments, menus, filters, approvals, inline editing, or other inspectable interaction.
 ---
 
 # Backfill Rendered UX Spec
 
-Use inside `backfill-specs` after descriptive drafting for visible capabilities.
+Use inside `backfill-specs` after job drafting for visible capabilities.
 
-## Add To The Descriptive Spec
+## Add To The Job Spec
 
 - capability ID, actor, outcome, and state model represented
 - believable domain data and product copy
@@ -26,4 +26,4 @@ Add a short statement naming the user-visible, operator-visible, or technical co
 
 ## Done
 
-Done when a reviewer can open the descriptive spec and inspect the important intended states, hierarchy, copy, and interactions. A happy-path-only demo is incomplete when the capability includes permissions, recovery, or failure states.
+Done when a reviewer can open the job spec and inspect the important intended states, hierarchy, copy, and interactions. A happy-path-only demo is incomplete when the capability includes permissions, recovery, or failure states.

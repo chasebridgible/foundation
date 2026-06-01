@@ -1,16 +1,16 @@
 ---
 name: backfill-technical-spec-author
-description: Author contract-first, architecture-flexible technical specs from capability rows, descriptive intent, and repo evidence during a Foundation backfill. Use inside Backfill Specs after descriptive intent is drafted to map capabilities to required contracts, current evidence, constraints, latitude, data, APIs, services, jobs, permissions, integrations, timing, failures, and observability.
+description: Author contract-first, architecture-flexible technical specs from capability rows, job intent, and repo evidence during a Foundation backfill. Use inside Backfill Specs after job intent is drafted to map capabilities to required contracts, current evidence, constraints, latitude, data, APIs, services, jobs, permissions, integrations, timing, failures, and observability.
 ---
 
 # Backfill Technical Spec Author
 
-Use inside `backfill-specs` after descriptive intent exists. Technical specs explain the contracts required to preserve intended behavior while keeping implementation latitude explicit.
+Use inside `backfill-specs` after job intent exists. Technical specs explain the contracts required to preserve intended behavior while keeping implementation latitude explicit.
 
 ## Inputs
 
 - Capability Map rows for the slice
-- descriptive spec
+- job spec
 - evidence paths and inventory rows
 - parent spec and dated report
 

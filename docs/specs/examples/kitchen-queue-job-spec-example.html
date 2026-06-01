@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="spec:id" content="fup.kitchen-queue.descriptive">
-<meta name="spec:type" content="descriptive">
+<meta name="spec:id" content="fup.kitchen-queue.job">
+<meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-11">
-<title>Fired Up Pizza Kitchen Queue - Descriptive Spec Example</title>
+<meta name="spec:last-updated" content="2026-05-31">
+<title>Fired Up Pizza Kitchen Queue - Job Spec Example</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
 <script type="application/json" id="spec-metadata">
 {
-  "id": "fup.kitchen-queue.descriptive",
-  "title": "Fired Up Pizza Kitchen Queue - Descriptive Spec Example",
-  "type": "descriptive",
+  "id": "fup.kitchen-queue.job",
+  "title": "Fired Up Pizza Kitchen Queue - Job Spec Example",
+  "type": "job",
   "status": "active",
-  "lastUpdated": "2026-05-11",
+  "lastUpdated": "2026-05-31",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": null,
@@ -34,8 +34,8 @@
     { "path": "server/src/routes/kitchen-orders.ts", "kind": "source", "ownership": "reference", "symbols": ["patchOrderItemStatus"] }
   ],
   "coverage": [
-    { "id": "KQ-D1", "level": "component", "status": "planned", "path": "client/src/components/kitchen/order-card.test.tsx", "mapsTo": ["fup.kitchen-queue.descriptive#states-and-rules"], "command": "npm test -- order-card", "evidence": "Order cards render status labels, disabled states, and one-tap actions." },
-    { "id": "KQ-D2", "level": "e2e", "status": "planned", "path": "client/tests/e2e/kitchen-queue.spec.ts", "mapsTo": ["fup.kitchen-queue.descriptive#interface-journey"], "command": "npm run test:e2e -- kitchen-queue", "evidence": "Kitchen staff advances an item and customer status updates." }
+    { "id": "KQ-D1", "level": "component", "status": "planned", "path": "client/src/components/kitchen/order-card.test.tsx", "mapsTo": ["fup.kitchen-queue.job#states-and-rules"], "command": "npm test -- order-card", "evidence": "Order cards render status labels, disabled states, and one-tap actions." },
+    { "id": "KQ-D2", "level": "e2e", "status": "planned", "path": "client/tests/e2e/kitchen-queue.spec.ts", "mapsTo": ["fup.kitchen-queue.job#interface-journey"], "command": "npm run test:e2e -- kitchen-queue", "evidence": "Kitchen staff advances an item and customer status updates." }
   ],
   "tags": ["example", "fired-up-pizza", "kitchen", "orders"]
 }
@@ -44,10 +44,10 @@
 <body>
 <nav class="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-mark">D</div>
+    <div class="logo-mark">J</div>
     <div>
       <div class="sidebar-title">Kitchen Queue</div>
-      <div class="sidebar-sub">descriptive</div>
+      <div class="sidebar-sub">job spec</div>
     </div>
   </div>
   <div class="nav-section">
@@ -66,12 +66,12 @@
 
 <main class="main">
   <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
-    <div class="spec-eyebrow">Example · fup.kitchen-queue.descriptive</div>
+    <div class="spec-eyebrow">Example · fup.kitchen-queue.job</div>
     <h1>Kitchen queue for live order prep</h1>
     <p class="lede">Kitchen staff need a tablet-friendly queue that shows active orders in the order they should be prepared, lets them advance each item with one tap, and keeps customer status screens current without requiring staff to think about synchronization.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-11</div>
+      <div><strong>Updated:</strong> 2026-05-31</div>
       <div><strong>Confidence:</strong> medium</div>
     </div>
     <h3>Product promise</h3>
@@ -192,7 +192,7 @@
   </article>
 
   <hr>
-  <p class="footer-note">Example descriptive spec · Fired Up Pizza</p>
+  <p class="footer-note">Example job spec · Fired Up Pizza</p>
 </main>
 <script src="../../site-map.js"></script>
 <script src="../../site-nav.js"></script>

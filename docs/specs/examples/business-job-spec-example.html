@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="example.business.pay-employees.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-05-31">
+<title>Pay Employees Accurately and On Time - Business Job Spec Example</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "example.business.pay-employees.job",
+  "title": "Pay Employees Accurately and On Time - Business Job Spec Example",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-05-31",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": null,
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.spec-template.job", "relationship": "informs", "sections": ["job-intent", "process", "evidence-and-evaluation"] },
+    { "id": "foundation.spec-template.eval", "relationship": "informs", "sections": ["acceptance-mapping"] }
+  ],
+  "ownedPaths": [],
+  "implementationPaths": [],
+  "coverage": [],
+  "tags": ["example", "business", "job-spec", "payroll"]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">J</div>
+    <div>
+      <div class="sidebar-title">Business Job</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Example</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context/tools</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence/eval</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">Example · example.business.pay-employees.job</div>
+    <h1>Pay employees accurately and on time</h1>
+    <p class="lede">This job spec describes the body of work required for a business to run payroll for one pay period without late pay, incorrect pay, missing approvals, or unrecorded exceptions.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active example</div>
+      <div><strong>Type:</strong> job</div>
+      <div><strong>Updated:</strong> 2026-05-31</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability">
+      <h2>Capability supported</h2>
+      <p><strong>Pay employees accurately and on time</strong> is a capability because it names a reliable outcome the business must be able to produce. The payroll run is a job inside that capability.</p>
+      <table class="status-table">
+        <thead><tr><th>Layer</th><th>Example</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>Capability</td><td>Employees are paid accurately and on time.</td><td>The business must reliably produce this outcome.</td></tr>
+          <tr><td>Job</td><td>Run payroll for the current pay period.</td><td>This is the named body of work that makes the capability real.</td></tr>
+          <tr><td>Process</td><td>Approve hours, calculate pay, submit payroll, record evidence.</td><td>The repeatable path belongs inside the job spec by default.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling to capture</h2>
+      <p>A real client version would describe how payroll works today: who gathers hours, which system holds time data, who approves exceptions, which vendor submits payroll, what errors happen, and what evidence proves the run was accepted.</p>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <p>If the payroll job is being improved, the proposal stays here: changed actor, changed approval path, new checklist, agent-assisted exception review, new data capture, or a different payroll tool. When accepted, this becomes current handling and the old version moves into revision history.</p>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process">
+      <h2>Process inside the job</h2>
+      <ol>
+        <li><strong>Gather pay-period inputs.</strong> Pull approved hours, PTO, commissions, deductions, new hires, terminations, and pay-rate changes.</li>
+        <li><strong>Review exceptions.</strong> Resolve missing punches, unapproved overtime, employee status changes, and manager disputes before submission.</li>
+        <li><strong>Calculate payroll.</strong> Use the payroll system or provider workflow to calculate gross pay, taxes, deductions, and net pay.</li>
+        <li><strong>Approve and submit.</strong> The accountable actor approves payroll before the submission deadline.</li>
+        <li><strong>Record evidence.</strong> Save confirmation, payroll register, exception log, and any follow-up changes.</li>
+        <li><strong>Revise the substrate.</strong> If the run exposed a recurring issue, update the job spec, decision rule, source registry, or eval spec.</li>
+      </ol>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, actors, tools, and interfaces</h2>
+      <table class="status-table">
+        <thead><tr><th>Need</th><th>Example</th><th>Question to answer</th></tr></thead>
+        <tbody>
+          <tr><td>Actor</td><td>Owner, operations manager, bookkeeper, payroll vendor, or agent-assisted workflow.</td><td>Who or what currently performs each step?</td></tr>
+          <tr><td>Context</td><td>Pay schedule, employee roster, time policy, overtime rules, approval rules, deadline.</td><td>What must the actor know to act well?</td></tr>
+          <tr><td>Tools</td><td>Time clock, payroll provider, accounting system, approval sheet, exception tracker.</td><td>What does the actor rely on?</td></tr>
+          <tr><td>Interfaces</td><td>Timecard screen, payroll export, approval email, payroll dashboard, bank confirmation.</td><td>Where can action happen or evidence appear?</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="evaluation">
+      <h2>Evidence and evaluation</h2>
+      <p>An eval spec for this job would define how payroll evidence is judged. A test is one way to run an eval; evaluation is the broader judgment.</p>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Passing condition</th><th>Revision trigger</th></tr></thead>
+        <tbody>
+          <tr><td>Payroll confirmation</td><td>Payroll submitted before the deadline for the correct pay period.</td><td>Late submission or rejected batch.</td></tr>
+          <tr><td>Payroll register</td><td>Employee pay matches approved hours, rates, deductions, and exceptions.</td><td>Correction run, employee complaint, or unexplained variance.</td></tr>
+          <tr><td>Exception log</td><td>Every exception has an owner, decision, and resolution.</td><td>Repeated exception type or missing approval.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Business job spec example · process lives inside the job spec by default</p>
+</main>
+<script src="../../site-map.js"></script>
+<script src="../../site-nav.js"></script>
+</body>
+</html>

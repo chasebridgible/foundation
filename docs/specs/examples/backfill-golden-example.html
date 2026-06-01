@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-golden-example">
-<meta name="spec:type" content="process">
+<meta name="spec:type" content="eval">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-05-21">
 <title>Foundation Backfill Golden Example</title>
@@ -14,16 +14,16 @@
 {
   "id": "foundation.backfill-golden-example",
   "title": "Foundation Backfill Golden Example",
-  "type": "process",
+  "type": "eval",
   "status": "active",
   "lastUpdated": "2026-05-21",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-quality-evaluation.process",
+  "parent": "foundation.backfill-quality-evaluation.eval",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.backfill-quality-evaluation.process", "relationship": "parent", "sections": ["scoring-rubric", "acceptability-gate"] },
-    { "id": "foundation.backfill-specs.descriptive", "relationship": "sibling", "sections": ["ux-contracts", "design-placeholders"] },
+    { "id": "foundation.backfill-quality-evaluation.eval", "relationship": "parent", "sections": ["scoring-rubric", "acceptability-gate"] },
+    { "id": "foundation.backfill-specs.job", "relationship": "sibling", "sections": ["ux-contracts", "design-placeholders"] },
     { "id": "foundation.backfill-orchestration.technical", "relationship": "sibling", "sections": ["contracts"] }
   ],
   "ownedPaths": [
@@ -31,7 +31,7 @@
   ],
   "implementationPaths": [
     { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Evaluation workflow calibrated by this example." },
-    { "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Descriptive layer quality modeled below." },
+    { "path": "foundation/skills/backfill-job-spec-author/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Job layer quality modeled below." },
     { "path": "foundation/skills/backfill-technical-spec-author/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Technical architecture classification modeled below." }
   ],
   "coverage": [
@@ -79,7 +79,7 @@
     <a class="nav-item active" href="#overview"><span class="nav-num">01</span>Overview</a>
     <a class="nav-item" href="#expected-artifacts"><span class="nav-num">02</span>Artifacts</a>
     <a class="nav-item" href="#golden-report"><span class="nav-num">03</span>Report</a>
-    <a class="nav-item" href="#golden-descriptive"><span class="nav-num">04</span>Descriptive</a>
+    <a class="nav-item" href="#golden-job"><span class="nav-num">04</span>Job</a>
     <a class="nav-item" href="#golden-technical"><span class="nav-num">05</span>Technical</a>
     <a class="nav-item" href="#evaluator-scorecard"><span class="nav-num">06</span>Scorecard</a>
     <a class="nav-item" href="#quality-notes"><span class="nav-num">07</span>Quality notes</a>
@@ -109,7 +109,7 @@
           <tr><td>Capability Map</td><td><code>#backfill-capability-map</code> inside the report</td><td>Machine-readable and human-readable coverage rows for actor, outcome, object, actions, states, contracts, evidence, spec owners, status, and split state.</td></tr>
           <tr><td>Define Spec Jobs</td><td><code>#backfill-spec-job-queue</code> inside the report</td><td>Machine-readable and human-readable status for every slice: owner skill, next action, blocker, and exit criterion.</td></tr>
           <tr><td>Execution run log</td><td><code>docs/specs/backfill/run-log-20260521-01.jsonl</code></td><td>Append-only JSONL phase events for work performed, artifacts read/changed, commands, checks, timing, result, and next action.</td></tr>
-          <tr><td>Descriptive spec</td><td><code>docs/specs/field-visit-check-in-descriptive.html</code></td><td>Architecture-agnostic user/operator intent, processes/actions, states, copy, recovery, and rendered experience.</td></tr>
+          <tr><td>Job spec</td><td><code>docs/specs/field-visit-check-in-job.html</code></td><td>Architecture-agnostic user/operator intent, processes/actions, states, copy, recovery, and rendered experience.</td></tr>
           <tr><td>Technical spec</td><td><code>docs/specs/field-visit-check-in-technical.html</code></td><td>Required contracts, current evidence, constraints, implementation latitude, and failure/observability rules.</td></tr>
           <tr><td>Evaluation report</td><td><code>docs/specs/backfill/evaluation-report-20260521-01.html</code></td><td>100-point scorecard, spec-only probe, evidence audit, category findings, and concrete revision routing.</td></tr>
         </tbody>
@@ -138,8 +138,8 @@
       "backingContracts": ["permission contract", "write contract", "idempotency contract", "location confidence contract"],
       "failureAndRecovery": ["location unavailable", "network request fails", "assignment changes mid-process", "duplicate submit"],
       "evidence": ["FV-ROUTE-01", "FV-COMP-02", "FV-API-03", "FV-DB-04", "FV-DOC-05"],
-      "descriptiveSpec": "field.visit-check-in.descriptive",
-      "descriptiveSections": ["#capability-contract", "#states-and-recovery", "#rendered-experience"],
+      "jobSpec": "field.visit-check-in.job",
+      "jobSections": ["#capability-contract", "#states-and-recovery", "#rendered-experience"],
       "technicalSpec": "field.visit-check-in.technical",
       "technicalSections": ["#capability-contract", "#technical-contract-matrix", "#failure-modes"],
       "verificationTargets": ["permission denial", "idempotent duplicate submit", "location override review", "request failure retry"],
@@ -154,7 +154,7 @@
       <table class="status-table">
         <thead><tr><th>Capability</th><th>Actor</th><th>Outcome</th><th>States</th><th>Specs</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>FV-CHECKIN-CAP-01</td><td>Assigned field coordinator</td><td>Trustworthy arrival event and next work action.</td><td>ready, warning, submitting, checked-in, review-needed, denied</td><td>descriptive + technical</td><td class="score-good">acceptable</td></tr>
+          <tr><td>FV-CHECKIN-CAP-01</td><td>Assigned field coordinator</td><td>Trustworthy arrival event and next work action.</td><td>ready, warning, submitting, checked-in, review-needed, denied</td><td>job + technical</td><td class="score-good">acceptable</td></tr>
         </tbody>
       </table>
       <h3>Define Spec Jobs</h3>
@@ -171,9 +171,9 @@
       "upstreamCapabilityIds": ["FV-CHECKIN-CAP-01"],
       "status": "acceptable",
       "ownerSkill": "evaluate-backfill-specs",
-      "descriptiveSpec": "field.visit-check-in.descriptive",
+      "jobSpec": "field.visit-check-in.job",
       "technicalSpec": "field.visit-check-in.technical",
-      "descriptiveSections": ["#capability-contract", "#states-and-recovery", "#rendered-experience"],
+      "jobSections": ["#capability-contract", "#states-and-recovery", "#rendered-experience"],
       "technicalSections": ["#capability-contract", "#technical-contract-matrix", "#failure-modes"],
       "verificationTargets": ["permission denial", "idempotent duplicate submit", "location override review", "request failure retry"],
       "nextAction": "Continue to FV-NOTES-02",
@@ -190,10 +190,10 @@
       "upstreamCapabilityIds": ["FV-NOTES-CAP-02"],
       "status": "ready",
       "ownerSkill": "backfill-context-pack",
-      "descriptiveSpec": null,
+      "jobSpec": null,
       "technicalSpec": null,
       "nextAction": "Extract route, component, service, and existing-doc evidence.",
-      "exitCriterion": "Concrete note/photo/completion process/action rows are ready for descriptive authoring.",
+      "exitCriterion": "Concrete note/photo/completion process/action rows are ready for job authoring.",
       "blockingQuestions": [],
       "blockingGaps": [],
       "humanDecisions": [],
@@ -206,7 +206,7 @@
       "upstreamCapabilityIds": ["FV-SCHEDULE-CAP-03"],
       "status": "pending",
       "ownerSkill": "backfill-context-pack",
-      "descriptiveSpec": null,
+      "jobSpec": null,
       "technicalSpec": null,
       "nextAction": "Map scheduling routes, calendar service, and notification behavior.",
       "exitCriterion": "Scheduling evidence rows have proposed owner specs and slice boundaries.",
@@ -228,23 +228,23 @@
       </table>
       <h3>Run log excerpt</h3>
       <pre><code class="language-json">{"ts":"2026-05-21T14:00:00.000Z","runId":"20260521-01","sequence":1,"slice":"FV-CHECKIN-01","phase":"process-action-map","event":"start","summary":"Started extracting the coordinator check-in process.","artifactsRead":["apps/web/routes/visits/$visitId/check-in.tsx","apps/web/components/VisitCheckInPanel.tsx"],"artifactsChanged":[],"commands":[],"checks":[],"durationSeconds":null,"result":null,"nextAction":"Map entry, action, success, warning, and recovery states."}
-{"ts":"2026-05-21T14:18:00.000Z","runId":"20260521-01","sequence":2,"slice":"FV-CHECKIN-01","phase":"process-action-map","event":"complete","summary":"Completed Process / Action Map for check-in.","artifactsRead":["apps/web/routes/visits/$visitId/check-in.tsx","apps/web/components/VisitCheckInPanel.tsx","services/visits/checkInVisit.ts"],"artifactsChanged":["docs/specs/backfill/review-report-20260521-01.html"],"commands":["rg --files apps/web services"],"checks":[],"durationSeconds":1080,"result":"Process/action rows cover ready, location warning, submitting, checked-in, review-needed, and permission denied states.","nextAction":"Draft architecture-agnostic descriptive spec."}</code></pre>
+{"ts":"2026-05-21T14:18:00.000Z","runId":"20260521-01","sequence":2,"slice":"FV-CHECKIN-01","phase":"process-action-map","event":"complete","summary":"Completed Process / Action Map for check-in.","artifactsRead":["apps/web/routes/visits/$visitId/check-in.tsx","apps/web/components/VisitCheckInPanel.tsx","services/visits/checkInVisit.ts"],"artifactsChanged":["docs/specs/backfill/review-report-20260521-01.html"],"commands":["rg --files apps/web services"],"checks":[],"durationSeconds":1080,"result":"Process/action rows cover ready, location warning, submitting, checked-in, review-needed, and permission denied states.","nextAction":"Draft architecture-agnostic job spec."}</code></pre>
       <h3>Evidence ledger for <code>FV-CHECKIN-01</code></h3>
       <table class="status-table">
         <thead><tr><th>Inventory ID</th><th>Evidence</th><th>Finding</th><th>Owning spec section</th><th>Confidence</th></tr></thead>
         <tbody>
-          <tr><td>FV-ROUTE-01</td><td><code>apps/web/routes/visits/$visitId/check-in.tsx</code></td><td>Route requires authenticated workspace member and loads visit, assignment, and latest check-in event.</td><td><code>field.visit-check-in.descriptive#entry-and-context</code></td><td>high</td></tr>
-          <tr><td>FV-COMP-02</td><td><code>apps/web/components/VisitCheckInPanel.tsx</code></td><td>UI exposes ready, location warning, override reason, submitting, checked-in, and review-needed states.</td><td><code>field.visit-check-in.descriptive#states-and-recovery</code></td><td>high</td></tr>
+          <tr><td>FV-ROUTE-01</td><td><code>apps/web/routes/visits/$visitId/check-in.tsx</code></td><td>Route requires authenticated workspace member and loads visit, assignment, and latest check-in event.</td><td><code>field.visit-check-in.job#entry-and-context</code></td><td>high</td></tr>
+          <tr><td>FV-COMP-02</td><td><code>apps/web/components/VisitCheckInPanel.tsx</code></td><td>UI exposes ready, location warning, override reason, submitting, checked-in, and review-needed states.</td><td><code>field.visit-check-in.job#states-and-recovery</code></td><td>high</td></tr>
           <tr><td>FV-API-03</td><td><code>services/visits/checkInVisit.ts</code></td><td>Service writes immutable event record and updates visit status idempotently.</td><td><code>field.visit-check-in.technical#write-contract</code></td><td>high</td></tr>
           <tr><td>FV-DB-04</td><td><code>db/schema/visit_events.sql</code></td><td>Current event schema records actor, event type, timestamp, coordinates, confidence, and metadata JSON.</td><td><code>field.visit-check-in.technical#data-contract</code></td><td>high</td></tr>
-          <tr><td>FV-DOC-05</td><td><code>docs/old/mobile-visit-plan.md</code></td><td>Old plan says offline check-in is required; no current code path implements offline queueing.</td><td><code>field.visit-check-in.descriptive#human-decisions</code></td><td>medium, stale-doc discrepancy</td></tr>
+          <tr><td>FV-DOC-05</td><td><code>docs/old/mobile-visit-plan.md</code></td><td>Old plan says offline check-in is required; no current code path implements offline queueing.</td><td><code>field.visit-check-in.job#human-decisions</code></td><td>medium, stale-doc discrepancy</td></tr>
         </tbody>
       </table>
       <h3>Revision history</h3>
       <table class="status-table">
         <thead><tr><th>Pass</th><th>Evaluator result</th><th>Revision routed to</th><th>Exit criterion</th><th>Outcome</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td class="score-warn">84</td><td>descriptive authoring</td><td>Add concrete state table, recovery rules, and user-visible copy.</td><td>revised</td></tr>
+          <tr><td>1</td><td class="score-warn">84</td><td>job authoring</td><td>Add concrete state table, recovery rules, and user-visible copy.</td><td>revised</td></tr>
           <tr><td>2</td><td class="score-warn">93</td><td>technical authoring</td><td>Separate required contract from current transport and storage details.</td><td>revised</td></tr>
           <tr><td>3</td><td class="score-good">99</td><td>none</td><td>All categories >= 9 and rebuild readiness = 10.</td><td>acceptable</td></tr>
         </tbody>
@@ -252,8 +252,8 @@
       <p>The report names where the agent is, what is complete, what is next, and what evidence supports each claim. It distinguishes stale docs from current code and keeps the only product question isolated as a non-blocking human decision.</p>
     </section>
 
-    <section id="golden-descriptive" data-spec-section="golden-descriptive" data-section-type="journey">
-      <h2>Golden descriptive slice excerpt</h2>
+    <section id="golden-job" data-spec-section="golden-job" data-section-type="journey">
+      <h2>Golden job slice excerpt</h2>
       <p class="lede">A field coordinator needs to check into a scheduled visit from a phone, confirm they are at the right location, and leave the team with a reliable timestamp and readiness signal before work starts.</p>
       <h3>Intent contract</h3>
       <table class="status-table">
@@ -262,7 +262,7 @@
           <tr><td>Primary user</td><td>Assigned field coordinator checking into a visit at the customer site.</td><td><code>VisitCheckInPanel.tsx</code>, route assignment guard.</td></tr>
           <tr><td>Primary outcome</td><td>The visit has a trustworthy arrival event and the next work action becomes visible.</td><td><code>checkInVisit.ts</code>, <code>visit_events.sql</code>.</td></tr>
           <tr><td>Secondary user</td><td>Operations supervisor reviewing manual overrides, late arrivals, and location warnings.</td><td>operations dashboard status badges and override notes.</td></tr>
-          <tr><td>Architecture stance</td><td>Descriptive spec defines behavior, state, language, and recovery without requiring REST, RPC, server actions, or a specific database shape.</td><td>Backfill architecture flexibility rule.</td></tr>
+          <tr><td>Architecture stance</td><td>Job spec defines behavior, state, language, and recovery without requiring REST, RPC, server actions, or a specific database shape.</td><td>Backfill architecture flexibility rule.</td></tr>
         </tbody>
       </table>
       <h3>Capability contract</h3>
@@ -320,7 +320,7 @@
           <tr><td>What is the exact location radius?</td><td>Current service uses a workspace setting with a default.</td><td>Spec requires configurable tolerance and visible warning, not a hard-coded global radius.</td><td>No.</td></tr>
         </tbody>
       </table>
-      <p>This descriptive layer avoids framework, database, and cloud choices. It defines user-visible behavior, copy, states, recovery, and unresolved product decisions clearly enough for a build agent to implement the intended experience without copying the current UI framework.</p>
+      <p>This job layer avoids framework, database, and cloud choices. It defines user-visible behavior, copy, states, recovery, and unresolved product decisions clearly enough for a build agent to implement the intended experience without copying the current UI framework.</p>
     </section>
 
     <section id="golden-technical" data-spec-section="golden-technical" data-section-type="contracts">
@@ -350,7 +350,7 @@
       <table class="status-table">
         <thead><tr><th>Failure</th><th>User behavior</th><th>System behavior</th><th>Review implication</th></tr></thead>
         <tbody>
-          <tr><td>Location unavailable</td><td>User can submit with a reason.</td><td>Event records unavailable location and manual reason; operations review flag is set.</td><td>Descriptive and technical specs both cover the recovery path.</td></tr>
+          <tr><td>Location unavailable</td><td>User can submit with a reason.</td><td>Event records unavailable location and manual reason; operations review flag is set.</td><td>Job and technical specs both cover the recovery path.</td></tr>
           <tr><td>Network request fails</td><td>User sees retry and keeps typed reason.</td><td>No event is written unless the operation completes.</td><td>Implementation must test duplicate suppression and retry behavior.</td></tr>
           <tr><td>User loses assignment mid-process</td><td>User sees permission denied on submit.</td><td>Service refuses write and logs rejected attempt.</td><td>Permission is enforced server-side, not only by UI.</td></tr>
           <tr><td>Duplicate submit</td><td>User sees the existing checked-in state.</td><td>Service returns existing event.</td><td>Idempotency is required contract.</td></tr>
@@ -366,13 +366,13 @@
           <tr><td>Job / Spec Queue and resumability</td><td class="score-good">10</td><td>Slice ledger records status, score, owner skill, next slice, and revision history.</td><td>none</td></tr>
           <tr><td>Capability coverage, inventory coverage, and slice boundaries</td><td class="score-good">10</td><td>Capability Map row maps route, component, service, DB, and stale-doc evidence to one correctly sized slice with no split requirement.</td><td>none</td></tr>
           <tr><td>Evidence traceability</td><td class="score-good">10</td><td>Every material claim cites source evidence, owner spec section, or labeled stale-doc discrepancy.</td><td>none</td></tr>
-          <tr><td>Descriptive intent</td><td class="score-good">10</td><td>Intent contract names users, outcomes, architecture stance, process, state, copy, recovery, and human decisions.</td><td>none</td></tr>
+          <tr><td>Job intent</td><td class="score-good">10</td><td>Intent contract names users, outcomes, architecture stance, process, state, copy, recovery, and human decisions.</td><td>none</td></tr>
           <tr><td>Process/action and state specificity</td><td class="score-good">10</td><td>Process/action and state table cover ready, warning, submitting, checked-in, review-needed, and permission-denied behavior.</td><td>none</td></tr>
           <tr><td>Rendered UX</td><td class="score-good">10</td><td>Interactive HTML demonstrates ready, too-far, and checked-in/review-needed states with user-visible copy.</td><td>none</td></tr>
           <tr><td>Technical contracts</td><td class="score-good">10</td><td>Permission, write model, idempotency, location confidence, timing, observability, and failure modes are specified.</td><td>none</td></tr>
           <tr><td>Architecture flexibility</td><td class="score-good">10</td><td>Required contracts, current evidence, constraints, and latitude are separated; transport and distance provider remain flexible.</td><td>none</td></tr>
           <tr><td>Review questions and discrepancies</td><td class="score-good">9</td><td>Offline-mode stale-doc discrepancy and radius policy are isolated as non-blocking human decisions.</td><td>Confirm product priority for offline queue before future implementation.</td></tr>
-          <tr><td>Spec-only rebuild readiness</td><td class="score-good">10</td><td>A cold build agent could implement the intended behavior from the descriptive and technical excerpts alone.</td><td>none</td></tr>
+          <tr><td>Spec-only rebuild readiness</td><td class="score-good">10</td><td>A cold build agent could implement the intended behavior from the job and technical excerpts alone.</td><td>none</td></tr>
         </tbody>
       </table>
       <p><strong>Total:</strong> <span class="score-good">99 / 100</span>. This is acceptable because the total is at least <code>96</code>, every category is at least <code>9</code>, rebuild readiness is <code>10</code>, and the only remaining product question is isolated as non-blocking.</p>
@@ -383,7 +383,7 @@
       <ul>
         <li>The Job / Spec Queue makes continuation mechanical: the next agent can resume from the slice ledger without reconstructing context from prose.</li>
         <li>The Capability Map defines the behavior unit: evaluator closure depends on actor, outcome, state, contract, evidence, owner specs, verification targets, and split state.</li>
-        <li>The descriptive excerpt is specific while preserving implementation flexibility: it defines intent, states, copy, recovery, and rendered experience without choosing framework architecture.</li>
+        <li>The job excerpt is specific while preserving implementation flexibility: it defines intent, states, copy, recovery, and rendered experience without choosing framework architecture.</li>
         <li>The technical excerpt preserves contracts and makes flexible implementation choices explicit: required behavior is separated from current evidence and replaceable implementation details.</li>
         <li>The evaluator scorecard is strict enough to distinguish excellent, rebuild-useful specs from passable summaries.</li>
         <li>A generated backfill that only says "field visits have check-in" should score around <code>30-45</code>; a broad but useful summary should score around <code>65-75</code>; an acceptable slice should score <code>96-100</code>.</li>

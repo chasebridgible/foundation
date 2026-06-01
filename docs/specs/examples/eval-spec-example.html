@@ -19,10 +19,10 @@
   "lastUpdated": "2026-05-11",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "fup.kitchen-queue.descriptive",
+  "parent": "fup.kitchen-queue.job",
   "children": [],
   "relatedSpecs": [
-    { "id": "fup.kitchen-queue.descriptive", "relationship": "validates", "sections": ["interface-journey", "states-and-rules", "edge-cases"] },
+    { "id": "fup.kitchen-queue.job", "relationship": "validates", "sections": ["interface-journey", "states-and-rules", "edge-cases"] },
     { "id": "fup.kitchen-queue.technical", "relationship": "validates", "sections": ["contracts", "concurrency-and-timing", "failure-modes"] }
   ],
   "ownedPaths": [
@@ -36,9 +36,9 @@
     { "path": "server/src/routes/kitchen-orders.ts", "kind": "source", "ownership": "reference" }
   ],
   "coverage": [
-    { "id": "KQ-A1", "level": "e2e", "status": "planned", "path": "client/tests/e2e/kitchen-queue.spec.ts", "mapsTo": ["fup.kitchen-queue.descriptive#interface-journey"], "command": "npm run test:e2e -- kitchen-queue", "evidence": "Staff advances one item and customer tracker updates." },
+    { "id": "KQ-A1", "level": "e2e", "status": "planned", "path": "client/tests/e2e/kitchen-queue.spec.ts", "mapsTo": ["fup.kitchen-queue.job#interface-journey"], "command": "npm run test:e2e -- kitchen-queue", "evidence": "Staff advances one item and customer tracker updates." },
     { "id": "KQ-T1", "level": "integration", "status": "planned", "path": "server/src/routes/kitchen-orders.test.ts", "mapsTo": ["fup.kitchen-queue.technical#concurrency-and-timing"], "command": "npm test -- kitchen-orders", "evidence": "Concurrent updates serialize." },
-    { "id": "KQ-D1", "level": "component", "status": "planned", "path": "client/src/components/kitchen/order-card.test.tsx", "mapsTo": ["fup.kitchen-queue.descriptive#states-and-rules"], "command": "npm test -- order-card", "evidence": "Order card labels and actions match the spec." }
+    { "id": "KQ-D1", "level": "component", "status": "planned", "path": "client/src/components/kitchen/order-card.test.tsx", "mapsTo": ["fup.kitchen-queue.job#states-and-rules"], "command": "npm test -- order-card", "evidence": "Order card labels and actions match the spec." }
   ],
   "tags": ["example", "fired-up-pizza", "eval", "orders"]
 }
@@ -72,7 +72,7 @@
     <p class="lede">The kitchen queue is correct when a staff user can advance order items quickly and safely, customers see committed status changes, concurrent tablets cannot corrupt status, and reconnect recovery preserves the true queue.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Validates:</strong> <a data-spec-link="fup.kitchen-queue.descriptive" href="./descriptive-spec-example.html">descriptive</a> + <a data-spec-link="fup.kitchen-queue.technical" href="./technical-spec-example.html">technical</a></div>
+      <div><strong>Validates:</strong> <a data-spec-link="fup.kitchen-queue.job" href="./kitchen-queue-job-spec-example.html">job</a> + <a data-spec-link="fup.kitchen-queue.technical" href="./technical-spec-example.html">technical</a></div>
       <div><strong>Updated:</strong> 2026-05-11</div>
     </div>
   </section>
@@ -83,10 +83,10 @@
       <table class="status-table">
         <thead><tr><th>ID</th><th>Condition</th><th>Maps to</th><th>Must prove</th></tr></thead>
         <tbody>
-          <tr><td>KQ-A1</td><td>Staff can advance an item from received to in progress to ready with one tap per transition.</td><td><code>fup.kitchen-queue.descriptive#interface-journey</code></td><td>UI updates and customer tracker reflects committed status.</td></tr>
-          <tr><td>KQ-A2</td><td>Staff cannot skip received directly to ready.</td><td><code>fup.kitchen-queue.descriptive#states-and-rules</code>, <code>fup.kitchen-queue.technical#data-contract</code></td><td>Invalid transition is rejected and current server state is shown.</td></tr>
+          <tr><td>KQ-A1</td><td>Staff can advance an item from received to in progress to ready with one tap per transition.</td><td><code>fup.kitchen-queue.job#interface-journey</code></td><td>UI updates and customer tracker reflects committed status.</td></tr>
+          <tr><td>KQ-A2</td><td>Staff cannot skip received directly to ready.</td><td><code>fup.kitchen-queue.job#states-and-rules</code>, <code>fup.kitchen-queue.technical#data-contract</code></td><td>Invalid transition is rejected and current server state is shown.</td></tr>
           <tr><td>KQ-A3</td><td>Two tablets updating the same item cannot double-advance or lose the true state.</td><td><code>fup.kitchen-queue.technical#concurrency-and-timing</code></td><td>One write wins; stale client receives latest state.</td></tr>
-          <tr><td>KQ-A4</td><td>Reconnect catches up to committed queue state.</td><td><code>fup.kitchen-queue.descriptive#edge-cases</code>, <code>fup.kitchen-queue.technical#failure-modes</code></td><td>Disconnected client disables writes, reconnects, and renders latest events or full refetch.</td></tr>
+          <tr><td>KQ-A4</td><td>Reconnect catches up to committed queue state.</td><td><code>fup.kitchen-queue.job#edge-cases</code>, <code>fup.kitchen-queue.technical#failure-modes</code></td><td>Disconnected client disables writes, reconnects, and renders latest events or full refetch.</td></tr>
         </tbody>
       </table>
     </section>
@@ -143,8 +143,8 @@
 
     <section id="coevolution-rule" data-spec-section="coevolution-rule" data-section-type="maintenance">
       <h2>Co-evolution rule</h2>
-      <div class="callout warning"><strong>Required:</strong> if <a data-spec-link="fup.kitchen-queue.descriptive" href="./descriptive-spec-example.html">fup.kitchen-queue.descriptive</a> changes any state, label, journey step, or recovery path, this eval spec must change in the same commit. If this eval spec changes, code-level tests must be regenerated or updated.</div>
-      <p>Reviewers should reject a kitchen queue behavior diff when code paths change without corresponding updates to the descriptive spec, technical spec, and this eval spec coverage table.</p>
+      <div class="callout warning"><strong>Required:</strong> if <a data-spec-link="fup.kitchen-queue.job" href="./kitchen-queue-job-spec-example.html">fup.kitchen-queue.job</a> changes any state, label, journey step, or recovery path, this eval spec must change in the same commit. If this eval spec changes, code-level tests must be regenerated or updated.</div>
+      <p>Reviewers should reject a kitchen queue behavior diff when code paths change without corresponding updates to the intent spec, technical spec, and this eval spec coverage table.</p>
     </section>
   </article>
 

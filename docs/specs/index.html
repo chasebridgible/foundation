@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-system">
 <meta name="spec:type" content="index">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-30">
+<meta name="spec:last-updated" content="2026-05-31">
 <title>Spec System</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="schema" href="./spec-registry.schema.json">
@@ -16,16 +16,19 @@
   "title": "Spec System",
   "type": "index",
   "status": "active",
-  "lastUpdated": "2026-05-30",
+  "lastUpdated": "2026-05-31",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": null,
-  "children": ["foundation.spec-process", "foundation.spec-linking", "foundation.workspace-model.descriptive", "foundation.spec-template.descriptive", "foundation.spec-template.technical", "foundation.spec-template.eval"],
+  "children": ["foundation.spec-process", "foundation.spec-linking", "foundation.workspace-model.job", "foundation.spec-template.system", "foundation.spec-template.capability", "foundation.spec-template.job", "foundation.spec-template.technical", "foundation.spec-template.eval"],
   "relatedSpecs": [
     { "id": "foundation.spec-process", "relationship": "child", "sections": ["workflow-contract", "spec-authoring", "risk-tiers", "semantic-review"] },
     { "id": "foundation.spec-linking", "relationship": "child", "sections": ["html-native-metadata"] },
-    { "id": "foundation.workspace-model.descriptive", "relationship": "child", "sections": ["product-intent", "states-and-rules", "ux-contracts"] },
-    { "id": "foundation.html-docs-navigation.descriptive", "relationship": "informs", "sections": ["product-intent", "states-and-rules", "ux-contracts"] }
+    { "id": "foundation.workspace-model.job", "relationship": "child", "sections": ["product-intent", "states-and-rules", "ux-contracts"] },
+    { "id": "foundation.spec-template.system", "relationship": "child", "sections": ["system-intent", "capability-map"] },
+    { "id": "foundation.spec-template.capability", "relationship": "child", "sections": ["capability-intent", "jobs"] },
+    { "id": "foundation.spec-template.job", "relationship": "child", "sections": ["job-intent", "process"] },
+    { "id": "foundation.html-docs-navigation.job", "relationship": "informs", "sections": ["product-intent", "states-and-rules", "ux-contracts"] }
   ],
   "ownedPaths": [
     { "path": "foundation/README.md", "kind": "doc", "ownership": "direct" },
@@ -37,8 +40,8 @@
     { "path": "foundation/docs/specs/generate-registry.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/docs/specs/check-specs.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/.github/workflows/specs.yml", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/descriptive-spec-interview/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/descriptive-spec-interview/agents/openai.yaml", "kind": "config", "ownership": "direct" },
+    { "path": "foundation/skills/job-spec-interview/SKILL.md", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/skills/job-spec-interview/agents/openai.yaml", "kind": "config", "ownership": "direct" },
     { "path": "foundation/skills/spec-workflow/SKILL.md", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/skills/spec-workflow/agents/openai.yaml", "kind": "config", "ownership": "direct" },
     { "path": "foundation/skills/install-foundation-substrate/SKILL.md", "kind": "workflow", "ownership": "direct" },
@@ -63,15 +66,17 @@
       "status": "active",
       "file": "foundation/docs/specs/index.html",
       "canonicalSection": "overview",
-      "lastUpdated": "2026-05-30",
+      "lastUpdated": "2026-05-31",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": null,
       "children": [
         "foundation.spec-process",
         "foundation.spec-linking",
-        "foundation.workspace-model.descriptive",
-        "foundation.spec-template.descriptive",
+        "foundation.workspace-model.job",
+        "foundation.spec-template.system",
+        "foundation.spec-template.capability",
+        "foundation.spec-template.job",
         "foundation.spec-template.technical",
         "foundation.spec-template.eval"
       ],
@@ -94,7 +99,7 @@
           ]
         },
         {
-          "id": "foundation.workspace-model.descriptive",
+          "id": "foundation.workspace-model.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -103,7 +108,31 @@
           ]
         },
         {
-          "id": "foundation.html-docs-navigation.descriptive",
+          "id": "foundation.spec-template.system",
+          "relationship": "child",
+          "sections": [
+            "system-intent",
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.job",
+          "relationship": "child",
+          "sections": [
+            "job-intent",
+            "process"
+          ]
+        },
+        {
+          "id": "foundation.html-docs-navigation.job",
           "relationship": "informs",
           "sections": [
             "product-intent",
@@ -159,12 +188,12 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/descriptive-spec-interview/SKILL.md",
+          "path": "foundation/skills/job-spec-interview/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/descriptive-spec-interview/agents/openai.yaml",
+          "path": "foundation/skills/job-spec-interview/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
         },
@@ -205,11 +234,11 @@
     {
       "id": "foundation.spec-process",
       "title": "Spec Maintenance Process",
-      "type": "process",
+      "type": "system",
       "status": "active",
       "file": "foundation/docs/specs/process.html",
       "canonicalSection": "workflow-contract",
-      "lastUpdated": "2026-05-12",
+      "lastUpdated": "2026-05-31",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -247,11 +276,11 @@
     {
       "id": "foundation.spec-linking",
       "title": "Spec Linking Model",
-      "type": "linking",
+      "type": "technical",
       "status": "active",
       "file": "foundation/docs/specs/linking.html",
       "canonicalSection": "html-native-metadata",
-      "lastUpdated": "2026-05-11",
+      "lastUpdated": "2026-05-31",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -288,24 +317,32 @@
       ]
     },
     {
-      "id": "foundation.spec-template.descriptive",
-      "title": "Descriptive Spec Template",
+      "id": "foundation.spec-template.system",
+      "title": "System Spec Template",
       "type": "template",
       "status": "active",
-      "file": "foundation/docs/specs/templates/descriptive-spec-template.html",
-      "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-21",
+      "file": "foundation/docs/specs/templates/system-spec-template.html",
+      "canonicalSection": "system-intent",
+      "lastUpdated": "2026-05-31",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.spec-template.technical",
+          "id": "foundation.spec-template.capability",
           "relationship": "sibling",
           "sections": [
-            "required-depth",
-            "capability-contract"
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.job",
+          "relationship": "sibling",
+          "sections": [
+            "job-intent",
+            "process"
           ]
         },
         {
@@ -318,7 +355,7 @@
       ],
       "ownedPaths": [
         {
-          "path": "foundation/docs/specs/templates/descriptive-spec-template.html",
+          "path": "foundation/docs/specs/templates/system-spec-template.html",
           "kind": "doc",
           "ownership": "direct"
         }
@@ -327,7 +364,108 @@
       "coverage": [],
       "tags": [
         "template",
-        "descriptive"
+        "system"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.capability",
+      "title": "Capability Spec Template",
+      "type": "template",
+      "status": "active",
+      "file": "foundation/docs/specs/templates/capability-spec-template.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-05-31",
+      "reviewCadence": "quarterly",
+      "confidence": "high",
+      "parent": "foundation.spec-system",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-template.system",
+          "relationship": "sibling",
+          "sections": [
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.job",
+          "relationship": "sibling",
+          "sections": [
+            "capability-supported",
+            "process"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.eval",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/templates/capability-spec-template.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [],
+      "tags": [
+        "template",
+        "capability"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.job",
+      "title": "Job Spec Template",
+      "type": "template",
+      "status": "active",
+      "file": "foundation/docs/specs/templates/job-spec-template.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-05-31",
+      "reviewCadence": "quarterly",
+      "confidence": "high",
+      "parent": "foundation.spec-system",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-template.capability",
+          "relationship": "sibling",
+          "sections": [
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.technical",
+          "relationship": "sibling",
+          "sections": [
+            "required-depth",
+            "capability-contract"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.eval",
+          "relationship": "sibling",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/templates/job-spec-template.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [],
+      "tags": [
+        "template",
+        "job"
       ]
     },
     {
@@ -337,19 +475,19 @@
       "status": "active",
       "file": "foundation/docs/specs/templates/technical-spec-template.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-21",
+      "lastUpdated": "2026-05-31",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.spec-template.descriptive",
+          "id": "foundation.spec-template.job",
           "relationship": "sibling",
           "sections": [
-            "product-intent",
-            "capability-contract",
-            "states-and-rules"
+            "job-intent",
+            "process",
+            "evidence-and-evaluation"
           ]
         },
         {
@@ -381,18 +519,19 @@
       "status": "active",
       "file": "foundation/docs/specs/templates/eval-spec-template.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-11",
+      "lastUpdated": "2026-05-31",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.spec-template.descriptive",
+          "id": "foundation.spec-template.job",
           "relationship": "sibling",
           "sections": [
-            "interface-journey",
-            "states-and-rules"
+            "job-intent",
+            "process",
+            "evidence-and-evaluation"
           ]
         },
         {
@@ -418,13 +557,122 @@
       ]
     },
     {
-      "id": "fup.kitchen-queue.descriptive",
-      "title": "Fired Up Pizza Kitchen Queue - Descriptive Spec Example",
-      "type": "descriptive",
+      "id": "example.business.pay-employees.job",
+      "title": "Pay Employees Accurately and On Time - Business Job Spec Example",
+      "type": "job",
       "status": "active",
-      "file": "foundation/docs/specs/examples/descriptive-spec-example.html",
+      "file": "foundation/docs/specs/examples/business-job-spec-example.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-05-31",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": null,
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-template.job",
+          "relationship": "informs",
+          "sections": [
+            "job-intent",
+            "process",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.eval",
+          "relationship": "informs",
+          "sections": [
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [],
+      "implementationPaths": [],
+      "coverage": [],
+      "tags": [
+        "example",
+        "business",
+        "job-spec",
+        "payroll"
+      ]
+    },
+    {
+      "id": "example.software.notification-preferences.job",
+      "title": "Manage Notification Preferences - Software Job Spec Example",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/examples/software-job-spec-example.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-05-31",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": null,
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-template.job",
+          "relationship": "informs",
+          "sections": [
+            "job-intent",
+            "process",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.technical",
+          "relationship": "informs",
+          "sections": [
+            "internal-sequence"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.eval",
+          "relationship": "informs",
+          "sections": [
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "app/settings/notifications/page.tsx",
+          "kind": "source",
+          "ownership": "abstract"
+        },
+        {
+          "path": "app/api/notification-preferences/route.ts",
+          "kind": "source",
+          "ownership": "abstract"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "NP-J1",
+          "level": "e2e",
+          "status": "planned",
+          "path": "tests/e2e/notification-preferences.spec.ts",
+          "mapsTo": [
+            "example.software.notification-preferences.job#process"
+          ],
+          "evidence": "A user can change a preference, refresh, and see the saved state."
+        }
+      ],
+      "tags": [
+        "example",
+        "software",
+        "job-spec",
+        "settings"
+      ]
+    },
+    {
+      "id": "fup.kitchen-queue.job",
+      "title": "Fired Up Pizza Kitchen Queue - Job Spec Example",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/examples/kitchen-queue-job-spec-example.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-11",
+      "lastUpdated": "2026-05-31",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": null,
@@ -492,7 +740,7 @@
           "status": "planned",
           "path": "client/src/components/kitchen/order-card.test.tsx",
           "mapsTo": [
-            "fup.kitchen-queue.descriptive#states-and-rules"
+            "fup.kitchen-queue.job#states-and-rules"
           ],
           "command": "npm test -- order-card",
           "evidence": "Order cards render status labels, disabled states, and one-tap actions."
@@ -503,7 +751,7 @@
           "status": "planned",
           "path": "client/tests/e2e/kitchen-queue.spec.ts",
           "mapsTo": [
-            "fup.kitchen-queue.descriptive#interface-journey"
+            "fup.kitchen-queue.job#interface-journey"
           ],
           "command": "npm run test:e2e -- kitchen-queue",
           "evidence": "Kitchen staff advances an item and customer status updates."
@@ -526,11 +774,11 @@
       "lastUpdated": "2026-05-11",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "fup.kitchen-queue.descriptive",
+      "parent": "fup.kitchen-queue.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "fup.kitchen-queue.descriptive",
+          "id": "fup.kitchen-queue.job",
           "relationship": "parent",
           "sections": [
             "states-and-rules",
@@ -629,11 +877,11 @@
       "lastUpdated": "2026-05-11",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "fup.kitchen-queue.descriptive",
+      "parent": "fup.kitchen-queue.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "fup.kitchen-queue.descriptive",
+          "id": "fup.kitchen-queue.job",
           "relationship": "validates",
           "sections": [
             "interface-journey",
@@ -692,7 +940,7 @@
           "status": "planned",
           "path": "client/tests/e2e/kitchen-queue.spec.ts",
           "mapsTo": [
-            "fup.kitchen-queue.descriptive#interface-journey"
+            "fup.kitchen-queue.job#interface-journey"
           ],
           "command": "npm run test:e2e -- kitchen-queue",
           "evidence": "Staff advances one item and customer tracker updates."
@@ -714,7 +962,7 @@
           "status": "planned",
           "path": "client/src/components/kitchen/order-card.test.tsx",
           "mapsTo": [
-            "fup.kitchen-queue.descriptive#states-and-rules"
+            "fup.kitchen-queue.job#states-and-rules"
           ],
           "command": "npm test -- order-card",
           "evidence": "Order card labels and actions match the spec."
@@ -730,18 +978,18 @@
     {
       "id": "foundation.backfill-golden-example",
       "title": "Foundation Backfill Golden Example",
-      "type": "process",
+      "type": "eval",
       "status": "active",
       "file": "foundation/docs/specs/examples/backfill-golden-example.html",
       "canonicalSection": "overview",
       "lastUpdated": "2026-05-21",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-quality-evaluation.process",
+      "parent": "foundation.backfill-quality-evaluation.eval",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-quality-evaluation.process",
+          "id": "foundation.backfill-quality-evaluation.eval",
           "relationship": "parent",
           "sections": [
             "scoring-rubric",
@@ -749,7 +997,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "sibling",
           "sections": [
             "ux-contracts",
@@ -779,10 +1027,10 @@
           "notes": "Evaluation workflow calibrated by this example."
         },
         {
-          "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md",
+          "path": "foundation/skills/backfill-job-spec-author/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Descriptive layer quality modeled below."
+          "notes": "Job layer quality modeled below."
         },
         {
           "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
@@ -832,11 +1080,11 @@
       "lastUpdated": "2026-05-20",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.workspace-model.descriptive",
+      "parent": "foundation.workspace-model.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.workspace-model.descriptive",
+          "id": "foundation.workspace-model.job",
           "relationship": "parent",
           "sections": [
             "ux-contracts",
@@ -886,7 +1134,7 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html",
           "mapsTo": [
-            "foundation.workspace-model.descriptive#ux-contracts"
+            "foundation.workspace-model.job#ux-contracts"
           ],
           "evidence": "A cold agent session returns the temporary global canary phrase.",
           "notes": "Proves the global Codex instruction layer loaded."
@@ -897,7 +1145,7 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html",
           "mapsTo": [
-            "foundation.workspace-model.descriptive#ux-contracts"
+            "foundation.workspace-model.job#ux-contracts"
           ],
           "evidence": "A cold agent session returns the temporary Foundation canary phrase.",
           "notes": "Proves the global pointer led the agent into Foundation AGENTS.md."
@@ -908,7 +1156,7 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html",
           "mapsTo": [
-            "foundation.workspace-model.descriptive#ux-contracts"
+            "foundation.workspace-model.job#ux-contracts"
           ],
           "evidence": "A cold agent session started in a target repo returns the temporary target adapter canary phrase.",
           "notes": "Proves target repo AGENTS.md is composing with Foundation for repo-local work."
@@ -931,11 +1179,11 @@
       "lastUpdated": "2026-05-27",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-artifact-inventory.descriptive",
+      "parent": "foundation.backfill-artifact-inventory.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-artifact-inventory.descriptive",
+          "id": "foundation.backfill-artifact-inventory.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -953,7 +1201,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-quality-evaluation.process",
+          "id": "foundation.backfill-quality-evaluation.eval",
           "relationship": "sibling",
           "sections": [
             "scoring-rubric",
@@ -1011,7 +1259,7 @@
           "status": "existing",
           "path": "foundation/scripts/artifact-inventory.test.mjs",
           "mapsTo": [
-            "foundation.backfill-artifact-inventory.descriptive#ux-contracts"
+            "foundation.backfill-artifact-inventory.job#ux-contracts"
           ],
           "evidence": "Artifact Inventory tests prove JSONL eval receipts, derived HTML summaries, report handoff state, and full-run acceptability mechanics; Sandia Oil calibration remains the real-repo proof target."
         },
@@ -1021,7 +1269,7 @@
           "status": "existing",
           "path": "foundation/scripts/artifact-inventory.test.mjs",
           "mapsTo": [
-            "foundation.backfill-artifact-inventory.descriptive#system-relationship",
+            "foundation.backfill-artifact-inventory.job#system-relationship",
             "foundation.backfill-artifact-inventory.technical#graph-links"
           ],
           "evidence": "Strict graph-link tests verify file-to-spec, file-to-capability, and file-to-verification-or-explicit-gap relationships."
@@ -1047,11 +1295,11 @@
       "lastUpdated": "2026-05-27",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-artifact-inventory.descriptive",
+      "parent": "foundation.backfill-artifact-inventory.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-artifact-inventory.descriptive",
+          "id": "foundation.backfill-artifact-inventory.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -1172,23 +1420,23 @@
       ]
     },
     {
-      "id": "foundation.backfill-artifact-inventory.descriptive",
+      "id": "foundation.backfill-artifact-inventory.job",
       "title": "Foundation Artifact Inventory",
-      "type": "descriptive",
+      "type": "job",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-artifact-inventory.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-27",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-artifact-inventory.technical",
         "foundation.backfill-artifact-inventory.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -1261,8 +1509,8 @@
           "status": "existing",
           "path": "foundation/scripts/artifact-inventory.test.mjs",
           "mapsTo": [
-            "foundation.backfill-artifact-inventory.descriptive#states-and-rules",
-            "foundation.backfill-artifact-inventory.descriptive#ux-contracts"
+            "foundation.backfill-artifact-inventory.job#states-and-rules",
+            "foundation.backfill-artifact-inventory.job#ux-contracts"
           ],
           "evidence": "Artifact Inventory tests cover deterministic init, handoff checks, JSONL eval receipts, derived HTML summaries, report state, and changed-file refresh."
         },
@@ -1272,13 +1520,13 @@
           "status": "existing",
           "path": "foundation/scripts/artifact-inventory.test.mjs",
           "mapsTo": [
-            "foundation.backfill-artifact-inventory.descriptive#system-relationship"
+            "foundation.backfill-artifact-inventory.job#system-relationship"
           ],
           "evidence": "Artifact Inventory graph-check tests verify file-to-spec, file-to-capability, and file-to-verification-or-gap links."
         }
       ],
       "tags": [
-        "descriptive",
+        "job",
         "foundation",
         "backfill",
         "artifact-inventory",
@@ -1296,11 +1544,11 @@
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-author-specs.descriptive",
+      "parent": "foundation.backfill-author-specs.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-author-specs.descriptive",
+          "id": "foundation.backfill-author-specs.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -1317,7 +1565,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-process-action-map.descriptive",
+          "id": "foundation.backfill-process-action-map.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -1382,11 +1630,11 @@
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-author-specs.descriptive",
+      "parent": "foundation.backfill-author-specs.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-author-specs.descriptive",
+          "id": "foundation.backfill-author-specs.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -1403,7 +1651,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-process-action-map.descriptive",
+          "id": "foundation.backfill-process-action-map.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -1459,23 +1707,23 @@
       ]
     },
     {
-      "id": "foundation.backfill-author-specs.descriptive",
+      "id": "foundation.backfill-author-specs.job",
       "title": "Foundation Backfill Author Specs",
-      "type": "descriptive",
+      "type": "job",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-author-specs.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-author-specs.technical",
         "foundation.backfill-author-specs.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "interface-journey",
@@ -1502,7 +1750,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-process-action-map.descriptive",
+          "id": "foundation.backfill-process-action-map.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -1544,16 +1792,16 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-backfill-author-specs.html",
           "mapsTo": [
-            "foundation.backfill-author-specs.descriptive#handoff-gate"
+            "foundation.backfill-author-specs.job#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Author Specs descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Author Specs job coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
         "foundation",
         "backfill",
         "author-specs",
-        "descriptive",
+        "job",
         "substrate"
       ]
     },
@@ -1567,11 +1815,11 @@
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-capability-map.descriptive",
+      "parent": "foundation.backfill-capability-map.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-capability-map.descriptive",
+          "id": "foundation.backfill-capability-map.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -1588,7 +1836,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-surface-function-map.descriptive",
+          "id": "foundation.backfill-surface-function-map.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -1659,11 +1907,11 @@
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-capability-map.descriptive",
+      "parent": "foundation.backfill-capability-map.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-capability-map.descriptive",
+          "id": "foundation.backfill-capability-map.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -1680,7 +1928,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-surface-function-map.descriptive",
+          "id": "foundation.backfill-surface-function-map.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -1772,23 +2020,23 @@
       ]
     },
     {
-      "id": "foundation.backfill-capability-map.descriptive",
+      "id": "foundation.backfill-capability-map.job",
       "title": "Foundation Backfill Capability Map",
-      "type": "descriptive",
+      "type": "job",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-map.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-capability-map.technical",
         "foundation.backfill-capability-map.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "interface-journey",
@@ -1815,7 +2063,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-surface-function-map.descriptive",
+          "id": "foundation.backfill-surface-function-map.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -1867,8 +2115,8 @@
           "status": "existing",
           "path": "foundation/scripts/capability-map.test.mjs",
           "mapsTo": [
-            "foundation.backfill-capability-map.descriptive#artifacts-and-state",
-            "foundation.backfill-capability-map.descriptive#handoff-gate"
+            "foundation.backfill-capability-map.job#artifacts-and-state",
+            "foundation.backfill-capability-map.job#handoff-gate"
           ],
           "evidence": "Capability Map tests cover initialization from Surface / Function Map handoff, pending and terminal states, coverage of ready surfaces, split flags, checker output, eval receipts, HTML summary, refresh invalidation, and report handoff state."
         }
@@ -1877,7 +2125,7 @@
         "foundation",
         "backfill",
         "capability-map",
-        "descriptive",
+        "job",
         "substrate"
       ]
     },
@@ -1891,11 +2139,11 @@
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-context-pack.descriptive",
+      "parent": "foundation.backfill-context-pack.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-context-pack.descriptive",
+          "id": "foundation.backfill-context-pack.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -1912,7 +2160,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-spec-job-queue.descriptive",
+          "id": "foundation.backfill-spec-job-queue.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -1995,11 +2243,11 @@
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-context-pack.descriptive",
+      "parent": "foundation.backfill-context-pack.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-context-pack.descriptive",
+          "id": "foundation.backfill-context-pack.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -2016,7 +2264,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-spec-job-queue.descriptive",
+          "id": "foundation.backfill-spec-job-queue.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -2116,23 +2364,23 @@
       ]
     },
     {
-      "id": "foundation.backfill-context-pack.descriptive",
+      "id": "foundation.backfill-context-pack.job",
       "title": "Foundation Backfill Context Pack",
-      "type": "descriptive",
+      "type": "job",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-context-pack.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-context-pack.technical",
         "foundation.backfill-context-pack.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "interface-journey",
@@ -2159,7 +2407,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-spec-job-queue.descriptive",
+          "id": "foundation.backfill-spec-job-queue.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -2237,8 +2485,8 @@
           "status": "existing",
           "path": "foundation/scripts/context-pack.test.mjs",
           "mapsTo": [
-            "foundation.backfill-context-pack.descriptive#artifacts-and-state",
-            "foundation.backfill-context-pack.descriptive#handoff-gate"
+            "foundation.backfill-context-pack.job#artifacts-and-state",
+            "foundation.backfill-context-pack.job#handoff-gate"
           ],
           "evidence": "Context Pack tests cover initialization from Define Spec Jobs handoff, durable pack artifacts, exact evidence requirements, eval receipts, refresh invalidation, and report handoff state."
         }
@@ -2247,7 +2495,7 @@
         "foundation",
         "backfill",
         "context-pack",
-        "descriptive",
+        "job",
         "substrate"
       ]
     },
@@ -2261,11 +2509,11 @@
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-handoff.descriptive",
+      "parent": "foundation.backfill-handoff.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-handoff.descriptive",
+          "id": "foundation.backfill-handoff.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -2282,7 +2530,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-system-coherence-evaluation.descriptive",
+          "id": "foundation.backfill-system-coherence-evaluation.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -2347,11 +2595,11 @@
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-handoff.descriptive",
+      "parent": "foundation.backfill-handoff.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-handoff.descriptive",
+          "id": "foundation.backfill-handoff.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -2368,7 +2616,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-system-coherence-evaluation.descriptive",
+          "id": "foundation.backfill-system-coherence-evaluation.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -2424,23 +2672,23 @@
       ]
     },
     {
-      "id": "foundation.backfill-handoff.descriptive",
+      "id": "foundation.backfill-handoff.job",
       "title": "Foundation Backfill Handoff",
-      "type": "descriptive",
+      "type": "job",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-handoff.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-handoff.technical",
         "foundation.backfill-handoff.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "interface-journey",
@@ -2467,7 +2715,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-system-coherence-evaluation.descriptive",
+          "id": "foundation.backfill-system-coherence-evaluation.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -2509,16 +2757,16 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-backfill-handoff.html",
           "mapsTo": [
-            "foundation.backfill-handoff.descriptive#handoff-gate"
+            "foundation.backfill-handoff.job#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Handoff descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Handoff job coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
         "foundation",
         "backfill",
         "handoff",
-        "descriptive",
+        "job",
         "substrate"
       ]
     },
@@ -2532,11 +2780,11 @@
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-job-slice-evaluation.descriptive",
+      "parent": "foundation.backfill-job-slice-evaluation.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-job-slice-evaluation.descriptive",
+          "id": "foundation.backfill-job-slice-evaluation.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -2553,7 +2801,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-author-specs.descriptive",
+          "id": "foundation.backfill-author-specs.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -2618,11 +2866,11 @@
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-job-slice-evaluation.descriptive",
+      "parent": "foundation.backfill-job-slice-evaluation.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-job-slice-evaluation.descriptive",
+          "id": "foundation.backfill-job-slice-evaluation.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -2639,7 +2887,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-author-specs.descriptive",
+          "id": "foundation.backfill-author-specs.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -2695,23 +2943,23 @@
       ]
     },
     {
-      "id": "foundation.backfill-job-slice-evaluation.descriptive",
+      "id": "foundation.backfill-job-slice-evaluation.job",
       "title": "Foundation Backfill Evaluate Job Slices",
-      "type": "descriptive",
+      "type": "job",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-job-slice-evaluation.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-job-slice-evaluation.technical",
         "foundation.backfill-job-slice-evaluation.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "interface-journey",
@@ -2738,7 +2986,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-author-specs.descriptive",
+          "id": "foundation.backfill-author-specs.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -2780,16 +3028,16 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-backfill-job-slice-evaluation.html",
           "mapsTo": [
-            "foundation.backfill-job-slice-evaluation.descriptive#handoff-gate"
+            "foundation.backfill-job-slice-evaluation.job#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Evaluate Job Slices descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Evaluate Job Slices job coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
         "foundation",
         "backfill",
         "job-slice-evaluation",
-        "descriptive",
+        "job",
         "substrate"
       ]
     },
@@ -2803,11 +3051,11 @@
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -2817,7 +3065,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-quality-evaluation.process",
+          "id": "foundation.backfill-quality-evaluation.eval",
           "relationship": "sibling",
           "sections": [
             "evaluator-journey",
@@ -2841,7 +3089,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-surface-function-map.descriptive",
+          "id": "foundation.backfill-surface-function-map.job",
           "relationship": "sibling",
           "sections": [
             "interface-journey",
@@ -2849,7 +3097,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-capability-map.descriptive",
+          "id": "foundation.backfill-capability-map.job",
           "relationship": "sibling",
           "sections": [
             "interface-journey",
@@ -2857,7 +3105,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-spec-job-queue.descriptive",
+          "id": "foundation.backfill-spec-job-queue.job",
           "relationship": "sibling",
           "sections": [
             "interface-journey",
@@ -2865,7 +3113,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-context-pack.descriptive",
+          "id": "foundation.backfill-context-pack.job",
           "relationship": "sibling",
           "sections": [
             "interface-journey",
@@ -2873,7 +3121,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-process-action-map.descriptive",
+          "id": "foundation.backfill-process-action-map.job",
           "relationship": "sibling",
           "sections": [
             "interface-journey",
@@ -2881,7 +3129,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-author-specs.descriptive",
+          "id": "foundation.backfill-author-specs.job",
           "relationship": "sibling",
           "sections": [
             "interface-journey",
@@ -2889,7 +3137,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-job-slice-evaluation.descriptive",
+          "id": "foundation.backfill-job-slice-evaluation.job",
           "relationship": "sibling",
           "sections": [
             "interface-journey",
@@ -2897,7 +3145,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-system-coherence-evaluation.descriptive",
+          "id": "foundation.backfill-system-coherence-evaluation.job",
           "relationship": "sibling",
           "sections": [
             "interface-journey",
@@ -2905,7 +3153,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-handoff.descriptive",
+          "id": "foundation.backfill-handoff.job",
           "relationship": "sibling",
           "sections": [
             "interface-journey",
@@ -2930,7 +3178,7 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md",
+          "path": "foundation/skills/backfill-job-spec-author/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         },
@@ -3026,7 +3274,7 @@
           "notes": "Automated coverage for execution run log validation."
         },
         {
-          "path": "foundation/docs/specs/templates/descriptive-spec-template.html",
+          "path": "foundation/docs/specs/templates/job-spec-template.html",
           "kind": "doc",
           "ownership": "reference",
           "notes": "Descriptive spec structure used by backfill authoring."
@@ -3315,11 +3563,11 @@
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-process-action-map.descriptive",
+      "parent": "foundation.backfill-process-action-map.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-process-action-map.descriptive",
+          "id": "foundation.backfill-process-action-map.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -3336,7 +3584,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-context-pack.descriptive",
+          "id": "foundation.backfill-context-pack.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -3401,11 +3649,11 @@
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-process-action-map.descriptive",
+      "parent": "foundation.backfill-process-action-map.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-process-action-map.descriptive",
+          "id": "foundation.backfill-process-action-map.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -3422,7 +3670,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-context-pack.descriptive",
+          "id": "foundation.backfill-context-pack.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -3478,23 +3726,23 @@
       ]
     },
     {
-      "id": "foundation.backfill-process-action-map.descriptive",
+      "id": "foundation.backfill-process-action-map.job",
       "title": "Foundation Backfill Process / Action Map",
-      "type": "descriptive",
+      "type": "job",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-process-action-map.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-process-action-map.technical",
         "foundation.backfill-process-action-map.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "interface-journey",
@@ -3521,7 +3769,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-context-pack.descriptive",
+          "id": "foundation.backfill-context-pack.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -3563,36 +3811,36 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-backfill-process-action-map.html",
           "mapsTo": [
-            "foundation.backfill-process-action-map.descriptive#handoff-gate"
+            "foundation.backfill-process-action-map.job#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Process / Action Map descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Process / Action Map job coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
         "foundation",
         "backfill",
         "process-action-map",
-        "descriptive",
+        "job",
         "substrate"
       ]
     },
     {
-      "id": "foundation.backfill-quality-evaluation.process",
-      "title": "Foundation Backfill Evaluation Process",
-      "type": "process",
+      "id": "foundation.backfill-quality-evaluation.eval",
+      "title": "Foundation Backfill Quality Evaluation",
+      "type": "eval",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-quality-evaluation.html",
       "canonicalSection": "purpose",
       "lastUpdated": "2026-05-21",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-golden-example"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -3674,8 +3922,8 @@
           "status": "existing",
           "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
           "mapsTo": [
-            "foundation.backfill-quality-evaluation.process#evaluator-journey",
-            "foundation.backfill-quality-evaluation.process#output-contract"
+            "foundation.backfill-quality-evaluation.eval#evaluator-journey",
+            "foundation.backfill-quality-evaluation.eval#output-contract"
           ],
           "evidence": "Evaluation skill defines the scoring workflow and report contract."
         },
@@ -3685,9 +3933,9 @@
           "status": "existing",
           "path": "foundation/docs/specs/examples/backfill-golden-example.html",
           "mapsTo": [
-            "foundation.backfill-quality-evaluation.process#scoring-rubric"
+            "foundation.backfill-quality-evaluation.eval#scoring-rubric"
           ],
-          "evidence": "Golden example provides calibration for report, descriptive, technical, and scorecard quality."
+          "evidence": "Golden example provides calibration for report, job, technical, and scorecard quality."
         },
         {
           "id": "FBE-3",
@@ -3695,7 +3943,7 @@
           "status": "existing",
           "path": "foundation/scripts/foundation-doctor.test.mjs",
           "mapsTo": [
-            "foundation.backfill-quality-evaluation.process#paths-and-coverage"
+            "foundation.backfill-quality-evaluation.eval#paths-and-coverage"
           ],
           "evidence": "Doctor fixtures include evaluate-backfill-specs as a required Foundation skill."
         },
@@ -3705,8 +3953,8 @@
           "status": "existing",
           "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
           "mapsTo": [
-            "foundation.backfill-quality-evaluation.process#scoring-rubric",
-            "foundation.backfill-quality-evaluation.process#acceptability-gate"
+            "foundation.backfill-quality-evaluation.eval#scoring-rubric",
+            "foundation.backfill-quality-evaluation.eval#acceptability-gate"
           ],
           "evidence": "Evaluation skill requires capability coverage, split-boundary checks, and spec-only rebuild probes."
         }
@@ -3729,11 +3977,11 @@
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-spec-job-queue.descriptive",
+      "parent": "foundation.backfill-spec-job-queue.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-spec-job-queue.descriptive",
+          "id": "foundation.backfill-spec-job-queue.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -3750,7 +3998,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-capability-map.descriptive",
+          "id": "foundation.backfill-capability-map.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -3833,11 +4081,11 @@
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-spec-job-queue.descriptive",
+      "parent": "foundation.backfill-spec-job-queue.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-spec-job-queue.descriptive",
+          "id": "foundation.backfill-spec-job-queue.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -3854,7 +4102,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-capability-map.descriptive",
+          "id": "foundation.backfill-capability-map.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -3954,23 +4202,23 @@
       ]
     },
     {
-      "id": "foundation.backfill-spec-job-queue.descriptive",
+      "id": "foundation.backfill-spec-job-queue.job",
       "title": "Foundation Backfill Define Spec Jobs",
-      "type": "descriptive",
+      "type": "job",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-spec-job-queue.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-spec-job-queue.technical",
         "foundation.backfill-spec-job-queue.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "interface-journey",
@@ -3997,7 +4245,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-capability-map.descriptive",
+          "id": "foundation.backfill-capability-map.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -4075,8 +4323,8 @@
           "status": "existing",
           "path": "foundation/scripts/spec-job-queue.test.mjs",
           "mapsTo": [
-            "foundation.backfill-spec-job-queue.descriptive#artifacts-and-state",
-            "foundation.backfill-spec-job-queue.descriptive#handoff-gate"
+            "foundation.backfill-spec-job-queue.job#artifacts-and-state",
+            "foundation.backfill-spec-job-queue.job#handoff-gate"
           ],
           "evidence": "Define Spec Jobs tests cover initialization from Capability Map handoff, Job / Spec Queue artifacts, needs-split child slice enforcement, eval receipts, refresh invalidation, and report handoff state."
         }
@@ -4085,38 +4333,38 @@
         "foundation",
         "backfill",
         "spec-job-queue",
-        "descriptive",
+        "job",
         "substrate"
       ]
     },
     {
-      "id": "foundation.backfill-specs.descriptive",
+      "id": "foundation.backfill-specs.job",
       "title": "Foundation Backfill Specs",
-      "type": "descriptive",
+      "type": "job",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-specs.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.workspace-model.descriptive",
+      "parent": "foundation.workspace-model.job",
       "children": [
         "foundation.backfill-orchestration.technical",
-        "foundation.backfill-quality-evaluation.process",
-        "foundation.backfill-artifact-inventory.descriptive",
-        "foundation.backfill-surface-function-map.descriptive",
-        "foundation.backfill-capability-map.descriptive",
-        "foundation.backfill-spec-job-queue.descriptive",
-        "foundation.backfill-context-pack.descriptive",
-        "foundation.backfill-process-action-map.descriptive",
-        "foundation.backfill-author-specs.descriptive",
-        "foundation.backfill-job-slice-evaluation.descriptive",
-        "foundation.backfill-system-coherence-evaluation.descriptive",
-        "foundation.backfill-handoff.descriptive"
+        "foundation.backfill-quality-evaluation.eval",
+        "foundation.backfill-artifact-inventory.job",
+        "foundation.backfill-surface-function-map.job",
+        "foundation.backfill-capability-map.job",
+        "foundation.backfill-spec-job-queue.job",
+        "foundation.backfill-context-pack.job",
+        "foundation.backfill-process-action-map.job",
+        "foundation.backfill-author-specs.job",
+        "foundation.backfill-job-slice-evaluation.job",
+        "foundation.backfill-system-coherence-evaluation.job",
+        "foundation.backfill-handoff.job"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.workspace-model.descriptive",
+          "id": "foundation.workspace-model.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -4134,7 +4382,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-quality-evaluation.process",
+          "id": "foundation.backfill-quality-evaluation.eval",
           "relationship": "child",
           "sections": [
             "evaluator-journey",
@@ -4143,7 +4391,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-artifact-inventory.descriptive",
+          "id": "foundation.backfill-artifact-inventory.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -4152,7 +4400,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-surface-function-map.descriptive",
+          "id": "foundation.backfill-surface-function-map.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -4160,7 +4408,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-capability-map.descriptive",
+          "id": "foundation.backfill-capability-map.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -4168,7 +4416,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-spec-job-queue.descriptive",
+          "id": "foundation.backfill-spec-job-queue.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -4176,7 +4424,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-context-pack.descriptive",
+          "id": "foundation.backfill-context-pack.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -4184,7 +4432,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-process-action-map.descriptive",
+          "id": "foundation.backfill-process-action-map.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -4192,7 +4440,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-author-specs.descriptive",
+          "id": "foundation.backfill-author-specs.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -4200,7 +4448,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-job-slice-evaluation.descriptive",
+          "id": "foundation.backfill-job-slice-evaluation.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -4208,7 +4456,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-system-coherence-evaluation.descriptive",
+          "id": "foundation.backfill-system-coherence-evaluation.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -4216,7 +4464,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-handoff.descriptive",
+          "id": "foundation.backfill-handoff.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -4283,10 +4531,10 @@
           "notes": "Connects target repos before backfill begins."
         },
         {
-          "path": "foundation/docs/specs/templates/descriptive-spec-template.html",
+          "path": "foundation/docs/specs/templates/job-spec-template.html",
           "kind": "doc",
           "ownership": "reference",
-          "notes": "Template for draft descriptive specs created during backfill."
+          "notes": "Template for draft job specs created during backfill."
         },
         {
           "path": "foundation/docs/specs/templates/technical-spec-template.html",
@@ -4328,13 +4576,13 @@
           "path": "foundation/skills/backfill-process-action-map/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Maps concrete process/action rows before descriptive authoring."
+          "notes": "Maps concrete process/action rows before job spec authoring."
         },
         {
-          "path": "foundation/skills/backfill-descriptive-spec-author/SKILL.md",
+          "path": "foundation/skills/backfill-job-spec-author/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Authors intent-grade descriptive specs."
+          "notes": "Authors intent-grade job specs."
         },
         {
           "path": "foundation/skills/backfill-rendered-ux-spec/SKILL.md",
@@ -4346,7 +4594,7 @@
           "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Authors technical contracts from descriptive intent and repo evidence."
+          "notes": "Authors technical contracts from job intent and repo evidence."
         },
         {
           "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
@@ -4572,8 +4820,8 @@
           "status": "existing",
           "path": "foundation/skills/backfill-specs/SKILL.md",
           "mapsTo": [
-            "foundation.backfill-specs.descriptive#interface-journey",
-            "foundation.backfill-specs.descriptive#ux-contracts"
+            "foundation.backfill-specs.job#interface-journey",
+            "foundation.backfill-specs.job#ux-contracts"
           ],
           "evidence": "Skill defines the resumable loop, evidence hierarchy, dated report contract, and handoff requirements."
         },
@@ -4583,7 +4831,7 @@
           "status": "existing",
           "path": "foundation/AGENTS.md",
           "mapsTo": [
-            "foundation.backfill-specs.descriptive#states-and-rules"
+            "foundation.backfill-specs.job#states-and-rules"
           ],
           "evidence": "Foundation AGENTS routes existing repo spec conversion requests to Backfill Specs."
         },
@@ -4593,7 +4841,7 @@
           "status": "existing",
           "path": "foundation/scripts/foundation-doctor.test.mjs",
           "mapsTo": [
-            "foundation.backfill-specs.descriptive#states-and-rules"
+            "foundation.backfill-specs.job#states-and-rules"
           ],
           "evidence": "Foundation doctor fixtures include backfill-specs as a required Foundation skill."
         },
@@ -4603,7 +4851,7 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-backfill-specs.html",
           "mapsTo": [
-            "foundation.backfill-specs.descriptive#test-coverage"
+            "foundation.backfill-specs.job#test-coverage"
           ],
           "evidence": "Pilot a real target repo backfill and verify the agent continues from one slice to the next until the draft spec graph is complete."
         },
@@ -4613,9 +4861,9 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-backfill-specs.html",
           "mapsTo": [
-            "foundation.backfill-specs.descriptive#design-placeholders"
+            "foundation.backfill-specs.job#design-placeholders"
           ],
-          "evidence": "Backfill a user-facing UI slice and verify the descriptive spec includes rendered, interactive HTML-native UX examples."
+          "evidence": "Backfill a user-facing UI slice and verify the job spec includes rendered, interactive HTML-native UX examples."
         },
         {
           "id": "FBS-6",
@@ -4623,9 +4871,9 @@
           "status": "existing",
           "path": "foundation/skills/backfill-specs/SKILL.md",
           "mapsTo": [
-            "foundation.backfill-specs.descriptive#ux-contracts"
+            "foundation.backfill-specs.job#ux-contracts"
           ],
-          "evidence": "Backfill Specs requires intent-rigid, architecture-flexible descriptive and technical output."
+          "evidence": "Backfill Specs requires intent-rigid, architecture-flexible job and technical output."
         },
         {
           "id": "FBS-7",
@@ -4633,7 +4881,7 @@
           "status": "existing",
           "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
           "mapsTo": [
-            "foundation.backfill-specs.descriptive#test-coverage"
+            "foundation.backfill-specs.job#test-coverage"
           ],
           "evidence": "Evaluate Backfill Specs defines the semantic quality gate for completed graphs."
         },
@@ -4643,8 +4891,8 @@
           "status": "existing",
           "path": "foundation/scripts/backfill-run-log-check.test.mjs",
           "mapsTo": [
-            "foundation.backfill-specs.descriptive#states-and-rules",
-            "foundation.backfill-specs.descriptive#ux-contracts"
+            "foundation.backfill-specs.job#states-and-rules",
+            "foundation.backfill-specs.job#ux-contracts"
           ],
           "evidence": "Run log checker tests validate JSONL parsing, run identity, event shape, ordered sequences, complete-event duration, and result fields."
         },
@@ -4654,14 +4902,14 @@
           "status": "existing",
           "path": "foundation/skills/backfill-specs/SKILL.md",
           "mapsTo": [
-            "foundation.backfill-specs.descriptive#interface-journey",
-            "foundation.backfill-specs.descriptive#ux-contracts"
+            "foundation.backfill-specs.job#interface-journey",
+            "foundation.backfill-specs.job#ux-contracts"
           ],
           "evidence": "Backfill Specs defines the Map Surfaces to Map Capabilities handoff, Capability Map layer, capability split rule, and capability-backed completion rule."
         }
       ],
       "tags": [
-        "descriptive",
+        "job",
         "foundation",
         "backfill",
         "specs",
@@ -4678,11 +4926,11 @@
       "lastUpdated": "2026-05-28",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-surface-function-map.descriptive",
+      "parent": "foundation.backfill-surface-function-map.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-surface-function-map.descriptive",
+          "id": "foundation.backfill-surface-function-map.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -4699,7 +4947,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-artifact-inventory.descriptive",
+          "id": "foundation.backfill-artifact-inventory.job",
           "relationship": "depends-on",
           "sections": [
             "states-and-rules",
@@ -4770,11 +5018,11 @@
       "lastUpdated": "2026-05-28",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-surface-function-map.descriptive",
+      "parent": "foundation.backfill-surface-function-map.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-surface-function-map.descriptive",
+          "id": "foundation.backfill-surface-function-map.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -4791,7 +5039,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-artifact-inventory.descriptive",
+          "id": "foundation.backfill-artifact-inventory.job",
           "relationship": "depends-on",
           "sections": [
             "states-and-rules",
@@ -4883,23 +5131,23 @@
       ]
     },
     {
-      "id": "foundation.backfill-surface-function-map.descriptive",
+      "id": "foundation.backfill-surface-function-map.job",
       "title": "Foundation Backfill Surface / Function Map",
-      "type": "descriptive",
+      "type": "job",
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-surface-function-map.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-28",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-surface-function-map.technical",
         "foundation.backfill-surface-function-map.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "interface-journey",
@@ -4926,7 +5174,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-artifact-inventory.descriptive",
+          "id": "foundation.backfill-artifact-inventory.job",
           "relationship": "depends-on",
           "sections": [
             "states-and-rules",
@@ -4968,8 +5216,8 @@
           "status": "existing",
           "path": "foundation/scripts/surface-function-map.test.mjs",
           "mapsTo": [
-            "foundation.backfill-surface-function-map.descriptive#artifacts-and-state",
-            "foundation.backfill-surface-function-map.descriptive#handoff-gate"
+            "foundation.backfill-surface-function-map.job#artifacts-and-state",
+            "foundation.backfill-surface-function-map.job#handoff-gate"
           ],
           "evidence": "Surface / Function Map tests cover canonical JSONL artifacts, scope exclusion for inert files, one-file full-read fill for eligible files, deterministic handoff checks, eval receipts, report state, and Sandia Oil-compatible calibration mechanics."
         }
@@ -4978,7 +5226,7 @@
         "foundation",
         "backfill",
         "surface-function-map",
-        "descriptive",
+        "job",
         "substrate"
       ]
     },
@@ -4992,11 +5240,11 @@
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-system-coherence-evaluation.descriptive",
+      "parent": "foundation.backfill-system-coherence-evaluation.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-system-coherence-evaluation.descriptive",
+          "id": "foundation.backfill-system-coherence-evaluation.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -5013,7 +5261,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-job-slice-evaluation.descriptive",
+          "id": "foundation.backfill-job-slice-evaluation.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -5078,11 +5326,11 @@
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-system-coherence-evaluation.descriptive",
+      "parent": "foundation.backfill-system-coherence-evaluation.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-system-coherence-evaluation.descriptive",
+          "id": "foundation.backfill-system-coherence-evaluation.job",
           "relationship": "parent",
           "sections": [
             "product-intent",
@@ -5099,7 +5347,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-job-slice-evaluation.descriptive",
+          "id": "foundation.backfill-job-slice-evaluation.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -5155,23 +5403,23 @@
       ]
     },
     {
-      "id": "foundation.backfill-system-coherence-evaluation.descriptive",
+      "id": "foundation.backfill-system-coherence-evaluation.job",
       "title": "Foundation Backfill Evaluate System Coherence",
-      "type": "descriptive",
+      "type": "job",
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-system-coherence-evaluation.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-05-26",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.descriptive",
+      "parent": "foundation.backfill-specs.job",
       "children": [
         "foundation.backfill-system-coherence-evaluation.technical",
         "foundation.backfill-system-coherence-evaluation.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "parent",
           "sections": [
             "interface-journey",
@@ -5198,7 +5446,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-job-slice-evaluation.descriptive",
+          "id": "foundation.backfill-job-slice-evaluation.job",
           "relationship": "depends-on",
           "sections": [
             "artifacts-and-state",
@@ -5240,23 +5488,23 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-backfill-system-coherence-evaluation.html",
           "mapsTo": [
-            "foundation.backfill-system-coherence-evaluation.descriptive#handoff-gate"
+            "foundation.backfill-system-coherence-evaluation.job#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Evaluate System Coherence descriptive coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Planned Foundation Backfill Evaluate System Coherence job coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
         }
       ],
       "tags": [
         "foundation",
         "backfill",
         "system-coherence-evaluation",
-        "descriptive",
+        "job",
         "substrate"
       ]
     },
     {
-      "id": "foundation.html-docs-navigation.descriptive",
+      "id": "foundation.html-docs-navigation.job",
       "title": "Foundation HTML Docs Navigation",
-      "type": "descriptive",
+      "type": "job",
       "status": "active",
       "file": "foundation/docs/specs/foundation-html-docs-navigation.html",
       "canonicalSection": "product-intent",
@@ -5276,7 +5524,7 @@
           ]
         },
         {
-          "id": "foundation.workspace-model.descriptive",
+          "id": "foundation.workspace-model.job",
           "relationship": "depends-on",
           "sections": [
             "product-intent",
@@ -5387,7 +5635,7 @@
           "path": "foundation/docs/generate-site-map.mjs",
           "command": "npm run site-map",
           "mapsTo": [
-            "foundation.html-docs-navigation.descriptive#states-and-rules"
+            "foundation.html-docs-navigation.job#states-and-rules"
           ],
           "evidence": "Generated navigation data preserves the docs folder tree instead of emitting hand-curated content categories.",
           "notes": "Generator emits a folder tree with stable file nodes derived from the configured HTML document roots."
@@ -5398,8 +5646,8 @@
           "status": "existing",
           "path": "foundation/docs/site-nav.js",
           "mapsTo": [
-            "foundation.html-docs-navigation.descriptive#ux-contracts",
-            "foundation.html-docs-navigation.descriptive#design-placeholders"
+            "foundation.html-docs-navigation.job#ux-contracts",
+            "foundation.html-docs-navigation.job#design-placeholders"
           ],
           "evidence": "Rendered desktop and mobile screenshots show the current document highlighted inside its real folder path, with no overflow or hidden primary navigation.",
           "notes": "Renderer consumes the folder tree, preserves spec link attributes, expands the selected path, and can create a sidebar for bare durable HTML docs."
@@ -5410,7 +5658,7 @@
           "status": "existing",
           "path": "foundation/docs/general/gbrain-backfill-mechanics.html",
           "mapsTo": [
-            "foundation.html-docs-navigation.descriptive#edge-cases"
+            "foundation.html-docs-navigation.job#edge-cases"
           ],
           "evidence": "Every durable HTML document included in the navigation either renders the shared navigation itself or is explicitly excluded from the navigable corpus.",
           "notes": "The GBrain mechanics page now loads the shared site-map and site-nav scripts."
@@ -5421,14 +5669,14 @@
           "status": "existing",
           "path": "foundation/skills/install-foundation-substrate/SKILL.md",
           "mapsTo": [
-            "foundation.html-docs-navigation.descriptive#foundation-based-repo-setup"
+            "foundation.html-docs-navigation.job#foundation-based-repo-setup"
           ],
           "evidence": "A target repo connected to Foundation receives or verifies local HTML docs navigation so its own durable HTML files render with the same folder-derived sidebar.",
           "notes": "The install skill and Foundation doctor describe and verify target-local docs navigation assets while preserving target-owned spec registry resolution."
         }
       ],
       "tags": [
-        "descriptive",
+        "job",
         "foundation",
         "docs",
         "navigation",
@@ -5445,11 +5693,11 @@
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.workspace-model.descriptive",
+      "parent": "foundation.workspace-model.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.workspace-model.descriptive",
+          "id": "foundation.workspace-model.job",
           "relationship": "parent",
           "sections": [
             "states-and-rules",
@@ -5550,7 +5798,7 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-workspace-doctor-eval.html",
           "mapsTo": [
-            "foundation.workspace-model.descriptive#ux-contracts"
+            "foundation.workspace-model.job#ux-contracts"
           ],
           "evidence": "Run doctor against a real target repo after that repo has a pinned Foundation CI workflow.",
           "notes": "This requires a target repo fixture or real repo with GitHub workflow shape."
@@ -5573,11 +5821,11 @@
       "lastUpdated": "2026-05-29",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.workspace-model.descriptive",
+      "parent": "foundation.workspace-model.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.workspace-model.descriptive",
+          "id": "foundation.workspace-model.job",
           "relationship": "parent",
           "sections": [
             "states-and-rules",
@@ -5689,9 +5937,9 @@
       ]
     },
     {
-      "id": "foundation.workspace-model.descriptive",
+      "id": "foundation.workspace-model.job",
       "title": "Foundation Workspace Model",
-      "type": "descriptive",
+      "type": "job",
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-model.html",
       "canonicalSection": "product-intent",
@@ -5700,7 +5948,7 @@
       "confidence": "medium",
       "parent": "foundation.spec-system",
       "children": [
-        "foundation.backfill-specs.descriptive",
+        "foundation.backfill-specs.job",
         "foundation.agents-load-canary.eval",
         "foundation.workspace-doctor.technical",
         "foundation.workspace-doctor.eval"
@@ -5731,7 +5979,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "child",
           "sections": [
             "product-intent",
@@ -5814,16 +6062,16 @@
           "notes": "Spec authoring and update obligations."
         },
         {
-          "path": "foundation/skills/descriptive-spec-interview/SKILL.md",
+          "path": "foundation/skills/job-spec-interview/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Human-heavy descriptive spec creation workflow."
+          "notes": "Human-heavy job spec creation workflow."
         },
         {
           "path": "foundation/skills/backfill-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Existing repo adoption workflow for creating draft descriptive and technical specs."
+          "notes": "Existing repo adoption workflow for creating draft job and technical specs."
         },
         {
           "path": "foundation/skills/spec-workflow/SKILL.md",
@@ -5863,7 +6111,7 @@
           "status": "existing",
           "path": "foundation/scripts/foundation-doctor.mjs",
           "mapsTo": [
-            "foundation.workspace-model.descriptive#states-and-rules"
+            "foundation.workspace-model.job#states-and-rules"
           ],
           "evidence": "foundation:doctor target repo adapter check fails when AGENTS.md duplicates Foundation-owned rules.",
           "notes": "Implemented by foundation.workspace-doctor.technical."
@@ -5874,7 +6122,7 @@
           "status": "existing",
           "path": "foundation/scripts/foundation-doctor.mjs",
           "mapsTo": [
-            "foundation.workspace-model.descriptive#ux-contracts"
+            "foundation.workspace-model.job#ux-contracts"
           ],
           "evidence": "foundation:doctor reports Foundation path, global Codex pointer, required skills, target adapter status, spec namespace status, and CI pin status.",
           "notes": "CI pinning is a warning until a target repo configures GitHub workflows."
@@ -5885,9 +6133,9 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-workspace-model.html",
           "mapsTo": [
-            "foundation.workspace-model.descriptive#interface-journey"
+            "foundation.workspace-model.job#interface-journey"
           ],
-          "evidence": "Manual walkthrough from a target repo: create a descriptive spec using Foundation and write it into the target repo.",
+          "evidence": "Manual walkthrough from a target repo: create a job spec using Foundation and write it into the target repo.",
           "notes": "Run after the technical spec defines install/sync mechanics."
         },
         {
@@ -5896,23 +6144,23 @@
           "status": "planned",
           "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html",
           "mapsTo": [
-            "foundation.workspace-model.descriptive#ux-contracts"
+            "foundation.workspace-model.job#ux-contracts"
           ],
           "evidence": "Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.",
           "notes": "Procedure is defined in foundation.agents-load-canary.eval and is intentionally separate from foundation:doctor."
         }
       ],
       "tags": [
-        "descriptive",
+        "job",
         "foundation",
         "workspace",
         "substrate"
       ]
     },
     {
-      "id": "foundation.knowledge-data-layer.descriptive",
+      "id": "foundation.knowledge-data-layer.system",
       "title": "Knowledge and Data Layer",
-      "type": "descriptive",
+      "type": "system",
       "status": "draft",
       "file": "foundation/docs/specs/knowledge-and-data-layer.html",
       "canonicalSection": "product-intent",
@@ -5923,7 +6171,7 @@
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-artifact-inventory.descriptive",
+          "id": "foundation.backfill-artifact-inventory.job",
           "relationship": "informs",
           "sections": [
             "product-intent",
@@ -5932,7 +6180,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-context-pack.descriptive",
+          "id": "foundation.backfill-context-pack.job",
           "relationship": "informs",
           "sections": [
             "product-intent",
@@ -5941,7 +6189,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-capability-map.descriptive",
+          "id": "foundation.backfill-capability-map.job",
           "relationship": "informs",
           "sections": [
             "product-intent",
@@ -5950,7 +6198,7 @@
           ]
         },
         {
-          "id": "foundation.backfill-specs.descriptive",
+          "id": "foundation.backfill-specs.job",
           "relationship": "informs",
           "sections": [
             "product-intent",
@@ -6029,15 +6277,15 @@
           "status": "planned",
           "path": "foundation/docs/specs/knowledge-and-data-layer.html",
           "mapsTo": [
-            "foundation.knowledge-data-layer.descriptive#system-model",
-            "foundation.knowledge-data-layer.descriptive#states-and-rules",
-            "foundation.knowledge-data-layer.descriptive#open-questions"
+            "foundation.knowledge-data-layer.system#system-model",
+            "foundation.knowledge-data-layer.system#states-and-rules",
+            "foundation.knowledge-data-layer.system#open-questions"
           ],
           "evidence": "Review this draft against the first real client intake and source inventory; promote or revise once the layer can answer one operating question with cited sources and data evidence."
         }
       ],
       "tags": [
-        "descriptive",
+        "system",
         "knowledge-layer",
         "data-layer",
         "business-operating-system",
@@ -6074,10 +6322,10 @@
   <section id="overview" data-spec-section="overview" data-section-type="summary" data-spec-canonical="true">
     <div class="spec-eyebrow">Spec System · docs/specs/index.html</div>
     <h1>The spec system</h1>
-    <p class="lede">Specs are durable source-of-truth contracts for what should exist. They are not traditional docs, stale plans, or workflow procedures. This folder defines the first HTML-native spec system for productized-agency software development substrate.</p>
+    <p class="lede">Specs are durable source-of-truth contracts for what should exist, what work must happen, and how reality will be judged. The shared spec types are system, capability, job, technical, and eval. Legacy job specs remain valid during migration; the new name for that intent contract at work-scope is job spec.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-30</div>
+      <div><strong>Updated:</strong> 2026-05-31</div>
       <div><strong>Metadata:</strong> per-spec <code>#spec-metadata</code> is canonical</div>
     </div>
   </section>
@@ -6085,7 +6333,7 @@
   <article class="doc-body">
     <section id="registry" data-spec-section="registry" data-section-type="machine-contract">
       <h2>Registry contract</h2>
-      <p>Each HTML spec owns its canonical <code>spec-metadata</code>. The registry is the generated aggregate index agents read before loading a full spec. It maps stable spec IDs to HTML files, statuses, parent/child links, directly owned implementation paths, and test coverage links.</p>
+      <p>Each HTML spec owns its canonical <code>spec-metadata</code>. The registry is the generated aggregate index agents read before loading a full spec. It maps stable spec IDs to HTML files, statuses, parent/child links, directly owned implementation paths, and evidence or coverage links.</p>
       <div class="callout info"><strong>Machine entry point:</strong> parse <code>&lt;script type="application/json" id="spec-registry"&gt;</code> in this file. When spec metadata changes, run <code>npm run spec:registry</code>, then <code>npm run spec:check</code> to prove the generated registry matches each spec's canonical metadata and <a href="./spec-registry.schema.json">spec-registry.schema.json</a>. CI runs the same check on pull requests and pushes to <code>main</code>.</div>
       <table class="status-table">
         <thead>
@@ -6093,7 +6341,7 @@
         </thead>
         <tbody>
           <tr><td><code>id</code></td><td>Stable durable identity</td><td>Never rename casually. Use <code>replacedBy</code> when retiring.</td></tr>
-          <tr><td><code>type</code></td><td>Descriptive, technical, test, process, linking, index, or template</td><td>Agents use this to choose reading order.</td></tr>
+          <tr><td><code>type</code></td><td>System, capability, job, technical, eval, or legacy/supporting types</td><td>Agents use this to choose reading order and artifact obligations.</td></tr>
           <tr><td><code>parent</code> / <code>children</code></td><td>Multi-level spec graph</td><td>High-level specs link to children instead of duplicating leaf paths.</td></tr>
           <tr><td><code>ownedPaths</code></td><td>Direct code, test, design, schema, ADR, or doc ownership</td><td>Only low-level specs should own concrete leaf paths.</td></tr>
           <tr><td><code>coverage</code></td><td>Tests or evidence mapped to spec sections</td><td>When product intent changes, coverage changes in the same commit.</td></tr>
@@ -6111,31 +6359,31 @@
         </div>
         <div class="card">
           <div class="card-title">From a feature name</div>
-          <div class="card-copy">Search registry titles, tags, and section IDs. Start with the descriptive spec, then load the technical spec at the depth appropriate to the implementation risk.</div>
+          <div class="card-copy">Search registry titles, tags, and section IDs. Start with the job spec that owns the intended work, then load technical and eval specs as needed.</div>
         </div>
         <div class="card">
           <div class="card-title">From a board card</div>
           <div class="card-copy">Read the card's explicit spec IDs if present. If absent, search by feature terms, confirm the candidate spec, and add the board card reference during substrate update.</div>
         </div>
       </div>
-      <p>The default reading order for implementation work is: descriptive spec section relevant to the user outcome, eval spec acceptance mapping, technical spec at the depth the task requires, then directly owned paths. When creating or revising a spec, follow the <a data-spec-link="foundation.spec-process" href="./process.html#spec-authoring">spec authoring contract</a> before depending on the generated registry.</p>
+      <p>The default reading order for implementation work is: job spec section relevant to the intended work, eval spec acceptance mapping, technical spec at the depth the task requires, then directly owned paths. For broad orientation, start with the system spec and capability spec first. When creating or revising a spec, follow the <a data-spec-link="foundation.spec-process" href="./process.html#spec-authoring">spec authoring contract</a> before depending on the generated registry.</p>
     </section>
 
     <section id="foundation-specs" data-spec-section="foundation-specs" data-section-type="human-index">
       <h2>Foundation specs</h2>
       <p class="lede-2">Foundation-owned specs define shared substrate behavior. Product and client specs belong in the target repo that owns the product truth.</p>
       <div class="related-grid">
-        <a class="related-card" data-spec-link="foundation.workspace-model.descriptive" href="./foundation-workspace-model.html">
+        <a class="related-card" data-spec-link="foundation.workspace-model.job" href="./foundation-workspace-model.html">
           <div class="related-name">Foundation workspace model</div>
           <div class="related-desc">Canonical Foundation repo, global Codex pointer, target repo adapters, skill discovery, and CI pinning model.</div>
         </a>
-        <a class="related-card" data-spec-link="foundation.html-docs-navigation.descriptive" href="./foundation-html-docs-navigation.html">
+        <a class="related-card" data-spec-link="foundation.html-docs-navigation.job" href="./foundation-html-docs-navigation.html">
           <div class="related-name">Foundation HTML docs navigation</div>
           <div class="related-desc">Folder-derived left sidebar navigation for durable HTML documents, separate from the spec registry graph.</div>
         </a>
-        <a class="related-card" data-spec-link="foundation.backfill-specs.descriptive" href="./foundation-backfill-specs.html">
+        <a class="related-card" data-spec-link="foundation.backfill-specs.job" href="./foundation-backfill-specs.html">
           <div class="related-name">Foundation backfill specs</div>
-          <div class="related-desc">Existing repo adoption workflow for creating draft descriptive and technical specs plus a dated review report.</div>
+          <div class="related-desc">Existing repo adoption workflow for creating draft job and technical specs plus a dated review report.</div>
         </a>
         <a class="related-card" data-spec-link="foundation.backfill-orchestration.technical" href="./foundation-backfill-orchestration-technical.html">
           <div class="related-name">Foundation backfill orchestration technical spec</div>
@@ -6159,16 +6407,28 @@
     <section id="templates" data-spec-section="templates" data-section-type="human-index">
       <h2>Templates</h2>
       <div class="related-grid">
-        <a class="related-card" data-spec-link="foundation.spec-template.descriptive" href="./templates/descriptive-spec-template.html">
-          <div class="related-name">Descriptive spec template</div>
-          <div class="related-desc">Product intent, user model, interface journey, rules, edge cases, UX contracts, design placeholders, path ownership, and test mapping.</div>
+        <a class="related-card" data-spec-link="foundation.spec-template.system" href="./templates/system-spec-template.html">
+          <div class="related-name">System spec template</div>
+          <div class="related-desc">Root system intent, capability map, operating loop, spec graph, evidence, and revision model.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.spec-template.capability" href="./templates/capability-spec-template.html">
+          <div class="related-name">Capability spec template</div>
+          <div class="related-desc">Outcome contract, jobs, interfaces, sources, evidence, evaluation, and revision for one capability.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.spec-template.job" href="./templates/job-spec-template.html">
+          <div class="related-name">Job spec template</div>
+          <div class="related-desc">The work contract for a named body of work, with its process contained inside by default.</div>
+        </a>
+        <a class="related-card" data-spec-link="foundation.spec-template.job" href="./templates/job-spec-template.html">
+          <div class="related-name">Legacy job spec template</div>
+          <div class="related-desc">Compatibility template for existing software feature specs. New work should usually start from a job spec.</div>
         </a>
         <a class="related-card" data-spec-link="foundation.spec-template.technical" href="./templates/technical-spec-template.html">
           <div class="related-name">Technical spec template</div>
           <div class="related-desc">Required for every software task. Defines internals, contracts, timing, boundaries, migrations, ADRs, and non-goals at a depth proportional to the task.</div>
         </a>
         <a class="related-card" data-spec-link="foundation.spec-template.eval" href="./templates/eval-spec-template.html">
-          <div class="related-name">Test spec template</div>
+          <div class="related-name">Eval spec template</div>
           <div class="related-desc">Plain-English verification contract with acceptance mapping, signal choice, commands, evidence, gaps, and co-evolution rules.</div>
         </a>
       </div>
@@ -6176,11 +6436,19 @@
 
     <section id="examples" data-spec-section="examples" data-section-type="human-index">
       <h2>Concrete examples</h2>
-      <p class="lede-2">The examples use the Fired Up Pizza kitchen queue as a low-level feature spec set. They are examples of shape, not canonical product direction.</p>
+      <p class="lede-2">The examples show how the shared spec language works in business and software. They are examples of shape, not canonical product direction.</p>
       <div class="related-grid">
-        <a class="related-card" data-spec-link="fup.kitchen-queue.descriptive" href="./examples/descriptive-spec-example.html">
-          <div class="related-name">Kitchen queue descriptive spec</div>
-          <div class="related-desc">What kitchen staff and customers experience while orders move from received to ready.</div>
+        <a class="related-card" data-spec-link="example.business.pay-employees.job" href="./examples/business-job-spec-example.html">
+          <div class="related-name">Business job spec example</div>
+          <div class="related-desc">A payroll job spec showing capability, job, process, context, evidence, and evaluation in business operations.</div>
+        </a>
+        <a class="related-card" data-spec-link="example.software.notification-preferences.job" href="./examples/software-job-spec-example.html">
+          <div class="related-name">Software job spec example</div>
+          <div class="related-desc">A software job spec showing how user-facing behavior, process, technical boundaries, and evals fit together.</div>
+        </a>
+        <a class="related-card" data-spec-link="fup.kitchen-queue.job" href="./examples/kitchen-queue-job-spec-example.html">
+          <div class="related-name">Kitchen queue job spec example</div>
+          <div class="related-desc">A product-facing job spec showing a detailed software behavior, journey, states, paths, and coverage.</div>
         </a>
         <a class="related-card" data-spec-link="fup.kitchen-queue.technical" href="./examples/technical-spec-example.html">
           <div class="related-name">Kitchen queue technical spec</div>
@@ -6188,7 +6456,7 @@
         </a>
         <a class="related-card" data-spec-link="fup.kitchen-queue.eval" href="./examples/eval-spec-example.html">
           <div class="related-name">Kitchen queue eval spec</div>
-          <div class="related-desc">Acceptance conditions and evidence mapped back to descriptive and technical sections.</div>
+          <div class="related-desc">Acceptance conditions and evidence mapped back to job and technical sections.</div>
         </a>
       </div>
     </section>

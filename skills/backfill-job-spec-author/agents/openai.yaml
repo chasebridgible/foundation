@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backfill Job Spec"
+  short_description: "Write intent-grade job specs"
+  default_prompt: "Use $backfill-job-spec-author to write an intent-grade job spec from the current backfill slice evidence."

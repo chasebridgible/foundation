@@ -16,10 +16,14 @@ const preferredOrder = [
   "docs/specs/index.html",
   "docs/specs/process.html",
   "docs/specs/linking.html",
-  "docs/specs/templates/descriptive-spec-template.html",
+  "docs/specs/templates/system-spec-template.html",
+  "docs/specs/templates/capability-spec-template.html",
+  "docs/specs/templates/job-spec-template.html",
   "docs/specs/templates/technical-spec-template.html",
   "docs/specs/templates/eval-spec-template.html",
-  "docs/specs/examples/descriptive-spec-example.html",
+  "docs/specs/examples/business-job-spec-example.html",
+  "docs/specs/examples/software-job-spec-example.html",
+  "docs/specs/examples/kitchen-queue-job-spec-example.html",
   "docs/specs/examples/technical-spec-example.html",
   "docs/specs/examples/eval-spec-example.html"
 ];

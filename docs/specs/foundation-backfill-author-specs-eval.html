@@ -19,11 +19,11 @@
   "lastUpdated": "2026-05-26",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-author-specs.descriptive",
+  "parent": "foundation.backfill-author-specs.job",
   "children": [],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-author-specs.descriptive",
+      "id": "foundation.backfill-author-specs.job",
       "relationship": "parent",
       "sections": [
         "product-intent",
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "id": "foundation.backfill-process-action-map.descriptive",
+      "id": "foundation.backfill-process-action-map.job",
       "relationship": "depends-on",
       "sections": [
         "artifacts-and-state",
@@ -121,7 +121,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-author-specs-eval.html</div>
     <h1>Foundation Backfill Author Specs Eval Spec</h1>
     <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Author Specs can hand off safely.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-author-specs.descriptive</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
     <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through eval receipts, and the HTML summary is a derived review surface.</p>
   </section>
 
@@ -134,7 +134,7 @@
         <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, drafted, needs-revision, ready-for-slice-eval.</td></tr>
         <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, and report drift fail.</td></tr>
         <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, or under-evidenced rows produce revision targets.</td></tr>
-        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>each queued slice has draft descriptive and technical specs or a documented non-spec owner; checker passes; eval receipt and HTML summary exist; report names next layer as Evaluate Job Slices.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>each queued slice has draft job and technical specs or a documented non-spec owner; checker passes; eval receipt and HTML summary exist; report names next layer as Evaluate Job Slices.</td></tr>
       </tbody></table>
     </section>
 
@@ -163,7 +163,7 @@
       <ul>
         <li>Implementation commands are planned unless a target repo already provides them.</li>
         <li>Sandia Oil starts as calibration evidence, not a perfect gold fixture.</li>
-        <li>Schema or rubric changes must update descriptive, technical, and eval specs together.</li>
+        <li>Schema or rubric changes must update job, technical, and eval specs together.</li>
       </ul>
     </section>
   </article>

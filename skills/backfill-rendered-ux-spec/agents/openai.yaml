@@ -1,4 +1,4 @@
 interface:
   display_name: "Backfill Rendered UX"
   short_description: "Add interactive UX examples to specs"
-  default_prompt: "Use $backfill-rendered-ux-spec to add an HTML-native rendered experience section to this descriptive spec."
+  default_prompt: "Use $backfill-rendered-ux-spec to add an HTML-native rendered experience section to this job spec."

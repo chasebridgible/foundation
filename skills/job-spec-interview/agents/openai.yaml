@@ -1,0 +1,4 @@
+interface:
+  display_name: "Job Spec Interview"
+  short_description: "Interview for job specs"
+  default_prompt: "Use $job-spec-interview to ask focused questions, resolve material ambiguity, and create a job HTML spec when I approve building it."

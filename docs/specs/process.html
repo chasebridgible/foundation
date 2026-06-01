@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.spec-process">
-<meta name="spec:type" content="process">
+<meta name="spec:type" content="system">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-12">
+<meta name="spec:last-updated" content="2026-05-31">
 <title>Spec Maintenance Process</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -14,9 +14,9 @@
 {
   "id": "foundation.spec-process",
   "title": "Spec Maintenance Process",
-  "type": "process",
+  "type": "system",
   "status": "active",
-  "lastUpdated": "2026-05-12",
+  "lastUpdated": "2026-05-31",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": "foundation.spec-system",
@@ -48,12 +48,13 @@
     <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
     <a class="nav-item" href="#workflow-contract"><span class="nav-num">01</span>Workflow contract</a>
     <a class="nav-item" href="#reading-order"><span class="nav-num">02</span>Reading order</a>
-    <a class="nav-item" href="#spec-authoring"><span class="nav-num">03</span>Spec authoring</a>
-    <a class="nav-item" href="#risk-tiers"><span class="nav-num">04</span>Risk tiers</a>
-    <a class="nav-item" href="#semantic-review"><span class="nav-num">05</span>Semantic review</a>
-    <a class="nav-item" href="#update-obligations"><span class="nav-num">06</span>Update obligations</a>
-    <a class="nav-item" href="#blockers-and-exits"><span class="nav-num">07</span>Blockers and exits</a>
-    <a class="nav-item" href="#workflow-skills"><span class="nav-num">08</span>Workflow skills</a>
+    <a class="nav-item" href="#spec-choice"><span class="nav-num">03</span>Spec choice</a>
+    <a class="nav-item" href="#spec-authoring"><span class="nav-num">04</span>Spec authoring</a>
+    <a class="nav-item" href="#risk-tiers"><span class="nav-num">05</span>Risk tiers</a>
+    <a class="nav-item" href="#semantic-review"><span class="nav-num">06</span>Semantic review</a>
+    <a class="nav-item" href="#update-obligations"><span class="nav-num">07</span>Update obligations</a>
+    <a class="nav-item" href="#blockers-and-exits"><span class="nav-num">08</span>Blockers and exits</a>
+    <a class="nav-item" href="#workflow-skills"><span class="nav-num">09</span>Workflow skills</a>
   </div>
 </nav>
 
@@ -61,10 +62,10 @@
   <section id="overview" data-spec-section="overview" data-section-type="summary">
     <div class="spec-eyebrow">Spec System · docs/specs/process.html</div>
     <h1>Spec maintenance process</h1>
-    <p class="lede">The process keeps specs, tests, and code moving together. Plans are temporary reasoning unless they are converted into specs, ADRs, tests, or board/session history.</p>
+    <p class="lede">The process keeps specs, evidence, evals, technical work, and implementation moving together. Plans are temporary reasoning unless they are converted into system, capability, job, technical, eval, ADR, test, or board/session artifacts.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-12</div>
+      <div><strong>Updated:</strong> 2026-05-31</div>
       <div><strong>Parent:</strong> <a data-spec-link="foundation.spec-system" href="./index.html">foundation.spec-system</a></div>
     </div>
   </section>
@@ -76,8 +77,8 @@
       <table class="status-table">
         <thead><tr><th>Step</th><th>Purpose</th><th>Durable output</th></tr></thead>
         <tbody>
-          <tr><td>Spec</td><td>State what should exist, who it serves, what rules govern it, and where intent lives.</td><td>Descriptive spec; technical spec scaled to task depth; related ADR if a decision is non-obvious.</td></tr>
-          <tr><td>Test</td><td>Convert intent into a verification contract before implementation claims success.</td><td>Test spec plus code-level tests or planned gaps.</td></tr>
+          <tr><td>Spec</td><td>State what system, capability, or job should exist; who or what it serves; what process runs; what rules govern it; and where intent lives.</td><td>System spec, capability spec, or job spec.</td></tr>
+          <tr><td>Eval</td><td>Convert intent into a verification contract before implementation claims success.</td><td>Eval spec plus code-level tests, business checks, manual evidence, or planned gaps.</td></tr>
           <tr><td>Prompt</td><td>Load only the relevant specs, tests, rules, skills, and code paths.</td><td>Run prompt or board/session record, not a stale plan file.</td></tr>
           <tr><td>Execute</td><td>Change code, tests, and specs together, then produce evidence.</td><td>Diff, passing commands, screenshots/traces where useful, passing <code>npm run spec:check</code>.</td></tr>
         </tbody>
@@ -90,11 +91,27 @@
       <p>Progressive disclosure is mandatory. An agent should not read every spec in the repo when one feature section is enough.</p>
       <ol>
         <li>Read <a data-spec-link="foundation.spec-system" href="./index.html">the registry</a> and identify candidate specs by ID, path, title, tags, or board card.</li>
-        <li>Load the relevant descriptive spec section first. Product intent outranks implementation convenience.</li>
+        <li>Load the relevant job spec section first. Job intent outranks implementation convenience. If the work is broad, load the parent capability or system spec first.</li>
         <li>Load the eval spec acceptance mapping before editing code. The eval spec tells the agent what will count as done.</li>
-        <li>Load the technical spec for every implementation task. For small tasks, expect a compact internal contract; for complex tasks, expect deeper sequencing, data, timing, concurrency, failure, and boundary detail.</li>
+        <li>Load the technical spec for every software, data, automation, infrastructure, or integration task. For small tasks, expect a compact internal contract; for complex tasks, expect deeper sequencing, data, timing, concurrency, failure, and boundary detail.</li>
         <li>Load direct owned paths from the lowest-level relevant spec. Avoid walking every path in parent specs.</li>
       </ol>
+    </section>
+
+    <section id="spec-choice" data-spec-section="spec-choice" data-section-type="routing-rules">
+      <h2>Spec choice</h2>
+      <p>Choose the spec type by the layer of intent. Do not create several specs when one job spec can carry the job, its SOP/checklist/process, and its evidence needs clearly.</p>
+      <table class="status-table">
+        <thead><tr><th>Use this spec</th><th>When the intent is</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>System spec</td><td>The whole operating system, product, repo, or durable subsystem needs a root contract.</td><td>"Agents choose the right spec type across Foundation."</td></tr>
+          <tr><td>Capability spec</td><td>The system must reliably produce a class of outcome under real constraints.</td><td>"Spec requests are routed to the correct spec type."</td></tr>
+          <tr><td>Job spec</td><td>A named body of work is required for a capability to exist, operate, or improve.</td><td>"Classify one incoming request, select the template, and name required eval coverage."</td></tr>
+          <tr><td>Technical spec</td><td>Software, data, automation, infrastructure, or integration implementation details matter.</td><td>"Implement a scaffold command that creates the selected spec and metadata."</td></tr>
+          <tr><td>Eval spec</td><td>Evidence needs an explicit judgment contract before the system can accept the work.</td><td>"Given ten request examples, the agent chooses system, capability, job, technical, or eval correctly."</td></tr>
+        </tbody>
+      </table>
+      <p>A capability usually has multiple jobs. A job usually has a process. A technical spec is added when implementation details matter. An eval spec is added when the work needs a durable definition of what evidence will prove it worked.</p>
     </section>
 
     <section id="spec-authoring" data-spec-section="spec-authoring" data-section-type="authoring-contract">
@@ -102,7 +119,7 @@
       <p>When a human and agent create or revise a spec together, the HTML spec is the authored source. The generated registry is only the index.</p>
       <ol>
         <li>Search the registry first. Update an existing spec when it already owns the behavior; create a new spec only when the behavior needs its own durable contract.</li>
-        <li>Copy the closest HTML template: descriptive for product intent, technical for internal behavior, or test for verification.</li>
+        <li>Copy the closest HTML template: system for whole-system intent, capability for a reliable outcome, job for the work contract and its process, technical for implementation behavior, or eval for verification.</li>
         <li>Fill <code>spec-metadata</code> before relying on the prose. Use a stable dotted <code>id</code>, accurate <code>title</code>, valid <code>type</code>, <code>status</code>, <code>lastUpdated</code>, <code>reviewCadence</code>, and <code>confidence</code>. Do not add document-level owner metadata.</li>
         <li>Set graph fields deliberately: <code>parent</code>, <code>children</code>, and <code>relatedSpecs</code>. Prefer linking to child specs over copying their leaf paths into a parent.</li>
         <li>Map paths deliberately: <code>ownedPaths</code> for files this spec directly owns; <code>implementationPaths</code> for non-owning references that help navigation.</li>
@@ -112,7 +129,7 @@
         <li>Update visible links, path lists, and coverage tables so the human-readable prose agrees with the metadata.</li>
         <li>Run <code>npm run spec:registry</code>, then <code>npm run spec:check</code>. A human review still has to confirm the mappings are semantically true.</li>
       </ol>
-      <div class="callout info"><strong>Scaffold:</strong> use <code>npm run spec:new -- --type descriptive --id product.feature.descriptive --title "Feature Descriptive Spec" --out docs/specs/features/feature-descriptive.html</code> to create a valid HTML starter, then fill the prose and metadata deliberately.</div>
+      <div class="callout info"><strong>Scaffold:</strong> use <code>npm run spec:new -- --type job --id product.feature.job --title "Feature Job Spec" --out docs/specs/features/feature-job.html</code> to create a valid HTML starter, then fill the prose and metadata deliberately.</div>
     </section>
 
     <section id="risk-tiers" data-spec-section="risk-tiers" data-section-type="risk-scaling">
@@ -123,9 +140,9 @@
         <tbody>
           <tr><td>T0</td><td>Formatting, typo, comment, or navigation-only edits that do not change product, test, or implementation behavior.</td><td>No spec update unless the edited doc is itself inaccurate.</td><td>Run the narrowest relevant check; <code>npm run spec:check</code> when spec files or harness files change.</td></tr>
           <tr><td>T1</td><td>Spec metadata, path, registry, CI, or harness maintenance.</td><td>Update canonical <code>spec-metadata</code> or process docs, then regenerate the registry when metadata changed.</td><td><code>npm run spec:registry</code> when metadata changed, then <code>npm run spec:check</code>.</td></tr>
-          <tr><td>T2</td><td>Small bugfix or refactor with no intended user-visible behavior change.</td><td>Compact technical spec note or update to the owning technical section; descriptive spec usually unchanged.</td><td>Targeted unit/static/manual evidence, plus explicit test gap if no automated signal is worth adding.</td></tr>
-          <tr><td>T3</td><td>User-visible behavior change inside an existing feature boundary.</td><td>Update descriptive, technical, and eval spec sections that define the behavior and done signal.</td><td>Mapped coverage entry or explicit gap in the eval spec; run the relevant code-level command.</td></tr>
-          <tr><td>T4</td><td>New feature, new flow, or meaningful feature split.</td><td>Create or update descriptive, technical, and eval specs. Prefer child specs over broad parent path ownership.</td><td>Acceptance mapping plus planned, existing, or gap coverage for the primary user journey and main technical risks.</td></tr>
+          <tr><td>T2</td><td>Small bugfix or refactor with no intended user-visible behavior change.</td><td>Compact technical spec note or update to the owning technical section; job spec usually unchanged.</td><td>Targeted unit/static/manual evidence, plus explicit eval gap if no automated signal is worth adding.</td></tr>
+          <tr><td>T3</td><td>User-visible or operator-visible behavior change inside an existing job boundary.</td><td>Update job, technical, and eval spec sections that define the behavior and done signal.</td><td>Mapped coverage entry or explicit gap in the eval spec; run the relevant evidence command or review.</td></tr>
+          <tr><td>T4</td><td>New capability, new job, new flow, or meaningful job split.</td><td>Create or update capability, job, technical, and eval specs. Prefer child specs over broad parent path ownership.</td><td>Acceptance mapping plus planned, existing, or gap coverage for the primary journey and main technical or operating risks.</td></tr>
           <tr><td>T5</td><td>Architecture, data model, security, concurrency, migration, or cross-feature contract change.</td><td>Deep technical spec section, related ADR when the decision is non-obvious, and all affected parent/child links.</td><td>Integration/e2e/manual evidence appropriate to the risk, with explicit rollback or follow-up gaps.</td></tr>
         </tbody>
       </table>
@@ -143,7 +160,7 @@
           <tr><td><code>implementationPaths</code></td><td>Are these useful non-owning references, not hidden ownership claims?</td><td>Reference paths that should really be direct ownership in a child spec.</td></tr>
           <tr><td><code>coverage.mapsTo</code></td><td>Does the evidence actually verify the mapped section?</td><td>Coverage linked to a nearby section because the right section was missing or unclear.</td></tr>
           <tr><td>Visible prose</td><td>Does the human-readable path list, coverage table, and behavior text agree with metadata?</td><td>Registry/check passes while prose says something different.</td></tr>
-          <tr><td>Risk tier</td><td>Does the depth of descriptive, technical, and test work match the tier?</td><td>Heavy spec edits for T0/T1 work, or shallow notes for T4/T5 work.</td></tr>
+          <tr><td>Risk tier</td><td>Does the depth of system, capability, job, technical, and eval work match the tier?</td><td>Heavy spec edits for T0/T1 work, or shallow notes for T4/T5 work.</td></tr>
         </tbody>
       </table>
       <p>Final answers for spec work should say whether this semantic review found any unresolved mapping risk.</p>
@@ -154,9 +171,9 @@
       <table class="status-table">
         <thead><tr><th>Trigger</th><th>Required update</th><th>Same commit?</th></tr></thead>
         <tbody>
-          <tr><td>Product behavior changes</td><td>Descriptive spec section and mapped eval spec acceptance condition in canonical HTML <code>spec-metadata</code> and prose, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
+          <tr><td>Intended work or product behavior changes</td><td>Job spec section and mapped eval spec acceptance condition in canonical HTML <code>spec-metadata</code> and prose, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
           <tr><td>Any implementation behavior changes</td><td>Technical spec depth adjusted to the task, plus mapped eval spec risks where behavior is externally verifiable, followed by <code>npm run spec:registry</code> if metadata changed.</td><td>Yes</td></tr>
-          <tr><td>Code-level tests added, renamed, deleted, or regenerated</td><td>Test spec coverage table and canonical coverage entries in <code>spec-metadata</code>, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
+          <tr><td>Code-level tests, business checks, or evidence paths added, renamed, deleted, or regenerated</td><td>Eval spec coverage table and canonical coverage entries in <code>spec-metadata</code>, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
           <tr><td>Owned file moved or deleted</td><td>All affected <code>ownedPaths</code>, <code>implementationPaths</code>, and coverage paths in canonical metadata and visible path lists, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
           <tr><td>Spec retired or replaced</td><td>Status, <code>replacedBy</code>, and parent/child references in canonical metadata, followed by <code>npm run spec:registry</code>.</td><td>Yes</td></tr>
           <tr><td>New reusable workflow discovered</td><td>Convert to a workflow skill or SOP, then link from the relevant spec process note if needed.</td><td>Before relying on it again</td></tr>
@@ -169,7 +186,7 @@
       <h2>Blockers and exits</h2>
       <h3>Blocker conditions</h3>
       <ul>
-        <li>No descriptive spec exists for the user-visible behavior being changed.</li>
+        <li>No job spec exists for the user-visible, operator-visible, or system work being changed.</li>
         <li>The eval spec cannot name the evidence required to accept the change.</li>
         <li>No technical spec exists for the work, or the technical spec is too shallow for the implementation risk.</li>
         <li>Registry links point to missing specs, moved files, or deleted tests.</li>
@@ -178,7 +195,7 @@
       <h3>Exit criteria</h3>
       <ul>
         <li>Relevant specs state the current intended behavior.</li>
-        <li>Test spec maps acceptance conditions to descriptive and technical sections.</li>
+        <li>Eval spec maps acceptance conditions to job and technical sections.</li>
         <li>Code-level tests, manual evidence, or explicit gaps match the eval spec.</li>
         <li>Risk tier is named or obvious from the diff, and spec depth matches that tier.</li>
         <li>Semantic review confirms metadata mappings are truthful, not just valid.</li>
