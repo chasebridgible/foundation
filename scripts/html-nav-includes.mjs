@@ -1,6 +1,6 @@
 import path from "node:path";
 
-const navAssetVersion = "20260601-nav-collapse";
+const navAssetVersion = "20260602-nav-collapse";
 
 function toWebPath(value) {
   return value.split(path.sep).join("/");

@@ -11,7 +11,7 @@ const specsDir = path.dirname(fileURLToPath(import.meta.url));
 const docsDir = path.dirname(specsDir);
 const repoRoot = path.dirname(docsDir);
 const repoName = path.basename(repoRoot);
-const navAssetVersion = "20260601-nav-collapse";
+const navAssetVersion = "20260602-nav-collapse";
 const typeAliases = new Map([["test", "eval"]]);
 const allowedTypes = new Set(["system", "capability", "job", "technical", "eval"]);
 

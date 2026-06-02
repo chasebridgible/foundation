@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.workspace-doctor.eval">
 <meta name="spec:type" content="eval">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-29">
+<meta name="spec:last-updated" content="2026-06-02">
 <title>Foundation Workspace Doctor Eval Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Workspace Doctor Eval Spec",
   "type": "eval",
   "status": "active",
-  "lastUpdated": "2026-05-29",
+  "lastUpdated": "2026-06-02",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.workspace-model.job",
@@ -83,6 +83,14 @@
       "mapsTo": ["foundation.workspace-model.job#ux-contracts"],
       "evidence": "Run doctor against a real target repo after that repo has a pinned Foundation CI workflow.",
       "notes": "This requires a target repo fixture or real repo with GitHub workflow shape."
+    },
+    {
+      "id": "FWD-A6",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.workspace-doctor.eval#acceptance-mapping", "foundation.workspace-doctor.technical#contracts", "foundation.workspace-doctor.technical#failure-modes"],
+      "evidence": "target repo HTML docs navigation warns when assets or script includes are missing, warns when site-nav.js is stale, and passes when the local renderer includes the shared collapse control"
     }
   ],
   "tags": [
@@ -182,7 +190,7 @@
     <p class="lede">The Foundation doctor test suite verifies that the setup diagnostic accepts a correctly connected Foundation workspace and rejects the target repo shapes that create drift.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-29</div>
+      <div><strong>Updated:</strong> 2026-06-02</div>
       <div><strong>Canonical section:</strong> <a href="#verification-contract">#verification-contract</a></div>
     </div>
   </section>
@@ -204,6 +212,7 @@
           <tr><td>FWD-A3</td><td>A target repo adapter that copies Foundation-owned rules fails with a duplicated-rule report.</td><td><code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>
           <tr><td>FWD-A4</td><td>A target repo spec using a <code>foundation.*</code> ID fails namespace validation.</td><td><code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>
           <tr><td>FWD-A5</td><td>A real target repo with pinned Foundation CI can be diagnosed without failures.</td><td><code>foundation.workspace-model.job#ux-contracts</code></td><td>planned</td></tr>
+          <tr><td>FWD-A6</td><td>A target repo with durable HTML docs warns when navigation assets or script includes are missing, warns when <code>site-nav.js</code> is stale, and passes when the local renderer includes the shared collapse control.</td><td><code>foundation.workspace-doctor.technical#contracts</code>, <code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>
         </tbody>
       </table>
     </section>
@@ -217,6 +226,7 @@
           <tr><td>Machine Foundation shape</td><td>Temporary fixture with required files and skills.</td><td>None for local shape.</td></tr>
           <tr><td>Target adapter drift</td><td>Fixture detects copied Foundation rules.</td><td>Rule list may grow as Foundation AGENTS evolves.</td></tr>
           <tr><td>Target namespace drift</td><td>Fixture detects <code>foundation.*</code> product spec IDs.</td><td>None for HTML specs with parseable metadata.</td></tr>
+          <tr><td>Target HTML docs navigation drift</td><td>Fixture detects missing local navigation scripts and stale <code>site-nav.js</code> copies that lack the shared collapse control.</td><td>Rendered target-repo screenshots remain manual evidence.</td></tr>
           <tr><td>CI pinning</td><td>Static workflow scanner reports warnings.</td><td>Needs a real target repo or fixture workflow with pinned Foundation checkout.</td></tr>
           <tr><td>Actual Codex load order</td><td>Planned isolated canary.</td><td>Separate spec and manual run procedure.</td></tr>
         </tbody>
@@ -246,7 +256,7 @@
   <hr>
   <p class="footer-note">Foundation Workspace Doctor Eval Spec · current verification contract</p>
 </main>
-<script src="../site-map.js"></script>
-<script src="../site-nav.js"></script>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
 </body>
 </html>

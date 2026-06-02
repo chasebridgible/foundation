@@ -412,6 +412,9 @@ test("shared site navigation owns document-nav collapse behavior", () => {
   const siteNav = fs.readFileSync(path.join(repoRoot, "docs", "site-nav.js"), "utf8");
   const renderer = fs.readFileSync(renderScript, "utf8");
   assert.match(siteNav, /dataset\.siteNavToggle = "true"/);
+  assert.match(siteNav, /dataset\.siteNavToggleBound = "true"/);
+  assert.match(siteNav, /wireNavToggle\(existing\)/);
+  assert.match(siteNav, /wireNavToggle\(button\)/);
   assert.match(siteNav, /substrate-site-nav-collapsed/);
   assert.match(siteNav, /localStorage\.setItem\(navCollapsedStorageKey/);
   assert.match(siteNav, /substrate:site-nav-toggle/);
@@ -459,8 +462,8 @@ test("example client builds, renders, and evaluates", () => {
   assert.match(canvas, /pointerdown/);
   assert.match(canvas, /pointermove/);
   assert.match(canvas, /translate\(/);
-  assert.match(canvas, /src="\.\.\/site-map\.js\?v=20260601-nav-collapse"/);
-  assert.match(canvas, /src="\.\.\/site-nav\.js\?v=20260601-nav-collapse"/);
+  assert.match(canvas, /src="\.\.\/site-map\.js\?v=20260602-nav-collapse"/);
+  assert.match(canvas, /src="\.\.\/site-nav\.js\?v=20260602-nav-collapse"/);
 
   const harness = executeCanvas(canvas, { canvasWidth: 1280 });
   let cards = harness.graphStage.querySelectorAll(".node-card");

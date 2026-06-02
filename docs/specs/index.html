@@ -323,7 +323,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-02",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -2058,7 +2058,7 @@
       "status": "active",
       "file": "foundation/docs/specs/capabilities/install-foundation-target-repos.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-02",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
@@ -2086,6 +2086,16 @@
         }
       ],
       "implementationPaths": [
+        {
+          "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/scripts/foundation-doctor.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        },
         {
           "path": "foundation/scripts/foundation-self-map-check.mjs",
           "kind": "workflow",
@@ -7087,7 +7097,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-html-docs-navigation.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-02",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.render-inspectable-system-graph.capability",
@@ -7240,8 +7250,8 @@
             "foundation.html-docs-navigation.job#ux-contracts",
             "foundation.html-docs-navigation.job#design-placeholders"
           ],
-          "evidence": "Rendered desktop and mobile screenshots show the current document highlighted inside its real folder path, with no overflow or hidden primary navigation.",
-          "notes": "Renderer consumes the folder tree, preserves spec link attributes, expands the selected path, and can create a sidebar for bare durable HTML docs."
+          "evidence": "Rendered desktop and mobile screenshots show the current document highlighted inside its real folder path, with no overflow, hidden primary navigation, or page-specific collapse toolbar.",
+          "notes": "Renderer consumes the folder tree, preserves spec link attributes, expands the selected path, can create a sidebar for bare durable HTML docs, and inserts the shared far-left collapse control."
         },
         {
           "id": "HDN-3",
@@ -7262,8 +7272,20 @@
           "mapsTo": [
             "foundation.html-docs-navigation.job#foundation-based-repo-setup"
           ],
-          "evidence": "A target repo connected to Foundation receives or verifies local HTML docs navigation so its own durable HTML files render with the same folder-derived sidebar.",
-          "notes": "The install skill and Foundation doctor describe and verify target-local docs navigation assets while preserving target-owned spec registry resolution."
+          "evidence": "A target repo connected to Foundation receives or verifies local HTML docs navigation so its own durable HTML files render with the same folder-derived sidebar and shared collapse control.",
+          "notes": "The install skill and Foundation doctor describe and verify target-local docs navigation assets, cache-busted script includes, and stale site-nav copies while preserving target-owned spec registry resolution."
+        },
+        {
+          "id": "HDN-5",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.html-docs-navigation.job#states-and-rules",
+            "foundation.html-docs-navigation.job#ux-contracts"
+          ],
+          "evidence": "The Foundation HTML corpus and canonical example client load versioned shared navigation scripts so the collapse-capable renderer is used by all included HTML files.",
+          "notes": "The test fails when any Foundation or example docs HTML file omits the cache-busted site-map or site-nav include."
         }
       ],
       "tags": [
@@ -7460,7 +7482,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-doctor-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-02",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.job",
@@ -7572,6 +7594,18 @@
           ],
           "evidence": "Run doctor against a real target repo after that repo has a pinned Foundation CI workflow.",
           "notes": "This requires a target repo fixture or real repo with GitHub workflow shape."
+        },
+        {
+          "id": "FWD-A6",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.eval#acceptance-mapping",
+            "foundation.workspace-doctor.technical#contracts",
+            "foundation.workspace-doctor.technical#failure-modes"
+          ],
+          "evidence": "target repo HTML docs navigation warns when assets or script includes are missing, warns when site-nav.js is stale, and passes when the local renderer includes the shared collapse control"
         }
       ],
       "tags": [
@@ -7588,7 +7622,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-doctor-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-02",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.job",
@@ -7697,6 +7731,17 @@
             "foundation.workspace-doctor.technical#failure-modes"
           ],
           "evidence": "target repo specs fail when product specs use foundation namespace"
+        },
+        {
+          "id": "FWD-T5",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.technical#contracts",
+            "foundation.workspace-doctor.technical#failure-modes"
+          ],
+          "evidence": "target repo HTML docs navigation warns when docs are missing scripts or when site-nav.js is stale, and passes when the local renderer includes the shared collapse control"
         }
       ],
       "tags": [
@@ -8634,7 +8679,7 @@
     });
   });
 </script>
-<script src="../site-map.js"></script>
-<script src="../site-nav.js"></script>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
 </body>
 </html>

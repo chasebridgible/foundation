@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.html-docs-navigation.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-02">
 <title>Foundation HTML Docs Navigation</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation HTML Docs Navigation",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-02",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.render-inspectable-system-graph.capability",
@@ -169,8 +169,8 @@
         "foundation.html-docs-navigation.job#ux-contracts",
         "foundation.html-docs-navigation.job#design-placeholders"
       ],
-      "evidence": "Rendered desktop and mobile screenshots show the current document highlighted inside its real folder path, with no overflow or hidden primary navigation.",
-      "notes": "Renderer consumes the folder tree, preserves spec link attributes, expands the selected path, and can create a sidebar for bare durable HTML docs."
+      "evidence": "Rendered desktop and mobile screenshots show the current document highlighted inside its real folder path, with no overflow, hidden primary navigation, or page-specific collapse toolbar.",
+      "notes": "Renderer consumes the folder tree, preserves spec link attributes, expands the selected path, can create a sidebar for bare durable HTML docs, and inserts the shared far-left collapse control."
     },
     {
       "id": "HDN-3",
@@ -191,8 +191,20 @@
       "mapsTo": [
         "foundation.html-docs-navigation.job#foundation-based-repo-setup"
       ],
-      "evidence": "A target repo connected to Foundation receives or verifies local HTML docs navigation so its own durable HTML files render with the same folder-derived sidebar.",
-      "notes": "The install skill and Foundation doctor describe and verify target-local docs navigation assets while preserving target-owned spec registry resolution."
+      "evidence": "A target repo connected to Foundation receives or verifies local HTML docs navigation so its own durable HTML files render with the same folder-derived sidebar and shared collapse control.",
+      "notes": "The install skill and Foundation doctor describe and verify target-local docs navigation assets, cache-busted script includes, and stale site-nav copies while preserving target-owned spec registry resolution."
+    },
+    {
+      "id": "HDN-5",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": [
+        "foundation.html-docs-navigation.job#states-and-rules",
+        "foundation.html-docs-navigation.job#ux-contracts"
+      ],
+      "evidence": "The Foundation HTML corpus and canonical example client load versioned shared navigation scripts so the collapse-capable renderer is used by all included HTML files.",
+      "notes": "The test fails when any Foundation or example docs HTML file omits the cache-busted site-map or site-nav include."
     }
   ],
   "tags": [
@@ -395,7 +407,7 @@
     <p class="lede">Every Foundation-based repo needs a shared left-side document browser for its durable HTML files. The browser's structure comes from that repo's actual folders and files. It complements, but does not replace, the spec registry that agents use to resolve specs by capabilities, jobs, processes, paths, and coverage.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-30</div>
+      <div><strong>Updated:</strong> 2026-06-02</div>
       <div><strong>Canonical section:</strong> <a href="#product-intent">#product-intent</a></div>
     </div>
   </section>
@@ -403,7 +415,7 @@
   <article class="doc-body">
     <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
       <h1>Product intent</h1>
-      <p>The left side of every rendered HTML document in a Foundation-based repo should answer: "Where am I in this repo's documents, and what nearby documents can I open?" It should behave like a document tree for the repo, not like a curated product taxonomy and not like a spec-system index.</p>
+      <p>The left side of every rendered HTML document in a Foundation-based repo should answer: "Where am I in this repo's documents, and what nearby documents can I open?" It should behave like a document tree for the repo, not like a curated product taxonomy and not like a spec-system index. It must also be collapsible through the same far-left sidebar control on ordinary specs, generated reports, graph canvases, and target-repo docs.</p>
       <p>The desired model is simple: if durable HTML documents are arranged in folders in the repo, that arrangement appears in the navigation. In Foundation, a page under <code>docs/specs/templates/</code> appears under that folder path and a page under <code>docs/principles/</code> appears under that folder path. In a target repo, a page under that repo's own <code>docs/</code>, <code>knowledge-base/</code>, or configured HTML docs root appears under its own local path.</p>
       <p>The feature has two consumers. Humans need the visible folder tree to navigate rendered documents. Agents need the spec registry to resolve behavior-bearing specs by ID, capability, job, process, path ownership, implementation reference, and coverage. Those two systems must coexist: the sidebar organizes documents by file location; the spec registry organizes specs by durable semantic metadata.</p>
       <h3>Out of scope</h3>
@@ -426,7 +438,7 @@
           <tr><td>Primary action</td><td>Expand a folder, choose a document, and keep page-local section navigation available.</td><td>Rendered sidebar behavior.</td></tr>
           <tr><td>Structure source</td><td>Repository folders and files, not spec type, spec status, spec parentage, or a hand-curated category list.</td><td>User explicitly rejected unique categorization judgment.</td></tr>
           <tr><td>Display labels</td><td>Folders use folder names. Documents may use the HTML <code>&lt;title&gt;</code> for readability, with path context retained by the tree.</td><td>Current pages already carry useful titles.</td></tr>
-          <tr><td>Surfaces</td><td>Left sidebar on rendered HTML docs, generated site-map data, spec scaffolding, and Foundation target-repo setup.</td><td><code>docs/site-nav.js</code>, <code>docs/site-map.js</code>, <code>docs/specs/new-spec.mjs</code>, and <code>skills/install-foundation-substrate/SKILL.md</code>.</td></tr>
+          <tr><td>Surfaces</td><td>Left sidebar on rendered HTML docs, the shared collapse control inside that sidebar, generated site-map data, spec scaffolding, and Foundation target-repo setup.</td><td><code>docs/site-nav.js</code>, <code>docs/site-map.js</code>, <code>docs/specs/new-spec.mjs</code>, and <code>skills/install-foundation-substrate/SKILL.md</code>.</td></tr>
         </tbody>
       </table>
     </section>
@@ -465,11 +477,11 @@
       <table class="status-table">
         <thead><tr><th>Setup area</th><th>Required behavior</th><th>Failure mode</th></tr></thead>
         <tbody>
-          <tr><td>Local assets</td><td>The target repo has local or pinned generated assets needed to render its own HTML docs sidebar without depending on Foundation's current working tree at runtime.</td><td>A target repo opens Foundation's navigation tree instead of its own.</td></tr>
+          <tr><td>Local assets</td><td>The target repo has local or pinned generated assets needed to render its own HTML docs sidebar and shared collapse control without depending on Foundation's current working tree at runtime.</td><td>A target repo opens Foundation's navigation tree instead of its own, or carries an old <code>site-nav.js</code> that lacks the shared collapse behavior.</td></tr>
           <tr><td>Local map</td><td>The target repo generates navigation data from its own configured HTML docs roots.</td><td>Only Foundation docs are visible, or target docs are categorized by Foundation-specific groups.</td></tr>
           <tr><td>Spec registry</td><td>The target repo's spec registry remains the authoritative semantic lookup for target specs, capabilities, jobs, processes, owned paths, implementation references, and coverage.</td><td>The visual sidebar is used as a substitute for semantic spec resolution.</td></tr>
-          <tr><td>Scaffolding</td><td>New target-owned specs and durable HTML docs opt into the local sidebar automatically or through a documented command.</td><td>Authors must remember custom script tags for each new doc.</td></tr>
-          <tr><td>Validation</td><td>Setup and doctor checks can report whether the target repo has local docs navigation assets, a current local map, and a valid spec registry.</td><td>A repo claims Foundation setup while rendered docs or registry lookup are broken.</td></tr>
+          <tr><td>Scaffolding</td><td>New target-owned specs and durable HTML docs opt into the local sidebar and collapse control automatically or through a documented command.</td><td>Authors must remember custom script tags for each new doc.</td></tr>
+          <tr><td>Validation</td><td>Setup and doctor checks can report whether the target repo has local docs navigation assets, a current local map, a collapse-capable renderer, script includes, and a valid spec registry.</td><td>A repo claims Foundation setup while rendered docs, collapse behavior, or registry lookup are broken.</td></tr>
         </tbody>
       </table>
     </section>
@@ -576,9 +588,10 @@
         <thead><tr><th>ID</th><th>Spec section</th><th>Coverage</th><th>Status</th><th>Gap</th></tr></thead>
         <tbody>
           <tr><td>HDN-1</td><td><code>#states-and-rules</code></td><td><code>npm run site-map</code> generates tree-preserving navigation data.</td><td>existing</td><td>Generated map uses folder and file nodes from configured HTML roots.</td></tr>
-          <tr><td>HDN-2</td><td><code>#ux-contracts</code>, <code>#design-placeholders</code></td><td>Rendered desktop and mobile evidence should show selected-path context, accessible folder controls, and no layout overlap.</td><td>existing</td><td>Renderer expands the selected path and can create a sidebar for bare durable HTML docs.</td></tr>
+          <tr><td>HDN-2</td><td><code>#ux-contracts</code>, <code>#design-placeholders</code></td><td>Rendered desktop and mobile evidence should show selected-path context, accessible folder controls, shared collapse behavior, and no layout overlap.</td><td>existing</td><td>Renderer expands the selected path, can create a sidebar for bare durable HTML docs, and inserts the collapse affordance from <code>docs/site-nav.js</code>.</td></tr>
           <tr><td>HDN-3</td><td><code>#edge-cases</code></td><td>Every included durable HTML page should either render shared navigation or be explicitly excluded.</td><td>existing</td><td><code>docs/general/gbrain-backfill-mechanics.html</code> now loads the shared navigation scripts.</td></tr>
-          <tr><td>HDN-4</td><td><code>#foundation-based-repo-setup</code></td><td>Target repo setup installs or verifies local docs navigation without weakening target-owned spec registry resolution.</td><td>existing</td><td>Install workflow and Foundation doctor cover local nav assets, command wiring, and script includes.</td></tr>
+          <tr><td>HDN-4</td><td><code>#foundation-based-repo-setup</code></td><td>Target repo setup installs or verifies local docs navigation without weakening target-owned spec registry resolution.</td><td>existing</td><td>Install workflow and Foundation doctor cover local nav assets, stale collapse-capable renderer detection, command wiring, and script includes.</td></tr>
+          <tr><td>HDN-5</td><td><code>#states-and-rules</code>, <code>#ux-contracts</code></td><td>The Foundation HTML corpus and canonical example client should load the versioned shared navigation scripts that include the sidebar collapse control.</td><td>existing</td><td><code>npm run foundation:doctor:test</code> fails when any Foundation or example docs HTML file omits the cache-busted <code>site-map.js</code> or <code>site-nav.js</code> include.</td></tr>
         </tbody>
       </table>
     </section>
@@ -587,7 +600,7 @@
   <hr>
   <p class="footer-note">Foundation HTML Docs Navigation - folder-derived document browser</p>
 </main>
-<script src="../site-map.js"></script>
-<script src="../site-nav.js"></script>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
 </body>
 </html>

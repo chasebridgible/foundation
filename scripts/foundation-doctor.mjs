@@ -135,7 +135,17 @@ function escapeRegex(value) {
 
 function htmlLoadsScript(html, scriptName) {
   const escaped = escapeRegex(scriptName);
-  return new RegExp(`<script\\b[^>]*\\bsrc=["'][^"']*${escaped}["'][^>]*>\\s*</script>`, "i").test(html);
+  return new RegExp(`<script\\b[^>]*\\bsrc=["'][^"']*${escaped}(?:[?#][^"']*)?["'][^>]*>\\s*</script>`, "i").test(html);
+}
+
+function siteNavSupportsCollapse(siteNavContent) {
+  return [
+    "[data-site-nav-toggle]",
+    "siteNavToggleBound",
+    "substrate-site-nav-collapsed",
+    "substrate:site-nav-toggle",
+    "aria-pressed"
+  ].every(marker => siteNavContent.includes(marker));
 }
 
 function readJson(file) {
@@ -171,17 +181,23 @@ function checkTargetHtmlDocsNavigation(repoPath) {
   }
 
   const missingAssets = docsNavAssetPaths.filter(asset => !exists(path.join(repoPath, asset)));
+  const staleAssets = [];
+  const siteNavPath = path.join(repoPath, "docs", "site-nav.js");
+  if (exists(siteNavPath) && !siteNavSupportsCollapse(read(siteNavPath))) {
+    staleAssets.push("docs/site-nav.js");
+  }
   const missingIncludes = htmlFiles.filter(file => {
     const html = read(file);
     return !htmlLoadsScript(html, "site-map.js") || !htmlLoadsScript(html, "site-nav.js");
   });
 
-  if (missingAssets.length === 0 && missingIncludes.length === 0) {
-    out.push(pass("repo", "repo-html-docs-nav", `Target repo HTML docs navigation is installed for ${htmlFiles.length} HTML files`));
+  if (missingAssets.length === 0 && missingIncludes.length === 0 && staleAssets.length === 0) {
+    out.push(pass("repo", "repo-html-docs-nav", `Target repo HTML docs navigation is installed for ${htmlFiles.length} HTML files with the shared collapse control`));
   } else {
-    out.push(warn("repo", "repo-html-docs-nav", "Target repo HTML docs navigation is incomplete", {
+    out.push(warn("repo", "repo-html-docs-nav", "Target repo HTML docs navigation is incomplete or stale", {
       htmlFileCount: htmlFiles.length,
       missingAssets,
+      staleAssets,
       missingIncludes: missingIncludes.slice(0, 10).map(file => relativeTo(repoPath, file)),
       omittedMissingIncludes: Math.max(0, missingIncludes.length - 10)
     }));
