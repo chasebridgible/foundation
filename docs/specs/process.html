@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.spec-process">
-<meta name="spec:type" content="system">
+<meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
 <meta name="spec:last-updated" content="2026-06-01">
 <title>Spec Maintenance Process</title>
@@ -14,24 +14,73 @@
 {
   "id": "foundation.spec-process",
   "title": "Spec Maintenance Process",
-  "type": "system",
+  "type": "capability",
   "status": "active",
   "lastUpdated": "2026-06-01",
   "reviewCadence": "monthly",
   "confidence": "high",
-  "parent": "foundation.spec-system",
-  "children": [],
+  "parent": "foundation.author-durable-specs.capability",
+  "children": [
+    "foundation.backfill-author-specs.job"
+  ],
   "relatedSpecs": [
-    { "id": "foundation.spec-system", "relationship": "parent", "sections": ["registry"] },
-    { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["path-update-loop"] },
-    { "id": "foundation.visible-business-graph.system", "relationship": "informs", "sections": ["metadata-contract", "states-and-rules"] }
+    {
+      "id": "foundation.author-durable-specs.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent"
+      ]
+    },
+    {
+      "id": "foundation.spec-system",
+      "relationship": "depends-on"
+    },
+    {
+      "id": "foundation.spec-linking",
+      "relationship": "sibling",
+      "sections": [
+        "path-update-loop"
+      ]
+    },
+    {
+      "id": "foundation.visible-business-graph.system",
+      "relationship": "informs",
+      "sections": [
+        "metadata-contract",
+        "states-and-rules"
+      ]
+    },
+    {
+      "id": "foundation.backfill-author-specs.job",
+      "relationship": "child"
+    }
   ],
   "ownedPaths": [
-    { "path": "foundation/docs/specs/process.html", "kind": "doc", "ownership": "direct" }
+    {
+      "path": "foundation/docs/specs/process.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
   ],
   "implementationPaths": [],
-  "coverage": [],
-  "tags": ["process", "spec-test-prompt-execute"]
+  "coverage": [
+    {
+      "id": "spec-process-self-map",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.spec-process#spec-authoring",
+        "foundation.spec-process#semantic-review"
+      ],
+      "command": "npm run spec:check"
+    }
+  ],
+  "tags": [
+    "capability",
+    "process",
+    "spec-test-prompt-execute"
+  ]
 }
 </script>
 <script type="application/json" id="graph-metadata">
@@ -41,7 +90,7 @@
   "nodes": [
     {
       "id": "spec:foundation.spec-process",
-      "type": "system",
+      "type": "capability",
       "label": "Spec Maintenance Process",
       "source": {
         "specId": "foundation.spec-process",
@@ -50,8 +99,9 @@
       "status": "active",
       "confidence": "high",
       "attributes": {
-        "specType": "system",
+        "specType": "capability",
         "tags": [
+          "capability",
           "process",
           "spec-test-prompt-execute"
         ]
@@ -60,6 +110,26 @@
   ],
   "edges": [
     {
+      "id": "edge:spec:foundation.spec-process:depends-on:spec:foundation.author-durable-specs.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.spec-process",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.spec-process",
+        "sectionId": "overview"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.spec-process:realized-by:spec:foundation.backfill-author-specs.job",
+      "type": "realized-by",
+      "from": "spec:foundation.spec-process",
+      "to": "spec:foundation.backfill-author-specs.job",
+      "source": {
+        "specId": "foundation.spec-process",
+        "sectionId": "overview"
+      }
+    },
+    {
       "id": "edge:spec:foundation.spec-process:depends-on:spec:foundation.spec-system",
       "type": "depends-on",
       "from": "spec:foundation.spec-process",
@@ -67,7 +137,8 @@
       "source": {
         "specId": "foundation.spec-process",
         "sectionId": "overview"
-      }
+      },
+      "label": "depends-on"
     },
     {
       "id": "edge:spec:foundation.spec-process:supports:spec:foundation.spec-linking",
@@ -126,8 +197,8 @@
     <p class="lede">The process keeps specs, evidence, evals, technical work, and implementation moving together. Plans are temporary reasoning unless they are converted into system, capability, job, technical, eval, ADR, test, or board/session artifacts.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-31</div>
-      <div><strong>Parent:</strong> <a data-spec-link="foundation.spec-system" href="./index.html">foundation.spec-system</a></div>
+      <div><strong>Updated:</strong> 2026-06-01</div>
+      <div><strong>Parent:</strong> <a data-spec-link="foundation.author-durable-specs.capability" href="./capabilities/author-durable-specs.html">foundation.author-durable-specs.capability</a></div>
     </div>
   </section>
 
@@ -179,17 +250,19 @@
       <h2>Spec authoring</h2>
       <p>When a human and agent create or revise a spec together, the HTML spec is the authored source. The generated registry is only the index.</p>
       <ol>
-        <li>Search the registry first. Update an existing spec when it already owns the behavior; create a new spec only when the behavior needs its own durable contract.</li>
+        <li>Search the registry first. For Foundation-owned work, load <a data-spec-link="foundation.operating-system.system" href="./foundation-operating-system.html#capability-map">the Foundation capability map</a> and name the capability plus owning job before adding a durable spec, skill, template, validator, or workflow.</li>
+        <li>Before adding or changing a Foundation skill, answer: which Foundation capability does this improve, and is there already a job spec for this work? A skill must have an owning capability, owning job spec, technical spec when it defines scripts or data contracts, eval spec when quality judgment matters, and tests or checks when it mutates repo state.</li>
+        <li>Update an existing spec when it already owns the behavior; create a new spec only when the behavior needs its own durable contract.</li>
         <li>Copy the closest HTML template: system for whole-system intent, capability for a reliable outcome, job for the work contract and its process, technical for implementation behavior, or eval for verification.</li>
         <li>Fill <code>spec-metadata</code> before relying on the prose. Use a stable dotted <code>id</code>, accurate <code>title</code>, valid <code>type</code>, <code>status</code>, <code>lastUpdated</code>, <code>reviewCadence</code>, and <code>confidence</code>. Do not add document-level owner metadata.</li>
-        <li>Fill <code>graph-metadata</code> before handoff. Every spec must expose graph nodes and edges that let Foundation render systems, capabilities, jobs, processes, actors, tools, evidence, metrics, gaps, technical contracts, evals, templates, and indexes.</li>
+        <li>Fill <code>graph-metadata</code> before handoff. Every spec must expose graph nodes and edges that let Foundation render systems, capabilities, jobs, processes, actors, tools, evidence, metrics, gaps, technical contracts, evals, templates, and indexes. Capability specs must connect child jobs with <code>realized-by</code> edges, and job specs must connect back to their owning capability with <code>supports</code> edges.</li>
         <li>Set graph fields deliberately: <code>parent</code>, <code>children</code>, and <code>relatedSpecs</code>. Prefer linking to child specs over copying their leaf paths into a parent.</li>
         <li>Map paths deliberately: <code>ownedPaths</code> for files this spec directly owns; <code>implementationPaths</code> for non-owning references that help navigation.</li>
         <li>Map verification deliberately: <code>coverage</code> entries should point to tests or evidence and use <code>mapsTo</code> section references for the behavior they verify. Planned or gap coverage is acceptable when it is explicit.</li>
         <li>Keep the cheap HTML tags aligned with metadata: <code>spec:id</code>, <code>spec:type</code>, <code>spec:status</code>, and <code>spec:last-updated</code>.</li>
         <li>Mark exactly one entry section with <code>data-spec-canonical="true"</code>. The registry generator uses it for <code>canonicalSection</code>.</li>
         <li>Update visible links, path lists, and coverage tables so the human-readable prose agrees with the metadata.</li>
-        <li>Run <code>npm run spec:registry</code>, then <code>npm run spec:check</code>, then the relevant <code>npm run foundation:visible-business-graph:check -- --repo &lt;repo&gt;</code>. A human review still has to confirm the mappings are semantically true.</li>
+        <li>Run <code>npm run spec:registry</code>, then <code>npm run spec:check</code>, then the relevant <code>npm run foundation:visible-business-graph:check -- --repo &lt;repo&gt;</code>. If Foundation capability, job, or skill ownership changed, also run <code>npm run foundation:self-map:check</code>. A human review still has to confirm the mappings are semantically true.</li>
       </ol>
       <div class="callout info"><strong>Scaffold:</strong> use <code>npm run spec:new -- --type job --id product.feature.job --title "Feature Job Spec" --out docs/specs/features/feature-job.html</code> to create a valid HTML starter, then fill the prose and metadata deliberately.</div>
     </section>

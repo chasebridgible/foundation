@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-surface-function-map.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-28">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Foundation Backfill Surface / Function Map</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,23 +16,25 @@
   "title": "Foundation Backfill Surface / Function Map",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-05-28",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-specs.job",
+  "parent": "foundation.map-surfaces-functions.capability",
   "children": [
     "foundation.backfill-surface-function-map.technical",
     "foundation.backfill-surface-function-map.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-specs.job",
+      "id": "foundation.map-surfaces-functions.capability",
       "relationship": "parent",
       "sections": [
-        "interface-journey",
-        "states-and-rules",
-        "ux-contracts"
+        "capability-intent"
       ]
+    },
+    {
+      "id": "foundation.backfill-specs.job",
+      "relationship": "depends-on"
     },
     {
       "id": "foundation.backfill-surface-function-map.technical",
@@ -65,6 +67,11 @@
     {
       "path": "foundation/docs/specs/foundation-backfill-surface-function-map.html",
       "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/surface-function-map-fill-loop/SKILL.md",
+      "kind": "workflow",
       "ownership": "direct"
     }
   ],
@@ -251,6 +258,16 @@
         "sectionId": "product-intent"
       },
       "label": "depends-on"
+    },
+    {
+      "id": "edge:spec:foundation.backfill-surface-function-map.job:supports:spec:foundation.map-surfaces-functions.capability",
+      "type": "supports",
+      "from": "spec:foundation.backfill-surface-function-map.job",
+      "to": "spec:foundation.map-surfaces-functions.capability",
+      "source": {
+        "specId": "foundation.backfill-surface-function-map.job",
+        "sectionId": "product-intent"
+      }
     }
   ]
 }

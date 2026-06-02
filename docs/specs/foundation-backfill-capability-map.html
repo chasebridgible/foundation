@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-capability-map.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-29">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Foundation Backfill Capability Map</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,23 +16,25 @@
   "title": "Foundation Backfill Capability Map",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-05-29",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-specs.job",
+  "parent": "foundation.map-capabilities-from-evidence.capability",
   "children": [
     "foundation.backfill-capability-map.technical",
     "foundation.backfill-capability-map.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-specs.job",
+      "id": "foundation.map-capabilities-from-evidence.capability",
       "relationship": "parent",
       "sections": [
-        "interface-journey",
-        "states-and-rules",
-        "ux-contracts"
+        "capability-intent"
       ]
+    },
+    {
+      "id": "foundation.backfill-specs.job",
+      "relationship": "depends-on"
     },
     {
       "id": "foundation.backfill-capability-map.technical",
@@ -261,6 +263,16 @@
         "sectionId": "artifacts-and-state"
       },
       "label": "depends-on"
+    },
+    {
+      "id": "edge:spec:foundation.backfill-capability-map.job:supports:spec:foundation.map-capabilities-from-evidence.capability",
+      "type": "supports",
+      "from": "spec:foundation.backfill-capability-map.job",
+      "to": "spec:foundation.map-capabilities-from-evidence.capability",
+      "source": {
+        "specId": "foundation.backfill-capability-map.job",
+        "sectionId": "product-intent"
+      }
     }
   ]
 }

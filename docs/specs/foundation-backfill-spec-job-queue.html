@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-spec-job-queue.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-29">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Foundation Backfill Define Spec Jobs</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,23 +16,25 @@
   "title": "Foundation Backfill Define Spec Jobs",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-05-29",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-specs.job",
+  "parent": "foundation.define-jobs-from-capabilities.capability",
   "children": [
     "foundation.backfill-spec-job-queue.technical",
     "foundation.backfill-spec-job-queue.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-specs.job",
+      "id": "foundation.define-jobs-from-capabilities.capability",
       "relationship": "parent",
       "sections": [
-        "interface-journey",
-        "states-and-rules",
-        "ux-contracts"
+        "capability-intent"
       ]
+    },
+    {
+      "id": "foundation.backfill-specs.job",
+      "relationship": "depends-on"
     },
     {
       "id": "foundation.backfill-spec-job-queue.technical",
@@ -65,6 +67,11 @@
     {
       "path": "foundation/docs/specs/foundation-backfill-spec-job-queue.html",
       "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/job-spec-interview/SKILL.md",
+      "kind": "workflow",
       "ownership": "direct"
     }
   ],
@@ -287,6 +294,16 @@
         "sectionId": "artifacts-and-state"
       },
       "label": "depends-on"
+    },
+    {
+      "id": "edge:spec:foundation.backfill-spec-job-queue.job:supports:spec:foundation.define-jobs-from-capabilities.capability",
+      "type": "supports",
+      "from": "spec:foundation.backfill-spec-job-queue.job",
+      "to": "spec:foundation.define-jobs-from-capabilities.capability",
+      "source": {
+        "specId": "foundation.backfill-spec-job-queue.job",
+        "sectionId": "product-intent"
+      }
     }
   ]
 }

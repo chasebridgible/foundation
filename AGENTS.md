@@ -1,6 +1,7 @@
 # AGENTS.md
 
-- Specs are HTML-native durable contracts. Start at `docs/specs/index.html` before behavior-changing software work or spec authoring.
+- Specs are HTML-native durable contracts. Start at `docs/specs/index.html` and the top-level Foundation system spec `docs/specs/foundation-operating-system.html` before behavior-changing software work or spec authoring.
+- Before creating or revising a durable spec, skill, validator, template, or workflow, identify the Foundation capability it improves and the owning job spec; if no job exists, create or revise the job spec first.
 - Use the Job Spec Interview skill at `skills/job-spec-interview/SKILL.md` when turning fuzzy intent into a job spec.
 - Use `docs/principles/sw-design-principles.html` before user-facing UI, rendered-UX, accessibility, responsive layout, or visual-verification work.
 - Use the Backfill Specs skill at `skills/backfill-specs/SKILL.md` when converting an existing repo into a capability-covered, intent-rigid, architecture-flexible spec graph with dated report and JSONL run log.
@@ -13,5 +14,6 @@
 - Use the Job Journey Images skill at `skills/job-journey-images/SKILL.md` when generating reusable business-process images or one-slide process canvases.
 - For spec creation or revision, follow `docs/specs/process.html#spec-authoring`; each spec's `spec-metadata` is canonical.
 - If spec metadata changes, run `npm run spec:registry`, then `npm run spec:check` before handoff. CI requires `npm run spec:check`.
+- If Foundation capability/job/skill ownership changes, run `npm run foundation:self-map:check` before handoff.
 - Protected `main` requires branch -> PR -> required checks pass -> merge. Do not direct-push spec or behavior changes to `main`.
 - Keep this file short. Put longer workflow guidance in specs or skills.

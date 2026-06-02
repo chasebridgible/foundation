@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.visible-business-graph.system">
-<meta name="spec:type" content="system">
+<meta name="spec:type" content="capability">
 <meta name="spec:status" content="draft">
 <meta name="spec:last-updated" content="2026-06-01">
 <title>Visible Business Graph</title>
@@ -14,25 +14,27 @@
 {
   "id": "foundation.visible-business-graph.system",
   "title": "Visible Business Graph",
-  "type": "system",
+  "type": "capability",
   "status": "draft",
   "lastUpdated": "2026-06-01",
   "reviewCadence": "on-trigger",
   "confidence": "medium",
-  "parent": "foundation.knowledge-data-layer.system",
+  "parent": "foundation.render-inspectable-system-graph.capability",
   "children": [
     "foundation.visible-business-graph.technical",
     "foundation.visible-business-graph.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.knowledge-data-layer.system",
+      "id": "foundation.render-inspectable-system-graph.capability",
       "relationship": "parent",
       "sections": [
-        "system-model",
-        "interface-journey",
-        "states-and-rules"
+        "capability-intent"
       ]
+    },
+    {
+      "id": "foundation.knowledge-data-layer.system",
+      "relationship": "depends-on"
     },
     {
       "id": "foundation.backfill-capability-map.job",
@@ -152,7 +154,7 @@
     }
   ],
   "tags": [
-    "system",
+    "capability",
     "visible-business",
     "business-graph",
     "capability-map",
@@ -169,7 +171,7 @@
   "nodes": [
     {
       "id": "spec:foundation.visible-business-graph.system",
-      "type": "system",
+      "type": "capability",
       "label": "Visible Business Graph",
       "source": {
         "specId": "foundation.visible-business-graph.system",
@@ -178,9 +180,9 @@
       "status": "draft",
       "confidence": "medium",
       "attributes": {
-        "specType": "system",
+        "specType": "capability",
         "tags": [
-          "system",
+          "capability",
           "visible-business",
           "business-graph",
           "capability-map",
@@ -193,10 +195,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.visible-business-graph.system:depends-on:spec:foundation.knowledge-data-layer.system",
+      "id": "edge:spec:foundation.visible-business-graph.system:depends-on:spec:foundation.render-inspectable-system-graph.capability",
       "type": "depends-on",
       "from": "spec:foundation.visible-business-graph.system",
-      "to": "spec:foundation.knowledge-data-layer.system",
+      "to": "spec:foundation.render-inspectable-system-graph.capability",
       "source": {
         "specId": "foundation.visible-business-graph.system",
         "sectionId": "system-intent"
@@ -221,6 +223,17 @@
         "specId": "foundation.visible-business-graph.system",
         "sectionId": "system-intent"
       }
+    },
+    {
+      "id": "edge:spec:foundation.visible-business-graph.system:depends-on:spec:foundation.knowledge-data-layer.system",
+      "type": "depends-on",
+      "from": "spec:foundation.visible-business-graph.system",
+      "to": "spec:foundation.knowledge-data-layer.system",
+      "source": {
+        "specId": "foundation.visible-business-graph.system",
+        "sectionId": "system-intent"
+      },
+      "label": "depends-on"
     },
     {
       "id": "edge:spec:foundation.visible-business-graph.system:supports:spec:foundation.backfill-capability-map.job",
@@ -265,7 +278,7 @@
     <div class="logo-mark">S</div>
     <div>
       <div class="sidebar-title">Visible Business Graph</div>
-      <div class="sidebar-sub">system spec</div>
+      <div class="sidebar-sub">capability spec</div>
     </div>
   </div>
   <div class="nav-section">
@@ -307,8 +320,8 @@
       <table class="status-table">
         <thead><tr><th>Node type</th><th>Purpose</th><th>Required connections</th></tr></thead>
         <tbody>
-          <tr><td>Capability</td><td>Names a reliable business outcome the organization must produce.</td><td>Jobs, evidence, confidence, owner or owner gap, source coverage, revision state.</td></tr>
-          <tr><td>Job</td><td>Names the recurring body of work that makes one or more capabilities exist, operate, or improve.</td><td>Capabilities, actors, process, inputs, outputs, tools, states, rules, evidence, failure/recovery.</td></tr>
+          <tr><td>Capability</td><td>Names a reliable business outcome the organization must produce.</td><td><code>realized-by</code> job edges, evidence, confidence, owner or owner gap, source coverage, revision state.</td></tr>
+          <tr><td>Job</td><td>Names the recurring body of work that makes one or more capabilities exist, operate, or improve.</td><td><code>supports</code> capability edges, actors, process, inputs, outputs, tools, states, rules, evidence, failure/recovery.</td></tr>
           <tr><td>Process</td><td>Shows how a job is actually performed through steps, decisions, checks, handoffs, and exceptions.</td><td>Job, actors, tools, evidence points, decision rules, open questions.</td></tr>
           <tr><td>Actor</td><td>Represents a role, person, vendor, system, agent, customer, or partner that performs or influences work.</td><td>Jobs performed, capabilities depended on, authority, handoffs, overload or single-point dependency signals.</td></tr>
           <tr><td>Tool or system</td><td>Represents software, hardware, data source, spreadsheet, custom app, automation, or operational asset used by work.</td><td>Jobs supported, actors using it, data or evidence produced, access or failure risks.</td></tr>
@@ -325,8 +338,8 @@
       <table class="status-table">
         <thead><tr><th>Artifact</th><th>Embedded metadata should expose</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>Capability map</td><td>Capability ID, name, outcome, family, status, confidence, linked jobs, evidence refs, owner refs or owner gap, strategic importance, health signals.</td><td>Capabilities stay high-level and should not absorb process details.</td></tr>
-          <tr><td>Job spec</td><td>Job ID, linked capabilities, actors, process refs or embedded process sections, inputs, outputs, states, rules, tools, evidence, metrics, failure/recovery, open questions.</td><td>Job specs carry most operational detail.</td></tr>
+          <tr><td>Capability map</td><td>Capability ID, name, outcome, family, status, confidence, <code>realized-by</code> job edges, evidence refs, owner refs or owner gap, strategic importance, health signals.</td><td>Capabilities stay high-level and should not absorb process details.</td></tr>
+          <tr><td>Job spec</td><td>Job ID, owning or supported capabilities, <code>supports</code> capability edges, actors, process refs or embedded process sections, inputs, outputs, states, rules, tools, evidence, metrics, failure/recovery, open questions.</td><td>Job specs carry most operational detail and must be inspectable from their owning capability.</td></tr>
           <tr><td>Role or actor registry</td><td>Actor ID, actor type, responsibilities, jobs performed, decision rights, capacity/load notes, access boundaries, succession or dependency risks.</td><td>Actor can be human or non-human.</td></tr>
           <tr><td>Source registry</td><td>Source ID, source type, location, owner, freshness, trust level, access boundary, related claims, related capabilities/jobs/processes.</td><td>Sources do not become truth until promoted into reviewed substrate.</td></tr>
           <tr><td>Metric or eval spec</td><td>Metric or evaluation ID, definition, evidence source, interpretation rules, target, review cadence, revision target.</td><td>Metrics explain graph health but do not replace human review.</td></tr>
@@ -351,11 +364,12 @@
     <section id="view-contracts" data-spec-section="view-contracts" data-section-type="ux-contracts">
       <h2>View contracts</h2>
       <p>The graph should be visible through a primary capability map because clients need one stable place to explore the business. The canvas is an exploration surface; the canonical source remains the substrate.</p>
+      <p>The canvas must optimize for inspectability, not graph-edge exhaustiveness. Metadata can contain every valid relationship, but the visual surface should draw only the local path the user has intentionally revealed. Global support, containment, dependency, evaluation, and provenance relationships remain available through details and source links unless the active view needs them to answer its primary question.</p>
       <table class="status-table">
         <thead><tr><th>View</th><th>Primary question</th><th>Required behavior</th></tr></thead>
         <tbody>
-          <tr><td>Capability map</td><td>What can the business do, and how is each capability handled?</td><td>Render top-down from centered system nodes to capability nodes; activating a capability expands jobs inline; activating a job expands process, actors, tools, evidence, metrics, and gaps inline within the same capability map.</td></tr>
-          <tr><td>Actors map</td><td>Who or what handles the work?</td><td>Render all actors as the default actor surface; activating an actor expands the jobs that actor performs without switching back to the capability map.</td></tr>
+          <tr><td>Capability map</td><td>What can the business do, and how is each capability handled?</td><td>Render top-down from centered system nodes to one horizontal capability band; do not wrap capability cards into multiple rows; the first viewport centers the graph stage even when the canvas is narrower than the full graph; suppress global overview edges; activating a capability expands jobs inline below that capability and draws only local <code>realized-by</code> job edges; the expanded capability, its jobs, and its visible realization edges share a deterministic branch accent color; activating a job expands process, actors, tools, evidence, metrics, and gaps inline and draws only that job's local context edges within the same capability map.</td></tr>
+          <tr><td>Actors map</td><td>Who or what handles the work?</td><td>Render all actors as the default actor surface without a global actor-job mesh; activating an actor expands the jobs that actor performs and visually draws those handled-job edges from actor to job without switching back to the capability map.</td></tr>
         </tbody>
       </table>
     </section>
@@ -370,8 +384,12 @@
           <tr><td>Cross-lane synthesis</td><td>One capability or job may be supported by answers from many intake lanes and sources.</td><td>Graph links should preserve every material contributing source and confidence note.</td></tr>
           <tr><td>Actor neutrality</td><td>People, vendors, software, agents, partners, and customers can all perform work.</td><td>Actor type should be metadata, not a separate model that breaks capability/job comparison.</td></tr>
           <tr><td>Process placement</td><td>Capabilities name outcomes; jobs carry the recurring work and process detail.</td><td>Capability views summarize handling but link into job specs for detailed processes.</td></tr>
+          <tr><td>Capability/job mapping</td><td>Capabilities are not considered mapped unless their child jobs are visible as realization edges.</td><td>Capability graph metadata must use <code>realized-by</code> from capability nodes to job nodes, and job graph metadata must use <code>supports</code> from job nodes to their owning capability.</td></tr>
           <tr><td>Canvas navigation</td><td>A graph can exceed the available viewport.</td><td>The local canvas must support pointer drag panning from the canvas background, keep source links and node clicks usable, and preserve selection while the user moves around the graph.</td></tr>
+          <tr><td>Document navigation</td><td>The same HTML file may load the Foundation docs navigation.</td><td>The graph page must keep a fixed canvas shell, avoid inherited document padding, and rely on the shared docs navigation control for collapsing or restoring the docs nav. The collapse control belongs in the far-left document sidebar so it can apply across generated specs, canvases, and target repos that load the shared nav scripts.</td></tr>
           <tr><td>Expandable hierarchy</td><td>Clients need a calm overview before seeing process detail.</td><td>The default capability map shows centered system nodes and capability nodes first; activating a capability expands or collapses its jobs, and activating a job expands or collapses that job's process, actors, tools, evidence, metrics, and gaps in the same map.</td></tr>
+          <tr><td>Visual edge policy</td><td>Raw graph relationships are not all useful visual relationships at the same time.</td><td>The default capability overview and actor overview draw no global edges. Expanded capability views draw capability-to-job realization edges only. Expanded job views draw job-to-process, job-to-actor, job-to-tool, job-to-evidence, job-to-metric, and job-to-gap edges only. <code>supports</code>, <code>depends-on</code>, <code>contains</code> outside capability-to-job realization, <code>evaluates</code>, and template/provenance relationships should be available in the selection details and source links rather than drawn as global canvas lines.</td></tr>
+          <tr><td>Branch color</td><td>Users need to preserve orientation after expanding one or more capabilities.</td><td>Each expanded capability should receive a stable accent color derived from its ID. Jobs revealed under that capability and the local realization edges connecting them should share the same accent. Job context edges may use the same branch accent at lower visual weight so the selected path remains recognizable.</td></tr>
           <tr><td>Actor expansion</td><td>Clients need to see actor workload without leaving the graph model.</td><td>The actors map shows actors first; activating an actor expands or collapses the jobs that actor handles.</td></tr>
           <tr><td>Evidence preservation</td><td>Every graph claim should know why the system believes it.</td><td>Claims without source, review, metric, or observation evidence show as unsupported or provisional.</td></tr>
           <tr><td>Evolution over time</td><td>The business graph changes as the business, sources, metrics, and review judgments change.</td><td>Views should surface freshness, revision history, and changed-source impact before presenting stale certainty.</td></tr>

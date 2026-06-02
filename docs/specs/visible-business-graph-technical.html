@@ -163,7 +163,7 @@
       <ol>
         <li>Discover HTML specs under <code>docs/specs</code>, excluding generated backfill summaries.</li>
         <li>Parse <code>spec-metadata</code>, sections, canonical section, and <code>graph-metadata</code>.</li>
-        <li>Validate graph metadata for schema, node types, edge types, node sources, edge sources, section resolution, duplicate IDs, dangling edges, and orphan support specs.</li>
+        <li>Validate graph metadata for schema, node types, edge types, node sources, edge sources, section resolution, duplicate IDs, dangling edges, orphan support specs, capability-to-job realization edges, and job-to-capability support edges.</li>
         <li>Build deterministic graph JSON from the validated metadata.</li>
         <li>Render a standalone local HTML canvas from graph JSON.</li>
         <li>Evaluate graph and canvas outputs against expected graph fixtures when a fixture exists.</li>
@@ -178,12 +178,16 @@
           <tr><td>Graph metadata block</td><td>Every spec carries <code>graph-metadata</code> with schema, owner spec ID, nodes, and edges.</td><td>Agents and canvas builders need a stable graph source in the HTML artifact.</td></tr>
           <tr><td>Source resolution</td><td>Every node and edge names a source spec and section that resolve through the current repo.</td><td>Canvas claims must link back to readable evidence.</td></tr>
           <tr><td>Supported types</td><td>Nodes and edges use the enums in the system spec.</td><td>Derived views can group, filter, and style nodes predictably.</td></tr>
+          <tr><td>Capability/job mapping</td><td>A capability child job must be connected by a <code>realized-by</code> edge from the capability node to the job node. A job with an owning capability must expose a <code>supports</code> edge from the job node back to the capability node.</td><td>The capability map must be able to expand from outcomes into the jobs that make them real, and job inspection must preserve the owning capability.</td></tr>
           <tr><td>Authoring integration</td><td><code>spec:new</code> and templates scaffold graph metadata for all spec types.</td><td>New specs should be graph-compatible by default.</td></tr>
           <tr><td>Canvas output</td><td>Canvas HTML embeds graph data and local JS/CSS only.</td><td>The user can open the canvas on a laptop without a server.</td></tr>
-          <tr><td>Canvas layout</td><td>The default capability map lays nodes top-down, centers the system layer above the capability layer, and keeps jobs and job context visible only after inline expansion.</td><td>The first view should communicate business shape before exposing every job/process detail.</td></tr>
+          <tr><td>Canvas layout</td><td>The default capability map lays nodes top-down, centers the system layer above one horizontal capability band, does not wrap capability cards into multiple rows, and keeps jobs and job context visible only after inline expansion. When the stage is wider than the visible canvas, the initial pan centers the stage inside the available viewport instead of pinning the far-left edge.</td><td>The first view should communicate business shape before exposing every job/process detail.</td></tr>
+          <tr><td>Canvas edge policy</td><td>The renderer must treat visual edges as selected-path affordances, not an exhaustive drawing of graph metadata. The default capability and actor overviews draw no global edges; expanded capabilities draw only local capability-to-job realization edges; expanded jobs draw only local job context edges; expanded actors draw only handled-job edges, oriented visually from actor to job.</td><td>The map must stay readable as an inspection surface while preserving complete metadata in the graph JSON and details panel.</td></tr>
+          <tr><td>Canvas branch color</td><td>Expanded capabilities, their revealed jobs, and their local realization edges must share a deterministic accent color derived from the capability ID. Expanded job context may inherit the same accent so the selected branch remains visually coherent.</td><td>Color should reinforce hierarchy and selection without becoming canonical data.</td></tr>
           <tr><td>Canvas expansion</td><td>Capability cards expand jobs inline; job cards expand process, actor, tool, evidence, metric, and gap nodes inline; actor cards in the actors map expand handled jobs. Expandable cards update <code>aria-expanded</code>.</td><td>Expansion must be real interactive behavior, not a static marker in generated HTML or a hidden tab switch.</td></tr>
           <tr><td>Canvas tabs</td><td>The generated canvas exposes only <code>Capability map</code> and <code>Actors</code> tabs.</td><td>Secondary detail views should not fragment the core business exploration path.</td></tr>
           <tr><td>Canvas navigation</td><td>The rendered stage supports pointer drag panning from the canvas background while keeping node selection and source links usable.</td><td>Large business graphs must be navigable without relying on browser scrollbars alone.</td></tr>
+          <tr><td>Document navigation</td><td>Generated canvases may load the shared HTML docs navigation, but the canvas shell must account for the injected sidebar, avoid inherited document padding, and respond when the shared far-left document-navigation toggle collapses or restores that sidebar.</td><td>The graph must remain usable as a fixed canvas while retaining source-document navigation across specs, canvases, and target repos.</td></tr>
         </tbody>
       </table>
     </section>
@@ -195,10 +199,11 @@
         <tbody>
           <tr><td>Missing graph metadata</td><td>Graph check fails and names the spec.</td><td>Check output.</td></tr>
           <tr><td>Dangling edge</td><td>Graph check fails and names the missing endpoint.</td><td>Check output.</td></tr>
+          <tr><td>Unmapped capability job</td><td>Graph check fails when a capability names a child job without a <code>realized-by</code> graph edge, or a job names an owning capability without a <code>supports</code> graph edge.</td><td><code>foundation:visible-business-graph:test</code> and check output.</td></tr>
           <tr><td>Unresolved source section</td><td>Graph check fails before build/render.</td><td>Check output.</td></tr>
           <tr><td>Stale graph JSON</td><td>Eval compares graph JSON against current repo extraction and fails.</td><td>Eval report.</td></tr>
           <tr><td>Canvas missing expected content</td><td>Eval fails with missing text or node IDs.</td><td>Eval report.</td></tr>
-          <tr><td>Canvas interaction regression</td><td>Renderer tests fail when the generated canvas loses centered top-down layout, inline capability expansion, inline job expansion, actors-map expansion, <code>aria-expanded</code> updates, or pointer drag panning.</td><td><code>foundation:visible-business-graph:test</code>.</td></tr>
+          <tr><td>Canvas interaction regression</td><td>Renderer tests fail when the generated canvas loses centered top-down layout, one-row capability band behavior, centered initial pan inside narrow canvases, shared document-navigation collapse behavior, branch accent behavior, selected-path edge policy, inline capability expansion, inline job expansion, actors-map expansion, <code>aria-expanded</code> updates, or pointer drag panning.</td><td><code>foundation:visible-business-graph:test</code>.</td></tr>
         </tbody>
       </table>
     </section>

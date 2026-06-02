@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.workspace-model.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-20">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Foundation Workspace Model</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,10 +16,10 @@
   "title": "Foundation Workspace Model",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-05-20",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.spec-system",
+  "parent": "foundation.install-foundation-target-repos.capability",
   "children": [
     "foundation.backfill-specs.job",
     "foundation.agents-load-canary.eval",
@@ -27,13 +27,66 @@
     "foundation.workspace-doctor.eval"
   ],
   "relatedSpecs": [
-    { "id": "foundation.spec-system", "relationship": "parent", "sections": ["registry", "entry-points"] },
-    { "id": "foundation.spec-process", "relationship": "sibling", "sections": ["workflow-contract", "update-obligations"] },
-    { "id": "foundation.spec-linking", "relationship": "sibling", "sections": ["resolution", "path-update-loop"] },
-    { "id": "foundation.backfill-specs.job", "relationship": "child", "sections": ["product-intent", "interface-journey", "ux-contracts"] },
-    { "id": "foundation.agents-load-canary.eval", "relationship": "child", "sections": ["verification-contract", "canary-procedure"] },
-    { "id": "foundation.workspace-doctor.technical", "relationship": "child", "sections": ["required-depth", "contracts"] },
-    { "id": "foundation.workspace-doctor.eval", "relationship": "child", "sections": ["verification-contract", "acceptance-mapping"] }
+    {
+      "id": "foundation.install-foundation-target-repos.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent"
+      ]
+    },
+    {
+      "id": "foundation.spec-system",
+      "relationship": "depends-on"
+    },
+    {
+      "id": "foundation.spec-process",
+      "relationship": "sibling",
+      "sections": [
+        "workflow-contract",
+        "update-obligations"
+      ]
+    },
+    {
+      "id": "foundation.spec-linking",
+      "relationship": "sibling",
+      "sections": [
+        "resolution",
+        "path-update-loop"
+      ]
+    },
+    {
+      "id": "foundation.backfill-specs.job",
+      "relationship": "child",
+      "sections": [
+        "product-intent",
+        "interface-journey",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.agents-load-canary.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "canary-procedure"
+      ]
+    },
+    {
+      "id": "foundation.workspace-doctor.technical",
+      "relationship": "child",
+      "sections": [
+        "required-depth",
+        "contracts"
+      ]
+    },
+    {
+      "id": "foundation.workspace-doctor.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    }
   ],
   "ownedPaths": [
     {
@@ -45,22 +98,92 @@
       "path": "foundation/templates/target-repo-AGENTS.md",
       "kind": "doc",
       "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
     }
   ],
   "implementationPaths": [
-    { "path": "foundation/AGENTS.md", "kind": "config", "ownership": "reference", "notes": "Canonical Foundation agent rulebook for shared spec and substrate behavior." },
-    { "path": "foundation/README.md", "kind": "doc", "ownership": "reference", "notes": "Foundation setup overview and target-repo instructions for canonical workspace use." },
-    { "path": "foundation/package.json", "kind": "config", "ownership": "reference", "notes": "Command registry for spec, site-map, and doctor checks." },
-    { "path": "foundation/.github/workflows/specs.yml", "kind": "config", "ownership": "reference", "notes": "Current Foundation CI check; target repos need equivalent pinned validation." },
-    { "path": "foundation/docs/specs/index.html", "kind": "doc", "ownership": "reference", "notes": "Spec registry and agent entry point." },
-    { "path": "foundation/docs/specs/process.html", "kind": "doc", "ownership": "reference", "notes": "Spec authoring and update obligations." },
-    { "path": "foundation/skills/job-spec-interview/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Human-heavy job spec creation workflow." },
-    { "path": "foundation/skills/backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Existing repo adoption workflow for creating draft job and technical specs." },
-    { "path": "foundation/skills/spec-workflow/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Spec authoring, registry, and verification workflow." },
-    { "path": "foundation/skills/install-foundation-substrate/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Target repo setup workflow for connecting repos to canonical Foundation." },
-    { "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html", "kind": "doc", "ownership": "reference", "notes": "Manual cold-session procedure for proving AGENTS instruction loading." },
-    { "path": "foundation/scripts/foundation-doctor.mjs", "kind": "workflow", "ownership": "reference", "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration." },
-    { "path": "foundation/scripts/foundation-doctor.test.mjs", "kind": "test", "ownership": "reference", "notes": "Automated coverage for the Foundation doctor rules." }
+    {
+      "path": "foundation/AGENTS.md",
+      "kind": "config",
+      "ownership": "reference",
+      "notes": "Canonical Foundation agent rulebook for shared spec and substrate behavior."
+    },
+    {
+      "path": "foundation/README.md",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Foundation setup overview and target-repo instructions for canonical workspace use."
+    },
+    {
+      "path": "foundation/package.json",
+      "kind": "config",
+      "ownership": "reference",
+      "notes": "Command registry for spec, site-map, and doctor checks."
+    },
+    {
+      "path": "foundation/.github/workflows/specs.yml",
+      "kind": "config",
+      "ownership": "reference",
+      "notes": "Current Foundation CI check; target repos need equivalent pinned validation."
+    },
+    {
+      "path": "foundation/docs/specs/index.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Spec registry and agent entry point."
+    },
+    {
+      "path": "foundation/docs/specs/process.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Spec authoring and update obligations."
+    },
+    {
+      "path": "foundation/skills/job-spec-interview/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Human-heavy job spec creation workflow."
+    },
+    {
+      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Existing repo adoption workflow for creating draft job and technical specs."
+    },
+    {
+      "path": "foundation/skills/spec-workflow/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Spec authoring, registry, and verification workflow."
+    },
+    {
+      "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Target repo setup workflow for connecting repos to canonical Foundation."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Manual cold-session procedure for proving AGENTS instruction loading."
+    },
+    {
+      "path": "foundation/scripts/foundation-doctor.mjs",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration."
+    },
+    {
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "kind": "test",
+      "ownership": "reference",
+      "notes": "Automated coverage for the Foundation doctor rules."
+    }
   ],
   "coverage": [
     {
@@ -68,7 +191,9 @@
       "level": "static",
       "status": "existing",
       "path": "foundation/scripts/foundation-doctor.mjs",
-      "mapsTo": ["foundation.workspace-model.job#states-and-rules"],
+      "mapsTo": [
+        "foundation.workspace-model.job#states-and-rules"
+      ],
       "evidence": "foundation:doctor target repo adapter check fails when AGENTS.md duplicates Foundation-owned rules.",
       "notes": "Implemented by foundation.workspace-doctor.technical."
     },
@@ -77,7 +202,9 @@
       "level": "integration",
       "status": "existing",
       "path": "foundation/scripts/foundation-doctor.mjs",
-      "mapsTo": ["foundation.workspace-model.job#ux-contracts"],
+      "mapsTo": [
+        "foundation.workspace-model.job#ux-contracts"
+      ],
       "evidence": "foundation:doctor reports Foundation path, global Codex pointer, required skills, target adapter status, spec namespace status, and CI pin status.",
       "notes": "CI pinning is a warning until a target repo configures GitHub workflows."
     },
@@ -86,7 +213,9 @@
       "level": "manual",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-workspace-model.html",
-      "mapsTo": ["foundation.workspace-model.job#interface-journey"],
+      "mapsTo": [
+        "foundation.workspace-model.job#interface-journey"
+      ],
       "evidence": "Manual walkthrough from a target repo: create a job spec using Foundation and write it into the target repo.",
       "notes": "Run after the technical spec defines install/sync mechanics."
     },
@@ -95,7 +224,9 @@
       "level": "manual",
       "status": "planned",
       "path": "foundation/docs/specs/foundation-agents-load-canary-eval.html",
-      "mapsTo": ["foundation.workspace-model.job#ux-contracts"],
+      "mapsTo": [
+        "foundation.workspace-model.job#ux-contracts"
+      ],
       "evidence": "Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.",
       "notes": "Procedure is defined in foundation.agents-load-canary.eval and is intentionally separate from foundation:doctor."
     }
@@ -279,6 +410,16 @@
         "sectionId": "overview"
       },
       "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.workspace-model.job:supports:spec:foundation.install-foundation-target-repos.capability",
+      "type": "supports",
+      "from": "spec:foundation.workspace-model.job",
+      "to": "spec:foundation.install-foundation-target-repos.capability",
+      "source": {
+        "specId": "foundation.workspace-model.job",
+        "sectionId": "product-intent"
+      }
     }
   ]
 }

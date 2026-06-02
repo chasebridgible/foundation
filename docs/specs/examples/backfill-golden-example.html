@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-golden-example">
 <meta name="spec:type" content="eval">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-21">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Foundation Backfill Golden Example</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,23 +16,69 @@
   "title": "Foundation Backfill Golden Example",
   "type": "eval",
   "status": "active",
-  "lastUpdated": "2026-05-21",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-quality-evaluation.eval",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.backfill-quality-evaluation.eval", "relationship": "parent", "sections": ["scoring-rubric", "acceptability-gate"] },
-    { "id": "foundation.backfill-specs.job", "relationship": "sibling", "sections": ["ux-contracts", "design-placeholders"] },
-    { "id": "foundation.backfill-orchestration.technical", "relationship": "sibling", "sections": ["contracts"] }
+    {
+      "id": "foundation.evaluate-quality-completeness.capability",
+      "relationship": "depends-on",
+      "sections": [
+        "capability-intent"
+      ]
+    },
+    {
+      "id": "foundation.backfill-quality-evaluation.eval",
+      "relationship": "parent",
+      "sections": [
+        "scoring-rubric",
+        "acceptability-gate"
+      ]
+    },
+    {
+      "id": "foundation.backfill-specs.job",
+      "relationship": "sibling",
+      "sections": [
+        "ux-contracts",
+        "design-placeholders"
+      ]
+    },
+    {
+      "id": "foundation.backfill-orchestration.technical",
+      "relationship": "sibling",
+      "sections": [
+        "contracts"
+      ]
+    }
   ],
   "ownedPaths": [
-    { "path": "foundation/docs/specs/examples/backfill-golden-example.html", "kind": "example", "ownership": "direct" }
+    {
+      "path": "foundation/docs/specs/examples/backfill-golden-example.html",
+      "kind": "example",
+      "ownership": "direct"
+    }
   ],
   "implementationPaths": [
-    { "path": "foundation/skills/evaluate-backfill-specs/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Evaluation workflow calibrated by this example." },
-    { "path": "foundation/skills/backfill-job-spec-author/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Job layer quality modeled below." },
-    { "path": "foundation/skills/backfill-technical-spec-author/SKILL.md", "kind": "workflow", "ownership": "reference", "notes": "Technical architecture classification modeled below." }
+    {
+      "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Evaluation workflow calibrated by this example."
+    },
+    {
+      "path": "foundation/skills/backfill-job-spec-author/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Job layer quality modeled below."
+    },
+    {
+      "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Technical architecture classification modeled below."
+    }
   ],
   "coverage": [
     {
@@ -40,7 +86,10 @@
       "level": "static",
       "status": "existing",
       "path": "foundation/docs/specs/examples/backfill-golden-example.html",
-      "mapsTo": ["foundation.backfill-golden-example#golden-report", "foundation.backfill-golden-example#evaluator-scorecard"],
+      "mapsTo": [
+        "foundation.backfill-golden-example#golden-report",
+        "foundation.backfill-golden-example#evaluator-scorecard"
+      ],
       "evidence": "Example includes report, spec, and scorecard sections."
     },
     {
@@ -48,11 +97,19 @@
       "level": "manual",
       "status": "planned",
       "path": "foundation/docs/specs/examples/backfill-golden-example.html",
-      "mapsTo": ["foundation.backfill-golden-example#golden-technical"],
+      "mapsTo": [
+        "foundation.backfill-golden-example#golden-technical"
+      ],
       "evidence": "Use during target repo pilots to compare generated architecture classification quality."
     }
   ],
-  "tags": ["example", "foundation", "backfill", "evaluation", "golden"]
+  "tags": [
+    "example",
+    "foundation",
+    "backfill",
+    "evaluation",
+    "golden"
+  ]
 }
 </script>
 <script type="application/json" id="graph-metadata">

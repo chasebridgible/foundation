@@ -22,18 +22,19 @@ Read only the sections needed for the current task.
 ## Workflow
 
 1. Read target `AGENTS.md`, Foundation `AGENTS.md`, this skill, and the target spec index if it exists.
-2. Register every provided source before extracting claims. Preserve source path, source type, captured date, owner or origin, trust level, access boundary, freshness, and related lanes.
-3. Create intake answer rows for the business intake lanes. Mark each row `unanswered`, `partial`, `answered`, `conflict`, `stale`, or `reviewed`; do not imply completeness from one source.
-4. Extract graph signals from answer rows: capabilities, jobs, processes, actors, tools, evidence, metrics, risks, gaps, and decision rules.
-5. Promote reviewed signals into target-owned HTML specs:
+2. If this intake changes Foundation itself, read `docs/specs/foundation-operating-system.html#capability-map` and name the Foundation capability and owning job before adding or revising skills, specs, or checks.
+3. Register every provided source before extracting claims. Preserve source path, source type, captured date, owner or origin, trust level, access boundary, freshness, and related lanes.
+4. Create intake answer rows for the business intake lanes. Mark each row `unanswered`, `partial`, `answered`, `conflict`, `stale`, or `reviewed`; do not imply completeness from one source.
+5. Extract graph signals from answer rows: capabilities, jobs, processes, actors, tools, evidence, metrics, risks, gaps, and decision rules.
+6. Promote reviewed signals into target-owned HTML specs:
    - system spec for the business model and top-level goal
    - capability specs for stable outcomes
    - job specs for recurring work and process detail
    - technical specs for data, integration, automation, or tooling contracts
    - eval specs for acceptance and evidence checks
-6. Keep `spec-metadata`, `graph-metadata`, visible prose, source references, and coverage tables aligned.
-7. Build the derived graph and canvas from specs. Canvas JSON/HTML is never source of truth.
-8. Evaluate the result against the provided sources. Revise if the graph contains unsupported claims, missing source refs, dangling edges, missing jobs, or hidden gaps.
+7. Keep `spec-metadata`, `graph-metadata`, visible prose, source references, and coverage tables aligned.
+8. Build the derived graph and canvas from specs. Canvas JSON/HTML is never source of truth.
+9. Evaluate the result against the provided sources. Revise if the graph contains unsupported claims, missing source refs, dangling edges, missing jobs, or hidden gaps.
 
 ## Source Rules
 
@@ -88,6 +89,7 @@ For Foundation skill/spec changes, run:
 npm run spec:registry
 npm run spec:check
 npm run foundation:visible-business-graph:check -- --repo .
+npm run foundation:self-map:check
 ```
 
 ## Handoff

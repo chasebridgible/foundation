@@ -6,7 +6,7 @@
 <meta name="spec:id" content="fup.kitchen-queue.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-31">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Fired Up Pizza Kitchen Queue - Job Spec Example</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,28 +16,104 @@
   "title": "Fired Up Pizza Kitchen Queue - Job Spec Example",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-05-31",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": null,
-  "children": ["fup.kitchen-queue.technical", "fup.kitchen-queue.eval"],
+  "parent": "foundation.author-durable-specs.capability",
+  "children": [
+    "fup.kitchen-queue.technical",
+    "fup.kitchen-queue.eval"
+  ],
   "relatedSpecs": [
-    { "id": "fup.kitchen-queue.technical", "relationship": "child", "sections": ["internal-sequence", "data-contract"] },
-    { "id": "fup.kitchen-queue.eval", "relationship": "validated-by", "sections": ["acceptance-mapping"] }
+    {
+      "id": "foundation.author-durable-specs.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent"
+      ]
+    },
+    {
+      "id": "fup.kitchen-queue.technical",
+      "relationship": "child",
+      "sections": [
+        "internal-sequence",
+        "data-contract"
+      ]
+    },
+    {
+      "id": "fup.kitchen-queue.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
   ],
   "ownedPaths": [
-    { "path": "client/src/pages/kitchen-queue.tsx", "kind": "source", "ownership": "direct", "symbols": ["KitchenQueuePage"] },
-    { "path": "client/src/components/kitchen/order-card.tsx", "kind": "source", "ownership": "direct", "symbols": ["OrderCard"] },
-    { "path": "client/src/components/kitchen/kitchen-queue-empty.tsx", "kind": "source", "ownership": "direct", "symbols": ["KitchenQueueEmpty"] }
+    {
+      "path": "client/src/pages/kitchen-queue.tsx",
+      "kind": "source",
+      "ownership": "direct",
+      "symbols": [
+        "KitchenQueuePage"
+      ]
+    },
+    {
+      "path": "client/src/components/kitchen/order-card.tsx",
+      "kind": "source",
+      "ownership": "direct",
+      "symbols": [
+        "OrderCard"
+      ]
+    },
+    {
+      "path": "client/src/components/kitchen/kitchen-queue-empty.tsx",
+      "kind": "source",
+      "ownership": "direct",
+      "symbols": [
+        "KitchenQueueEmpty"
+      ]
+    }
   ],
   "implementationPaths": [
-    { "path": "server/src/routes/kitchen-orders.ts", "kind": "source", "ownership": "reference", "symbols": ["patchOrderItemStatus"] }
+    {
+      "path": "server/src/routes/kitchen-orders.ts",
+      "kind": "source",
+      "ownership": "reference",
+      "symbols": [
+        "patchOrderItemStatus"
+      ]
+    }
   ],
   "coverage": [
-    { "id": "KQ-D1", "level": "component", "status": "planned", "path": "client/src/components/kitchen/order-card.test.tsx", "mapsTo": ["fup.kitchen-queue.job#states-and-rules"], "command": "npm test -- order-card", "evidence": "Order cards render status labels, disabled states, and one-tap actions." },
-    { "id": "KQ-D2", "level": "e2e", "status": "planned", "path": "client/tests/e2e/kitchen-queue.spec.ts", "mapsTo": ["fup.kitchen-queue.job#interface-journey"], "command": "npm run test:e2e -- kitchen-queue", "evidence": "Kitchen staff advances an item and customer status updates." }
+    {
+      "id": "KQ-D1",
+      "level": "component",
+      "status": "planned",
+      "path": "client/src/components/kitchen/order-card.test.tsx",
+      "mapsTo": [
+        "fup.kitchen-queue.job#states-and-rules"
+      ],
+      "command": "npm test -- order-card",
+      "evidence": "Order cards render status labels, disabled states, and one-tap actions."
+    },
+    {
+      "id": "KQ-D2",
+      "level": "e2e",
+      "status": "planned",
+      "path": "client/tests/e2e/kitchen-queue.spec.ts",
+      "mapsTo": [
+        "fup.kitchen-queue.job#interface-journey"
+      ],
+      "command": "npm run test:e2e -- kitchen-queue",
+      "evidence": "Kitchen staff advances an item and customer status updates."
+    }
   ],
-  "tags": ["example", "fired-up-pizza", "kitchen", "orders"]
+  "tags": [
+    "example",
+    "fired-up-pizza",
+    "kitchen",
+    "orders"
+  ]
 }
 </script>
 <script type="application/json" id="graph-metadata">
@@ -170,6 +246,16 @@
         "sectionId": "product-intent"
       },
       "label": "validated-by"
+    },
+    {
+      "id": "edge:spec:fup.kitchen-queue.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:fup.kitchen-queue.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "fup.kitchen-queue.job",
+        "sectionId": "product-intent"
+      }
     }
   ]
 }

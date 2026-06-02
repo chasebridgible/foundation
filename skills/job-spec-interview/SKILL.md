@@ -111,14 +111,15 @@ If unresolved items would make the feature fundamentally different, recommend an
 When the user approves building the spec:
 
 1. Read `docs/specs/index.html` and search for an existing owning spec.
-2. If revising, load the relevant job spec sections and preserve its established structure.
-3. If creating, use `npm run spec:new -- --type job ...` or copy `docs/specs/templates/job-spec-template.html`.
-4. Fill `spec-metadata` before relying on prose:
+2. For Foundation-owned work, read `docs/specs/foundation-operating-system.html#capability-map` and name the capability this job supports before authoring. If the job supports no existing capability, create or revise the capability spec first.
+3. If revising, load the relevant job spec sections and preserve its established structure.
+4. If creating, use `npm run spec:new -- --type job ...` or copy `docs/specs/templates/job-spec-template.html`.
+5. Fill `spec-metadata` before relying on prose:
    - Stable dotted `id`.
    - Accurate `title`, `type`, `status`, `lastUpdated`, `reviewCadence`, and `confidence`.
    - Parent, child, related spec, path, and coverage fields only when known.
-5. Fill `graph-metadata` with the job node, supporting capability edge, process node, actor node(s), tool node(s), evidence/metric/gap node(s), and source sections.
-6. Write the job prose from the interview ledger:
+6. Fill `graph-metadata` with the job node, supporting capability edge, process node, actor node(s), tool node(s), evidence/metric/gap node(s), and source sections.
+7. Write the job prose from the interview ledger:
    - Job intent.
    - Capability supported.
    - Current reality.
@@ -126,11 +127,12 @@ When the user approves building the spec:
    - Context, tools, and interfaces.
    - Evidence and evaluation.
    - Revision target.
-7. Include downstream technical/eval handoff notes in the final response. Put them in the spec only when they are visible or part of the job contract.
-8. Run `npm run spec:registry` if metadata changed.
-9. Run `npm run spec:check`.
-10. Run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
-11. Report remaining assumptions, unresolved semantic-review risk, graph-check status, and suggested next phase.
+8. Include downstream technical/eval handoff notes in the final response. Put them in the spec only when they are visible or part of the job contract.
+9. Run `npm run spec:registry` if metadata changed.
+10. Run `npm run spec:check`.
+11. Run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
+12. Run `npm run foundation:self-map:check` when Foundation itself changed.
+13. Report remaining assumptions, unresolved semantic-review risk, graph-check status, and suggested next phase.
 
 ## Depth Calibration
 

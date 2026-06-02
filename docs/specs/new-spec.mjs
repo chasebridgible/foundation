@@ -11,6 +11,7 @@ const specsDir = path.dirname(fileURLToPath(import.meta.url));
 const docsDir = path.dirname(specsDir);
 const repoRoot = path.dirname(docsDir);
 const repoName = path.basename(repoRoot);
+const navAssetVersion = "20260601-nav-collapse";
 const typeAliases = new Map([["test", "eval"]]);
 const allowedTypes = new Set(["system", "capability", "job", "technical", "eval"]);
 
@@ -236,8 +237,8 @@ ${bodySections}
   <hr>
   <p class="footer-note">${html(args.title)} · generated starter spec</p>
 </main>
-<script src="${siteMap}"></script>
-<script src="${siteNav}"></script>
+<script src="${siteMap}?v=${navAssetVersion}"></script>
+<script src="${siteNav}?v=${navAssetVersion}"></script>
 </body>
 </html>
 `;

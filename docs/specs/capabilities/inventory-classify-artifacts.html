@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.inventory-classify-artifacts.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Inventory and Classify Repository Artifacts</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.inventory-classify-artifacts.capability",
+  "title": "Inventory and Classify Repository Artifacts",
+  "type": "capability",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "high",
+  "parent": "foundation.operating-system.system",
+  "children": [
+    "foundation.backfill-artifact-inventory.job"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.operating-system.system",
+      "relationship": "parent",
+      "sections": [
+        "system-intent"
+      ]
+    },
+    {
+      "id": "foundation.backfill-artifact-inventory.job",
+      "relationship": "child"
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/capabilities/inventory-classify-artifacts.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/scripts/foundation-self-map-check.mjs",
+      "kind": "workflow",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.inventory-classify-artifacts.capability:primary-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/artifact-inventory.test.mjs",
+      "mapsTo": [
+        "foundation.inventory-classify-artifacts.capability#evidence-and-evaluation"
+      ],
+      "command": "npm run foundation:artifact-inventory:test"
+    },
+    {
+      "id": "foundation.inventory-classify-artifacts.capability:self-map",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-self-map-check.mjs",
+      "mapsTo": [
+        "foundation.inventory-classify-artifacts.capability#jobs"
+      ],
+      "command": "npm run foundation:self-map:check"
+    }
+  ],
+  "tags": [
+    "capability",
+    "foundation",
+    "inventory"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.inventory-classify-artifacts.capability",
+  "nodes": [
+    {
+      "id": "spec:foundation.inventory-classify-artifacts.capability",
+      "type": "capability",
+      "label": "Inventory and Classify Repository Artifacts",
+      "source": {
+        "specId": "foundation.inventory-classify-artifacts.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "inventory"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.inventory-classify-artifacts.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.inventory-classify-artifacts.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.inventory-classify-artifacts.capability",
+        "sectionId": "capability-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.inventory-classify-artifacts.capability:realized-by:spec:foundation.backfill-artifact-inventory.job",
+      "type": "realized-by",
+      "from": "spec:foundation.inventory-classify-artifacts.capability",
+      "to": "spec:foundation.backfill-artifact-inventory.job",
+      "source": {
+        "specId": "foundation.inventory-classify-artifacts.capability",
+        "sectionId": "capability-intent"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Inventory and Classify Repository Artifacts</div>
+      <div class="sidebar-sub">capability spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#capability-intent"><span class="nav-num">01</span>Capability intent</a>
+    <a class="nav-item" href="#outcome-contract"><span class="nav-num">02</span>Outcome contract</a>
+    <a class="nav-item" href="#jobs"><span class="nav-num">03</span>Jobs</a>
+    <a class="nav-item" href="#interfaces-and-sources"><span class="nav-num">04</span>Interfaces and sources</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">05</span>Evidence and evaluation</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/capabilities/inventory-classify-artifacts.html</div>
+    <h1>Inventory and Classify Repository Artifacts</h1>
+    <p class="lede">This capability prevents agents from guessing what files matter by requiring a source-backed inventory first.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-01</div>
+      <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+      <h1>Capability intent</h1>
+      <p>Foundation must help agents read a repository before writing specs. Artifact inventory records what exists, what each artifact appears to do, how it should be classified, and whether it is evidence, implementation, config, generated output, or noise.</p>
+    </section>
+
+    <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="contracts">
+      <h2>Outcome contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Beneficiary</td><td>Agents and reviewers adopting an existing repo into Foundation.</td><td>Foundation operating system and linked child specs.</td></tr>
+          <tr><td>Reliable outcome</td><td>Every relevant artifact is classified with source evidence and a handoff path to surface/function mapping.</td><td>Child job specs, graph metadata, and checks.</td></tr>
+          <tr><td>Domain object</td><td>Artifact inventory rows and dated inventory reports.</td><td>Spec registry and graph metadata.</td></tr>
+          <tr><td>Constraints</td><td>Read one file, mark that file immediately, and keep generated summaries separate from source truth.</td><td>Spec workflow, graph check, self-map check.</td></tr>
+          <tr><td>Failure mode</td><td>Backfill specs miss hidden behavior or overfit to a small subset of files.</td><td>Missing capability ownership, stale specs, or unreviewed agent output.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+      <h2>Jobs</h2>
+      <table class="status-table">
+        <thead><tr><th>Job</th><th>Purpose</th><th>Spec</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Backfill Artifact Inventory</td><td>Inventory and classify repo artifacts during backfill.</td><td><code>foundation.backfill-artifact-inventory.job</code></td><td>active</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interfaces-and-sources" data-spec-section="interfaces-and-sources" data-section-type="interfaces">
+      <h2>Interfaces and sources</h2>
+      <ul>
+        <li>scripts/artifact-inventory-*.mjs commands initialize, fill, check, eval, refresh, and report inventory state.</li>
+        <li>skills/artifact-inventory-fill-loop/SKILL.md defines the read-one-file fill loop.</li>
+        <li>skills/backfill-artifact-inventory/SKILL.md routes the backfill phase.</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Eval or check</th><th>Revision target</th></tr></thead>
+        <tbody>
+          <tr><td>Artifact inventory check and eval pass for a target repo.</td><td><code>foundation.backfill-artifact-inventory.eval</code></td><td>Update inventory schema, fill loop, or classification rules.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Inventory and Classify Repository Artifacts - Foundation capability spec</p>
+</main>
+<script src="../../site-map.js"></script>
+<script src="../../site-nav.js"></script>
+</body>
+</html>
