@@ -19,9 +19,10 @@ Use this skill to connect a target repo to Foundation. The model is defined in `
 5. Keep shared process, templates, skills, validators, and principles in Foundation.
 6. Install local HTML docs navigation for the target repo:
    - Copy or pin `docs/generate-site-map.mjs` and `docs/site-nav.js` from Foundation into the target repo.
+   - The local `docs/site-nav.js` must include the shared sidebar collapse control, including `data-site-nav-toggle`, `substrate-site-nav-collapsed`, and the `substrate:site-nav-toggle` event. If Foundation updates this renderer, refresh the target repo copy or pin.
    - Generate the target repo's own `docs/site-map.js`; it must reflect the target repo's folders, not Foundation's folders.
    - If the target repo has `package.json`, add a `site-map` script that runs `node docs/generate-site-map.mjs`.
-   - Ensure durable HTML docs under `docs/` load the local `site-map.js` and `site-nav.js` scripts.
+   - Ensure durable HTML docs under `docs/` load the local `site-map.js` and collapse-capable `site-nav.js` scripts. Cache-busting query strings are acceptable; the resolved files must still be target-local.
    - Preserve the target repo's spec registry as the semantic lookup for system specs, capability specs, job specs, technical specs, eval specs, paths, and coverage.
 7. Ensure target specs are graph-compatible:
    - New target specs must use Foundation templates or `docs/specs/new-spec.mjs` so `graph-metadata` is present from creation.
@@ -64,7 +65,7 @@ After the target repo is connected:
 - The target repo `AGENTS.md` is a short adapter, not a copy of Foundation rules.
 - The target README explains what the target repo is.
 - Product specs and project facts live in the target repo.
-- Durable HTML docs in the target repo render a left sidebar from the target repo's own folder tree.
+- Durable HTML docs in the target repo render a left sidebar from the target repo's own folder tree, and the shared collapse control works on every included HTML page.
 - The target repo spec registry remains separate from visual document navigation.
 - Target specs are created with `graph-metadata`, and the target adapter names the visible business graph check.
 - Shared process changes live in Foundation.

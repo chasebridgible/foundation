@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.install-foundation-target-repos.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-02">
 <title>Install Foundation Into Target Repos</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,7 +16,7 @@
   "title": "Install Foundation Into Target Repos",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-02",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.operating-system.system",
@@ -44,6 +44,16 @@
     }
   ],
   "implementationPaths": [
+    {
+      "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/scripts/foundation-doctor.mjs",
+      "kind": "workflow",
+      "ownership": "reference"
+    },
     {
       "path": "foundation/scripts/foundation-self-map-check.mjs",
       "kind": "workflow",
@@ -155,7 +165,7 @@
     <p class="lede">This capability lets Foundation be reused across repos while keeping project facts inside the target repo.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-01</div>
+      <div><strong>Updated:</strong> 2026-06-02</div>
       <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
     </div>
   </section>
@@ -163,7 +173,7 @@
   <article class="doc-body">
     <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
       <h1>Capability intent</h1>
-      <p>Foundation must provide a repeatable way to set up target repositories with a small local adapter, spec registry, graph-compatible docs, pinned checks, and a doctor command that catches drift.</p>
+      <p>Foundation must provide a repeatable way to set up target repositories with a small local adapter, spec registry, graph-compatible docs, shared HTML navigation, pinned checks, and a doctor command that catches drift.</p>
     </section>
 
     <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="contracts">
@@ -173,9 +183,9 @@
         <tbody>
           <tr><td>Beneficiary</td><td>Target repos adopting Foundation for software or business operating systems.</td><td>Foundation operating system and linked child specs.</td></tr>
           <tr><td>Reliable outcome</td><td>A target repo can discover Foundation, run checks, keep local specs local, and route shared improvements back here.</td><td>Child job specs, graph metadata, and checks.</td></tr>
-          <tr><td>Domain object</td><td>Target AGENTS adapters, doctor checks, GitHub workflows, and installed navigation files.</td><td>Spec registry and graph metadata.</td></tr>
+          <tr><td>Domain object</td><td>Target AGENTS adapters, doctor checks, GitHub workflows, graph-compatible docs, and collapse-capable installed navigation files.</td><td>Spec registry and graph metadata.</td></tr>
           <tr><td>Constraints</td><td>Foundation process lives in Foundation; product specs and project knowledge live in the target repo.</td><td>Spec workflow, graph check, self-map check.</td></tr>
-          <tr><td>Failure mode</td><td>Repos copy stale Foundation rules or fail validation because shared substrate is implicit.</td><td>Missing capability ownership, stale specs, or unreviewed agent output.</td></tr>
+          <tr><td>Failure mode</td><td>Repos copy stale Foundation rules, stale navigation renderers, or fail validation because shared substrate is implicit.</td><td>Missing capability ownership, stale specs, stale docs navigation, or unreviewed agent output.</td></tr>
         </tbody>
       </table>
     </section>
@@ -195,6 +205,7 @@
       <ul>
         <li>skills/install-foundation-substrate/SKILL.md executes target repo setup.</li>
         <li>scripts/foundation-doctor.mjs validates target repo installation.</li>
+        <li>docs/site-nav.js provides the shared HTML docs navigation and sidebar collapse behavior that target repos copy or pin locally.</li>
         <li>Target AGENTS.md files remain small adapters.</li>
       </ul>
     </section>
@@ -204,7 +215,7 @@
       <table class="status-table">
         <thead><tr><th>Evidence</th><th>Eval or check</th><th>Revision target</th></tr></thead>
         <tbody>
-          <tr><td>Foundation doctor passes for target repos and local adapters point back to Foundation.</td><td><code>foundation.workspace-doctor.eval</code></td><td>Update install skill, doctor script, or workspace model.</td></tr>
+          <tr><td>Foundation doctor passes for target repos, local adapters point back to Foundation, and stale target-local HTML nav assets are reported.</td><td><code>foundation.workspace-doctor.eval</code></td><td>Update install skill, doctor script, docs navigation job, or workspace model.</td></tr>
         </tbody>
       </table>
     </section>
@@ -213,7 +224,7 @@
   <hr>
   <p class="footer-note">Install Foundation Into Target Repos - Foundation capability spec</p>
 </main>
-<script src="../../site-map.js"></script>
-<script src="../../site-nav.js"></script>
+<script src="../../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../../site-nav.js?v=20260602-nav-collapse"></script>
 </body>
 </html>

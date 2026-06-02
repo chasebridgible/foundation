@@ -5,6 +5,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { runDoctor } from "./foundation-doctor.mjs";
 
+const repoRoot = path.dirname(path.dirname(new URL(import.meta.url).pathname));
+
 function makeDir() {
   return fs.mkdtempSync(path.join(os.tmpdir(), "foundation-doctor-"));
 }
@@ -46,6 +48,37 @@ function makeRepo(root, foundationPath, agentsBody = null) {
 function statusById(report, id) {
   return report.results.find(item => item.id === id)?.status;
 }
+
+function listHtmlFiles(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) return listHtmlFiles(full);
+    return entry.isFile() && entry.name.endsWith(".html") ? [full] : [];
+  });
+}
+
+function collapseCapableSiteNavFixture() {
+  return `document.querySelector("[data-site-nav-toggle]");
+button.dataset.siteNavToggleBound = "true";
+document.body.classList.toggle("substrate-site-nav-collapsed", false);
+document.dispatchEvent(new CustomEvent("substrate:site-nav-toggle"));
+button.setAttribute("aria-pressed", "false");\n`;
+}
+
+test("Foundation and example HTML docs load versioned shared navigation scripts", () => {
+  const htmlFiles = [
+    ...listHtmlFiles(path.join(repoRoot, "docs")),
+    ...listHtmlFiles(path.join(repoRoot, "examples", "visible-business-client", "docs"))
+  ];
+  assert.equal(htmlFiles.length > 0, true);
+
+  for (const file of htmlFiles) {
+    const relativeFile = path.relative(repoRoot, file);
+    const html = fs.readFileSync(file, "utf8");
+    assert.match(html, /<script\b[^>]*\bsrc="[^"]*site-map\.js\?v=20260602-nav-collapse"[^>]*><\/script>/, `${relativeFile} should load the versioned site map`);
+    assert.match(html, /<script\b[^>]*\bsrc="[^"]*site-nav\.js\?v=20260602-nav-collapse"[^>]*><\/script>/, `${relativeFile} should load the versioned site nav`);
+  }
+});
 
 test("machine setup passes when global pointer and required skills exist", () => {
   const foundation = makeDir();
@@ -141,7 +174,7 @@ test("target repo HTML docs navigation warns when docs are missing assets or scr
   assert.equal(statusById(report, "repo-html-docs-nav"), "warn");
 });
 
-test("target repo HTML docs navigation passes when local assets, command, and scripts exist", () => {
+test("target repo HTML docs navigation warns when local site-nav asset is stale", () => {
   const foundation = makeDir();
   const repo = makeDir();
   const globalAgents = path.join(makeDir(), "AGENTS.md");
@@ -161,6 +194,37 @@ test("target repo HTML docs navigation passes when local assets, command, and sc
 <main><h1>Guide</h1></main>
 <script src="./site-map.js"></script>
 <script src="./site-nav.js"></script>`);
+
+  const report = runDoctor({
+    foundationPath: foundation,
+    globalAgentsPath: globalAgents,
+    repoPath: repo,
+    skipSpecCheck: true
+  });
+
+  assert.equal(statusById(report, "repo-html-docs-nav"), "warn");
+});
+
+test("target repo HTML docs navigation passes when local assets, command, collapse control, and scripts exist", () => {
+  const foundation = makeDir();
+  const repo = makeDir();
+  const globalAgents = path.join(makeDir(), "AGENTS.md");
+  makeFoundation(foundation);
+  makeRepo(repo, foundation);
+  write(globalAgents, `# Global\n\n- Use Foundation at ${foundation}.\n- Read Foundation AGENTS.md before work.\n`);
+  write(path.join(repo, "docs", "generate-site-map.mjs"), "console.log('site map');\n");
+  write(path.join(repo, "docs", "site-map.js"), "window.SubstrateSiteMap = { items: [] };\n");
+  write(path.join(repo, "docs", "site-nav.js"), collapseCapableSiteNavFixture());
+  write(path.join(repo, "package.json"), JSON.stringify({
+    scripts: {
+      "site-map": "node docs/generate-site-map.mjs"
+    }
+  }));
+  write(path.join(repo, "docs", "guide.html"), `<!doctype html>
+<title>Guide</title>
+<main><h1>Guide</h1></main>
+<script src="./site-map.js?v=20260602-nav-collapse"></script>
+<script src="./site-nav.js?v=20260602-nav-collapse"></script>`);
 
   const report = runDoctor({
     foundationPath: foundation,

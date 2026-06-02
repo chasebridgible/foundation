@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.workspace-doctor.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-29">
+<meta name="spec:last-updated" content="2026-06-02">
 <title>Foundation Workspace Doctor Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Workspace Doctor Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-05-29",
+  "lastUpdated": "2026-06-02",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.workspace-model.job",
@@ -76,6 +76,14 @@
       "path": "foundation/scripts/foundation-doctor.test.mjs",
       "mapsTo": ["foundation.workspace-doctor.technical#failure-modes"],
       "evidence": "target repo specs fail when product specs use foundation namespace"
+    },
+    {
+      "id": "FWD-T5",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.workspace-doctor.technical#contracts", "foundation.workspace-doctor.technical#failure-modes"],
+      "evidence": "target repo HTML docs navigation warns when docs are missing scripts or when site-nav.js is stale, and passes when the local renderer includes the shared collapse control"
     }
   ],
   "tags": [
@@ -175,7 +183,7 @@
     <p class="lede">The Foundation doctor is an on-demand diagnostic command that tells a user whether the canonical Foundation repo, global Codex pointer, target repo adapter, target spec namespace, and target CI pinning are shaped correctly for the workspace model.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-29</div>
+      <div><strong>Updated:</strong> 2026-06-02</div>
       <div><strong>Canonical section:</strong> <a href="#required-depth">#required-depth</a></div>
     </div>
   </section>
@@ -194,7 +202,7 @@
         <li>Validate the Foundation repo exists, is a Git repo, has <code>AGENTS.md</code>, and contains the required Foundation skills.</li>
         <li>Validate global Codex instructions exist and explicitly point to the canonical Foundation path and Foundation <code>AGENTS.md</code>.</li>
         <li>Run Foundation spec registry/check unless the caller deliberately skips it.</li>
-        <li>When a target repo is provided, validate repo shape, local <code>AGENTS.md</code> adapter behavior, target spec namespace, and GitHub workflow Foundation pinning.</li>
+        <li>When a target repo is provided, validate repo shape, local <code>AGENTS.md</code> adapter behavior, target spec namespace, target-local HTML docs navigation assets, and GitHub workflow Foundation pinning.</li>
         <li>Render a stable text or JSON report and exit nonzero when any failure exists.</li>
       </ol>
     </section>
@@ -211,6 +219,7 @@
           <tr><td>Foundation spec check</td><td>Fail when registry or spec metadata checks fail; warn only when skipped by flag.</td><td>Foundation cannot be canonical if its own registry is stale or invalid.</td></tr>
           <tr><td>Target repo adapter</td><td>Fail when missing, not pointing to Foundation, or duplicating Foundation-owned rules.</td><td>Local instructions should refine project context, not fork shared process.</td></tr>
           <tr><td>Target spec namespace</td><td>Warn when no target specs exist; fail when target specs use <code>foundation.*</code> IDs.</td><td>Shared workflow specs live in Foundation; product specs live in the target namespace.</td></tr>
+          <tr><td>Target HTML docs navigation</td><td>Warn when target docs exist without local navigation assets, without script includes, without a <code>site-map</code> command, or with a stale <code>docs/site-nav.js</code> that lacks the shared collapse control.</td><td>Foundation-based repos should inherit the visible HTML substrate without silently losing page navigation or collapse behavior.</td></tr>
           <tr><td>Target CI pin</td><td>Warn when CI is absent, does not mention Foundation, or mentions Foundation without a pinned commit SHA.</td><td>CI maturity should be visible without blocking early local setup.</td></tr>
         </tbody>
       </table>
@@ -223,6 +232,7 @@
         <li><strong>Unclear global pointer:</strong> the user should see which global AGENTS file was checked and which Foundation path was expected.</li>
         <li><strong>Target repo copies Foundation rules:</strong> the report should name duplicated rule text so the adapter can be reduced to local context.</li>
         <li><strong>Product specs under Foundation namespace:</strong> the report should name each file and spec ID that must move into the target namespace.</li>
+        <li><strong>Stale docs navigation:</strong> the report should distinguish missing HTML script includes from a copied <code>site-nav.js</code> that predates the shared sidebar collapse control.</li>
         <li><strong>CI not ready:</strong> the report should warn without failing while the repo is still local-only or before GitHub workflows are configured.</li>
       </ul>
     </section>
@@ -249,6 +259,7 @@
           <tr><td>FWD-T2</td><td><code>#contracts</code></td><td>Target repo adapter passes when it points to Foundation.</td><td>existing</td></tr>
           <tr><td>FWD-T3</td><td><code>#failure-modes</code></td><td>Target repo AGENTS fails when it duplicates Foundation-owned rules.</td><td>existing</td></tr>
           <tr><td>FWD-T4</td><td><code>#failure-modes</code></td><td>Target repo specs fail when product specs use Foundation namespace.</td><td>existing</td></tr>
+          <tr><td>FWD-T5</td><td><code>#contracts</code>, <code>#failure-modes</code></td><td>Target repo HTML docs navigation warns for missing or stale nav assets and passes when script includes resolve to a collapse-capable local renderer.</td><td>existing</td></tr>
         </tbody>
       </table>
     </section>
@@ -257,7 +268,7 @@
   <hr>
   <p class="footer-note">Foundation Workspace Doctor Technical Spec · current diagnostic contract</p>
 </main>
-<script src="../site-map.js"></script>
-<script src="../site-nav.js"></script>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
 </body>
 </html>
