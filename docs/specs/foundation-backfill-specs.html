@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-specs.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-29">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Foundation Backfill Specs</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,10 +16,10 @@
   "title": "Foundation Backfill Specs",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-05-29",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.workspace-model.job",
+  "parent": "foundation.compound-improvements-safely.capability",
   "children": [
     "foundation.backfill-orchestration.technical",
     "foundation.backfill-quality-evaluation.eval",
@@ -36,13 +36,15 @@
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.workspace-model.job",
+      "id": "foundation.compound-improvements-safely.capability",
       "relationship": "parent",
       "sections": [
-        "product-intent",
-        "states-and-rules",
-        "ux-contracts"
+        "capability-intent"
       ]
+    },
+    {
+      "id": "foundation.workspace-model.job",
+      "relationship": "depends-on"
     },
     {
       "id": "foundation.backfill-orchestration.technical",
@@ -841,6 +843,16 @@
         "sectionId": "overview"
       },
       "label": "sibling"
+    },
+    {
+      "id": "edge:spec:foundation.backfill-specs.job:supports:spec:foundation.compound-improvements-safely.capability",
+      "type": "supports",
+      "from": "spec:foundation.backfill-specs.job",
+      "to": "spec:foundation.compound-improvements-safely.capability",
+      "source": {
+        "specId": "foundation.backfill-specs.job",
+        "sectionId": "product-intent"
+      }
     }
   ]
 }

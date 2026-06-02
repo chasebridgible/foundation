@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-process-action-map.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Foundation Backfill Process / Action Map</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,23 +16,25 @@
   "title": "Foundation Backfill Process / Action Map",
   "type": "job",
   "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.backfill-specs.job",
+  "parent": "foundation.define-jobs-from-capabilities.capability",
   "children": [
     "foundation.backfill-process-action-map.technical",
     "foundation.backfill-process-action-map.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.backfill-specs.job",
+      "id": "foundation.define-jobs-from-capabilities.capability",
       "relationship": "parent",
       "sections": [
-        "interface-journey",
-        "states-and-rules",
-        "ux-contracts"
+        "capability-intent"
       ]
+    },
+    {
+      "id": "foundation.backfill-specs.job",
+      "relationship": "depends-on"
     },
     {
       "id": "foundation.backfill-process-action-map.technical",
@@ -65,6 +67,11 @@
     {
       "path": "foundation/docs/specs/foundation-backfill-process-action-map.html",
       "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/backfill-process-action-map/SKILL.md",
+      "kind": "workflow",
       "ownership": "direct"
     }
   ],
@@ -250,6 +257,16 @@
         "sectionId": "artifacts-and-state"
       },
       "label": "depends-on"
+    },
+    {
+      "id": "edge:spec:foundation.backfill-process-action-map.job:supports:spec:foundation.define-jobs-from-capabilities.capability",
+      "type": "supports",
+      "from": "spec:foundation.backfill-process-action-map.job",
+      "to": "spec:foundation.define-jobs-from-capabilities.capability",
+      "source": {
+        "specId": "foundation.backfill-process-action-map.job",
+        "sectionId": "product-intent"
+      }
     }
   ]
 }

@@ -13,6 +13,7 @@ Load only the context needed for the current step:
 
 - target repo `AGENTS.md`
 - Foundation `AGENTS.md`
+- `docs/specs/foundation-operating-system.html#capability-map` when changing Foundation-owned capability, job, skill, template, or checker behavior
 - active target report and run log named by the target repo
 - current target `surface-function-map-<run-id>.jsonl`
 - current target `capability-map-<run-id>.jsonl`
@@ -35,6 +36,8 @@ Load only the context needed for the current step:
 ## Graph Metadata Support
 
 Capability Map rows are the handoff source for capability graph nodes and capability-to-job edges. Preserve stable capability names, actor/outcome/object boundaries, candidate job slices, source surface IDs, evidence paths, metrics, gaps, confidence, and split reasons. When capability specs or job specs are created or revised from this map, the author must update `graph-metadata` with `capability`, `job`, `evidence`, `metric`, and `gap` nodes as appropriate and run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
+
+For Foundation-owned changes, every new capability row must answer which Foundation capability is being improved and which job spec owns the repeatable work. Run `npm run foundation:self-map:check` after changing Foundation capability, job, or skill ownership.
 
 ## Required Loop
 

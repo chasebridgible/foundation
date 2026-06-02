@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-system">
 <meta name="spec:type" content="index">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-31">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Spec System</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="schema" href="./spec-registry.schema.json">
@@ -16,41 +16,178 @@
   "title": "Spec System",
   "type": "index",
   "status": "active",
-  "lastUpdated": "2026-05-31",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": null,
-  "children": ["foundation.spec-process", "foundation.spec-linking", "foundation.workspace-model.job", "foundation.spec-template.system", "foundation.spec-template.capability", "foundation.spec-template.job", "foundation.spec-template.technical", "foundation.spec-template.eval"],
+  "children": [
+    "foundation.operating-system.system",
+    "foundation.spec-process",
+    "foundation.spec-linking",
+    "foundation.workspace-model.job",
+    "foundation.spec-template.system",
+    "foundation.spec-template.capability",
+    "foundation.spec-template.job",
+    "foundation.spec-template.technical",
+    "foundation.spec-template.eval"
+  ],
   "relatedSpecs": [
-    { "id": "foundation.spec-process", "relationship": "child", "sections": ["workflow-contract", "spec-authoring", "risk-tiers", "semantic-review"] },
-    { "id": "foundation.spec-linking", "relationship": "child", "sections": ["html-native-metadata"] },
-    { "id": "foundation.workspace-model.job", "relationship": "child", "sections": ["product-intent", "states-and-rules", "ux-contracts"] },
-    { "id": "foundation.spec-template.system", "relationship": "child", "sections": ["system-intent", "capability-map"] },
-    { "id": "foundation.spec-template.capability", "relationship": "child", "sections": ["capability-intent", "jobs"] },
-    { "id": "foundation.spec-template.job", "relationship": "child", "sections": ["job-intent", "process"] },
-    { "id": "foundation.html-docs-navigation.job", "relationship": "informs", "sections": ["product-intent", "states-and-rules", "ux-contracts"] }
+    {
+      "id": "foundation.operating-system.system",
+      "relationship": "child",
+      "sections": [
+        "system-intent"
+      ]
+    },
+    {
+      "id": "foundation.spec-process",
+      "relationship": "child",
+      "sections": [
+        "workflow-contract",
+        "spec-authoring",
+        "risk-tiers",
+        "semantic-review"
+      ]
+    },
+    {
+      "id": "foundation.spec-linking",
+      "relationship": "child",
+      "sections": [
+        "html-native-metadata"
+      ]
+    },
+    {
+      "id": "foundation.workspace-model.job",
+      "relationship": "child",
+      "sections": [
+        "product-intent",
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.system",
+      "relationship": "child",
+      "sections": [
+        "system-intent",
+        "capability-map"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.capability",
+      "relationship": "child",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.job",
+      "relationship": "child",
+      "sections": [
+        "job-intent",
+        "process"
+      ]
+    },
+    {
+      "id": "foundation.html-docs-navigation.job",
+      "relationship": "informs",
+      "sections": [
+        "product-intent",
+        "states-and-rules",
+        "ux-contracts"
+      ]
+    }
   ],
   "ownedPaths": [
-    { "path": "foundation/README.md", "kind": "doc", "ownership": "direct" },
-    { "path": "foundation/.gitignore", "kind": "config", "ownership": "direct" },
-    { "path": "foundation/AGENTS.md", "kind": "config", "ownership": "direct" },
-    { "path": "foundation/docs/specs/index.html", "kind": "doc", "ownership": "direct" },
-    { "path": "foundation/docs/specs/spec-registry.schema.json", "kind": "schema", "ownership": "direct" },
-    { "path": "foundation/docs/specs/new-spec.mjs", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/docs/specs/generate-registry.mjs", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/docs/specs/check-specs.mjs", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/.github/workflows/specs.yml", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/job-spec-interview/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/job-spec-interview/agents/openai.yaml", "kind": "config", "ownership": "direct" },
-    { "path": "foundation/skills/spec-workflow/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/spec-workflow/agents/openai.yaml", "kind": "config", "ownership": "direct" },
-    { "path": "foundation/skills/install-foundation-substrate/SKILL.md", "kind": "workflow", "ownership": "direct" },
-    { "path": "foundation/skills/install-foundation-substrate/agents/openai.yaml", "kind": "config", "ownership": "direct" },
-    { "path": "foundation/package.json", "kind": "config", "ownership": "direct" }
+    {
+      "path": "foundation/README.md",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/.gitignore",
+      "kind": "config",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/AGENTS.md",
+      "kind": "config",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/index.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/spec-registry.schema.json",
+      "kind": "schema",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/new-spec.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/generate-registry.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/.github/workflows/specs.yml",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/job-spec-interview/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/job-spec-interview/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/spec-workflow/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/spec-workflow/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/install-foundation-substrate/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/package.json",
+      "kind": "config",
+      "ownership": "direct"
+    }
   ],
   "implementationPaths": [],
   "coverage": [],
-  "tags": ["substrate", "specs", "registry"]
+  "tags": [
+    "substrate",
+    "specs",
+    "registry"
+  ]
 }
 </script>
 <script type="application/json" id="graph-metadata">
@@ -79,6 +216,16 @@
     }
   ],
   "edges": [
+    {
+      "id": "edge:spec:foundation.spec-system:contains:spec:foundation.operating-system.system",
+      "type": "contains",
+      "from": "spec:foundation.spec-system",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.spec-system",
+        "sectionId": "overview"
+      }
+    },
     {
       "id": "edge:spec:foundation.spec-system:contains:spec:foundation.spec-process",
       "type": "contains",
@@ -186,11 +333,12 @@
       "status": "active",
       "file": "foundation/docs/specs/index.html",
       "canonicalSection": "overview",
-      "lastUpdated": "2026-05-31",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": null,
       "children": [
+        "foundation.operating-system.system",
         "foundation.spec-process",
         "foundation.spec-linking",
         "foundation.workspace-model.job",
@@ -201,6 +349,13 @@
         "foundation.spec-template.eval"
       ],
       "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "child",
+          "sections": [
+            "system-intent"
+          ]
+        },
         {
           "id": "foundation.spec-process",
           "relationship": "child",
@@ -354,22 +509,28 @@
     {
       "id": "foundation.spec-process",
       "title": "Spec Maintenance Process",
-      "type": "system",
+      "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/process.html",
       "canonicalSection": "workflow-contract",
       "lastUpdated": "2026-06-01",
       "reviewCadence": "monthly",
       "confidence": "high",
-      "parent": "foundation.spec-system",
-      "children": [],
+      "parent": "foundation.author-durable-specs.capability",
+      "children": [
+        "foundation.backfill-author-specs.job"
+      ],
       "relatedSpecs": [
         {
-          "id": "foundation.spec-system",
+          "id": "foundation.author-durable-specs.capability",
           "relationship": "parent",
           "sections": [
-            "registry"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.spec-system",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.spec-linking",
@@ -385,6 +546,10 @@
             "metadata-contract",
             "states-and-rules"
           ]
+        },
+        {
+          "id": "foundation.backfill-author-specs.job",
+          "relationship": "child"
         }
       ],
       "ownedPaths": [
@@ -395,8 +560,21 @@
         }
       ],
       "implementationPaths": [],
-      "coverage": [],
+      "coverage": [
+        {
+          "id": "spec-process-self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.spec-process#spec-authoring",
+            "foundation.spec-process#semantic-review"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
       "tags": [
+        "capability",
         "process",
         "spec-test-prompt-execute"
       ]
@@ -699,12 +877,19 @@
       "status": "active",
       "file": "foundation/docs/specs/examples/business-job-spec-example.html",
       "canonicalSection": "job-intent",
-      "lastUpdated": "2026-05-31",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": null,
+      "parent": "foundation.author-durable-specs.capability",
       "children": [],
       "relatedSpecs": [
+        {
+          "id": "foundation.author-durable-specs.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent"
+          ]
+        },
         {
           "id": "foundation.spec-template.job",
           "relationship": "informs",
@@ -739,12 +924,19 @@
       "status": "active",
       "file": "foundation/docs/specs/examples/software-job-spec-example.html",
       "canonicalSection": "job-intent",
-      "lastUpdated": "2026-05-31",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": null,
+      "parent": "foundation.author-durable-specs.capability",
       "children": [],
       "relatedSpecs": [
+        {
+          "id": "foundation.author-durable-specs.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent"
+          ]
+        },
         {
           "id": "foundation.spec-template.job",
           "relationship": "informs",
@@ -808,15 +1000,22 @@
       "status": "active",
       "file": "foundation/docs/specs/examples/kitchen-queue-job-spec-example.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-31",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": null,
+      "parent": "foundation.author-durable-specs.capability",
       "children": [
         "fup.kitchen-queue.technical",
         "fup.kitchen-queue.eval"
       ],
       "relatedSpecs": [
+        {
+          "id": "foundation.author-durable-specs.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent"
+          ]
+        },
         {
           "id": "fup.kitchen-queue.technical",
           "relationship": "child",
@@ -1289,20 +1488,22 @@
       "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.knowledge-data-layer.system",
+      "parent": "foundation.capture-business-system-intent.capability",
       "children": [
         "foundation.business-intake-fill-loop.technical",
         "foundation.business-intake-fill-loop.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.knowledge-data-layer.system",
+          "id": "foundation.capture-business-system-intent.capability",
           "relationship": "parent",
           "sections": [
-            "system-model",
-            "interface-journey",
-            "states-and-rules"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.knowledge-data-layer.system",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.visible-business-graph.system",
@@ -1387,18 +1588,913 @@
       ]
     },
     {
+      "id": "foundation.author-durable-specs.capability",
+      "title": "Author Durable Specs",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/author-durable-specs.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.backfill-author-specs.job",
+        "foundation.html-docs-navigation.job",
+        "foundation.spec-process",
+        "example.business.pay-employees.job",
+        "example.software.notification-preferences.job",
+        "fup.kitchen-queue.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.backfill-author-specs.job",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.html-docs-navigation.job",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.spec-process",
+          "relationship": "child"
+        },
+        {
+          "id": "example.business.pay-employees.job",
+          "relationship": "child"
+        },
+        {
+          "id": "example.software.notification-preferences.job",
+          "relationship": "child"
+        },
+        {
+          "id": "fup.kitchen-queue.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/author-durable-specs.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.author-durable-specs.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.author-durable-specs.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        },
+        {
+          "id": "foundation.author-durable-specs.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.author-durable-specs.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "specs"
+      ]
+    },
+    {
+      "id": "foundation.capture-business-system-intent.capability",
+      "title": "Capture Business and System Intent",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/capture-business-system-intent.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.business-intake-fill-loop.job",
+        "foundation.knowledge-data-layer.system"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.business-intake-fill-loop.job",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.knowledge-data-layer.system",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/capture-business-system-intent.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/business-intake-fill-loop.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.capture-business-system-intent.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/business-intake-fill-loop/SKILL.md",
+          "mapsTo": [
+            "foundation.capture-business-system-intent.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        },
+        {
+          "id": "foundation.capture-business-system-intent.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.capture-business-system-intent.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "intake"
+      ]
+    },
+    {
+      "id": "foundation.compound-improvements-safely.capability",
+      "title": "Compound Improvements Safely",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/compound-improvements-safely.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.backfill-specs.job",
+        "foundation.backfill-handoff.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.backfill-handoff.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/compound-improvements-safely.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.compound-improvements-safely.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+          "mapsTo": [
+            "foundation.compound-improvements-safely.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run backfill:run-log:test"
+        },
+        {
+          "id": "foundation.compound-improvements-safely.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.compound-improvements-safely.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "improvement"
+      ]
+    },
+    {
+      "id": "foundation.define-jobs-from-capabilities.capability",
+      "title": "Define Jobs From Capabilities",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/define-jobs-from-capabilities.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.backfill-spec-job-queue.job",
+        "foundation.backfill-process-action-map.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.backfill-spec-job-queue.job",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.backfill-process-action-map.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/define-jobs-from-capabilities.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.define-jobs-from-capabilities.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/spec-job-queue.test.mjs",
+          "mapsTo": [
+            "foundation.define-jobs-from-capabilities.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:spec-job-queue:test"
+        },
+        {
+          "id": "foundation.define-jobs-from-capabilities.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.define-jobs-from-capabilities.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.evaluate-quality-completeness.capability",
+      "title": "Evaluate Quality and Completeness",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/evaluate-quality-completeness.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.backfill-job-slice-evaluation.job",
+        "foundation.backfill-system-coherence-evaluation.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.backfill-job-slice-evaluation.job",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.backfill-system-coherence-evaluation.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/evaluate-quality-completeness.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.evaluate-quality-completeness.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/backfill-run-log-check.test.mjs",
+          "mapsTo": [
+            "foundation.evaluate-quality-completeness.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run backfill:run-log:test"
+        },
+        {
+          "id": "foundation.evaluate-quality-completeness.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.evaluate-quality-completeness.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "evals"
+      ]
+    },
+    {
+      "id": "foundation.generate-maintain-agent-skills.capability",
+      "title": "Generate and Maintain Agent Skills",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/generate-maintain-agent-skills.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.backfill-author-specs.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.backfill-author-specs.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/generate-maintain-agent-skills.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.generate-maintain-agent-skills.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.generate-maintain-agent-skills.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:self-map:check"
+        },
+        {
+          "id": "foundation.generate-maintain-agent-skills.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.generate-maintain-agent-skills.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "skills"
+      ]
+    },
+    {
+      "id": "foundation.install-foundation-target-repos.capability",
+      "title": "Install Foundation Into Target Repos",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/install-foundation-target-repos.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.workspace-model.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.workspace-model.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/install-foundation-target-repos.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.install-foundation-target-repos.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.install-foundation-target-repos.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:doctor:test"
+        },
+        {
+          "id": "foundation.install-foundation-target-repos.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.install-foundation-target-repos.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "install"
+      ]
+    },
+    {
+      "id": "foundation.inventory-classify-artifacts.capability",
+      "title": "Inventory and Classify Repository Artifacts",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/inventory-classify-artifacts.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.backfill-artifact-inventory.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.backfill-artifact-inventory.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/inventory-classify-artifacts.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.inventory-classify-artifacts.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/artifact-inventory.test.mjs",
+          "mapsTo": [
+            "foundation.inventory-classify-artifacts.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:artifact-inventory:test"
+        },
+        {
+          "id": "foundation.inventory-classify-artifacts.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.inventory-classify-artifacts.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "inventory"
+      ]
+    },
+    {
+      "id": "foundation.map-capabilities-from-evidence.capability",
+      "title": "Map Capabilities From Evidence",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/map-capabilities-from-evidence.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.backfill-capability-map.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.backfill-capability-map.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/map-capabilities-from-evidence.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.map-capabilities-from-evidence.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map.test.mjs",
+          "mapsTo": [
+            "foundation.map-capabilities-from-evidence.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map:test"
+        },
+        {
+          "id": "foundation.map-capabilities-from-evidence.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.map-capabilities-from-evidence.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "capability-map"
+      ]
+    },
+    {
+      "id": "foundation.map-surfaces-functions.capability",
+      "title": "Map Surfaces and Functions",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/map-surfaces-functions.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.backfill-surface-function-map.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.backfill-surface-function-map.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/map-surfaces-functions.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.map-surfaces-functions.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/surface-function-map.test.mjs",
+          "mapsTo": [
+            "foundation.map-surfaces-functions.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:surface-function-map:test"
+        },
+        {
+          "id": "foundation.map-surfaces-functions.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.map-surfaces-functions.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "map"
+      ]
+    },
+    {
+      "id": "foundation.package-context-for-action.capability",
+      "title": "Package Context For Action",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/package-context-for-action.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.backfill-context-pack.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.backfill-context-pack.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/package-context-for-action.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.package-context-for-action.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/context-pack.test.mjs",
+          "mapsTo": [
+            "foundation.package-context-for-action.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:context-pack:test"
+        },
+        {
+          "id": "foundation.package-context-for-action.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.package-context-for-action.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "context"
+      ]
+    },
+    {
+      "id": "foundation.render-inspectable-system-graph.capability",
+      "title": "Render the System as an Inspectable Graph",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/render-inspectable-system-graph.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.visible-business-graph.system",
+        "foundation.html-docs-navigation.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "system-intent"
+          ]
+        },
+        {
+          "id": "foundation.visible-business-graph.system",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.html-docs-navigation.job",
+          "relationship": "child"
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/render-inspectable-system-graph.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/visible-business-graph.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.render-inspectable-system-graph.capability:primary-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/visible-business-graph.test.mjs",
+          "mapsTo": [
+            "foundation.render-inspectable-system-graph.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:visible-business-graph:test"
+        },
+        {
+          "id": "foundation.render-inspectable-system-graph.capability:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.render-inspectable-system-graph.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "graph"
+      ]
+    },
+    {
       "id": "foundation.backfill-golden-example",
       "title": "Foundation Backfill Golden Example",
       "type": "eval",
       "status": "active",
       "file": "foundation/docs/specs/examples/backfill-golden-example.html",
       "canonicalSection": "overview",
-      "lastUpdated": "2026-05-21",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-quality-evaluation.eval",
       "children": [],
       "relatedSpecs": [
+        {
+          "id": "foundation.evaluate-quality-completeness.capability",
+          "relationship": "depends-on",
+          "sections": [
+            "capability-intent"
+          ]
+        },
         {
           "id": "foundation.backfill-quality-evaluation.eval",
           "relationship": "parent",
@@ -1837,23 +2933,25 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-artifact-inventory.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-27",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.job",
+      "parent": "foundation.inventory-classify-artifacts.capability",
       "children": [
         "foundation.backfill-artifact-inventory.technical",
         "foundation.backfill-artifact-inventory.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.job",
+          "id": "foundation.inventory-classify-artifacts.capability",
           "relationship": "parent",
           "sections": [
-            "product-intent",
-            "interface-journey",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-artifact-inventory.technical",
@@ -1896,6 +2994,11 @@
         {
           "path": "foundation/skills/artifact-inventory-fill-loop/agents/openai.yaml",
           "kind": "config",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-artifact-inventory/SKILL.md",
+          "kind": "workflow",
           "ownership": "direct"
         }
       ],
@@ -2124,23 +3227,25 @@
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-author-specs.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.job",
+      "parent": "foundation.author-durable-specs.capability",
       "children": [
         "foundation.backfill-author-specs.technical",
         "foundation.backfill-author-specs.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.job",
+          "id": "foundation.author-durable-specs.capability",
           "relationship": "parent",
           "sections": [
-            "interface-journey",
-            "states-and-rules",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-author-specs.technical",
@@ -2173,6 +3278,26 @@
         {
           "path": "foundation/docs/specs/foundation-backfill-author-specs.html",
           "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-job-spec-author/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-rendered-ux-spec/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-technical-spec-author/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/spec-workflow/SKILL.md",
+          "kind": "workflow",
           "ownership": "direct"
         }
       ],
@@ -2437,23 +3562,25 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-map.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.job",
+      "parent": "foundation.map-capabilities-from-evidence.capability",
       "children": [
         "foundation.backfill-capability-map.technical",
         "foundation.backfill-capability-map.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.job",
+          "id": "foundation.map-capabilities-from-evidence.capability",
           "relationship": "parent",
           "sections": [
-            "interface-journey",
-            "states-and-rules",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-capability-map.technical",
@@ -2781,23 +3908,25 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-context-pack.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.job",
+      "parent": "foundation.package-context-for-action.capability",
       "children": [
         "foundation.backfill-context-pack.technical",
         "foundation.backfill-context-pack.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.job",
+          "id": "foundation.package-context-for-action.capability",
           "relationship": "parent",
           "sections": [
-            "interface-journey",
-            "states-and-rules",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-context-pack.technical",
@@ -3089,23 +4218,25 @@
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-handoff.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.job",
+      "parent": "foundation.compound-improvements-safely.capability",
       "children": [
         "foundation.backfill-handoff.technical",
         "foundation.backfill-handoff.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.job",
+          "id": "foundation.compound-improvements-safely.capability",
           "relationship": "parent",
           "sections": [
-            "interface-journey",
-            "states-and-rules",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-handoff.technical",
@@ -3360,23 +4491,25 @@
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-job-slice-evaluation.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.job",
+      "parent": "foundation.evaluate-quality-completeness.capability",
       "children": [
         "foundation.backfill-job-slice-evaluation.technical",
         "foundation.backfill-job-slice-evaluation.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.job",
+          "id": "foundation.evaluate-quality-completeness.capability",
           "relationship": "parent",
           "sections": [
-            "interface-journey",
-            "states-and-rules",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-job-slice-evaluation.technical",
@@ -3409,6 +4542,16 @@
         {
           "path": "foundation/docs/specs/foundation-backfill-job-slice-evaluation.html",
           "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-spec-adequacy-review/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "kind": "workflow",
           "ownership": "direct"
         }
       ],
@@ -4143,23 +5286,25 @@
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-process-action-map.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.job",
+      "parent": "foundation.define-jobs-from-capabilities.capability",
       "children": [
         "foundation.backfill-process-action-map.technical",
         "foundation.backfill-process-action-map.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.job",
+          "id": "foundation.define-jobs-from-capabilities.capability",
           "relationship": "parent",
           "sections": [
-            "interface-journey",
-            "states-and-rules",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-process-action-map.technical",
@@ -4192,6 +5337,11 @@
         {
           "path": "foundation/docs/specs/foundation-backfill-process-action-map.html",
           "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/backfill-process-action-map/SKILL.md",
+          "kind": "workflow",
           "ownership": "direct"
         }
       ],
@@ -4619,23 +5769,25 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-spec-job-queue.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.job",
+      "parent": "foundation.define-jobs-from-capabilities.capability",
       "children": [
         "foundation.backfill-spec-job-queue.technical",
         "foundation.backfill-spec-job-queue.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.job",
+          "id": "foundation.define-jobs-from-capabilities.capability",
           "relationship": "parent",
           "sections": [
-            "interface-journey",
-            "states-and-rules",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-spec-job-queue.technical",
@@ -4668,6 +5820,11 @@
         {
           "path": "foundation/docs/specs/foundation-backfill-spec-job-queue.html",
           "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/job-spec-interview/SKILL.md",
+          "kind": "workflow",
           "ownership": "direct"
         }
       ],
@@ -4755,10 +5912,10 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-specs.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.workspace-model.job",
+      "parent": "foundation.compound-improvements-safely.capability",
       "children": [
         "foundation.backfill-orchestration.technical",
         "foundation.backfill-quality-evaluation.eval",
@@ -4775,13 +5932,15 @@
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.workspace-model.job",
+          "id": "foundation.compound-improvements-safely.capability",
           "relationship": "parent",
           "sections": [
-            "product-intent",
-            "states-and-rules",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.workspace-model.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-orchestration.technical",
@@ -5548,23 +6707,25 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-surface-function-map.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-28",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.job",
+      "parent": "foundation.map-surfaces-functions.capability",
       "children": [
         "foundation.backfill-surface-function-map.technical",
         "foundation.backfill-surface-function-map.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.job",
+          "id": "foundation.map-surfaces-functions.capability",
           "relationship": "parent",
           "sections": [
-            "interface-journey",
-            "states-and-rules",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-surface-function-map.technical",
@@ -5597,6 +6758,11 @@
         {
           "path": "foundation/docs/specs/foundation-backfill-surface-function-map.html",
           "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/surface-function-map-fill-loop/SKILL.md",
+          "kind": "workflow",
           "ownership": "direct"
         }
       ],
@@ -5820,23 +6986,25 @@
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-system-coherence-evaluation.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.backfill-specs.job",
+      "parent": "foundation.evaluate-quality-completeness.capability",
       "children": [
         "foundation.backfill-system-coherence-evaluation.technical",
         "foundation.backfill-system-coherence-evaluation.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.backfill-specs.job",
+          "id": "foundation.evaluate-quality-completeness.capability",
           "relationship": "parent",
           "sections": [
-            "interface-journey",
-            "states-and-rules",
-            "ux-contracts"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.backfill-specs.job",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-system-coherence-evaluation.technical",
@@ -5919,12 +7087,19 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-html-docs-navigation.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-30",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": null,
+      "parent": "foundation.render-inspectable-system-graph.capability",
       "children": [],
       "relatedSpecs": [
+        {
+          "id": "foundation.render-inspectable-system-graph.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent"
+          ]
+        },
         {
           "id": "foundation.spec-system",
           "relationship": "depends-on",
@@ -5979,6 +7154,11 @@
         {
           "path": "foundation/docs/site-nav.js",
           "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/job-journey-images/SKILL.md",
+          "kind": "workflow",
           "ownership": "direct"
         }
       ],
@@ -6092,6 +7272,185 @@
         "docs",
         "navigation",
         "html"
+      ]
+    },
+    {
+      "id": "foundation.operating-system.system",
+      "title": "Foundation Operating System",
+      "type": "system",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-operating-system.html",
+      "canonicalSection": "system-intent",
+      "lastUpdated": "2026-06-01",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": null,
+      "children": [
+        "foundation.capture-business-system-intent.capability",
+        "foundation.inventory-classify-artifacts.capability",
+        "foundation.map-surfaces-functions.capability",
+        "foundation.map-capabilities-from-evidence.capability",
+        "foundation.define-jobs-from-capabilities.capability",
+        "foundation.package-context-for-action.capability",
+        "foundation.author-durable-specs.capability",
+        "foundation.generate-maintain-agent-skills.capability",
+        "foundation.evaluate-quality-completeness.capability",
+        "foundation.render-inspectable-system-graph.capability",
+        "foundation.install-foundation-target-repos.capability",
+        "foundation.compound-improvements-safely.capability"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.capture-business-system-intent.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.inventory-classify-artifacts.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.map-surfaces-functions.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.map-capabilities-from-evidence.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.define-jobs-from-capabilities.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.package-context-for-action.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.author-durable-specs.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.generate-maintain-agent-skills.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.evaluate-quality-completeness.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.render-inspectable-system-graph.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.install-foundation-target-repos.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.compound-improvements-safely.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-operating-system.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/index.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/scripts/visible-business-graph-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.operating-system.system#evidence-and-revision"
+          ],
+          "command": "npm run spec:check"
+        },
+        {
+          "id": "graph-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/visible-business-graph-check.mjs",
+          "mapsTo": [
+            "foundation.operating-system.system#spec-graph"
+          ],
+          "command": "npm run foundation:visible-business-graph:check -- --repo ."
+        },
+        {
+          "id": "self-map-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.operating-system.system#capability-map"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "system",
+        "foundation",
+        "operating-system",
+        "capability-led"
       ]
     },
     {
@@ -6354,10 +7713,10 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-model.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-05-20",
+      "lastUpdated": "2026-06-01",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.spec-system",
+      "parent": "foundation.install-foundation-target-repos.capability",
       "children": [
         "foundation.backfill-specs.job",
         "foundation.agents-load-canary.eval",
@@ -6366,12 +7725,15 @@
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.spec-system",
+          "id": "foundation.install-foundation-target-repos.capability",
           "relationship": "parent",
           "sections": [
-            "registry",
-            "entry-points"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.spec-system",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.spec-process",
@@ -6432,6 +7794,11 @@
         {
           "path": "foundation/templates/target-repo-AGENTS.md",
           "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/install-foundation-substrate/SKILL.md",
+          "kind": "workflow",
           "ownership": "direct"
         }
       ],
@@ -6571,19 +7938,26 @@
     {
       "id": "foundation.knowledge-data-layer.system",
       "title": "Knowledge and Data Layer",
-      "type": "system",
+      "type": "capability",
       "status": "draft",
       "file": "foundation/docs/specs/knowledge-and-data-layer.html",
       "canonicalSection": "product-intent",
       "lastUpdated": "2026-06-01",
       "reviewCadence": "on-trigger",
       "confidence": "medium",
-      "parent": null,
+      "parent": "foundation.capture-business-system-intent.capability",
       "children": [
         "foundation.business-intake-fill-loop.job",
         "foundation.visible-business-graph.system"
       ],
       "relatedSpecs": [
+        {
+          "id": "foundation.capture-business-system-intent.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent"
+          ]
+        },
         {
           "id": "foundation.backfill-artifact-inventory.job",
           "relationship": "informs",
@@ -6711,7 +8085,7 @@
         }
       ],
       "tags": [
-        "system",
+        "capability",
         "knowledge-layer",
         "data-layer",
         "business-operating-system",
@@ -6926,27 +8300,29 @@
     {
       "id": "foundation.visible-business-graph.system",
       "title": "Visible Business Graph",
-      "type": "system",
+      "type": "capability",
       "status": "draft",
       "file": "foundation/docs/specs/visible-business-graph.html",
       "canonicalSection": "system-intent",
       "lastUpdated": "2026-06-01",
       "reviewCadence": "on-trigger",
       "confidence": "medium",
-      "parent": "foundation.knowledge-data-layer.system",
+      "parent": "foundation.render-inspectable-system-graph.capability",
       "children": [
         "foundation.visible-business-graph.technical",
         "foundation.visible-business-graph.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.knowledge-data-layer.system",
+          "id": "foundation.render-inspectable-system-graph.capability",
           "relationship": "parent",
           "sections": [
-            "system-model",
-            "interface-journey",
-            "states-and-rules"
+            "capability-intent"
           ]
+        },
+        {
+          "id": "foundation.knowledge-data-layer.system",
+          "relationship": "depends-on"
         },
         {
           "id": "foundation.backfill-capability-map.job",
@@ -7066,7 +8442,7 @@
         }
       ],
       "tags": [
-        "system",
+        "capability",
         "visible-business",
         "business-graph",
         "capability-map",

@@ -19,20 +19,22 @@
   "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.knowledge-data-layer.system",
+  "parent": "foundation.capture-business-system-intent.capability",
   "children": [
     "foundation.business-intake-fill-loop.technical",
     "foundation.business-intake-fill-loop.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.knowledge-data-layer.system",
+      "id": "foundation.capture-business-system-intent.capability",
       "relationship": "parent",
       "sections": [
-        "system-model",
-        "interface-journey",
-        "states-and-rules"
+        "capability-intent"
       ]
+    },
+    {
+      "id": "foundation.knowledge-data-layer.system",
+      "relationship": "depends-on"
     },
     {
       "id": "foundation.visible-business-graph.system",
@@ -254,6 +256,16 @@
       "source": {
         "specId": "foundation.business-intake-fill-loop.job",
         "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.business-intake-fill-loop.job:supports:spec:foundation.capture-business-system-intent.capability",
+      "type": "supports",
+      "from": "spec:foundation.business-intake-fill-loop.job",
+      "to": "spec:foundation.capture-business-system-intent.capability",
+      "source": {
+        "specId": "foundation.business-intake-fill-loop.job",
+        "sectionId": "capability-supported"
       }
     }
   ]

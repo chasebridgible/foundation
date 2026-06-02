@@ -7,6 +7,7 @@ import test from "node:test";
 import vm from "node:vm";
 import {
   GRAPH_SCHEMA,
+  createDefaultGraphMetadata,
   graphScript,
   insertOrReplaceGraphMetadata,
   validateGraphMetadata
@@ -24,9 +25,39 @@ function makeRepo() {
   return root;
 }
 
-function writeSpec(root, file, { id, title, type = "job", parent = null, graph = null }) {
+const sectionFixtures = {
+  system: [
+    ["system-intent", "System intent"],
+    ["capability-map", "Capability map"]
+  ],
+  capability: [
+    ["capability-intent", "Capability intent"],
+    ["jobs", "Jobs"]
+  ],
+  job: [
+    ["job-intent", "Job intent"],
+    ["capability-supported", "Capability supported"],
+    ["process", "Process"],
+    ["evidence-and-evaluation", "Evidence"]
+  ],
+  technical: [
+    ["required-depth", "Required depth"],
+    ["contracts", "Contracts"]
+  ],
+  eval: [
+    ["verification-contract", "Verification contract"],
+    ["acceptance-mapping", "Acceptance mapping"]
+  ],
+  template: [
+    ["template-contract", "Template contract"],
+    ["required-placeholders", "Required placeholders"]
+  ]
+};
+
+function writeSpec(root, file, { id, title, type = "job", parent = null, children = [], relatedSpecs = [], graph = null }) {
   const fullPath = path.join(root, "docs", "specs", file);
   fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+  const sections = sectionFixtures[type] || sectionFixtures.job;
   const metadata = {
     id,
     title,
@@ -36,13 +67,17 @@ function writeSpec(root, file, { id, title, type = "job", parent = null, graph =
     reviewCadence: "per-change",
     confidence: "medium",
     parent,
-    children: [],
-    relatedSpecs: [],
+    children,
+    relatedSpecs,
     ownedPaths: [{ path: `${path.basename(root)}/docs/specs/${file}`, kind: "doc", ownership: "direct" }],
     implementationPaths: [],
     coverage: [],
     tags: [type]
   };
+  const renderedSections = sections.map(([sectionId, heading], index) => {
+    const canonical = index === 0 ? " data-spec-canonical=\"true\"" : "";
+    return `<section id="${sectionId}" data-spec-section="${sectionId}"${canonical}><h2>${heading}</h2></section>`;
+  }).join("\n");
   let html = `<!DOCTYPE html>
 <html><head>
 <meta name="spec:id" content="${id}">
@@ -53,9 +88,7 @@ function writeSpec(root, file, { id, title, type = "job", parent = null, graph =
 ${JSON.stringify(metadata, null, 2)}
 </script>
 </head><body>
-<section id="job-intent" data-spec-section="job-intent" data-spec-canonical="true"><h1>${title}</h1></section>
-<section id="process" data-spec-section="process"><h2>Process</h2></section>
-<section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation"><h2>Evidence</h2></section>
+${renderedSections}
 </body></html>`;
   if (graph) html = insertOrReplaceGraphMetadata(html, graph);
   fs.writeFileSync(fullPath, html, "utf8");
@@ -77,7 +110,14 @@ class TestElement {
     this.attributes = {};
     this.dataset = {};
     this.eventListeners = {};
-    this.style = {};
+    this.style = {
+      setProperty(name, value) {
+        this[name] = String(value);
+      },
+      getPropertyValue(name) {
+        return this[name] || "";
+      }
+    };
     this.className = "";
     this._innerHTML = "";
     this.captureCalls = 0;
@@ -85,6 +125,7 @@ class TestElement {
     this.clientWidth = 0;
     this.classList = {
       add: name => this.setClass(name, true),
+      contains: name => this.hasClass(name),
       remove: name => this.setClass(name, false),
       toggle: (name, force) => this.setClass(name, force ?? !this.hasClass(name))
     };
@@ -208,7 +249,17 @@ function createCanvasHarness({ canvasWidth = 1200 } = {}) {
     if (element.id) elementsById.set(element.id, element);
     return element;
   };
+  const body = register(new TestElement("body"));
   const document = {
+    body,
+    eventListeners: {},
+    addEventListener(type, handler) {
+      if (!this.eventListeners[type]) this.eventListeners[type] = [];
+      this.eventListeners[type].push(handler);
+    },
+    dispatchEvent(event) {
+      for (const handler of this.eventListeners[event.type] || []) handler(event);
+    },
     createElement: tagName => new TestElement(tagName),
     getElementById: id => elementsById.get(id) || null,
     querySelectorAll: selector => roots.flatMap(root => {
@@ -232,8 +283,8 @@ function createCanvasHarness({ canvasWidth = 1200 } = {}) {
   graphStage.appendChild(edgeLayer);
   canvas.appendChild(graphStage);
   const details = register(new TestElement("div", { id: "details" }));
-  roots.push(typeList, nodeList, tabs, canvas, details);
-  return { document, canvas, graphStage, edgeLayer, details };
+  roots.push(body, typeList, nodeList, tabs, canvas, details);
+  return { document, body, canvas, graphStage, edgeLayer, details };
 }
 
 function extractCanvasScript(canvasHtml) {
@@ -288,6 +339,53 @@ test("graph check fails dangling edge endpoints", () => {
   assert.equal(validation.results.some(result => result.id.includes("edge-to")), true);
 });
 
+test("graph check enforces capability-to-job and job-to-capability edges", () => {
+  const root = makeRepo();
+  const capabilityMetadata = {
+    id: "example.capability",
+    title: "Example Capability",
+    type: "capability",
+    status: "draft",
+    confidence: "medium",
+    children: ["example.job"],
+    tags: ["capability"]
+  };
+  const jobMetadata = {
+    id: "example.job",
+    title: "Example Job",
+    type: "job",
+    status: "draft",
+    confidence: "medium",
+    parent: "example.capability",
+    children: [],
+    relatedSpecs: [],
+    tags: ["job"]
+  };
+  const capabilityGraph = createDefaultGraphMetadata(capabilityMetadata, ["capability-intent", "jobs"]);
+  const jobGraph = createDefaultGraphMetadata(jobMetadata, ["job-intent", "capability-supported", "process", "evidence-and-evaluation"]);
+  capabilityGraph.edges = capabilityGraph.edges.map(edge => edge.type === "realized-by"
+    ? { ...edge, id: edge.id.replace(":realized-by:", ":contains:"), type: "contains" }
+    : edge);
+  jobGraph.edges = jobGraph.edges.filter(edge => edge.type !== "supports");
+  writeSpec(root, "capability.html", {
+    id: "example.capability",
+    title: "Example Capability",
+    type: "capability",
+    children: ["example.job"],
+    graph: capabilityGraph
+  });
+  writeSpec(root, "job.html", {
+    id: "example.job",
+    title: "Example Job",
+    type: "job",
+    parent: "example.capability",
+    graph: jobGraph
+  });
+  const validation = validateGraphMetadata(root);
+  assert.equal(validation.results.some(result => result.id === "example.capability:realized-by:example.job"), true);
+  assert.equal(validation.results.some(result => result.id === "example.job:supports:example.capability"), true);
+});
+
 test("spec:new prints graph-compatible scaffolds for all spec types", () => {
   for (const type of ["system", "capability", "job", "technical", "eval"]) {
     const output = runNode(specNewScript, [
@@ -308,6 +406,16 @@ test("templates include graph metadata blocks", () => {
     const html = fs.readFileSync(path.join(repoRoot, "docs", "specs", "templates", file), "utf8");
     assert.match(html, /id="graph-metadata"/, `${file} should include graph metadata`);
   }
+});
+
+test("shared site navigation owns document-nav collapse behavior", () => {
+  const siteNav = fs.readFileSync(path.join(repoRoot, "docs", "site-nav.js"), "utf8");
+  const renderer = fs.readFileSync(renderScript, "utf8");
+  assert.match(siteNav, /dataset\.siteNavToggle = "true"/);
+  assert.match(siteNav, /substrate-site-nav-collapsed/);
+  assert.match(siteNav, /localStorage\.setItem\(navCollapsedStorageKey/);
+  assert.match(siteNav, /substrate:site-nav-toggle/);
+  assert.doesNotMatch(renderer, /id="siteNavToggle"/, "graph renderer should not own a graph-only docs nav toggle");
 });
 
 test("Foundation spec corpus validates as a graph", () => {
@@ -337,15 +445,22 @@ test("example client builds, renders, and evaluates", () => {
   assert.match(canvas, /cap:field-service:schedule-work/);
   assert.match(canvas, /client-system.html/);
   assert.match(canvas, /data-layout="top-down"/);
+  assert.match(canvas, /class="visible-business-graph-page"/);
+  assert.match(canvas, /data-canvas-shell/);
+  assert.doesNotMatch(canvas, /id="siteNavToggle"/);
+  assert.match(canvas, /substrate-site-nav-collapsed/);
+  assert.match(canvas, /substrate-has-injected-sidebar \.app/);
   assert.match(canvas, /id="graphStage"/);
   assert.match(canvas, /expandedCapabilityIds/);
+  assert.match(canvas, /accentPalette/);
+  assert.match(canvas, /data-accented/);
   assert.match(canvas, /data-expandable/);
   assert.match(canvas, /aria-expanded/);
   assert.match(canvas, /pointerdown/);
   assert.match(canvas, /pointermove/);
   assert.match(canvas, /translate\(/);
-  assert.match(canvas, /src="\.\.\/site-map\.js"/);
-  assert.match(canvas, /src="\.\.\/site-nav\.js"/);
+  assert.match(canvas, /src="\.\.\/site-map\.js\?v=20260601-nav-collapse"/);
+  assert.match(canvas, /src="\.\.\/site-nav\.js\?v=20260601-nav-collapse"/);
 
   const harness = executeCanvas(canvas, { canvasWidth: 1280 });
   let cards = harness.graphStage.querySelectorAll(".node-card");
@@ -354,6 +469,23 @@ test("example client builds, renders, and evaluates", () => {
   const stageWidth = Number.parseFloat(harness.graphStage.style.width);
   const systemCenter = Number.parseFloat(systemCard.style.left) + 105;
   assert.equal(Math.abs(systemCenter - stageWidth / 2) < 1, true, "system layer should be horizontally centered");
+  assert.equal(harness.edgeLayer.innerHTML.trim(), "", "overview should not draw global graph edges before expansion");
+  const capabilityYValues = new Set(
+    cards
+      .filter(card => card.getAttribute("data-type") === "capability")
+      .map(card => card.style.top)
+  );
+  assert.equal(capabilityYValues.size, 1, "capability map should render all capabilities in one horizontal band");
+
+  const narrowHarness = executeCanvas(canvas, { canvasWidth: 520 });
+  const narrowTransform = narrowHarness.graphStage.style.transform;
+  assert.match(narrowTransform, /translate\(-\d+px, 0px\)/, "initial view should center a wide graph inside a narrow canvas");
+  const narrowCapabilityYValues = new Set(
+    narrowHarness.graphStage.querySelectorAll(".node-card")
+      .filter(card => card.getAttribute("data-type") === "capability")
+      .map(card => card.style.top)
+  );
+  assert.equal(narrowCapabilityYValues.size, 1, "narrow capability maps should keep capabilities in one horizontal band");
 
   assert.equal(cards.filter(card => card.getAttribute("data-layer") === "2").length, 0, "jobs should start collapsed");
   const capabilityCard = cards.find(card => card.getAttribute("data-expandable") === "true");
@@ -369,10 +501,16 @@ test("example client builds, renders, and evaluates", () => {
   cards = harness.graphStage.querySelectorAll(".node-card");
   const expandedCard = cards.find(card => card.getAttribute("data-node") === capabilityId);
   assert.equal(expandedCard.getAttribute("aria-expanded"), "true", "clicking a capability should expand it");
+  assert.equal(expandedCard.getAttribute("data-accented"), "true", "expanded capability should expose its branch accent");
   assert.equal(cards.some(card => card.getAttribute("data-layer") === "2"), true, "expanded capability should reveal job cards");
+  assert.match(harness.edgeLayer.innerHTML, /data-edge-type="realized-by"/, "expanded capability should draw local job realization edges");
+  assert.match(harness.edgeLayer.innerHTML, /--edge-accent:/, "expanded capability edges should inherit the capability branch accent");
+  assert.doesNotMatch(harness.edgeLayer.innerHTML, /data-edge-type="supports"/, "capability map should not draw reverse support edges");
+  assert.doesNotMatch(harness.edgeLayer.innerHTML, /data-edge-type="depends-on"/, "capability map should not draw global dependency edges");
 
   const jobCard = cards.find(card => card.getAttribute("data-type") === "job");
   assert.ok(jobCard, "expanded capability should expose a clickable job card");
+  assert.equal(jobCard.getAttribute("data-accented"), "true", "job under an expanded capability should share the branch accent");
   const jobId = jobCard.getAttribute("data-node");
   jobCard.dispatchEvent("click", { target: jobCard });
   cards = harness.graphStage.querySelectorAll(".node-card");
@@ -384,6 +522,11 @@ test("example client builds, renders, and evaluates", () => {
   for (const type of ["system", "capability", "job", "process", "actor", "tool", "evidence", "metric", "gap"]) {
     assert.equal(visibleJobLensTypes.has(type), true, `expanded job should show ${type} context in the capability map`);
   }
+  assert.match(harness.edgeLayer.innerHTML, /data-edge-type="has-process"/, "expanded job should draw its process edge");
+  assert.match(harness.edgeLayer.innerHTML, /data-edge-type="performed-by"/, "expanded job should draw its actor edge");
+  assert.match(harness.edgeLayer.innerHTML, /data-edge-type="uses-tool"/, "expanded job should draw its tool edge");
+  assert.match(harness.edgeLayer.innerHTML, /data-edge-type="evidenced-by"/, "expanded job should draw its evidence edge");
+  assert.doesNotMatch(harness.edgeLayer.innerHTML, /data-edge-type="supports"/, "expanded job context should still suppress reverse support edges");
 
   const actorsTab = harness.document.querySelectorAll(".tab").find(tab => tab.dataset.view === "actors");
   actorsTab.dispatchEvent("click", { target: actorsTab });
@@ -391,6 +534,7 @@ test("example client builds, renders, and evaluates", () => {
   const activeActorsTab = harness.document.querySelectorAll(".tab").find(tab => tab.hasClass("active"));
   assert.equal(activeActorsTab.dataset.view, "actors", "actors tab should be selectable");
   assert.equal(cards.every(card => card.getAttribute("data-type") === "actor"), true, "actors map should initially show actors only");
+  assert.equal(harness.edgeLayer.innerHTML.trim(), "", "actors overview should not draw actor/job edges before expansion");
   const actorCard = cards.find(card => card.getAttribute("data-expandable") === "true");
   assert.ok(actorCard, "actors map should expose expandable actor cards");
   actorCard.dispatchEvent("click", { target: actorCard });
@@ -398,6 +542,8 @@ test("example client builds, renders, and evaluates", () => {
   const expandedActorCard = cards.find(card => card.getAttribute("data-node") === actorCard.getAttribute("data-node"));
   assert.equal(expandedActorCard.getAttribute("aria-expanded"), "true", "clicking an actor should expand handled jobs");
   assert.equal(cards.some(card => card.getAttribute("data-type") === "job"), true, "expanded actor should reveal handled jobs");
+  assert.match(harness.edgeLayer.innerHTML, /data-edge-type="performed-by"/, "expanded actor should draw only handled-job edges");
+  assert.doesNotMatch(harness.edgeLayer.innerHTML, /data-edge-type="supports"/, "actors map should not draw unrelated capability support edges");
 
   harness.canvas.dispatchEvent("pointerdown", {
     button: 0,
@@ -412,5 +558,5 @@ test("example client builds, renders, and evaluates", () => {
     clientY: 85,
     target: harness.canvas
   });
-  assert.match(harness.graphStage.style.transform, /translate\(50px, 35px\)/, "dragging the canvas background should pan the stage");
+  assert.match(harness.graphStage.style.transform, /translate\(-?\d+px, 35px\)/, "dragging the canvas background should pan the stage from the centered starting position");
 });

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.map-surfaces-functions.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Map Surfaces and Functions</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.map-surfaces-functions.capability",
+  "title": "Map Surfaces and Functions",
+  "type": "capability",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "high",
+  "parent": "foundation.operating-system.system",
+  "children": [
+    "foundation.backfill-surface-function-map.job"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.operating-system.system",
+      "relationship": "parent",
+      "sections": [
+        "system-intent"
+      ]
+    },
+    {
+      "id": "foundation.backfill-surface-function-map.job",
+      "relationship": "child"
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/capabilities/map-surfaces-functions.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/scripts/foundation-self-map-check.mjs",
+      "kind": "workflow",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.map-surfaces-functions.capability:primary-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/surface-function-map.test.mjs",
+      "mapsTo": [
+        "foundation.map-surfaces-functions.capability#evidence-and-evaluation"
+      ],
+      "command": "npm run foundation:surface-function-map:test"
+    },
+    {
+      "id": "foundation.map-surfaces-functions.capability:self-map",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-self-map-check.mjs",
+      "mapsTo": [
+        "foundation.map-surfaces-functions.capability#jobs"
+      ],
+      "command": "npm run foundation:self-map:check"
+    }
+  ],
+  "tags": [
+    "capability",
+    "foundation",
+    "map"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.map-surfaces-functions.capability",
+  "nodes": [
+    {
+      "id": "spec:foundation.map-surfaces-functions.capability",
+      "type": "capability",
+      "label": "Map Surfaces and Functions",
+      "source": {
+        "specId": "foundation.map-surfaces-functions.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "map"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.map-surfaces-functions.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.map-surfaces-functions.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.map-surfaces-functions.capability",
+        "sectionId": "capability-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.map-surfaces-functions.capability:realized-by:spec:foundation.backfill-surface-function-map.job",
+      "type": "realized-by",
+      "from": "spec:foundation.map-surfaces-functions.capability",
+      "to": "spec:foundation.backfill-surface-function-map.job",
+      "source": {
+        "specId": "foundation.map-surfaces-functions.capability",
+        "sectionId": "capability-intent"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Map Surfaces and Functions</div>
+      <div class="sidebar-sub">capability spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#capability-intent"><span class="nav-num">01</span>Capability intent</a>
+    <a class="nav-item" href="#outcome-contract"><span class="nav-num">02</span>Outcome contract</a>
+    <a class="nav-item" href="#jobs"><span class="nav-num">03</span>Jobs</a>
+    <a class="nav-item" href="#interfaces-and-sources"><span class="nav-num">04</span>Interfaces and sources</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">05</span>Evidence and evaluation</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/capabilities/map-surfaces-functions.html</div>
+    <h1>Map Surfaces and Functions</h1>
+    <p class="lede">This capability turns classified files into a behavior map agents can use before naming capabilities or jobs.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-01</div>
+      <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+      <h1>Capability intent</h1>
+      <p>Foundation must connect artifacts to visible surfaces, functions, actions, and operating behaviors. Surface/function mapping preserves what users or operators can see, where the behavior is implemented, and which source artifacts support that reading.</p>
+    </section>
+
+    <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="contracts">
+      <h2>Outcome contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Beneficiary</td><td>Spec authors and implementation agents that need behavior boundaries before drafting jobs.</td><td>Foundation operating system and linked child specs.</td></tr>
+          <tr><td>Reliable outcome</td><td>A repo has a source-backed map of surfaces, functions, actions, states, and handoff rows.</td><td>Child job specs, graph metadata, and checks.</td></tr>
+          <tr><td>Domain object</td><td>Surface/function map rows and dated reports.</td><td>Spec registry and graph metadata.</td></tr>
+          <tr><td>Constraints</td><td>The loop reads from inventory handoff output and preserves file-level evidence.</td><td>Spec workflow, graph check, self-map check.</td></tr>
+          <tr><td>Failure mode</td><td>Capability names become broad summaries instead of behavior-grounded operating outcomes.</td><td>Missing capability ownership, stale specs, or unreviewed agent output.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+      <h2>Jobs</h2>
+      <table class="status-table">
+        <thead><tr><th>Job</th><th>Purpose</th><th>Spec</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Backfill Surface Function Map</td><td>Map visible surfaces, functions, actions, states, and source evidence.</td><td><code>foundation.backfill-surface-function-map.job</code></td><td>active</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interfaces-and-sources" data-spec-section="interfaces-and-sources" data-section-type="interfaces">
+      <h2>Interfaces and sources</h2>
+      <ul>
+        <li>scripts/surface-function-map-*.mjs commands maintain the map.</li>
+        <li>skills/surface-function-map-fill-loop/SKILL.md defines the fill loop.</li>
+        <li>Artifact inventory handoff output is the required input.</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Eval or check</th><th>Revision target</th></tr></thead>
+        <tbody>
+          <tr><td>Surface/function map check and eval pass after inventory handoff.</td><td><code>foundation.backfill-surface-function-map.eval</code></td><td>Update map schema, fill logic, or source classification.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Map Surfaces and Functions - Foundation capability spec</p>
+</main>
+<script src="../../site-map.js"></script>
+<script src="../../site-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.generate-maintain-agent-skills.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-01">
+<title>Generate and Maintain Agent Skills</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.generate-maintain-agent-skills.capability",
+  "title": "Generate and Maintain Agent Skills",
+  "type": "capability",
+  "status": "active",
+  "lastUpdated": "2026-06-01",
+  "reviewCadence": "per-change",
+  "confidence": "high",
+  "parent": "foundation.operating-system.system",
+  "children": [
+    "foundation.backfill-author-specs.job"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.operating-system.system",
+      "relationship": "parent",
+      "sections": [
+        "system-intent"
+      ]
+    },
+    {
+      "id": "foundation.backfill-author-specs.job",
+      "relationship": "child"
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/capabilities/generate-maintain-agent-skills.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/scripts/foundation-self-map-check.mjs",
+      "kind": "workflow",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.generate-maintain-agent-skills.capability:primary-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-self-map-check.mjs",
+      "mapsTo": [
+        "foundation.generate-maintain-agent-skills.capability#evidence-and-evaluation"
+      ],
+      "command": "npm run foundation:self-map:check"
+    },
+    {
+      "id": "foundation.generate-maintain-agent-skills.capability:self-map",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-self-map-check.mjs",
+      "mapsTo": [
+        "foundation.generate-maintain-agent-skills.capability#jobs"
+      ],
+      "command": "npm run foundation:self-map:check"
+    }
+  ],
+  "tags": [
+    "capability",
+    "foundation",
+    "skills"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.generate-maintain-agent-skills.capability",
+  "nodes": [
+    {
+      "id": "spec:foundation.generate-maintain-agent-skills.capability",
+      "type": "capability",
+      "label": "Generate and Maintain Agent Skills",
+      "source": {
+        "specId": "foundation.generate-maintain-agent-skills.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "skills"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.generate-maintain-agent-skills.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.generate-maintain-agent-skills.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.generate-maintain-agent-skills.capability",
+        "sectionId": "capability-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.generate-maintain-agent-skills.capability:realized-by:spec:foundation.backfill-author-specs.job",
+      "type": "realized-by",
+      "from": "spec:foundation.generate-maintain-agent-skills.capability",
+      "to": "spec:foundation.backfill-author-specs.job",
+      "source": {
+        "specId": "foundation.generate-maintain-agent-skills.capability",
+        "sectionId": "capability-intent"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Generate and Maintain Agent Skills</div>
+      <div class="sidebar-sub">capability spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#capability-intent"><span class="nav-num">01</span>Capability intent</a>
+    <a class="nav-item" href="#outcome-contract"><span class="nav-num">02</span>Outcome contract</a>
+    <a class="nav-item" href="#jobs"><span class="nav-num">03</span>Jobs</a>
+    <a class="nav-item" href="#interfaces-and-sources"><span class="nav-num">04</span>Interfaces and sources</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">05</span>Evidence and evaluation</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/capabilities/generate-maintain-agent-skills.html</div>
+    <h1>Generate and Maintain Agent Skills</h1>
+    <p class="lede">This capability makes skills executable process assets instead of informal prompts.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-01</div>
+      <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+      <h1>Capability intent</h1>
+      <p>Foundation skills must be owned by job specs and improve named capabilities. A skill should tell an agent when to use it, which specs to load, what loop to follow, what artifacts to update, and which checks prove it did the job.</p>
+    </section>
+
+    <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="contracts">
+      <h2>Outcome contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Beneficiary</td><td>Agents repeatedly performing Foundation workflows across repos.</td><td>Foundation operating system and linked child specs.</td></tr>
+          <tr><td>Reliable outcome</td><td>Every skill has an owning job, capability, and validation path when it changes repo state.</td><td>Child job specs, graph metadata, and checks.</td></tr>
+          <tr><td>Domain object</td><td>Skill files, agent configs, owning job specs, and validation commands.</td><td>Spec registry and graph metadata.</td></tr>
+          <tr><td>Constraints</td><td>New skills cannot exist outside the spec graph; mutating skills need tests or checks.</td><td>Spec workflow, graph check, self-map check.</td></tr>
+          <tr><td>Failure mode</td><td>Agents accumulate undocumented procedures that drift away from specs and validators.</td><td>Missing capability ownership, stale specs, or unreviewed agent output.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+      <h2>Jobs</h2>
+      <table class="status-table">
+        <thead><tr><th>Job</th><th>Purpose</th><th>Spec</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Backfill Author Specs</td><td>Author and maintain skill-backed spec workflows until a dedicated skill-authoring job exists.</td><td><code>foundation.backfill-author-specs.job</code></td><td>active</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interfaces-and-sources" data-spec-section="interfaces-and-sources" data-section-type="interfaces">
+      <h2>Interfaces and sources</h2>
+      <ul>
+        <li>skills/*/SKILL.md are executable operating procedures.</li>
+        <li>Job specs own skills through ownedPaths.</li>
+        <li>foundation:self-map:check enforces skill-to-job mapping.</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Eval or check</th><th>Revision target</th></tr></thead>
+        <tbody>
+          <tr><td>Self-map check proves each skill path is owned by a job spec.</td><td><code>foundation.self-map.check</code></td><td>Create or update owning job specs and skill metadata.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Generate and Maintain Agent Skills - Foundation capability spec</p>
+</main>
+<script src="../../site-map.js"></script>
+<script src="../../site-nav.js"></script>
+</body>
+</html>

@@ -144,16 +144,17 @@
         <tbody>
           <tr><td>AC-1</td><td>Every Foundation HTML spec contains valid <code>graph-metadata</code>.</td><td><code>foundation:visible-business-graph:check -- --repo .</code></td></tr>
           <tr><td>AC-2</td><td>The generated Foundation graph has no dangling nodes, orphan technical/eval/template specs, or unresolved source sections.</td><td>Graph check output and graph JSON.</td></tr>
-          <tr><td>AC-3</td><td>The canonical example client graph contains expected system, capability, job, actor, process, tool, evidence, metric, and gap nodes.</td><td>Expected graph fixture and eval report.</td></tr>
-          <tr><td>AC-4</td><td>The canvas renders locally and includes source links, centered top-down layout, a primary capability map with inline capability/job expansion, an actors map with actor-to-job expansion, and pointer drag panning.</td><td>Rendered canvas HTML, executed renderer behavior tests, browser smoke check.</td></tr>
-          <tr><td>AC-5</td><td>New specs scaffold graph metadata by default.</td><td><code>spec:new -- --print</code> assertions in unit tests.</td></tr>
+          <tr><td>AC-3</td><td>Capability child jobs are connected with <code>realized-by</code> edges, and job specs connect back to owning capabilities with <code>supports</code> edges.</td><td><code>foundation:visible-business-graph:test</code> and graph check output.</td></tr>
+          <tr><td>AC-4</td><td>The canonical example client graph contains expected system, capability, job, actor, process, tool, evidence, metric, and gap nodes.</td><td>Expected graph fixture and eval report.</td></tr>
+          <tr><td>AC-5</td><td>The canvas renders locally and includes source links, centered top-down layout, a one-row horizontal capability band, centered initial pan in a narrow canvas, shared document-navigation collapse behavior, deterministic branch accent color, selected-path edge policy, a primary capability map with inline capability/job expansion, an actors map with actor-to-job expansion, and pointer drag panning.</td><td>Rendered canvas HTML, executed renderer behavior tests, browser smoke check.</td></tr>
+          <tr><td>AC-6</td><td>New specs scaffold graph metadata by default.</td><td><code>spec:new -- --print</code> assertions in unit tests.</td></tr>
         </tbody>
       </table>
     </section>
 
     <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
       <h2>Coverage plan</h2>
-      <p>Unit tests cover parser and validator behavior. Integration tests cover Foundation-wide graph compatibility and example-client render/eval. Renderer tests execute the generated canvas script to verify centered top-down layout, collapsed initial jobs, inline capability expansion, inline job expansion, job-context node visibility, actors-map expansion, <code>aria-expanded</code> updates, and pointer drag panning. Browser smoke review remains required before treating the canvas as a client-ready UI.</p>
+      <p>Unit tests cover parser and validator behavior, including required capability-to-job <code>realized-by</code> edges and job-to-capability <code>supports</code> edges. Integration tests cover Foundation-wide graph compatibility and example-client render/eval. Renderer tests execute the generated canvas script to verify centered top-down layout, one-row capability band behavior, centered initial pan in narrow canvases, shared document-navigation collapse behavior, deterministic branch accent color, selected-path edge policy, collapsed initial jobs, inline capability expansion, inline job expansion, job-context node visibility, actors-map expansion, <code>aria-expanded</code> updates, and pointer drag panning. Browser smoke review remains required before treating the canvas as a client-ready UI.</p>
     </section>
 
     <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">

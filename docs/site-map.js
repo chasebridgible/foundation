@@ -7,7 +7,7 @@ window.SubstrateSiteMap = {
       "sourcePath": "docs"
     }
   ],
-  "fileCount": 75,
+  "fileCount": 88,
   "items": [
     {
       "type": "folder",
@@ -175,6 +175,122 @@ window.SubstrateSiteMap = {
           "sourcePath": "docs/specs/index.html",
           "rootPath": "docs",
           "specId": "foundation.spec-system"
+        },
+        {
+          "type": "folder",
+          "name": "capabilities",
+          "title": "Capabilities",
+          "sourcePath": "docs/specs/capabilities",
+          "items": [
+            {
+              "type": "file",
+              "name": "author-durable-specs.html",
+              "title": "Author Durable Specs",
+              "path": "specs/capabilities/author-durable-specs.html",
+              "sourcePath": "docs/specs/capabilities/author-durable-specs.html",
+              "rootPath": "docs",
+              "specId": "foundation.author-durable-specs.capability"
+            },
+            {
+              "type": "file",
+              "name": "capture-business-system-intent.html",
+              "title": "Capture Business and System Intent",
+              "path": "specs/capabilities/capture-business-system-intent.html",
+              "sourcePath": "docs/specs/capabilities/capture-business-system-intent.html",
+              "rootPath": "docs",
+              "specId": "foundation.capture-business-system-intent.capability"
+            },
+            {
+              "type": "file",
+              "name": "compound-improvements-safely.html",
+              "title": "Compound Improvements Safely",
+              "path": "specs/capabilities/compound-improvements-safely.html",
+              "sourcePath": "docs/specs/capabilities/compound-improvements-safely.html",
+              "rootPath": "docs",
+              "specId": "foundation.compound-improvements-safely.capability"
+            },
+            {
+              "type": "file",
+              "name": "define-jobs-from-capabilities.html",
+              "title": "Define Jobs From Capabilities",
+              "path": "specs/capabilities/define-jobs-from-capabilities.html",
+              "sourcePath": "docs/specs/capabilities/define-jobs-from-capabilities.html",
+              "rootPath": "docs",
+              "specId": "foundation.define-jobs-from-capabilities.capability"
+            },
+            {
+              "type": "file",
+              "name": "evaluate-quality-completeness.html",
+              "title": "Evaluate Quality and Completeness",
+              "path": "specs/capabilities/evaluate-quality-completeness.html",
+              "sourcePath": "docs/specs/capabilities/evaluate-quality-completeness.html",
+              "rootPath": "docs",
+              "specId": "foundation.evaluate-quality-completeness.capability"
+            },
+            {
+              "type": "file",
+              "name": "generate-maintain-agent-skills.html",
+              "title": "Generate and Maintain Agent Skills",
+              "path": "specs/capabilities/generate-maintain-agent-skills.html",
+              "sourcePath": "docs/specs/capabilities/generate-maintain-agent-skills.html",
+              "rootPath": "docs",
+              "specId": "foundation.generate-maintain-agent-skills.capability"
+            },
+            {
+              "type": "file",
+              "name": "install-foundation-target-repos.html",
+              "title": "Install Foundation Into Target Repos",
+              "path": "specs/capabilities/install-foundation-target-repos.html",
+              "sourcePath": "docs/specs/capabilities/install-foundation-target-repos.html",
+              "rootPath": "docs",
+              "specId": "foundation.install-foundation-target-repos.capability"
+            },
+            {
+              "type": "file",
+              "name": "inventory-classify-artifacts.html",
+              "title": "Inventory and Classify Repository Artifacts",
+              "path": "specs/capabilities/inventory-classify-artifacts.html",
+              "sourcePath": "docs/specs/capabilities/inventory-classify-artifacts.html",
+              "rootPath": "docs",
+              "specId": "foundation.inventory-classify-artifacts.capability"
+            },
+            {
+              "type": "file",
+              "name": "map-capabilities-from-evidence.html",
+              "title": "Map Capabilities From Evidence",
+              "path": "specs/capabilities/map-capabilities-from-evidence.html",
+              "sourcePath": "docs/specs/capabilities/map-capabilities-from-evidence.html",
+              "rootPath": "docs",
+              "specId": "foundation.map-capabilities-from-evidence.capability"
+            },
+            {
+              "type": "file",
+              "name": "map-surfaces-functions.html",
+              "title": "Map Surfaces and Functions",
+              "path": "specs/capabilities/map-surfaces-functions.html",
+              "sourcePath": "docs/specs/capabilities/map-surfaces-functions.html",
+              "rootPath": "docs",
+              "specId": "foundation.map-surfaces-functions.capability"
+            },
+            {
+              "type": "file",
+              "name": "package-context-for-action.html",
+              "title": "Package Context For Action",
+              "path": "specs/capabilities/package-context-for-action.html",
+              "sourcePath": "docs/specs/capabilities/package-context-for-action.html",
+              "rootPath": "docs",
+              "specId": "foundation.package-context-for-action.capability"
+            },
+            {
+              "type": "file",
+              "name": "render-inspectable-system-graph.html",
+              "title": "Render the System as an Inspectable Graph",
+              "path": "specs/capabilities/render-inspectable-system-graph.html",
+              "sourcePath": "docs/specs/capabilities/render-inspectable-system-graph.html",
+              "rootPath": "docs",
+              "specId": "foundation.render-inspectable-system-graph.capability"
+            }
+          ]
         },
         {
           "type": "folder",
@@ -632,6 +748,15 @@ window.SubstrateSiteMap = {
           "sourcePath": "docs/specs/foundation-html-docs-navigation.html",
           "rootPath": "docs",
           "specId": "foundation.html-docs-navigation.job"
+        },
+        {
+          "type": "file",
+          "name": "foundation-operating-system.html",
+          "title": "Foundation Operating System",
+          "path": "specs/foundation-operating-system.html",
+          "sourcePath": "docs/specs/foundation-operating-system.html",
+          "rootPath": "docs",
+          "specId": "foundation.operating-system.system"
         },
         {
           "type": "file",

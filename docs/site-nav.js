@@ -1,6 +1,7 @@
 (function () {
   const scriptElement = document.currentScript;
   const siteRootUrl = new URL(".", scriptElement ? scriptElement.src : window.location.href);
+  const navCollapsedStorageKey = "substrate-site-nav-collapsed";
 
   function normalizePagePath(url) {
     const parsed = new URL(url, window.location.href);
@@ -75,6 +76,52 @@
         display: flex;
         min-height: 100vh;
         padding: 0;
+      }
+      body.substrate-has-site-nav .sidebar {
+        transition: width 160ms ease, min-width 160ms ease, padding 160ms ease, border-color 160ms ease;
+      }
+      body.substrate-has-site-nav.substrate-site-nav-collapsed .sidebar {
+        border-right-color: var(--border, #2a2a2a);
+        min-width: var(--substrate-site-nav-collapsed-width, 44px);
+        overflow: hidden;
+        padding-left: 0;
+        padding-right: 0;
+        width: var(--substrate-site-nav-collapsed-width, 44px) !important;
+      }
+      body.substrate-has-site-nav.substrate-site-nav-collapsed .sidebar > :not(.substrate-sidebar-control) {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+      }
+      .substrate-sidebar-control {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        padding: 8px 8px 6px;
+      }
+      body.substrate-has-site-nav.substrate-site-nav-collapsed .substrate-sidebar-control {
+        justify-content: center;
+      }
+      .substrate-nav-toggle {
+        align-items: center;
+        background: var(--bg-3, #232323);
+        border: 1px solid var(--border-2, #353535);
+        border-radius: 6px;
+        color: var(--fg-2, #a1a1a1);
+        cursor: pointer;
+        display: inline-flex;
+        font: 600 11px/1 var(--font-mono, ui-monospace, monospace);
+        height: 28px;
+        justify-content: center;
+        padding: 0;
+        width: 28px;
+      }
+      .substrate-nav-toggle:hover,
+      .substrate-nav-toggle:focus-visible {
+        background: var(--bg-4, #2a2a2a);
+        border-color: var(--primary, #4f8eff);
+        color: var(--fg, #e4e4e7);
+        outline: none;
       }
       body.substrate-has-injected-sidebar .substrate-site-main {
         flex: 1;
@@ -267,9 +314,68 @@
           position: relative;
           width: 100%;
         }
+        body.substrate-has-site-nav.substrate-site-nav-collapsed .sidebar {
+          height: 44px;
+          max-height: 44px;
+          min-width: 100%;
+          width: 100% !important;
+        }
       }
     `;
     document.head.appendChild(style);
+  }
+
+  function readStoredNavCollapsed() {
+    try {
+      return window.localStorage.getItem(navCollapsedStorageKey) === "true";
+    } catch {
+      return false;
+    }
+  }
+
+  function writeStoredNavCollapsed(collapsed) {
+    try {
+      window.localStorage.setItem(navCollapsedStorageKey, collapsed ? "true" : "false");
+    } catch {
+      // Collapse state is a convenience preference; unavailable storage should not block docs.
+    }
+  }
+
+  function setNavCollapsed(collapsed, { persist = true } = {}) {
+    document.body.classList.toggle("substrate-site-nav-collapsed", collapsed);
+    if (persist) writeStoredNavCollapsed(collapsed);
+    document.querySelectorAll("[data-site-nav-toggle]").forEach(syncNavToggle);
+    document.dispatchEvent(new CustomEvent("substrate:site-nav-toggle", { detail: { collapsed } }));
+  }
+
+  function syncNavToggle(button) {
+    const collapsed = document.body.classList.contains("substrate-site-nav-collapsed");
+    button.setAttribute("aria-pressed", collapsed ? "true" : "false");
+    button.setAttribute("aria-label", collapsed ? "Show document navigation" : "Hide document navigation");
+    button.title = collapsed ? "Show document navigation" : "Hide document navigation";
+    button.textContent = collapsed ? ">>" : "<<";
+  }
+
+  function ensureNavToggle(sidebar) {
+    const existing = sidebar.querySelector("[data-site-nav-toggle]");
+    if (existing) {
+      syncNavToggle(existing);
+      return;
+    }
+
+    const control = document.createElement("div");
+    control.className = "substrate-sidebar-control";
+
+    const button = document.createElement("button");
+    button.className = "substrate-nav-toggle";
+    button.type = "button";
+    button.dataset.siteNavToggle = "true";
+    button.addEventListener("click", () => {
+      setNavCollapsed(!document.body.classList.contains("substrate-site-nav-collapsed"));
+    });
+    control.appendChild(button);
+    sidebar.insertBefore(control, sidebar.firstChild);
+    syncNavToggle(button);
   }
 
   function currentDocumentTitle() {
@@ -420,6 +526,9 @@
 
     injectStyles();
     const { sidebar, generated } = ensureSidebar();
+    document.body.classList.add("substrate-has-site-nav");
+    ensureNavToggle(sidebar);
+    setNavCollapsed(readStoredNavCollapsed(), { persist: false });
     if (sidebar.querySelector("[data-site-nav]")) return;
 
     const section = document.createElement("div");

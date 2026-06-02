@@ -6,7 +6,7 @@
 <meta name="spec:id" content="example.software.notification-preferences.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-31">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Manage Notification Preferences - Software Job Spec Example</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,25 +16,74 @@
   "title": "Manage Notification Preferences - Software Job Spec Example",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-05-31",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": null,
+  "parent": "foundation.author-durable-specs.capability",
   "children": [],
   "relatedSpecs": [
-    { "id": "foundation.spec-template.job", "relationship": "informs", "sections": ["job-intent", "process", "evidence-and-evaluation"] },
-    { "id": "foundation.spec-template.technical", "relationship": "informs", "sections": ["internal-sequence"] },
-    { "id": "foundation.spec-template.eval", "relationship": "informs", "sections": ["acceptance-mapping"] }
+    {
+      "id": "foundation.author-durable-specs.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.job",
+      "relationship": "informs",
+      "sections": [
+        "job-intent",
+        "process",
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.technical",
+      "relationship": "informs",
+      "sections": [
+        "internal-sequence"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.eval",
+      "relationship": "informs",
+      "sections": [
+        "acceptance-mapping"
+      ]
+    }
   ],
   "ownedPaths": [
-    { "path": "app/settings/notifications/page.tsx", "kind": "source", "ownership": "abstract" },
-    { "path": "app/api/notification-preferences/route.ts", "kind": "source", "ownership": "abstract" }
+    {
+      "path": "app/settings/notifications/page.tsx",
+      "kind": "source",
+      "ownership": "abstract"
+    },
+    {
+      "path": "app/api/notification-preferences/route.ts",
+      "kind": "source",
+      "ownership": "abstract"
+    }
   ],
   "implementationPaths": [],
   "coverage": [
-    { "id": "NP-J1", "level": "e2e", "status": "planned", "path": "tests/e2e/notification-preferences.spec.ts", "mapsTo": ["example.software.notification-preferences.job#process"], "evidence": "A user can change a preference, refresh, and see the saved state." }
+    {
+      "id": "NP-J1",
+      "level": "e2e",
+      "status": "planned",
+      "path": "tests/e2e/notification-preferences.spec.ts",
+      "mapsTo": [
+        "example.software.notification-preferences.job#process"
+      ],
+      "evidence": "A user can change a preference, refresh, and see the saved state."
+    }
   ],
-  "tags": ["example", "software", "job-spec", "settings"]
+  "tags": [
+    "example",
+    "software",
+    "job-spec",
+    "settings"
+  ]
 }
 </script>
 <script type="application/json" id="graph-metadata">
@@ -169,6 +218,16 @@
         "sectionId": "job-intent"
       },
       "label": "informs"
+    },
+    {
+      "id": "edge:spec:example.software.notification-preferences.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:example.software.notification-preferences.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "example.software.notification-preferences.job",
+        "sectionId": "capability-supported"
+      }
     }
   ]
 }

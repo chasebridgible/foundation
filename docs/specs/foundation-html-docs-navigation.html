@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.html-docs-navigation.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-30">
+<meta name="spec:last-updated" content="2026-06-01">
 <title>Foundation HTML Docs Navigation</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,12 +16,19 @@
   "title": "Foundation HTML Docs Navigation",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-05-30",
+  "lastUpdated": "2026-06-01",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": null,
+  "parent": "foundation.render-inspectable-system-graph.capability",
   "children": [],
   "relatedSpecs": [
+    {
+      "id": "foundation.render-inspectable-system-graph.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent"
+      ]
+    },
     {
       "id": "foundation.spec-system",
       "relationship": "depends-on",
@@ -76,6 +83,11 @@
     {
       "path": "foundation/docs/site-nav.js",
       "kind": "source",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/job-journey-images/SKILL.md",
+      "kind": "workflow",
       "ownership": "direct"
     }
   ],
@@ -336,6 +348,16 @@
         "sectionId": "overview"
       },
       "label": "depends-on"
+    },
+    {
+      "id": "edge:spec:foundation.html-docs-navigation.job:supports:spec:foundation.render-inspectable-system-graph.capability",
+      "type": "supports",
+      "from": "spec:foundation.html-docs-navigation.job",
+      "to": "spec:foundation.render-inspectable-system-graph.capability",
+      "source": {
+        "specId": "foundation.html-docs-navigation.job",
+        "sectionId": "product-intent"
+      }
     }
   ]
 }
@@ -428,6 +450,7 @@
         <li><strong>Foundation setup:</strong> a repo is connected to Foundation through the target-repo setup flow. The setup creates or verifies the local assets, commands, and scaffolding needed for that repo's own durable HTML docs to render the shared navigation.</li>
         <li><strong>Entry:</strong> a reader opens any durable HTML document in Foundation or a Foundation-based target repo that participates in the shared renderer.</li>
         <li><strong>Orientation:</strong> the left sidebar shows a document-tree region and a page-local section region. The current document is visibly selected inside its actual folder path.</li>
+        <li><strong>Collapse:</strong> the reader can use the far-left sidebar control to collapse or restore the document navigation without leaving the document. The same control behavior applies to generated specs, graph canvases, and target-repo HTML docs that load the shared navigation scripts.</li>
         <li><strong>Folder navigation:</strong> the reader expands or collapses folders. Opening a folder reveals child folders and HTML files in deterministic path order.</li>
         <li><strong>Document navigation:</strong> selecting a document navigates to that document. On the destination page, the same document-tree model appears, with the destination document selected and ancestor folders open.</li>
         <li><strong>Page-local navigation:</strong> section links for the current document remain separate from the repo document tree so the reader can distinguish "move within this page" from "open another page."</li>
@@ -462,6 +485,7 @@
           <tr><td>Document labels</td><td>Document nodes prefer the HTML <code>&lt;title&gt;</code>; if missing, they fall back to filename. Duplicate titles remain distinguishable through their folder position.</td><td>Flattening duplicate titles into one ambiguous link.</td></tr>
           <tr><td>Ordering</td><td>Ordering is deterministic and path-derived: folder ancestors first, <code>index.html</code> before sibling files, then natural filename order unless a later adjacent-folder manifest is explicitly specified by a separate spec.</td><td>A central hand-maintained order list that silently overrides where files live.</td></tr>
           <tr><td>Current page</td><td>The current document is highlighted; its ancestor folders are open on load.</td><td>Highlighting a group only, or failing to show the selected document's folder path.</td></tr>
+          <tr><td>Sidebar collapse</td><td>The shared renderer inserts an accessible collapse control as part of the far-left sidebar, persists the preference locally when storage is available, and emits a document event so specialized surfaces such as graph canvases can remeasure their layout.</td><td>Implementing one-off page-specific collapse buttons, hiding the toggle with the collapsed content, or making collapse available only on graph pages.</td></tr>
           <tr><td>Missing map</td><td>If generated map data is missing, the page still renders its content and page-local section nav. The document-tree region may show a clear empty/error state.</td><td>Breaking the whole document because navigation data failed to load.</td></tr>
           <tr><td>Included document</td><td>A document included in the navigation should render the shared navigation itself, unless explicitly marked as excluded.</td><td>A one-way link where readers can enter a page and lose the document tree.</td></tr>
           <tr><td>Excluded files</td><td>Generated reports, build output, vendor output, hidden directories, and transient artifacts may be excluded by explicit rules that are visible in the generator contract.</td><td>Quietly omitting durable authored HTML docs.</td></tr>
@@ -495,6 +519,7 @@
           <tr><td>Registry separation</td><td>Rendered navigation and spec registry lookup are clearly separate concepts. The visual document tree helps people move between files; the registry helps agents find behavior-bearing specs.</td><td>An agent can still resolve specs by ID, capability, job, process, path ownership, implementation reference, and coverage.</td></tr>
           <tr><td>Accessibility</td><td>The document tree is inside a named navigation region. Folder controls expose expanded/collapsed state and remain keyboard reachable.</td><td>Keyboard traversal can expand folders and open documents; focus is visible.</td></tr>
           <tr><td>Responsive behavior</td><td>Desktop keeps the document tree in a sticky left region. Narrow screens place the same navigation before content or behind an explicit, accessible disclosure without changing meaning.</td><td>Mobile and desktop screenshots preserve current-page context and section access.</td></tr>
+          <tr><td>Collapse control</td><td>The collapse affordance is an icon-sized button in the sidebar itself, remains reachable when collapsed, exposes <code>aria-pressed</code> and an accurate label, and does not become page-specific toolbar chrome.</td><td>Rendered checks show the sidebar can collapse and restore without obscuring document content or graph canvases.</td></tr>
           <tr><td>Density</td><td>The sidebar may be dense, but text cannot overlap or resize the layout unpredictably. Long labels wrap or truncate consistently while full meaning remains available through context or title text.</td><td>Rendered checks at representative widths show no incoherent overlap.</td></tr>
           <tr><td>Copy</td><td>Labels should use document language: "Documents", folder names, and page titles. Avoid taxonomy labels that imply editorial judgment.</td><td>The left nav mirrors folder structure rather than a custom subject hierarchy.</td></tr>
           <tr><td>State feedback</td><td>Current document, hover, focus, open folder, and unavailable/error states are visually distinct.</td><td>Manual interaction can identify each state without reading source code.</td></tr>

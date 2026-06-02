@@ -10,14 +10,17 @@ Use this skill as the execution wrapper for the repo's HTML-native spec system. 
 ## Entry Workflow
 
 1. Read `docs/specs/index.html#spec-registry` first. Use it to resolve spec IDs, files, related specs, owned paths, implementation references, and coverage.
-2. If creating or revising a spec, read `docs/specs/process.html#spec-authoring` and `docs/specs/linking.html#html-native-metadata`.
-3. If implementing behavior, load only the relevant job, eval, and technical spec sections. Prefer the lowest-level owning spec over broad parent specs.
-4. If no spec covers the behavior, create or update the spec before changing durable behavior.
-5. Identify the risk tier from `docs/specs/process.html#risk-tiers` and scale spec/test depth to that tier.
-6. Keep prose, `spec-metadata`, `graph-metadata`, HTML meta tags, visible path lists, and coverage tables aligned.
-7. If `spec-metadata` changes, run `npm run spec:registry`, then `npm run spec:check`.
-8. If `graph-metadata` changes, run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
-9. Before handoff, run `npm run spec:check` and graph check, then report any remaining semantic review risk.
+2. Read `docs/specs/foundation-operating-system.html#capability-map` before authoring Foundation-owned specs, skills, validators, templates, or workflows.
+3. Name the owning Foundation capability and owning job spec before writing. If no owning job exists, create or revise the job spec before adding a new skill, validator, template, or durable workflow.
+4. If creating or revising a spec, read `docs/specs/process.html#spec-authoring` and `docs/specs/linking.html#html-native-metadata`.
+5. If implementing behavior, load only the relevant capability, job, eval, and technical spec sections. Prefer the lowest-level owning spec over broad parent specs.
+6. If no spec covers the behavior, create or update the spec before changing durable behavior.
+7. Identify the risk tier from `docs/specs/process.html#risk-tiers` and scale spec/test depth to that tier.
+8. Keep prose, `spec-metadata`, `graph-metadata`, HTML meta tags, visible path lists, and coverage tables aligned.
+9. If `spec-metadata` changes, run `npm run spec:registry`, then `npm run spec:check`.
+10. If `graph-metadata` changes, run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
+11. If Foundation capability, job, or skill ownership changes, run `npm run foundation:self-map:check`.
+12. Before handoff, run `npm run spec:check`, graph check, and the self-map check when Foundation itself changed; then report any remaining semantic review risk.
 
 ## Authoring Rules
 
@@ -26,6 +29,9 @@ Use this skill as the execution wrapper for the repo's HTML-native spec system. 
 - Use `npm run spec:new -- --type job --id product.feature.job --title "Feature Job Spec" --out docs/specs/features/feature-job.html` for a valid starter file.
 - Fill `spec-metadata` before generating the spec content.
 - Fill `graph-metadata` before handoff. Every system, capability, job, technical, eval, template, and index spec must expose graph nodes and edges.
+- For Foundation-owned work, attach every job to a capability. Before adding or changing a skill, answer: Which Foundation capability does this improve? Is there already a job spec for this work?
+- Keep capability/job graph edges explicit: capability specs realize child jobs with `realized-by` edges, and job specs support their owning capability with `supports` edges. A `parent` or `children` registry link alone is not enough.
+- Every Foundation skill must have an owning capability, an owning job spec, a technical spec when it defines scripts or data contracts, an eval spec when quality judgment matters, and tests or checks when it mutates repo state.
 - Use stable dotted spec IDs.
 - Set exactly one section with `data-spec-canonical="true"`.
 - Use `ownedPaths` only for files the spec directly owns. Use `implementationPaths` for navigation references.

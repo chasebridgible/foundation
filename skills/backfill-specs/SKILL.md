@@ -61,11 +61,12 @@ Define Spec Jobs rows must include stable slice ID, name, scope, upstream capabi
 
 1. Read target `AGENTS.md`.
 2. Read Foundation `AGENTS.md`.
-3. Read this skill.
-4. If the repo is not connected, use `skills/install-foundation-substrate/SKILL.md`.
-5. Run or confirm `npm run foundation:doctor -- --repo <target-repo>`.
-6. Read the active dated report/run log if target `AGENTS.md` names one.
-7. Read the top-level system/app spec if it exists.
+3. If changing Foundation itself, read `docs/specs/foundation-operating-system.html#capability-map` and name the capability/job that owns the change before authoring specs or skills.
+4. Read this skill.
+5. If the repo is not connected, use `skills/install-foundation-substrate/SKILL.md`.
+6. Run or confirm `npm run foundation:doctor -- --repo <target-repo>`.
+7. Read the active dated report/run log if target `AGENTS.md` names one.
+8. Read the top-level system/app spec if it exists.
 
 ## Forced Loop
 
@@ -117,6 +118,7 @@ Backfill is complete when:
 - every manifest file has a mapped Artifact Inventory row, and every relevant evidence surface maps to a capability row or non-behavioral support note
 - graph-level evaluation is acceptable
 - queue, run log, registry, spec checks, and visible business graph checks pass
+- for Foundation-owned changes, `npm run foundation:self-map:check` passes
 
 ## Handoff
 
