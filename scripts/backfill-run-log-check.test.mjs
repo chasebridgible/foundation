@@ -96,6 +96,95 @@ test("accepts capability map phase events", () => {
   assert.equal(validateRunLog(file).some(result => result.status === "fail"), false);
 });
 
+test("accepts current command phases for process map, validation, evaluation, and handoff", () => {
+  const file = writeRunLog([
+    JSON.stringify({
+      ts: "2026-06-03T10:00:00.000Z",
+      runId: "20260603-01",
+      sequence: 1,
+      slice: null,
+      phase: "process-action-map",
+      event: "checkpoint",
+      summary: "Filled one Process / Action Map row.",
+      artifactsRead: ["docs/specs/backfill/context-pack-20260603-01.jsonl"],
+      artifactsChanged: ["docs/specs/backfill/process-action-map-20260603-01.jsonl"],
+      commands: ["foundation:process-action-map:fill"],
+      checks: [],
+      nextAction: "Run Process / Action Map check."
+    }),
+    JSON.stringify({
+      ts: "2026-06-03T10:01:00.000Z",
+      runId: "20260603-01",
+      sequence: 2,
+      slice: null,
+      phase: "validation",
+      event: "validation",
+      summary: "Checked Process / Action Map.",
+      artifactsRead: ["docs/specs/backfill/process-action-map-20260603-01.jsonl"],
+      artifactsChanged: ["docs/specs/backfill/process-action-map-check-20260603-01.json"],
+      commands: ["foundation:process-action-map:check"],
+      checks: [{ name: "process-action-map-check", result: "passed" }],
+      result: "Process / Action Map check passed.",
+      nextAction: "Run row eval."
+    }),
+    JSON.stringify({
+      ts: "2026-06-03T10:02:00.000Z",
+      runId: "20260603-01",
+      sequence: 3,
+      slice: null,
+      phase: "evaluation",
+      event: "evaluation",
+      summary: "Evaluated one Process / Action Map row.",
+      artifactsRead: ["docs/specs/backfill/process-action-map-20260603-01.jsonl"],
+      artifactsChanged: ["docs/specs/backfill/process-action-map-eval-20260603-01.jsonl"],
+      commands: ["foundation:process-action-map:eval"],
+      checks: [{ name: "process-action-map-eval", result: "passed" }],
+      result: "Selected row outstanding.",
+      nextAction: "Continue with --next."
+    }),
+    JSON.stringify({
+      ts: "2026-06-03T10:03:00.000Z",
+      runId: "20260603-01",
+      sequence: 4,
+      slice: null,
+      phase: "handoff",
+      event: "handoff",
+      summary: "Recorded Process / Action Map handoff.",
+      artifactsRead: ["docs/specs/backfill/process-action-map-20260603-01.jsonl"],
+      artifactsChanged: ["docs/specs/backfill/review-report-20260603-01.html"],
+      commands: ["foundation:process-action-map:report"],
+      checks: [{ name: "process-action-map-handoff", result: "passed" }],
+      result: "Process / Action Map handoff gate passed.",
+      nextAction: "Author Specs may consume Process / Action Map artifacts."
+    })
+  ]);
+
+  assert.equal(validateRunLog(file).some(result => result.status === "fail"), false);
+});
+
+test("accepts legacy surface-map phase with warning", () => {
+  const file = writeRunLog([
+    JSON.stringify({
+      ts: "2026-05-28T04:00:00.000Z",
+      runId: "20260527-01",
+      sequence: 1,
+      slice: null,
+      phase: "surface-map",
+      event: "checkpoint",
+      summary: "Filled Surface / Function Map rows.",
+      artifactsRead: ["docs/specs/backfill/artifact-inventory-20260527-01.jsonl"],
+      artifactsChanged: ["docs/specs/backfill/surface-function-map-20260527-01.jsonl"],
+      commands: ["foundation:surface-function-map:fill"],
+      checks: [],
+      nextAction: "Run Surface / Function Map checker."
+    })
+  ]);
+
+  const results = validateRunLog(file);
+  assert.equal(results.some(result => result.status === "fail"), false);
+  assert.equal(results.some(result => result.id === "line:1:legacy-phase" && result.status === "warn"), true);
+});
+
 test("rejects missing run log files", () => {
   const results = validateRunLog(path.join(os.tmpdir(), "missing-run-log.jsonl"));
   assert.equal(hasFailure(results, "log-exists"), true);

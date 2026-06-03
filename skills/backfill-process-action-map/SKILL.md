@@ -23,7 +23,7 @@ Run this layer only after Context Pack handoff is complete for the active run.
    `npm run foundation:process-action-map:init -- --repo <target-repo> --run-id <run-id> [--report docs/specs/backfill/review-report-<run-id>.html] [--run-log docs/specs/backfill/run-log-<run-id>.jsonl]`
 2. Find the next row without writing:
    `npm run foundation:process-action-map:fill -- --repo <target-repo> --run-id <run-id> --next`
-3. Review exactly one Context Pack row. Read only that Context Pack row and its cited evidence.
+3. Review exactly one Context Pack row: the current `--next` target. Read only that Context Pack row and its cited evidence.
 4. Fill exactly one Process / Action Map row for that same pack or slice:
    `npm run foundation:process-action-map:fill -- --repo <target-repo> --run-id <run-id> --pack-id <pack-id> --processes-json '{...}' [--run-log ...]`
 5. Check the current row loop:
@@ -40,6 +40,8 @@ Run this layer only after Context Pack handoff is complete for the active run.
 Use `npm run foundation:process-action-map:refresh -- --repo <target-repo> --run-id <run-id>` after Context Pack rows change.
 
 The row loop is strict: `--next` -> read exactly one Context Pack row -> extract exactly one Process / Action Map row -> fill that same pack ID or slice ID -> check -> eval that row -> revise that same row until outstanding -> continue. Exactly one Context Pack row is reviewed and marked at a time.
+
+Do not automate around this loop. Do not write or run a Node, Python, shell, jq, xargs, or other driver that creates, fills, checks, evaluates, or revises more than the current `--next` row. Do not classify packs with regexes, path rules, generic kind maps, or reusable row templates. Helper commands may display the current row or current row evidence, but the Process / Action Map payload must be authored from the selected Context Pack row after reading its cited evidence. If the current row cannot be understood from its Context Pack evidence, mark that row with explicit blocker detail instead of inferring from nearby rows or broad repo patterns.
 
 ## Extract
 
@@ -59,6 +61,8 @@ For each capability process, record:
 - evidence paths
 - proposed job spec owner
 - unresolved human decisions
+
+The row must preserve specific behavior from the selected Context Pack. Generic category language such as "request pending", "process failed", "operator review needed", "return to the owning row", or broad path-derived statements is not outstanding unless the selected Context Pack evidence explicitly supports that behavior and the row names the concrete Sandia/source behavior.
 
 ## Graph Metadata Support
 

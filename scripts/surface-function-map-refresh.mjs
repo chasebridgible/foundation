@@ -66,7 +66,7 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "surface-map",
+    phase: "surface-function-map",
     event: "checkpoint",
     summary: `Refreshed Surface / Function Map: ${payload.changedCount} changed/new eligible upstream files, ${payload.removedCount} removed surface rows, ${payload.skippedCount} inert file rows skipped.`,
     artifactsRead: [path.relative(repoRoot, artifactInventory.registryPath), path.relative(repoRoot, surfacePath)],

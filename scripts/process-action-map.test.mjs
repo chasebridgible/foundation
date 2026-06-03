@@ -594,6 +594,7 @@ test("fill loop rejects coarse shortcuts and handoff reaches Author Specs after 
   );
 
   const packRows = readJsonl(contextPackPathFor(repoRoot, runId)).rows;
+  const packById = new Map(packRows.map(row => [row.packId, row]));
   assert.throws(
     () => runNode(processFillScript, [
       "--repo", repoRoot,
@@ -619,31 +620,56 @@ test("fill loop rejects coarse shortcuts and handoff reaches Author Specs after 
     }
   );
 
-  runNode(processFillScript, [
-    "--repo", repoRoot,
-    "--run-id", runId,
-    "--pack-id", packRows[0].packId,
-    "--processes-json", JSON.stringify(processSpecForPack(packRows[0])),
-    "--run-log", runLog
-  ], repoRoot);
+  const firstPack = packById.get(nextPayload.target.upstreamPackId);
+  const outOfOrderPack = packRows.find(row => row.packId !== firstPack.packId);
   assert.throws(
     () => runNode(processFillScript, [
       "--repo", repoRoot,
       "--run-id", runId,
-      "--pack-id", packRows[1].packId,
-      "--processes-json", JSON.stringify(processSpecForPack(packRows[1])),
+      "--pack-id", outOfOrderPack.packId,
+      "--processes-json", JSON.stringify(processSpecForPack(outOfOrderPack))
+    ], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /must use the current --next target/);
+      return true;
+    }
+  );
+
+  runNode(processFillScript, [
+    "--repo", repoRoot,
+    "--run-id", runId,
+    "--pack-id", firstPack.packId,
+    "--processes-json", JSON.stringify(processSpecForPack(firstPack)),
+    "--run-log", runLog
+  ], repoRoot);
+  assert.throws(
+    () => runNode(processEvalScript, ["--repo", repoRoot, "--run-id", runId, "--pack-id", firstPack.packId, "--run-log", runLog], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /requires a current passing Process \/ Action Map check/);
+      return true;
+    }
+  );
+  assert.throws(
+    () => runNode(processFillScript, [
+      "--repo", repoRoot,
+      "--run-id", runId,
+      "--pack-id", outOfOrderPack.packId,
+      "--processes-json", JSON.stringify(processSpecForPack(outOfOrderPack)),
       "--run-log", runLog
     ], repoRoot),
     error => {
-      assert.match(`${error.stderr || ""}${error.message}`, /must finish the current row before selecting another Context Pack row/);
+      assert.match(`${error.stderr || ""}${error.message}`, /must use the current --next target/);
       return true;
     }
   );
   runNode(processCheckScript, ["--repo", repoRoot, "--run-id", runId, "--phase", "batch", "--run-log", runLog], repoRoot);
-  const firstEval = runNode(processEvalScript, ["--repo", repoRoot, "--run-id", runId, "--pack-id", packRows[0].packId, "--run-log", runLog], repoRoot);
+  const firstEval = runNode(processEvalScript, ["--repo", repoRoot, "--run-id", runId, "--pack-id", firstPack.packId, "--run-log", runLog], repoRoot);
   assert.match(firstEval, /Selected row outstanding: yes/);
 
-  for (const packRow of packRows.slice(1)) {
+  while (true) {
+    const current = JSON.parse(runNode(processFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot)).target;
+    if (!current) break;
+    const packRow = packById.get(current.upstreamPackId);
     runNode(processFillScript, [
       "--repo", repoRoot,
       "--run-id", runId,
@@ -684,6 +710,34 @@ test("fill loop rejects coarse shortcuts and handoff reaches Author Specs after 
   fs.writeFileSync(reportFile, drifted, "utf8");
   const drift = validateProcessActionMap({ repoRoot, runId, reportPath: reportFile }).results;
   assert.equal(hasFailure(drift, "process-action-map-report-state-current"), true);
+});
+
+test("report command bootstraps current report-state check artifact", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260603-05";
+  const contextReportPath = preparePassingContextPackHandoff(repoRoot, runId);
+  runNode(processInitScript, ["--repo", repoRoot, "--run-id", runId, "--report", contextReportPath], repoRoot);
+  const checkPath = processActionMapCheckPathFor(repoRoot, runId);
+  assert.equal(fs.existsSync(checkPath), false);
+
+  const report = JSON.parse(runNode(processReportScript, ["--repo", repoRoot, "--run-id", runId], repoRoot));
+  assert.equal(fs.existsSync(checkPath), true);
+  const check = readJson(checkPath);
+  assert.equal(check.reportPath, report.reportPath);
+  assert.equal(check.results.some(result => result.id === "process-action-map-report-state-current" && result.status === "pass"), true);
+  assert.equal(check.summary.fail > 0, true);
+});
+
+test("init names Context Pack report refresh command when report state is stale", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260603-06";
+  const contextReportPath = preparePassingContextPackHandoff(repoRoot, runId);
+  const reportFile = path.join(repoRoot, contextReportPath);
+  fs.writeFileSync(reportFile, fs.readFileSync(reportFile, "utf8").replace(`"nextLayer": "Process / Action Map"`, `"nextLayer": "Context Pack revision"`), "utf8");
+
+  const failure = runNodeFailure(processInitScript, ["--repo", repoRoot, "--run-id", runId, "--report", contextReportPath], repoRoot);
+  assert.match(failure, /upstream-context-pack-report-refresh-required/);
+  assert.match(failure, /foundation:context-pack:report/);
 });
 
 test("eval flags weak process coverage and refresh resets stale Context Pack rows", () => {
@@ -733,7 +787,11 @@ test("eval flags weak process coverage and refresh resets stale Context Pack row
   const runId = "20260603-03";
   const contextReportPath = preparePassingContextPackHandoff(repoRoot, runId);
   runNode(processInitScript, ["--repo", repoRoot, "--run-id", runId, "--report", contextReportPath], repoRoot);
-  for (const pack of readJsonl(contextPackPathFor(repoRoot, runId)).rows) {
+  const packById = new Map(readJsonl(contextPackPathFor(repoRoot, runId)).rows.map(row => [row.packId, row]));
+  while (true) {
+    const current = JSON.parse(runNode(processFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot)).target;
+    if (!current) break;
+    const pack = packById.get(current.upstreamPackId);
     runNode(processFillScript, [
       "--repo", repoRoot,
       "--run-id", runId,
@@ -764,7 +822,8 @@ test("report refuses handoff when a row has warnings or unresolved revision targ
   const runId = "20260603-04";
   const contextReportPath = preparePassingContextPackHandoff(repoRoot, runId);
   runNode(processInitScript, ["--repo", repoRoot, "--run-id", runId, "--report", contextReportPath], repoRoot);
-  const pack = readJsonl(contextPackPathFor(repoRoot, runId)).rows[0];
+  const next = JSON.parse(runNode(processFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot)).target;
+  const pack = readJsonl(contextPackPathFor(repoRoot, runId)).rows.find(row => row.packId === next.upstreamPackId);
   const weakSpec = {
     ...processSpecForPack(pack),
     visibleBehavior: [],

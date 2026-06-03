@@ -112,7 +112,8 @@ function isGeneratedNonSpecHtml(file) {
   return /^docs\/specs\/backfill\/(?:artifact-inventory|surface-function-map)-(eval-summary|handoff)-\d{8}-\d{2}\.html$/.test(relativeFile) ||
     /^docs\/specs\/backfill\/capability-map-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
     /^docs\/specs\/backfill\/spec-job-queue-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
-    /^docs\/specs\/backfill\/context-pack-summary-\d{8}-\d{2}\.html$/.test(relativeFile);
+    /^docs\/specs\/backfill\/context-pack-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
+    /^docs\/specs\/backfill\/process-action-map-summary-\d{8}-\d{2}\.html$/.test(relativeFile);
 }
 
 function registryPathFor(file) {

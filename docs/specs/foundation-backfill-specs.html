@@ -312,6 +312,12 @@
       "notes": "Validates the append-only JSONL execution log for a dated backfill run."
     },
     {
+      "path": "foundation/scripts/backfill-run-log-schema.mjs",
+      "kind": "source",
+      "ownership": "reference",
+      "notes": "Defines the shared run-log phase and event enums used by the checker."
+    },
+    {
       "path": "foundation/scripts/backfill-run-log-check.test.mjs",
       "kind": "test",
       "ownership": "reference",
@@ -579,7 +585,7 @@
         "foundation.backfill-specs.job#states-and-rules",
         "foundation.backfill-specs.job#ux-contracts"
       ],
-      "evidence": "Run log checker tests validate JSONL parsing, run identity, event shape, ordered sequences, complete-event duration, and result fields."
+      "evidence": "Run log checker tests validate JSONL parsing, run identity, event shape, ordered sequences, complete-event duration, result fields, current layer phases, validation/evaluation/handoff phases, and legacy phase warnings."
     },
     {
       "id": "FBS-9",
@@ -937,7 +943,7 @@
     <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
       <h2>Interface journey</h2>
       <ol>
-        <li><strong>Setup:</strong> the target repo is connected with the Foundation setup skill, then <code>npm run foundation:doctor -- --repo &lt;target-repo&gt;</code> confirms the shared substrate is discoverable.</li>
+        <li><strong>Setup:</strong> the target repo is connected with the Foundation setup skill, target package aliases are synced from Foundation when <code>package.json</code> exists, then <code>npm run foundation:doctor -- --repo &lt;target-repo&gt;</code> confirms the shared substrate is discoverable.</li>
         <li><strong>Backfill start:</strong> the agent reads target <code>AGENTS.md</code>, Foundation <code>AGENTS.md</code>, the Backfill Specs skill, any existing dated report, and the top-level system/app spec if present.</li>
         <li><strong>Run identity:</strong> the agent creates or continues a dated report such as <code>docs/specs/backfill/review-report-20260521-01.html</code> and matching run log such as <code>docs/specs/backfill/run-log-20260521-01.jsonl</code>. If a target repo adapter names the current report, that file is canonical for the run.</li>
         <li><strong>Inventory Artifacts:</strong> the agent creates or refreshes the manifest and artifact inventory so every repo-owned file has exactly one current row. Canonical files and commands use <code>artifact-inventory</code>.</li>
@@ -1016,7 +1022,7 @@
           <tr><td>Repo setup needed</td><td>Backfill begins after Foundation setup and doctor have run.</td><td>The agent routes to setup and creates specs inside a connected substrate.</td></tr>
           <tr><td>Initial run</td><td>Create a dated report under <code>docs/specs/backfill/</code> and record the run ID before drafting slices.</td><td>The first session has durable state from the start.</td></tr>
           <tr><td>Report exists</td><td>Continue the existing dated report. Start a new run when the user asks for one.</td><td>Backfill work resumes from a single current report.</td></tr>
-          <tr><td>Run log active</td><td>Append ordered JSONL events for phase starts, completions, checkpoints, evaluations, validations, and handoff; validate with <code>backfill:run-log:check</code>.</td><td>The user can inspect what happened during a long backfill without treating the report as a telemetry log.</td></tr>
+          <tr><td>Run log active</td><td>Append ordered JSONL events for phase starts, completions, checkpoints, evaluations, validations, and handoff using the shared run-log phase enum; validate with <code>backfill:run-log:check</code>.</td><td>The user can inspect what happened during a long backfill without treating the report as a telemetry log.</td></tr>
           <tr><td>Layer active</td><td>Every artifact-owning layer has a canonical JSONL artifact, canonical JSONL eval receipt, derived HTML summary, deterministic checker, semantic eval, and explicit handoff gate.</td><td>Agents can complete one reproducible unit before the next unit consumes it.</td></tr>
           <tr><td>No-skip invariant</td><td>A downstream layer cannot start from raw files or agent memory when its required upstream artifact exists or is expected. It must consume the previous layer's handoff receipt or record a named blocker.</td><td>The work cannot jump from "we saw files" to "we understand the system" without the intermediate evidence layers.</td></tr>
           <tr><td>Artifact Inventory active</td><td>Every repo-owned file has exactly one current row, and changed-file refresh is supported from V1.</td><td>The repo has been seen before later layers claim it has been understood.</td></tr>
@@ -1121,6 +1127,7 @@
         <li><code>foundation/skills/evaluate-backfill-specs/SKILL.md</code> - semantic evaluation workflow.</li>
         <li><code>foundation/scripts/spec-job-queue-report-check.mjs</code> - Job / Spec Queue validator for dated backfill reports.</li>
         <li><code>foundation/scripts/backfill-run-log-check.mjs</code> - JSONL execution run log validator for dated backfill reports.</li>
+        <li><code>foundation/scripts/backfill-run-log-schema.mjs</code> - shared run-log phase and event enum.</li>
         <li><code>foundation/docs/specs/templates/job-spec-template.html</code> - draft job spec shape.</li>
         <li><code>foundation/docs/specs/templates/technical-spec-template.html</code> - draft technical spec shape.</li>
         <li><code>foundation/scripts/foundation-doctor.mjs</code> - required-skill check for Foundation setup.</li>
@@ -1163,7 +1170,7 @@
           <tr><td>FBS-5</td><td><code>#design-placeholders</code></td><td>Manual pilot on a user-facing UI slice that verifies the job spec includes rendered, interactive HTML-native UX examples.</td><td>planned</td><td>Confirms generated specs are inspectable and specific.</td></tr>
           <tr><td>FBS-6</td><td><code>#ux-contracts</code></td><td>Static skill review: Backfill Specs requires intent-rigid, architecture-flexible output.</td><td>existing</td><td>Full repo pilots confirm semantic behavior.</td></tr>
           <tr><td>FBS-7</td><td><code>#test-coverage</code></td><td>Static skill review: Evaluate Backfill Specs defines the semantic quality gate.</td><td>existing</td><td>Target repo pilots confirm scoring calibration.</td></tr>
-          <tr><td>FBS-8</td><td><code>#states-and-rules</code>, <code>#ux-contracts</code></td><td>Unit coverage: run-log checker validates JSONL event shape, run identity, sequence ordering, complete-event timing, and result fields.</td><td>existing</td><td>Target repo pilots confirm agents maintain logs during long-running backfills.</td></tr>
+          <tr><td>FBS-8</td><td><code>#states-and-rules</code>, <code>#ux-contracts</code></td><td>Unit coverage: run-log checker validates JSONL event shape, run identity, sequence ordering, complete-event timing, result fields, current layer phases, validation/evaluation/handoff phases, and legacy phase warnings.</td><td>existing</td><td>Target repo pilots confirm agents maintain logs during long-running backfills.</td></tr>
           <tr><td>FBS-9</td><td><code>#interface-journey</code>, <code>#ux-contracts</code></td><td>Static skill review: Backfill Specs defines Surface / Function Map to Capability Map handoff, split rule, and capability-backed completion.</td><td>existing</td><td>Target repo pilots confirm agents use capability coverage instead of broad slices.</td></tr>
         </tbody>
       </table>

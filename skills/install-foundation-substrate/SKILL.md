@@ -24,12 +24,16 @@ Use this skill to connect a target repo to Foundation. The model is defined in `
    - If the target repo has `package.json`, add a `site-map` script that runs `node docs/generate-site-map.mjs`.
    - Ensure durable HTML docs under `docs/` load the local `site-map.js` and collapse-capable `site-nav.js` scripts. Cache-busting query strings are acceptable; the resolved files must still be target-local.
    - Preserve the target repo's spec registry as the semantic lookup for system specs, capability specs, job specs, technical specs, eval specs, paths, and coverage.
-7. Ensure target specs are graph-compatible:
+7. Sync target package aliases from Foundation:
+   - If the target repo has `package.json`, run `npm run foundation:target-scripts:sync -- --repo <target-repo>` from Foundation.
+   - Do not hand-maintain Foundation backfill aliases in the target repo. The sync command owns aliases for doctor, run-log checks, visible-business-graph check, and every durable backfill layer including Process / Action Map.
+   - Rerun `npm run foundation:doctor -- --repo <target-repo>` after syncing; missing or stale target package aliases are a setup failure.
+8. Ensure target specs are graph-compatible:
    - New target specs must use Foundation templates or `docs/specs/new-spec.mjs` so `graph-metadata` is present from creation.
    - Target `AGENTS.md` should tell agents to run `npm run foundation:visible-business-graph:check -- --repo <target-repo>` after spec graph changes.
    - Generated canvas artifacts remain derived outputs, not source of truth.
-8. Configure CI to check out a pinned Foundation revision, not an implicit local sibling path.
-9. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation and resolve failures before handoff.
+9. Configure CI to check out a pinned Foundation revision, not an implicit local sibling path.
+10. Run `npm run foundation:doctor -- --repo <target-repo>` from Foundation and resolve failures before handoff.
 
 ## Target Repo Adapter
 
@@ -68,6 +72,7 @@ After the target repo is connected:
 - Durable HTML docs in the target repo render a left sidebar from the target repo's own folder tree, and the shared collapse control works on every included HTML page.
 - The target repo spec registry remains separate from visual document navigation.
 - Target specs are created with `graph-metadata`, and the target adapter names the visible business graph check.
+- If the target repo has `package.json`, Foundation-owned package aliases are current according to `npm run foundation:doctor -- --repo <target-repo>`.
 - Shared process changes live in Foundation.
 - Existing repo adoption routes to Backfill Specs after setup.
 - CI checks out a pinned Foundation revision before running Foundation-backed validation.

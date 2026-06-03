@@ -5210,7 +5210,7 @@
             "foundation.backfill-process-action-map.eval#acceptance-mapping",
             "foundation.backfill-process-action-map.eval#eval-contract"
           ],
-          "evidence": "Process / Action Map tests cover canonical artifacts, upstream reference resolution, state model enforcement, structural drift, weak semantic eval findings, explicit handoff state, eval freshness, refresh invalidation, and report drift."
+          "evidence": "Process / Action Map tests cover canonical artifacts, upstream reference resolution, state model enforcement, structural drift, weak semantic eval findings, explicit handoff state, eval freshness, report self-check bootstrapping, stale upstream report recovery guidance, refresh invalidation, and report drift."
         }
       ],
       "tags": [
@@ -5339,7 +5339,7 @@
             "foundation.backfill-process-action-map.technical#data-model",
             "foundation.backfill-process-action-map.technical#contracts"
           ],
-          "evidence": "Process / Action Map tests cover command workflow, row shape, upstream freshness, explicit selection, check/eval/report artifacts, report drift, and refresh behavior."
+          "evidence": "Process / Action Map tests cover command workflow, row shape, upstream freshness, explicit selection, check/eval/report artifacts, report check bootstrapping, stale upstream report recovery guidance, report drift, and refresh behavior."
         }
       ],
       "tags": [
@@ -6322,6 +6322,12 @@
           "notes": "Validates the append-only JSONL execution log for a dated backfill run."
         },
         {
+          "path": "foundation/scripts/backfill-run-log-schema.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Defines the shared run-log phase and event enums used by the checker."
+        },
+        {
           "path": "foundation/scripts/backfill-run-log-check.test.mjs",
           "kind": "test",
           "ownership": "reference",
@@ -6589,7 +6595,7 @@
             "foundation.backfill-specs.job#states-and-rules",
             "foundation.backfill-specs.job#ux-contracts"
           ],
-          "evidence": "Run log checker tests validate JSONL parsing, run identity, event shape, ordered sequences, complete-event duration, and result fields."
+          "evidence": "Run log checker tests validate JSONL parsing, run identity, event shape, ordered sequences, complete-event duration, result fields, current layer phases, validation/evaluation/handoff phases, and legacy phase warnings."
         },
         {
           "id": "FBS-9",
@@ -7597,7 +7603,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-doctor-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-06-02",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.job",
@@ -7646,6 +7652,18 @@
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Behavior under test."
+        },
+        {
+          "path": "foundation/scripts/foundation-command-manifest.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Manifest used by doctor and sync tests."
+        },
+        {
+          "path": "foundation/scripts/foundation-sync-target-package-scripts.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Sync behavior under test."
         },
         {
           "path": "foundation/package.json",
@@ -7721,6 +7739,29 @@
             "foundation.workspace-doctor.technical#failure-modes"
           ],
           "evidence": "target repo HTML docs navigation warns when assets or script includes are missing, warns when site-nav.js is stale, and passes when the local renderer includes the shared collapse control"
+        },
+        {
+          "id": "FWD-A7",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.eval#acceptance-mapping",
+            "foundation.workspace-doctor.technical#contracts",
+            "foundation.workspace-doctor.technical#failure-modes"
+          ],
+          "evidence": "target repo Foundation package scripts fail when a connected package is missing required aliases, including Process / Action Map aliases"
+        },
+        {
+          "id": "FWD-A8",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.eval#acceptance-mapping",
+            "foundation.workspace-doctor.technical#contracts"
+          ],
+          "evidence": "target package script sync adds missing Foundation aliases idempotently from the command manifest"
         }
       ],
       "tags": [
@@ -7737,7 +7778,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-doctor-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-06-02",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.job",
@@ -7778,6 +7819,16 @@
           "path": "foundation/scripts/foundation-doctor.mjs",
           "kind": "workflow",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/foundation-command-manifest.mjs",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/foundation-sync-target-package-scripts.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -7785,7 +7836,7 @@
           "path": "foundation/package.json",
           "kind": "config",
           "ownership": "reference",
-          "notes": "Exposes foundation:doctor and foundation:doctor:test scripts."
+          "notes": "Exposes foundation:doctor, foundation:target-scripts:sync, and foundation:doctor:test scripts."
         },
         {
           "path": "foundation/README.md",
@@ -7857,6 +7908,27 @@
             "foundation.workspace-doctor.technical#failure-modes"
           ],
           "evidence": "target repo HTML docs navigation warns when docs are missing scripts or when site-nav.js is stale, and passes when the local renderer includes the shared collapse control"
+        },
+        {
+          "id": "FWD-T6",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.technical#contracts",
+            "foundation.workspace-doctor.technical#failure-modes"
+          ],
+          "evidence": "target repo Foundation package script aliases fail when required backfill commands are missing and pass when the manifest is current"
+        },
+        {
+          "id": "FWD-T7",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.technical#contracts"
+          ],
+          "evidence": "target package script sync adds missing Foundation aliases idempotently from the command manifest"
         }
       ],
       "tags": [
@@ -7873,7 +7945,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-model.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.install-foundation-target-repos.capability",
@@ -7960,6 +8032,16 @@
           "path": "foundation/skills/install-foundation-substrate/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/foundation-sync-target-package-scripts.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/foundation-command-manifest.mjs",
+          "kind": "source",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -7979,7 +8061,7 @@
           "path": "foundation/package.json",
           "kind": "config",
           "ownership": "reference",
-          "notes": "Command registry for spec, site-map, and doctor checks."
+          "notes": "Command registry for spec, site-map, doctor, and target package alias sync checks."
         },
         {
           "path": "foundation/.github/workflows/specs.yml",
@@ -8033,13 +8115,13 @@
           "path": "foundation/scripts/foundation-doctor.mjs",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration."
+          "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration, including target package alias drift."
         },
         {
           "path": "foundation/scripts/foundation-doctor.test.mjs",
           "kind": "test",
           "ownership": "reference",
-          "notes": "Automated coverage for the Foundation doctor rules."
+          "notes": "Automated coverage for the Foundation doctor and target package alias rules."
         }
       ],
       "coverage": [
@@ -8086,6 +8168,18 @@
           ],
           "evidence": "Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.",
           "notes": "Procedure is defined in foundation.agents-load-canary.eval and is intentionally separate from foundation:doctor."
+        },
+        {
+          "id": "FW-5",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-model.job#states-and-rules",
+            "foundation.workspace-model.job#ux-contracts"
+          ],
+          "evidence": "Target package alias tests fail when Foundation aliases are missing and prove foundation:target-scripts:sync adds missing aliases idempotently.",
+          "notes": "Implemented by foundation.workspace-doctor.technical."
         }
       ],
       "tags": [

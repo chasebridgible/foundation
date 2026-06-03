@@ -374,6 +374,13 @@ function markProcessActionMapRows({ packRows, processRows, evalRows = [], packId
   }
 
   const selectedResolvedPackId = selectedPackIds[0] || packBySliceId.get(selectedSliceIds[0])?.packId;
+  const currentTarget = nextProcessActionMapTarget({ packRows, processRows, evalRows });
+  if (!currentTarget) {
+    throw new Error("Process / Action Map fill has no current --next target; run handoff check/eval/report instead of filling another row");
+  }
+  if (currentTarget.upstreamPackId !== selectedResolvedPackId) {
+    throw new Error(`Process / Action Map fill must use the current --next target ${currentTarget.upstreamPackId}; received ${selectedResolvedPackId}`);
+  }
   const unresolved = unresolvedProcessActionMapRowsForFill({
     processRows,
     evalRows,
@@ -434,7 +441,7 @@ function nextProcessActionMapTarget({ packRows, processRows, evalRows = [] }) {
       if (leftRank !== rightRank) return leftRank - rightRank;
       return compareProcessActionMapRows(left, right);
     });
-  const target = candidates[0] || processRows.filter(row => isReadyForSpecsStatus(row.status)).sort(compareProcessActionMapRows)[0] || null;
+  const target = candidates[0] || null;
   if (!target) return null;
   const pack = packById.get(target.upstreamPackId);
   return {
@@ -569,6 +576,13 @@ function validateContextPackHandoff(repoRoot, runId, outDir = defaultBackfillDir
       results.push(state?.nextLayer === "Process / Action Map"
         ? pass("upstream-context-pack-report-handoff", "Context Pack report names Process / Action Map as next layer")
         : fail("upstream-context-pack-report-handoff", "Context Pack report must name Process / Action Map as next layer", { nextLayer: state?.nextLayer || null }));
+    }
+    const hasReportFailure = results.some(result => result.status === "fail" && /^context-pack-report-|^upstream-context-pack-report-/.test(result.id));
+    if (hasReportFailure) {
+      const nextCommand = `npm run foundation:context-pack:report -- --repo ${repoRoot} --run-id ${runId} --report ${path.relative(repoRoot, reportPath)}`;
+      results.push(fail("upstream-context-pack-report-refresh-required", `Refresh the Context Pack report before Process / Action Map init by running: ${nextCommand}`, {
+        nextCommand
+      }));
     }
   }
 

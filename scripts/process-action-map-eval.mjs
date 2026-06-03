@@ -10,11 +10,13 @@ import {
   parseCliArgs,
   parseIds,
   processActionMapArtifactFingerprint,
+  processActionMapCheckPathFor,
   processActionMapEvalReceiptPathFor,
   processActionMapPathFor,
   processActionMapRowFingerprint,
   processActionMapRowOutstandingState,
   processActionMapSummaryPathFor,
+  readJson,
   readProcessActionMapEvalRows,
   scoreProcessActionMapRow,
   selectProcessActionMapEvalSample,
@@ -34,7 +36,7 @@ function usage() {
   npm run foundation:process-action-map:eval -- --repo /path/to/repo --run-id YYYYMMDD-NN --process-map-id pam:a [--run-log path]
   npm run foundation:process-action-map:eval -- --repo /path/to/repo --run-id YYYYMMDD-NN [--sample all|risk] [--run-log path]
 
-Writes canonical JSONL Process / Action Map eval receipts and a derived HTML summary. A row-targeted eval revises exactly one current row receipt; handoff requires every non-pending row to have a current outstanding row receipt.`;
+Writes canonical JSONL Process / Action Map eval receipts and a derived HTML summary. Eval requires a current passing Process / Action Map check artifact for the same process map fingerprint. A row-targeted eval revises exactly one current row receipt; handoff requires every non-pending row to have a current outstanding row receipt.`;
 }
 
 function escapeHtml(value) {
@@ -109,6 +111,36 @@ function canonicalRowReceipt({ receipt, runId, sequence, processMapFingerprint, 
     processMapFingerprint,
     htmlSummaryPath: path.relative(repoRoot, summaryPath)
   };
+}
+
+function currentCheckGate({ repoRoot, runId, outDir, processMapFingerprint }) {
+  const checkPath = processActionMapCheckPathFor(repoRoot, runId, outDir);
+  if (!fs.existsSync(checkPath)) {
+    return {
+      ok: false,
+      checkPath,
+      reason: "check artifact is missing"
+    };
+  }
+  const check = readJson(checkPath);
+  if (check?.processMapFingerprint !== processMapFingerprint) {
+    return {
+      ok: false,
+      checkPath,
+      reason: "check artifact is stale for the current Process / Action Map fingerprint",
+      actual: check?.processMapFingerprint || null,
+      expected: processMapFingerprint
+    };
+  }
+  if (check?.summary?.fail !== 0) {
+    return {
+      ok: false,
+      checkPath,
+      reason: "check artifact has failures",
+      summary: check?.summary || null
+    };
+  }
+  return { ok: true, checkPath, check };
 }
 
 function renderHtmlSummary({
@@ -215,6 +247,10 @@ function main() {
   });
   const processMapPath = processActionMapPathFor(repoRoot, runId, outDir);
   const processMapFingerprint = processActionMapArtifactFingerprint(repoRoot, runId, outDir);
+  const currentCheck = currentCheckGate({ repoRoot, runId, outDir, processMapFingerprint });
+  if (!currentCheck.ok) {
+    throw new Error(`${target ? "Row-targeted" : "Handoff"} Process / Action Map eval requires a current passing Process / Action Map check after the latest fill; ${currentCheck.reason}`);
+  }
   const receiptPath = processActionMapEvalReceiptPathFor(repoRoot, runId, outDir);
   const summaryPath = processActionMapSummaryPathFor(repoRoot, runId, outDir);
   const canonicalRowReceipts = combinedRowReceipts.map((receipt, index) => canonicalRowReceipt({

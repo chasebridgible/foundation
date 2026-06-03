@@ -86,7 +86,7 @@ Repeat until capability coverage is closed:
 7. Pick the next capability-backed slice that is queued, in progress, needs split, needs job, needs technical, needs evaluation, needs revision, or revision-ready.
 8. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
 9. Gather Context with `foundation:context-pack:*` commands until the Context Pack handoff names Process / Action Map.
-10. Use `backfill-process-action-map` and `foundation:process-action-map:*` commands to Map Processes for each active Context Pack row.
+10. Use `backfill-process-action-map` and `foundation:process-action-map:*` commands to Map Processes for each active Context Pack row. Follow the current `--next` target only and do not use generated drivers, shell loops, regex classifiers, or reusable templates to produce multiple Process / Action Map rows.
 11. Use `backfill-job-spec-author`.
 12. Use `backfill-rendered-ux-spec` when the capability has visible UX.
 13. Use `backfill-technical-spec-author`.

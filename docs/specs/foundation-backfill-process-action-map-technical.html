@@ -127,7 +127,7 @@
         "foundation.backfill-process-action-map.technical#data-model",
         "foundation.backfill-process-action-map.technical#contracts"
       ],
-      "evidence": "Process / Action Map tests cover command workflow, row shape, upstream freshness, explicit selection, check/eval/report artifacts, report drift, and refresh behavior."
+      "evidence": "Process / Action Map tests cover command workflow, row shape, upstream freshness, explicit selection, check/eval/report artifacts, report check bootstrapping, stale upstream report recovery guidance, report drift, and refresh behavior."
     }
   ],
   "tags": [
@@ -246,12 +246,14 @@
     <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
       <h2>Contracts</h2>
       <table class="status-table"><thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead><tbody>
-        <tr><td>Upstream completeness</td><td>The layer starts only from a passing Context Pack handoff: current checker artifact, current passing eval receipt, zero revision targets, HTML summary, and optional report state naming Process / Action Map.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
+        <tr><td>Upstream completeness</td><td>The layer starts only from a passing Context Pack handoff: current checker artifact, current passing eval receipt, zero revision targets, HTML summary, and optional report state naming Process / Action Map. If a report path is supplied and the embedded Context Pack state is stale or missing, init fails with the exact <code>foundation:context-pack:report</code> refresh command.</td><td>Later synthesis must not hide earlier discovery gaps, and agents should receive deterministic recovery when canonical artifacts and report state drift apart.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
-        <tr><td>Row-atomic fill loop</td><td><code>fill</code> accepts exactly one <code>--pack-id</code> or exactly one <code>--slice-id</code>, rejects multiple IDs, rejects multi-row <code>--processes-json</code>, rejects <code>--all</code>, rejects <code>--batch-size</code>, rejects generated process files, and rejects filling another Context Pack row while any current non-pending row lacks an outstanding row eval receipt.</td><td>Long-running work survives context compaction and prevents coarse closure or moving past an under-reviewed row.</td></tr>
-        <tr><td>Deterministic checker</td><td>validates one current row per active Context Pack, valid enums, current upstream fingerprints, required ready-row fields, trace evidence, zero duplicate row IDs, and optional report-state drift.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
+        <tr><td>Row-atomic fill loop</td><td><code>fill</code> accepts exactly one <code>--pack-id</code> or exactly one <code>--slice-id</code>, rejects anything other than the current <code>--next</code> target, rejects multiple IDs, rejects multi-row <code>--processes-json</code>, rejects <code>--all</code>, rejects <code>--batch-size</code>, rejects generated process files, and rejects filling another Context Pack row while any current non-pending row lacks an outstanding row eval receipt.</td><td>Long-running work survives context compaction and prevents coarse closure or moving past an under-reviewed row.</td></tr>
+        <tr><td>No driver synthesis</td><td>Agents must not create driver scripts, shell loops, generated payload files, regex classifiers, path-kind maps, or reusable templates that create, fill, check, evaluate, or revise more than the current <code>--next</code> row.</td><td>The unit of review is the selected Context Pack row, not a bulk generator that happens to submit one payload at a time.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates one current row per active Context Pack, valid enums, current upstream fingerprints, required ready-row fields, trace evidence, zero duplicate row IDs, and optional report-state drift. Row-targeted eval requires a current passing check artifact for the latest Process / Action Map fingerprint.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>supports row-targeted eval by pack ID, slice ID, or process row ID; a row receipt is outstanding only with score 100, no blocking findings, no warnings, no revision targets, current row fingerprint, resolved or named uncertainty, and enough behavior for Author Specs without reopening source for core behavior.</td><td>Correctness includes meaning, specificity, evidence quality, and downstream usability.</td></tr>
         <tr><td>Handoff gate</td><td>all active Context Pack rows have ready-for-specs rows or explicit blocker detail; checker passes; eval receipt and HTML summary are current; every non-pending row has a current outstanding row eval receipt; eval has zero revision targets, zero blocking findings, and zero warnings; report names next layer as Author Specs.</td><td>Each layer is a reproducible outstanding unit before the next layer consumes it.</td></tr>
+        <tr><td>Report self-check</td><td><code>foundation:process-action-map:report</code> writes or updates the report, validates the embedded Process / Action Map state, writes a current check artifact with the report path, rebuilds report state from that check, and rewrites the report.</td><td>The report/check ordering should not require manual bootstrap knowledge or leave stale report state after handoff recording.</td></tr>
       </tbody></table>
     </section>
 
@@ -259,13 +261,13 @@
       <h2>Checker and fill loop</h2>
       <ol>
         <li>Read active report, run log, upstream artifacts, and current layer artifact.</li>
-        <li>Select the next row with <code>foundation:process-action-map:fill -- --next</code>.</li>
-        <li>Inspect exactly one Context Pack row and only the evidence needed for that row.</li>
+        <li>Select the next row with <code>foundation:process-action-map:fill -- --next</code>; the selected row is the only valid fill target.</li>
+        <li>Inspect exactly one Context Pack row and only the evidence needed for that row; do not create or run a generator across many packs.</li>
         <li>Update canonical JSONL with <code>foundation:process-action-map:fill</code> using one pack or slice ID and one process JSON object.</li>
         <li>Run <code>foundation:process-action-map:check -- --phase batch</code>; repair structural failures before semantic eval.</li>
         <li>Run row-targeted <code>foundation:process-action-map:eval</code>; generate or refresh canonical row receipts and the HTML summary from JSONL.</li>
         <li>Revise the same row until it is outstanding, then select the next row.</li>
-        <li>After every current row is outstanding or explicitly blocked, run handoff check, full eval, and <code>foundation:process-action-map:report</code>.</li>
+        <li>After every current row is outstanding or explicitly blocked, run handoff check, full eval, and <code>foundation:process-action-map:report</code>; the report command refreshes the check artifact against the embedded report state.</li>
       </ol>
     </section>
 
@@ -275,6 +277,7 @@
         <tr><td>Missing upstream row</td><td>Checker fails and names the missing upstream ID.</td><td>Checker JSON output and report entry.</td></tr>
         <tr><td>Vague or unsupported row</td><td>Eval routes the row back to the fill loop.</td><td>Eval JSONL receipt with revision target.</td></tr>
         <tr><td>Report drift</td><td>Checker fails when report paths/counts do not match artifacts.</td><td>Report check result.</td></tr>
+        <tr><td>Upstream Context Pack report drift</td><td>Init fails with a named <code>foundation:context-pack:report</code> command when a supplied report's Context Pack state is stale or missing.</td><td>Process / Action Map init output.</td></tr>
         <tr><td>Context reset</td><td>Next agent resumes from report, run log, current artifacts, and pending rows.</td><td>Run-log checkpoint.</td></tr>
       </tbody></table>
     </section>

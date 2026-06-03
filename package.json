@@ -4,6 +4,7 @@
   "scripts": {
     "foundation:doctor": "node scripts/foundation-doctor.mjs",
     "foundation:doctor:test": "node --test scripts/foundation-doctor.test.mjs",
+    "foundation:target-scripts:sync": "node scripts/foundation-sync-target-package-scripts.mjs",
     "backfill:spec-job-queue:check": "node scripts/spec-job-queue-report-check.mjs",
     "backfill:spec-job-queue:test": "node --test scripts/spec-job-queue-report-check.test.mjs",
     "backfill:run-log:check": "node scripts/backfill-run-log-check.mjs",

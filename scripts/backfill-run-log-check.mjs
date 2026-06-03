@@ -2,39 +2,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  LEGACY_PHASES,
+  VALID_EVENTS,
+  VALID_PHASES
+} from "./backfill-run-log-schema.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
-
-const VALID_PHASES = new Set([
-  "setup",
-  "artifact-inventory",
-  "surface-function-map",
-  "capability-map",
-  "spec-job-queue",
-  "context-pack",
-  "process-action-map",
-  "job",
-  "descriptive",
-  "rendered-ux",
-  "technical",
-  "spec-adequacy",
-  "job-slice-evaluation",
-  "system-coherence-evaluation",
-  "quality-evaluation",
-  "report",
-  "handoff"
-]);
-
-const VALID_EVENTS = new Set([
-  "start",
-  "complete",
-  "checkpoint",
-  "revision",
-  "evaluation",
-  "validation",
-  "blocked",
-  "handoff"
-]);
 
 function usage() {
   return `Usage:
@@ -218,8 +192,8 @@ function validateEvents(parsedEvents) {
         phase: event.phase,
         validPhases: [...VALID_PHASES]
       }));
-    } else if (event.phase === "descriptive") {
-      results.push(warn(`${prefix}:legacy-phase`, "descriptive is a legacy run-log phase; use job"));
+    } else if (LEGACY_PHASES.has(event.phase)) {
+      results.push(warn(`${prefix}:legacy-phase`, `${event.phase} is a legacy run-log phase; use ${event.phase === "descriptive" ? "job" : "surface-function-map"}`));
     }
 
     if (!VALID_EVENTS.has(event.event)) {

@@ -9,8 +9,13 @@ import {
   defaultBackfillDir,
   ensureDir,
   parseCliArgs,
+  processActionMapArtifactFingerprint,
+  processActionMapCheckPathFor,
   readContextPackRows,
-  readProcessActionMapRows
+  readProcessActionMapRows,
+  summarizeResults,
+  validateProcessActionMap,
+  writeJson
 } from "./process-action-map-core.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
@@ -142,6 +147,33 @@ function upsertReportState(html, state, payload) {
   return nextHtml;
 }
 
+function writeReportFile({ reportPath, state, payload }) {
+  ensureDir(path.dirname(reportPath));
+  const nextHtml = fs.existsSync(reportPath)
+    ? upsertReportState(fs.readFileSync(reportPath, "utf8"), state, payload)
+    : renderReport(state, payload);
+  fs.writeFileSync(reportPath, nextHtml, "utf8");
+}
+
+function writeCurrentCheckArtifact({ repoRoot, runId, outDir, reportPath }) {
+  const check = validateProcessActionMap({ repoRoot, runId, outDir, phase: "handoff", reportPath });
+  const summary = summarizeResults(check.results);
+  const checkPath = processActionMapCheckPathFor(repoRoot, runId, outDir);
+  writeJson(checkPath, {
+    schema: "foundation.backfill.process-action-map-check.v1",
+    runId,
+    phase: "handoff",
+    generatedAt: new Date().toISOString(),
+    packPath: path.relative(repoRoot, check.packPath || ""),
+    processMapPath: path.relative(repoRoot, check.processMapPath),
+    processMapFingerprint: processActionMapArtifactFingerprint(repoRoot, runId, outDir),
+    reportPath: path.relative(repoRoot, reportPath),
+    summary,
+    results: check.results
+  });
+  return { checkPath, summary };
+}
+
 function main() {
   const options = parseCliArgs(process.argv.slice(2));
   if (options.help) {
@@ -187,11 +219,12 @@ function main() {
   state = buildProcessActionMapReportState({ repoRoot, runId, outDir, packRows, processRows, runLogPath });
   payload = buildProcessActionMapPayload({ runId, repoRoot, processRows });
 
-  ensureDir(path.dirname(reportPath));
-  const nextHtml = fs.existsSync(reportPath)
-    ? upsertReportState(fs.readFileSync(reportPath, "utf8"), state, payload)
-    : renderReport(state, payload);
-  fs.writeFileSync(reportPath, nextHtml, "utf8");
+  writeReportFile({ reportPath, state, payload });
+  writeCurrentCheckArtifact({ repoRoot, runId, outDir, reportPath });
+  state = buildProcessActionMapReportState({ repoRoot, runId, outDir, packRows, processRows, runLogPath });
+  payload = buildProcessActionMapPayload({ runId, repoRoot, processRows });
+  writeReportFile({ reportPath, state, payload });
+  writeCurrentCheckArtifact({ repoRoot, runId, outDir, reportPath });
 
   console.log(JSON.stringify({
     reportPath: path.relative(repoRoot, reportPath),

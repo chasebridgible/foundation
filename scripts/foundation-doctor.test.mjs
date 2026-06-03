@@ -4,6 +4,8 @@ import path from "node:path";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { runDoctor } from "./foundation-doctor.mjs";
+import { targetPackageScriptManifest } from "./foundation-command-manifest.mjs";
+import { syncPackageScripts } from "./foundation-sync-target-package-scripts.mjs";
 
 const repoRoot = path.dirname(path.dirname(new URL(import.meta.url).pathname));
 
@@ -64,6 +66,15 @@ button.dataset.siteNavToggleBound = "true";
 document.body.classList.toggle("substrate-site-nav-collapsed", false);
 document.dispatchEvent(new CustomEvent("substrate:site-nav-toggle"));
 button.setAttribute("aria-pressed", "false");\n`;
+}
+
+function writeCurrentFoundationPackageScripts(repo, foundation) {
+  write(path.join(repo, "package.json"), JSON.stringify({
+    scripts: {
+      "site-map": "node docs/generate-site-map.mjs",
+      ...targetPackageScriptManifest({ repoPath: repo, foundationPath: foundation })
+    }
+  }));
 }
 
 test("Foundation and example HTML docs load versioned shared navigation scripts", () => {
@@ -236,4 +247,71 @@ test("target repo HTML docs navigation passes when local assets, command, collap
 
   assert.equal(statusById(report, "repo-html-docs-nav"), "pass");
   assert.equal(statusById(report, "repo-html-docs-nav-command"), "pass");
+});
+
+test("target repo Foundation package scripts fail when a connected package is missing aliases", () => {
+  const foundation = makeDir();
+  const repo = makeDir();
+  const globalAgents = path.join(makeDir(), "AGENTS.md");
+  makeFoundation(foundation);
+  makeRepo(repo, foundation);
+  write(globalAgents, `# Global\n\n- Use Foundation at ${foundation}.\n- Read Foundation AGENTS.md before work.\n`);
+  write(path.join(repo, "package.json"), JSON.stringify({
+    scripts: {
+      "foundation:doctor": `node ${path.relative(repo, foundation)}/scripts/foundation-doctor.mjs --repo . --foundation ${path.relative(repo, foundation)}`,
+      "foundation:context-pack:report": `node ${path.relative(repo, foundation)}/scripts/context-pack-report.mjs`
+    }
+  }));
+
+  const report = runDoctor({
+    foundationPath: foundation,
+    globalAgentsPath: globalAgents,
+    repoPath: repo,
+    skipSpecCheck: true
+  });
+
+  const result = report.results.find(item => item.id === "repo-foundation-package-scripts");
+  assert.equal(result.status, "fail");
+  assert.equal(result.details.missing.some(item => item.name === "foundation:process-action-map:init"), true);
+});
+
+test("target repo Foundation package scripts pass when aliases match the manifest", () => {
+  const foundation = makeDir();
+  const repo = makeDir();
+  const globalAgents = path.join(makeDir(), "AGENTS.md");
+  makeFoundation(foundation);
+  makeRepo(repo, foundation);
+  write(globalAgents, `# Global\n\n- Use Foundation at ${foundation}.\n- Read Foundation AGENTS.md before work.\n`);
+  writeCurrentFoundationPackageScripts(repo, foundation);
+
+  const report = runDoctor({
+    foundationPath: foundation,
+    globalAgentsPath: globalAgents,
+    repoPath: repo,
+    skipSpecCheck: true
+  });
+
+  assert.equal(statusById(report, "repo-foundation-package-scripts"), "pass");
+});
+
+test("target package script sync adds missing Foundation aliases idempotently", () => {
+  const foundation = makeDir();
+  const repo = makeDir();
+  makeFoundation(foundation);
+  makeRepo(repo, foundation);
+  write(path.join(repo, "package.json"), JSON.stringify({
+    name: "target",
+    scripts: {
+      test: "node --test"
+    }
+  }));
+
+  const first = syncPackageScripts({ repoPath: repo, foundationPath: foundation });
+  assert.equal(first.changed, true);
+  assert.equal(first.added.includes("foundation:process-action-map:init"), true);
+  const scripts = JSON.parse(fs.readFileSync(path.join(repo, "package.json"), "utf8")).scripts;
+  assert.match(scripts["foundation:process-action-map:init"], /scripts\/process-action-map-init\.mjs/);
+
+  const second = syncPackageScripts({ repoPath: repo, foundationPath: foundation });
+  assert.equal(second.changed, false);
 });

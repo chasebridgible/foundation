@@ -368,11 +368,11 @@
       <h2>Small-loop journey</h2>
       <ol>
         <li><strong>Initialize:</strong> run <code>foundation:process-action-map:init</code> to create the canonical Process / Action Map artifact from Context Pack handoff output.</li>
-        <li><strong>Select one row:</strong> run <code>foundation:process-action-map:fill -- --next</code> to name the next Context Pack row without writing.</li>
-        <li><strong>Read one pack:</strong> read exactly one Context Pack row and only the evidence needed for that row.</li>
-        <li><strong>Fill one process row:</strong> run <code>foundation:process-action-map:fill</code> with exactly one <code>--pack-id</code> or one <code>--slice-id</code> and exactly one reviewed inline process JSON object. Multi-ID, multi-row, <code>--all</code>, <code>--batch-size</code>, and generated process-file shortcuts are rejected.</li>
+        <li><strong>Select one row:</strong> run <code>foundation:process-action-map:fill -- --next</code> to name the next Context Pack row without writing. The named row is the only valid fill target.</li>
+        <li><strong>Read one pack:</strong> read exactly one Context Pack row and only the evidence needed for that row. Do not inspect many packs to build a classifier or reusable template.</li>
+        <li><strong>Fill one process row:</strong> run <code>foundation:process-action-map:fill</code> with exactly one <code>--pack-id</code> or one <code>--slice-id</code> and exactly one reviewed inline process JSON object for the current <code>--next</code> target. Multi-ID, multi-row, out-of-order target, <code>--all</code>, <code>--batch-size</code>, generated process-file, driver-script, shell-loop, regex-classifier, and template-synthesis shortcuts are rejected.</li>
         <li><strong>Check:</strong> run <code>foundation:process-action-map:check -- --phase batch</code> for the current row loop and repair structural failures.</li>
-        <li><strong>Evaluate one row:</strong> run <code>foundation:process-action-map:eval</code> with that same <code>--pack-id</code>, <code>--slice-id</code>, or <code>--process-map-id</code> to write a current row receipt.</li>
+        <li><strong>Evaluate one row:</strong> run <code>foundation:process-action-map:eval</code> with that same <code>--pack-id</code>, <code>--slice-id</code>, or <code>--process-map-id</code> to write a current row receipt. Row-targeted eval requires a current passing check artifact for the latest Process / Action Map fingerprint.</li>
         <li><strong>Revise to outstanding:</strong> revise that same row until deterministic check passes, row eval has no blocking findings, row eval has no warnings, no revision targets remain, and Author Specs can proceed without rediscovering source for core behavior.</li>
         <li><strong>Continue:</strong> return to <code>--next</code> only after the current non-pending row has a current outstanding row receipt; run <code>foundation:process-action-map:refresh</code> after Context Pack rows change.</li>
         <li><strong>Handoff:</strong> after all rows are outstanding or explicitly blocked, run handoff check, full eval, and <code>foundation:process-action-map:report</code>; advance only when the report state names Author Specs or named human decisions block the layer.</li>
@@ -382,7 +382,7 @@
     <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
       <h2>Checker and eval contract</h2>
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
-        <tr><td>Checker</td><td>validates every user-facing or operator-facing queued slice has process/action rows or explicit non-UI/operator classification; validates process/action rows link back to Context Packs and capability IDs; supports batch-phase checks during the one-row loop and handoff-phase checks before Author Specs.</td></tr>
+        <tr><td>Checker</td><td>validates every user-facing or operator-facing queued slice has process/action rows or explicit non-UI/operator classification; validates process/action rows link back to Context Packs and capability IDs; supports batch-phase checks during the one-row loop and handoff-phase checks before Author Specs. Row eval may not substitute for this check.</td></tr>
         <tr><td>Eval receipt</td><td>scores row-targeted process/action receipts against Context Packs to detect missing states, hidden permissions, unmodeled errors, architecture leakage, missing spec targets, and under-described visible behavior. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
         <tr><td>Sandia Oil calibration</td><td>Sandia Oil is the intended first real calibration target after this substrate layer is ready to run. Calibration is not required for this layer's Foundation readiness gate.</td></tr>
       </tbody></table>
