@@ -30,6 +30,7 @@ function makeFoundation(root) {
     "capability-map-fill-loop",
     "backfill-artifact-inventory",
     "backfill-process-action-map",
+    "backfill-author-specs",
     "backfill-job-spec-author",
     "backfill-rendered-ux-spec",
     "backfill-technical-spec-author",

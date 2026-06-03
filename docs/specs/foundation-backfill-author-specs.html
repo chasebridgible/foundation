@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-author-specs.job">
 <meta name="spec:type" content="job">
-<meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-03">
 <title>Foundation Backfill Author Specs</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -15,10 +15,10 @@
   "id": "foundation.backfill-author-specs.job",
   "title": "Foundation Backfill Author Specs",
   "type": "job",
-  "status": "draft",
-  "lastUpdated": "2026-06-01",
+  "status": "active",
+  "lastUpdated": "2026-06-03",
   "reviewCadence": "per-change",
-  "confidence": "medium",
+  "confidence": "high",
   "parent": "foundation.author-durable-specs.capability",
   "children": [
     "foundation.backfill-author-specs.technical",
@@ -70,6 +70,11 @@
       "ownership": "direct"
     },
     {
+      "path": "foundation/skills/backfill-author-specs/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
       "path": "foundation/skills/backfill-job-spec-author/SKILL.md",
       "kind": "workflow",
       "ownership": "direct"
@@ -85,12 +90,71 @@
       "ownership": "direct"
     },
     {
-      "path": "foundation/skills/spec-workflow/SKILL.md",
+      "path": "foundation/scripts/author-specs-core.mjs",
+      "kind": "source",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/author-specs-init.mjs",
       "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/author-specs-fill.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/author-specs-check.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/author-specs-eval.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/author-specs-refresh.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/author-specs-report.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/author-specs.test.mjs",
+      "kind": "test",
       "ownership": "direct"
     }
   ],
   "implementationPaths": [
+    {
+      "path": "foundation/AGENTS.md",
+      "kind": "config",
+      "ownership": "reference",
+      "notes": "Routes Author Specs layer work to the exact one-target loop."
+    },
+    {
+      "path": "foundation/package.json",
+      "kind": "config",
+      "ownership": "reference",
+      "notes": "Exposes foundation:author-specs:* npm aliases."
+    },
+    {
+      "path": "foundation/scripts/foundation-command-manifest.mjs",
+      "kind": "source",
+      "ownership": "reference",
+      "notes": "Syncs Author Specs command aliases into target repos."
+    },
+    {
+      "path": "foundation/scripts/backfill-run-log-schema.mjs",
+      "kind": "source",
+      "ownership": "reference",
+      "notes": "Allows author-specs run-log phase entries."
+    },
     {
       "path": "foundation/docs/specs/foundation-backfill-specs.html",
       "kind": "doc",
@@ -114,12 +178,13 @@
     {
       "id": "BFL-SPEC_AUTHORING-D-1",
       "level": "static",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-author-specs.html",
+      "status": "existing",
+      "path": "foundation/scripts/author-specs.test.mjs",
       "mapsTo": [
+        "foundation.backfill-author-specs.job#artifacts-and-state",
         "foundation.backfill-author-specs.job#handoff-gate"
       ],
-      "evidence": "Planned Foundation Backfill Author Specs job coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+      "evidence": "Author Specs tests cover initialization from Process / Action Map handoff, exact one-target fill, current check before eval, outstanding row receipts, weak-spec rejection, refresh invalidation, and report handoff state."
     }
   ],
   "tags": [
@@ -144,8 +209,8 @@
         "specId": "foundation.backfill-author-specs.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "specType": "job",
         "tags": [
@@ -165,8 +230,8 @@
         "specId": "foundation.backfill-author-specs.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "generatedFrom": "foundation.backfill-author-specs.job"
       }
@@ -179,8 +244,8 @@
         "specId": "foundation.backfill-author-specs.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "actorKind": "role-or-system",
         "generatedFrom": "foundation.backfill-author-specs.job"
@@ -194,8 +259,8 @@
         "specId": "foundation.backfill-author-specs.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "generatedFrom": "foundation.backfill-author-specs.job"
       }
@@ -312,8 +377,8 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-author-specs.html</div>
     <h1>Foundation Backfill Author Specs</h1>
     <p class="lede">Author Specs creates architecture-agnostic job specs and contract-first technical specs from queued slices, Context Packs, and process/action rows. This layer answers: <strong>What job and technical specs make this slice rebuild-grade?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Process / Action Map</div><div><strong>Next:</strong> Evaluate Job Slices</div></div>
-    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-03</div><div><strong>Upstream:</strong> Process / Action Map</div><div><strong>Next:</strong> Evaluate Job Slices</div></div>
+    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, selects one Author Specs target with <code>--next</code>, authors one target-owned job/descriptive spec and one contract-first technical spec, checks deterministic structure, writes row-level JSONL eval receipts, revises that same target until outstanding, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
 
@@ -321,48 +386,51 @@
     <section id="artifacts-and-state" data-spec-section="artifacts-and-state" data-section-type="state-model">
       <h2>Artifacts and state</h2>
       <table class="status-table"><thead><tr><th>Category</th><th>Contract</th></tr></thead><tbody>
-        <tr><td>Canonical artifacts</td><td><ul><li><code>author-specs-ledger-YYYYMMDD-NN.jsonl</code></li>
+        <tr><td>Canonical artifacts</td><td><ul><li><code>author-specs-YYYYMMDD-NN.jsonl</code></li>
+<li><code>author-specs-check-YYYYMMDD-NN.json</code></li>
 <li><code>author-specs-eval-YYYYMMDD-NN.jsonl</code></li></ul></td></tr>
         <tr><td>Derived artifacts</td><td><ul><li><code>author-specs-summary-YYYYMMDD-NN.html</code></li>
 <li><code>draft HTML specs</code></li></ul></td></tr>
         <tr><td>State model</td><td><ul><li><code>pending</code></li>
-<li><code>drafted</code></li>
+<li><code>authored</code></li>
 <li><code>needs-revision</code></li>
-<li><code>ready-for-slice-eval</code></li></ul></td></tr>
-        <tr><td>Core row</td><td>draft spec row with stable row ID, run ID, upstream row IDs, evidence links, status, confidence, review flags, checker result, and eval result.</td></tr>
+<li><code>ready-for-slice-eval</code></li>
+<li><code>blocked</code></li></ul></td></tr>
+        <tr><td>Core row</td><td>Author Specs row with stable row ID, run ID, upstream Process / Action Map ID and fingerprint, job spec ID/path, technical spec ID/path, evidence links, status, confidence, blocker detail, review flags, and eval receipt freshness.</td></tr>
       </tbody></table>
     </section>
 
     <section id="interface-journey" data-spec-section="interface-journey" data-section-type="journey">
       <h2>Small-loop journey</h2>
       <ol>
-        <li><strong>Initialize:</strong> create the canonical Foundation Backfill Author Specs artifact from Process / Action Map handoff output.</li>
-        <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
-        <li><strong>Fill:</strong> agent writes or updates job and technical specs for the slice, maps sections to capability and evidence IDs, separates intent from architecture, and records review questions without blocking unrelated coverage.</li>
-        <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
-        <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>
-        <li><strong>Revise:</strong> route failed rows back to the fill loop with row IDs and findings.</li>
-        <li><strong>Handoff:</strong> advance only when the handoff gate passes or named human decisions block the layer.</li>
+        <li><strong>Initialize:</strong> run <code>foundation:author-specs:init</code> only after Process / Action Map check, eval, summary, and report state prove the next layer is Author Specs.</li>
+        <li><strong>Select target:</strong> run <code>foundation:author-specs:fill -- --next</code> and use only the returned Author Specs target.</li>
+        <li><strong>Author:</strong> read the target Process / Action Map row and its bounded Context Pack evidence, then write or revise exactly one job/descriptive spec and one technical spec for that target.</li>
+        <li><strong>Record:</strong> run <code>foundation:author-specs:fill -- --process-map-id &lt;id&gt; --job-spec &lt;path&gt; --technical-spec &lt;path&gt;</code> for that target only.</li>
+        <li><strong>Check:</strong> run <code>foundation:author-specs:check -- --phase batch</code>; repair structural failures before eval.</li>
+        <li><strong>Evaluate:</strong> run row-targeted <code>foundation:author-specs:eval</code>; warnings, missing row receipts, or revision targets are not outstanding.</li>
+        <li><strong>Revise:</strong> keep the same target until the row-level receipt is current and outstanding.</li>
+        <li><strong>Handoff:</strong> run handoff check, all-row eval, and report only after <code>--next</code> returns no target.</li>
       </ol>
     </section>
 
     <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
       <h2>Checker and eval contract</h2>
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
-        <tr><td>Checker</td><td>validates every drafted spec has schema-safe metadata, parent/child links, owned paths, implementation paths, coverage maps, canonical sections, and queue/capability references.</td></tr>
-        <tr><td>Eval receipt</td><td>samples specs against Process / Action Map rows and Context Packs to judge specificity, architecture flexibility, required contracts, edge cases, visible UX/operator behavior, and source-backed claims. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
+        <tr><td>Checker</td><td>validates Author Specs JSONL shape, upstream Process / Action Map freshness, one row per active process row, target-owned job and technical spec files, spec metadata, graph metadata, owned paths, canonical sections, required job language, required technical contract language, and report state.</td></tr>
+        <tr><td>Eval receipt</td><td>scores each Author Specs row against its upstream Process / Action Map row and authored specs for upstream traceability, job intent coverage, technical contract coverage, graph traceability, and adequacy readiness. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
         <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
     </section>
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>Each queued slice has draft job and technical specs or a documented non-spec owner; checker passes; eval receipt and HTML summary exist; report names next layer as Evaluate Job Slices.</p>
+      <p>Each active Process / Action Map row has one Author Specs row with target-owned job and technical specs or a named blocker; checker passes; every non-pending row has a current outstanding row-level eval receipt; the all-row eval summary is outstanding; report names next layer as Evaluate Job Slices.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
-        <li>All rows are in valid terminal or explicitly blocked states.</li>
-        <li>Checker passes for structure, references, currentness, and required fields.</li>
-        <li>Eval JSONL and HTML summary exist or an explicit planned-gap risk is recorded.</li>
+        <li>All rows are <code>ready-for-slice-eval</code> or explicitly <code>blocked</code> with named blocker detail.</li>
+        <li>Checker passes for structure, references, currentness, spec metadata, graph metadata, and report state.</li>
+        <li>Eval JSONL and HTML summary exist; warnings and revision targets are resolved rather than carried forward.</li>
         <li>Active report records counts, artifact paths, checker/eval status, run-log sequence, and next layer.</li>
       </ul>
     </section>
@@ -377,7 +445,7 @@
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Author Specs · draft</p>
+  <p class="footer-note">Foundation Backfill Author Specs · active</p>
 </main>
 <script src="../site-map.js?v=20260602-nav-collapse"></script>
 <script src="../site-nav.js?v=20260602-nav-collapse"></script>

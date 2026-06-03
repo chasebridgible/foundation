@@ -509,11 +509,11 @@
     {
       "id": "foundation.spec-process",
       "title": "Spec Maintenance Process",
-      "type": "capability",
+      "type": "job",
       "status": "active",
       "file": "foundation/docs/specs/process.html",
       "canonicalSection": "workflow-contract",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": "foundation.author-durable-specs.capability",
@@ -557,6 +557,11 @@
           "path": "foundation/docs/specs/process.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/spec-workflow/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [],
@@ -574,7 +579,7 @@
         }
       ],
       "tags": [
-        "capability",
+        "job",
         "process",
         "spec-test-prompt-execute"
       ]
@@ -1594,7 +1599,7 @@
       "status": "active",
       "file": "foundation/docs/specs/capabilities/author-durable-specs.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
@@ -3062,12 +3067,12 @@
       "id": "foundation.backfill-author-specs.eval",
       "title": "Foundation Backfill Author Specs Eval Spec",
       "type": "eval",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-author-specs-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
-      "confidence": "medium",
+      "confidence": "high",
       "parent": "foundation.backfill-author-specs.job",
       "children": [],
       "relatedSpecs": [
@@ -3102,6 +3107,11 @@
           "path": "foundation/docs/specs/foundation-backfill-author-specs-eval.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs.test.mjs",
+          "kind": "test",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -3127,13 +3137,14 @@
       "coverage": [
         {
           "id": "BFL-SPEC_AUTHORING-E-1",
-          "level": "manual",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-author-specs-eval.html",
+          "level": "integration",
+          "status": "existing",
+          "path": "foundation/scripts/author-specs.test.mjs",
           "mapsTo": [
+            "foundation.backfill-author-specs.eval#acceptance-mapping",
             "foundation.backfill-author-specs.eval#eval-contract"
           ],
-          "evidence": "Planned Foundation Backfill Author Specs test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Author Specs tests cover exact one-target selection, shortcut rejection, eval current-check gate, outstanding row receipts, weak-spec rejection, handoff state, report drift, and refresh invalidation."
         }
       ],
       "tags": [
@@ -3148,12 +3159,12 @@
       "id": "foundation.backfill-author-specs.technical",
       "title": "Foundation Backfill Author Specs Technical Spec",
       "type": "technical",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-author-specs-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
-      "confidence": "medium",
+      "confidence": "high",
       "parent": "foundation.backfill-author-specs.job",
       "children": [],
       "relatedSpecs": [
@@ -3188,6 +3199,41 @@
           "path": "foundation/docs/specs/foundation-backfill-author-specs-technical.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-core.mjs",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-init.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-fill.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-eval.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-refresh.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-report.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -3214,12 +3260,14 @@
         {
           "id": "BFL-SPEC_AUTHORING-T-1",
           "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-author-specs-technical.html",
+          "status": "existing",
+          "path": "foundation/scripts/author-specs.test.mjs",
           "mapsTo": [
-            "foundation.backfill-author-specs.technical#contracts"
+            "foundation.backfill-author-specs.technical#data-model",
+            "foundation.backfill-author-specs.technical#contracts",
+            "foundation.backfill-author-specs.technical#checker-and-fill-loop"
           ],
-          "evidence": "Planned Foundation Backfill Author Specs technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Author Specs tests exercise command workflow, upstream handoff gate, row schema, spec metadata validation, check/eval freshness, row-level outstanding receipts, report state, and refresh invalidation."
         }
       ],
       "tags": [
@@ -3234,12 +3282,12 @@
       "id": "foundation.backfill-author-specs.job",
       "title": "Foundation Backfill Author Specs",
       "type": "job",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-author-specs.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
-      "confidence": "medium",
+      "confidence": "high",
       "parent": "foundation.author-durable-specs.capability",
       "children": [
         "foundation.backfill-author-specs.technical",
@@ -3291,6 +3339,11 @@
           "ownership": "direct"
         },
         {
+          "path": "foundation/skills/backfill-author-specs/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
           "path": "foundation/skills/backfill-job-spec-author/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
@@ -3306,12 +3359,71 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/spec-workflow/SKILL.md",
+          "path": "foundation/scripts/author-specs-core.mjs",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-init.mjs",
           "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-fill.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-eval.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-refresh.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs-report.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/author-specs.test.mjs",
+          "kind": "test",
           "ownership": "direct"
         }
       ],
       "implementationPaths": [
+        {
+          "path": "foundation/AGENTS.md",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Routes Author Specs layer work to the exact one-target loop."
+        },
+        {
+          "path": "foundation/package.json",
+          "kind": "config",
+          "ownership": "reference",
+          "notes": "Exposes foundation:author-specs:* npm aliases."
+        },
+        {
+          "path": "foundation/scripts/foundation-command-manifest.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Syncs Author Specs command aliases into target repos."
+        },
+        {
+          "path": "foundation/scripts/backfill-run-log-schema.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Allows author-specs run-log phase entries."
+        },
         {
           "path": "foundation/docs/specs/foundation-backfill-specs.html",
           "kind": "doc",
@@ -3335,12 +3447,13 @@
         {
           "id": "BFL-SPEC_AUTHORING-D-1",
           "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-author-specs.html",
+          "status": "existing",
+          "path": "foundation/scripts/author-specs.test.mjs",
           "mapsTo": [
+            "foundation.backfill-author-specs.job#artifacts-and-state",
             "foundation.backfill-author-specs.job#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Author Specs job coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Author Specs tests cover initialization from Process / Action Map handoff, exact one-target fill, current check before eval, outstanding row receipts, weak-spec rejection, refresh invalidation, and report handoff state."
         }
       ],
       "tags": [
@@ -6272,6 +6385,12 @@
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Maps concrete process/action rows before job spec authoring."
+        },
+        {
+          "path": "foundation/skills/backfill-author-specs/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Runs the one-target Author Specs layer loop from Process / Action Map rows to job/technical spec pairs."
         },
         {
           "path": "foundation/skills/backfill-job-spec-author/SKILL.md",

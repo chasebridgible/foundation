@@ -264,6 +264,12 @@
       "notes": "Maps concrete process/action rows before job spec authoring."
     },
     {
+      "path": "foundation/skills/backfill-author-specs/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Runs the one-target Author Specs layer loop from Process / Action Map rows to job/technical spec pairs."
+    },
+    {
       "path": "foundation/skills/backfill-job-spec-author/SKILL.md",
       "kind": "workflow",
       "ownership": "reference",
@@ -952,7 +958,7 @@
         <li><strong>Define Spec Jobs:</strong> broad capability rows are split before closure, and a durable Job / Spec Queue names exact slices, owner layer, exit criteria, status, blockers, and next action.</li>
         <li><strong>Gather Context:</strong> each queued slice receives a Context Pack with only the artifacts, surfaces, capabilities, tests, docs, schemas, and snippets needed for that slice.</li>
         <li><strong>Map Processes:</strong> user and operator processes/actions, states, rules, permissions, empty/loading/error states, recovery paths, and visible behavior are mapped before specs are authored.</li>
-        <li><strong>Author Specs:</strong> the agent writes or updates architecture-agnostic job specs and contract-first technical specs from the Context Pack and Process / Action Map.</li>
+        <li><strong>Author Specs:</strong> the agent consumes one outstanding Process / Action Map row at a time, writes or updates one architecture-agnostic job spec and one contract-first technical spec, checks them, evaluates that row to outstanding, and only then moves to the next target.</li>
         <li><strong>Evaluate Job Slices:</strong> each slice runs the hard loop: create, evaluate, revise, re-evaluate, mark outstanding, then continue.</li>
         <li><strong>Evaluate System Coherence:</strong> after slice coverage is complete, the agent evaluates whether the spec graph preserves system intent well enough that a future agent can rebuild behavior from specs without rediscovering source.</li>
         <li><strong>Handoff:</strong> the agent produces the final report: what was covered, which specs are draft or ready, what remains uncertain, what is blocked by human decisions, and what should happen next.</li>
@@ -993,11 +999,11 @@
         </li>
         <li><strong>Author Specs - Job Specs and Rendered UX</strong><br>
           Creates architecture-agnostic intent specs, including rendered and interactive UX when user-facing.<br>
-          Needs the Backfill Author Specs job, technical spec, eval spec, and strict adequacy review.
+          Uses the Backfill Author Specs one-target loop plus strict adequacy review.
         </li>
         <li><strong>Author Specs - Technical Specs</strong><br>
           Creates contract-first technical specs: required contracts, current implementation evidence, constraints, latitude, operational behavior, and failure modes.<br>
-          Needs the Backfill Author Specs job, technical spec, eval spec, and strict adequacy review.
+          Uses the Backfill Author Specs one-target loop plus strict adequacy review.
         </li>
         <li><strong>Job Slice Evaluation</strong><br>
           Evaluates each slice, revises it, re-evaluates it, then marks it outstanding.<br>
@@ -1094,7 +1100,7 @@
         <li><a data-spec-link="foundation.backfill-spec-job-queue.job" href="./foundation-backfill-spec-job-queue.html">foundation.backfill-spec-job-queue.job</a> - split rule and Job / Spec Queue layer.</li>
         <li><a data-spec-link="foundation.backfill-context-pack.job" href="./foundation-backfill-context-pack.html">foundation.backfill-context-pack.job</a> - bounded Context Packs for queued slices.</li>
         <li><a data-spec-link="foundation.backfill-process-action-map.job" href="./foundation-backfill-process-action-map.html">foundation.backfill-process-action-map.job</a> - Process / Action Map before authoring.</li>
-        <li><a data-spec-link="foundation.backfill-author-specs.job" href="./foundation-backfill-author-specs.html">foundation.backfill-author-specs.job</a> - Author Specs ledger.</li>
+        <li><a data-spec-link="foundation.backfill-author-specs.job" href="./foundation-backfill-author-specs.html">foundation.backfill-author-specs.job</a> - Author Specs one-target layer.</li>
         <li><a data-spec-link="foundation.backfill-job-slice-evaluation.job" href="./foundation-backfill-job-slice-evaluation.html">foundation.backfill-job-slice-evaluation.job</a> - per-slice evaluate/revise/accept loop.</li>
         <li><a data-spec-link="foundation.backfill-system-coherence-evaluation.job" href="./foundation-backfill-system-coherence-evaluation.html">foundation.backfill-system-coherence-evaluation.job</a> - full spec graph rebuild-grade evaluation.</li>
         <li><a data-spec-link="foundation.backfill-handoff.job" href="./foundation-backfill-handoff.html">foundation.backfill-handoff.job</a> - final review and handoff report layer.</li>
@@ -1120,6 +1126,7 @@
         <li><code>foundation/docs/specs/examples/backfill-golden-example.html</code> - golden example for evaluator calibration.</li>
         <li><code>foundation/skills/backfill-artifact-inventory/SKILL.md</code> - evidence inventory and coverage ledger workflow.</li>
         <li><code>foundation/skills/backfill-process-action-map/SKILL.md</code> - concrete Process / Action Map workflow.</li>
+        <li><code>foundation/skills/backfill-author-specs/SKILL.md</code> - Author Specs one-target layer workflow.</li>
         <li><code>foundation/skills/backfill-job-spec-author/SKILL.md</code> - job Author Specs workflow inside Author Specs.</li>
         <li><code>foundation/skills/backfill-rendered-ux-spec/SKILL.md</code> - rendered UX workflow.</li>
         <li><code>foundation/skills/backfill-technical-spec-author/SKILL.md</code> - technical contract authoring workflow.</li>

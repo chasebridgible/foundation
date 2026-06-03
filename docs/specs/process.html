@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.spec-process">
-<meta name="spec:type" content="capability">
+<meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-03">
 <title>Spec Maintenance Process</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -14,9 +14,9 @@
 {
   "id": "foundation.spec-process",
   "title": "Spec Maintenance Process",
-  "type": "capability",
+  "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-03",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": "foundation.author-durable-specs.capability",
@@ -60,6 +60,11 @@
       "path": "foundation/docs/specs/process.html",
       "kind": "doc",
       "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/spec-workflow/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
     }
   ],
   "implementationPaths": [],
@@ -77,7 +82,7 @@
     }
   ],
   "tags": [
-    "capability",
+    "job",
     "process",
     "spec-test-prompt-execute"
   ]
@@ -90,7 +95,7 @@
   "nodes": [
     {
       "id": "spec:foundation.spec-process",
-      "type": "capability",
+      "type": "job",
       "label": "Spec Maintenance Process",
       "source": {
         "specId": "foundation.spec-process",
@@ -99,9 +104,9 @@
       "status": "active",
       "confidence": "high",
       "attributes": {
-        "specType": "capability",
+        "specType": "job",
         "tags": [
-          "capability",
+          "job",
           "process",
           "spec-test-prompt-execute"
         ]
@@ -110,8 +115,8 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.spec-process:depends-on:spec:foundation.author-durable-specs.capability",
-      "type": "depends-on",
+      "id": "edge:spec:foundation.spec-process:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
       "from": "spec:foundation.spec-process",
       "to": "spec:foundation.author-durable-specs.capability",
       "source": {
@@ -197,7 +202,7 @@
     <p class="lede">The process keeps specs, evidence, evals, technical work, and implementation moving together. Plans are temporary reasoning unless they are converted into system, capability, job, technical, eval, ADR, test, or board/session artifacts.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-01</div>
+      <div><strong>Updated:</strong> 2026-06-03</div>
       <div><strong>Parent:</strong> <a data-spec-link="foundation.author-durable-specs.capability" href="./capabilities/author-durable-specs.html">foundation.author-durable-specs.capability</a></div>
     </div>
   </section>
@@ -356,6 +361,11 @@
           <tr><td>Substrate updates</td><td>When to extract a new template, capability, skill, or convention.</td><td>Spec content that should live in the spec system.</td></tr>
         </tbody>
       </table>
+      <h3>Directly owned paths</h3>
+      <ul>
+        <li><code>foundation/docs/specs/process.html</code> defines the spec maintenance process contract.</li>
+        <li><code>foundation/skills/spec-workflow/SKILL.md</code> defines the repeatable workflow agents use to execute the process.</li>
+      </ul>
     </section>
   </article>
 

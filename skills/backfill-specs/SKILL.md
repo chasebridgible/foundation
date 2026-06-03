@@ -15,11 +15,13 @@ Detailed contracts live in:
 - `docs/specs/foundation-backfill-artifact-inventory.html` plus its technical and eval specs
 - `docs/specs/foundation-backfill-surface-function-map.html` plus its technical and eval specs
 - `docs/specs/foundation-backfill-capability-map.html` plus its technical and eval specs
+- `docs/specs/foundation-backfill-author-specs.html` plus its technical and eval specs
 - `docs/specs/examples/backfill-golden-example.html`
 
 Read those only when changing the workflow, resolving ambiguity, or calibrating quality.
 Read the Artifact Inventory specs before starting or resuming that layer. Its canonical file and command namespace is `artifact-inventory`.
 Read the Surface / Function Map or Capability Map specs before starting or resuming those layers. Their canonical command namespaces are `surface-function-map` and `capability-map`.
+Read the Author Specs specs before starting or resuming that layer. Its canonical command namespace is `author-specs`.
 
 ## Non-Negotiables
 
@@ -48,6 +50,7 @@ In the target repo:
 - Define Spec Jobs artifacts: `docs/specs/backfill/spec-job-queue-YYYYMMDD-NN.jsonl`, `spec-job-queue-eval-YYYYMMDD-NN.jsonl`, and `spec-job-queue-summary-YYYYMMDD-NN.html`
 - Context Pack artifacts: `docs/specs/backfill/context-pack-YYYYMMDD-NN.jsonl`, `context-pack-check-YYYYMMDD-NN.json`, `context-pack-eval-YYYYMMDD-NN.jsonl`, and `context-pack-summary-YYYYMMDD-NN.html`
 - Process / Action Map artifacts: `docs/specs/backfill/process-action-map-YYYYMMDD-NN.jsonl`, `process-action-map-check-YYYYMMDD-NN.json`, `process-action-map-eval-YYYYMMDD-NN.jsonl`, and `process-action-map-summary-YYYYMMDD-NN.html`
+- Author Specs artifacts: `docs/specs/backfill/author-specs-YYYYMMDD-NN.jsonl`, `author-specs-check-YYYYMMDD-NN.json`, `author-specs-eval-YYYYMMDD-NN.jsonl`, and `author-specs-summary-YYYYMMDD-NN.html`
 
 The report must contain:
 
@@ -56,6 +59,8 @@ The report must contain:
 - `<script type="application/json" id="backfill-context-pack-state">`
 - `<script type="application/json" id="backfill-process-action-map-state">`
 - `<script type="application/json" id="backfill-process-action-map">`
+- `<script type="application/json" id="backfill-author-specs-state">`
+- `<script type="application/json" id="backfill-author-specs">`
 - visible tables for humans showing the same state
 
 Capability rows must include stable ID, actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, spec owners/sections, verification targets, status, split state, gaps, and human decisions.
@@ -87,19 +92,20 @@ Repeat until capability coverage is closed:
 8. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
 9. Gather Context with `foundation:context-pack:*` commands until the Context Pack handoff names Process / Action Map.
 10. Use `backfill-process-action-map` and `foundation:process-action-map:*` commands to Map Processes for each active Context Pack row. Follow the current `--next` target only and do not use generated drivers, shell loops, regex classifiers, or reusable templates to produce multiple Process / Action Map rows.
-11. Use `backfill-job-spec-author`.
-12. Use `backfill-rendered-ux-spec` when the capability has visible UX.
-13. Use `backfill-technical-spec-author`.
-14. Use `backfill-spec-adequacy-review` to Review Spec Adequacy; revise before evaluator scoring if it fails.
-15. Use `evaluate-backfill-specs` to Evaluate Job Slices.
-16. If below threshold, mark `needs-revision`, route the gap to the owning skill, revise, and re-evaluate.
-17. If outstanding, mark the slice and attached capability rows outstanding.
-18. Run validation after meaningful report/log/spec changes:
+11. Use `backfill-author-specs` and `foundation:author-specs:*` commands to Author Specs for each active Process / Action Map row. Follow the current `--next` target only: author one job/descriptive spec and one technical spec, run check, run row eval, revise to outstanding, then continue. Do not use generated drivers, shell loops, template synthesizers, or bulk payloads to create, fill, check, or evaluate multiple targets.
+12. Use `backfill-job-spec-author` inside the current Author Specs target.
+13. Use `backfill-rendered-ux-spec` when the current target has visible UX.
+14. Use `backfill-technical-spec-author` inside the current Author Specs target.
+15. Use `backfill-spec-adequacy-review` to Review Spec Adequacy; revise before evaluator scoring if it fails.
+16. Use `evaluate-backfill-specs` to Evaluate Job Slices.
+17. If below threshold, mark `needs-revision`, route the gap to the owning skill, revise, and re-evaluate.
+18. If outstanding, mark the slice and attached capability rows outstanding.
+19. Run validation after meaningful report/log/spec changes:
     - `npm run backfill:queue:check -- <target-repo>/docs/specs/backfill/review-report-YYYYMMDD-NN.html`
     - `npm run backfill:run-log:check -- <target-repo>/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl`
     - target registry/spec checks required by its `AGENTS.md`
     - `npm run foundation:visible-business-graph:check -- --repo <target-repo>` after spec graph metadata exists
-19. Update report status, Capability Map, remaining Job / Spec Queue, run-log sequence, and next action.
+20. Update report status, Capability Map, remaining Job / Spec Queue, run-log sequence, and next action.
 
 After all capability rows are outstanding, parent-owned with a precise reason, blocked by a named human decision, or out of scope, run `evaluate-backfill-specs` on the full graph to Evaluate System Coherence. If system-coherence evaluation needs revision, route it back through the loop.
 
@@ -111,9 +117,10 @@ After all capability rows are outstanding, parent-owned with a precise reason, b
 - `skills/capability-map-fill-loop/SKILL.md` - Map Capabilities
 - `foundation:context-pack:*` command family - Gather Context
 - `skills/backfill-process-action-map/SKILL.md` - Map Processes
-- `skills/backfill-job-spec-author/SKILL.md`
-- `skills/backfill-rendered-ux-spec/SKILL.md`
-- `skills/backfill-technical-spec-author/SKILL.md`
+- `skills/backfill-author-specs/SKILL.md` - Author Specs layer
+- `skills/backfill-job-spec-author/SKILL.md` - current target job/descriptive spec authoring
+- `skills/backfill-rendered-ux-spec/SKILL.md` - current target rendered UX authoring
+- `skills/backfill-technical-spec-author/SKILL.md` - current target technical spec authoring
 - `skills/backfill-spec-adequacy-review/SKILL.md` - Review Spec Adequacy
 - `skills/evaluate-backfill-specs/SKILL.md` - Evaluate Job Slices and Evaluate System Coherence
 
