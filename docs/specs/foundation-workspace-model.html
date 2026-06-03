@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.workspace-model.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-03">
 <title>Foundation Workspace Model</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Workspace Model",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-03",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.install-foundation-target-repos.capability",
@@ -103,6 +103,16 @@
       "path": "foundation/skills/install-foundation-substrate/SKILL.md",
       "kind": "workflow",
       "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/foundation-sync-target-package-scripts.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/foundation-command-manifest.mjs",
+      "kind": "source",
+      "ownership": "direct"
     }
   ],
   "implementationPaths": [
@@ -122,7 +132,7 @@
       "path": "foundation/package.json",
       "kind": "config",
       "ownership": "reference",
-      "notes": "Command registry for spec, site-map, and doctor checks."
+      "notes": "Command registry for spec, site-map, doctor, and target package alias sync checks."
     },
     {
       "path": "foundation/.github/workflows/specs.yml",
@@ -176,13 +186,13 @@
       "path": "foundation/scripts/foundation-doctor.mjs",
       "kind": "workflow",
       "ownership": "reference",
-      "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration."
+      "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration, including target package alias drift."
     },
     {
       "path": "foundation/scripts/foundation-doctor.test.mjs",
       "kind": "test",
       "ownership": "reference",
-      "notes": "Automated coverage for the Foundation doctor rules."
+      "notes": "Automated coverage for the Foundation doctor and target package alias rules."
     }
   ],
   "coverage": [
@@ -229,6 +239,18 @@
       ],
       "evidence": "Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.",
       "notes": "Procedure is defined in foundation.agents-load-canary.eval and is intentionally separate from foundation:doctor."
+    },
+    {
+      "id": "FW-5",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": [
+        "foundation.workspace-model.job#states-and-rules",
+        "foundation.workspace-model.job#ux-contracts"
+      ],
+      "evidence": "Target package alias tests fail when Foundation aliases are missing and prove foundation:target-scripts:sync adds missing aliases idempotently.",
+      "notes": "Implemented by foundation.workspace-doctor.technical."
     }
   ],
   "tags": [
@@ -492,7 +514,7 @@
         <li><strong>Task routing:</strong> shared process questions route through Foundation skills. Product-specific questions route into the target repo's specs, knowledge base, tests, and code.</li>
         <li><strong>Spec creation:</strong> if the user asks to create a user-facing spec, Codex uses Foundation's job spec interview workflow, then writes the resulting project spec into the target repo unless the spec is itself about Foundation.</li>
         <li><strong>Foundation improvement:</strong> if work reveals a reusable process improvement, Codex updates Foundation, not the product repo, and leaves the target repo with only the project-specific effect.</li>
-        <li><strong>Validation:</strong> before handoff, local checks run in the target repo and Foundation-backed checks verify the target repo's specs and substrate shape.</li>
+        <li><strong>Validation:</strong> before handoff, local checks run in the target repo and Foundation-backed checks verify the target repo's specs, package aliases, and substrate shape.</li>
       </ol>
     </section>
 
@@ -506,6 +528,7 @@
           <tr><td>Local repo adapter</td><td>A target repo's <code>AGENTS.md</code> may contain project-specific facts, commands, paths, and constraints, but must not duplicate or redefine shared Foundation rules.</td><td>Local context composes with Foundation instead of forking it.</td></tr>
           <tr><td>Skill discovery</td><td>Foundation skills must be discoverable from non-Foundation repos through either global skill installation, a workspace pointer, or a future Foundation command.</td><td>Users can say "create a job spec" in Tribal Innovations and get the Foundation interview workflow.</td></tr>
           <tr><td>Spec location</td><td>Shared workflow specs live in Foundation; product specs live in the target repo.</td><td>Tribal map specs do not end up in Foundation, and Foundation workflow specs do not get copied into Tribal as stale source.</td></tr>
+          <tr><td>Target package aliases</td><td>When a target repo has <code>package.json</code>, Foundation-owned command aliases are synced from the Foundation command manifest and verified by <code>foundation:doctor</code>.</td><td>Backfill layers added in Foundation, including Process / Action Map, do not fail later because the target repo lacks an npm alias.</td></tr>
           <tr><td>CI reproducibility</td><td>Target repo CI should use a pinned Foundation version or explicit synced artifact, not an unpinned local sibling path.</td><td>A repo's checks are repeatable even if Foundation changes later the same day.</td></tr>
           <tr><td>Update flow</td><td>Foundation updates propagate by explicit sync, install, status, or version bump, not by silent mutation of product repos.</td><td>The user sees what changed and can review the blast radius.</td></tr>
         </tbody>
@@ -519,6 +542,7 @@
         <li><strong>Agent starts inside the workspace parent:</strong> Foundation is not discovered by sibling scanning alone; the global pointer or an explicit workspace config must name it.</li>
         <li><strong>Target repo has no adapter:</strong> Codex uses Foundation rules and asks where project specs, commands, and knowledge should live before creating durable artifacts.</li>
         <li><strong>Local adapter conflicts with Foundation:</strong> the conflict should be treated as a substrate issue. Shared-process changes belong in Foundation; local exceptions must be explicit and narrow.</li>
+        <li><strong>Target package aliases are stale:</strong> run <code>npm run foundation:target-scripts:sync -- --repo &lt;target-repo&gt;</code> from Foundation, then rerun doctor before continuing a Foundation-backed workflow in the target repo.</li>
         <li><strong>Foundation changes while target work is active:</strong> the current task should finish against the loaded/pinned process unless the user asks to refresh Foundation mid-task.</li>
         <li><strong>CI cannot reach the local Foundation path:</strong> CI checks out the pinned Foundation revision named by the target repo workflow instead of relying on the developer's filesystem layout.</li>
       </ul>
@@ -553,6 +577,9 @@
       <ul class="path-list">
         <li data-implementation-path="foundation/docs/specs/foundation-workspace-model.html"><code>foundation/docs/specs/foundation-workspace-model.html</code> - canonical workspace contract for workspace-level Foundation consumption.</li>
         <li data-implementation-path="foundation/templates/target-repo-AGENTS.md"><code>foundation/templates/target-repo-AGENTS.md</code> - canonical target repo adapter template.</li>
+        <li data-implementation-path="foundation/skills/install-foundation-substrate/SKILL.md"><code>foundation/skills/install-foundation-substrate/SKILL.md</code> - target repo setup workflow for connecting repos to canonical Foundation.</li>
+        <li data-implementation-path="foundation/scripts/foundation-command-manifest.mjs"><code>foundation/scripts/foundation-command-manifest.mjs</code> - canonical target package alias manifest.</li>
+        <li data-implementation-path="foundation/scripts/foundation-sync-target-package-scripts.mjs"><code>foundation/scripts/foundation-sync-target-package-scripts.mjs</code> - idempotent target package alias sync command.</li>
       </ul>
       <h3>Implementation references</h3>
       <ul class="path-list">
@@ -560,7 +587,6 @@
         <li><code>foundation/skills/job-spec-interview/SKILL.md</code> - entry workflow for user-facing spec creation.</li>
         <li><code>foundation/skills/backfill-specs/SKILL.md</code> - workflow for adopting existing repos into draft specs.</li>
         <li><code>foundation/skills/spec-workflow/SKILL.md</code> - spec registry and verification workflow.</li>
-        <li><code>foundation/skills/install-foundation-substrate/SKILL.md</code> - target repo setup workflow for connecting repos to canonical Foundation.</li>
         <li><code>foundation/docs/specs/foundation-agents-load-canary-eval.html</code> - manual AGENTS-load canary procedure.</li>
         <li><code>foundation/scripts/foundation-doctor.mjs</code> - setup diagnostic for canonical Foundation use from target repos.</li>
         <li><code>foundation/scripts/foundation-doctor.test.mjs</code> - automated tests for doctor checks.</li>
@@ -583,9 +609,10 @@
         <thead><tr><th>ID</th><th>Spec section</th><th>Coverage</th><th>Status</th><th>Gap</th></tr></thead>
         <tbody>
           <tr><td>FW-1</td><td><code>#states-and-rules</code></td><td><code>foundation:doctor</code> target repo adapter check fails when <code>AGENTS.md</code> duplicates Foundation-owned rules.</td><td>existing</td><td>Implemented by <code>foundation.workspace-doctor.technical</code>.</td></tr>
-          <tr><td>FW-2</td><td><code>#ux-contracts</code></td><td><code>foundation:doctor</code> reports Foundation path, global Codex pointer, required skills, target adapter status, spec namespace status, and CI pin status.</td><td>existing</td><td>CI pinning is a warning until a target repo configures GitHub workflows.</td></tr>
+          <tr><td>FW-2</td><td><code>#ux-contracts</code></td><td><code>foundation:doctor</code> reports Foundation path, global Codex pointer, required skills, target adapter status, spec namespace status, target package alias status, and CI pin status.</td><td>existing</td><td>CI pinning is a warning until a target repo configures GitHub workflows.</td></tr>
           <tr><td>FW-3</td><td><code>#interface-journey</code></td><td>Manual walkthrough from a target repo: create a job spec using Foundation and write it into the target repo.</td><td>planned</td><td>Run after the technical spec defines install/sync mechanics.</td></tr>
           <tr><td>FW-4</td><td><code>#ux-contracts</code></td><td>Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.</td><td>planned</td><td>Procedure lives in <code>foundation.agents-load-canary.eval</code> and stays outside <code>foundation:doctor</code>.</td></tr>
+          <tr><td>FW-5</td><td><code>#states-and-rules</code>, <code>#ux-contracts</code></td><td>Target package alias tests fail when Foundation aliases are missing and prove <code>foundation:target-scripts:sync</code> adds them idempotently.</td><td>existing</td><td>Real target repos still need doctor run after sync.</td></tr>
         </tbody>
       </table>
       <p>The next phase should define the isolated AGENTS-load canary and the target-repo CI template that runs Foundation-backed validation against a pinned Foundation revision.</p>

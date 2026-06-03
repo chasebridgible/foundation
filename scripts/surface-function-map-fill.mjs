@@ -92,7 +92,7 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "surface-map",
+    phase: "surface-function-map",
     event: eventType,
     summary: marked.revisionCount > 0
       ? `Revised Surface / Function Map rows for ${marked.markedPath} after full-file agent read.`

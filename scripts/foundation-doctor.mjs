@@ -3,11 +3,16 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import {
+  targetFoundationCommands,
+  targetPackageScriptCommand
+} from "./foundation-command-manifest.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const repoRoot = path.dirname(path.dirname(scriptPath));
 const requiredSkills = [
   "job-spec-interview",
+  "agentic-workflow-design",
   "backfill-specs",
   "artifact-inventory-fill-loop",
   "surface-function-map-fill-loop",
@@ -224,6 +229,67 @@ function checkTargetHtmlDocsNavigation(repoPath) {
   return out;
 }
 
+function normalizedCommand(value) {
+  return String(value || "").replace(/\\/g, "/");
+}
+
+function scriptMentionsFoundationScript(command, foundationScript) {
+  const normalized = normalizedCommand(command);
+  return normalized.includes(foundationScript);
+}
+
+function checkTargetFoundationPackageScripts(repoPath, foundationPath) {
+  const out = [];
+  const packageJsonPath = path.join(repoPath, "package.json");
+  if (!exists(packageJsonPath)) {
+    out.push(pass("repo", "repo-foundation-package-scripts", "Target repo has no package.json; run Foundation commands from the Foundation repo"));
+    return out;
+  }
+
+  let packageJson;
+  try {
+    packageJson = readJson(packageJsonPath);
+  } catch (error) {
+    out.push(fail("repo", "repo-foundation-package-scripts", "Target repo package.json could not be parsed for Foundation aliases", {
+      error: error.message
+    }));
+    return out;
+  }
+
+  const scripts = packageJson.scripts || {};
+  const missing = [];
+  const stale = [];
+
+  for (const spec of targetFoundationCommands) {
+    const command = scripts[spec.name];
+    if (!command) {
+      missing.push({
+        name: spec.name,
+        expected: targetPackageScriptCommand(spec, { repoPath, foundationPath })
+      });
+      continue;
+    }
+    if (!scriptMentionsFoundationScript(command, spec.foundationScript)) {
+      stale.push({
+        name: spec.name,
+        actual: command,
+        expectedScript: spec.foundationScript,
+        expected: targetPackageScriptCommand(spec, { repoPath, foundationPath })
+      });
+    }
+  }
+
+  out.push(missing.length === 0 && stale.length === 0
+    ? pass("repo", "repo-foundation-package-scripts", "Target repo package.json exposes current Foundation command aliases")
+    : fail("repo", "repo-foundation-package-scripts", "Target repo package.json is missing or has stale Foundation command aliases", {
+      missing,
+      stale,
+      fix: "Run npm run foundation:target-scripts:sync -- --repo <target-repo> from Foundation, then rerun foundation:doctor."
+    }));
+
+  return out;
+}
+
 function checkMachine(options) {
   const out = [];
   const foundationPath = options.foundationPath;
@@ -334,6 +400,7 @@ function checkTargetRepo(options) {
   }
 
   out.push(...checkTargetHtmlDocsNavigation(repoPath));
+  out.push(...checkTargetFoundationPackageScripts(repoPath, foundationPath));
 
   const workflowsDir = path.join(repoPath, ".github", "workflows");
   if (!exists(workflowsDir)) {

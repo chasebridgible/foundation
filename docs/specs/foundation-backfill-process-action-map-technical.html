@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-process-action-map.technical">
 <meta name="spec:type" content="technical">
-<meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-03">
 <title>Foundation Backfill Process / Action Map Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -15,8 +15,8 @@
   "id": "foundation.backfill-process-action-map.technical",
   "title": "Foundation Backfill Process / Action Map Technical Spec",
   "type": "technical",
-  "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "status": "active",
+  "lastUpdated": "2026-06-03",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-process-action-map.job",
@@ -73,18 +73,61 @@
       "kind": "doc",
       "ownership": "reference",
       "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    },
+    {
+      "path": "foundation/scripts/process-action-map-core.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Defines row schema, upstream freshness, state/action specificity, handoff state, checker rules, eval scoring, refresh merge, and report payloads."
+    },
+    {
+      "path": "foundation/scripts/process-action-map-init.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Creates process-action-map JSONL from passing Context Pack artifacts."
+    },
+    {
+      "path": "foundation/scripts/process-action-map-fill.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Rejects generated files and coarse shortcuts while writing reviewed Process / Action Map specs."
+    },
+    {
+      "path": "foundation/scripts/process-action-map-check.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Writes process-action-map-check JSON and fails structural drift."
+    },
+    {
+      "path": "foundation/scripts/process-action-map-eval.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Writes process-action-map-eval JSONL receipts and process-action-map-summary HTML."
+    },
+    {
+      "path": "foundation/scripts/process-action-map-refresh.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Invalidates stale rows when Context Pack rows change."
+    },
+    {
+      "path": "foundation/scripts/process-action-map-report.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Embeds Process / Action Map handoff state and row payload in the backfill report."
     }
   ],
   "coverage": [
     {
       "id": "BFL-FLOW_EXTRACTION-T-1",
-      "level": "static",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-process-action-map-technical.html",
+      "level": "integration",
+      "status": "existing",
+      "path": "foundation/scripts/process-action-map.test.mjs",
       "mapsTo": [
+        "foundation.backfill-process-action-map.technical#data-model",
         "foundation.backfill-process-action-map.technical#contracts"
       ],
-      "evidence": "Planned Foundation Backfill Process / Action Map technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+      "evidence": "Process / Action Map tests cover command workflow, row shape, upstream freshness, explicit selection, check/eval/report artifacts, report check bootstrapping, stale upstream report recovery guidance, report drift, and refresh behavior."
     }
   ],
   "tags": [
@@ -109,7 +152,7 @@
         "specId": "foundation.backfill-process-action-map.technical",
         "sectionId": "required-depth"
       },
-      "status": "draft",
+      "status": "active",
       "confidence": "medium",
       "attributes": {
         "specType": "technical",
@@ -185,7 +228,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-process-action-map-technical.html</div>
     <h1>Foundation Backfill Process / Action Map Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Process / Action Map deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-process-action-map.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-03</div><div><strong>Parent:</strong> foundation.backfill-process-action-map.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -193,22 +236,24 @@
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
-        <tr><td>Layer row</td><td>runId, rowId, upstreamIds, status, confidence, evidenceRefs, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity and traceable upstream evidence.</td></tr>
-        <tr><td>Canonical artifact</td><td>process-action-map-YYYYMMDD-NN.jsonl, process-action-map-eval-YYYYMMDD-NN.jsonl</td><td>JSONL files are append-friendly and machine-parseable; each line is one receipt or row.</td></tr>
-        <tr><td>Derived artifact</td><td>process-action-map-summary-YYYYMMDD-NN.html, process/action maps, state tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
-        <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts.</td></tr>
+        <tr><td>Layer row</td><td>runId, processMapId, upstreamPackId, upstreamPackRef, upstreamSliceId, upstreamCapabilityIds, actor, role, trigger, intendedOutcome, domainObject, actions, stateModel, permissions, rules, visibleBehavior, edgeCases, recoveryPaths, evidenceRefs, graphHints, specTargets, explicitGaps, blockers, reviewFlags, status, confidence, createdAt, updatedAt</td><td>Every row has stable identity, traceable upstream evidence, and enough process/state detail for Author Specs.</td></tr>
+        <tr><td>Canonical artifact</td><td>process-action-map-YYYYMMDD-NN.jsonl, process-action-map-check-YYYYMMDD-NN.json, process-action-map-eval-YYYYMMDD-NN.jsonl</td><td>JSONL files own row/eval state; the check JSON records deterministic gate output for the exact artifact fingerprint.</td></tr>
+        <tr><td>Derived artifact</td><td>process-action-map-summary-YYYYMMDD-NN.html, process-action-map-refresh-YYYYMMDD-NN.json, report Process / Action Map state, process/action tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
+        <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, outstanding row receipt count, missing outstanding row receipt count, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts without guessing whether rows were actually reviewed.</td></tr>
       </tbody></table>
     </section>
 
     <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
       <h2>Contracts</h2>
       <table class="status-table"><thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead><tbody>
-        <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
+        <tr><td>Upstream completeness</td><td>The layer starts only from a passing Context Pack handoff: current checker artifact, current passing eval receipt, zero revision targets, HTML summary, and optional report state naming Process / Action Map. If a report path is supplied and the embedded Context Pack state is stale or missing, init fails with the exact <code>foundation:context-pack:report</code> refresh command.</td><td>Later synthesis must not hide earlier discovery gaps, and agents should receive deterministic recovery when canonical artifacts and report state drift apart.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
-        <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
-        <tr><td>Deterministic checker</td><td>validates every user-facing or operator-facing queued slice has process/action rows or explicit non-UI/operator classification; validates process/action rows link back to Context Packs and capability IDs.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
-        <tr><td>Semantic eval</td><td>samples process/action rows against Context Packs to detect missing states, hidden permissions, unmodeled errors, architecture leakage, and under-described visible behavior.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Handoff gate</td><td>all queued slices that need process/action detail have acceptable process/action rows; checker passes; eval receipt and HTML summary exist; report names next layer as Author Specs.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Row-atomic fill loop</td><td><code>fill</code> accepts exactly one <code>--pack-id</code> or exactly one <code>--slice-id</code>, rejects anything other than the current <code>--next</code> target, rejects multiple IDs, rejects multi-row <code>--processes-json</code>, rejects <code>--all</code>, rejects <code>--batch-size</code>, rejects generated process files, and rejects filling another Context Pack row while any current non-pending row lacks an outstanding row eval receipt.</td><td>Long-running work survives context compaction and prevents coarse closure or moving past an under-reviewed row.</td></tr>
+        <tr><td>No driver synthesis</td><td>Agents must not create driver scripts, shell loops, generated payload files, regex classifiers, path-kind maps, or reusable templates that create, fill, check, evaluate, or revise more than the current <code>--next</code> row.</td><td>The unit of review is the selected Context Pack row, not a bulk generator that happens to submit one payload at a time.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates one current row per active Context Pack, valid enums, current upstream fingerprints, required ready-row fields, trace evidence, zero duplicate row IDs, and optional report-state drift. Row-targeted eval requires a current passing check artifact for the latest Process / Action Map fingerprint.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
+        <tr><td>Semantic eval</td><td>supports row-targeted eval by pack ID, slice ID, or process row ID; a row receipt is outstanding only with score 100, no blocking findings, no warnings, no revision targets, current row fingerprint, resolved or named uncertainty, and enough behavior for Author Specs without reopening source for core behavior.</td><td>Correctness includes meaning, specificity, evidence quality, and downstream usability.</td></tr>
+        <tr><td>Handoff gate</td><td>all active Context Pack rows have ready-for-specs rows or explicit blocker detail; checker passes; eval receipt and HTML summary are current; every non-pending row has a current outstanding row eval receipt; eval has zero revision targets, zero blocking findings, and zero warnings; report names next layer as Author Specs.</td><td>Each layer is a reproducible outstanding unit before the next layer consumes it.</td></tr>
+        <tr><td>Report self-check</td><td><code>foundation:process-action-map:report</code> writes or updates the report, validates the embedded Process / Action Map state, writes a current check artifact with the report path, rebuilds report state from that check, and rewrites the report.</td><td>The report/check ordering should not require manual bootstrap knowledge or leave stale report state after handoff recording.</td></tr>
       </tbody></table>
     </section>
 
@@ -216,11 +261,13 @@
       <h2>Checker and fill loop</h2>
       <ol>
         <li>Read active report, run log, upstream artifacts, and current layer artifact.</li>
-        <li>Select next pending or failed batch by deterministic order plus risk priority.</li>
-        <li>Inspect only the evidence needed for the batch and update canonical JSONL rows.</li>
-        <li>Run the checker; repair structural failures before semantic eval.</li>
-        <li>Run or append eval receipts; generate HTML summary from JSONL.</li>
-        <li>Revise failed rows until the gate passes or a named human decision blocks progress.</li>
+        <li>Select the next row with <code>foundation:process-action-map:fill -- --next</code>; the selected row is the only valid fill target.</li>
+        <li>Inspect exactly one Context Pack row and only the evidence needed for that row; do not create or run a generator across many packs.</li>
+        <li>Update canonical JSONL with <code>foundation:process-action-map:fill</code> using one pack or slice ID and one process JSON object.</li>
+        <li>Run <code>foundation:process-action-map:check -- --phase batch</code>; repair structural failures before semantic eval.</li>
+        <li>Run row-targeted <code>foundation:process-action-map:eval</code>; generate or refresh canonical row receipts and the HTML summary from JSONL.</li>
+        <li>Revise the same row until it is outstanding, then select the next row.</li>
+        <li>After every current row is outstanding or explicitly blocked, run handoff check, full eval, and <code>foundation:process-action-map:report</code>; the report command refreshes the check artifact against the embedded report state.</li>
       </ol>
     </section>
 
@@ -230,17 +277,28 @@
         <tr><td>Missing upstream row</td><td>Checker fails and names the missing upstream ID.</td><td>Checker JSON output and report entry.</td></tr>
         <tr><td>Vague or unsupported row</td><td>Eval routes the row back to the fill loop.</td><td>Eval JSONL receipt with revision target.</td></tr>
         <tr><td>Report drift</td><td>Checker fails when report paths/counts do not match artifacts.</td><td>Report check result.</td></tr>
+        <tr><td>Upstream Context Pack report drift</td><td>Init fails with a named <code>foundation:context-pack:report</code> command when a supplied report's Context Pack state is stale or missing.</td><td>Process / Action Map init output.</td></tr>
         <tr><td>Context reset</td><td>Next agent resumes from report, run log, current artifacts, and pending rows.</td><td>Run-log checkpoint.</td></tr>
       </tbody></table>
     </section>
 
     <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
       <h2>Related paths and coverage</h2>
-      <ul class="path-list"><li data-implementation-path="foundation/docs/specs/foundation-backfill-process-action-map-technical.html"><code>foundation/docs/specs/foundation-backfill-process-action-map-technical.html</code> - technical contract for this layer.</li></ul>
+      <ul class="path-list">
+        <li data-implementation-path="foundation/docs/specs/foundation-backfill-process-action-map-technical.html"><code>foundation/docs/specs/foundation-backfill-process-action-map-technical.html</code> - technical contract for this layer.</li>
+        <li data-implementation-path="foundation/scripts/process-action-map-core.mjs"><code>foundation/scripts/process-action-map-core.mjs</code> - technical implementation of row model, validation, eval scoring, refresh, and report state.</li>
+        <li data-implementation-path="foundation/scripts/process-action-map-init.mjs"><code>foundation/scripts/process-action-map-init.mjs</code> - init command.</li>
+        <li data-implementation-path="foundation/scripts/process-action-map-fill.mjs"><code>foundation/scripts/process-action-map-fill.mjs</code> - fill command.</li>
+        <li data-implementation-path="foundation/scripts/process-action-map-check.mjs"><code>foundation/scripts/process-action-map-check.mjs</code> - deterministic checker command.</li>
+        <li data-implementation-path="foundation/scripts/process-action-map-eval.mjs"><code>foundation/scripts/process-action-map-eval.mjs</code> - eval command.</li>
+        <li data-implementation-path="foundation/scripts/process-action-map-refresh.mjs"><code>foundation/scripts/process-action-map-refresh.mjs</code> - refresh command.</li>
+        <li data-implementation-path="foundation/scripts/process-action-map-report.mjs"><code>foundation/scripts/process-action-map-report.mjs</code> - report command.</li>
+        <li data-implementation-path="foundation/scripts/process-action-map.test.mjs"><code>foundation/scripts/process-action-map.test.mjs</code> - command and gate coverage.</li>
+      </ul>
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Process / Action Map Technical Spec · draft</p>
+  <p class="footer-note">Foundation Backfill Process / Action Map Technical Spec · active</p>
 </main>
 <script src="../site-map.js?v=20260602-nav-collapse"></script>
 <script src="../site-nav.js?v=20260602-nav-collapse"></script>

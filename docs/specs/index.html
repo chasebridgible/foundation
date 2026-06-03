@@ -323,7 +323,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-06-02",
+  "lastUpdated": "2026-06-03",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -5121,10 +5121,10 @@
       "id": "foundation.backfill-process-action-map.eval",
       "title": "Foundation Backfill Process / Action Map Eval Spec",
       "type": "eval",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-process-action-map-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-process-action-map.job",
@@ -5161,6 +5161,11 @@
           "path": "foundation/docs/specs/foundation-backfill-process-action-map-eval.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/process-action-map.test.mjs",
+          "kind": "test",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -5181,18 +5186,31 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        },
+        {
+          "path": "foundation/scripts/process-action-map.test.mjs",
+          "kind": "test",
+          "ownership": "direct",
+          "notes": "Executable test coverage for the Process / Action Map acceptance map."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-core.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Code under test for checker, eval, refresh, and report state behavior."
         }
       ],
       "coverage": [
         {
           "id": "BFL-FLOW_EXTRACTION-E-1",
-          "level": "manual",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-process-action-map-eval.html",
+          "level": "integration",
+          "status": "existing",
+          "path": "foundation/scripts/process-action-map.test.mjs",
           "mapsTo": [
+            "foundation.backfill-process-action-map.eval#acceptance-mapping",
             "foundation.backfill-process-action-map.eval#eval-contract"
           ],
-          "evidence": "Planned Foundation Backfill Process / Action Map test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Process / Action Map tests cover canonical artifacts, upstream reference resolution, state model enforcement, structural drift, weak semantic eval findings, explicit handoff state, eval freshness, report self-check bootstrapping, stale upstream report recovery guidance, refresh invalidation, and report drift."
         }
       ],
       "tags": [
@@ -5207,10 +5225,10 @@
       "id": "foundation.backfill-process-action-map.technical",
       "title": "Foundation Backfill Process / Action Map Technical Spec",
       "type": "technical",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-process-action-map-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-process-action-map.job",
@@ -5267,18 +5285,61 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-core.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Defines row schema, upstream freshness, state/action specificity, handoff state, checker rules, eval scoring, refresh merge, and report payloads."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-init.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Creates process-action-map JSONL from passing Context Pack artifacts."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-fill.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Rejects generated files and coarse shortcuts while writing reviewed Process / Action Map specs."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-check.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes process-action-map-check JSON and fails structural drift."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-eval.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes process-action-map-eval JSONL receipts and process-action-map-summary HTML."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-refresh.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Invalidates stale rows when Context Pack rows change."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-report.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Embeds Process / Action Map handoff state and row payload in the backfill report."
         }
       ],
       "coverage": [
         {
           "id": "BFL-FLOW_EXTRACTION-T-1",
-          "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-process-action-map-technical.html",
+          "level": "integration",
+          "status": "existing",
+          "path": "foundation/scripts/process-action-map.test.mjs",
           "mapsTo": [
+            "foundation.backfill-process-action-map.technical#data-model",
             "foundation.backfill-process-action-map.technical#contracts"
           ],
-          "evidence": "Planned Foundation Backfill Process / Action Map technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Process / Action Map tests cover command workflow, row shape, upstream freshness, explicit selection, check/eval/report artifacts, report check bootstrapping, stale upstream report recovery guidance, report drift, and refresh behavior."
         }
       ],
       "tags": [
@@ -5293,10 +5354,10 @@
       "id": "foundation.backfill-process-action-map.job",
       "title": "Foundation Backfill Process / Action Map",
       "type": "job",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-process-action-map.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.define-jobs-from-capabilities.capability",
@@ -5373,18 +5434,61 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-core.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Canonical Process / Action Map schema, upstream Context Pack handoff gate, checker, eval, refresh, and report state logic."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-init.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Initializes pending Process / Action Map rows from a passing Context Pack handoff."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-fill.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes reviewed Process / Action Map rows from explicitly selected Context Pack rows or slices."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-check.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Runs deterministic Process / Action Map validation and writes the check artifact."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-eval.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes canonical eval receipts and derived HTML summary."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-refresh.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Invalidates stale process rows when Context Pack rows change."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-report.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Embeds handoff state and Process / Action Map payload in the backfill report."
         }
       ],
       "coverage": [
         {
           "id": "BFL-FLOW_EXTRACTION-D-1",
-          "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-process-action-map.html",
+          "level": "integration",
+          "status": "existing",
+          "path": "foundation/scripts/process-action-map.test.mjs",
           "mapsTo": [
+            "foundation.backfill-process-action-map.job#artifacts-and-state",
             "foundation.backfill-process-action-map.job#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Process / Action Map job coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Process / Action Map tests cover initialization from Context Pack handoff, explicit fill selection, durable process artifacts, eval receipts, refresh invalidation, and report handoff state."
         }
       ],
       "tags": [
@@ -5922,7 +6026,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-specs.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.compound-improvements-safely.capability",
@@ -6083,6 +6187,17 @@
           "path": "foundation/skills/backfill-specs/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/agentic-workflow-design/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct",
+          "notes": "Designs repeatable, context-safe, quality-gated agent workflows that revise this job's specs, skills, validators, evals, queues, and handoffs."
+        },
+        {
+          "path": "foundation/skills/agentic-workflow-design/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -6205,6 +6320,12 @@
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Validates the append-only JSONL execution log for a dated backfill run."
+        },
+        {
+          "path": "foundation/scripts/backfill-run-log-schema.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Defines the shared run-log phase and event enums used by the checker."
         },
         {
           "path": "foundation/scripts/backfill-run-log-check.test.mjs",
@@ -6474,7 +6595,7 @@
             "foundation.backfill-specs.job#states-and-rules",
             "foundation.backfill-specs.job#ux-contracts"
           ],
-          "evidence": "Run log checker tests validate JSONL parsing, run identity, event shape, ordered sequences, complete-event duration, and result fields."
+          "evidence": "Run log checker tests validate JSONL parsing, run identity, event shape, ordered sequences, complete-event duration, result fields, current layer phases, validation/evaluation/handoff phases, and legacy phase warnings."
         },
         {
           "id": "FBS-9",
@@ -7482,7 +7603,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-doctor-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-06-02",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.job",
@@ -7531,6 +7652,18 @@
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Behavior under test."
+        },
+        {
+          "path": "foundation/scripts/foundation-command-manifest.mjs",
+          "kind": "source",
+          "ownership": "reference",
+          "notes": "Manifest used by doctor and sync tests."
+        },
+        {
+          "path": "foundation/scripts/foundation-sync-target-package-scripts.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Sync behavior under test."
         },
         {
           "path": "foundation/package.json",
@@ -7606,6 +7739,29 @@
             "foundation.workspace-doctor.technical#failure-modes"
           ],
           "evidence": "target repo HTML docs navigation warns when assets or script includes are missing, warns when site-nav.js is stale, and passes when the local renderer includes the shared collapse control"
+        },
+        {
+          "id": "FWD-A7",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.eval#acceptance-mapping",
+            "foundation.workspace-doctor.technical#contracts",
+            "foundation.workspace-doctor.technical#failure-modes"
+          ],
+          "evidence": "target repo Foundation package scripts fail when a connected package is missing required aliases, including Process / Action Map aliases"
+        },
+        {
+          "id": "FWD-A8",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.eval#acceptance-mapping",
+            "foundation.workspace-doctor.technical#contracts"
+          ],
+          "evidence": "target package script sync adds missing Foundation aliases idempotently from the command manifest"
         }
       ],
       "tags": [
@@ -7622,7 +7778,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-doctor-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-06-02",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.job",
@@ -7663,6 +7819,16 @@
           "path": "foundation/scripts/foundation-doctor.mjs",
           "kind": "workflow",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/foundation-command-manifest.mjs",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/foundation-sync-target-package-scripts.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -7670,7 +7836,7 @@
           "path": "foundation/package.json",
           "kind": "config",
           "ownership": "reference",
-          "notes": "Exposes foundation:doctor and foundation:doctor:test scripts."
+          "notes": "Exposes foundation:doctor, foundation:target-scripts:sync, and foundation:doctor:test scripts."
         },
         {
           "path": "foundation/README.md",
@@ -7742,6 +7908,27 @@
             "foundation.workspace-doctor.technical#failure-modes"
           ],
           "evidence": "target repo HTML docs navigation warns when docs are missing scripts or when site-nav.js is stale, and passes when the local renderer includes the shared collapse control"
+        },
+        {
+          "id": "FWD-T6",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.technical#contracts",
+            "foundation.workspace-doctor.technical#failure-modes"
+          ],
+          "evidence": "target repo Foundation package script aliases fail when required backfill commands are missing and pass when the manifest is current"
+        },
+        {
+          "id": "FWD-T7",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.technical#contracts"
+          ],
+          "evidence": "target package script sync adds missing Foundation aliases idempotently from the command manifest"
         }
       ],
       "tags": [
@@ -7758,7 +7945,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-model.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.install-foundation-target-repos.capability",
@@ -7845,6 +8032,16 @@
           "path": "foundation/skills/install-foundation-substrate/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/foundation-sync-target-package-scripts.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/foundation-command-manifest.mjs",
+          "kind": "source",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -7864,7 +8061,7 @@
           "path": "foundation/package.json",
           "kind": "config",
           "ownership": "reference",
-          "notes": "Command registry for spec, site-map, and doctor checks."
+          "notes": "Command registry for spec, site-map, doctor, and target package alias sync checks."
         },
         {
           "path": "foundation/.github/workflows/specs.yml",
@@ -7918,13 +8115,13 @@
           "path": "foundation/scripts/foundation-doctor.mjs",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration."
+          "notes": "One-time and on-demand setup diagnostic for Foundation workspace integration, including target package alias drift."
         },
         {
           "path": "foundation/scripts/foundation-doctor.test.mjs",
           "kind": "test",
           "ownership": "reference",
-          "notes": "Automated coverage for the Foundation doctor rules."
+          "notes": "Automated coverage for the Foundation doctor and target package alias rules."
         }
       ],
       "coverage": [
@@ -7971,6 +8168,18 @@
           ],
           "evidence": "Isolated AGENTS-load canary session that proves global Foundation instructions are loaded before target repo instructions.",
           "notes": "Procedure is defined in foundation.agents-load-canary.eval and is intentionally separate from foundation:doctor."
+        },
+        {
+          "id": "FW-5",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-model.job#states-and-rules",
+            "foundation.workspace-model.job#ux-contracts"
+          ],
+          "evidence": "Target package alias tests fail when Foundation aliases are missing and prove foundation:target-scripts:sync adds missing aliases idempotently.",
+          "notes": "Implemented by foundation.workspace-doctor.technical."
         }
       ],
       "tags": [

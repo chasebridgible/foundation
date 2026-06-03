@@ -30,8 +30,8 @@ Read the Surface / Function Map or Capability Map specs before starting or resum
 - Job specs stay architecture-agnostic unless implementation details are user-visible or required constraints. A job spec is the contract for the capability-backed body of work and contains the process by default.
 - Technical specs are contract-first: required contracts, current evidence, architecture constraints, implementation latitude.
 - Authored specs must include `graph-metadata` so the repo's capabilities, jobs, processes, actors, tools, evidence, metrics, evals, and gaps can render in the Visible Business Graph.
-- Each slice must be evaluated, revised, and re-evaluated until acceptable before closure.
-- Acceptable means evaluator total >= 96, every category >= 9, rebuild readiness = 10, and no attached capability needs split.
+- Each slice must be evaluated, revised, and re-evaluated until outstanding before closure.
+- Outstanding means the owning eval spec's strict gate is met, revision targets are closed or named as blockers, rebuild readiness is maxed, and no attached capability needs split.
 - Backfilled specs start as `status: draft` with low or medium confidence.
 
 ## Required Artifacts
@@ -46,11 +46,16 @@ In the target repo:
 - Surface / Function Map artifacts: `docs/specs/backfill/surface-function-map-YYYYMMDD-NN.jsonl`, `surface-function-map-eval-YYYYMMDD-NN.jsonl`, and `surface-function-map-eval-summary-YYYYMMDD-NN.html`
 - Capability Map artifacts: `docs/specs/backfill/capability-map-YYYYMMDD-NN.jsonl`, `capability-map-eval-YYYYMMDD-NN.jsonl`, and `capability-map-summary-YYYYMMDD-NN.html`
 - Define Spec Jobs artifacts: `docs/specs/backfill/spec-job-queue-YYYYMMDD-NN.jsonl`, `spec-job-queue-eval-YYYYMMDD-NN.jsonl`, and `spec-job-queue-summary-YYYYMMDD-NN.html`
+- Context Pack artifacts: `docs/specs/backfill/context-pack-YYYYMMDD-NN.jsonl`, `context-pack-check-YYYYMMDD-NN.json`, `context-pack-eval-YYYYMMDD-NN.jsonl`, and `context-pack-summary-YYYYMMDD-NN.html`
+- Process / Action Map artifacts: `docs/specs/backfill/process-action-map-YYYYMMDD-NN.jsonl`, `process-action-map-check-YYYYMMDD-NN.json`, `process-action-map-eval-YYYYMMDD-NN.jsonl`, and `process-action-map-summary-YYYYMMDD-NN.html`
 
 The report must contain:
 
 - `<script type="application/json" id="backfill-capability-map">`
 - `<script type="application/json" id="backfill-spec-job-queue">`
+- `<script type="application/json" id="backfill-context-pack-state">`
+- `<script type="application/json" id="backfill-process-action-map-state">`
+- `<script type="application/json" id="backfill-process-action-map">`
 - visible tables for humans showing the same state
 
 Capability rows must include stable ID, actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, spec owners/sections, verification targets, status, split state, gaps, and human decisions.
@@ -80,22 +85,23 @@ Repeat until capability coverage is closed:
 6. Define Spec Jobs by refreshing the Job / Spec Queue from capability rows.
 7. Pick the next capability-backed slice that is queued, in progress, needs split, needs job, needs technical, needs evaluation, needs revision, or revision-ready.
 8. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
-9. Use `backfill-process-action-map` to Map Processes for user/operator-visible capability slices.
-10. Use `backfill-job-spec-author`.
-11. Use `backfill-rendered-ux-spec` when the capability has visible UX.
-12. Use `backfill-technical-spec-author`.
-13. Use `backfill-spec-adequacy-review` to Review Spec Adequacy; revise before evaluator scoring if it fails.
-14. Use `evaluate-backfill-specs` to Evaluate Job Slices.
-15. If below threshold, mark `needs-revision`, route the gap to the owning skill, revise, and re-evaluate.
-16. If acceptable, mark the slice and attached capability rows acceptable.
-17. Run validation after meaningful report/log/spec changes:
+9. Gather Context with `foundation:context-pack:*` commands until the Context Pack handoff names Process / Action Map.
+10. Use `backfill-process-action-map` and `foundation:process-action-map:*` commands to Map Processes for each active Context Pack row. Follow the current `--next` target only and do not use generated drivers, shell loops, regex classifiers, or reusable templates to produce multiple Process / Action Map rows.
+11. Use `backfill-job-spec-author`.
+12. Use `backfill-rendered-ux-spec` when the capability has visible UX.
+13. Use `backfill-technical-spec-author`.
+14. Use `backfill-spec-adequacy-review` to Review Spec Adequacy; revise before evaluator scoring if it fails.
+15. Use `evaluate-backfill-specs` to Evaluate Job Slices.
+16. If below threshold, mark `needs-revision`, route the gap to the owning skill, revise, and re-evaluate.
+17. If outstanding, mark the slice and attached capability rows outstanding.
+18. Run validation after meaningful report/log/spec changes:
     - `npm run backfill:queue:check -- <target-repo>/docs/specs/backfill/review-report-YYYYMMDD-NN.html`
     - `npm run backfill:run-log:check -- <target-repo>/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl`
     - target registry/spec checks required by its `AGENTS.md`
     - `npm run foundation:visible-business-graph:check -- --repo <target-repo>` after spec graph metadata exists
-18. Update report status, Capability Map, remaining Job / Spec Queue, run-log sequence, and next action.
+19. Update report status, Capability Map, remaining Job / Spec Queue, run-log sequence, and next action.
 
-After all capability rows are acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope, run `evaluate-backfill-specs` on the full graph to Evaluate System Coherence. If system-coherence evaluation needs revision, route it back through the loop.
+After all capability rows are outstanding, parent-owned with a precise reason, blocked by a named human decision, or out of scope, run `evaluate-backfill-specs` on the full graph to Evaluate System Coherence. If system-coherence evaluation needs revision, route it back through the loop.
 
 ## Skill Chain
 
@@ -103,6 +109,7 @@ After all capability rows are acceptable, parent-owned with a precise reason, bl
 - `skills/artifact-inventory-fill-loop/SKILL.md` - Inventory Artifacts
 - `skills/surface-function-map-fill-loop/SKILL.md` - Map Surfaces
 - `skills/capability-map-fill-loop/SKILL.md` - Map Capabilities
+- `foundation:context-pack:*` command family - Gather Context
 - `skills/backfill-process-action-map/SKILL.md` - Map Processes
 - `skills/backfill-job-spec-author/SKILL.md`
 - `skills/backfill-rendered-ux-spec/SKILL.md`
@@ -114,9 +121,9 @@ After all capability rows are acceptable, parent-owned with a precise reason, bl
 
 Backfill is complete when:
 
-- every relevant capability row is acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope
+- every relevant capability row is outstanding, parent-owned with a precise reason, blocked by a named human decision, or out of scope
 - every manifest file has a mapped Artifact Inventory row, and every relevant evidence surface maps to a capability row or non-behavioral support note
-- graph-level evaluation is acceptable
+- graph-level evaluation is outstanding
 - queue, run log, registry, spec checks, and visible business graph checks pass
 - for Foundation-owned changes, `npm run foundation:self-map:check` passes
 

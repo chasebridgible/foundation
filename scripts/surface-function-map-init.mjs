@@ -50,7 +50,7 @@ function main() {
   appendRunLogEvent(options["run-log"] ? path.resolve(repoRoot, options["run-log"]) : null, {
     runId,
     slice: null,
-    phase: "surface-map",
+    phase: "surface-function-map",
     event: "start",
     summary: "Initialized Surface / Function Map from passing Artifact Inventory handoff.",
     artifactsRead: [path.relative(repoRoot, handoff.registry.registryPath)],
