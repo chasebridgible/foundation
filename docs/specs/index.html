@@ -323,7 +323,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-06-02",
+  "lastUpdated": "2026-06-03",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -5121,10 +5121,10 @@
       "id": "foundation.backfill-process-action-map.eval",
       "title": "Foundation Backfill Process / Action Map Eval Spec",
       "type": "eval",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-process-action-map-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-process-action-map.job",
@@ -5161,6 +5161,11 @@
           "path": "foundation/docs/specs/foundation-backfill-process-action-map-eval.html",
           "kind": "doc",
           "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/process-action-map.test.mjs",
+          "kind": "test",
+          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -5181,18 +5186,31 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        },
+        {
+          "path": "foundation/scripts/process-action-map.test.mjs",
+          "kind": "test",
+          "ownership": "direct",
+          "notes": "Executable test coverage for the Process / Action Map acceptance map."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-core.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Code under test for checker, eval, refresh, and report state behavior."
         }
       ],
       "coverage": [
         {
           "id": "BFL-FLOW_EXTRACTION-E-1",
-          "level": "manual",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-process-action-map-eval.html",
+          "level": "integration",
+          "status": "existing",
+          "path": "foundation/scripts/process-action-map.test.mjs",
           "mapsTo": [
+            "foundation.backfill-process-action-map.eval#acceptance-mapping",
             "foundation.backfill-process-action-map.eval#eval-contract"
           ],
-          "evidence": "Planned Foundation Backfill Process / Action Map test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Process / Action Map tests cover canonical artifacts, upstream reference resolution, state model enforcement, structural drift, weak semantic eval findings, explicit handoff state, eval freshness, refresh invalidation, and report drift."
         }
       ],
       "tags": [
@@ -5207,10 +5225,10 @@
       "id": "foundation.backfill-process-action-map.technical",
       "title": "Foundation Backfill Process / Action Map Technical Spec",
       "type": "technical",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-process-action-map-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-process-action-map.job",
@@ -5267,18 +5285,61 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-core.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Defines row schema, upstream freshness, state/action specificity, handoff state, checker rules, eval scoring, refresh merge, and report payloads."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-init.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Creates process-action-map JSONL from passing Context Pack artifacts."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-fill.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Rejects generated files and coarse shortcuts while writing reviewed Process / Action Map specs."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-check.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes process-action-map-check JSON and fails structural drift."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-eval.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes process-action-map-eval JSONL receipts and process-action-map-summary HTML."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-refresh.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Invalidates stale rows when Context Pack rows change."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-report.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Embeds Process / Action Map handoff state and row payload in the backfill report."
         }
       ],
       "coverage": [
         {
           "id": "BFL-FLOW_EXTRACTION-T-1",
-          "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-process-action-map-technical.html",
+          "level": "integration",
+          "status": "existing",
+          "path": "foundation/scripts/process-action-map.test.mjs",
           "mapsTo": [
+            "foundation.backfill-process-action-map.technical#data-model",
             "foundation.backfill-process-action-map.technical#contracts"
           ],
-          "evidence": "Planned Foundation Backfill Process / Action Map technical coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Process / Action Map tests cover command workflow, row shape, upstream freshness, explicit selection, check/eval/report artifacts, report drift, and refresh behavior."
         }
       ],
       "tags": [
@@ -5293,10 +5354,10 @@
       "id": "foundation.backfill-process-action-map.job",
       "title": "Foundation Backfill Process / Action Map",
       "type": "job",
-      "status": "draft",
+      "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-process-action-map.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.define-jobs-from-capabilities.capability",
@@ -5373,18 +5434,61 @@
           "kind": "doc",
           "ownership": "reference",
           "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-core.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Canonical Process / Action Map schema, upstream Context Pack handoff gate, checker, eval, refresh, and report state logic."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-init.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Initializes pending Process / Action Map rows from a passing Context Pack handoff."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-fill.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes reviewed Process / Action Map rows from explicitly selected Context Pack rows or slices."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-check.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Runs deterministic Process / Action Map validation and writes the check artifact."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-eval.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Writes canonical eval receipts and derived HTML summary."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-refresh.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Invalidates stale process rows when Context Pack rows change."
+        },
+        {
+          "path": "foundation/scripts/process-action-map-report.mjs",
+          "kind": "source",
+          "ownership": "direct",
+          "notes": "Embeds handoff state and Process / Action Map payload in the backfill report."
         }
       ],
       "coverage": [
         {
           "id": "BFL-FLOW_EXTRACTION-D-1",
-          "level": "static",
-          "status": "planned",
-          "path": "foundation/docs/specs/foundation-backfill-process-action-map.html",
+          "level": "integration",
+          "status": "existing",
+          "path": "foundation/scripts/process-action-map.test.mjs",
           "mapsTo": [
+            "foundation.backfill-process-action-map.job#artifacts-and-state",
             "foundation.backfill-process-action-map.job#handoff-gate"
           ],
-          "evidence": "Planned Foundation Backfill Process / Action Map job coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+          "evidence": "Process / Action Map tests cover initialization from Context Pack handoff, explicit fill selection, durable process artifacts, eval receipts, refresh invalidation, and report handoff state."
         }
       ],
       "tags": [
@@ -5922,7 +6026,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-specs.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-03",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.compound-improvements-safely.capability",
@@ -6081,6 +6185,17 @@
         },
         {
           "path": "foundation/skills/backfill-specs/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/agentic-workflow-design/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct",
+          "notes": "Designs repeatable, context-safe, quality-gated agent workflows that revise this job's specs, skills, validators, evals, queues, and handoffs."
+        },
+        {
+          "path": "foundation/skills/agentic-workflow-design/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
         }

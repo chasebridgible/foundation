@@ -8,6 +8,7 @@ const scriptPath = fileURLToPath(import.meta.url);
 const repoRoot = path.dirname(path.dirname(scriptPath));
 const requiredSkills = [
   "job-spec-interview",
+  "agentic-workflow-design",
   "backfill-specs",
   "artifact-inventory-fill-loop",
   "surface-function-map-fill-loop",

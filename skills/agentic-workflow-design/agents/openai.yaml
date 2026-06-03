@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agentic Workflow Design"
+  short_description: "Design repeatable agent loops"
+  default_prompt: "Use $agentic-workflow-design to revise this agent workflow so it is repeatable, context-safe, and quality-gated across agent runs."

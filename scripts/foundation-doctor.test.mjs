@@ -21,6 +21,7 @@ function makeFoundation(root) {
   write(path.join(root, "AGENTS.md"), "# AGENTS.md\n");
   for (const skill of [
     "job-spec-interview",
+    "agentic-workflow-design",
     "backfill-specs",
     "artifact-inventory-fill-loop",
     "surface-function-map-fill-loop",

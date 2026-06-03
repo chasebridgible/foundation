@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-specs.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-03">
 <title>Foundation Backfill Specs</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Specs",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-03",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.compound-improvements-safely.capability",
@@ -175,6 +175,17 @@
     },
     {
       "path": "foundation/skills/backfill-specs/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/agentic-workflow-design/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct",
+      "notes": "Designs repeatable, context-safe, quality-gated agent workflows that revise this job's specs, skills, validators, evals, queues, and handoffs."
+    },
+    {
+      "path": "foundation/skills/agentic-workflow-design/agents/openai.yaml",
       "kind": "config",
       "ownership": "direct"
     }
@@ -872,12 +883,13 @@
     <a class="nav-item active" href="#product-intent"><span class="nav-num">01</span>Product intent</a>
     <a class="nav-item" href="#user-model"><span class="nav-num">02</span>User model</a>
     <a class="nav-item" href="#interface-journey"><span class="nav-num">03</span>Interface journey</a>
-    <a class="nav-item" href="#states-and-rules"><span class="nav-num">04</span>States and rules</a>
-    <a class="nav-item" href="#edge-cases"><span class="nav-num">05</span>Edge cases</a>
-    <a class="nav-item" href="#ux-contracts"><span class="nav-num">06</span>UX contracts</a>
-    <a class="nav-item" href="#links-and-paths"><span class="nav-num">07</span>Links and paths</a>
-    <a class="nav-item" href="#design-placeholders"><span class="nav-num">08</span>Rendered UX</a>
-    <a class="nav-item" href="#test-coverage"><span class="nav-num">09</span>Test coverage</a>
+    <a class="nav-item" href="#terminology-flow"><span class="nav-num">04</span>Terminology flow</a>
+    <a class="nav-item" href="#states-and-rules"><span class="nav-num">05</span>States and rules</a>
+    <a class="nav-item" href="#edge-cases"><span class="nav-num">06</span>Edge cases</a>
+    <a class="nav-item" href="#ux-contracts"><span class="nav-num">07</span>UX contracts</a>
+    <a class="nav-item" href="#links-and-paths"><span class="nav-num">08</span>Links and paths</a>
+    <a class="nav-item" href="#design-placeholders"><span class="nav-num">09</span>Rendered UX</a>
+    <a class="nav-item" href="#test-coverage"><span class="nav-num">10</span>Test coverage</a>
   </div>
 </nav>
 
@@ -888,7 +900,7 @@
     <p class="lede">Backfill Specs is the Foundation workflow for meeting an existing repository where it is, reading the built system as evidence, and creating a complete draft job and technical spec graph that becomes the repo's intended contract from here forward while preserving implementation flexibility.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-29</div>
+      <div><strong>Updated:</strong> 2026-06-03</div>
       <div><strong>Canonical section:</strong> <a href="#product-intent">#product-intent</a></div>
     </div>
   </section>
@@ -898,12 +910,13 @@
       <h1>Backfill Specs</h1>
       <p class="lede">A user should be able to point Foundation at a mature repo with messy or missing docs and receive a durable draft spec system for the whole repo, while keeping code intact and treating stale documentation as supporting evidence.</p>
       <h3>Intent</h3>
-      <p>The backfill workflow converts existing code, schemas, tests, and supporting docs into a complete set of draft job and technical specs backed by durable evidence layers. It gives the user a reviewable spec graph, a top-level system/app contract, capability-level specs, canonical JSONL layer artifacts, derived HTML summaries, a dated HTML report with an embedded queue, and a JSONL execution run log that makes the work observable across long sessions and context resets.</p>
+      <p>The backfill workflow converts existing code, schemas, tests, and supporting docs into an outstanding rebuild-grade set of draft job and technical specs backed by durable evidence layers. It gives the user a reviewable spec graph, a top-level system/app contract, capability-level specs, canonical JSONL layer artifacts, derived HTML summaries, a dated HTML report with an embedded queue, and a JSONL execution run log that makes the work observable across long sessions and context resets.</p>
       <p>Backfilled specs are intent-rigid and architecture-flexible. Job specs define user and operator intent at an architecture-agnostic level. Technical specs preserve required contracts and classify current implementation evidence, architecture constraints, and implementation latitude.</p>
       <p>Backfill completeness is capability-based. A capability combines actor, intended outcome, domain object, actions, state model, permissions/rules, user or operator-visible experience, backing contracts, failure/recovery behavior, and evidence. Routes, screens, endpoints, tables, jobs, workflows, and infrastructure resources are evidence for capabilities, not proof of coverage on their own.</p>
-      <p>The workflow is designed for large repos and monorepos. It operates in loops: create a capability-backed slice, evaluate the slice, revise weak categories, mark the slice acceptable, then continue. It loads the evidence needed for the current slice and keeps moving through the Job / Spec Queue until every relevant capability is acceptable, blocked by a named human decision, parent-owned with an explicit reason, or marked out of scope.</p>
+      <p>The workflow is designed for large repos and monorepos. It operates in loops: create a capability-backed slice, evaluate the slice, revise weak categories, mark the slice outstanding, then continue. It loads the evidence needed for the current slice and keeps moving through the Job / Spec Queue until every relevant capability is outstanding, blocked by a named human decision, parent-owned with an explicit reason, or marked out of scope.</p>
+      <p>This spec is the umbrella workflow contract: the whole backfill system produces outstanding rebuild-grade specs from existing repos. Each durable layer job spec owns the exact agent behavior, artifact contract, row or slice loop, and correctness gate for that layer.</p>
       <p>The sequence is a no-skip contract. Inventory Artifacts proves the repo was seen; Map Surfaces, Map Capabilities, Define Spec Jobs, Gather Context, Map Processes, Author Specs, Evaluate Job Slices, and Evaluate System Coherence are the required process steps for proving the system was understood. A later layer cannot claim completion from chat memory, broad repo search, or a direct jump from artifact rows to specs.</p>
-      <p>The durable artifact names are Artifact Inventory, Surface / Function Map, Capability Map, Job / Spec Queue, Context Pack, Process / Action Map, Specs, Job / Capability Eval, and System Eval. Spec file names, script file names, spec IDs, artifact names, and command names use canonical implementation keys such as <code>artifact-inventory</code>, <code>surface-function-map</code>, <code>capability-map</code>, <code>spec-job-queue</code>, and <code>context-pack</code>.</p>
+      <p>The durable artifact names are Artifact Inventory, Surface / Function Map, Capability Map, Job / Spec Queue, Context Pack, Process / Action Map, Specs, Job / Capability Eval, and System Eval. Spec file names, script file names, spec IDs, artifact names, and command names use canonical implementation keys such as <code>artifact-inventory</code>, <code>surface-function-map</code>, <code>capability-map</code>, <code>spec-job-queue</code>, <code>context-pack</code>, and <code>process-action-map</code>.</p>
       <h3>Workflow boundary</h3>
       <p>Each durable backfill layer has job, technical, and eval specs when it owns an artifact, state model, or correctness gate. Implementation tests and product acceptance tests can still be backfilled later, but the substrate's own check/eval contracts are part of this workflow.</p>
       <p>Backfill Specs creates spec artifacts and review reports. Code cleanup, documentation deletion, architecture rewrites, and old-plan cleanup belong to separate cleanup or implementation workflows after the specs are reviewed.</p>
@@ -934,9 +947,64 @@
         <li><strong>Gather Context:</strong> each queued slice receives a Context Pack with only the artifacts, surfaces, capabilities, tests, docs, schemas, and snippets needed for that slice.</li>
         <li><strong>Map Processes:</strong> user and operator processes/actions, states, rules, permissions, empty/loading/error states, recovery paths, and visible behavior are mapped before specs are authored.</li>
         <li><strong>Author Specs:</strong> the agent writes or updates architecture-agnostic job specs and contract-first technical specs from the Context Pack and Process / Action Map.</li>
-        <li><strong>Evaluate Job Slices:</strong> each slice runs the hard loop: create, evaluate, revise, re-evaluate, mark acceptable, then continue.</li>
+        <li><strong>Evaluate Job Slices:</strong> each slice runs the hard loop: create, evaluate, revise, re-evaluate, mark outstanding, then continue.</li>
         <li><strong>Evaluate System Coherence:</strong> after slice coverage is complete, the agent evaluates whether the spec graph preserves system intent well enough that a future agent can rebuild behavior from specs without rediscovering source.</li>
         <li><strong>Handoff:</strong> the agent produces the final report: what was covered, which specs are draft or ready, what remains uncertain, what is blocked by human decisions, and what should happen next.</li>
+      </ol>
+    </section>
+
+    <section id="terminology-flow" data-spec-section="terminology-flow" data-section-type="terminology">
+      <h2>Backfill terminology flow</h2>
+      <ol>
+        <li><strong>Artifact Inventory</strong><br>
+          Maps every repo-owned file into a canonical Artifact Inventory row.<br>
+          Output: file manifest, Artifact Inventory JSONL, Artifact Inventory eval JSONL, and Artifact Inventory eval summary.
+        </li>
+        <li><strong>Surface / Function Map</strong><br>
+          Converts files into evidence surfaces: routes, screens, APIs, commands, jobs, tables, workflows, infra resources, docs, tests, generated artifacts, implementation functions, and support classifications.<br>
+          This answers: "What things does this repo expose, depend on, or implement?"<br>
+          Needs job, technical, and eval specs.
+        </li>
+        <li><strong>Capability Map</strong><br>
+          Converts surfaces into capability rows using the formula: actor + intended outcome + domain object + actions + state model + permissions/rules + visible or operator experience + backing contracts + failure/recovery + evidence.<br>
+          This answers: "What is this system supposed to let someone or something do?"<br>
+          Needs job, technical, and eval specs.
+        </li>
+        <li><strong>Define Spec Jobs / Job / Spec Queue</strong><br>
+          Decides whether capabilities are too broad and creates the durable Job / Spec Queue.<br>
+          This answers: "What exact slice should the agent work on next, and when is it complete?"<br>
+          Needs job, technical, and eval specs because this is where agents previously escaped by closing coarse slices.
+        </li>
+        <li><strong>Context Pack</strong><br>
+          For each queued slice, gathers only the files, surfaces, capabilities, tests, docs, schemas, and snippets needed for that slice.<br>
+          This protects context and makes the work resumable.<br>
+          Needs job, technical, and eval specs.
+        </li>
+        <li><strong>Process / Action Map</strong><br>
+          Extracts user/operator flows, states, rules, permissions, edge cases, empty/loading/error states, recovery paths, and visible/operator behavior.<br>
+          This becomes the raw material for architecture-agnostic job specs and rendered UX specs.<br>
+          Needs job, technical, and eval specs.
+        </li>
+        <li><strong>Author Specs - Job Specs and Rendered UX</strong><br>
+          Creates architecture-agnostic intent specs, including rendered and interactive UX when user-facing.<br>
+          Needs the Backfill Author Specs job, technical spec, eval spec, and strict adequacy review.
+        </li>
+        <li><strong>Author Specs - Technical Specs</strong><br>
+          Creates contract-first technical specs: required contracts, current implementation evidence, constraints, latitude, operational behavior, and failure modes.<br>
+          Needs the Backfill Author Specs job, technical spec, eval spec, and strict adequacy review.
+        </li>
+        <li><strong>Job Slice Evaluation</strong><br>
+          Evaluates each slice, revises it, re-evaluates it, then marks it outstanding.<br>
+          This is a hard loop: create -&gt; evaluate -&gt; revise -&gt; re-evaluate -&gt; outstanding -&gt; continue.
+        </li>
+        <li><strong>System Coherence Evaluation</strong><br>
+          Evaluates the whole spec graph after all slices are outstanding, parent-owned with a precise reason, blocked by a named human decision, or out of scope.<br>
+          This asks the hard question: "Could a future agent rebuild the system from these specs without reading source?"<br>
+          Needs job, technical, and eval specs.
+        </li>
+        <li><strong>Backfill Handoff</strong><br>
+          Produces the final review report: what was covered, what remains uncertain, what needs human decisions, which specs are draft vs ready, latest run-log sequence, validation status, and remaining review queue.
+        </li>
       </ol>
     </section>
 
@@ -957,16 +1025,16 @@
           <tr><td>Capability Map active</td><td>Every ready Surface / Function Map row maps to a capability row that states actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, status, and split state.</td><td>The user can see what the whole repo means before trusting Job / Spec Queue closure.</td></tr>
           <tr><td>Split required</td><td>A capability row that combines different actors, outcomes, state models, permission models, backing contracts, recovery behavior, or verification targets becomes <code>needs-split</code>.</td><td>The agent creates smaller capability rows before marking coverage complete.</td></tr>
           <tr><td>Slice in progress</td><td>Load the files needed to understand the current capability-backed slice and list evidence paths in the report.</td><td>The agent can keep moving in large repos with bounded context.</td></tr>
-          <tr><td>Slice evaluated</td><td>After checks pass, evaluator score is acceptable, capability rows are covered, and the Job / Spec Queue is updated, the next ready slice becomes the current slice.</td><td>The agent keeps moving through the remaining Job / Spec Queue without lowering quality.</td></tr>
+          <tr><td>Slice evaluated</td><td>After checks pass, evaluator score is outstanding, capability rows are covered, and the Job / Spec Queue is updated, the next ready slice becomes the current slice.</td><td>The agent keeps moving through the remaining Job / Spec Queue without lowering quality.</td></tr>
           <tr><td>Spec drafted</td><td>Backfilled specs start as <code>status: draft</code> with low or medium confidence.</td><td>The user reviews and promotes specs after the backfill graph is complete.</td></tr>
           <tr><td>Job spec drafted</td><td>Job specs state user/operator intent, process/actions, states, rules, and outcomes at an architecture-agnostic level.</td><td>The product contract stays clear while implementation choices remain flexible.</td></tr>
           <tr><td>Technical spec drafted</td><td>Technical specs separate required contracts, current implementation evidence, architecture constraints, and implementation latitude.</td><td>A future build agent knows what must be preserved and where better implementation choices are allowed.</td></tr>
           <tr><td>Evidence conflict found</td><td>Flag material conflicts between code, schema, tests, and docs in the report.</td><td>The user reviews important decisions after the graph has full coverage.</td></tr>
           <tr><td>Fallback behavior found</td><td>Record the current fallback as evidence and add a review question about whether it is intended.</td><td>The intended spec names the supported product behavior clearly.</td></tr>
           <tr><td>UX slice drafted</td><td>User-facing job specs include rendered, interactive HTML-native examples when the intended experience can be represented visually.</td><td>The user can open the spec and inspect the intended interface and state behavior directly.</td></tr>
-          <tr><td>Slice eval active</td><td>A slice cannot become acceptable until checker and semantic eval results are recorded and revision targets are closed or blocked by named human decisions.</td><td>Coarse or under-specified work stays in the loop instead of becoming substrate.</td></tr>
-          <tr><td>Graph complete</td><td>Final handoff happens after every relevant capability is acceptable, parent-owned with a precise reason, blocked by a named human decision, or marked out of scope, and every relevant evidence surface maps to a capability row.</td><td>The user receives one review phase for the draft spec system.</td></tr>
-          <tr><td>Evaluation complete</td><td>Evaluate Backfill Specs scores the graph and records whether it is acceptable under the strict 100-point rubric.</td><td>The user receives a quality judgment and concrete revision queue.</td></tr>
+          <tr><td>Slice eval active</td><td>A slice cannot become outstanding until checker and semantic eval results are recorded and revision targets are closed or blocked by named human decisions.</td><td>Coarse or under-specified work stays in the loop instead of becoming substrate.</td></tr>
+          <tr><td>Graph complete</td><td>Final handoff happens after every relevant capability is outstanding, parent-owned with a precise reason, blocked by a named human decision, or marked out of scope, and every relevant evidence surface maps to a capability row.</td><td>The user receives one review phase for the draft spec system.</td></tr>
+          <tr><td>Evaluation complete</td><td>Evaluate Backfill Specs scores the graph and records whether it is outstanding under the strict 100-point rubric.</td><td>The user receives a quality judgment and concrete revision queue.</td></tr>
         </tbody>
       </table>
     </section>
@@ -998,7 +1066,7 @@
           <tr><td>Split rule</td><td>Capability rows split when they contain materially different actors, outcomes, objects, state models, permission rules, contracts, recovery behavior, or verification targets.</td><td>Broad parent specs can organize the graph while child specs carry behavior.</td></tr>
           <tr><td>Execution run log</td><td>The dated JSONL run log records phase starts, completions, checkpoints, artifacts read/changed, commands, checks, results, and next actions.</td><td>When the user reviews a long backfill, they can see the work pattern separately from the Job / Spec Queue state.</td></tr>
           <tr><td>Progressive disclosure</td><td>The agent works slice by slice and keeps the full repo map in the report.</td><td>When the next slice is unclear, the agent infers the next best slice from the repo map and records the ambiguity in the report.</td></tr>
-          <tr><td>Strict evaluation loop</td><td>Each slice is evaluated, revised by category, and re-evaluated before it can be marked acceptable.</td><td>Broad summaries and passable drafts keep moving through revision instead of becoming final substrate.</td></tr>
+          <tr><td>Strict evaluation loop</td><td>Each slice is evaluated, revised by category, and re-evaluated before it can be marked outstanding.</td><td>Broad summaries and passable drafts keep moving through revision instead of becoming final substrate.</td></tr>
           <tr><td>Human activation gate</td><td>Backfilled specs are reviewable drafts until a human promotes them to active after the graph is complete.</td><td>Agents treat draft confidence and unresolved items as part of future decisions until activation.</td></tr>
           <tr><td>Dated report identity</td><td>A backfill run has a stable dated report path that can be named from target <code>AGENTS.md</code>.</td><td>If multiple reports exist, the agent asks which run to continue or chooses the adapter-named report.</td></tr>
           <tr><td>Registry/check loop</td><td>Every slice update keeps the spec registry and metadata valid.</td><td>If checks fail, the agent fixes spec-system issues before proceeding to another slice.</td></tr>
@@ -1032,6 +1100,8 @@
         <li data-implementation-path="foundation/docs/specs/foundation-backfill-specs.html"><code>foundation/docs/specs/foundation-backfill-specs.html</code> - contract for existing repo spec backfill.</li>
         <li data-implementation-path="foundation/skills/backfill-specs/SKILL.md"><code>foundation/skills/backfill-specs/SKILL.md</code> - executable agent workflow for backfilling draft job and technical specs.</li>
         <li data-implementation-path="foundation/skills/backfill-specs/agents/openai.yaml"><code>foundation/skills/backfill-specs/agents/openai.yaml</code> - UI metadata for the skill.</li>
+        <li data-implementation-path="foundation/skills/agentic-workflow-design/SKILL.md"><code>foundation/skills/agentic-workflow-design/SKILL.md</code> - revises agent workflows so they are repeatable, context-safe, and quality-gated.</li>
+        <li data-implementation-path="foundation/skills/agentic-workflow-design/agents/openai.yaml"><code>foundation/skills/agentic-workflow-design/agents/openai.yaml</code> - UI metadata for the skill.</li>
       </ul>
       <h3>Implementation references</h3>
       <ul class="path-list">
@@ -1089,7 +1159,7 @@
           <tr><td>FBS-1</td><td><code>#interface-journey</code>, <code>#ux-contracts</code></td><td>Static skill review: Backfill Specs defines the resumable loop and report contract.</td><td>existing</td><td>Full repo pilots provide semantic validation.</td></tr>
           <tr><td>FBS-2</td><td><code>#states-and-rules</code></td><td>Foundation AGENTS routes existing-repo backfill work to the skill.</td><td>existing</td><td>Cold-session behavior should be verified during a target repo pilot.</td></tr>
           <tr><td>FBS-3</td><td><code>#states-and-rules</code></td><td>Foundation doctor fixtures include Backfill Specs as a required skill.</td><td>existing</td><td>Presence check; full repo pilots provide semantic validation.</td></tr>
-          <tr><td>FBS-4</td><td><code>#test-coverage</code></td><td>Manual pilot on a real target repo that verifies the agent continues across slices until the acceptable draft graph is complete.</td><td>planned</td><td>Needed before calling the workflow proven for large repos.</td></tr>
+          <tr><td>FBS-4</td><td><code>#test-coverage</code></td><td>Manual pilot on a real target repo that verifies the agent continues across slices until the outstanding draft graph is complete.</td><td>planned</td><td>Needed before calling the workflow proven for large repos.</td></tr>
           <tr><td>FBS-5</td><td><code>#design-placeholders</code></td><td>Manual pilot on a user-facing UI slice that verifies the job spec includes rendered, interactive HTML-native UX examples.</td><td>planned</td><td>Confirms generated specs are inspectable and specific.</td></tr>
           <tr><td>FBS-6</td><td><code>#ux-contracts</code></td><td>Static skill review: Backfill Specs requires intent-rigid, architecture-flexible output.</td><td>existing</td><td>Full repo pilots confirm semantic behavior.</td></tr>
           <tr><td>FBS-7</td><td><code>#test-coverage</code></td><td>Static skill review: Evaluate Backfill Specs defines the semantic quality gate.</td><td>existing</td><td>Target repo pilots confirm scoring calibration.</td></tr>

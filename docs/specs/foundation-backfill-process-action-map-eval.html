@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-process-action-map.eval">
 <meta name="spec:type" content="eval">
-<meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-03">
 <title>Foundation Backfill Process / Action Map Eval Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -15,8 +15,8 @@
   "id": "foundation.backfill-process-action-map.eval",
   "title": "Foundation Backfill Process / Action Map Eval Spec",
   "type": "eval",
-  "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "status": "active",
+  "lastUpdated": "2026-06-03",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-process-action-map.job",
@@ -53,6 +53,11 @@
       "path": "foundation/docs/specs/foundation-backfill-process-action-map-eval.html",
       "kind": "doc",
       "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/process-action-map.test.mjs",
+      "kind": "test",
+      "ownership": "direct"
     }
   ],
   "implementationPaths": [
@@ -73,18 +78,31 @@
       "kind": "doc",
       "ownership": "reference",
       "notes": "Mechanics extraction note for source-of-record and eval receipt discipline."
+    },
+    {
+      "path": "foundation/scripts/process-action-map.test.mjs",
+      "kind": "test",
+      "ownership": "direct",
+      "notes": "Executable test coverage for the Process / Action Map acceptance map."
+    },
+    {
+      "path": "foundation/scripts/process-action-map-core.mjs",
+      "kind": "source",
+      "ownership": "direct",
+      "notes": "Code under test for checker, eval, refresh, and report state behavior."
     }
   ],
   "coverage": [
     {
       "id": "BFL-FLOW_EXTRACTION-E-1",
-      "level": "manual",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-process-action-map-eval.html",
+      "level": "integration",
+      "status": "existing",
+      "path": "foundation/scripts/process-action-map.test.mjs",
       "mapsTo": [
+        "foundation.backfill-process-action-map.eval#acceptance-mapping",
         "foundation.backfill-process-action-map.eval#eval-contract"
       ],
-      "evidence": "Planned Foundation Backfill Process / Action Map test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+      "evidence": "Process / Action Map tests cover canonical artifacts, upstream reference resolution, state model enforcement, structural drift, weak semantic eval findings, explicit handoff state, eval freshness, refresh invalidation, and report drift."
     }
   ],
   "tags": [
@@ -109,7 +127,7 @@
         "specId": "foundation.backfill-process-action-map.eval",
         "sectionId": "verification-contract"
       },
-      "status": "draft",
+      "status": "active",
       "confidence": "medium",
       "attributes": {
         "specType": "eval",
@@ -184,54 +202,57 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-process-action-map-eval.html</div>
     <h1>Foundation Backfill Process / Action Map Eval Spec</h1>
     <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Process / Action Map can hand off safely.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-process-action-map.job</div></div>
-    <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through eval receipts, and the HTML summary is a derived review surface.</p>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-03</div><div><strong>Parent:</strong> foundation.backfill-process-action-map.job</div></div>
+    <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through row-level outstanding eval receipts, and the HTML summary is a derived review surface.</p>
   </section>
 
   <article class="doc-body">
     <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
       <h2>Acceptance mapping</h2>
       <table class="status-table"><thead><tr><th>ID</th><th>Condition</th><th>Must prove</th></tr></thead><tbody>
-        <tr><td>AC-1</td><td>Canonical artifacts exist.</td><td>process-action-map-YYYYMMDD-NN.jsonl, process-action-map-eval-YYYYMMDD-NN.jsonl exist and share the active run ID.</td></tr>
+        <tr><td>AC-1</td><td>Canonical artifacts exist.</td><td>process-action-map-YYYYMMDD-NN.jsonl, process-action-map-check-YYYYMMDD-NN.json, and process-action-map-eval-YYYYMMDD-NN.jsonl exist and share the active run ID.</td></tr>
         <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites valid upstream IDs from Context Pack or records a blocker.</td></tr>
         <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, extracted, needs-evidence, ready-for-specs.</td></tr>
         <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, and report drift fail.</td></tr>
-        <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, or under-evidenced rows produce revision targets.</td></tr>
-        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>all queued slices that need process/action detail have acceptable process/action rows; checker passes; eval receipt and HTML summary exist; report names next layer as Author Specs.</td></tr>
+        <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, under-evidenced, warning-bearing, or under-reviewed rows produce revision targets and cannot be outstanding.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>all active Context Packs have ready-for-specs rows or explicit blocker detail; checker passes for the current Process / Action Map fingerprint; every non-pending row has a current outstanding row-level eval receipt; eval receipt and HTML summary exist for the current fingerprint with zero revision targets and zero warnings; report names next layer as Author Specs.</td></tr>
       </tbody></table>
     </section>
 
     <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
       <h2>Coverage plan</h2>
       <table class="status-table"><thead><tr><th>ID</th><th>Level</th><th>Signal</th><th>Status</th></tr></thead><tbody>
-        <tr><td>T-1</td><td>unit</td><td>Schema, enum, duplicate, and reference fixtures for the checker.</td><td>planned</td></tr>
-        <tr><td>T-2</td><td>integration</td><td>Previous layer handoff consumed by this layer and this layer handoff consumed by next layer.</td><td>planned</td></tr>
-        <tr><td>T-3</td><td>manual</td><td>Risk-based semantic eval sample with canonical JSONL receipt and HTML summary.</td><td>planned</td></tr>
-        <tr><td>T-4</td><td>manual</td><td>Sandia Oil calibration run before larger repo use.</td><td>planned</td></tr>
+        <tr><td>T-1</td><td>unit</td><td>Schema, enum, weak semantic row, and reference fixtures for the checker/eval scoring.</td><td>existing</td></tr>
+        <tr><td>T-2</td><td>integration</td><td>Context Pack handoff consumed by this layer and this layer handoff recorded for Author Specs.</td><td>existing</td></tr>
+        <tr><td>T-3</td><td>integration</td><td>Row-targeted semantic eval writes canonical JSONL row receipts, preserves current prior row receipts, and requires outstanding receipts before another row can be selected.</td><td>existing</td></tr>
+        <tr><td>T-4</td><td>integration</td><td>Shortcut tests reject multiple pack IDs, multiple process rows in one fill payload, generated process files, <code>--all</code>, and handoff with warning-bearing or under-reviewed rows.</td><td>existing</td></tr>
+        <tr><td>T-5</td><td>manual</td><td>Sandia Oil calibration run before treating output quality as tuned for large real repos.</td><td>planned</td></tr>
       </tbody></table>
     </section>
 
     <section id="eval-contract" data-spec-section="eval-contract" data-section-type="eval-contract">
       <h2>Eval contract</h2>
-      <p>samples process/action rows against Context Packs to detect missing states, hidden permissions, unmodeled errors, architecture leakage, and under-described visible behavior. The canonical output is JSONL with one receipt per evaluated row or finding. The HTML summary is generated from JSONL so humans can read counts, failures, revision targets, and examples.</p>
+      <p>scores process/action rows against Context Packs to detect missing states, hidden permissions, unmodeled errors, architecture leakage, missing downstream spec targets, and under-described visible behavior. The canonical output is JSONL with one summary receipt and one current receipt per evaluated row. The HTML summary is generated from JSONL so humans can read counts, failures, outstanding row coverage, revision targets, and examples.</p>
       <ul>
-        <li>Every blocking finding names the row ID, evidence source, failure category, and revision target.</li>
+        <li>Every blocking finding or warning names the row ID, evidence source where available, failure category, and revision target.</li>
+        <li>A row is outstanding only when deterministic checks pass for the current row, the row score is 100, the row fingerprint matches the receipt, no blocking findings exist, no warnings exist, no revision targets remain, and the row can support Author Specs without rediscovering source for core behavior.</li>
+        <li>Process / Action Map rows may not advance by aggregate score; every non-pending row must have its own current outstanding row receipt.</li>
         <li>Rows with severe uncertainty must remain non-terminal or carry a named human decision.</li>
-        <li>Calibration against Sandia Oil is required before using the layer as a large-repo gate.</li>
+        <li>The Foundation readiness gate is command/test readiness against completed Context Packs; Sandia Oil remains a later calibration run for real-repo quality tuning.</li>
       </ul>
     </section>
 
     <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
       <h2>Gaps and follow-ups</h2>
       <ul>
-        <li>Implementation commands are planned unless a target repo already provides them.</li>
-        <li>Sandia Oil starts as calibration evidence, not a perfect gold fixture.</li>
+        <li>Implementation commands now exist in Foundation and should be invoked from target repos that have completed Context Pack handoff artifacts.</li>
+        <li>Sandia Oil starts as calibration evidence, not a perfect gold fixture or a prerequisite for this layer's readiness.</li>
         <li>Schema or rubric changes must update job, technical, and eval specs together.</li>
       </ul>
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Process / Action Map Eval Spec · draft</p>
+  <p class="footer-note">Foundation Backfill Process / Action Map Eval Spec · active</p>
 </main>
 <script src="../site-map.js?v=20260602-nav-collapse"></script>
 <script src="../site-nav.js?v=20260602-nav-collapse"></script>
