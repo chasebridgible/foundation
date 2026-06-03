@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="spec:id" content="foundation.backfill-author-specs.eval">
 <meta name="spec:type" content="eval">
-<meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-03">
 <title>Foundation Backfill Author Specs Eval Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -15,10 +15,10 @@
   "id": "foundation.backfill-author-specs.eval",
   "title": "Foundation Backfill Author Specs Eval Spec",
   "type": "eval",
-  "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "status": "active",
+  "lastUpdated": "2026-06-03",
   "reviewCadence": "per-change",
-  "confidence": "medium",
+  "confidence": "high",
   "parent": "foundation.backfill-author-specs.job",
   "children": [],
   "relatedSpecs": [
@@ -53,6 +53,11 @@
       "path": "foundation/docs/specs/foundation-backfill-author-specs-eval.html",
       "kind": "doc",
       "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/author-specs.test.mjs",
+      "kind": "test",
+      "ownership": "direct"
     }
   ],
   "implementationPaths": [
@@ -78,13 +83,14 @@
   "coverage": [
     {
       "id": "BFL-SPEC_AUTHORING-E-1",
-      "level": "manual",
-      "status": "planned",
-      "path": "foundation/docs/specs/foundation-backfill-author-specs-eval.html",
+      "level": "integration",
+      "status": "existing",
+      "path": "foundation/scripts/author-specs.test.mjs",
       "mapsTo": [
+        "foundation.backfill-author-specs.eval#acceptance-mapping",
         "foundation.backfill-author-specs.eval#eval-contract"
       ],
-      "evidence": "Planned Foundation Backfill Author Specs test coverage will be proven when implementation commands, checker output, eval receipts, and Sandia Oil calibration runs exist."
+      "evidence": "Author Specs tests cover exact one-target selection, shortcut rejection, eval current-check gate, outstanding row receipts, weak-spec rejection, handoff state, report drift, and refresh invalidation."
     }
   ],
   "tags": [
@@ -109,8 +115,8 @@
         "specId": "foundation.backfill-author-specs.eval",
         "sectionId": "verification-contract"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "specType": "eval",
         "tags": [
@@ -184,39 +190,42 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-author-specs-eval.html</div>
     <h1>Foundation Backfill Author Specs Eval Spec</h1>
     <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Author Specs can hand off safely.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
-    <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through eval receipts, and the HTML summary is a derived review surface.</p>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-03</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
+    <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through row-level eval receipts, and the HTML summary is a derived review surface. Completion means outstanding with no warnings, blockers, placeholders, stale state, or revision targets.</p>
   </section>
 
   <article class="doc-body">
     <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
       <h2>Acceptance mapping</h2>
       <table class="status-table"><thead><tr><th>ID</th><th>Condition</th><th>Must prove</th></tr></thead><tbody>
-        <tr><td>AC-1</td><td>Canonical artifacts exist.</td><td>author-specs-ledger-YYYYMMDD-NN.jsonl, author-specs-eval-YYYYMMDD-NN.jsonl exist and share the active run ID.</td></tr>
-        <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites valid upstream IDs from Process / Action Map or records a blocker.</td></tr>
-        <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, drafted, needs-revision, ready-for-slice-eval.</td></tr>
-        <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, and report drift fail.</td></tr>
-        <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, or under-evidenced rows produce revision targets.</td></tr>
-        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>each queued slice has draft job and technical specs or a documented non-spec owner; checker passes; eval receipt and HTML summary exist; report names next layer as Evaluate Job Slices.</td></tr>
+        <tr><td>AC-1</td><td>Canonical artifacts exist.</td><td>author-specs-YYYYMMDD-NN.jsonl, author-specs-check-YYYYMMDD-NN.json, author-specs-eval-YYYYMMDD-NN.jsonl, and author-specs-summary-YYYYMMDD-NN.html exist and share the active run ID.</td></tr>
+        <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites exactly one active upstream Process / Action Map row and carries its current row fingerprint, capability IDs, pack ID, and slice ID.</td></tr>
+        <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, authored, needs-revision, ready-for-slice-eval, blocked.</td></tr>
+        <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, invalid job/technical spec metadata, missing graph metadata, missing canonical sections, missing owned paths, and report drift fail.</td></tr>
+        <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, under-evidenced, placeholder-filled, graph-orphaned, or contract-thin specs produce revision targets.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>Each active Process / Action Map row has a ready job/technical spec pair or explicit blocker; checker passes; every non-pending row has a current outstanding row-level eval receipt; summary eval is outstanding; report names next layer as Evaluate Job Slices.</td></tr>
+        <tr><td>AC-7</td><td>Shortcut paths fail.</td><td>Fill rejects <code>--all</code>, <code>--batch-size</code>, generated author files, bulk JSON, multiple IDs, and out-of-order targets; eval rejects stale or missing check artifacts.</td></tr>
       </tbody></table>
     </section>
 
     <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
       <h2>Coverage plan</h2>
       <table class="status-table"><thead><tr><th>ID</th><th>Level</th><th>Signal</th><th>Status</th></tr></thead><tbody>
-        <tr><td>T-1</td><td>unit</td><td>Schema, enum, duplicate, and reference fixtures for the checker.</td><td>planned</td></tr>
-        <tr><td>T-2</td><td>integration</td><td>Previous layer handoff consumed by this layer and this layer handoff consumed by next layer.</td><td>planned</td></tr>
-        <tr><td>T-3</td><td>manual</td><td>Risk-based semantic eval sample with canonical JSONL receipt and HTML summary.</td><td>planned</td></tr>
-        <tr><td>T-4</td><td>manual</td><td>Sandia Oil calibration run before larger repo use.</td><td>planned</td></tr>
+        <tr><td>T-1</td><td>unit</td><td>Schema, enum, duplicate, spec metadata, graph metadata, and reference fixtures through the checker and direct scorer.</td><td>existing</td></tr>
+        <tr><td>T-2</td><td>integration</td><td>Previous layer handoff consumed by this layer and this layer handoff recorded for Slice Evaluation.</td><td>existing</td></tr>
+        <tr><td>T-3</td><td>integration</td><td>Row-targeted eval requires a current passing check and writes outstanding row receipts before the next target can proceed.</td><td>existing</td></tr>
+        <tr><td>T-4</td><td>integration</td><td>Shortcut and coarse closure attempts fail: bulk fill, generated payloads, multiple IDs, out-of-order fill, under-reviewed rows, report drift, and stale upstream refresh.</td><td>existing</td></tr>
+        <tr><td>T-5</td><td>manual</td><td>Sandia Oil calibration run before larger repo use.</td><td>planned</td></tr>
       </tbody></table>
     </section>
 
     <section id="eval-contract" data-spec-section="eval-contract" data-section-type="eval-contract">
       <h2>Eval contract</h2>
-      <p>samples specs against Process / Action Map rows and Context Packs to judge specificity, architecture flexibility, required contracts, edge cases, visible UX/operator behavior, and source-backed claims. The canonical output is JSONL with one receipt per evaluated row or finding. The HTML summary is generated from JSONL so humans can read counts, failures, revision targets, and examples.</p>
+      <p>Eval samples specs against Process / Action Map rows and Context Packs to judge upstream traceability, job intent coverage, technical contract coverage, graph traceability, and adequacy readiness. The canonical output is JSONL with one receipt per evaluated row plus a summary receipt. The HTML summary is generated from JSONL so humans can read counts, failures, revision targets, and examples.</p>
       <ul>
-        <li>Every blocking finding names the row ID, evidence source, failure category, and revision target.</li>
-        <li>Rows with severe uncertainty must remain non-terminal or carry a named human decision.</li>
+        <li>Every non-info finding names the row ID, failure category, and revision target.</li>
+        <li>A row is outstanding only with score 100, current row fingerprint, no warnings, no blockers, no placeholders, and no revision targets.</li>
+        <li>Rows with severe uncertainty must remain non-terminal or carry a named blocker, gap, or human decision.</li>
         <li>Calibration against Sandia Oil is required before using the layer as a large-repo gate.</li>
       </ul>
     </section>
@@ -224,14 +233,14 @@
     <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
       <h2>Gaps and follow-ups</h2>
       <ul>
-        <li>Implementation commands are planned unless a target repo already provides them.</li>
+        <li>Implementation commands exist in Foundation and are synchronized to target repos through the Foundation command manifest.</li>
         <li>Sandia Oil starts as calibration evidence, not a perfect gold fixture.</li>
         <li>Schema or rubric changes must update job, technical, and eval specs together.</li>
       </ul>
     </section>
   </article>
   <hr>
-  <p class="footer-note">Foundation Backfill Author Specs Eval Spec · draft</p>
+  <p class="footer-note">Foundation Backfill Author Specs Eval Spec · active</p>
 </main>
 <script src="../site-map.js?v=20260602-nav-collapse"></script>
 <script src="../site-nav.js?v=20260602-nav-collapse"></script>

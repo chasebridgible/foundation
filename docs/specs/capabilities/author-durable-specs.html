@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.author-durable-specs.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-03">
 <title>Author Durable Specs</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,7 +16,7 @@
   "title": "Author Durable Specs",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-03",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.operating-system.system",
@@ -161,8 +161,8 @@
       }
     },
     {
-      "id": "edge:spec:foundation.author-durable-specs.capability:contains:spec:foundation.spec-process",
-      "type": "contains",
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.spec-process",
+      "type": "realized-by",
       "from": "spec:foundation.author-durable-specs.capability",
       "to": "spec:foundation.spec-process",
       "source": {
@@ -230,7 +230,7 @@
     <p class="lede">This capability turns reviewed intent and evidence into source-of-truth contracts that humans and agents can read.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-01</div>
+      <div><strong>Updated:</strong> 2026-06-03</div>
       <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
     </div>
   </section>
@@ -262,6 +262,7 @@
         <tbody>
           <tr><td>Backfill Author Specs</td><td>Write job and technical specs from the backfill substrate.</td><td><code>foundation.backfill-author-specs.job</code></td><td>active</td></tr>
           <tr><td>HTML Docs Navigation</td><td>Keep HTML docs navigable as client-visible artifacts.</td><td><code>foundation.html-docs-navigation.job</code></td><td>active</td></tr>
+          <tr><td>Spec Maintenance Process</td><td>Keep spec authoring, metadata, graph links, coverage, and workflow-skill execution aligned.</td><td><code>foundation.spec-process</code></td><td>active</td></tr>
           <tr><td>Business Job Spec Example</td><td>Demonstrate business job spec shape.</td><td><code>example.business.pay-employees.job</code></td><td>active</td></tr>
           <tr><td>Software Job Spec Example</td><td>Demonstrate software job spec shape.</td><td><code>example.software.notification-preferences.job</code></td><td>active</td></tr>
           <tr><td>Kitchen Queue Example</td><td>Demonstrate job, technical, and eval split.</td><td><code>fup.kitchen-queue.job</code></td><td>active</td></tr>

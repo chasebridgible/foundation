@@ -166,6 +166,30 @@ const targetFoundationCommands = [
   {
     name: "foundation:process-action-map:report",
     foundationScript: "scripts/process-action-map-report.mjs"
+  },
+  {
+    name: "foundation:author-specs:init",
+    foundationScript: "scripts/author-specs-init.mjs"
+  },
+  {
+    name: "foundation:author-specs:fill",
+    foundationScript: "scripts/author-specs-fill.mjs"
+  },
+  {
+    name: "foundation:author-specs:check",
+    foundationScript: "scripts/author-specs-check.mjs"
+  },
+  {
+    name: "foundation:author-specs:eval",
+    foundationScript: "scripts/author-specs-eval.mjs"
+  },
+  {
+    name: "foundation:author-specs:refresh",
+    foundationScript: "scripts/author-specs-refresh.mjs"
+  },
+  {
+    name: "foundation:author-specs:report",
+    foundationScript: "scripts/author-specs-report.mjs"
   }
 ];
 

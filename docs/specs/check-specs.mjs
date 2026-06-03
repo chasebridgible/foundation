@@ -113,7 +113,8 @@ function isGeneratedNonSpecHtml(file) {
     /^docs\/specs\/backfill\/capability-map-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
     /^docs\/specs\/backfill\/spec-job-queue-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
     /^docs\/specs\/backfill\/context-pack-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
-    /^docs\/specs\/backfill\/process-action-map-summary-\d{8}-\d{2}\.html$/.test(relativeFile);
+    /^docs\/specs\/backfill\/process-action-map-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
+    /^docs\/specs\/backfill\/author-specs-summary-\d{8}-\d{2}\.html$/.test(relativeFile);
 }
 
 function registryPathFor(file) {

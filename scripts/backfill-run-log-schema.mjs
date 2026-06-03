@@ -7,6 +7,7 @@ const VALID_PHASES = new Set([
   "spec-job-queue",
   "context-pack",
   "process-action-map",
+  "author-specs",
   "job",
   "descriptive",
   "rendered-ux",
