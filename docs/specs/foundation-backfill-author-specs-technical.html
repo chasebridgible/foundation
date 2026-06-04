@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-author-specs.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-03">
+<meta name="spec:last-updated" content="2026-06-04">
 <title>Foundation Backfill Author Specs Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Author Specs Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-06-03",
+  "lastUpdated": "2026-06-04",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.backfill-author-specs.job",
@@ -121,7 +121,7 @@
         "foundation.backfill-author-specs.technical#contracts",
         "foundation.backfill-author-specs.technical#checker-and-fill-loop"
       ],
-      "evidence": "Author Specs tests exercise command workflow, upstream handoff gate, row schema, spec metadata validation, check/eval freshness, row-level outstanding receipts, report state, and refresh invalidation."
+      "evidence": "Author Specs tests exercise command workflow, upstream handoff gate, row schema, spec metadata validation, check/eval freshness, row-level outstanding receipts, semantic compression rejection, row-eval continuation next action, report state, and refresh invalidation."
     }
   ],
   "tags": [
@@ -222,7 +222,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-author-specs-technical.html</div>
     <h1>Foundation Backfill Author Specs Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Author Specs deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-03</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-04</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows, check artifacts, and eval receipts, while HTML summaries and report sections are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -244,8 +244,11 @@
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
         <tr><td>Exact fill loop</td><td><code>foundation:author-specs:fill</code> accepts one <code>--process-map-id</code>, one job spec path, and one technical spec path. It rejects <code>--all</code>, <code>--batch-size</code>, generated payload files, bulk JSON, multiple IDs, out-of-order targets, and unresolved prior row evals.</td><td>Long-running work survives context compaction and cannot close coarse slices.</td></tr>
         <tr><td>Deterministic checker</td><td>validates row schema, upstream freshness, one row per active Process / Action Map row, target-owned spec IDs, spec metadata, graph metadata, owned paths, canonical sections, required job language, required technical contract language, and report state.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
-        <tr><td>Semantic eval</td><td>scores each row for upstream traceability, job intent coverage, technical contract coverage, graph traceability, and adequacy readiness.</td><td>Correctness includes meaning, specificity, evidence quality, and spec-only continuation readiness.</td></tr>
-        <tr><td>Handoff gate</td><td>each active Process / Action Map row has a ready job/technical spec pair or explicit blocker; checker passes; every non-pending row has a current outstanding eval receipt; HTML summary exists; report names next layer as Evaluate Job Slices.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Semantic eval</td><td>scores each row for upstream traceability, job intent coverage, technical contract coverage, graph traceability, adequacy readiness, material row fidelity, spec-only rebuild readiness, and generic-compression rejection.</td><td>Correctness includes meaning, specificity, evidence quality, and spec-only continuation readiness.</td></tr>
+        <tr><td>Material fidelity</td><td>Row eval compares the authored job/technical text against the current Process / Action Map row and blocks if actor or role, trigger, intended outcome, domain object, actions, states, transitions, permissions, rules, visible/operator behavior, edge cases, recovery paths, evidence refs, explicit gaps, blockers, or human decisions are omitted.</td><td>Author Specs must preserve upstream intent, not only produce valid-looking spec files.</td></tr>
+        <tr><td>Rebuild readiness</td><td>Row eval blocks if the spec pair does not answer what behavior must exist, required contracts, current evidence, flexible versus constrained implementation space, failures/recovery, row-specific verification, and remaining uncertainty.</td><td>A future agent must be able to continue from specs without rediscovering source.</td></tr>
+        <tr><td>Row continuation signal</td><td>A row-targeted eval that passes writes next action as selecting the next Author Specs target; only non-target all-row eval can direct handoff.</td><td>A single outstanding row must not be mistaken for whole-layer completion.</td></tr>
+        <tr><td>Handoff gate</td><td>each active Process / Action Map row has a ready job/technical spec pair or explicit blocker; checker passes; every non-pending row has a current outstanding eval receipt; <code>--next</code> returns no target; HTML summary exists; report names next layer as Evaluate Job Slices.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 
@@ -257,7 +260,7 @@
         <li>Inspect only that target's Process / Action Map row and referenced Context Pack evidence.</li>
         <li>Author one job/descriptive spec and one technical spec, then record their paths for the current <code>--process-map-id</code>.</li>
         <li>Run the checker; repair structural failures before semantic eval.</li>
-        <li>Run row-targeted eval; revise the same target until the row receipt is outstanding.</li>
+        <li>Run row-targeted eval; revise the same target until the row receipt is outstanding, material row fidelity is complete, and rebuild-readiness findings are gone.</li>
         <li>After no target remains, run handoff check, all-row eval, and report.</li>
       </ol>
     </section>
@@ -266,7 +269,7 @@
       <h2>Failure modes</h2>
       <table class="status-table"><thead><tr><th>Failure</th><th>System behavior</th><th>Evidence</th></tr></thead><tbody>
         <tr><td>Missing upstream row</td><td>Checker fails and names the missing upstream Process / Action Map ID.</td><td>Checker JSON output and report entry.</td></tr>
-        <tr><td>Vague or unsupported spec</td><td>Checker or eval routes the row back to the fill loop and blocks handoff.</td><td>Eval JSONL receipt with revision target.</td></tr>
+        <tr><td>Vague, compressed, or unsupported spec</td><td>Checker or eval routes the row back to the fill loop and blocks handoff when the spec omits material row details, uses generic compression, or cannot prove spec-only rebuild readiness.</td><td>Eval JSONL receipt with revision target.</td></tr>
         <tr><td>Eval before check</td><td>Eval command fails unless the current Author Specs fingerprint has a passing check artifact.</td><td>Command failure and test coverage.</td></tr>
         <tr><td>Coarse closure attempt</td><td>Fill rejects bulk flags, generated payloads, multiple IDs, and out-of-order process rows.</td><td>Command failure and test coverage.</td></tr>
         <tr><td>Report drift</td><td>Checker fails when report paths/counts do not match artifacts.</td><td>Report check result.</td></tr>

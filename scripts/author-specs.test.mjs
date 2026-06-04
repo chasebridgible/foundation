@@ -567,7 +567,7 @@ function specSlug(row) {
   return `${row.upstreamSliceId}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
-function writeTargetSpecs(repoRoot, processRow, { weak = false } = {}) {
+function writeTargetSpecs(repoRoot, processRow, { weak = false, compressed = false } = {}) {
   const repoName = path.basename(repoRoot);
   const slug = specSlug(processRow);
   const jobSpecId = `fixture.${slug}.job`;
@@ -576,12 +576,22 @@ function writeTargetSpecs(repoRoot, processRow, { weak = false } = {}) {
   const technicalPath = path.join("docs", "specs", `${slug}.technical.html`);
   fs.mkdirSync(path.join(repoRoot, "docs", "specs"), { recursive: true });
   const commonRelated = JSON.stringify([{ id: technicalSpecId, relationship: "sibling" }]);
+  const evidenceDetails = processRow.evidenceRefs.map(ref => [ref.path, ref.detail, ref.questionAnswered].filter(Boolean).join(" ")).join(" ");
+  const explicitGaps = [...(processRow.explicitGaps || []), ...(processRow.blockingGaps || [])];
+  const humanDecisions = processRow.humanDecisions || [];
+  const uncertaintyText = explicitGaps.length || humanDecisions.length
+    ? `Explicit gaps and human decisions: ${[...explicitGaps, ...humanDecisions].join("; ")}.`
+    : "Remaining uncertainty: no explicit upstream gaps or human decisions are named for this row.";
   const jobText = weak
     ? `Actor ${processRow.actor}. Outcome ${processRow.intendedOutcome}. Evidence ${processRow.processMapId}.`
-    : `Actor: ${processRow.actor}. Intended outcome: ${processRow.intendedOutcome}. Domain object: ${processRow.domainObject}. Actions: ${processRow.actions.join("; ")}. States: ${processRow.stateModel.states.join("; ")}. Rules: ${processRow.rules.join("; ")}. Edge cases: ${processRow.edgeCases.join("; ")}. Recovery: ${processRow.recoveryPaths.join("; ")}. Evidence: ${processRow.evidenceRefs.map(ref => ref.detail).join(" ")}. Visible behavior and rendered UX boundary: ${processRow.visibleBehavior.join("; ")}. Upstream process ${processRow.processMapId} and slice ${processRow.upstreamSliceId}.`;
+    : compressed
+      ? `Actor: ${processRow.actor}. Intended outcome: ${processRow.intendedOutcome}. Domain object: ${processRow.domainObject}. Actions: family-specific workflow actions stay preserved. States: relevant states and transitions stay represented. Rules: route-family rules remain in force. Edge cases: target-specific edge cases are documented. Recovery: recovery remains bounded. Evidence: current behavior is preserved from the upstream row. Visible behavior and rendered UX boundary: operator behavior stays nonvisual or visible as applicable. Upstream process ${processRow.processMapId} and slice ${processRow.upstreamSliceId}.`
+    : `Actor: ${processRow.actor}. Role: ${processRow.role}. Trigger: ${processRow.trigger}. Intended outcome: ${processRow.intendedOutcome}. Domain object: ${processRow.domainObject}. Actions: ${processRow.actions.join("; ")}. States: ${processRow.stateModel.states.join("; ")}. State transitions: ${processRow.stateModel.transitions.join("; ")}. Permissions: ${processRow.permissions.join("; ")}. Rules: ${processRow.rules.join("; ")}. Edge cases: ${processRow.edgeCases.join("; ")}. Recovery: ${processRow.recoveryPaths.join("; ")}. Evidence: ${evidenceDetails}. Capability evidence: ${(processRow.upstreamCapabilityIds || []).join("; ")}. Visible behavior and rendered UX boundary: ${processRow.visibleBehavior.join("; ")}. ${uncertaintyText} Upstream process ${processRow.processMapId} and slice ${processRow.upstreamSliceId}.`;
   const technicalText = weak
     ? `Required contract: ${processRow.trigger}. Current evidence: ${processRow.processMapId}.`
-    : `Required contract: preserve trigger ${processRow.trigger}, outcome ${processRow.intendedOutcome}, and observable command or route result. Current evidence: ${processRow.evidenceRefs.map(ref => ref.detail).join(" ")}. Architecture constraint: the current contract surface remains observable through the named command, route, screen, service, event, queue, schema, or data model. Implementation latitude: framework modules and internal storage can change when the contract remains intact. Data model and API contract surfaces stay mapped to the evidence. Failure behavior and recovery preserve bounded error outcomes. Observability records pass or fail evidence. Verification targets include the package command, screen route, API route, or schema evidence. Upstream process ${processRow.processMapId} and slice ${processRow.upstreamSliceId}.`;
+    : compressed
+      ? `Required contract: preserve family-specific responses and persistence. Current evidence: upstream process ${processRow.processMapId}. Architecture constraint: the current behavior remains observable through named route surfaces. Implementation latitude: internals can change. Failure behavior and recovery stay bounded. Observability records pass or fail evidence. Verification targets include generic spec checks for this target. Data model and API route contracts remain mapped.`
+    : `Required contract: preserve trigger ${processRow.trigger}, actor ${processRow.actor}, role ${processRow.role}, outcome ${processRow.intendedOutcome}, domain object ${processRow.domainObject}, actions ${processRow.actions.join("; ")}, state transitions ${processRow.stateModel.transitions.join("; ")}, permissions ${processRow.permissions.join("; ")}, rules ${processRow.rules.join("; ")}, and observable command or route result. Current evidence: ${evidenceDetails}. Capability evidence: ${(processRow.upstreamCapabilityIds || []).join("; ")}. Architecture constraint: the current contract surface remains observable through the named command, route, screen, service, event, queue, schema, or data model. Implementation latitude: framework modules and internal storage can change when the contract remains intact. Data model and API contract surfaces stay mapped to the evidence. Failure behavior and recovery preserve edge cases ${processRow.edgeCases.join("; ")} and recovery paths ${processRow.recoveryPaths.join("; ")}. Observability records pass or fail evidence. Verification targets prove ${processRow.trigger}, ${processRow.actions.join("; ")}, and ${evidenceDetails} through the package command, screen route, API route, or schema evidence. ${uncertaintyText} Upstream process ${processRow.processMapId} and slice ${processRow.upstreamSliceId}.`;
   const jobHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -781,6 +791,10 @@ test("one-target fill loop rejects shortcuts and handoff reaches Evaluate Job Sl
   runNode(authorCheckScript, ["--repo", repoRoot, "--run-id", runId, "--phase", "batch", "--run-log", runLog], repoRoot);
   const firstEval = runNode(authorEvalScript, ["--repo", repoRoot, "--run-id", runId, "--process-map-id", firstProcess.processMapId, "--run-log", runLog], repoRoot);
   assert.match(firstEval, /Selected row outstanding: yes/);
+  const rowEvalRunLog = readJsonl(path.join(repoRoot, runLog)).rows;
+  const latestEvalEvent = [...rowEvalRunLog].reverse().find(event => event.phase === "evaluation" && event.summary?.includes("Author Specs row eval"));
+  assert.match(latestEvalEvent.nextAction, /Select the next Author Specs target with --next/);
+  assert.doesNotMatch(latestEvalEvent.nextAction, /Record handoff/);
 
   while (true) {
     const current = JSON.parse(runNode(authorFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot)).target;
@@ -859,9 +873,38 @@ test("handoff and scoring reject under-reviewed Author Specs rows", () => {
   assert.equal(report.state.rowOutstandingMissingCount > 0, true);
 });
 
+test("row scorer rejects generic compression of Process / Action Map specifics", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260603-15";
+  const processReport = preparePassingProcessActionMapHandoff(repoRoot, runId);
+  runNode(authorInitScript, ["--repo", repoRoot, "--run-id", runId, "--report", processReport], repoRoot);
+  const next = JSON.parse(runNode(authorFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot)).target;
+  const processRow = readJsonl(processActionMapPathFor(repoRoot, runId)).rows.find(row => row.processMapId === next.upstreamProcessMapId);
+  const compressedSpecs = writeTargetSpecs(repoRoot, processRow, { compressed: true });
+  runNode(authorFillScript, [
+    "--repo", repoRoot,
+    "--run-id", runId,
+    "--process-map-id", processRow.processMapId,
+    "--job-spec", compressedSpecs.jobPath,
+    "--technical-spec", compressedSpecs.technicalPath
+  ], repoRoot);
+  const checkOutput = runNode(authorCheckScript, ["--repo", repoRoot, "--run-id", runId, "--phase", "batch"], repoRoot);
+  assert.match(checkOutput, /Summary: .* 0 fail/);
+
+  const rows = readJsonl(authorSpecsPathFor(repoRoot, runId)).rows;
+  const receipt = scoreAuthorSpecRow(rows.find(row => row.upstreamProcessMapId === processRow.processMapId), new Map([[processRow.processMapId, processRow]]), repoRoot);
+  assert.equal(receipt.acceptabilityGate.outstanding, false);
+  assert.equal(receipt.score < 100, true);
+  assert.equal(receipt.findings.some(finding => /compress specific upstream row details|omit material/.test(finding.message)), true);
+  assert.equal(receipt.findings.some(finding => /verification that would prove this specific Process \/ Action Map row/.test(finding.message)), true);
+
+  const evalFailure = runNodeFailure(authorEvalScript, ["--repo", repoRoot, "--run-id", runId, "--process-map-id", processRow.processMapId]);
+  assert.match(evalFailure, /Selected row outstanding: no/);
+});
+
 test("refresh resets stale Process / Action Map references", () => {
   const repoRoot = makeRepo();
-  const runId = "20260603-14";
+  const runId = "20260603-16";
   const processReport = preparePassingProcessActionMapHandoff(repoRoot, runId);
   runNode(authorInitScript, ["--repo", repoRoot, "--run-id", runId, "--report", processReport], repoRoot);
   const processPath = processActionMapPathFor(repoRoot, runId);

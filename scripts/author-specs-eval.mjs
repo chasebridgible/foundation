@@ -347,7 +347,9 @@ function main() {
       : `Author Specs eval failed for ${describeTarget(target)}.`,
     nextAction: revisionTargets.length > 0
       ? "Revise Author Specs rows named in revisionTargets before selecting another row or recording handoff."
-      : (outstanding ? "Record handoff to Slice Evaluation gate." : "Continue row-targeted evals until every current row is outstanding.")
+      : (target
+        ? "Select the next Author Specs target with --next; do not record Slice Evaluation handoff until --next returns null and handoff check, all-row eval, and report pass."
+        : (outstanding ? "Record handoff to Slice Evaluation gate." : "Continue row-targeted evals until every current row is outstanding."))
   });
 
   console.log(`Author Specs eval
