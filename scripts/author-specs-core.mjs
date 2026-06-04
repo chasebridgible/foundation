@@ -953,6 +953,369 @@ function scoreTextTerms(doc, terms, category, findings) {
   return 20;
 }
 
+const MATERIAL_STOPWORDS = new Set([
+  "a",
+  "an",
+  "and",
+  "are",
+  "as",
+  "at",
+  "be",
+  "by",
+  "can",
+  "could",
+  "for",
+  "from",
+  "has",
+  "have",
+  "how",
+  "in",
+  "into",
+  "is",
+  "it",
+  "its",
+  "may",
+  "must",
+  "of",
+  "on",
+  "or",
+  "should",
+  "that",
+  "the",
+  "their",
+  "then",
+  "this",
+  "those",
+  "through",
+  "to",
+  "uses",
+  "using",
+  "when",
+  "where",
+  "which",
+  "will",
+  "with",
+  "within",
+  "without",
+  "would"
+]);
+
+const SHORT_MATERIAL_TOKENS = new Set([
+  "api",
+  "get",
+  "put",
+  "post",
+  "patch",
+  "del",
+  "id",
+  "ui",
+  "ux"
+]);
+
+const GENERIC_COMPRESSION_PATTERNS = [
+  /\bfamily-specific\b/i,
+  /\bslice-specific\b/i,
+  /\btarget-specific\b/i,
+  /\bvarious\b/i,
+  /\brelevant\b/i,
+  /\bcurrent behavior\b/i,
+  /\bas documented\b/i,
+  /\bas applicable\b/i,
+  /\bnamed (?:route|routes|surface|surfaces|contract|contracts|evidence)\b/i,
+  /\bspecific upstream details\b/i,
+  /\band related (?:behavior|contracts|surfaces|evidence)\b/i
+];
+
+function normalizeSearchText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function materialTokens(value) {
+  return [...new Set(normalizeSearchText(value)
+    .split(" ")
+    .filter(Boolean)
+    .filter(token => !MATERIAL_STOPWORDS.has(token))
+    .filter(token => !/^[a-f0-9]{12,}$/.test(token))
+    .filter(token => token.length >= 4 || SHORT_MATERIAL_TOKENS.has(token) || /^\d{2,}$/.test(token)))];
+}
+
+function materialLabel(value) {
+  const compact = String(value || "").replace(/\s+/g, " ").trim();
+  return compact.length > 180 ? `${compact.slice(0, 177)}...` : compact;
+}
+
+function semanticMaterialMatch({ normalizedHaystack, rawHaystack, value }) {
+  const rawNeedle = String(value || "").trim().toLowerCase();
+  if (!rawNeedle) return true;
+  if (rawHaystack.includes(rawNeedle)) return true;
+
+  const normalizedNeedle = normalizeSearchText(value);
+  if (!normalizedNeedle) return true;
+  if (normalizedHaystack.includes(normalizedNeedle)) return true;
+
+  const tokens = materialTokens(value);
+  if (tokens.length === 0) return true;
+  const present = tokens.filter(token => normalizedHaystack.includes(token));
+  if (tokens.length <= 3) return present.length === tokens.length;
+  if (tokens.length <= 6) return present.length >= Math.ceil(tokens.length * 0.75);
+  return present.length >= Math.max(4, Math.ceil(tokens.length * 0.65));
+}
+
+function strictMaterialMatch({ normalizedHaystack, rawHaystack, value }) {
+  const rawNeedle = String(value || "").trim().toLowerCase();
+  if (!rawNeedle) return false;
+  if (rawHaystack.includes(rawNeedle)) return true;
+
+  const normalizedNeedle = normalizeSearchText(value);
+  if (!normalizedNeedle) return false;
+  if (normalizedHaystack.includes(normalizedNeedle)) return true;
+
+  const tokens = materialTokens(value);
+  if (tokens.length === 0) return false;
+  const present = tokens.filter(token => normalizedHaystack.includes(token));
+  if (tokens.length <= 3) return present.length === tokens.length;
+  if (tokens.length <= 6) return present.length >= Math.ceil(tokens.length * 0.85);
+  return present.length >= Math.max(5, Math.ceil(tokens.length * 0.8));
+}
+
+function pushMaterialFinding({ findings, categoryScores, category, field, value, message }) {
+  findings.push({
+    category,
+    severity: "blocking",
+    message: message || `Authored specs omit material ${field} detail from the Process / Action Map row: ${materialLabel(value)}.`
+  });
+  categoryScores[category] = 0;
+  categoryScores.adequacyReadiness = 0;
+}
+
+function scoreMaterialValues({ values, field, category, normalizedHaystack, rawHaystack, findings, categoryScores }) {
+  let missingCount = 0;
+  for (const value of normalizeStringList(values)) {
+    if (!semanticMaterialMatch({ normalizedHaystack, rawHaystack, value })) {
+      missingCount += 1;
+      pushMaterialFinding({ findings, categoryScores, category, field, value });
+    }
+  }
+  return missingCount;
+}
+
+function evidenceRefMaterialValues(ref) {
+  return [
+    ref.path,
+    ref.lineRange,
+    ref.symbol,
+    ref.processMapId,
+    ref.packId,
+    ref.sliceId,
+    ref.capabilityId,
+    ref.surfaceId,
+    ref.fileId,
+    ref.detail,
+    ref.questionAnswered,
+    ref.snippet
+  ].filter(isNonEmptyString);
+}
+
+function evidenceRefCovered(ref, normalizedHaystack, rawHaystack) {
+  const materialValues = evidenceRefMaterialValues(ref);
+  if (materialValues.length === 0) return true;
+  return materialValues.some(value => semanticMaterialMatch({ normalizedHaystack, rawHaystack, value }));
+}
+
+function hasGenericCompression(rawHaystack) {
+  return GENERIC_COMPRESSION_PATTERNS.some(pattern => pattern.test(rawHaystack));
+}
+
+function scoreEvidenceRefs({ refs, normalizedHaystack, rawHaystack, findings, categoryScores }) {
+  let missingCount = 0;
+  for (const [index, ref] of asObjectArray(refs).entries()) {
+    if (!evidenceRefCovered(ref, normalizedHaystack, rawHaystack)) {
+      missingCount += 1;
+      pushMaterialFinding({
+        findings,
+        categoryScores,
+        category: "upstreamTraceability",
+        field: `evidence ref ${index + 1}`,
+        value: ref.path || ref.detail || ref.questionAnswered || ref.processMapId || ref.packId || ref.sliceId || ref.capabilityId || "unnamed evidence ref",
+        message: `Authored specs omit material evidence ref ${index + 1}: ${materialLabel(ref.path || ref.detail || ref.questionAnswered || ref.processMapId || ref.packId || ref.sliceId || ref.capabilityId || "unnamed evidence ref")}.`
+      });
+    }
+  }
+  return missingCount;
+}
+
+function scoreMaterialFidelity({ row, processRow, jobDoc, technicalDoc, findings, categoryScores }) {
+  const rawHaystack = `${jobDoc.text}\n${technicalDoc.text}\n${jobDoc.html}\n${technicalDoc.html}`.toLowerCase();
+  const normalizedHaystack = normalizeSearchText(rawHaystack);
+  let missingCount = 0;
+
+  missingCount += scoreMaterialValues({
+    values: [processRow.actor, processRow.role, processRow.trigger, processRow.intendedOutcome, processRow.domainObject],
+    field: "actor/role/trigger/outcome/domain object",
+    category: "jobIntentCoverage",
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+  missingCount += scoreMaterialValues({
+    values: processRow.actions,
+    field: "action",
+    category: "jobIntentCoverage",
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+  missingCount += scoreMaterialValues({
+    values: processRow.stateModel?.states,
+    field: "state",
+    category: "jobIntentCoverage",
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+  missingCount += scoreMaterialValues({
+    values: processRow.stateModel?.transitions,
+    field: "state transition",
+    category: "jobIntentCoverage",
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+  missingCount += scoreMaterialValues({
+    values: processRow.permissions,
+    field: "permission",
+    category: "jobIntentCoverage",
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+  missingCount += scoreMaterialValues({
+    values: processRow.rules,
+    field: "rule",
+    category: "jobIntentCoverage",
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+  missingCount += scoreMaterialValues({
+    values: processRow.visibleBehavior,
+    field: "visible/operator behavior",
+    category: "jobIntentCoverage",
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+  missingCount += scoreMaterialValues({
+    values: processRow.edgeCases,
+    field: "edge case",
+    category: "technicalContractCoverage",
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+  missingCount += scoreMaterialValues({
+    values: processRow.recoveryPaths,
+    field: "recovery path",
+    category: "technicalContractCoverage",
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+  missingCount += scoreMaterialValues({
+    values: [
+      ...normalizeStringList(processRow.explicitGaps),
+      ...normalizeStringList(row.explicitGaps),
+      ...normalizeStringList(processRow.blockingQuestions),
+      ...normalizeStringList(row.blockingQuestions),
+      ...normalizeStringList(processRow.blockingGaps),
+      ...normalizeStringList(row.blockingGaps),
+      ...normalizeStringList(processRow.humanDecisions),
+      ...normalizeStringList(row.humanDecisions)
+    ],
+    field: "gap, blocker, or human decision",
+    category: "adequacyReadiness",
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+  missingCount += scoreEvidenceRefs({
+    refs: [...asObjectArray(processRow.evidenceRefs), ...asObjectArray(row.evidenceRefs)],
+    normalizedHaystack,
+    rawHaystack,
+    findings,
+    categoryScores
+  });
+
+  const uncertaintyValues = [
+    ...normalizeStringList(processRow.explicitGaps),
+    ...normalizeStringList(row.explicitGaps),
+    ...normalizeStringList(processRow.blockingQuestions),
+    ...normalizeStringList(row.blockingQuestions),
+    ...normalizeStringList(processRow.blockingGaps),
+    ...normalizeStringList(row.blockingGaps),
+    ...normalizeStringList(processRow.humanDecisions),
+    ...normalizeStringList(row.humanDecisions)
+  ];
+  if (uncertaintyValues.length === 0 &&
+      !/\b(no unresolved|no explicit gap|no known gap|no human decision|uncertain|uncertainty|unknown|gap|human decision)\b/i.test(rawHaystack)) {
+    pushMaterialFinding({
+      findings,
+      categoryScores,
+      category: "adequacyReadiness",
+      field: "remaining uncertainty",
+      value: "No explicit gaps or human decisions are named upstream.",
+      message: "Spec pair must state what remains uncertain or explicitly say that no upstream gaps or human decisions are named."
+    });
+  }
+
+  const technicalRaw = `${technicalDoc.text}\n${technicalDoc.html}`.toLowerCase();
+  const technicalNormalized = normalizeSearchText(technicalRaw);
+  const verificationAnchors = [
+    processRow.trigger,
+    processRow.intendedOutcome,
+    ...normalizeStringList(processRow.actions),
+    ...asObjectArray(processRow.evidenceRefs)
+      .filter(ref => isNonEmptyString(ref.path) || isNonEmptyString(ref.snippet) || isNonEmptyString(ref.symbol))
+      .flatMap(evidenceRefMaterialValues)
+  ];
+  if (!/\b(verification|verify|test|check|prove|smoke)\b/i.test(technicalRaw) ||
+      !verificationAnchors.some(value => strictMaterialMatch({ normalizedHaystack: technicalNormalized, rawHaystack: technicalRaw, value }))) {
+    pushMaterialFinding({
+      findings,
+      categoryScores,
+      category: "technicalContractCoverage",
+      field: "verification proof",
+      value: "verification tied to row behavior or evidence",
+      message: "Technical spec must name verification that would prove this specific Process / Action Map row from its behavior or evidence, not only generic spec checks."
+    });
+  }
+
+  if (hasGenericCompression(rawHaystack) && missingCount > 0) {
+    findings.push({
+      category: "adequacyReadiness",
+      severity: "blocking",
+      message: "Authored specs compress specific upstream row details into generic prose; preserve the omitted particulars before this row can be outstanding."
+    });
+    categoryScores.adequacyReadiness = 0;
+  }
+}
+
 function scoreAuthorSpecRow(row, processById = new Map(), repoRoot = process.cwd()) {
   const findings = [];
   const categoryScores = {
@@ -1045,6 +1408,9 @@ function scoreAuthorSpecRow(row, processById = new Map(), repoRoot = process.cwd
     if (hasPlaceholderText(jobDoc) || hasPlaceholderText(technicalDoc)) {
       findings.push({ category: "adequacyReadiness", severity: "blocking", message: "Authored specs contain placeholders, TODO/TBD text, or vague filler." });
       categoryScores.adequacyReadiness = 0;
+    }
+    if (processRow) {
+      scoreMaterialFidelity({ row, processRow, jobDoc, technicalDoc, findings, categoryScores });
     }
   }
 

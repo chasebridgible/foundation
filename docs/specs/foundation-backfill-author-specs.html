@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-author-specs.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-03">
+<meta name="spec:last-updated" content="2026-06-04">
 <title>Foundation Backfill Author Specs</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Author Specs",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-03",
+  "lastUpdated": "2026-06-04",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.author-durable-specs.capability",
@@ -184,7 +184,7 @@
         "foundation.backfill-author-specs.job#artifacts-and-state",
         "foundation.backfill-author-specs.job#handoff-gate"
       ],
-      "evidence": "Author Specs tests cover initialization from Process / Action Map handoff, exact one-target fill, current check before eval, outstanding row receipts, weak-spec rejection, refresh invalidation, and report handoff state."
+      "evidence": "Author Specs tests cover initialization from Process / Action Map handoff, exact one-target fill, current check before eval, outstanding row receipts, weak-spec rejection, generic compression rejection, row-eval next-action discipline, refresh invalidation, and report handoff state."
     }
   ],
   "tags": [
@@ -377,8 +377,9 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-author-specs.html</div>
     <h1>Foundation Backfill Author Specs</h1>
     <p class="lede">Author Specs creates architecture-agnostic job specs and contract-first technical specs from queued slices, Context Packs, and process/action rows. This layer answers: <strong>What job and technical specs make this slice rebuild-grade?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-03</div><div><strong>Upstream:</strong> Process / Action Map</div><div><strong>Next:</strong> Evaluate Job Slices</div></div>
-    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, selects one Author Specs target with <code>--next</code>, authors one target-owned job/descriptive spec and one contract-first technical spec, checks deterministic structure, writes row-level JSONL eval receipts, revises that same target until outstanding, and records handoff state before the next layer begins.</p>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-04</div><div><strong>Upstream:</strong> Process / Action Map</div><div><strong>Next:</strong> Evaluate Job Slices</div></div>
+    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, selects one Author Specs target with <code>--next</code>, authors one target-owned job/descriptive spec and one contract-first technical spec, checks deterministic structure, writes row-level JSONL eval receipts, revises that same target until outstanding, and repeats until <code>--next</code> returns no target before recording handoff state for the next layer.</p>
+    <p>Each job/technical spec pair must preserve the material content of its current Process / Action Map row: actor or role, trigger, intended outcome, domain object, actions, states and transitions, permissions, rules, visible/operator behavior, edge cases, recovery paths, evidence refs, explicit gaps, blockers, and human decisions. Broad prose that compresses named upstream particulars into generic categories is not outstanding.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
 
@@ -408,8 +409,9 @@
         <li><strong>Author:</strong> read the target Process / Action Map row and its bounded Context Pack evidence, then write or revise exactly one job/descriptive spec and one technical spec for that target.</li>
         <li><strong>Record:</strong> run <code>foundation:author-specs:fill -- --process-map-id &lt;id&gt; --job-spec &lt;path&gt; --technical-spec &lt;path&gt;</code> for that target only.</li>
         <li><strong>Check:</strong> run <code>foundation:author-specs:check -- --phase batch</code>; repair structural failures before eval.</li>
-        <li><strong>Evaluate:</strong> run row-targeted <code>foundation:author-specs:eval</code>; warnings, missing row receipts, or revision targets are not outstanding.</li>
-        <li><strong>Revise:</strong> keep the same target until the row-level receipt is current and outstanding.</li>
+        <li><strong>Evaluate:</strong> run row-targeted <code>foundation:author-specs:eval</code>; warnings, missing row receipts, omitted row material, generic compression, weak rebuild readiness, or revision targets are not outstanding.</li>
+        <li><strong>Revise:</strong> keep the same target until the row-level receipt is current, score 100, and outstanding with no warnings, blockers, or revision targets.</li>
+        <li><strong>Continue:</strong> a passing row receipt means select the next target; it does not mean the layer can hand off.</li>
         <li><strong>Handoff:</strong> run handoff check, all-row eval, and report only after <code>--next</code> returns no target.</li>
       </ol>
     </section>
@@ -418,14 +420,14 @@
       <h2>Checker and eval contract</h2>
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
         <tr><td>Checker</td><td>validates Author Specs JSONL shape, upstream Process / Action Map freshness, one row per active process row, target-owned job and technical spec files, spec metadata, graph metadata, owned paths, canonical sections, required job language, required technical contract language, and report state.</td></tr>
-        <tr><td>Eval receipt</td><td>scores each Author Specs row against its upstream Process / Action Map row and authored specs for upstream traceability, job intent coverage, technical contract coverage, graph traceability, and adequacy readiness. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
+        <tr><td>Eval receipt</td><td>scores each Author Specs row against its upstream Process / Action Map row and authored specs for upstream traceability, job intent coverage, technical contract coverage, graph traceability, adequacy readiness, material row fidelity, spec-only rebuild readiness, and generic-compression rejection. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
         <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
     </section>
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>Each active Process / Action Map row has one Author Specs row with target-owned job and technical specs or a named blocker; checker passes; every non-pending row has a current outstanding row-level eval receipt; the all-row eval summary is outstanding; report names next layer as Evaluate Job Slices.</p>
+      <p>Each active Process / Action Map row has one Author Specs row with target-owned job and technical specs or a named blocker; checker passes; every non-pending row has a current outstanding row-level eval receipt; <code>--next</code> returns no target; the all-row eval summary is outstanding; report names next layer as Evaluate Job Slices.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
         <li>All rows are <code>ready-for-slice-eval</code> or explicitly <code>blocked</code> with named blocker detail.</li>

@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-author-specs.eval">
 <meta name="spec:type" content="eval">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-03">
+<meta name="spec:last-updated" content="2026-06-04">
 <title>Foundation Backfill Author Specs Eval Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Author Specs Eval Spec",
   "type": "eval",
   "status": "active",
-  "lastUpdated": "2026-06-03",
+  "lastUpdated": "2026-06-04",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.backfill-author-specs.job",
@@ -90,7 +90,7 @@
         "foundation.backfill-author-specs.eval#acceptance-mapping",
         "foundation.backfill-author-specs.eval#eval-contract"
       ],
-      "evidence": "Author Specs tests cover exact one-target selection, shortcut rejection, eval current-check gate, outstanding row receipts, weak-spec rejection, handoff state, report drift, and refresh invalidation."
+      "evidence": "Author Specs tests cover exact one-target selection, shortcut rejection, eval current-check gate, outstanding row receipts, weak-spec rejection, generic compression rejection, spec-only verification rejection, handoff state, report drift, row-eval continuation next action, and refresh invalidation."
     }
   ],
   "tags": [
@@ -190,7 +190,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-author-specs-eval.html</div>
     <h1>Foundation Backfill Author Specs Eval Spec</h1>
     <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Author Specs can hand off safely.</p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-03</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-04</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
     <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through row-level eval receipts, and the HTML summary is a derived review surface. Completion means outstanding with no warnings, blockers, placeholders, stale state, or revision targets.</p>
   </section>
 
@@ -202,9 +202,12 @@
         <tr><td>AC-2</td><td>Upstream references resolve.</td><td>Every row cites exactly one active upstream Process / Action Map row and carries its current row fingerprint, capability IDs, pack ID, and slice ID.</td></tr>
         <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, authored, needs-revision, ready-for-slice-eval, blocked.</td></tr>
         <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, invalid job/technical spec metadata, missing graph metadata, missing canonical sections, missing owned paths, and report drift fail.</td></tr>
-        <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, under-evidenced, placeholder-filled, graph-orphaned, or contract-thin specs produce revision targets.</td></tr>
-        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>Each active Process / Action Map row has a ready job/technical spec pair or explicit blocker; checker passes; every non-pending row has a current outstanding row-level eval receipt; summary eval is outstanding; report names next layer as Evaluate Job Slices.</td></tr>
+        <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, under-evidenced, placeholder-filled, graph-orphaned, contract-thin, materially incomplete, generic-compressed, or rebuild-unready specs produce revision targets.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>Each active Process / Action Map row has a ready job/technical spec pair or explicit blocker; checker passes; every non-pending row has a current outstanding row-level eval receipt; <code>--next</code> returns no target; summary eval is outstanding; report names next layer as Evaluate Job Slices.</td></tr>
         <tr><td>AC-7</td><td>Shortcut paths fail.</td><td>Fill rejects <code>--all</code>, <code>--batch-size</code>, generated author files, bulk JSON, multiple IDs, and out-of-order targets; eval rejects stale or missing check artifacts.</td></tr>
+        <tr><td>AC-8</td><td>Row material is preserved.</td><td>The job/technical pair preserves every material Process / Action Map item: actor or role, trigger, intended outcome, domain object, actions, states and transitions, permissions, rules, visible/operator behavior, edge cases, recovery paths, evidence refs, explicit gaps, blockers, and human decisions.</td></tr>
+        <tr><td>AC-9</td><td>Spec-only rebuild readiness is proven.</td><td>The spec pair answers what behavior must exist, required contracts, current evidence, flexible versus constrained implementation space, failures/recovery, row-specific verification, and remaining uncertainty.</td></tr>
+        <tr><td>AC-10</td><td>Generic compression fails.</td><td>Specs that replace specific upstream details with broad phrases such as family-specific responses, relevant contracts, current behavior, named surfaces, or similar summaries are not outstanding when particulars are omitted.</td></tr>
       </tbody></table>
     </section>
 
@@ -215,16 +218,21 @@
         <tr><td>T-2</td><td>integration</td><td>Previous layer handoff consumed by this layer and this layer handoff recorded for Slice Evaluation.</td><td>existing</td></tr>
         <tr><td>T-3</td><td>integration</td><td>Row-targeted eval requires a current passing check and writes outstanding row receipts before the next target can proceed.</td><td>existing</td></tr>
         <tr><td>T-4</td><td>integration</td><td>Shortcut and coarse closure attempts fail: bulk fill, generated payloads, multiple IDs, out-of-order fill, under-reviewed rows, report drift, and stale upstream refresh.</td><td>existing</td></tr>
-        <tr><td>T-5</td><td>manual</td><td>Sandia Oil calibration run before larger repo use.</td><td>planned</td></tr>
+        <tr><td>T-5</td><td>unit/integration</td><td>Structurally valid but generic-compressed specs fail semantic row eval, including generic verification that is not tied to row behavior or evidence.</td><td>existing</td></tr>
+        <tr><td>T-6</td><td>integration</td><td>A passing row-targeted eval tells the agent to select the next target, not to record handoff.</td><td>existing</td></tr>
+        <tr><td>T-7</td><td>manual</td><td>Sandia Oil calibration run before larger repo use.</td><td>planned</td></tr>
       </tbody></table>
     </section>
 
     <section id="eval-contract" data-spec-section="eval-contract" data-section-type="eval-contract">
       <h2>Eval contract</h2>
-      <p>Eval samples specs against Process / Action Map rows and Context Packs to judge upstream traceability, job intent coverage, technical contract coverage, graph traceability, and adequacy readiness. The canonical output is JSONL with one receipt per evaluated row plus a summary receipt. The HTML summary is generated from JSONL so humans can read counts, failures, revision targets, and examples.</p>
+      <p>Eval samples specs against Process / Action Map rows and Context Packs to judge upstream traceability, job intent coverage, technical contract coverage, graph traceability, adequacy readiness, material row fidelity, spec-only rebuild readiness, and generic-compression risk. The canonical output is JSONL with one receipt per evaluated row plus a summary receipt. The HTML summary is generated from JSONL so humans can read counts, failures, revision targets, and examples.</p>
       <ul>
         <li>Every non-info finding names the row ID, failure category, and revision target.</li>
         <li>A row is outstanding only with score 100, current row fingerprint, no warnings, no blockers, no placeholders, and no revision targets.</li>
+        <li>Semantic fidelity findings are blocking when any material Process / Action Map row item is absent from the authored job/technical pair.</li>
+        <li>Rebuild-readiness findings are blocking when a future agent could not continue from the spec pair without rediscovering source for behavior, contracts, evidence, constraints, failures/recovery, verification, or uncertainty.</li>
+        <li>Generic-compression findings are blocking when broad prose hides named upstream particulars.</li>
         <li>Rows with severe uncertainty must remain non-terminal or carry a named blocker, gap, or human decision.</li>
         <li>Calibration against Sandia Oil is required before using the layer as a large-repo gate.</li>
       </ul>
