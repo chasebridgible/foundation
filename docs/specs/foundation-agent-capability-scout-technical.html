@@ -228,7 +228,7 @@
         <li><strong>Normalize:</strong> write candidate finding records with evidence path, confidence, source family, topic, and 1-10 interest grade.</li>
         <li><strong>Rank:</strong> sort findings by interest grade; low-interest findings remain queryable but do not require owner attention.</li>
         <li><strong>Promote:</strong> for high-durability findings, write principle-candidate records and patch the relevant principles document when the candidate can be stated as a durable rule.</li>
-        <li><strong>Publish:</strong> append JSONL run, finding, and principle-candidate artifacts, write a dated brief, run Foundation checks, and record commit/PR/merge state.</li>
+        <li><strong>Publish:</strong> complete a write-through artifact checkpoint before checks: append JSONL run, source-snapshot, finding, and principle-candidate artifacts for the same run ID, write a dated brief, keep any principles-doc patch tied to a candidate row, run Foundation checks, and record commit/PR/merge state. Evidence snapshots without matching JSONL rows and a brief are not publishable run state.</li>
         <li><strong>Observe:</strong> log run metrics such as sources checked, failures, findings, principle candidates, top grade, duration, merge status, and notification status.</li>
       </ol>
     </section>
@@ -285,6 +285,7 @@
           <tr><td>Source unavailable</td><td>Record source failure and continue other sources; mark run blocked if too many high-priority sources fail.</td><td>Review blocker in notification.</td><td>Run manifest and source snapshot status.</td></tr>
           <tr><td>Out-of-scope source or topic</td><td>Reject fetch or record a low-interest skipped finding without owner attention.</td><td>Revise source registry only through spec review if scope should expand.</td><td>Source registry check.</td></tr>
           <tr><td>LLM summary lacks provenance</td><td>Fail the finding record check.</td><td>Ignore the finding until evidence is repaired.</td><td>Eval finding.</td></tr>
+          <tr><td>Evidence-only partial run</td><td>Fail the run until source-snapshot rows, finding or no-finding state, run manifest, and dated brief exist for the same run ID.</td><td>Return to artifact write-through before checks or notification.</td><td>Checker output.</td></tr>
           <tr><td>Principle candidate is too tool-specific</td><td>Keep the finding in the log but do not patch principles docs.</td><td>Review the finding only if the interest grade warrants attention.</td><td>Principle-candidate eval finding.</td></tr>
           <tr><td>Clean detached worktree</td><td>Create a dated scout branch and continue; detached state alone is not a review-mode blocker.</td><td>Review only if branch creation fails.</td><td>Branch name in merge receipt.</td></tr>
           <tr><td>Merge closeout fails</td><td>Record branch, commit or PR state and mark run blocked instead of pretending memory is durable.</td><td>Review PR or blocker in the GitHub notification.</td><td>Merge receipt.</td></tr>

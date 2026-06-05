@@ -21,7 +21,7 @@ The scout exists to turn recurring research into durable Foundation learning, no
 Use this as the Codex cron prompt:
 
 ```text
-Run the Foundation Agent Capability Scout in /Users/ChaseBartlett/Developer/repos/foundation. Follow skills/agent-capability-scout/SKILL.md exactly. Use a clean worktree or branch; if the checkout is a clean detached Codex worktree, create a dated scout branch before editing. Research only the enabled source registry, update the scout JSON/JSONL artifacts, evaluate whether any finding creates a standalone additive principle, patch principles docs only for candidates that pass the principle gate, run the scout checker and spec check, then publish through the protected Foundation GitHub flow and notify the owner with the run grade summary, top findings, principle candidates, PR or blocker path, and next action.
+Run the Foundation Agent Capability Scout in /Users/ChaseBartlett/Developer/repos/foundation. Follow skills/agent-capability-scout/SKILL.md exactly. Use a clean worktree or branch; if the checkout is a clean detached Codex worktree, create a dated scout branch before editing. Research only the enabled source registry, then complete one write-through artifact checkpoint for the same run ID: evidence snapshots, canonical JSONL rows, dated brief, and any qualifying principles-doc patch. Do not stop after evidence snapshots alone. Evaluate whether any finding creates a standalone additive principle, patch principles docs only for candidates that pass the principle gate, run the scout checker and spec check, then publish through the protected Foundation GitHub flow and notify the owner with the run grade summary, top findings, principle candidates, PR or blocker path, and next action.
 ```
 
 ## State Files
@@ -44,13 +44,20 @@ Run the Foundation Agent Capability Scout in /Users/ChaseBartlett/Developer/repo
 5. Load `source-registry.json`. Research only enabled sources and only within their `topicScope`.
 6. For each enabled source, preserve retrieval metadata in `source-snapshots.jsonl`. If a source cannot be fetched, record the source failure instead of inventing a finding.
 7. Compare with prior successful run state when available. If comparison state is missing, record a first-run baseline and grade only findings with clear evidence.
-8. For each meaningful change, append one `findings.jsonl` row with source ID, evidence path, concise summary, confidence, 1-10 interest grade, and grade reason.
-9. Create a brief even when there are no findings. The owner should still see what was checked, whether anything was interesting, and whether any source was blocked.
-10. For each high-durability finding, run the principle-candidate gate below before editing principles docs.
-11. Run `npm run foundation:agent-capability-scout:check` and revise artifacts until it passes.
-12. Run `npm run spec:check` after spec, principles, skill, or checker changes.
-13. Publish through the Foundation protected GitHub flow when permissions allow. Record merge state or an explicit blocker.
-14. Notify the owner through a GitHub issue or PR comment. Include run status, top interest grade, top findings, principle candidates, PR/branch/blocker path, and next action.
+8. Complete the write-through artifact checkpoint before moving to checks or status reporting:
+   - write evidence files for every fetched or blocked source;
+   - append `source-snapshots.jsonl` rows that cite those evidence paths and hashes;
+   - append one `findings.jsonl` row for each meaningful change with source ID, evidence path, concise summary, confidence, 1-10 interest grade, and grade reason;
+   - append `principle-candidates.jsonl` rows for any finding being considered for doctrine;
+   - append or update the `runs.jsonl` row with the dated brief path and current merge/notification state;
+   - write the dated brief under `docs/specs/agent-capability-scout/briefs/`.
+9. Do not stop after evidence snapshots alone. If evidence exists but the matching JSONL rows or brief do not, the run is incomplete; finish those writes before reporting progress.
+10. Create a brief even when there are no findings. The owner should still see what was checked, whether anything was interesting, and whether any source was blocked.
+11. For each high-durability finding, run the principle-candidate gate below before editing principles docs.
+12. Run `npm run foundation:agent-capability-scout:check` and revise artifacts until it passes.
+13. Run `npm run spec:check` after spec, principles, skill, or checker changes.
+14. Publish through the Foundation protected GitHub flow when permissions allow. Record merge state or an explicit blocker.
+15. Notify the owner through a GitHub issue or PR comment. Include run status, top interest grade, top findings, principle candidates, PR/branch/blocker path, and next action.
 
 ## Branch and Worktree Rules
 

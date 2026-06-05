@@ -2,4 +2,4 @@
 name: agent-capability-scout
 description: Run the Foundation Agent Capability Scout with bounded source research, durable JSON/JSONL state, principle-candidate evaluation, and GitHub notification.
 prompt: |
-  Follow skills/agent-capability-scout/SKILL.md. If running in a clean detached Codex worktree, create a dated scout branch before editing. Preserve evidence-backed scout state, grade findings 1-10, evaluate standalone additive principle candidates before patching principles docs, run the scout checker and spec check, and close out through Foundation GitHub notification.
+  Follow skills/agent-capability-scout/SKILL.md. If running in a clean detached Codex worktree, create a dated scout branch before editing. Preserve evidence-backed scout state, then complete the write-through artifact checkpoint for one run ID before checks: evidence snapshots, canonical JSONL rows, dated brief, and any qualifying principles-doc patch. Do not stop after evidence snapshots alone. Grade findings 1-10, evaluate standalone additive principle candidates before patching principles docs, run the scout checker and spec check, and close out through Foundation GitHub notification.
