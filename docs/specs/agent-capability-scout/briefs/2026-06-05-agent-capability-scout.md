@@ -1,11 +1,11 @@
 # Agent Capability Scout Brief - 2026-06-05
 
 Run ID: 2026-06-05-agent-scout-01
-Status: complete pending publish closeout
+Status: complete with PR open
 Branch: codex/agent-capability-scout-20260605-02
 Source registry version: 2026-06-05
 Started at: 2026-06-05T21:22:53Z
-Ended at: 2026-06-05T21:22:53Z
+Ended at: 2026-06-05T21:26:30Z
 
 ## Sources Checked
 
@@ -43,6 +43,6 @@ Low:
 
 ## Publish And Notification State
 
-- Merge state: pending PR creation after checks.
-- Notification state: pending PR comment after PR creation.
-- Next action: run scout and spec checks, commit, push, open PR, then notify through the PR.
+- Merge state: PR open at https://github.com/chasebridgible/foundation/pull/48.
+- Notification state: PR comment sent at https://github.com/chasebridgible/foundation/pull/48#issuecomment-4635651275.
+- Next action: owner reviews PR #48, especially the proposed Agent Principles addition and the first-run interest grades.
