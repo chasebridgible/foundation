@@ -282,7 +282,7 @@
       <h2>Proposed handling</h2>
       <ul>
         <li><strong>Proposed actor:</strong> Codex automation plus LLM summarizer, operating in a clean Foundation worktree and closing durable updates through Foundation GitHub.</li>
-        <li><strong>Proposed path:</strong> Start a clean branch or worktree, fetch bounded sources, record snapshots or diffs, normalize findings, assign 1-10 interest grades, identify durable principle candidates, patch the relevant principles docs when warranted, update JSON/JSONL artifacts, run checks, push through Foundation's protected flow, and notify the owner through a GitHub comment with optional email fallback.</li>
+        <li><strong>Proposed path:</strong> Start a clean branch or worktree, create a dated scout branch when a Codex worktree is detached, fetch bounded sources, record snapshots or diffs, normalize findings, assign 1-10 interest grades, identify durable principle candidates, patch the relevant principles docs when warranted, update JSON/JSONL artifacts, run checks, push through Foundation's protected flow, and notify the owner through a GitHub comment with optional email fallback.</li>
         <li><strong>Reason for change:</strong> Agent capabilities change quickly, but unmanaged research can waste founder time or leave useful learning outside durable Foundation memory.</li>
         <li><strong>Decision state:</strong> proposed.</li>
       </ul>
@@ -292,7 +292,7 @@
       <h2>Process</h2>
       <ol>
         <li><strong>Wake:</strong> Codex automation starts every other day at 5am with run ID, source allowlist, prior run state, grading rubric, principle-candidate rubric, and notification target.</li>
-        <li><strong>Prepare:</strong> create or enter a clean Foundation branch/worktree so durable artifacts and docs can be committed without mixing unrelated user changes.</li>
+        <li><strong>Prepare:</strong> create or enter a clean Foundation branch/worktree so durable artifacts and docs can be committed without mixing unrelated user changes; if a clean Codex worktree is detached, create a dated scout branch before editing and continue the full run.</li>
         <li><strong>Observe:</strong> fetch only allowlisted sources for OpenAI, Anthropic, Google, and Addy Osmani agent-related material; store raw snapshots or observed diffs with timestamps and source metadata.</li>
         <li><strong>Normalize:</strong> convert relevant source changes into structured finding records with source, date seen, change type, summary, evidence path, confidence, and 1-10 interest grade.</li>
         <li><strong>Grade:</strong> assign interest or value based on broad potential to improve agent systems; a grade is a triage signal, not an approval state.</li>
