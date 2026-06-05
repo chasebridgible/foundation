@@ -252,7 +252,7 @@
   <section id="overview" class="overview-section">
     <div class="spec-eyebrow">Core Concepts · ai-evals-principles.html</div>
     <h1>AI Evals Principles</h1>
-    <p class="lede">Durable principles for evaluating AI and agentic systems. These principles apply when Foundation judges whether generated work is acceptable to trust, revise, or promote into reusable substrate.</p>
+    <p class="lede">Durable principles for evaluating AI and agentic systems. This is the specialist evaluation layer under <a href="./agent-principles.html">Agent Principles</a>: Agent Principles defines how agent systems should operate; this document defines how Foundation knows agent output is good enough to trust, revise, or promote into reusable substrate.</p>
     <div class="meta-row">
       <div><strong>Format:</strong> HTML-native</div>
       <div><strong>Scope:</strong> AI and agent evaluation</div>
@@ -263,6 +263,7 @@
   <article class="doc-body">
     <section id="foundation-position" class="level2 spec-section">
       <h2>Foundation position</h2>
+      <p><strong>AI Evals Principles is the evaluation layer for agent work.</strong> Agent Principles covers context, memory, long-running action, harness design, self-improvement, authority, and handoff. This page stays narrower: it defines the evidence, rubrics, judges, signals, traces, and lifecycle rules that decide whether AI or agent output can be accepted.</p>
       <p><strong>AI evals are tests for systems whose correct output is not a single string.</strong> Traditional tests still matter, but AI systems need evaluation because the same input can produce many acceptable outputs and many plausible failures.</p>
       <p><strong>An eval belongs in Foundation only when it creates verification leverage.</strong> The test is useful when it can reject bad output, preserve known-good behavior through change, reveal systematic failures, or improve the system that produced the work.</p>
       <p><strong>Generated artifacts need eval principles because their external shape can pass while their substance fails.</strong> A generated spec, plan, design, implementation, report, or decision can look complete while still being too shallow, too ungrounded, too risky, or too ambiguous to become reusable substrate.</p>
@@ -380,7 +381,7 @@
 
     <section id="agent-implications" class="level2 spec-section">
       <h2>Agent implications</h2>
-      <p><strong>Agent evaluation should judge task usefulness, not artifact fluency.</strong> The central question is whether a future user or agent could rely on the output to make the next correct move without hidden context.</p>
+      <p><strong>Agent evaluation should judge task usefulness, not artifact fluency.</strong> The broader operating rules live in <a href="./agent-principles.html">Agent Principles</a>. This section focuses on the evaluation consequence: whether a future user or agent could rely on the output to make the next correct move without hidden context.</p>
       <p><strong>The eval contract should name intent, context, and risk.</strong> The evaluator should know the goal, operating environment, acceptable threshold, and unacceptable failure classes before scoring generated work.</p>
       <p><strong>The agent identity must be explicit.</strong> A model name is not enough. The run record should identify the harness, tools, subagents, memory state, provider or local inference environment, prompts, seeds, temperature, retries, and other settings needed to reproduce the behavior.</p>
       <p><strong>The first pass should inspect the generated artifact on its own terms.</strong> Read the generated output before auditing source evidence. This exposes what the artifact itself communicates and prevents the evaluator from mentally filling gaps with outside knowledge.</p>
@@ -476,6 +477,7 @@
     <p class="lede-2">Sibling documents that this eval layer inherits from and supports.</p>
     <div class="related-grid">
       <a class="related-card" href="./core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Cross-domain principles for verification, feedback, judgment, and substrate.</div></a>
+      <a class="related-card" href="./agent-principles.html"><div class="related-name">Agent Principles</div><div class="related-desc">The broader operating doctrine for agent context, memory, long-running action, harness design, self-improvement, authority, and handoff.</div></a>
       <a class="related-card" href="./sw-dev-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development principles for spec-driven, agent-based work and harness engineering.</div></a>
       <a class="related-card" href="../specs/process.html"><div class="related-name">The Spec Process</div><div class="related-desc">Foundation's durable workflow for keeping specs, implementation, and verification aligned.</div></a>
       <a class="related-card" href="../fundamentals/compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">The conceptual root for substrate, feedback loops, and work that compounds instead of drifting.</div></a>

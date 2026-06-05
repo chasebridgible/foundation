@@ -32,7 +32,8 @@
     "foundation.evaluate-quality-completeness.capability",
     "foundation.render-inspectable-system-graph.capability",
     "foundation.install-foundation-target-repos.capability",
-    "foundation.compound-improvements-safely.capability"
+    "foundation.compound-improvements-safely.capability",
+    "foundation.learn-agent-capabilities-over-time.capability"
   ],
   "relatedSpecs": [
     {
@@ -114,6 +115,13 @@
     },
     {
       "id": "foundation.compound-improvements-safely.capability",
+      "relationship": "child",
+      "sections": [
+        "capability-intent"
+      ]
+    },
+    {
+      "id": "foundation.learn-agent-capabilities-over-time.capability",
       "relationship": "child",
       "sections": [
         "capability-intent"
@@ -335,6 +343,16 @@
         "specId": "foundation.operating-system.system",
         "sectionId": "system-intent"
       }
+    },
+    {
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.learn-agent-capabilities-over-time.capability",
+      "type": "contains",
+      "from": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "source": {
+        "specId": "foundation.operating-system.system",
+        "sectionId": "system-intent"
+      }
     }
   ]
 }
@@ -396,6 +414,7 @@
           <tr><td>10</td><td><a data-spec-link="foundation.render-inspectable-system-graph.capability" href="./capabilities/render-inspectable-system-graph.html">Render the System as an Inspectable Graph</a></td><td>Make specs visible as a canvas of systems, capabilities, jobs, actors, processes, tools, evidence, metrics, gaps, evals, and templates.</td><td><code>foundation.visible-business-graph.system</code><br><code>foundation.html-docs-navigation.job</code></td></tr>
           <tr><td>11</td><td><a data-spec-link="foundation.install-foundation-target-repos.capability" href="./capabilities/install-foundation-target-repos.html">Install Foundation Into Target Repos</a></td><td>Connect target repos to the canonical Foundation substrate without duplicating shared rules.</td><td><code>foundation.workspace-model.job</code></td></tr>
           <tr><td>12</td><td><a data-spec-link="foundation.compound-improvements-safely.capability" href="./capabilities/compound-improvements-safely.html">Compound Improvements Safely</a></td><td>Route lessons from agent work back into specs, skills, templates, tests, and validators through protected change flow.</td><td><code>foundation.backfill-specs.job</code><br><code>foundation.backfill-handoff.job</code></td></tr>
+          <tr><td>13</td><td><a data-spec-link="foundation.learn-agent-capabilities-over-time.capability" href="./capabilities/learn-agent-capabilities-over-time.html">Learn Agent Capabilities Over Time</a></td><td>Watch bounded agent-tooling sources over time, preserve observed changes, and turn useful changes into reviewed briefs, proposals, and experiments.</td><td><code>foundation.agent-capability-scout.job</code></td></tr>
         </tbody>
       </table>
     </section>

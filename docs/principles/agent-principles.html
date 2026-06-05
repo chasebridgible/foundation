@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Principles - Core Concepts</title>
+<style>
+  :root {
+    --bg: #181818;
+    --bg-2: #1f1f1f;
+    --bg-3: #232323;
+    --bg-4: #2a2a2a;
+    --border: #2a2a2a;
+    --border-2: #353535;
+    --fg: #e4e4e7;
+    --fg-2: #a1a1a1;
+    --fg-3: #6b6b6b;
+    --primary: #4f8eff;
+    --amber: #d4a72c;
+    --emerald: #4ec9b0;
+    --red: #f48771;
+    --radius-sm: 4px;
+    --radius: 6px;
+    --radius-lg: 8px;
+    --font-mono: ui-monospace, "SF Mono", "Geist Mono", monospace;
+    --sidebar-w: 252px;
+    --transition: 120ms ease;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg-2);
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 18px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .logo-mark {
+    width: 24px;
+    height: 24px;
+    background: var(--bg-4);
+    border: 1px solid var(--border-2);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--fg);
+    font-size: 12px;
+  }
+  .sidebar-title { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .sidebar-sub { font-size: 11px; color: var(--fg-3); margin-top: 1px; font-family: var(--font-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px; }
+
+  .nav-section { padding: 6px 8px 0; }
+  .nav-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--fg-3);
+    padding: 10px 10px 4px;
+    font-family: var(--font-mono);
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--fg-2);
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition), color var(--transition);
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-item:hover { background: var(--bg-3); color: var(--fg); }
+  .nav-item.active, .nav-item.current { background: var(--bg-4); color: var(--fg); }
+  .nav-num {
+    font-size: 10px;
+    font-family: var(--font-mono);
+    color: var(--fg-3);
+    flex-shrink: 0;
+    width: 18px;
+    text-align: right;
+    padding-top: 1px;
+  }
+  .nav-item.active .nav-num, .nav-item.current .nav-num { color: var(--fg-2); }
+
+  .main {
+    flex: 1;
+    min-width: 0;
+    padding: 56px 72px 120px;
+    max-width: 980px;
+  }
+
+  .spec-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--fg-3);
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+  }
+  h1 {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    color: var(--fg);
+  }
+  h2 {
+    font-size: 19px;
+    font-weight: 600;
+    margin-top: 56px;
+    margin-bottom: 8px;
+    color: var(--fg);
+  }
+  h3 { font-size: 14px; font-weight: 600; margin-top: 26px; margin-bottom: 8px; color: var(--fg); }
+  p { color: var(--fg-2); margin-bottom: 14px; }
+  p strong, li strong { color: var(--fg); font-weight: 600; }
+  ul, ol { color: var(--fg-2); padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 5px; line-height: 1.6; }
+  a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--fg-3); }
+  code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--bg-3);
+    color: var(--fg-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .lede {
+    font-size: 15px;
+    color: var(--fg-2);
+    line-height: 1.65;
+    max-width: 720px;
+    margin-bottom: 28px;
+  }
+  .lede-2 {
+    font-size: 14px;
+    color: var(--fg-2);
+    margin-bottom: 18px;
+    max-width: 720px;
+  }
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    font-size: 12px;
+    color: var(--fg-3);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-row strong { color: var(--fg-2); font-weight: 500; }
+  .doc-body { margin-top: 42px; }
+  .doc-body section { margin-top: 54px; }
+  .doc-body section:first-child { margin-top: 0; }
+  section { scroll-margin-top: 24px; }
+
+  .principle-map {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 18px 0 24px;
+  }
+  .principle-card {
+    background: var(--bg-2);
+    min-height: 140px;
+    padding: 16px;
+    border-top: 2px solid var(--border-2);
+  }
+  .principle-card.context { border-top-color: var(--primary); }
+  .principle-card.memory { border-top-color: var(--emerald); }
+  .principle-card.eval { border-top-color: var(--amber); }
+  .principle-card.action { border-top-color: var(--primary); background: var(--bg-3); }
+  .principle-card.boundary { border-top-color: var(--red); }
+  .principle-num { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); margin-bottom: 8px; }
+  .principle-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; }
+  .principle-copy { font-size: 12px; color: var(--fg-2); line-height: 1.55; }
+
+  .status-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0 22px;
+    font-size: 12px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .status-table th {
+    text-align: left;
+    padding: 9px 14px;
+    background: var(--bg);
+    color: var(--fg-3);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+  }
+  .status-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-2);
+    vertical-align: top;
+  }
+  .status-table tr:last-child td { border-bottom: none; }
+
+  .callout {
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: var(--radius);
+    margin: 14px 0;
+    border-left: 2px solid var(--border-2);
+    background: var(--bg-2);
+  }
+  .callout-icon {
+    font-size: 11px;
+    flex-shrink: 0;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    width: 38px;
+  }
+  .callout-body { font-size: 13px; color: var(--fg-2); line-height: 1.6; flex: 1; }
+  .callout-body strong { color: var(--fg); }
+
+  .related-section { margin-top: 64px; }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .related-card {
+    background: var(--bg-2);
+    padding: 14px 16px;
+    text-decoration: none;
+    border-bottom: none;
+    transition: background var(--transition);
+  }
+  .related-card:hover { background: var(--bg-3); }
+  .related-name { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .related-name::after { content: '>'; color: var(--fg-3); font-weight: 400; margin-left: auto; }
+  .related-card:hover .related-name::after { color: var(--fg); }
+  .related-desc { font-size: 12px; color: var(--fg-3); line-height: 1.5; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .footer-note { text-align: center; color: var(--fg-3); font-size: 12px; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--fg-3); }
+
+  @media (max-width: 920px) {
+    body { display: block; }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .main { padding: 36px 22px 72px; }
+    .related-grid, .principle-map { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">A</div>
+    <div>
+      <div class="sidebar-title">Core Concepts</div>
+      <div class="sidebar-sub">Agent Principles</div>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
+    <a class="nav-item" href="#operating-posture"><span class="nav-num">01</span>Operating posture</a>
+    <a class="nav-item" href="#context-engineering"><span class="nav-num">02</span>Context</a>
+    <a class="nav-item" href="#memory"><span class="nav-num">03</span>Memory</a>
+    <a class="nav-item" href="#long-running-actions"><span class="nav-num">04</span>Long-running</a>
+    <a class="nav-item" href="#harness-and-tools"><span class="nav-num">05</span>Harness</a>
+    <a class="nav-item" href="#ai-evals"><span class="nav-num">06</span>AI evals</a>
+    <a class="nav-item" href="#self-improvement"><span class="nav-num">07</span>Self-improvement</a>
+    <a class="nav-item" href="#delegation-and-authority"><span class="nav-num">08</span>Authority</a>
+    <a class="nav-item" href="#substrate-and-handoff"><span class="nav-num">09</span>Substrate</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" class="overview-section">
+    <div class="spec-eyebrow">Core Concepts · agent-principles.html</div>
+    <h1>Agent Principles</h1>
+    <p class="lede">Durable principles for agent-assisted work. These rules apply when a model uses tools, reads and writes durable artifacts, works across context windows, changes software or operating process, evaluates output, or improves the system that will guide future agents.</p>
+    <div class="meta-row">
+      <div><strong>Format:</strong> HTML-native</div>
+      <div><strong>Authoring:</strong> edit this HTML file</div>
+      <div><strong>Status:</strong> Canonical HTML</div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section class="level1 generated-root">
+      <p>This document inherits the domain-neutral rules in <code>core-principles.html</code> and specializes them for agents. An agent principle belongs here only if it stays true across models, tools, vendors, harnesses, and repo shapes.</p>
+      <p>The central rule is simple: useful agency comes from the joint system, not from a prompt alone. The agent, harness, tools, memory, artifacts, validators, roles, approvals, and revision loop are the thing being designed.</p>
+
+      <div class="principle-map">
+        <div class="principle-card action"><div class="principle-num">01</div><div class="principle-title">Agency</div><div class="principle-copy">The loop is useful only when embedded in durable procedures, tools, and evidence gates.</div></div>
+        <div class="principle-card context"><div class="principle-num">02</div><div class="principle-title">Context</div><div class="principle-copy">Prepare the minimum complete context for the current job instead of loading everything.</div></div>
+        <div class="principle-card memory"><div class="principle-num">03</div><div class="principle-title">Memory</div><div class="principle-copy">State belongs in durable artifacts; the model window is temporary workspace.</div></div>
+        <div class="principle-card action"><div class="principle-num">04</div><div class="principle-title">Long runs</div><div class="principle-copy">Long-running work is designed around restartability, handoff, and recovery.</div></div>
+        <div class="principle-card context"><div class="principle-num">05</div><div class="principle-title">Harness</div><div class="principle-copy">Reliability comes from the model plus environment, tools, checks, permissions, and scaffolding.</div></div>
+        <div class="principle-card eval"><div class="principle-num">06</div><div class="principle-title">Evaluation</div><div class="principle-copy">Progress closes through evidence and evaluation, not the agent's confidence.</div></div>
+        <div class="principle-card memory"><div class="principle-num">07</div><div class="principle-title">Self-improvement</div><div class="principle-copy">Learning is real only when accepted lessons revise future action.</div></div>
+        <div class="principle-card boundary"><div class="principle-num">08</div><div class="principle-title">Authority</div><div class="principle-copy">Agents can execute labor; humans retain judgment, accountability, and high-risk approvals.</div></div>
+        <div class="principle-card eval"><div class="principle-num">09</div><div class="principle-title">Substrate</div><div class="principle-copy">Every useful run should leave the next actor with sharper artifacts than it found.</div></div>
+      </div>
+
+      <section id="operating-posture" class="level2 spec-section">
+        <h2>Operating posture</h2>
+        <p><strong>Engineer the agent system, not just the prompt.</strong> The agent's capability is the combined behavior of the model, instructions, tools, filesystem, memory, validators, permissions, logs, and handoff rules. A better prompt can improve a run; a better harness can improve every future run.</p>
+        <p><strong>The loop is the kernel, not the whole system.</strong> Tool use in a loop is the smallest useful definition of an agent, but the durable advantage comes from context discipline, explicit artifacts, progressive disclosure, role separation, evaluators, and deterministic control.</p>
+        <p><strong>Prefer process over prose.</strong> Agents do better with executable workflows than with reference essays. A usable procedure names the trigger, context boundary, atomic unit, action, check, revision target, and exit condition.</p>
+        <p><strong>Make invariants mechanical.</strong> Anything that must happen every run should move out of best-effort prompt following and into scaffolding: commands, schemas, hooks, tests, permissions, required files, or branch protection.</p>
+        <p><strong>Keep global doctrine separate from local truth.</strong> Shared agent rules belong in Foundation. Product facts, implementation paths, test commands, ADRs, and exceptions belong in the target repo. Local <code>AGENTS.md</code> files adapt the shared substrate to the current workspace.</p>
+      </section>
+
+      <section id="context-engineering" class="level2 spec-section">
+        <h2>Context engineering</h2>
+        <p><strong>Curate working context instead of maximizing raw context.</strong> More tokens are not automatically more understanding. Context is knowledge prepared for action: the relevant goal, constraints, state, actor, tools, risk, evidence, and next step for the current job.</p>
+        <p><strong>Separate durable knowledge from executable context.</strong> Stored knowledge, run history, specs, logs, and memory are not the live operating context. The live context should be the smallest complete subset needed to act safely right now.</p>
+        <p><strong>Keep the always-loaded layer short.</strong> The root instruction layer should route the agent to deeper material instead of containing it. Long references belong in specs, skills, reports, and artifacts that load only when needed.</p>
+        <p><strong>Use progressive disclosure as a reliability primitive.</strong> Load the entry skill first, then only the source files, specs, examples, or scripts needed for the current step. This reduces context rot and keeps attention on the active unit of work.</p>
+        <p><strong>Favor recognition over recall.</strong> Agents should be able to find the right context by stable IDs, file paths, metadata, registries, links, and state artifacts. Do not rely on the model to remember where the important fact was mentioned.</p>
+      </section>
+
+      <section id="memory" class="level2 spec-section">
+        <h2>Memory</h2>
+        <p><strong>Memory is durable substrate plus task-ready context plus revision.</strong> A memory system is not a larger archive. It is the structure that stores what matters, retrieves what is relevant, and changes future action when new evidence survives review.</p>
+        <p><strong>Externalize state into artifacts.</strong> The model window is temporary. Long-running state belongs in files, JSON/JSONL artifacts, specs, run logs, session logs, decisions, issue or PR history, databases, and other durable stores that future agents can inspect.</p>
+        <p><strong>Memory should serve action.</strong> A note matters only if it helps a future actor choose, execute, evaluate, or revise. If remembered material does not change a job, process, decision rule, capability map, example, eval, or artifact, it is archive material, not operating memory.</p>
+        <p><strong>Encoding quality beats accumulation.</strong> Typed, bounded, source-backed entries with stable IDs, timestamps, provenance, confidence, and links outperform undifferentiated logs. A memory that cannot be queried or trusted will not compound.</p>
+        <p><strong>Memory needs consolidation and forgetting.</strong> Keep useful lessons alive by promoting them into durable substrate. Keep retrieval usable by pruning, archiving, or de-emphasizing low-value traces. Scale comes from selective strengthening, not keeping everything equally active.</p>
+        <p><strong>Memory is fallible unless provenance and evaluation are explicit.</strong> Retrieved content is evidence-like, not truth-like. The system must preserve source, time, producer, context, and evaluation state so future agents can decide how much to trust it.</p>
+      </section>
+
+      <section id="long-running-actions" class="level2 spec-section">
+        <h2>Long-running actions</h2>
+        <p><strong>Design for restartability before autonomy.</strong> A serious agent system should be able to stop, compact, resume, fork, hand off, and recover without relying on inherited conversation memory.</p>
+        <p><strong>The unit of progress must be small enough to verify.</strong> Long work should be decomposed into rows, files, slices, targets, issues, or tasks whose output can be checked before the agent moves on. If the unit is too large to review, it is too large to trust.</p>
+        <p><strong>Every long run needs a durable handoff state.</strong> A future agent should be able to tell what was attempted, what changed, what passed, what failed, what remains uncertain, and exactly where to continue.</p>
+        <p><strong>Clean state is part of the deliverable.</strong> Long-running agents should leave workspaces mergeable, artifacts current, reports regenerated, checks run, and blockers named. A messy environment is incomplete work, even if the visible output looks plausible.</p>
+        <p><strong>Parallelism comes after legibility.</strong> Multiple agents help only when ownership, locks, state boundaries, merge rules, and judge responsibilities are explicit. Naive concurrency hides failures behind activity.</p>
+      </section>
+
+      <section id="harness-and-tools" class="level2 spec-section">
+        <h2>Harness and tools</h2>
+        <p><strong>The agent-computer interface is a design surface.</strong> Tool names, command contracts, file layouts, schemas, logs, and error messages shape agent behavior as much as instructions do.</p>
+        <p><strong>Tools should make correct work easier than plausible work.</strong> Good tools constrain inputs, reject bulk shortcuts when atomic review is required, emit structured receipts, and make stale or unsupported state hard to miss.</p>
+        <p><strong>Separate roles when context or incentives conflict.</strong> Planners, workers, reviewers, judges, memory writers, and approval routers should not always be the same context. Role separation prevents tunnel vision and makes quality easier to inspect.</p>
+        <p><strong>Use skills as workflow packages, not knowledge dumps.</strong> A skill should tell the agent when to use it, what to load, what loop to follow, what artifacts to update, what shortcuts are forbidden, and what checks prove completion.</p>
+        <p><strong>Prefer deterministic scaffolding for high-risk boundaries.</strong> Permissions, destructive actions, production deploys, customer-facing sends, money movement, legal commitments, and durable memory writes need explicit gates. The harness should enforce the gate, not merely recommend it.</p>
+      </section>
+
+      <section id="ai-evals" class="level2 spec-section">
+        <h2>AI evals</h2>
+        <p><strong>Agent Principles defines the operating posture; AI Evals Principles defines the specialist evaluation layer.</strong> Use <a href="./ai-evals-principles.html">AI Evals Principles</a> when designing rubrics, LLM judges, eval suites, trace review, risk-tiered signals, or quality gates for agent output.</p>
+        <p><strong>Evaluate the whole system, not the model alone.</strong> For agent work, the evaluated object is model plus prompt, tools, harness, memory state, source artifacts, permissions, data, and runtime conditions.</p>
+        <p><strong>Progress is evidence, not self-assessment.</strong> An agent is not done because it says it is done. It is done when external evidence, deterministic checks, reviewer judgment, or eval receipts show that the output matches intent.</p>
+        <p><strong>Use evals to make failure durable.</strong> A failed run should produce better future tests, fixtures, rubrics, prompts, skills, schemas, examples, or handoff rules. If a failure leaves no durable learning, the system is not compounding.</p>
+        <p><strong>Separate generation from evaluation.</strong> The producer of work is biased toward accepting it. Use tests, validators, judges, reviewers, golden examples, scorecards, or manual evidence that stand outside the generator's immediate optimism.</p>
+        <p><strong>Judge against intent, not fluency.</strong> Fluent text, long reasoning, and plausible summaries are not acceptance signals. Evals should ask whether the job was completed, the contract was preserved, the risks were handled, and the next actor can continue.</p>
+        <p><strong>Calibrate cost to risk.</strong> Use the cheapest reliable signal that matches the blast radius. Lightweight schema checks are enough for low-risk structure; high-risk behavior needs broader tests, traces, reviewer evidence, or live calibration.</p>
+      </section>
+
+      <section id="self-improvement" class="level2 spec-section">
+        <h2>Self-improvement</h2>
+        <p><strong>Self-improvement is promotion through evidence.</strong> A system learns when a finding changes future action after review. It does not learn merely because an agent noticed something, summarized it, or stored it.</p>
+        <p><strong>Watch broadly, adopt narrowly.</strong> A capability scout may monitor changing agent tools and practices, but adoption should require relevance, provenance, a grade or recommendation, and a human-readable reason.</p>
+        <p><strong>Do not let the agent silently rewrite its own operating rules.</strong> Changes to specs, skills, validators, memory schemas, source allowlists, or workflows should pass through durable artifacts, checks, and reviewable change flow.</p>
+        <p><strong>Learning artifacts should be queryable.</strong> JSON/JSONL run records, source snapshots, findings, grades, decisions, eval receipts, and merge receipts are better operating memory than chat-only summaries.</p>
+        <p><strong>Separate scouting from acting.</strong> Discovering a new capability is different from using it. The scout produces evidence and a triage signal; follow-up work should start only when the owner chooses to act.</p>
+      </section>
+
+      <section id="delegation-and-authority" class="level2 spec-section">
+        <h2>Delegation and authority</h2>
+        <p><strong>Agents extend judgment; they do not own it.</strong> A responsible person can delegate research, drafting, coding, testing, ranking, and summarization. The responsible person still owns intent, risk, acceptance, and consequences.</p>
+        <p><strong>Human approval belongs at irreversible or high-risk boundaries.</strong> Production deploys, destructive data actions, customer-facing sends, legal commitments, pricing changes, security-sensitive changes, and operating-rule changes should not cross the boundary invisibly.</p>
+        <p><strong>Borrowed confidence is a failure mode.</strong> Agents can transfer fluent confidence faster than they transfer understanding. Review should ask what evidence exists, what changed, what remains uncertain, and whether the human's mental model improved.</p>
+        <p><strong>Delegation should sharpen the operator.</strong> Good agent use leaves the owner with a clearer model of the system. Bad agent use increases output while shrinking comprehension.</p>
+      </section>
+
+      <section id="substrate-and-handoff" class="level2 spec-section">
+        <h2>Substrate and handoff</h2>
+        <p><strong>Every useful run should leave substrate behind.</strong> Specs, skills, examples, tests, eval fixtures, source records, findings, decisions, and reports are the durable assets that let future agents start from a better system.</p>
+        <p><strong>Handoff is a first-class output.</strong> The next actor should not have to reconstruct the run from chat. Handoff names current state, changed files, evidence, checks, blockers, open questions, and the exact continuation point.</p>
+        <p><strong>Artifact freshness matters.</strong> A stale report, registry, eval receipt, or generated map can be more dangerous than no artifact because it looks authoritative while routing future agents incorrectly.</p>
+        <p><strong>Reviewable change flow protects memory.</strong> Durable memory and operating rules should close through branches, PRs, checks, merge receipts, or equivalent reviewable state. Unmerged notes are hints, not substrate.</p>
+        <p><strong>The best agent system is inspectable.</strong> Humans and future agents should be able to see the capability, job, process, artifact, evidence, evaluation, and revision path without relying on a private conversation.</p>
+      </section>
+    </section>
+  </article>
+
+  <section id="related" class="related-section">
+    <h2>Related core concept docs</h2>
+    <p class="lede-2">Sibling HTML-native documents and specs that this page depends on.</p>
+    <div class="related-grid">
+      <a class="related-card" href="./core-principles.html"><div class="related-name">Core Principles</div><div class="related-desc">Domain-neutral principles for foundations, compounding systems, knowledge, intent, verification, and delegation.</div></a>
+      <a class="related-card" href="./ai-evals-principles.html"><div class="related-name">AI Evals Principles</div><div class="related-desc">Evaluation principles for AI-assisted and agentic systems.</div></a>
+      <a class="related-card" href="./sw-dev-principles.html"><div class="related-name">Software Development Principles</div><div class="related-desc">Software-development rules for spec-driven, agent-assisted work.</div></a>
+      <a class="related-card" href="../fundamentals/compounding-systems.html"><div class="related-name">The Compounding System</div><div class="related-desc">Substrate, iterating layers, operational shape, intake, and delivery loops.</div></a>
+      <a class="related-card" href="../specs/foundation-agent-capability-scout.html"><div class="related-name">Agent Capability Scout</div><div class="related-desc">Foundation job spec for recurring agent-system learning and durable findings.</div></a>
+      <a class="related-card" href="../specs/foundation-operating-system.html"><div class="related-name">Foundation Operating System</div><div class="related-desc">Capability-led source of truth for specs, skills, tests, evals, and visible maps.</div></a>
+    </div>
+  </section>
+
+  <hr>
+  <p class="footer-note">Core Concepts · HTML-native document</p>
+</main>
+
+<script>
+  document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-item[href^="#"]').forEach(l => l.classList.remove('active'));
+        const active = document.querySelector('.nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>
