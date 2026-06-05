@@ -1,1 +1,1 @@
-
+{"runId":"2026-06-05-agent-scout-01","mergeState":"pr-open","branch":"codex/agent-capability-scout-20260605-02","commit":"2e91697e1039f5daced20cf55d1733840fb24d3b","prUrl":"https://github.com/chasebridgible/foundation/pull/48","checks":["npm run foundation:agent-capability-scout:check","npm run spec:check"],"mergedAt":null,"syncStatus":"pending-owner-review"}
