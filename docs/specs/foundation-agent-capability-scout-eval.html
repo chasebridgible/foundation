@@ -192,7 +192,7 @@
           <tr><td>AC-4</td><td>Briefs distinguish no-change, low-grade findings, high-grade findings, and blocked-source states.</td><td><code>foundation.agent-capability-scout.job#evidence-and-evaluation</code></td><td>Fixture briefs are not forced into false recommendations or follow-up actions.</td></tr>
           <tr><td>AC-5</td><td>Findings include an interest grade from 1 to 10.</td><td><code>foundation.agent-capability-scout.technical#data-model</code></td><td>Each meaningful finding includes integer grade, grade reason, confidence, source, and evidence path.</td></tr>
           <tr><td>AC-6</td><td>Principle candidates are evidence-backed, durable, standalone, and additive.</td><td><code>foundation.agent-capability-scout.technical#data-model</code></td><td>Each candidate names target doc, proposed wording or patch path, source evidence, standalone eval result, additive rationale, and why it belongs in principles rather than only a findings log.</td></tr>
-          <tr><td>AC-7</td><td>Durable memory closes through Foundation GitHub.</td><td><code>foundation.agent-capability-scout.technical#internal-sequence</code></td><td>Run has merge receipt or explicit blocker naming branch, commit, PR, check, or permission state.</td></tr>
+          <tr><td>AC-7</td><td>Durable memory closes through Foundation GitHub.</td><td><code>foundation.agent-capability-scout.technical#internal-sequence</code></td><td>Run has merge receipt or explicit blocker naming branch, commit, PR, check, or permission state; clean detached worktrees create a dated scout branch before artifact edits instead of stopping in review-mode.</td></tr>
           <tr><td>AC-8</td><td>The owner is notified when the run finishes or blocks.</td><td><code>foundation.agent-capability-scout.job#process</code></td><td>Notification receipt includes GitHub issue or PR comment URL, status, artifact or PR path, top interest grades, principle candidates, blockers, and next action; email receipt is optional when configured.</td></tr>
         </tbody>
       </table>
@@ -209,6 +209,7 @@
           <tr><td>T-4</td><td>fixture</td><td><code>test/fixtures/agent-capability-scout/no-change/</code></td><td>planned</td><td>No-change behavior must not produce novelty noise.</td></tr>
           <tr><td>T-5</td><td>fixture</td><td><code>test/fixtures/agent-capability-scout/blocked-source/</code></td><td>planned</td><td>Source failure behavior must be visible and non-corrupting.</td></tr>
           <tr><td>T-6</td><td>fixture</td><td><code>test/fixtures/agent-capability-scout/merge-blocked/</code></td><td>planned</td><td>Durable memory cannot be considered complete if merge state is hidden.</td></tr>
+          <tr><td>T-8</td><td>manual</td><td>Fresh Codex worktree scout run from detached checkout.</td><td>existing</td><td>The first live automation test proved detached worktrees need an explicit branch-creation step before publishing.</td></tr>
           <tr><td>T-7</td><td>manual</td><td>Owner review of first live brief, interest grades, and principle candidates.</td><td>planned</td><td>The interest and principle-candidate rubrics are broad and should be calibrated by the owner before automation trust increases.</td></tr>
         </tbody>
       </table>
@@ -237,6 +238,7 @@
           <tr><td>Noisy interest grading</td><td>Manual first-run review plus grade fixture.</td><td>Automated tests cannot fully judge value before calibration.</td><td>Full production experiment is outside v1 scope.</td></tr>
           <tr><td>Unsupported doctrine edit</td><td>Principle-candidate fixture plus owner review.</td><td>Schema alone cannot prove a lesson is durable enough for principles docs.</td><td>Full implementation follow-up is outside v1 scope.</td></tr>
           <tr><td>Durable memory not merged</td><td>Merge receipt fixture.</td><td>Logs alone do not prove Foundation memory was updated.</td><td>Full GitHub integration can be adapter-specific later.</td></tr>
+          <tr><td>Clean detached worktree stalls in review-mode</td><td>Manual fresh-worktree run plus skill branch-creation rule.</td><td>Relying on agent judgment caused publishable worktrees to stop early.</td><td>Automated fixture cannot prove Codex worktree branch behavior yet.</td></tr>
           <tr><td>Silent run failure</td><td>GitHub notification receipt check.</td><td>Logs alone do not prove owner visibility.</td><td>Email can be verified separately if configured.</td></tr>
         </tbody>
       </table>

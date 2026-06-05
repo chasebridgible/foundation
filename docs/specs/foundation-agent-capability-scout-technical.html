@@ -221,7 +221,7 @@
       <h2>Internal sequence</h2>
       <ol>
         <li><strong>Trigger:</strong> Codex automation starts a run every other day at 5am with a run ID, source registry version, grading rubric version, principle-candidate rubric version, and notification target.</li>
-        <li><strong>Prepare:</strong> create or enter a clean Foundation branch/worktree and verify durable artifact paths are writable before fetching.</li>
+        <li><strong>Prepare:</strong> create or enter a clean Foundation branch/worktree and verify durable artifact paths are writable before fetching; if a clean Codex worktree is detached, create a dated scout branch and treat the run as publishable after branch creation.</li>
         <li><strong>Validate:</strong> load source registry and reject disabled or out-of-scope sources.</li>
         <li><strong>Fetch:</strong> retrieve source documents, pages, feeds, or changelog entries and store snapshots or content hashes with retrieval metadata.</li>
         <li><strong>Diff:</strong> compare against prior successful run state and record observed additions, removals, or changed summaries.</li>
@@ -271,7 +271,7 @@
         <thead><tr><th>Integration</th><th>Contract</th><th>Boundary</th></tr></thead>
         <tbody>
           <tr><td>LLM summarizer</td><td>May summarize observed diffs and draft grade reasons, but cannot create evidence paths or merged state from memory.</td><td>Validator checks provenance and artifact shape.</td></tr>
-          <tr><td>Codex automation</td><td>Owns wake-up, clean worktree setup, bounded research, artifact update, principles-doc candidate patching, checks, and Foundation PR/merge closeout.</td><td>No experiment branch is created from a finding unless the owner starts follow-up work.</td></tr>
+          <tr><td>Codex automation</td><td>Owns wake-up, clean worktree setup, branch creation from clean detached worktrees, bounded research, artifact update, principles-doc candidate patching, checks, and Foundation PR/merge closeout.</td><td>No experiment branch is created from a finding unless the owner starts follow-up work.</td></tr>
           <tr><td>Notification adapter</td><td>Creates a GitHub issue or PR comment with run status, artifact or PR path, top findings, interest grades, principle candidates, blockers, and next action; email may mirror the same summary when configured.</td><td>Notification failure must not mark the run complete.</td></tr>
         </tbody>
       </table>
@@ -286,6 +286,7 @@
           <tr><td>Out-of-scope source or topic</td><td>Reject fetch or record a low-interest skipped finding without owner attention.</td><td>Revise source registry only through spec review if scope should expand.</td><td>Source registry check.</td></tr>
           <tr><td>LLM summary lacks provenance</td><td>Fail the finding record check.</td><td>Ignore the finding until evidence is repaired.</td><td>Eval finding.</td></tr>
           <tr><td>Principle candidate is too tool-specific</td><td>Keep the finding in the log but do not patch principles docs.</td><td>Review the finding only if the interest grade warrants attention.</td><td>Principle-candidate eval finding.</td></tr>
+          <tr><td>Clean detached worktree</td><td>Create a dated scout branch and continue; detached state alone is not a review-mode blocker.</td><td>Review only if branch creation fails.</td><td>Branch name in merge receipt.</td></tr>
           <tr><td>Merge closeout fails</td><td>Record branch, commit or PR state and mark run blocked instead of pretending memory is durable.</td><td>Review PR or blocker in the GitHub notification.</td><td>Merge receipt.</td></tr>
           <tr><td>Notification fails</td><td>Run remains blocked or failed until notification receipt exists or manual receipt is recorded.</td><td>Fix adapter or choose fallback notification path.</td><td>Notification receipt.</td></tr>
         </tbody>
