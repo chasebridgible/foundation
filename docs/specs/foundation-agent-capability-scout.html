@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.agent-capability-scout.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-06-05">
+<title>Agent Capability Scout</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.agent-capability-scout.job",
+  "title": "Agent Capability Scout",
+  "type": "job",
+  "status": "draft",
+  "lastUpdated": "2026-06-05",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.learn-agent-capabilities-over-time.capability",
+  "children": [
+    "foundation.agent-capability-scout.technical",
+    "foundation.agent-capability-scout.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.learn-agent-capabilities-over-time.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent",
+        "outcome-contract"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.technical",
+      "relationship": "child",
+      "sections": [
+        "internal-sequence",
+        "data-model",
+        "contracts"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    },
+    {
+      "id": "foundation.compound-improvements-safely.capability",
+      "relationship": "informs",
+      "sections": [
+        "outcome-contract"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-agent-capability-scout.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/agent-capability-scout/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/agent-capability-scout/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/agent-capability-scout/source-registry.json",
+      "kind": "config",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/scripts/agent-capability-scout-check.mjs",
+      "kind": "workflow",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.agent-capability-scout.job:skill-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/agent-capability-scout-check.mjs",
+      "mapsTo": [
+        "foundation.agent-capability-scout.job#evidence-and-evaluation"
+      ],
+      "evidence": "Scout checker validates JSON/JSONL artifacts, interest grades, principle-candidate state, merge state, and GitHub notification receipt shape."
+    }
+  ],
+  "tags": [
+    "job",
+    "foundation",
+    "agents",
+    "capability-scout"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.agent-capability-scout.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.agent-capability-scout.job",
+      "type": "job",
+      "label": "Agent Capability Scout",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "job-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "foundation",
+          "agents",
+          "capability-scout"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.agent-capability-scout.job:main",
+      "type": "process",
+      "label": "Agent Capability Scout loop",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "process"
+      },
+      "status": "draft",
+      "confidence": "medium"
+    },
+    {
+      "id": "actor:foundation.agent-capability-scout.job:owner",
+      "type": "actor",
+      "label": "Owner reviewing scout findings",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "human"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:supports:spec:foundation.learn-agent-capabilities-over-time.capability",
+      "type": "supports",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:has-process:process:foundation.agent-capability-scout.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "process:foundation.agent-capability-scout.job:main",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:performed-by:actor:foundation.agent-capability-scout.job:owner",
+      "type": "performed-by",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "actor:foundation.agent-capability-scout.job:owner",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:contains:spec:foundation.agent-capability-scout.technical",
+      "type": "contains",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "spec:foundation.agent-capability-scout.technical",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:contains:spec:foundation.agent-capability-scout.eval",
+      "type": "contains",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "spec:foundation.agent-capability-scout.eval",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:supports:spec:foundation.compound-improvements-safely.capability",
+      "type": "supports",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "spec:foundation.compound-improvements-safely.capability",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "revision"
+      },
+      "label": "creates durable agent-system findings"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">J</div>
+    <div>
+      <div class="sidebar-title">Agent Capability Scout</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">08</span>Revision</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-agent-capability-scout.html</div>
+    <h1>Agent Capability Scout</h1>
+    <p class="lede">The Agent Capability Scout wakes every other day at 5am, researches bounded agent-system sources, records what changed in Foundation JSON/JSONL artifacts, assigns each meaningful finding a 1-10 interest grade, drafts principles-doc patches for durable lessons, and notifies the owner through GitHub review comments when the run is complete.</p>
+    <h3>Intent</h3>
+    <p>Make external agent-system learning reliable enough to compound without relying on model memory, unmerged notes, or unbounded research.</p>
+    <h3>Trigger</h3>
+    <p>A Codex automation run every other day at 5am, a manual owner request, or a source-registry refresh.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <table class="status-table">
+        <thead><tr><th>Capability</th><th>How this job supports it</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td><code>foundation.learn-agent-capabilities-over-time.capability</code></td><td>Provides the scheduled research, durable-state, interest-grade, principles-candidate, GitHub-notification, and Foundation memory loop.</td><td>User request and capability outcome contract.</td></tr>
+          <tr><td><code>foundation.compound-improvements-safely.capability</code></td><td>Closes each durable scout update through the normal branch, PR, check, and merge flow when automation permissions allow it.</td><td>Compound Improvements Safely capability spec.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling</h2>
+      <ul>
+        <li><strong>Current actor:</strong> Human-led ad hoc research and chat discussion.</li>
+        <li><strong>Current path:</strong> The owner asks what is available, reads summaries, and decides manually whether a new agent capability matters.</li>
+        <li><strong>Known gaps:</strong> No scheduled wake-up, no bounded source registry, no observed-diff archive, no repeatable interest grading, no principle-candidate path, no GitHub notification receipt, and no durable Foundation artifact update path.</li>
+      </ul>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <ul>
+        <li><strong>Proposed actor:</strong> Codex automation plus LLM summarizer, operating in a clean Foundation worktree and closing durable updates through Foundation GitHub.</li>
+        <li><strong>Proposed path:</strong> Start a clean branch or worktree, fetch bounded sources, record snapshots or diffs, normalize findings, assign 1-10 interest grades, identify durable principle candidates, patch the relevant principles docs when warranted, update JSON/JSONL artifacts, run checks, push through Foundation's protected flow, and notify the owner through a GitHub comment with optional email fallback.</li>
+        <li><strong>Reason for change:</strong> Agent capabilities change quickly, but unmanaged research can waste founder time or leave useful learning outside durable Foundation memory.</li>
+        <li><strong>Decision state:</strong> proposed.</li>
+      </ul>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <ol>
+        <li><strong>Wake:</strong> Codex automation starts every other day at 5am with run ID, source allowlist, prior run state, grading rubric, principle-candidate rubric, and notification target.</li>
+        <li><strong>Prepare:</strong> create or enter a clean Foundation branch/worktree so durable artifacts and docs can be committed without mixing unrelated user changes.</li>
+        <li><strong>Observe:</strong> fetch only allowlisted sources for OpenAI, Anthropic, Google, and Addy Osmani agent-related material; store raw snapshots or observed diffs with timestamps and source metadata.</li>
+        <li><strong>Normalize:</strong> convert relevant source changes into structured finding records with source, date seen, change type, summary, evidence path, confidence, and 1-10 interest grade.</li>
+        <li><strong>Grade:</strong> assign interest or value based on broad potential to improve agent systems; a grade is a triage signal, not an approval state.</li>
+        <li><strong>Promote candidates:</strong> when a finding looks durable across tools, vendors, or models, create a principle-candidate record that names the target principles document, proposed wording or patch path, evidence, and why it belongs in doctrine rather than only in the findings log.</li>
+        <li><strong>Write:</strong> append the canonical JSONL run log, findings artifact, and principle-candidates artifact; update any derived brief or index; and avoid creating experiment plans unless the owner asks later.</li>
+        <li><strong>Validate and publish:</strong> run relevant Foundation checks, commit the artifact and principles-doc updates, push a branch or PR, and merge only when the protected Foundation flow and review expectations allow it.</li>
+        <li><strong>Notify:</strong> create a GitHub issue or PR comment with run status, artifact or PR path, top findings, interest grades, principle candidates, blockers, and next action; send email only if configured as a secondary or fallback channel.</li>
+      </ol>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <table class="status-table">
+        <thead><tr><th>Layer</th><th>Required detail</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Context</td><td>Source allowlist, prior run state, interest grading rubric, principle-candidate rubric, Foundation merge rules, and GitHub notification target.</td><td>Technical spec data model.</td></tr>
+          <tr><td>Tools</td><td>Codex automation, fetcher, Foundation repo artifacts, LLM summarizer, interest grader, principles-doc editor, git/PR/merge flow, GitHub comment adapter, and optional email adapter.</td><td>Technical spec contracts.</td></tr>
+          <tr><td>Interfaces</td><td>Source registry JSON, run-log JSONL, findings JSONL, principle-candidates JSONL, dated briefs, eval receipts, merge receipts, GitHub comments, and optional email notification.</td><td>Technical spec data model.</td></tr>
+          <tr><td>Actor candidates</td><td>Codex automation is the preferred wake-up mechanism; GitHub Actions, server cron, or manual runs are fallback execution surfaces only.</td><td>User architecture discussion.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Acceptance condition</th><th>Eval spec or gap</th></tr></thead>
+        <tbody>
+          <tr><td>Run fixture with source snapshots, normalized findings, interest grades, principle candidates, brief, merge state, and notification receipt.</td><td>A reviewer can verify what was checked, what changed, what mattered, what principle edits were proposed, where the evidence lives, and whether the durable memory update landed.</td><td><code>foundation.agent-capability-scout.eval</code></td></tr>
+          <tr><td>Meaningful finding fixture.</td><td>Finding includes source evidence, concise summary, confidence, 1-10 interest grade, and reason for the grade.</td><td><code>foundation.agent-capability-scout.eval</code></td></tr>
+          <tr><td>Principle candidate fixture.</td><td>Candidate includes target doc, proposed principle wording or patch path, source evidence, durability rationale, and review notification path.</td><td><code>foundation.agent-capability-scout.eval</code></td></tr>
+          <tr><td>Blocked or no-change run fixture.</td><td>The system can finish without pretending there is useful news, and can name source failures without corrupting durable state.</td><td><code>foundation.agent-capability-scout.eval</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <ul>
+        <li><strong>Revision target:</strong> source registry, data schemas, interest grading rubric, principle-candidate rubric, notification adapter, merge closeout, or eval spec.</li>
+        <li><strong>Update trigger:</strong> repeated low-value briefs, missed important source changes, unverifiable summaries, noisy grades, weak principle candidates, notification failure, or failed Foundation merge closeout.</li>
+        <li><strong>Promotion rule:</strong> a proposed scout implementation becomes current handling only after a run fixture with JSON/JSONL artifacts, interest grades, principle-candidate state, merge state, and GitHub notification satisfies the eval spec.</li>
+      </ul>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Agent Capability Scout - Foundation job spec</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

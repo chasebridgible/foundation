@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.agent-capability-scout.eval">
+<meta name="spec:type" content="eval">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-06-05">
+<title>Agent Capability Scout Eval Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.agent-capability-scout.eval",
+  "title": "Agent Capability Scout Eval Spec",
+  "type": "eval",
+  "status": "draft",
+  "lastUpdated": "2026-06-05",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.agent-capability-scout.job",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.agent-capability-scout.job",
+      "relationship": "parent",
+      "sections": [
+        "process",
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.technical",
+      "relationship": "sibling",
+      "sections": [
+        "data-model",
+        "failure-modes",
+        "paths-and-coverage"
+      ]
+    },
+    {
+      "id": "foundation.learn-agent-capabilities-over-time.capability",
+      "relationship": "depends-on",
+      "sections": [
+        "outcome-contract"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-agent-capability-scout-eval.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/scripts/agent-capability-scout-check.mjs",
+      "kind": "workflow",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/scripts/agent-capability-scout-check.test.mjs",
+      "kind": "test",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/test/fixtures/agent-capability-scout/",
+      "kind": "example",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.agent-capability-scout.eval:fixture-tests",
+      "level": "manual",
+      "status": "existing",
+      "path": "foundation/scripts/agent-capability-scout-check.test.mjs",
+      "mapsTo": [
+        "foundation.agent-capability-scout.eval#acceptance-mapping"
+      ],
+      "evidence": "Fixture tests cover valid state, interest-grade bounds, principle-candidate standalone eval, and notification receipt shape."
+    }
+  ],
+  "tags": [
+    "eval",
+    "foundation",
+    "agents",
+    "capability-scout"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.agent-capability-scout.eval",
+  "nodes": [
+    {
+      "id": "spec:foundation.agent-capability-scout.eval",
+      "type": "evaluation",
+      "label": "Agent Capability Scout Eval Spec",
+      "source": {
+        "specId": "foundation.agent-capability-scout.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "foundation",
+          "agents",
+          "capability-scout"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.eval:depends-on:spec:foundation.agent-capability-scout.job",
+      "type": "evaluates",
+      "from": "spec:foundation.agent-capability-scout.eval",
+      "to": "spec:foundation.agent-capability-scout.job",
+      "source": {
+        "specId": "foundation.agent-capability-scout.eval",
+        "sectionId": "verification-contract"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.eval:depends-on:spec:foundation.agent-capability-scout.technical",
+      "type": "depends-on",
+      "from": "spec:foundation.agent-capability-scout.eval",
+      "to": "spec:foundation.agent-capability-scout.technical",
+      "source": {
+        "specId": "foundation.agent-capability-scout.eval",
+        "sectionId": "acceptance-mapping"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.eval:depends-on:spec:foundation.learn-agent-capabilities-over-time.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.agent-capability-scout.eval",
+      "to": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "source": {
+        "specId": "foundation.agent-capability-scout.eval",
+        "sectionId": "verification-contract"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">E</div>
+    <div>
+      <div class="sidebar-title">Scout Eval</div>
+      <div class="sidebar-sub">eval spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#verification-contract"><span class="nav-num">01</span>Contract</a>
+    <a class="nav-item" href="#acceptance-mapping"><span class="nav-num">02</span>Acceptance</a>
+    <a class="nav-item" href="#coverage-plan"><span class="nav-num">03</span>Coverage</a>
+    <a class="nav-item" href="#commands-and-evidence"><span class="nav-num">04</span>Evidence</a>
+    <a class="nav-item" href="#risk-based-signal-choice"><span class="nav-num">05</span>Risk</a>
+    <a class="nav-item" href="#gaps-and-followups"><span class="nav-num">06</span>Gaps</a>
+    <a class="nav-item" href="#coevolution-rule"><span class="nav-num">07</span>Co-evolution</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-agent-capability-scout-eval.html</div>
+    <h1>Agent Capability Scout Eval Spec</h1>
+    <p class="lede">If this eval passes, a reviewer can trust that the scout looked only where it was allowed to look, preserved evidence for what it saw, separated no-change from meaningful findings, graded interest from 1 to 10, proposed principles-doc patches only for durable lessons, updated durable Foundation artifacts, and notified the owner with enough context to review the run.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
+      <h2>Acceptance conditions mapped to specs</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Condition</th><th>Maps to</th><th>Must prove</th></tr></thead>
+        <tbody>
+          <tr><td>AC-1</td><td>Every run records wake-up metadata and terminal status.</td><td><code>foundation.agent-capability-scout.job#process</code></td><td>Run manifest has every-other-day 5am trigger, timestamps, source registry version, and complete/blocked/failed status.</td></tr>
+          <tr><td>AC-2</td><td>Research scope is bounded to allowlisted agent-related sources.</td><td><code>foundation.agent-capability-scout.technical#data-model</code></td><td>Out-of-scope source fixtures fail and in-scope source fixtures pass.</td></tr>
+          <tr><td>AC-3</td><td>Summaries are evidence-backed.</td><td><code>foundation.agent-capability-scout.technical#contracts</code></td><td>Each normalized finding cites a snapshot, diff, or named source failure.</td></tr>
+          <tr><td>AC-4</td><td>Briefs distinguish no-change, low-grade findings, high-grade findings, and blocked-source states.</td><td><code>foundation.agent-capability-scout.job#evidence-and-evaluation</code></td><td>Fixture briefs are not forced into false recommendations or follow-up actions.</td></tr>
+          <tr><td>AC-5</td><td>Findings include an interest grade from 1 to 10.</td><td><code>foundation.agent-capability-scout.technical#data-model</code></td><td>Each meaningful finding includes integer grade, grade reason, confidence, source, and evidence path.</td></tr>
+          <tr><td>AC-6</td><td>Principle candidates are evidence-backed, durable, standalone, and additive.</td><td><code>foundation.agent-capability-scout.technical#data-model</code></td><td>Each candidate names target doc, proposed wording or patch path, source evidence, standalone eval result, additive rationale, and why it belongs in principles rather than only a findings log.</td></tr>
+          <tr><td>AC-7</td><td>Durable memory closes through Foundation GitHub.</td><td><code>foundation.agent-capability-scout.technical#internal-sequence</code></td><td>Run has merge receipt or explicit blocker naming branch, commit, PR, check, or permission state.</td></tr>
+          <tr><td>AC-8</td><td>The owner is notified when the run finishes or blocks.</td><td><code>foundation.agent-capability-scout.job#process</code></td><td>Notification receipt includes GitHub issue or PR comment URL, status, artifact or PR path, top interest grades, principle candidates, blockers, and next action; email receipt is optional when configured.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
+      <h2>Unit, integration, e2e, and manual coverage</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Level</th><th>Path or evidence</th><th>Status</th><th>Why this level</th></tr></thead>
+        <tbody>
+          <tr><td>T-1</td><td>unit</td><td><code>scripts/agent-capability-scout-check.test.mjs</code></td><td>existing</td><td>Schema and gate failures should be cheap and deterministic.</td></tr>
+          <tr><td>T-2</td><td>fixture</td><td><code>test/fixtures/agent-capability-scout/meaningful-finding/</code></td><td>partial</td><td>Interest grading needs whole-run artifact context.</td></tr>
+          <tr><td>T-3</td><td>fixture</td><td><code>test/fixtures/agent-capability-scout/principle-candidate/</code></td><td>partial</td><td>Doctrine edits need source evidence and durability rationale.</td></tr>
+          <tr><td>T-4</td><td>fixture</td><td><code>test/fixtures/agent-capability-scout/no-change/</code></td><td>planned</td><td>No-change behavior must not produce novelty noise.</td></tr>
+          <tr><td>T-5</td><td>fixture</td><td><code>test/fixtures/agent-capability-scout/blocked-source/</code></td><td>planned</td><td>Source failure behavior must be visible and non-corrupting.</td></tr>
+          <tr><td>T-6</td><td>fixture</td><td><code>test/fixtures/agent-capability-scout/merge-blocked/</code></td><td>planned</td><td>Durable memory cannot be considered complete if merge state is hidden.</td></tr>
+          <tr><td>T-7</td><td>manual</td><td>Owner review of first live brief, interest grades, and principle candidates.</td><td>planned</td><td>The interest and principle-candidate rubrics are broad and should be calibrated by the owner before automation trust increases.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">
+      <h2>Commands or evidence required</h2>
+      <ul class="path-list">
+        <li><code>npm run spec:check</code> - proves spec registry, graph metadata, and Foundation self-map resolve after scout specs are added.</li>
+        <li><code>npm run foundation:agent-capability-scout:check</code> - validates live scout artifact shape.</li>
+        <li><code>npm run foundation:agent-capability-scout:test</code> - validates scout schema, fixture, grade, principle-candidate, merge, and notification checks.</li>
+        <li><code>docs/specs/agent-capability-scout/findings.jsonl</code> - canonical finding artifact with evidence and 1-10 interest grades.</li>
+        <li><code>docs/specs/agent-capability-scout/principle-candidates.jsonl</code> - canonical principle-candidate artifact with target doc, proposed wording or patch path, evidence, standalone eval, additive rationale, and durability rationale.</li>
+        <li><code>docs/specs/agent-capability-scout/briefs/YYYY-MM-DD-agent-capability-scout.md</code> - live output that a human can inspect.</li>
+        <li><code>docs/specs/agent-capability-scout/notifications.jsonl</code> - receipt showing the owner was notified by GitHub comment and optionally email.</li>
+      </ul>
+    </section>
+
+    <section id="risk-based-signal-choice" data-spec-section="risk-based-signal-choice" data-section-type="risk">
+      <h2>Risk-based signal choice</h2>
+      <table class="status-table">
+        <thead><tr><th>Risk</th><th>Signal</th><th>Why not cheaper?</th><th>Why not broader?</th></tr></thead>
+        <tbody>
+          <tr><td>Research source scope drift</td><td>Unit source-registry check.</td><td>Manual review would miss repeated drift.</td><td>Browser-level tests are unnecessary for schema enforcement.</td></tr>
+          <tr><td>Generated summary hallucination</td><td>Fixture requiring evidence paths for every normalized finding.</td><td>Schema-only tests cannot prove evidence is cited per claim.</td><td>Live web tests are brittle and should not be required for every local change.</td></tr>
+          <tr><td>Noisy interest grading</td><td>Manual first-run review plus grade fixture.</td><td>Automated tests cannot fully judge value before calibration.</td><td>Full production experiment is outside v1 scope.</td></tr>
+          <tr><td>Unsupported doctrine edit</td><td>Principle-candidate fixture plus owner review.</td><td>Schema alone cannot prove a lesson is durable enough for principles docs.</td><td>Full implementation follow-up is outside v1 scope.</td></tr>
+          <tr><td>Durable memory not merged</td><td>Merge receipt fixture.</td><td>Logs alone do not prove Foundation memory was updated.</td><td>Full GitHub integration can be adapter-specific later.</td></tr>
+          <tr><td>Silent run failure</td><td>GitHub notification receipt check.</td><td>Logs alone do not prove owner visibility.</td><td>Email can be verified separately if configured.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
+      <h2>Gaps and follow-up tests</h2>
+      <table class="status-table">
+        <thead><tr><th>Gap</th><th>Risk</th><th>Follow-up trigger</th></tr></thead>
+        <tbody>
+          <tr><td>Interest and principle thresholds need calibration.</td><td>medium</td><td>Review the first live run, adjust grade rubric and principle-candidate gate, then add representative fixtures.</td></tr>
+          <tr><td>Exact source URLs are not yet canonical.</td><td>medium</td><td>Before first live run, create source registry with explicit URLs and topic scopes.</td></tr>
+          <tr><td>Email notification is optional and undecided.</td><td>low</td><td>Use GitHub issue or PR comments for v1; add email only after the GitHub notification path works.</td></tr>
+          <tr><td>Interest and principle-candidate rubrics are initially owner-calibrated.</td><td>medium</td><td>After three live briefs, compare grades and proposed principle edits to owner decisions and update scoring.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coevolution-rule" data-spec-section="coevolution-rule" data-section-type="maintenance">
+      <h2>Co-evolution rule</h2>
+      <div class="callout warning"><strong>Required:</strong> when the scout job changes scope, source families, artifact schemas, interest grading, principle-candidate promotion, merge closeout, or notification requirements, this eval spec and the technical spec change in the same branch.</div>
+      <p>During review, check whether the job's process, technical data model, and eval acceptance conditions still describe the same state machine. If one changed without the others, the diff is incomplete unless the review evidence explains why verification did not change.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Agent Capability Scout Eval Spec</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

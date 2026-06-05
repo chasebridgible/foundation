@@ -323,7 +323,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-06-04",
+  "lastUpdated": "2026-06-05",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -2205,6 +2205,73 @@
       ]
     },
     {
+      "id": "foundation.learn-agent-capabilities-over-time.capability",
+      "title": "Learn Agent Capabilities Over Time",
+      "type": "capability",
+      "status": "draft",
+      "file": "foundation/docs/specs/capabilities/learn-agent-capabilities-over-time.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-05",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.agent-capability-scout.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "capability-map",
+            "evidence-and-revision"
+          ]
+        },
+        {
+          "id": "foundation.agent-capability-scout.job",
+          "relationship": "child",
+          "sections": [
+            "job-intent",
+            "process"
+          ]
+        },
+        {
+          "id": "foundation.compound-improvements-safely.capability",
+          "relationship": "informs",
+          "sections": [
+            "capability-intent",
+            "outcome-contract"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/learn-agent-capabilities-over-time.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "foundation.learn-agent-capabilities-over-time.capability:self-map",
+          "level": "static",
+          "status": "planned",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.learn-agent-capabilities-over-time.capability#jobs"
+          ],
+          "command": "npm run foundation:self-map:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "agents",
+        "learning"
+      ]
+    },
+    {
       "id": "foundation.map-capabilities-from-evidence.capability",
       "title": "Map Capabilities From Evidence",
       "type": "capability",
@@ -2590,6 +2657,293 @@
         "backfill",
         "evaluation",
         "golden"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.eval",
+      "title": "Agent Capability Scout Eval Spec",
+      "type": "eval",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-agent-capability-scout-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-05",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.agent-capability-scout.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.agent-capability-scout.job",
+          "relationship": "parent",
+          "sections": [
+            "process",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.agent-capability-scout.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "failure-modes",
+            "paths-and-coverage"
+          ]
+        },
+        {
+          "id": "foundation.learn-agent-capabilities-over-time.capability",
+          "relationship": "depends-on",
+          "sections": [
+            "outcome-contract"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-agent-capability-scout-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/agent-capability-scout-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/scripts/agent-capability-scout-check.test.mjs",
+          "kind": "test",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/test/fixtures/agent-capability-scout/",
+          "kind": "example",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.agent-capability-scout.eval:fixture-tests",
+          "level": "manual",
+          "status": "existing",
+          "path": "foundation/scripts/agent-capability-scout-check.test.mjs",
+          "mapsTo": [
+            "foundation.agent-capability-scout.eval#acceptance-mapping"
+          ],
+          "evidence": "Fixture tests cover valid state, interest-grade bounds, principle-candidate standalone eval, and notification receipt shape."
+        }
+      ],
+      "tags": [
+        "eval",
+        "foundation",
+        "agents",
+        "capability-scout"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.technical",
+      "title": "Agent Capability Scout Technical Spec",
+      "type": "technical",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-agent-capability-scout-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-06-05",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.agent-capability-scout.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.agent-capability-scout.job",
+          "relationship": "parent",
+          "sections": [
+            "process",
+            "context-tools-and-interfaces"
+          ]
+        },
+        {
+          "id": "foundation.agent-capability-scout.eval",
+          "relationship": "sibling",
+          "sections": [
+            "acceptance-mapping",
+            "commands-and-evidence"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-agent-capability-scout-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/specs/agent-capability-scout/source-registry.json",
+          "kind": "config",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/specs/agent-capability-scout/runs.jsonl",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/specs/agent-capability-scout/source-snapshots.jsonl",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/specs/agent-capability-scout/findings.jsonl",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/specs/agent-capability-scout/principle-candidates.jsonl",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/specs/agent-capability-scout/merge-receipts.jsonl",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/specs/agent-capability-scout/notifications.jsonl",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/scripts/agent-capability-scout-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/skills/agent-capability-scout/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/scripts/agent-capability-scout-check.test.mjs",
+          "kind": "test",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.agent-capability-scout.technical:fixture-check",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/agent-capability-scout-check.mjs",
+          "mapsTo": [
+            "foundation.agent-capability-scout.technical#data-model",
+            "foundation.agent-capability-scout.technical#contracts"
+          ],
+          "evidence": "Checker validates source allowlist, run manifest, normalized findings, interest grades, principle candidates, merge state, and notification receipt."
+        }
+      ],
+      "tags": [
+        "technical",
+        "foundation",
+        "agents",
+        "capability-scout"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.job",
+      "title": "Agent Capability Scout",
+      "type": "job",
+      "status": "draft",
+      "file": "foundation/docs/specs/foundation-agent-capability-scout.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-05",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.learn-agent-capabilities-over-time.capability",
+      "children": [
+        "foundation.agent-capability-scout.technical",
+        "foundation.agent-capability-scout.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.learn-agent-capabilities-over-time.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "outcome-contract"
+          ]
+        },
+        {
+          "id": "foundation.agent-capability-scout.technical",
+          "relationship": "child",
+          "sections": [
+            "internal-sequence",
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.agent-capability-scout.eval",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.compound-improvements-safely.capability",
+          "relationship": "informs",
+          "sections": [
+            "outcome-contract"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-agent-capability-scout.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/agent-capability-scout/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/agent-capability-scout/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/agent-capability-scout/source-registry.json",
+          "kind": "config",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/scripts/agent-capability-scout-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.agent-capability-scout.job:skill-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/agent-capability-scout-check.mjs",
+          "mapsTo": [
+            "foundation.agent-capability-scout.job#evidence-and-evaluation"
+          ],
+          "evidence": "Scout checker validates JSON/JSONL artifacts, interest grades, principle-candidate state, merge state, and GitHub notification receipt shape."
+        }
+      ],
+      "tags": [
+        "job",
+        "foundation",
+        "agents",
+        "capability-scout"
       ]
     },
     {
@@ -7559,7 +7913,8 @@
         "foundation.evaluate-quality-completeness.capability",
         "foundation.render-inspectable-system-graph.capability",
         "foundation.install-foundation-target-repos.capability",
-        "foundation.compound-improvements-safely.capability"
+        "foundation.compound-improvements-safely.capability",
+        "foundation.learn-agent-capabilities-over-time.capability"
       ],
       "relatedSpecs": [
         {
@@ -7641,6 +7996,13 @@
         },
         {
           "id": "foundation.compound-improvements-safely.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.learn-agent-capabilities-over-time.capability",
           "relationship": "child",
           "sections": [
             "capability-intent"

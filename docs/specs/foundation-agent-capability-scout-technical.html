@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.agent-capability-scout.technical">
+<meta name="spec:type" content="technical">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-06-05">
+<title>Agent Capability Scout Technical Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.agent-capability-scout.technical",
+  "title": "Agent Capability Scout Technical Spec",
+  "type": "technical",
+  "status": "draft",
+  "lastUpdated": "2026-06-05",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.agent-capability-scout.job",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.agent-capability-scout.job",
+      "relationship": "parent",
+      "sections": [
+        "process",
+        "context-tools-and-interfaces"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.eval",
+      "relationship": "sibling",
+      "sections": [
+        "acceptance-mapping",
+        "commands-and-evidence"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-agent-capability-scout-technical.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/agent-capability-scout/source-registry.json",
+      "kind": "config",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/agent-capability-scout/runs.jsonl",
+      "kind": "source",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/agent-capability-scout/source-snapshots.jsonl",
+      "kind": "source",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/agent-capability-scout/findings.jsonl",
+      "kind": "source",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/agent-capability-scout/principle-candidates.jsonl",
+      "kind": "source",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/agent-capability-scout/merge-receipts.jsonl",
+      "kind": "source",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/docs/specs/agent-capability-scout/notifications.jsonl",
+      "kind": "source",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/agent-capability-scout-check.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/skills/agent-capability-scout/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/scripts/agent-capability-scout-check.test.mjs",
+      "kind": "test",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.agent-capability-scout.technical:fixture-check",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/agent-capability-scout-check.mjs",
+      "mapsTo": [
+        "foundation.agent-capability-scout.technical#data-model",
+        "foundation.agent-capability-scout.technical#contracts"
+      ],
+      "evidence": "Checker validates source allowlist, run manifest, normalized findings, interest grades, principle candidates, merge state, and notification receipt."
+    }
+  ],
+  "tags": [
+    "technical",
+    "foundation",
+    "agents",
+    "capability-scout"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.agent-capability-scout.technical",
+  "nodes": [
+    {
+      "id": "spec:foundation.agent-capability-scout.technical",
+      "type": "technical-contract",
+      "label": "Agent Capability Scout Technical Spec",
+      "source": {
+        "specId": "foundation.agent-capability-scout.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "technical",
+          "foundation",
+          "agents",
+          "capability-scout"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.technical:depends-on:spec:foundation.agent-capability-scout.job",
+      "type": "depends-on",
+      "from": "spec:foundation.agent-capability-scout.technical",
+      "to": "spec:foundation.agent-capability-scout.job",
+      "source": {
+        "specId": "foundation.agent-capability-scout.technical",
+        "sectionId": "required-depth"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.technical:supports:spec:foundation.agent-capability-scout.eval",
+      "type": "supports",
+      "from": "spec:foundation.agent-capability-scout.technical",
+      "to": "spec:foundation.agent-capability-scout.eval",
+      "source": {
+        "specId": "foundation.agent-capability-scout.technical",
+        "sectionId": "paths-and-coverage"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+    <div>
+      <div class="sidebar-title">Scout Technical</div>
+      <div class="sidebar-sub">technical spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#required-depth"><span class="nav-num">01</span>Depth</a>
+    <a class="nav-item" href="#capability-contract"><span class="nav-num">02</span>Contract</a>
+    <a class="nav-item" href="#internal-sequence"><span class="nav-num">03</span>Sequence</a>
+    <a class="nav-item" href="#data-model"><span class="nav-num">04</span>Data</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">05</span>Contracts</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">06</span>Failures</a>
+    <a class="nav-item" href="#boundaries"><span class="nav-num">07</span>Boundaries</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">08</span>Coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-agent-capability-scout-technical.html</div>
+    <h1>Agent Capability Scout Technical Spec</h1>
+    <p class="lede">This is a T4/T5 architecture contract because the scout is scheduled, stateful, source-facing, git-mutating, notification-bearing, and intended to update Foundation memory and principles over time. The first implementation should be small, but the contracts must prevent unbounded research, unmerged memory, noisy findings, and unsupported doctrine edits.</p>
+    <h3>Non-goals</h3>
+    <p>The first scout is not a general web monitor, not an autonomous production upgrader, not an experiment planner, and not a replacement for owner judgment.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-contract" data-spec-section="capability-contract" data-section-type="contracts">
+      <h2>Capability contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Capability field</th><th>Technical contract</th><th>Classification</th><th>Verification target</th></tr></thead>
+        <tbody>
+          <tr><td>Wake reliably</td><td>Codex automation runs every other day at 5am with stable run IDs, scheduled trigger metadata, start/end timestamps, and terminal status.</td><td>required contract</td><td>Run manifest fixture.</td></tr>
+          <tr><td>Bound research</td><td>Fetcher rejects sources outside the allowlisted source families and declared agent-related topics.</td><td>required contract</td><td>Source registry check.</td></tr>
+          <tr><td>Durable observed diffs</td><td>Each finding record cites source snapshot or diff evidence, not model memory.</td><td>required contract</td><td>Normalized finding fixture.</td></tr>
+          <tr><td>Interest grade</td><td>Each meaningful finding carries an integer 1-10 interest grade and reason tied to broad agent-system improvement value.</td><td>required contract</td><td>Finding schema check.</td></tr>
+          <tr><td>Principle promotion</td><td>Durable lessons can create principle-candidate records and reviewed patches to principles docs, but each candidate must cite evidence and name why it is durable rather than tool-specific news.</td><td>required contract</td><td>Principle-candidate fixture.</td></tr>
+          <tr><td>Foundation memory</td><td>Canonical state lives in Foundation repo JSON/JSONL artifacts and closes through branch, PR, checks, merge, and sync when automation permissions allow it.</td><td>required contract</td><td>Merge receipt fixture.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
+      <h2>Internal sequence</h2>
+      <ol>
+        <li><strong>Trigger:</strong> Codex automation starts a run every other day at 5am with a run ID, source registry version, grading rubric version, principle-candidate rubric version, and notification target.</li>
+        <li><strong>Prepare:</strong> create or enter a clean Foundation branch/worktree and verify durable artifact paths are writable before fetching.</li>
+        <li><strong>Validate:</strong> load source registry and reject disabled or out-of-scope sources.</li>
+        <li><strong>Fetch:</strong> retrieve source documents, pages, feeds, or changelog entries and store snapshots or content hashes with retrieval metadata.</li>
+        <li><strong>Diff:</strong> compare against prior successful run state and record observed additions, removals, or changed summaries.</li>
+        <li><strong>Normalize:</strong> write candidate finding records with evidence path, confidence, source family, topic, and 1-10 interest grade.</li>
+        <li><strong>Rank:</strong> sort findings by interest grade; low-interest findings remain queryable but do not require owner attention.</li>
+        <li><strong>Promote:</strong> for high-durability findings, write principle-candidate records and patch the relevant principles document when the candidate can be stated as a durable rule.</li>
+        <li><strong>Publish:</strong> append JSONL run, finding, and principle-candidate artifacts, write a dated brief, run Foundation checks, and record commit/PR/merge state.</li>
+        <li><strong>Observe:</strong> log run metrics such as sources checked, failures, findings, principle candidates, top grade, duration, merge status, and notification status.</li>
+      </ol>
+    </section>
+
+    <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
+      <h2>Data model</h2>
+      <table class="status-table">
+        <thead><tr><th>Entity</th><th>Fields</th><th>Invariant</th><th>Spec/module</th></tr></thead>
+        <tbody>
+          <tr><td>Source</td><td><code>id, family, url, topicScope, cadence, enabled, importance</code></td><td>Family is one of OpenAI, Anthropic, Google, or Addy Osmani unless the capability spec is revised; cadence defaults to every other day at 5am.</td><td><code>docs/specs/agent-capability-scout/source-registry.json</code></td></tr>
+          <tr><td>Run manifest</td><td><code>runId, trigger, sourceRegistryVersion, startedAt, endedAt, status, briefPath, mergeState, notificationReceiptPath</code></td><td>Every run reaches complete, blocked, or failed with evidence and merge paths.</td><td><code>docs/specs/agent-capability-scout/runs.jsonl</code></td></tr>
+          <tr><td>Source snapshot</td><td><code>runId, sourceId, fetchedAt, contentHash, evidencePath, retrievalStatus</code></td><td>Normalized findings cite a snapshot or explain source failure.</td><td><code>docs/specs/agent-capability-scout/source-snapshots.jsonl</code></td></tr>
+          <tr><td>Finding record</td><td><code>runId, findingId, sourceId, dateSeen, changeType, summary, interestGrade, gradeReason, confidence, evidencePath</code></td><td>No finding exists without evidence provenance; interestGrade is an integer from 1 to 10.</td><td><code>docs/specs/agent-capability-scout/findings.jsonl</code></td></tr>
+          <tr><td>Principle candidate</td><td><code>runId, candidateId, findingId, targetDoc, proposedPrinciple, patchPath, durabilityReason, evidencePath, reviewState, standaloneEval, additiveRationale</code></td><td>No principle candidate exists without a finding, target principles document, proposed wording or patch path, durability rationale, and standalone additive principle eval result.</td><td><code>docs/specs/agent-capability-scout/principle-candidates.jsonl</code></td></tr>
+          <tr><td>Brief</td><td><code>runId, topFindings, principleCandidates, blockedSources, artifactPaths, mergeState, notificationState</code></td><td>Brief is derived from canonical JSON/JSONL artifacts and can be regenerated.</td><td><code>docs/specs/agent-capability-scout/briefs/</code></td></tr>
+          <tr><td>Merge receipt</td><td><code>runId, branch, commit, prUrl, checks, mergedAt, syncStatus</code></td><td>Durable memory is not complete until merge state is recorded or a blocker explains why merge could not finish.</td><td><code>docs/specs/agent-capability-scout/merge-receipts.jsonl</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
+      <h2>Contracts and integrations</h2>
+      <p>The durable artifacts live as Foundation repo files and must be inspectable by a future agent without relying on chat history.</p>
+      <pre><code>{
+  "runId": "2026-06-05-agent-scout-01",
+  "status": "complete",
+  "sourcesChecked": 4,
+  "findingsCreated": 2,
+  "principleCandidatesCreated": 1,
+  "topInterestGrade": 8,
+  "briefPath": "docs/specs/agent-capability-scout/briefs/2026-06-05-agent-capability-scout.md",
+  "mergeState": "merged",
+  "notification": {
+    "status": "sent",
+    "target": "github-comment",
+    "sentAt": "2026-06-05T09:30:00Z"
+  }
+}</code></pre>
+      <table class="status-table">
+        <thead><tr><th>Integration</th><th>Contract</th><th>Boundary</th></tr></thead>
+        <tbody>
+          <tr><td>LLM summarizer</td><td>May summarize observed diffs and draft grade reasons, but cannot create evidence paths or merged state from memory.</td><td>Validator checks provenance and artifact shape.</td></tr>
+          <tr><td>Codex automation</td><td>Owns wake-up, clean worktree setup, bounded research, artifact update, principles-doc candidate patching, checks, and Foundation PR/merge closeout.</td><td>No experiment branch is created from a finding unless the owner starts follow-up work.</td></tr>
+          <tr><td>Notification adapter</td><td>Creates a GitHub issue or PR comment with run status, artifact or PR path, top findings, interest grades, principle candidates, blockers, and next action; email may mirror the same summary when configured.</td><td>Notification failure must not mark the run complete.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+      <h2>Failure modes</h2>
+      <table class="status-table">
+        <thead><tr><th>Failure</th><th>System behavior</th><th>Owner behavior</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Source unavailable</td><td>Record source failure and continue other sources; mark run blocked if too many high-priority sources fail.</td><td>Review blocker in notification.</td><td>Run manifest and source snapshot status.</td></tr>
+          <tr><td>Out-of-scope source or topic</td><td>Reject fetch or record a low-interest skipped finding without owner attention.</td><td>Revise source registry only through spec review if scope should expand.</td><td>Source registry check.</td></tr>
+          <tr><td>LLM summary lacks provenance</td><td>Fail the finding record check.</td><td>Ignore the finding until evidence is repaired.</td><td>Eval finding.</td></tr>
+          <tr><td>Principle candidate is too tool-specific</td><td>Keep the finding in the log but do not patch principles docs.</td><td>Review the finding only if the interest grade warrants attention.</td><td>Principle-candidate eval finding.</td></tr>
+          <tr><td>Merge closeout fails</td><td>Record branch, commit or PR state and mark run blocked instead of pretending memory is durable.</td><td>Review PR or blocker in the GitHub notification.</td><td>Merge receipt.</td></tr>
+          <tr><td>Notification fails</td><td>Run remains blocked or failed until notification receipt exists or manual receipt is recorded.</td><td>Fix adapter or choose fallback notification path.</td><td>Notification receipt.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="boundaries" data-spec-section="boundaries" data-section-type="boundaries">
+      <h2>Boundaries and abstraction level</h2>
+      <ul>
+        <li><strong>Owns:</strong> scout source registry contract, JSON/JSONL run artifact contract, finding and interest-grade contract, principle-candidate contract, merge receipt contract, and GitHub notification receipt contract.</li>
+        <li><strong>References:</strong> Codex automations as the preferred wake-up surface, GitHub protected flow as the memory closeout and review-comment surface, and email as an optional fallback notification channel.</li>
+        <li><strong>Does not own:</strong> follow-up experiment branches, production agent-harness implementation, or external source content.</li>
+      </ul>
+    </section>
+
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Related paths and coverage</h2>
+      <ul class="path-list">
+        <li data-implementation-path="foundation/docs/specs/foundation-agent-capability-scout.html"><code>foundation/docs/specs/foundation-agent-capability-scout.html</code> - parent job contract.</li>
+        <li data-implementation-path="foundation/docs/specs/foundation-agent-capability-scout-eval.html"><code>foundation/docs/specs/foundation-agent-capability-scout-eval.html</code> - verification contract.</li>
+        <li data-implementation-path="foundation/skills/agent-capability-scout/SKILL.md"><code>foundation/skills/agent-capability-scout/SKILL.md</code> - runnable scout workflow for Codex automation.</li>
+        <li data-implementation-path="foundation/scripts/agent-capability-scout-check.mjs"><code>foundation/scripts/agent-capability-scout-check.mjs</code> - deterministic artifact checker.</li>
+      </ul>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Risk</th><th>Coverage</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>TS-1</td><td>Unbounded research scope</td><td>Source registry allowlist check.</td><td>existing</td></tr>
+          <tr><td>TS-2</td><td>Summary without provenance</td><td>Run fixture and normalized finding schema check.</td><td>existing</td></tr>
+          <tr><td>TS-3</td><td>Noisy or opaque grade</td><td>Interest-grade range and grade-reason check.</td><td>existing</td></tr>
+          <tr><td>TS-4</td><td>Unsupported doctrine edit</td><td>Principle-candidate evidence, durability-rationale, standalone-eval, and additive-rationale check.</td><td>existing</td></tr>
+          <tr><td>TS-5</td><td>Unmerged memory</td><td>Merge receipt check.</td><td>existing</td></tr>
+          <tr><td>TS-6</td><td>Silent completion without owner awareness</td><td>GitHub notification receipt check, with email fallback when configured.</td><td>existing</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Agent Capability Scout Technical Spec</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

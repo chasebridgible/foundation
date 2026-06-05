@@ -7,7 +7,7 @@ window.SubstrateSiteMap = {
       "sourcePath": "docs"
     }
   ],
-  "fileCount": 88,
+  "fileCount": 93,
   "items": [
     {
       "type": "folder",
@@ -34,7 +34,7 @@ window.SubstrateSiteMap = {
         {
           "type": "file",
           "name": "business-capability-map.html",
-          "title": "Business Capability Map",
+          "title": "Business Capability Map - Common Capabilities and Jobs",
           "path": "fundamentals/business-capability-map.html",
           "sourcePath": "docs/fundamentals/business-capability-map.html",
           "rootPath": "docs"
@@ -119,6 +119,14 @@ window.SubstrateSiteMap = {
       "title": "Principles",
       "sourcePath": "docs/principles",
       "items": [
+        {
+          "type": "file",
+          "name": "agent-principles.html",
+          "title": "Agent Principles",
+          "path": "principles/agent-principles.html",
+          "sourcePath": "docs/principles/agent-principles.html",
+          "rootPath": "docs"
+        },
         {
           "type": "file",
           "name": "ai-evals-principles.html",
@@ -253,6 +261,15 @@ window.SubstrateSiteMap = {
               "sourcePath": "docs/specs/capabilities/inventory-classify-artifacts.html",
               "rootPath": "docs",
               "specId": "foundation.inventory-classify-artifacts.capability"
+            },
+            {
+              "type": "file",
+              "name": "learn-agent-capabilities-over-time.html",
+              "title": "Learn Agent Capabilities Over Time",
+              "path": "specs/capabilities/learn-agent-capabilities-over-time.html",
+              "sourcePath": "docs/specs/capabilities/learn-agent-capabilities-over-time.html",
+              "rootPath": "docs",
+              "specId": "foundation.learn-agent-capabilities-over-time.capability"
             },
             {
               "type": "file",
@@ -433,6 +450,33 @@ window.SubstrateSiteMap = {
           "sourcePath": "docs/specs/business-intake-fill-loop.html",
           "rootPath": "docs",
           "specId": "foundation.business-intake-fill-loop.job"
+        },
+        {
+          "type": "file",
+          "name": "foundation-agent-capability-scout-eval.html",
+          "title": "Agent Capability Scout Eval Spec",
+          "path": "specs/foundation-agent-capability-scout-eval.html",
+          "sourcePath": "docs/specs/foundation-agent-capability-scout-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.agent-capability-scout.eval"
+        },
+        {
+          "type": "file",
+          "name": "foundation-agent-capability-scout-technical.html",
+          "title": "Agent Capability Scout Technical Spec",
+          "path": "specs/foundation-agent-capability-scout-technical.html",
+          "sourcePath": "docs/specs/foundation-agent-capability-scout-technical.html",
+          "rootPath": "docs",
+          "specId": "foundation.agent-capability-scout.technical"
+        },
+        {
+          "type": "file",
+          "name": "foundation-agent-capability-scout.html",
+          "title": "Agent Capability Scout",
+          "path": "specs/foundation-agent-capability-scout.html",
+          "sourcePath": "docs/specs/foundation-agent-capability-scout.html",
+          "rootPath": "docs",
+          "specId": "foundation.agent-capability-scout.job"
         },
         {
           "type": "file",

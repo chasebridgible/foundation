@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.learn-agent-capabilities-over-time.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-06-05">
+<title>Learn Agent Capabilities Over Time</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.learn-agent-capabilities-over-time.capability",
+  "title": "Learn Agent Capabilities Over Time",
+  "type": "capability",
+  "status": "draft",
+  "lastUpdated": "2026-06-05",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.operating-system.system",
+  "children": [
+    "foundation.agent-capability-scout.job"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.operating-system.system",
+      "relationship": "parent",
+      "sections": [
+        "capability-map",
+        "evidence-and-revision"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.job",
+      "relationship": "child",
+      "sections": [
+        "job-intent",
+        "process"
+      ]
+    },
+    {
+      "id": "foundation.compound-improvements-safely.capability",
+      "relationship": "informs",
+      "sections": [
+        "capability-intent",
+        "outcome-contract"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/capabilities/learn-agent-capabilities-over-time.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "foundation.learn-agent-capabilities-over-time.capability:self-map",
+      "level": "static",
+      "status": "planned",
+      "path": "foundation/scripts/foundation-self-map-check.mjs",
+      "mapsTo": [
+        "foundation.learn-agent-capabilities-over-time.capability#jobs"
+      ],
+      "command": "npm run foundation:self-map:check"
+    }
+  ],
+  "tags": [
+    "capability",
+    "foundation",
+    "agents",
+    "learning"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.learn-agent-capabilities-over-time.capability",
+  "nodes": [
+    {
+      "id": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "type": "capability",
+      "label": "Learn Agent Capabilities Over Time",
+      "source": {
+        "specId": "foundation.learn-agent-capabilities-over-time.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "agents",
+          "learning"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.learn-agent-capabilities-over-time.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.learn-agent-capabilities-over-time.capability",
+        "sectionId": "capability-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.learn-agent-capabilities-over-time.capability:realized-by:spec:foundation.agent-capability-scout.job",
+      "type": "realized-by",
+      "from": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "to": "spec:foundation.agent-capability-scout.job",
+      "source": {
+        "specId": "foundation.learn-agent-capabilities-over-time.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.learn-agent-capabilities-over-time.capability:supports:spec:foundation.compound-improvements-safely.capability",
+      "type": "supports",
+      "from": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "to": "spec:foundation.compound-improvements-safely.capability",
+      "source": {
+        "specId": "foundation.learn-agent-capabilities-over-time.capability",
+        "sectionId": "outcome-contract"
+      },
+      "label": "feeds durable agent-system findings"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Agent Capability Learning</div>
+      <div class="sidebar-sub">capability spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#capability-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#outcome-contract"><span class="nav-num">02</span>Outcome</a>
+    <a class="nav-item" href="#jobs"><span class="nav-num">03</span>Jobs</a>
+    <a class="nav-item" href="#interfaces-and-sources"><span class="nav-num">04</span>Interfaces</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">05</span>Evidence</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/capabilities/learn-agent-capabilities-over-time.html</div>
+    <h1>Learn Agent Capabilities Over Time</h1>
+    <p class="lede">Foundation needs a bounded way to notice meaningful changes in agent tooling, preserve those findings as durable JSON/JSONL substrate, promote durable lessons into principles-doc candidates, and notify the owner where review can happen.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="contracts">
+      <h2>Outcome contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Beneficiary</td><td>Repo owners and future agents that need current agent-tooling options without turning Foundation into an unbounded research feed.</td><td>User request on 2026-06-05 and Foundation operating loop.</td></tr>
+          <tr><td>Reliable outcome</td><td>A Codex automation wakes every other day at 5am, checks bounded agent-tooling sources, records observed changes with provenance in Foundation JSON/JSONL artifacts, grades each meaningful finding from 1 to 10 for agent-system interest, drafts a principles-doc patch when the finding is a durable principle candidate, and notifies the owner by GitHub comment with optional email fallback.</td><td><code>foundation.agent-capability-scout.job</code></td></tr>
+          <tr><td>Domain object</td><td>Source definitions, source snapshots, normalized finding records, principle candidates, principles-doc patch metadata, run logs, dated briefs, interest grades, eval receipts, merge receipts, and notification receipts stored in the Foundation repo.</td><td>Job, technical, and eval specs.</td></tr>
+          <tr><td>Constraints</td><td>Scope is agent systems broadly; source allowlist is explicit; v1 may draft reviewed principles-doc changes but must not auto-merge principle edits without checks and a reviewable GitHub surface.</td><td>Agent Capability Scout technical and eval specs.</td></tr>
+          <tr><td>Failure mode</td><td>The system either misses important capability changes, stores unverifiable summaries, chases novelty, edits principles without evidence, fails to merge durable memory, or notifies without enough context to review the finding or patch.</td><td>Eval acceptance conditions and merge receipt.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+      <h2>Jobs</h2>
+      <table class="status-table">
+        <thead><tr><th>Job</th><th>Purpose</th><th>Spec</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Agent Capability Scout</td><td>Run the bounded source-watching, durable JSON/JSONL artifact, interest-grade, principles-candidate, GitHub-notification, and Foundation merge loop.</td><td><code>foundation.agent-capability-scout.job</code></td><td>draft</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interfaces-and-sources" data-spec-section="interfaces-and-sources" data-section-type="interfaces">
+      <h2>Interfaces and sources</h2>
+      <ul>
+        <li>Allowed research scope is agent systems broadly: agent tooling, workflows, memory, evals, orchestration, Codex-style execution, and practical long-running-agent reliability.</li>
+        <li>Initial source families are OpenAI, Anthropic, Google, and Addy Osmani. Addy Osmani is expected to have a stable blog URL; the other families may need refined source entries over time.</li>
+        <li>Durable state lives in the Foundation repo as easy-to-query JSON or JSONL artifacts, following the same substrate pattern used by Foundation spec maps and backfill maps.</li>
+        <li>When a finding implies a durable agent principle, the scout should target the relevant principles document such as <code>docs/principles/agent-principles.html</code> or <code>docs/principles/ai-evals-principles.html</code> and open the change for review.</li>
+        <li>Codex automations provide wake-up and execution. Foundation GitHub state is the memory layer. GitHub comments are the preferred notification and review surface; email can be added as a secondary or fallback notification.</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Eval or check</th><th>Revision target</th></tr></thead>
+        <tbody>
+          <tr><td>Each run has source snapshots or observed diffs, normalized finding records, a brief, interest grades, principle-candidate state, merge state, and notification evidence.</td><td><code>foundation.agent-capability-scout.eval</code></td><td>Revise source registry, run schema, grading rubric, principle-candidate contract, merge contract, or notification contract.</td></tr>
+          <tr><td>Each meaningful finding includes a 1-10 interest grade and a short reason tied to agent-system improvement value.</td><td><code>foundation.agent-capability-scout.eval</code></td><td>Revise finding schema or grading rubric.</td></tr>
+          <tr><td>Each principle candidate includes the target principles doc, proposed wording or patch path, source evidence, and why the lesson is durable rather than tool-specific news.</td><td><code>foundation.agent-capability-scout.eval</code></td><td>Revise principle-candidate schema or review gate.</td></tr>
+          <tr><td>Spec registry, graph check, and self-map check resolve after this capability is wired.</td><td><code>npm run spec:check</code></td><td>Fix metadata, graph edges, or parent/child links.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Learn Agent Capabilities Over Time - Foundation capability spec</p>
+</main>
+<script src="../../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

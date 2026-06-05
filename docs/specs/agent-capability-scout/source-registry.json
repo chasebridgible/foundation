@@ -1,0 +1,45 @@
+{
+  "schema": "foundation.agent-capability-scout.source-registry.v1",
+  "version": "2026-06-05",
+  "defaultCadence": "every other day at 5am America/Chicago",
+  "topicScope": "Improve agent systems broadly: capabilities, orchestration, memory, evals, long-running work, tool use, context management, reliability, human review, and self-improvement.",
+  "sources": [
+    {
+      "id": "openai-news",
+      "family": "OpenAI",
+      "url": "https://openai.com/news/",
+      "topicScope": "OpenAI agent, model, tool, eval, API, Codex, and platform changes relevant to improving agent systems.",
+      "cadence": "every other day",
+      "enabled": true,
+      "importance": "high"
+    },
+    {
+      "id": "anthropic-news",
+      "family": "Anthropic",
+      "url": "https://www.anthropic.com/news",
+      "topicScope": "Anthropic agent, model, tool, eval, safety, and platform changes relevant to improving agent systems.",
+      "cadence": "every other day",
+      "enabled": true,
+      "importance": "high"
+    },
+    {
+      "id": "google-ai-developers",
+      "family": "Google",
+      "url": "https://developers.googleblog.com/en/search/?technology_categories=AI",
+      "topicScope": "Google AI developer, agent, model, tool, eval, and platform changes relevant to improving agent systems.",
+      "cadence": "every other day",
+      "enabled": true,
+      "importance": "medium"
+    },
+    {
+      "id": "addy-osmani-blog",
+      "family": "Addy Osmani",
+      "url": "https://addyosmani.com/blog/",
+      "topicScope": "Agent engineering, AI-assisted development, software quality, evals, and durable engineering workflow lessons.",
+      "cadence": "every other day",
+      "enabled": true,
+      "importance": "medium"
+    }
+  ]
+}
+
