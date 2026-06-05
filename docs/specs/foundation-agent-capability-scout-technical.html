@@ -84,6 +84,11 @@
       "path": "foundation/scripts/agent-capability-scout-check.mjs",
       "kind": "workflow",
       "ownership": "direct"
+    },
+    {
+      "path": "foundation/scripts/agent-capability-scout-notify.mjs",
+      "kind": "workflow",
+      "ownership": "direct"
     }
   ],
   "implementationPaths": [
@@ -94,6 +99,11 @@
     },
     {
       "path": "foundation/scripts/agent-capability-scout-check.test.mjs",
+      "kind": "test",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/scripts/agent-capability-scout-notify.test.mjs",
       "kind": "test",
       "ownership": "reference"
     }
@@ -245,6 +255,7 @@
           <tr><td>Principle candidate</td><td><code>runId, candidateId, findingId, targetDoc, proposedPrinciple, patchPath, durabilityReason, evidencePath, reviewState, standaloneEval, additiveRationale</code></td><td>No principle candidate exists without a finding, target principles document, proposed wording or patch path, durability rationale, and standalone additive principle eval result.</td><td><code>docs/specs/agent-capability-scout/principle-candidates.jsonl</code></td></tr>
           <tr><td>Brief</td><td><code>runId, topFindings, principleCandidates, blockedSources, artifactPaths, mergeState, notificationState</code></td><td>Brief is derived from canonical JSON/JSONL artifacts and can be regenerated.</td><td><code>docs/specs/agent-capability-scout/briefs/</code></td></tr>
           <tr><td>Merge receipt</td><td><code>runId, branch, commit, prUrl, checks, mergedAt, syncStatus</code></td><td>Durable memory is not complete until merge state is recorded or a blocker explains why merge could not finish.</td><td><code>docs/specs/agent-capability-scout/merge-receipts.jsonl</code></td></tr>
+          <tr><td>Notification receipt</td><td><code>runId, target, status, url, sentAt, summary, blocker</code></td><td>Preferred sent target is <code>github-app-pr-comment</code> when the scout GitHub App is configured; fallback comments or blockers must be explicit.</td><td><code>docs/specs/agent-capability-scout/notifications.jsonl</code></td></tr>
         </tbody>
       </table>
     </section>
@@ -263,7 +274,7 @@
   "mergeState": "merged",
   "notification": {
     "status": "sent",
-    "target": "github-comment",
+    "target": "github-app-pr-comment",
     "sentAt": "2026-06-05T09:30:00Z"
   }
 }</code></pre>
@@ -272,7 +283,7 @@
         <tbody>
           <tr><td>LLM summarizer</td><td>May summarize observed diffs and draft grade reasons, but cannot create evidence paths or merged state from memory.</td><td>Validator checks provenance and artifact shape.</td></tr>
           <tr><td>Codex automation</td><td>Owns wake-up, clean worktree setup, branch creation from clean detached worktrees, bounded research, artifact update, principles-doc candidate patching, checks, and Foundation PR/merge closeout.</td><td>No experiment branch is created from a finding unless the owner starts follow-up work.</td></tr>
-          <tr><td>Notification adapter</td><td>Creates a GitHub issue or PR comment with run status, artifact or PR path, top findings, interest grades, principle candidates, blockers, and next action; email may mirror the same summary when configured.</td><td>Notification failure must not mark the run complete.</td></tr>
+          <tr><td>Notification adapter</td><td>Uses <code>scripts/agent-capability-scout-notify.mjs</code> to create a GitHub App-authored PR comment when the app is installed on <code>chasebridgible/foundation</code> with <code>Metadata: read-only</code>, <code>Issues: read and write</code>, <code>Pull requests: read and write</code>, plus <code>FOUNDATION_SCOUT_GITHUB_APP_ID</code>, <code>FOUNDATION_SCOUT_GITHUB_INSTALLATION_ID</code>, and a private key value or path. The comment includes run status, artifact or PR path, top findings, interest grades, principle candidates, blockers, next action, and an <code>@chasebridgible</code> mention. If the app path is unavailable, a GitHub issue or PR comment fallback must be recorded explicitly.</td><td>Notification failure must not mark the run complete; private keys must never be committed or printed.</td></tr>
         </tbody>
       </table>
     </section>

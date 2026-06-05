@@ -21,7 +21,7 @@ The scout exists to turn recurring research into durable Foundation learning, no
 Use this as the Codex cron prompt:
 
 ```text
-Run the Foundation Agent Capability Scout in /Users/ChaseBartlett/Developer/repos/foundation. Follow skills/agent-capability-scout/SKILL.md exactly. Use a clean worktree or branch; if the checkout is a clean detached Codex worktree, create a dated scout branch before editing. Research only the enabled source registry, then complete one write-through artifact checkpoint for the same run ID: evidence snapshots, canonical JSONL rows, dated brief, and any qualifying principles-doc patch. Do not stop after evidence snapshots alone. Evaluate whether any finding creates a standalone additive principle, patch principles docs only for candidates that pass the principle gate, run the scout checker and spec check, then publish through the protected Foundation GitHub flow and notify the owner with the run grade summary, top findings, principle candidates, PR or blocker path, and next action.
+Run the Foundation Agent Capability Scout in /Users/ChaseBartlett/Developer/repos/foundation. Follow skills/agent-capability-scout/SKILL.md exactly. Use a clean worktree or branch; if the checkout is a clean detached Codex worktree, create a dated scout branch before editing. Research only the enabled source registry, then complete one write-through artifact checkpoint for the same run ID: evidence snapshots, canonical JSONL rows, dated brief, and any qualifying principles-doc patch. Do not stop after evidence snapshots alone. Evaluate whether any finding creates a standalone additive principle, patch principles docs only for candidates that pass the principle gate, run the scout checker and spec check, then publish through the protected Foundation GitHub flow and notify the owner with the run grade summary, top findings, principle candidates, PR or blocker path, and next action. When the scout GitHub App environment is configured, send the notification through `npm run foundation:agent-capability-scout:notify -- --repo chasebridgible/foundation --pr <number> --body-file <file>` so the comment is authored by the notifier app and mentions `@chasebridgible`.
 ```
 
 ## State Files
@@ -57,7 +57,7 @@ Run the Foundation Agent Capability Scout in /Users/ChaseBartlett/Developer/repo
 12. Run `npm run foundation:agent-capability-scout:check` and revise artifacts until it passes.
 13. Run `npm run spec:check` after spec, principles, skill, or checker changes.
 14. Publish through the Foundation protected GitHub flow when permissions allow. Record merge state or an explicit blocker.
-15. Notify the owner through a GitHub issue or PR comment. Include run status, top interest grade, top findings, principle candidates, PR/branch/blocker path, and next action.
+15. Notify the owner through the scout GitHub App PR comment path when a PR exists and the required environment variables are configured. Otherwise, use a GitHub issue or PR comment fallback and record the fallback or blocker. Include run status, top interest grade, top findings, principle candidates, PR/branch/blocker path, and next action.
 
 ## Branch and Worktree Rules
 
@@ -98,7 +98,15 @@ Before patching a principles doc, perform a separate eval pass:
 
 ## Notification Shape
 
-Prefer a GitHub PR comment when a PR exists. Use a GitHub issue when there is no PR but the owner still needs a durable notification. Email is not a separate v1 integration; GitHub notification emails are the expected email path when the owner watches the repository.
+Prefer a GitHub App PR comment when a PR exists and the notifier environment is configured. The notifier command is:
+
+```sh
+npm run foundation:agent-capability-scout:notify -- --repo chasebridgible/foundation --pr <number> --body-file <comment.md>
+```
+
+The command requires a GitHub App installed on `chasebridgible/foundation` with `Metadata: read-only`, `Issues: read and write`, and `Pull requests: read and write`. It also requires `FOUNDATION_SCOUT_GITHUB_APP_ID`, `FOUNDATION_SCOUT_GITHUB_INSTALLATION_ID`, and either `FOUNDATION_SCOUT_GITHUB_PRIVATE_KEY` or `FOUNDATION_SCOUT_GITHUB_PRIVATE_KEY_PATH`. The private key must come from a secret store or local file and must never be committed. The comment should mention `@chasebridgible` so GitHub treats the owner as a participant even though the comment is posted by the app.
+
+Use a GitHub issue when there is no PR but the owner still needs a durable notification. Email is not a separate v1 integration; GitHub notification emails are expected to come from the GitHub App-authored mention/comment path.
 
 The notification must include:
 
@@ -109,6 +117,8 @@ The notification must include:
 - Files changed and brief path.
 - PR URL, issue URL, or blocker.
 - Requested owner action.
+
+When the GitHub App command succeeds, record `target: "github-app-pr-comment"` in `notifications.jsonl`. If the command is unavailable or fails, record a notification blocker or explicit fallback target rather than pretending owner visibility is proven.
 
 ## Exit Criteria
 

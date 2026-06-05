@@ -115,6 +115,22 @@ test("accepts valid scout state", () => {
   assert.equal(results.some(result => result.status === "fail"), false);
 });
 
+test("accepts GitHub App PR comment notification receipts", () => {
+  const files = validFiles({
+    "docs/specs/agent-capability-scout/notifications.jsonl": `${JSON.stringify({
+      runId: "2026-06-05-agent-scout-01",
+      target: "github-app-pr-comment",
+      status: "sent",
+      url: "https://github.com/example/foundation/pull/1#issuecomment-1",
+      sentAt: "2026-06-05T10:22:00.000Z",
+      summary: "Top grade 8; notified through the scout GitHub App."
+    })}\n`
+  });
+  const root = writeFixture(files);
+  const results = validateScoutState({ root });
+  assert.equal(results.some(result => result.status === "fail"), false);
+});
+
 test("rejects out-of-range interest grades", () => {
   const files = validFiles({
     "docs/specs/agent-capability-scout/findings.jsonl": `${JSON.stringify({
@@ -168,4 +184,3 @@ test("rejects sent notifications without a URL", () => {
   const results = validateScoutState({ root });
   assert.equal(hasFailure(results, "notifications:line:1:url"), true);
 });
-

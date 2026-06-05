@@ -282,7 +282,7 @@
       <h2>Proposed handling</h2>
       <ul>
         <li><strong>Proposed actor:</strong> Codex automation plus LLM summarizer, operating in a clean Foundation worktree and closing durable updates through Foundation GitHub.</li>
-        <li><strong>Proposed path:</strong> Start a clean branch or worktree, create a dated scout branch when a Codex worktree is detached, fetch bounded sources, record snapshots or diffs, normalize findings, assign 1-10 interest grades, identify durable principle candidates, patch the relevant principles docs when warranted, update JSON/JSONL artifacts, run checks, push through Foundation's protected flow, and notify the owner through a GitHub comment with optional email fallback.</li>
+        <li><strong>Proposed path:</strong> Start a clean branch or worktree, create a dated scout branch when a Codex worktree is detached, fetch bounded sources, record snapshots or diffs, normalize findings, assign 1-10 interest grades, identify durable principle candidates, patch the relevant principles docs when warranted, update JSON/JSONL artifacts, run checks, push through Foundation's protected flow, and notify the owner through the scout GitHub App comment path when configured.</li>
         <li><strong>Reason for change:</strong> Agent capabilities change quickly, but unmanaged research can waste founder time or leave useful learning outside durable Foundation memory.</li>
         <li><strong>Decision state:</strong> proposed.</li>
       </ul>
@@ -299,7 +299,7 @@
         <li><strong>Promote candidates:</strong> when a finding looks durable across tools, vendors, or models, create a principle-candidate record that names the target principles document, proposed wording or patch path, evidence, and why it belongs in doctrine rather than only in the findings log.</li>
         <li><strong>Write:</strong> complete one write-through artifact checkpoint for the run ID: evidence files, source-snapshot JSONL rows, finding JSONL rows, principle-candidate JSONL rows when applicable, run manifest JSONL row, dated brief, and any qualifying principles-doc patch. Evidence files without matching canonical rows and a brief are incomplete run state.</li>
         <li><strong>Validate and publish:</strong> run relevant Foundation checks, commit the artifact and principles-doc updates, push a branch or PR, and merge only when the protected Foundation flow and review expectations allow it.</li>
-        <li><strong>Notify:</strong> create a GitHub issue or PR comment with run status, artifact or PR path, top findings, interest grades, principle candidates, blockers, and next action; send email only if configured as a secondary or fallback channel.</li>
+        <li><strong>Notify:</strong> create a GitHub App-authored PR comment when a PR exists and notifier secrets are configured; otherwise create a GitHub issue or PR comment fallback with run status, artifact or PR path, top findings, interest grades, principle candidates, blockers, and next action.</li>
       </ol>
     </section>
 
@@ -309,8 +309,8 @@
         <thead><tr><th>Layer</th><th>Required detail</th><th>Source</th></tr></thead>
         <tbody>
           <tr><td>Context</td><td>Source allowlist, prior run state, interest grading rubric, principle-candidate rubric, Foundation merge rules, and GitHub notification target.</td><td>Technical spec data model.</td></tr>
-          <tr><td>Tools</td><td>Codex automation, fetcher, Foundation repo artifacts, LLM summarizer, interest grader, principles-doc editor, git/PR/merge flow, GitHub comment adapter, and optional email adapter.</td><td>Technical spec contracts.</td></tr>
-          <tr><td>Interfaces</td><td>Source registry JSON, run-log JSONL, findings JSONL, principle-candidates JSONL, dated briefs, eval receipts, merge receipts, GitHub comments, and optional email notification.</td><td>Technical spec data model.</td></tr>
+          <tr><td>Tools</td><td>Codex automation, fetcher, Foundation repo artifacts, LLM summarizer, interest grader, principles-doc editor, git/PR/merge flow, GitHub App PR comment notifier, and GitHub comment fallback.</td><td>Technical spec contracts.</td></tr>
+          <tr><td>Interfaces</td><td>Source registry JSON, run-log JSONL, findings JSONL, principle-candidates JSONL, dated briefs, eval receipts, merge receipts, GitHub App comments, GitHub fallback comments, and optional manual notification receipts.</td><td>Technical spec data model.</td></tr>
           <tr><td>Actor candidates</td><td>Codex automation is the preferred wake-up mechanism; GitHub Actions, server cron, or manual runs are fallback execution surfaces only.</td><td>User architecture discussion.</td></tr>
         </tbody>
       </table>
