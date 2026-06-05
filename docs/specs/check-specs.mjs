@@ -114,7 +114,8 @@ function isGeneratedNonSpecHtml(file) {
     /^docs\/specs\/backfill\/spec-job-queue-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
     /^docs\/specs\/backfill\/context-pack-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
     /^docs\/specs\/backfill\/process-action-map-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
-    /^docs\/specs\/backfill\/author-specs-summary-\d{8}-\d{2}\.html$/.test(relativeFile);
+    /^docs\/specs\/backfill\/author-specs-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
+    /^docs\/specs\/agent-capability-scout\/briefs\/\d{4}-\d{2}-\d{2}-agent-scout-\d{2}\.html$/.test(relativeFile);
 }
 
 function registryPathFor(file) {
