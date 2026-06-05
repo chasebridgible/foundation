@@ -1,1 +1,1 @@
-
+{"runId":"2026-06-05-agent-scout-03","branch":"codex/agent-capability-scout-20260605-03","commit":"233a201cb31ea1f24c4d70f5877bb32407408c36","prUrl":"https://github.com/chasebridgible/foundation/pull/49","checks":[{"name":"npm run foundation:agent-capability-scout:check","result":"passed","checkedAt":"2026-06-05T21:38:10Z"},{"name":"npm run spec:check","result":"passed","checkedAt":"2026-06-05T21:38:10Z"}],"mergeState":"pr-open","mergedAt":null,"syncStatus":"branch-pushed-draft-pr-open"}
