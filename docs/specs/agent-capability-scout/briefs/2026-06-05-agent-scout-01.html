@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Capability Scout Brief - 2026-06-05-agent-scout-01</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 40px; line-height: 1.55; color: #1f2937; max-width: 920px; }
+  h1, h2 { color: #111827; }
+  code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0 24px; }
+  th, td { border: 1px solid #d1d5db; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #f9fafb; }
+  .status { font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>Agent Capability Scout Brief</h1>
+<p><strong>Run ID:</strong> <code>2026-06-05-agent-scout-01</code></p>
+<p><strong>Run date:</strong> 2026-06-05</p>
+<p><strong>Trigger:</strong> manual delegated fresh-context scout run</p>
+<p><strong>Status:</strong> <span class="status">complete pending PR closeout</span></p>
+<p><strong>Source registry version:</strong> 2026-06-05</p>
+
+<h2>Sources Checked</h2>
+<table>
+  <thead><tr><th>Source</th><th>Status</th><th>Evidence</th></tr></thead>
+  <tbody>
+    <tr><td>openai-news</td><td>fetched</td><td><code>docs/specs/agent-capability-scout/evidence/2026-06-05/openai-news.md</code></td></tr>
+    <tr><td>anthropic-news</td><td>fetched</td><td><code>docs/specs/agent-capability-scout/evidence/2026-06-05/anthropic-news.md</code></td></tr>
+    <tr><td>google-ai-developers</td><td>fetched</td><td><code>docs/specs/agent-capability-scout/evidence/2026-06-05/google-ai-developers.md</code></td></tr>
+    <tr><td>addy-osmani-blog</td><td>fetched</td><td><code>docs/specs/agent-capability-scout/evidence/2026-06-05/addy-osmani-blog.md</code></td></tr>
+  </tbody>
+</table>
+<p>This is a first-run baseline: no prior successful scout state existed to diff against, so findings were created only where retrieved source evidence was clearly relevant to agent systems.</p>
+
+<h2>Top Findings</h2>
+<h3>High</h3>
+<ul>
+  <li><strong>Grade 8:</strong> OpenAI's third-party evaluation playbook reinforces whole-system agent evals: evaluate the model plus harness, tools, context, budgets, safeguards, claim, and validity evidence.</li>
+  <li><strong>Grade 8:</strong> Anthropic's dynamic workflows pair parallel subagents with output verification and mutable mid-task harness instructions.</li>
+  <li><strong>Grade 8:</strong> Addy Osmani's orchestration-tax framing turns multi-agent parallelism into a review-throughput sizing problem.</li>
+</ul>
+<h3>Medium</h3>
+<ul>
+  <li><strong>Grade 7:</strong> OpenAI's Codex role plugins, Sites, and annotations show agent work becoming workflow-packaged, shared, and locally revisable.</li>
+  <li><strong>Grade 7:</strong> Google's Colab CLI makes remote execution agent-accessible from a terminal while preserving artifacts and skill context.</li>
+  <li><strong>Grade 6:</strong> Google's ADK for Kotlin and Android shows hybrid cloud-local orchestration with privacy-sensitive on-device subagents and validation roles.</li>
+</ul>
+<h3>Low</h3>
+<p>No low-grade findings were recorded.</p>
+
+<h2>Principle Candidate Evaluation</h2>
+<p><strong>Candidate:</strong> <code>2026-06-05-agent-scout-01-review-throughput</code></p>
+<p><strong>Target doc:</strong> <code>docs/principles/agent-principles.html</code></p>
+<p><strong>Gate result:</strong> pass.</p>
+<p>The lesson can be stated without naming a vendor, is not a restatement of existing Foundation doctrine, changes how future agents should size parallel work and preserve acceptance quality, and is directly traceable to the Addy Osmani evidence snapshot.</p>
+<p><strong>Patch applied:</strong> Size parallel work to review throughput. The limiting resource in multi-agent work is often human judgment, not agent launch capacity. Run only as many concurrent agents as the responsible reviewer can inspect, reconcile, and merge without lowering the acceptance bar.</p>
+
+<h2>Files Changed</h2>
+<ul>
+  <li><code>docs/principles/agent-principles.html</code></li>
+  <li><code>docs/specs/agent-capability-scout/runs.jsonl</code></li>
+  <li><code>docs/specs/agent-capability-scout/source-snapshots.jsonl</code></li>
+  <li><code>docs/specs/agent-capability-scout/findings.jsonl</code></li>
+  <li><code>docs/specs/agent-capability-scout/principle-candidates.jsonl</code></li>
+  <li><code>docs/specs/agent-capability-scout/merge-receipts.jsonl</code></li>
+  <li><code>docs/specs/agent-capability-scout/notifications.jsonl</code></li>
+  <li><code>docs/specs/agent-capability-scout/briefs/2026-06-05-agent-scout-01.html</code></li>
+  <li><code>docs/specs/agent-capability-scout/evidence/2026-06-05/*.md</code></li>
+</ul>
+
+<h2>Required Checks</h2>
+<ul>
+  <li>Pending: <code>npm run foundation:agent-capability-scout:check</code></li>
+  <li>Pending: <code>npm run spec:check</code></li>
+</ul>
+
+<h2>Merge And Notification State</h2>
+<ul>
+  <li>Branch: <code>codex/agent-capability-scout-20260605</code></li>
+  <li>PR: pending</li>
+  <li>Notification: pending PR comment after PR creation</li>
+  <li>Next action: run checks, commit, push, open PR, comment on PR, then append final merge and notification receipts.</li>
+</ul>
+</body>
+</html>

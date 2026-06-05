@@ -398,6 +398,7 @@
         <p><strong>Every long run needs a durable handoff state.</strong> A future agent should be able to tell what was attempted, what changed, what passed, what failed, what remains uncertain, and exactly where to continue.</p>
         <p><strong>Clean state is part of the deliverable.</strong> Long-running agents should leave workspaces mergeable, artifacts current, reports regenerated, checks run, and blockers named. A messy environment is incomplete work, even if the visible output looks plausible.</p>
         <p><strong>Parallelism comes after legibility.</strong> Multiple agents help only when ownership, locks, state boundaries, merge rules, and judge responsibilities are explicit. Naive concurrency hides failures behind activity.</p>
+        <p><strong>Size parallel work to review throughput.</strong> The limiting resource in multi-agent work is often human judgment, not agent launch capacity. Run only as many concurrent agents as the responsible reviewer can inspect, reconcile, and merge without lowering the acceptance bar.</p>
       </section>
 
       <section id="harness-and-tools" class="level2 spec-section">
