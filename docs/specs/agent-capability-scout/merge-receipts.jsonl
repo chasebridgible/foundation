@@ -1,1 +1,1 @@
-
+{"runId":"2026-06-05-agent-scout-03","branch":"codex/agent-capability-scout-20260605-03","commit":"pending","prUrl":"","checks":[{"name":"npm run foundation:agent-capability-scout:check","result":"pending"},{"name":"npm run spec:check","result":"pending"}],"mergeState":"blocked","blocker":"Pre-publish checkpoint: PR cannot be recorded until the artifact commit is created and pushed."}

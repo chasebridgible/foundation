@@ -1,1 +1,1 @@
-
+{"runId":"2026-06-05-agent-scout-03","target":"github-pr-comment","status":"blocked","summary":"Pre-publish checkpoint: notification pending until PR exists. Top grade 8; no principle patch proposed.","blocker":"PR comment cannot be posted until the artifact commit is pushed and a draft PR exists."}
