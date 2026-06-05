@@ -51,7 +51,9 @@ No principles document was patched. One high-durability candidate was considered
 
 ## Merge And Notification State
 
-Pre-publish checkpoint state: GitHub PR and notification receipts are pending until the first artifact commit is pushed and a PR exists. Receipt rows will be updated after the PR comment is posted.
+Draft PR: https://github.com/chasebridgible/foundation/pull/49
+Notification comment: https://github.com/chasebridgible/foundation/pull/49#issuecomment-4635717585
+Merge state: `pr-open`; protected-main merge is intentionally not completed while the PR is draft.
 
 ## Requested Owner Action
 
