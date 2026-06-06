@@ -13,7 +13,7 @@ const CONFIDENCE_VALUES = new Set(["low", "medium", "high"]);
 const REVIEW_STATES = new Set(["proposed", "accepted", "rejected", "deferred"]);
 const STANDALONE_EVALS = new Set(["pass", "fail"]);
 const MERGE_STATES = new Set(["merged", "pr-open", "blocked", "not-needed"]);
-const NOTIFICATION_TARGETS = new Set(["github-pr-comment", "github-issue", "github-comment", "manual"]);
+const NOTIFICATION_TARGETS = new Set(["github-app-pr-comment", "github-pr-comment", "github-issue", "github-comment", "manual"]);
 const NOTIFICATION_STATUSES = new Set(["sent", "blocked", "failed"]);
 
 const DEFAULT_DIR = "docs/specs/agent-capability-scout";
@@ -432,4 +432,3 @@ export {
   validateScoutState,
   validateSourceRegistry
 };
-

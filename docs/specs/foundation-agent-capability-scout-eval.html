@@ -193,7 +193,7 @@
           <tr><td>AC-5</td><td>Findings include an interest grade from 1 to 10.</td><td><code>foundation.agent-capability-scout.technical#data-model</code></td><td>Each meaningful finding includes integer grade, grade reason, confidence, source, and evidence path.</td></tr>
           <tr><td>AC-6</td><td>Principle candidates are evidence-backed, durable, standalone, and additive.</td><td><code>foundation.agent-capability-scout.technical#data-model</code></td><td>Each candidate names target doc, proposed wording or patch path, source evidence, standalone eval result, additive rationale, and why it belongs in principles rather than only a findings log.</td></tr>
           <tr><td>AC-7</td><td>Durable memory closes through Foundation GitHub.</td><td><code>foundation.agent-capability-scout.technical#internal-sequence</code></td><td>Run has merge receipt or explicit blocker naming branch, commit, PR, check, or permission state; clean detached worktrees create a dated scout branch before artifact edits instead of stopping in review-mode.</td></tr>
-          <tr><td>AC-8</td><td>The owner is notified when the run finishes or blocks.</td><td><code>foundation.agent-capability-scout.job#process</code></td><td>Notification receipt includes GitHub issue or PR comment URL, status, artifact or PR path, top interest grades, principle candidates, blockers, and next action; email receipt is optional when configured.</td></tr>
+          <tr><td>AC-8</td><td>The owner is notified when the run finishes or blocks.</td><td><code>foundation.agent-capability-scout.job#process</code></td><td>Notification receipt includes GitHub App PR comment, GitHub issue, fallback PR comment, or manual URL; status; artifact or PR path; top interest grades; principle candidates; blockers; and next action. When notifier secrets are configured, the preferred target is <code>github-app-pr-comment</code>.</td></tr>
         </tbody>
       </table>
     </section>
@@ -221,10 +221,11 @@
         <li><code>npm run spec:check</code> - proves spec registry, graph metadata, and Foundation self-map resolve after scout specs are added.</li>
         <li><code>npm run foundation:agent-capability-scout:check</code> - validates live scout artifact shape.</li>
         <li><code>npm run foundation:agent-capability-scout:test</code> - validates scout schema, fixture, grade, principle-candidate, merge, and notification checks.</li>
+        <li><code>npm run foundation:agent-capability-scout:notify:test</code> - validates GitHub App JWT creation, installation-token exchange wiring, and PR comment request shape without touching the network.</li>
         <li><code>docs/specs/agent-capability-scout/findings.jsonl</code> - canonical finding artifact with evidence and 1-10 interest grades.</li>
         <li><code>docs/specs/agent-capability-scout/principle-candidates.jsonl</code> - canonical principle-candidate artifact with target doc, proposed wording or patch path, evidence, standalone eval, additive rationale, and durability rationale.</li>
         <li><code>docs/specs/agent-capability-scout/briefs/YYYY-MM-DD-agent-capability-scout.md</code> - live output that a human can inspect.</li>
-        <li><code>docs/specs/agent-capability-scout/notifications.jsonl</code> - receipt showing the owner was notified by GitHub comment and optionally email.</li>
+        <li><code>docs/specs/agent-capability-scout/notifications.jsonl</code> - receipt showing the owner was notified by GitHub App PR comment, fallback GitHub comment, or explicit manual path.</li>
       </ul>
     </section>
 
