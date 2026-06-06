@@ -1,22 +1,39 @@
 # AGENTS.md
 
-- Specs are HTML-native durable contracts. Start at `docs/specs/index.html` and the top-level Foundation system spec `docs/specs/foundation-operating-system.html` before behavior-changing software work or spec authoring.
-- Before creating or revising a durable spec, skill, validator, template, or workflow, identify the Foundation capability it improves and the owning job spec; if no job exists, create or revise the job spec first.
-- Use the Job Spec Interview skill at `skills/job-spec-interview/SKILL.md` when turning fuzzy intent into a job spec.
-- Use the Agentic Workflow Design skill at `skills/agentic-workflow-design/SKILL.md` when an agent-based workflow, skill, queue, validator, eval, handoff process, or multi-step activity is being created or revised, and the work must be repeatable, context-safe, and quality-gated across agent runs. Use when the task changes how agents choose work, preserve context, evaluate output, revise output, or hand off state.
-- Use `docs/principles/sw-design-principles.html` before user-facing UI, rendered-UX, accessibility, responsive layout, or visual-verification work.
-- Use the Backfill Specs skill at `skills/backfill-specs/SKILL.md` when converting an existing repo into a capability-covered, intent-rigid, architecture-flexible spec graph with dated report and JSONL run log.
-- Use the Artifact Inventory Fill Loop skill at `skills/artifact-inventory-fill-loop/SKILL.md` when creating, filling, refreshing, checking, or evaluating a target repo artifact inventory.
-- Use the Surface / Function Map Fill Loop skill at `skills/surface-function-map-fill-loop/SKILL.md` when creating, filling, refreshing, checking, evaluating, or revising a target repo surface/function map; keep its read-one-file, mark-that-file-immediately loop intact.
-- Use the Capability Map Fill Loop skill at `skills/capability-map-fill-loop/SKILL.md` when creating, filling, refreshing, checking, evaluating, or revising a target repo capability map from Surface / Function Map handoff output.
-- Use the Backfill Process / Action Map skill at `skills/backfill-process-action-map/SKILL.md` when completing, filling, checking, evaluating, revising, or handing off a target repo Process / Action Map layer. For that layer, follow the current `--next` target only: read exactly one Context Pack row, fill one row, run check, run row eval, revise to outstanding, then continue. Do not use generated drivers, shell loops, regex classifiers, or template synthesizers to create, fill, check, or evaluate multiple rows.
-- Use the Backfill Author Specs skill at `skills/backfill-author-specs/SKILL.md` when creating, filling, checking, evaluating, revising, refreshing, reporting, or handing off a target repo Author Specs layer. For that layer, follow the current `--next` target only: read exactly one Author Specs target and its bounded upstream context, author one job/descriptive spec and one technical spec, run check, run row eval, revise to outstanding, then continue until `--next` returns null and handoff check/eval/report pass. Do not use generated drivers, shell loops, template synthesizers, or bulk payloads to create, fill, check, or evaluate multiple targets.
-- Use the Evaluate Backfill Specs skill at `skills/evaluate-backfill-specs/SKILL.md` when judging whether generated backfill specs meet the strict outstanding-quality gate.
-- Use `docs/principles/ai-evals-principles.html` before creating or changing LLM judge rubrics, eval workflows, or backfill quality gates.
-- Use the Spec workflow skill at `skills/spec-workflow/SKILL.md` when creating or updating specs, mapping tests, or keeping code/spec/test changes aligned.
-- Use the Job Journey Images skill at `skills/job-journey-images/SKILL.md` when generating reusable business-process images or one-slide process canvases.
-- For spec creation or revision, follow `docs/specs/process.html#spec-authoring`; each spec's `spec-metadata` is canonical.
-- If spec metadata changes, run `npm run spec:registry`, then `npm run spec:check` before handoff. CI requires `npm run spec:check`.
-- If Foundation capability/job/skill ownership changes, run `npm run foundation:self-map:check` before handoff.
-- Protected `main` requires branch -> PR -> required checks pass -> merge. Do not direct-push spec or behavior changes to `main`.
-- Keep this file short. Put longer workflow guidance in specs or skills.
+## Start
+
+- Read `docs/specs/index.html` and `docs/specs/foundation-operating-system.html` before behavior-changing work or spec authoring.
+- For spec work, follow `docs/specs/process.html#spec-authoring`; `spec-metadata` is canonical; capability specs expose jobs with `realized-by`, and job specs connect back with `supports`.
+- Before creating or revising a durable spec, skill, validator, template, or workflow, name the Foundation capability and owning job spec. If no job owns the work, create or revise the job first.
+- Use the most specific skill that applies. Layer skills beat broad workflow skills.
+- Layer skills own their exact loops, shortcut bans, outstanding gates, checks, evals, revision gates, and handoff gates.
+- Use `docs/principles/ai-evals-principles.html` before judge/eval changes, and `docs/principles/sw-design-principles.html` before UI, rendered UX, accessibility, or visual-verification work.
+- If spec metadata changes, run `npm run spec:registry`, then `npm run spec:check`; if Foundation capability/job/skill ownership changes, run `npm run foundation:self-map:check`.
+- Protected `main` requires branch -> PR -> required checks pass -> merge.
+
+## Core Skills
+
+| Work | Skill |
+| --- | --- |
+| Turn fuzzy intent into a job | `skills/job-spec-interview/SKILL.md` |
+| Design agent workflows, skills, queues, validators, evals, or handoffs | `skills/agentic-workflow-design/SKILL.md` |
+| Create or revise specs | `skills/spec-workflow/SKILL.md` |
+| Create job journey images | `skills/job-journey-images/SKILL.md` |
+
+## Backfill Skills
+
+Use these when adopting or continuing an existing-repo backfill.
+
+| Work | Skill |
+| --- | --- |
+| Backfill an existing repo end to end | `skills/backfill-repo/SKILL.md` |
+| Record repo files | `skills/backfill-record-repo-files/SKILL.md` |
+| Map what the repo exposes | `skills/backfill-map-repo-surfaces/SKILL.md` |
+| Name what the system can do | `skills/backfill-map-system-capabilities/SKILL.md` |
+| Map user and operator actions | `skills/backfill-map-actions/SKILL.md` |
+| Write specs from mapped work | `skills/backfill-write-specs/SKILL.md` |
+| Evaluate generated backfill specs | `skills/backfill-evaluate-specs/SKILL.md` |
+
+## Backfill Sequence
+
+Record repo files -> map what the repo exposes -> name what the system can do -> break work into slices -> gather context -> map user/operator actions -> write specs -> check slices -> check the system -> hand off.

@@ -58,12 +58,12 @@
       "ownership": "direct"
     },
     {
-      "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
       "kind": "workflow",
       "ownership": "direct"
     },
     {
-      "path": "foundation/skills/evaluate-backfill-specs/agents/openai.yaml",
+      "path": "foundation/skills/backfill-evaluate-specs/agents/openai.yaml",
       "kind": "config",
       "ownership": "direct"
     }
@@ -82,7 +82,7 @@
       "notes": "Golden example for evaluator calibration."
     },
     {
-      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-repo/SKILL.md",
       "kind": "workflow",
       "ownership": "reference",
       "notes": "Backfill orchestrator invokes this evaluation per slice and again after graph coverage is complete."
@@ -105,7 +105,7 @@
       "id": "FBE-1",
       "level": "static",
       "status": "existing",
-      "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
       "mapsTo": [
         "foundation.backfill-quality-evaluation.eval#evaluator-journey",
         "foundation.backfill-quality-evaluation.eval#output-contract"
@@ -130,13 +130,13 @@
       "mapsTo": [
         "foundation.backfill-quality-evaluation.eval#paths-and-coverage"
       ],
-      "evidence": "Doctor fixtures include evaluate-backfill-specs as a required Foundation skill."
+      "evidence": "Doctor fixtures include backfill-evaluate-specs as a required Foundation skill."
     },
     {
       "id": "FBE-4",
       "level": "static",
       "status": "existing",
-      "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
       "mapsTo": [
         "foundation.backfill-quality-evaluation.eval#scoring-rubric",
         "foundation.backfill-quality-evaluation.eval#acceptability-gate"
@@ -306,9 +306,9 @@
     <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
       <h2>Related paths and coverage</h2>
       <ul class="path-list">
-        <li data-implementation-path="foundation/skills/evaluate-backfill-specs/SKILL.md"><code>foundation/skills/evaluate-backfill-specs/SKILL.md</code> - executable evaluation workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-evaluate-specs/SKILL.md"><code>foundation/skills/backfill-evaluate-specs/SKILL.md</code> - executable evaluation workflow.</li>
         <li data-implementation-path="foundation/docs/specs/examples/backfill-golden-example.html"><code>foundation/docs/specs/examples/backfill-golden-example.html</code> - golden calibration artifact.</li>
-        <li data-implementation-path="foundation/skills/backfill-specs/SKILL.md"><code>foundation/skills/backfill-specs/SKILL.md</code> - orchestrator that invokes slice and graph evaluation before final handoff.</li>
+        <li data-implementation-path="foundation/skills/backfill-repo/SKILL.md"><code>foundation/skills/backfill-repo/SKILL.md</code> - orchestrator that invokes slice and graph evaluation before final handoff.</li>
       </ul>
       <table class="status-table">
         <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>

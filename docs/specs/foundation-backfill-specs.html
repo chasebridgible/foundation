@@ -169,12 +169,12 @@
       "ownership": "direct"
     },
     {
-      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-repo/SKILL.md",
       "kind": "workflow",
       "ownership": "direct"
     },
     {
-      "path": "foundation/skills/backfill-specs/agents/openai.yaml",
+      "path": "foundation/skills/backfill-repo/agents/openai.yaml",
       "kind": "config",
       "ownership": "direct"
     },
@@ -258,13 +258,13 @@
       "notes": "Builds repo evidence inventory and coverage ledger."
     },
     {
-      "path": "foundation/skills/backfill-process-action-map/SKILL.md",
+      "path": "foundation/skills/backfill-map-actions/SKILL.md",
       "kind": "workflow",
       "ownership": "reference",
       "notes": "Maps concrete process/action rows before job spec authoring."
     },
     {
-      "path": "foundation/skills/backfill-author-specs/SKILL.md",
+      "path": "foundation/skills/backfill-write-specs/SKILL.md",
       "kind": "workflow",
       "ownership": "reference",
       "notes": "Runs the one-target Author Specs layer loop from Process / Action Map rows to job/technical spec pairs."
@@ -294,7 +294,7 @@
       "notes": "Reviews slice adequacy before strict evaluator scoring."
     },
     {
-      "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
       "kind": "workflow",
       "ownership": "reference",
       "notes": "Scores slices and completed backfill graphs against the golden example and strict 100-point rubric."
@@ -515,7 +515,7 @@
       "id": "FBS-1",
       "level": "static",
       "status": "existing",
-      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-repo/SKILL.md",
       "mapsTo": [
         "foundation.backfill-specs.job#interface-journey",
         "foundation.backfill-specs.job#ux-contracts"
@@ -540,7 +540,7 @@
       "mapsTo": [
         "foundation.backfill-specs.job#states-and-rules"
       ],
-      "evidence": "Foundation doctor fixtures include backfill-specs as a required Foundation skill."
+      "evidence": "Foundation doctor fixtures include backfill-repo as a required Foundation skill."
     },
     {
       "id": "FBS-4",
@@ -566,7 +566,7 @@
       "id": "FBS-6",
       "level": "static",
       "status": "existing",
-      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-repo/SKILL.md",
       "mapsTo": [
         "foundation.backfill-specs.job#ux-contracts"
       ],
@@ -576,7 +576,7 @@
       "id": "FBS-7",
       "level": "static",
       "status": "existing",
-      "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
       "mapsTo": [
         "foundation.backfill-specs.job#test-coverage"
       ],
@@ -597,7 +597,7 @@
       "id": "FBS-9",
       "level": "static",
       "status": "existing",
-      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-repo/SKILL.md",
       "mapsTo": [
         "foundation.backfill-specs.job#interface-journey",
         "foundation.backfill-specs.job#ux-contracts"
@@ -1110,8 +1110,8 @@
       <h3>Directly owned paths</h3>
       <ul class="path-list">
         <li data-implementation-path="foundation/docs/specs/foundation-backfill-specs.html"><code>foundation/docs/specs/foundation-backfill-specs.html</code> - contract for existing repo spec backfill.</li>
-        <li data-implementation-path="foundation/skills/backfill-specs/SKILL.md"><code>foundation/skills/backfill-specs/SKILL.md</code> - executable agent workflow for backfilling draft job and technical specs.</li>
-        <li data-implementation-path="foundation/skills/backfill-specs/agents/openai.yaml"><code>foundation/skills/backfill-specs/agents/openai.yaml</code> - UI metadata for the skill.</li>
+        <li data-implementation-path="foundation/skills/backfill-repo/SKILL.md"><code>foundation/skills/backfill-repo/SKILL.md</code> - executable agent workflow for backfilling draft job and technical specs.</li>
+        <li data-implementation-path="foundation/skills/backfill-repo/agents/openai.yaml"><code>foundation/skills/backfill-repo/agents/openai.yaml</code> - UI metadata for the skill.</li>
         <li data-implementation-path="foundation/skills/agentic-workflow-design/SKILL.md"><code>foundation/skills/agentic-workflow-design/SKILL.md</code> - revises agent workflows so they are repeatable, context-safe, and quality-gated.</li>
         <li data-implementation-path="foundation/skills/agentic-workflow-design/agents/openai.yaml"><code>foundation/skills/agentic-workflow-design/agents/openai.yaml</code> - UI metadata for the skill.</li>
       </ul>
@@ -1125,13 +1125,13 @@
         <li><code>foundation/docs/specs/foundation-backfill-artifact-inventory.html</code> - draft artifact-inventory layer for repo discovery.</li>
         <li><code>foundation/docs/specs/examples/backfill-golden-example.html</code> - golden example for evaluator calibration.</li>
         <li><code>foundation/skills/backfill-artifact-inventory/SKILL.md</code> - evidence inventory and coverage ledger workflow.</li>
-        <li><code>foundation/skills/backfill-process-action-map/SKILL.md</code> - concrete Process / Action Map workflow.</li>
-        <li><code>foundation/skills/backfill-author-specs/SKILL.md</code> - Author Specs one-target layer workflow.</li>
+        <li><code>foundation/skills/backfill-map-actions/SKILL.md</code> - concrete Process / Action Map workflow.</li>
+        <li><code>foundation/skills/backfill-write-specs/SKILL.md</code> - Author Specs one-target layer workflow.</li>
         <li><code>foundation/skills/backfill-job-spec-author/SKILL.md</code> - job Author Specs workflow inside Author Specs.</li>
         <li><code>foundation/skills/backfill-rendered-ux-spec/SKILL.md</code> - rendered UX workflow.</li>
         <li><code>foundation/skills/backfill-technical-spec-author/SKILL.md</code> - technical contract authoring workflow.</li>
         <li><code>foundation/skills/backfill-spec-adequacy-review/SKILL.md</code> - Review Spec Adequacy workflow.</li>
-        <li><code>foundation/skills/evaluate-backfill-specs/SKILL.md</code> - semantic evaluation workflow.</li>
+        <li><code>foundation/skills/backfill-evaluate-specs/SKILL.md</code> - semantic evaluation workflow.</li>
         <li><code>foundation/scripts/spec-job-queue-report-check.mjs</code> - Job / Spec Queue validator for dated backfill reports.</li>
         <li><code>foundation/scripts/backfill-run-log-check.mjs</code> - JSONL execution run log validator for dated backfill reports.</li>
         <li><code>foundation/scripts/backfill-run-log-schema.mjs</code> - shared run-log phase and event enum.</li>

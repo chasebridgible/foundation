@@ -5,7 +5,7 @@ description: Author architecture-agnostic, intent-grade job specs from capabilit
 
 # Backfill Job Spec Author
 
-Use inside `backfill-specs` to write what the system is intended to make possible for users and operators. Code is evidence; the job spec is the intent contract for the capability-backed body of work.
+Use inside `backfill-repo` to write what the system is intended to make possible for users and operators. Code is evidence; the job spec is the intent contract for the capability-backed body of work.
 
 ## Inputs
 

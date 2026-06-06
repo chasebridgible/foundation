@@ -5,7 +5,7 @@ description: Add rendered and lightly interactive HTML-native UX examples to job
 
 # Backfill Rendered UX Spec
 
-Use inside `backfill-specs` after job drafting for visible capabilities.
+Use inside `backfill-repo` after job drafting for visible capabilities.
 
 ## Add To The Job Spec
 

@@ -1,9 +1,9 @@
 ---
-name: capability-map-fill-loop
+name: backfill-map-system-capabilities
 description: Fill or resume the Foundation Capability Map layer by grouping reviewed Surface / Function Map rows into actor/outcome capability rows, checking coverage and split discipline, evaluating, and recording handoff to Define Spec Jobs.
 ---
 
-# Capability Map Fill Loop
+# Backfill: Map System Capabilities
 
 Use this skill when a target repo is creating, refreshing, revising, checking, evaluating, or resuming a Foundation Capability Map.
 

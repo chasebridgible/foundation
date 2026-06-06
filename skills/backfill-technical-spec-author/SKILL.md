@@ -5,7 +5,7 @@ description: Author contract-first, architecture-flexible technical specs from c
 
 # Backfill Technical Spec Author
 
-Use inside `backfill-specs` after job intent exists. Technical specs explain the contracts required to preserve intended behavior while keeping implementation latitude explicit.
+Use inside `backfill-repo` after job intent exists. Technical specs explain the contracts required to preserve intended behavior while keeping implementation latitude explicit.
 
 ## Inputs
 

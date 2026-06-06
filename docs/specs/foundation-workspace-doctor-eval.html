@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.workspace-doctor.eval">
 <meta name="spec:type" content="eval">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-03">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Foundation Workspace Doctor Eval Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Workspace Doctor Eval Spec",
   "type": "eval",
   "status": "active",
-  "lastUpdated": "2026-06-03",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.workspace-model.job",
@@ -109,6 +109,14 @@
       "path": "foundation/scripts/foundation-doctor.test.mjs",
       "mapsTo": ["foundation.workspace-doctor.eval#acceptance-mapping", "foundation.workspace-doctor.technical#contracts"],
       "evidence": "target package script sync adds missing Foundation aliases idempotently from the command manifest"
+    },
+    {
+      "id": "FWD-A9",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.workspace-doctor.eval#acceptance-mapping", "foundation.workspace-doctor.technical#contracts"],
+      "evidence": "foundation repo self-check allows canonical Foundation AGENTS rules and foundation.* spec IDs"
     }
   ],
   "tags": [
@@ -208,7 +216,7 @@
     <p class="lede">The Foundation doctor test suite verifies that the setup diagnostic accepts a correctly connected Foundation workspace and rejects the target repo shapes that create drift.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-03</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
       <div><strong>Canonical section:</strong> <a href="#verification-contract">#verification-contract</a></div>
     </div>
   </section>
@@ -225,7 +233,7 @@
       <table class="status-table">
         <thead><tr><th>ID</th><th>Acceptance condition</th><th>Mapped sections</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>FWD-A1</td><td>A Foundation checkout with required skills, including <code>artifact-inventory-fill-loop</code>, <code>surface-function-map-fill-loop</code>, and <code>capability-map-fill-loop</code>, and a valid global Codex pointer reports no failures when spec check is skipped for the fixture.</td><td><code>foundation.workspace-doctor.technical#contracts</code></td><td>existing</td></tr>
+          <tr><td>FWD-A1</td><td>A Foundation checkout with required skills, including <code>backfill-record-repo-files</code>, <code>backfill-map-repo-surfaces</code>, and <code>backfill-map-system-capabilities</code>, and a valid global Codex pointer reports no failures when spec check is skipped for the fixture.</td><td><code>foundation.workspace-doctor.technical#contracts</code></td><td>existing</td></tr>
           <tr><td>FWD-A2</td><td>A target repo whose adapter points to Foundation passes the adapter checks.</td><td><code>foundation.workspace-doctor.technical#contracts</code></td><td>existing</td></tr>
           <tr><td>FWD-A3</td><td>A target repo adapter that copies Foundation-owned rules fails with a duplicated-rule report.</td><td><code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>
           <tr><td>FWD-A4</td><td>A target repo spec using a <code>foundation.*</code> ID fails namespace validation.</td><td><code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>
@@ -233,6 +241,7 @@
           <tr><td>FWD-A6</td><td>A target repo with durable HTML docs warns when navigation assets or script includes are missing, warns when <code>site-nav.js</code> is stale, and passes when the local renderer includes the shared collapse control.</td><td><code>foundation.workspace-doctor.technical#contracts</code>, <code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>
           <tr><td>FWD-A7</td><td>A connected target repo with <code>package.json</code> fails doctor when required Foundation aliases are missing or stale, including <code>foundation:process-action-map:*</code>.</td><td><code>foundation.workspace-doctor.technical#contracts</code>, <code>foundation.workspace-doctor.technical#failure-modes</code></td><td>existing</td></tr>
           <tr><td>FWD-A8</td><td>The target package sync command writes missing Foundation aliases from the manifest and is idempotent on a second run.</td><td><code>foundation.workspace-doctor.technical#contracts</code></td><td>existing</td></tr>
+          <tr><td>FWD-A9</td><td>Running doctor with the Foundation repo as the target passes adapter and namespace checks even though Foundation owns canonical AGENTS rules and <code>foundation.*</code> spec IDs.</td><td><code>foundation.workspace-doctor.technical#contracts</code></td><td>existing</td></tr>
         </tbody>
       </table>
     </section>
@@ -248,6 +257,7 @@
           <tr><td>Target namespace drift</td><td>Fixture detects <code>foundation.*</code> product spec IDs.</td><td>None for HTML specs with parseable metadata.</td></tr>
           <tr><td>Target HTML docs navigation drift</td><td>Fixture detects missing local navigation scripts and stale <code>site-nav.js</code> copies that lack the shared collapse control.</td><td>Rendered target-repo screenshots remain manual evidence.</td></tr>
           <tr><td>Target package alias drift</td><td>Fixture detects missing Foundation command aliases and syncs aliases from the manifest.</td><td>Real target repos still need doctor run after sync.</td></tr>
+          <tr><td>Foundation self-check drift</td><td>Fixture proves Foundation itself can be passed as <code>--repo</code> without target-only adapter or namespace false positives.</td><td>None for local self-check mode.</td></tr>
           <tr><td>CI pinning</td><td>Static workflow scanner reports warnings.</td><td>Needs a real target repo or fixture workflow with pinned Foundation checkout.</td></tr>
           <tr><td>Actual Codex load order</td><td>Planned isolated canary.</td><td>Separate spec and manual run procedure.</td></tr>
         </tbody>

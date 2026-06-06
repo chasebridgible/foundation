@@ -1,11 +1,11 @@
 ---
-name: backfill-process-action-map
+name: backfill-map-actions
 description: Map concrete actor processes, actions, states, decisions, and recovery paths from a Context Pack during a Foundation spec backfill. Use inside Backfill Specs for user-facing, operator-facing, admin, external-system, or scheduled-system capability slices before Author Specs.
 ---
 
-# Backfill Process / Action Map
+# Backfill: Map Actions
 
-Use inside `backfill-specs` before Author Specs for visible or operator-relevant capabilities.
+Use inside `backfill-repo` before Author Specs for visible or operator-relevant capabilities.
 
 ## Inputs
 

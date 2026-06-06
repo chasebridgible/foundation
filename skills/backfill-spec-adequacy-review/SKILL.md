@@ -5,7 +5,7 @@ description: Review a backfilled capability slice before evaluator scoring. Use 
 
 # Review Spec Adequacy
 
-Use inside `backfill-specs` before `evaluate-backfill-specs`.
+Use inside `backfill-repo` before `backfill-evaluate-specs`.
 
 ## Core Question
 

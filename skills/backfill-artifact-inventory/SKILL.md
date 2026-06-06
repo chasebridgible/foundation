@@ -5,7 +5,7 @@ description: Build and maintain the Artifact Inventory, Capability Map, split si
 
 # Backfill Artifact Inventory
 
-Use inside `backfill-specs`. Do not draft specs here.
+Use inside `backfill-repo`. Do not draft specs here.
 
 ## Inputs
 

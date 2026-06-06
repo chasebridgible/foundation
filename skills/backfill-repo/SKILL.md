@@ -1,9 +1,9 @@
 ---
-name: backfill-specs
+name: backfill-repo
 description: Orchestrate a complete existing-repo spec backfill by running Foundation backfill sub-skills to Inventory Artifacts, Map Surfaces, Map Capabilities, Define Spec Jobs, Gather Context, Map Processes, Author Specs, Review Spec Adequacy, Evaluate Job Slices, and Evaluate System Coherence. Use when adopting an existing repo into Foundation, mapping code/docs into intended behavior, or resuming a long-running repo backfill.
 ---
 
-# Backfill Specs
+# Backfill Repo
 
 Use after a target repo is connected to Foundation. Produce a capability-covered draft job + technical spec graph for the whole repo. Leave existing code and old docs in place.
 
@@ -91,13 +91,13 @@ Repeat until capability coverage is closed:
 7. Pick the next capability-backed slice that is queued, in progress, needs split, needs job, needs technical, needs evaluation, needs revision, or revision-ready.
 8. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
 9. Gather Context with `foundation:context-pack:*` commands until the Context Pack handoff names Process / Action Map.
-10. Use `backfill-process-action-map` and `foundation:process-action-map:*` commands to Map Processes for each active Context Pack row. Follow the current `--next` target only and do not use generated drivers, shell loops, regex classifiers, or reusable templates to produce multiple Process / Action Map rows.
-11. Use `backfill-author-specs` and `foundation:author-specs:*` commands to Author Specs for each active Process / Action Map row. Follow the current `--next` target only: author one job/descriptive spec and one technical spec, run check, run row eval, revise to outstanding, then continue. Do not use generated drivers, shell loops, template synthesizers, or bulk payloads to create, fill, check, or evaluate multiple targets.
+10. Use `backfill-map-actions` and `foundation:process-action-map:*` commands to Map Processes for each active Context Pack row. Follow the current `--next` target only and do not use generated drivers, shell loops, regex classifiers, or reusable templates to produce multiple Process / Action Map rows.
+11. Use `backfill-write-specs` and `foundation:author-specs:*` commands to Author Specs for each active Process / Action Map row. Follow the current `--next` target only: author one job/descriptive spec and one technical spec, run check, run row eval, revise to outstanding, then continue. Do not use generated drivers, shell loops, template synthesizers, or bulk payloads to create, fill, check, or evaluate multiple targets.
 12. Use `backfill-job-spec-author` inside the current Author Specs target.
 13. Use `backfill-rendered-ux-spec` when the current target has visible UX.
 14. Use `backfill-technical-spec-author` inside the current Author Specs target.
 15. Use `backfill-spec-adequacy-review` to Review Spec Adequacy; revise before evaluator scoring if it fails.
-16. Use `evaluate-backfill-specs` to Evaluate Job Slices.
+16. Use `backfill-evaluate-specs` to Evaluate Job Slices.
 17. If below threshold, mark `needs-revision`, route the gap to the owning skill, revise, and re-evaluate.
 18. If outstanding, mark the slice and attached capability rows outstanding.
 19. Run validation after meaningful report/log/spec changes:
@@ -107,22 +107,22 @@ Repeat until capability coverage is closed:
     - `npm run foundation:visible-business-graph:check -- --repo <target-repo>` after spec graph metadata exists
 20. Update report status, Capability Map, remaining Job / Spec Queue, run-log sequence, and next action.
 
-After all capability rows are outstanding, parent-owned with a precise reason, blocked by a named human decision, or out of scope, run `evaluate-backfill-specs` on the full graph to Evaluate System Coherence. If system-coherence evaluation needs revision, route it back through the loop.
+After all capability rows are outstanding, parent-owned with a precise reason, blocked by a named human decision, or out of scope, run `backfill-evaluate-specs` on the full graph to Evaluate System Coherence. If system-coherence evaluation needs revision, route it back through the loop.
 
 ## Skill Chain
 
 - `skills/backfill-artifact-inventory/SKILL.md`
-- `skills/artifact-inventory-fill-loop/SKILL.md` - Inventory Artifacts
-- `skills/surface-function-map-fill-loop/SKILL.md` - Map Surfaces
-- `skills/capability-map-fill-loop/SKILL.md` - Map Capabilities
+- `skills/backfill-record-repo-files/SKILL.md` - Inventory Artifacts
+- `skills/backfill-map-repo-surfaces/SKILL.md` - Map Surfaces
+- `skills/backfill-map-system-capabilities/SKILL.md` - Map Capabilities
 - `foundation:context-pack:*` command family - Gather Context
-- `skills/backfill-process-action-map/SKILL.md` - Map Processes
-- `skills/backfill-author-specs/SKILL.md` - Author Specs layer
+- `skills/backfill-map-actions/SKILL.md` - Map Processes
+- `skills/backfill-write-specs/SKILL.md` - Author Specs layer
 - `skills/backfill-job-spec-author/SKILL.md` - current target job/descriptive spec authoring
 - `skills/backfill-rendered-ux-spec/SKILL.md` - current target rendered UX authoring
 - `skills/backfill-technical-spec-author/SKILL.md` - current target technical spec authoring
 - `skills/backfill-spec-adequacy-review/SKILL.md` - Review Spec Adequacy
-- `skills/evaluate-backfill-specs/SKILL.md` - Evaluate Job Slices and Evaluate System Coherence
+- `skills/backfill-evaluate-specs/SKILL.md` - Evaluate Job Slices and Evaluate System Coherence
 
 ## Completion
 

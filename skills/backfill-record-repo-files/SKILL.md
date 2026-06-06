@@ -1,9 +1,9 @@
 ---
-name: artifact-inventory-fill-loop
+name: backfill-record-repo-files
 description: Fill or resume the Foundation Artifact Inventory layer for a target repo by reading the active report, manifest, artifact inventory, run log, and source files; mapping bounded pending batches; running deterministic checks; and producing eval receipts before handoff.
 ---
 
-# Artifact Inventory Fill Loop
+# Backfill: Record Repo Files
 
 Use this skill when a target repo is creating, refreshing, or resuming a Foundation Artifact Inventory.
 

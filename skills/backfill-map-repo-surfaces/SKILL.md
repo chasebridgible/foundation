@@ -1,9 +1,9 @@
 ---
-name: surface-function-map-fill-loop
+name: backfill-map-repo-surfaces
 description: Fill or resume the Foundation Surface / Function Map layer by reading one complete surface-map-eligible upstream file, marking that file's canonical surface rows, checking, and repeating until eligible Artifact Inventory rows are covered.
 ---
 
-# Surface / Function Map Fill Loop
+# Backfill: Map Repo Surfaces
 
 Use this skill when a target repo is creating, refreshing, revising, checking, evaluating, or resuming a Foundation Surface / Function Map.
 

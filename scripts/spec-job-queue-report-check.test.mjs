@@ -65,6 +65,40 @@ ${validCapabilityMap()}
       "scope": "User login and failed-login recovery",
       "upstreamCapabilityIds": ["identity-login-capability"],
       "status": "acceptable",
+      "ownerSkill": "backfill-evaluate-specs",
+      "jobSpec": "example.identity-login.job",
+      "technicalSpec": "example.identity-login.technical",
+      "jobSections": ["#capability-contract"],
+      "technicalSections": ["#technical-contract"],
+      "verificationTargets": ["successful login", "failed login"],
+      "nextAction": "Continue to the next queued slice",
+      "exitCriterion": "Slice scored acceptable",
+      "blockingQuestions": [],
+      "blockingGaps": [],
+      "humanDecisions": []
+    }
+  ]
+}
+</script>`);
+
+  assert.equal(statuses(validateReport(file)).includes("fail"), false);
+});
+
+test("accepts legacy evaluate owner skill for existing queue reports", () => {
+  const file = writeReport(`<!DOCTYPE html>
+${validCapabilityMap()}
+<script type="application/json" id="backfill-spec-job-queue">
+{
+  "schema": "foundation.backfill.spec-job-queue.v1",
+  "runId": "20260521-01",
+  "targetRepo": "example",
+  "queue": [
+    {
+      "sliceId": "identity-login",
+      "name": "User login",
+      "scope": "User login and failed-login recovery",
+      "upstreamCapabilityIds": ["identity-login-capability"],
+      "status": "acceptable",
       "ownerSkill": "evaluate-backfill-specs",
       "jobSpec": "example.identity-login.job",
       "technicalSpec": "example.identity-login.technical",
@@ -173,7 +207,7 @@ ${validCapabilityMap()}
       "scope": "User login",
       "upstreamCapabilityIds": ["identity-login-capability"],
       "status": "acceptable",
-      "ownerSkill": "evaluate-backfill-specs",
+      "ownerSkill": "backfill-evaluate-specs",
       "jobSpec": "example.identity-login.job",
       "technicalSpec": "example.identity-login.technical",
       "jobSections": ["#capability-contract"],

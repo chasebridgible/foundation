@@ -1,9 +1,9 @@
 ---
-name: evaluate-backfill-specs
+name: backfill-evaluate-specs
 description: Evaluate Job Slices and Evaluate System Coherence for a Foundation backfill using the golden example and strict 100-point rubric. Use after Backfill Specs drafts or revises slices, when deciding whether a slice or repo-wide backfill is acceptable, or when scoring generated specs, updating the Job / Spec Queue, and looping weak categories back to the owning backfill skill.
 ---
 
-# Evaluate Job Slices And System Coherence
+# Backfill: Evaluate Specs
 
 Use to judge semantic quality after registry, metadata, visible business graph, queue, and run-log checks are structurally valid.
 
