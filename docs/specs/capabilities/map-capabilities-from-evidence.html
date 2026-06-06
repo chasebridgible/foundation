@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.map-capabilities-from-evidence.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Map Capabilities From Evidence</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,19 +16,20 @@
   "title": "Map Capabilities From Evidence",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "high",
-  "parent": "foundation.operating-system.system",
+  "parent": "foundation.define-right-work.capability",
   "children": [
     "foundation.backfill-capability-map.job"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.operating-system.system",
+      "id": "foundation.define-right-work.capability",
       "relationship": "parent",
       "sections": [
-        "system-intent"
+        "capability-intent",
+        "jobs"
       ]
     },
     {
@@ -106,10 +107,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.map-capabilities-from-evidence.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.map-capabilities-from-evidence.capability:depends-on:spec:foundation.define-right-work.capability",
       "type": "depends-on",
       "from": "spec:foundation.map-capabilities-from-evidence.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.define-right-work.capability",
       "source": {
         "specId": "foundation.map-capabilities-from-evidence.capability",
         "sectionId": "capability-intent"

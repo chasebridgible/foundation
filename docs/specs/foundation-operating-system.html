@@ -21,107 +21,75 @@
   "confidence": "high",
   "parent": null,
   "children": [
-    "foundation.capture-business-system-intent.capability",
-    "foundation.inventory-classify-artifacts.capability",
-    "foundation.map-surfaces-functions.capability",
-    "foundation.map-capabilities-from-evidence.capability",
-    "foundation.define-jobs-from-capabilities.capability",
-    "foundation.package-context-for-action.capability",
-    "foundation.author-durable-specs.capability",
-    "foundation.generate-maintain-agent-skills.capability",
-    "foundation.evaluate-quality-completeness.capability",
-    "foundation.render-inspectable-system-graph.capability",
-    "foundation.install-foundation-target-repos.capability",
-    "foundation.compound-improvements-safely.capability",
-    "foundation.learn-agent-capabilities-over-time.capability"
+    "foundation.understand-intent-reality.capability",
+    "foundation.preserve-knowledge-context.capability",
+    "foundation.define-right-work.capability",
+    "foundation.make-outstanding-work-repeatable.capability",
+    "foundation.build-new-systems-from-clear-specs.capability",
+    "foundation.change-existing-systems-without-losing-intent.capability",
+    "foundation.operate-systems-in-real-world.capability",
+    "foundation.show-system-clearly.capability",
+    "foundation.evaluate-learn-improve.capability"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.capture-business-system-intent.capability",
+      "id": "foundation.understand-intent-reality.capability",
       "relationship": "child",
       "sections": [
         "capability-intent"
       ]
     },
     {
-      "id": "foundation.inventory-classify-artifacts.capability",
+      "id": "foundation.preserve-knowledge-context.capability",
       "relationship": "child",
       "sections": [
         "capability-intent"
       ]
     },
     {
-      "id": "foundation.map-surfaces-functions.capability",
+      "id": "foundation.define-right-work.capability",
       "relationship": "child",
       "sections": [
         "capability-intent"
       ]
     },
     {
-      "id": "foundation.map-capabilities-from-evidence.capability",
+      "id": "foundation.make-outstanding-work-repeatable.capability",
       "relationship": "child",
       "sections": [
         "capability-intent"
       ]
     },
     {
-      "id": "foundation.define-jobs-from-capabilities.capability",
+      "id": "foundation.build-new-systems-from-clear-specs.capability",
       "relationship": "child",
       "sections": [
         "capability-intent"
       ]
     },
     {
-      "id": "foundation.package-context-for-action.capability",
+      "id": "foundation.change-existing-systems-without-losing-intent.capability",
       "relationship": "child",
       "sections": [
         "capability-intent"
       ]
     },
     {
-      "id": "foundation.author-durable-specs.capability",
+      "id": "foundation.operate-systems-in-real-world.capability",
       "relationship": "child",
       "sections": [
         "capability-intent"
       ]
     },
     {
-      "id": "foundation.generate-maintain-agent-skills.capability",
+      "id": "foundation.show-system-clearly.capability",
       "relationship": "child",
       "sections": [
         "capability-intent"
       ]
     },
     {
-      "id": "foundation.evaluate-quality-completeness.capability",
-      "relationship": "child",
-      "sections": [
-        "capability-intent"
-      ]
-    },
-    {
-      "id": "foundation.render-inspectable-system-graph.capability",
-      "relationship": "child",
-      "sections": [
-        "capability-intent"
-      ]
-    },
-    {
-      "id": "foundation.install-foundation-target-repos.capability",
-      "relationship": "child",
-      "sections": [
-        "capability-intent"
-      ]
-    },
-    {
-      "id": "foundation.compound-improvements-safely.capability",
-      "relationship": "child",
-      "sections": [
-        "capability-intent"
-      ]
-    },
-    {
-      "id": "foundation.learn-agent-capabilities-over-time.capability",
+      "id": "foundation.evaluate-learn-improve.capability",
       "relationship": "child",
       "sections": [
         "capability-intent"
@@ -225,133 +193,93 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.capture-business-system-intent.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.understand-intent-reality.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.capture-business-system-intent.capability",
+      "to": "spec:foundation.understand-intent-reality.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       }
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.inventory-classify-artifacts.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.preserve-knowledge-context.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.inventory-classify-artifacts.capability",
+      "to": "spec:foundation.preserve-knowledge-context.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       }
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.map-surfaces-functions.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.define-right-work.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.map-surfaces-functions.capability",
+      "to": "spec:foundation.define-right-work.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       }
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.map-capabilities-from-evidence.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.make-outstanding-work-repeatable.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.map-capabilities-from-evidence.capability",
+      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       }
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.define-jobs-from-capabilities.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.build-new-systems-from-clear-specs.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.define-jobs-from-capabilities.capability",
+      "to": "spec:foundation.build-new-systems-from-clear-specs.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       }
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.package-context-for-action.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.change-existing-systems-without-losing-intent.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.package-context-for-action.capability",
+      "to": "spec:foundation.change-existing-systems-without-losing-intent.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       }
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.author-durable-specs.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.operate-systems-in-real-world.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.operate-systems-in-real-world.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       }
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.generate-maintain-agent-skills.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.show-system-clearly.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.generate-maintain-agent-skills.capability",
+      "to": "spec:foundation.show-system-clearly.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       }
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.evaluate-quality-completeness.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.evaluate-learn-improve.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.evaluate-quality-completeness.capability",
+      "to": "spec:foundation.evaluate-learn-improve.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
-      }
-    },
-    {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.render-inspectable-system-graph.capability",
-      "type": "contains",
-      "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.render-inspectable-system-graph.capability",
-      "source": {
-        "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
-      }
-    },
-    {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.install-foundation-target-repos.capability",
-      "type": "contains",
-      "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.install-foundation-target-repos.capability",
-      "source": {
-        "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
-      }
-    },
-    {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.compound-improvements-safely.capability",
-      "type": "contains",
-      "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.compound-improvements-safely.capability",
-      "source": {
-        "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
-      }
-    },
-    {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.learn-agent-capabilities-over-time.capability",
-      "type": "contains",
-      "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.learn-agent-capabilities-over-time.capability",
-      "source": {
-        "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       }
     }
   ]
@@ -422,15 +350,15 @@
       <table class="status-table">
         <thead><tr><th>#</th><th>Parent capability</th><th>Foundation should make this possible</th><th>Child capability examples</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td>Understand Intent And Reality</td><td>Figure out what should happen and what is currently true.</td><td>Extract intent; understand a business; understand an existing repo; tell facts apart from guesses; name uncertainty; ask the next right question.</td></tr>
-          <tr><td>2</td><td>Preserve Knowledge As Useful Context</td><td>Remember what matters and retrieve the right amount for future work.</td><td>Store documented knowledge, decisions, examples, evidence, and history; connect business and repo knowledge; update knowledge when reality changes; prepare bounded context for a job.</td></tr>
-          <tr><td>3</td><td>Define The Right Work</td><td>Describe work clearly enough that humans and agents can act.</td><td>Use a shared language for goals, capabilities, jobs, actors, tools, context, evidence, evals, and revision loops; separate what must become possible from the work needed to make it possible; choose the right spec type.</td></tr>
-          <tr><td>4</td><td>Make Outstanding Work Repeatable</td><td>Turn high-quality human, agent, and software work into repeatable loops.</td><td>Create skills, queues, validators, evals, stopping points, and handoff state; give agents one clear next step; preserve context across runs.</td></tr>
-          <tr><td>5</td><td>Build New Systems From Clear Specs</td><td>Turn intent into working systems without losing the goal.</td><td>Clarify stack choices; define designs, contracts, and implementation plans; build from specs; verify built behavior against the spec.</td></tr>
-          <tr><td>6</td><td>Change Existing Systems Without Losing Intent</td><td>Understand and revise existing systems while preserving what already matters.</td><td>Backfill repo behavior into evidence-backed specs; update software, context, tests, and evidence after changes; avoid rediscovering source from scratch.</td></tr>
-          <tr><td>7</td><td>Operate Systems In The Real World</td><td>Keep built systems working after they ship.</td><td>Deploy safely; monitor behavior; detect failure, drift, and gaps; support recovery paths; feed operating lessons back into the substrate.</td></tr>
-          <tr><td>8</td><td>Show The System Clearly</td><td>Make goals, capabilities, jobs, evidence, gaps, ownership, and next work inspectable.</td><td>Render graphs and maps; show what exists, what is missing, and what should happen next; make the system understandable without source or chat history.</td></tr>
-          <tr><td>9</td><td>Evaluate, Learn, And Improve</td><td>Check whether work matched the goal and make future work better.</td><td>Evaluate intent fidelity; revise the smallest wrong artifact; learn from each work cycle; improve workflows as tools and models get better.</td></tr>
+          <tr><td>1</td><td><a data-spec-link="foundation.understand-intent-reality.capability" href="./capabilities/understand-intent-reality.html">Understand Intent And Reality</a></td><td>Figure out what should happen and what is currently true.</td><td>Extract intent; understand a business; understand an existing repo; tell facts apart from guesses; name uncertainty; ask the next right question.</td></tr>
+          <tr><td>2</td><td><a data-spec-link="foundation.preserve-knowledge-context.capability" href="./capabilities/preserve-knowledge-context.html">Preserve Knowledge As Useful Context</a></td><td>Remember what matters and retrieve the right amount for future work.</td><td>Store documented knowledge, decisions, examples, evidence, and history; connect business and repo knowledge; update knowledge when reality changes; prepare bounded context for a job.</td></tr>
+          <tr><td>3</td><td><a data-spec-link="foundation.define-right-work.capability" href="./capabilities/define-right-work.html">Define The Right Work</a></td><td>Describe work clearly enough that humans and agents can act.</td><td>Use a shared language for goals, capabilities, jobs, actors, tools, context, evidence, evals, and revision loops; separate what must become possible from the work needed to make it possible; choose the right spec type.</td></tr>
+          <tr><td>4</td><td><a data-spec-link="foundation.make-outstanding-work-repeatable.capability" href="./capabilities/make-outstanding-work-repeatable.html">Make Outstanding Work Repeatable</a></td><td>Turn high-quality human, agent, and software work into repeatable loops.</td><td>Create skills, queues, validators, evals, stopping points, and handoff state; give agents one clear next step; preserve context across runs.</td></tr>
+          <tr><td>5</td><td><a data-spec-link="foundation.build-new-systems-from-clear-specs.capability" href="./capabilities/build-new-systems-from-clear-specs.html">Build New Systems From Clear Specs</a></td><td>Turn intent into working systems without losing the goal.</td><td>Clarify stack choices; define designs, contracts, and implementation plans; build from specs; verify built behavior against the spec.</td></tr>
+          <tr><td>6</td><td><a data-spec-link="foundation.change-existing-systems-without-losing-intent.capability" href="./capabilities/change-existing-systems-without-losing-intent.html">Change Existing Systems Without Losing Intent</a></td><td>Understand and revise existing systems while preserving what already matters.</td><td>Backfill repo behavior into evidence-backed specs; update software, context, tests, and evidence after changes; avoid rediscovering source from scratch.</td></tr>
+          <tr><td>7</td><td><a data-spec-link="foundation.operate-systems-in-real-world.capability" href="./capabilities/operate-systems-in-real-world.html">Operate Systems In The Real World</a></td><td>Keep built systems working after they ship.</td><td>Deploy safely; monitor behavior; detect failure, drift, and gaps; support recovery paths; feed operating lessons back into the substrate.</td></tr>
+          <tr><td>8</td><td><a data-spec-link="foundation.show-system-clearly.capability" href="./capabilities/show-system-clearly.html">Show The System Clearly</a></td><td>Make goals, capabilities, jobs, evidence, gaps, ownership, and next work inspectable.</td><td>Render graphs and maps; show what exists, what is missing, and what should happen next; make the system understandable without source or chat history.</td></tr>
+          <tr><td>9</td><td><a data-spec-link="foundation.evaluate-learn-improve.capability" href="./capabilities/evaluate-learn-improve.html">Evaluate, Learn, And Improve</a></td><td>Check whether work matched the goal and make future work better.</td><td>Evaluate intent fidelity; revise the smallest wrong artifact; learn from each work cycle; improve workflows as tools and models get better.</td></tr>
         </tbody>
       </table>
       <h3>Current implemented capability specs</h3>
@@ -444,7 +372,7 @@
           <tr><td>4</td><td><a data-spec-link="foundation.map-capabilities-from-evidence.capability" href="./capabilities/map-capabilities-from-evidence.html">Map Capabilities From Evidence</a></td><td>Promote evidence-backed behavior signals into stable capability rows.</td><td><code>foundation.backfill-capability-map.job</code></td></tr>
           <tr><td>5</td><td><a data-spec-link="foundation.define-jobs-from-capabilities.capability" href="./capabilities/define-jobs-from-capabilities.html">Define Jobs From Capabilities</a></td><td>Turn capability rows into job specs and process/action contracts.</td><td><code>foundation.backfill-spec-job-queue.job</code><br><code>foundation.backfill-process-action-map.job</code></td></tr>
           <tr><td>6</td><td><a data-spec-link="foundation.package-context-for-action.capability" href="./capabilities/package-context-for-action.html">Package Context For Action</a></td><td>Create action-ready context packs from source-backed inventory, maps, and specs.</td><td><code>foundation.backfill-context-pack.job</code></td></tr>
-          <tr><td>7</td><td><a data-spec-link="foundation.author-durable-specs.capability" href="./capabilities/author-durable-specs.html">Author Durable Specs</a></td><td>Create and revise HTML-native system, capability, job, technical, eval, and template specs.</td><td><code>foundation.backfill-author-specs.job</code><br><code>foundation.html-docs-navigation.job</code><br><code>foundation.spec-process</code><br><code>foundation.spec-selection.job</code><br><code>foundation.author-system-spec.job</code><br><code>foundation.author-capability-spec.job</code><br><code>foundation.author-job-spec.job</code><br><code>foundation.author-technical-spec.job</code><br><code>foundation.author-eval-spec.job</code><br><code>example.business.pay-employees.job</code><br><code>example.software.notification-preferences.job</code><br><code>fup.kitchen-queue.job</code></td></tr>
+          <tr><td>7</td><td><a data-spec-link="foundation.author-durable-specs.capability" href="./capabilities/author-durable-specs.html">Author Durable Specs</a></td><td>Create and revise HTML-native system, capability, job, technical, eval, and template specs.</td><td><code>foundation.backfill-author-specs.job</code><br><code>foundation.html-docs-navigation.job</code><br><code>foundation.spec-process</code><br><code>foundation.spec-selection.job</code><br><code>foundation.capability-map-remap.job</code><br><code>foundation.author-system-spec.job</code><br><code>foundation.author-capability-spec.job</code><br><code>foundation.author-job-spec.job</code><br><code>foundation.author-technical-spec.job</code><br><code>foundation.author-eval-spec.job</code><br><code>example.business.pay-employees.job</code><br><code>example.software.notification-preferences.job</code><br><code>fup.kitchen-queue.job</code></td></tr>
           <tr><td>8</td><td><a data-spec-link="foundation.generate-maintain-agent-skills.capability" href="./capabilities/generate-maintain-agent-skills.html">Generate and Maintain Agent Skills</a></td><td>Keep repeatable agent procedures tied to owning capabilities, jobs, specs, checks, and evidence.</td><td><code>foundation.backfill-author-specs.job</code></td></tr>
           <tr><td>9</td><td><a data-spec-link="foundation.evaluate-quality-completeness.capability" href="./capabilities/evaluate-quality-completeness.html">Evaluate Quality and Completeness</a></td><td>Judge whether specs, maps, graph metadata, and backfill output are complete enough to rely on.</td><td><code>foundation.backfill-job-slice-evaluation.job</code><br><code>foundation.backfill-system-coherence-evaluation.job</code></td></tr>
           <tr><td>10</td><td><a data-spec-link="foundation.render-inspectable-system-graph.capability" href="./capabilities/render-inspectable-system-graph.html">Render the System as an Inspectable Graph</a></td><td>Make specs visible as a canvas of systems, capabilities, jobs, actors, processes, tools, evidence, metrics, gaps, evals, and templates.</td><td><code>foundation.visible-business-graph.system</code><br><code>foundation.html-docs-navigation.job</code></td></tr>

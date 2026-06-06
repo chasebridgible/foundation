@@ -7,7 +7,7 @@ window.SubstrateSiteMap = {
       "sourcePath": "docs"
     }
   ],
-  "fileCount": 106,
+  "fileCount": 117,
   "items": [
     {
       "type": "folder",
@@ -201,12 +201,30 @@ window.SubstrateSiteMap = {
             },
             {
               "type": "file",
+              "name": "build-new-systems-from-clear-specs.html",
+              "title": "Build New Systems From Clear Specs",
+              "path": "specs/capabilities/build-new-systems-from-clear-specs.html",
+              "sourcePath": "docs/specs/capabilities/build-new-systems-from-clear-specs.html",
+              "rootPath": "docs",
+              "specId": "foundation.build-new-systems-from-clear-specs.capability"
+            },
+            {
+              "type": "file",
               "name": "capture-business-system-intent.html",
               "title": "Capture Business and System Intent",
               "path": "specs/capabilities/capture-business-system-intent.html",
               "sourcePath": "docs/specs/capabilities/capture-business-system-intent.html",
               "rootPath": "docs",
               "specId": "foundation.capture-business-system-intent.capability"
+            },
+            {
+              "type": "file",
+              "name": "change-existing-systems-without-losing-intent.html",
+              "title": "Change Existing Systems Without Losing Intent",
+              "path": "specs/capabilities/change-existing-systems-without-losing-intent.html",
+              "sourcePath": "docs/specs/capabilities/change-existing-systems-without-losing-intent.html",
+              "rootPath": "docs",
+              "specId": "foundation.change-existing-systems-without-losing-intent.capability"
             },
             {
               "type": "file",
@@ -225,6 +243,24 @@ window.SubstrateSiteMap = {
               "sourcePath": "docs/specs/capabilities/define-jobs-from-capabilities.html",
               "rootPath": "docs",
               "specId": "foundation.define-jobs-from-capabilities.capability"
+            },
+            {
+              "type": "file",
+              "name": "define-right-work.html",
+              "title": "Define The Right Work",
+              "path": "specs/capabilities/define-right-work.html",
+              "sourcePath": "docs/specs/capabilities/define-right-work.html",
+              "rootPath": "docs",
+              "specId": "foundation.define-right-work.capability"
+            },
+            {
+              "type": "file",
+              "name": "evaluate-learn-improve.html",
+              "title": "Evaluate, Learn, And Improve",
+              "path": "specs/capabilities/evaluate-learn-improve.html",
+              "sourcePath": "docs/specs/capabilities/evaluate-learn-improve.html",
+              "rootPath": "docs",
+              "specId": "foundation.evaluate-learn-improve.capability"
             },
             {
               "type": "file",
@@ -273,6 +309,15 @@ window.SubstrateSiteMap = {
             },
             {
               "type": "file",
+              "name": "make-outstanding-work-repeatable.html",
+              "title": "Make Outstanding Work Repeatable",
+              "path": "specs/capabilities/make-outstanding-work-repeatable.html",
+              "sourcePath": "docs/specs/capabilities/make-outstanding-work-repeatable.html",
+              "rootPath": "docs",
+              "specId": "foundation.make-outstanding-work-repeatable.capability"
+            },
+            {
+              "type": "file",
               "name": "map-capabilities-from-evidence.html",
               "title": "Map Capabilities From Evidence",
               "path": "specs/capabilities/map-capabilities-from-evidence.html",
@@ -291,6 +336,15 @@ window.SubstrateSiteMap = {
             },
             {
               "type": "file",
+              "name": "operate-systems-in-real-world.html",
+              "title": "Operate Systems In The Real World",
+              "path": "specs/capabilities/operate-systems-in-real-world.html",
+              "sourcePath": "docs/specs/capabilities/operate-systems-in-real-world.html",
+              "rootPath": "docs",
+              "specId": "foundation.operate-systems-in-real-world.capability"
+            },
+            {
+              "type": "file",
               "name": "package-context-for-action.html",
               "title": "Package Context For Action",
               "path": "specs/capabilities/package-context-for-action.html",
@@ -300,12 +354,39 @@ window.SubstrateSiteMap = {
             },
             {
               "type": "file",
+              "name": "preserve-knowledge-context.html",
+              "title": "Preserve Knowledge As Useful Context",
+              "path": "specs/capabilities/preserve-knowledge-context.html",
+              "sourcePath": "docs/specs/capabilities/preserve-knowledge-context.html",
+              "rootPath": "docs",
+              "specId": "foundation.preserve-knowledge-context.capability"
+            },
+            {
+              "type": "file",
               "name": "render-inspectable-system-graph.html",
               "title": "Render the System as an Inspectable Graph",
               "path": "specs/capabilities/render-inspectable-system-graph.html",
               "sourcePath": "docs/specs/capabilities/render-inspectable-system-graph.html",
               "rootPath": "docs",
               "specId": "foundation.render-inspectable-system-graph.capability"
+            },
+            {
+              "type": "file",
+              "name": "show-system-clearly.html",
+              "title": "Show The System Clearly",
+              "path": "specs/capabilities/show-system-clearly.html",
+              "sourcePath": "docs/specs/capabilities/show-system-clearly.html",
+              "rootPath": "docs",
+              "specId": "foundation.show-system-clearly.capability"
+            },
+            {
+              "type": "file",
+              "name": "understand-intent-reality.html",
+              "title": "Understand Intent And Reality",
+              "path": "specs/capabilities/understand-intent-reality.html",
+              "sourcePath": "docs/specs/capabilities/understand-intent-reality.html",
+              "rootPath": "docs",
+              "specId": "foundation.understand-intent-reality.capability"
             }
           ]
         },
@@ -873,6 +954,24 @@ window.SubstrateSiteMap = {
           "sourcePath": "docs/specs/foundation-backfill-system-coherence-evaluation.html",
           "rootPath": "docs",
           "specId": "foundation.backfill-system-coherence-evaluation.job"
+        },
+        {
+          "type": "file",
+          "name": "foundation-capability-map-remap-eval.html",
+          "title": "Foundation Capability Map Remap Eval",
+          "path": "specs/foundation-capability-map-remap-eval.html",
+          "sourcePath": "docs/specs/foundation-capability-map-remap-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.capability-map-remap.eval"
+        },
+        {
+          "type": "file",
+          "name": "foundation-capability-map-remap.html",
+          "title": "Foundation Capability Map Remap",
+          "path": "specs/foundation-capability-map-remap.html",
+          "sourcePath": "docs/specs/foundation-capability-map-remap.html",
+          "rootPath": "docs",
+          "specId": "foundation.capability-map-remap.job"
         },
         {
           "type": "file",

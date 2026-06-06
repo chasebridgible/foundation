@@ -60,6 +60,7 @@
     "foundation:author-specs:report": "node scripts/author-specs-report.mjs",
     "foundation:author-specs:test": "node --test scripts/author-specs.test.mjs",
     "foundation:spec-selection:eval": "node scripts/spec-selection-eval.mjs",
+    "foundation:capability-map-remap:check": "node scripts/capability-map-remap-check.mjs",
     "foundation:visible-business-graph:check": "node scripts/visible-business-graph-check.mjs",
     "foundation:visible-business-graph:build": "node scripts/visible-business-graph-build.mjs",
     "foundation:visible-business-graph:render": "node scripts/visible-business-graph-render.mjs",

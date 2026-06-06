@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.capability-map-remap.eval">
+<meta name="spec:type" content="eval">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-06">
+<title>Foundation Capability Map Remap Eval</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.capability-map-remap.eval",
+  "title": "Foundation Capability Map Remap Eval",
+  "type": "eval",
+  "status": "active",
+  "lastUpdated": "2026-06-06",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.capability-map-remap.job",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.capability-map-remap.job",
+      "relationship": "parent",
+      "sections": [
+        "process",
+        "proposed-handling"
+      ]
+    },
+    {
+      "id": "foundation.spec-selection.job",
+      "relationship": "depends-on",
+      "sections": [
+        "capability-job-tests",
+        "decision-process"
+      ]
+    },
+    {
+      "id": "foundation.author-capability-spec.eval",
+      "relationship": "depends-on",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-capability-map-remap-eval.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Job and remap table under evaluation."
+    },
+    {
+      "path": "foundation/docs/specs/spec-selection.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Capability/job boundary tests."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.capability-map-remap.eval:manual-review",
+      "level": "manual",
+      "status": "existing",
+      "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+      "mapsTo": [
+        "foundation.capability-map-remap.eval#acceptance-mapping"
+      ],
+      "evidence": "Manual row-level semantic review against the remap job table."
+    },
+    {
+      "id": "foundation.capability-map-remap.eval:spec-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.capability-map-remap.eval#commands-and-evidence"
+      ],
+      "command": "npm run spec:check"
+    },
+    {
+      "id": "foundation.capability-map-remap.eval:table-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/capability-map-remap-check.mjs",
+      "mapsTo": [
+        "foundation.capability-map-remap.eval#acceptance-mapping",
+        "foundation.capability-map-remap.eval#commands-and-evidence"
+      ],
+      "command": "npm run foundation:capability-map-remap:check"
+    }
+  ],
+  "tags": [
+    "eval",
+    "capability",
+    "remap"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.capability-map-remap.eval",
+  "nodes": [
+    {
+      "id": "spec:foundation.capability-map-remap.eval",
+      "type": "evaluation",
+      "label": "Foundation Capability Map Remap Eval",
+      "source": {
+        "specId": "foundation.capability-map-remap.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "capability",
+          "remap"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.capability-map-remap.eval:evaluates:spec:foundation.capability-map-remap.job",
+      "type": "evaluates",
+      "from": "spec:foundation.capability-map-remap.eval",
+      "to": "spec:foundation.capability-map-remap.job",
+      "source": {
+        "specId": "foundation.capability-map-remap.eval",
+        "sectionId": "verification-contract"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">E</div>
+    <div>
+      <div class="sidebar-title">Foundation Capability Map Remap Eval</div>
+      <div class="sidebar-sub">eval spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#verification-contract"><span class="nav-num">01</span>Verification contract</a>
+    <a class="nav-item" href="#acceptance-mapping"><span class="nav-num">02</span>Acceptance mapping</a>
+    <a class="nav-item" href="#coverage-plan"><span class="nav-num">03</span>Coverage plan</a>
+    <a class="nav-item" href="#commands-and-evidence"><span class="nav-num">04</span>Commands and evidence</a>
+    <a class="nav-item" href="#gaps-and-followups"><span class="nav-num">05</span>Gaps and follow-ups</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-capability-map-remap-eval.html</div>
+    <h1>Foundation Capability Map Remap Eval</h1>
+    <p class="lede">This eval judges whether a Foundation capability remap preserves intent, uses the settled vocabulary, and avoids turning jobs, phases, artifacts, or implementation details into capabilities.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
+      <div><strong>Canonical section:</strong> <a href="#verification-contract">#verification-contract</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
+      <h1>Verification contract</h1>
+      <p>A capability map remap passes only when every affected current capability, proposed parent capability, job owner, skill owner, validator assumption, and backfill boundary is classified and actioned or explicitly deferred. The eval should fail broad remaps that only rename headings, preserve old phase-shaped capabilities, or skip graph and validator consequences.</p>
+    </section>
+
+    <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
+      <h2>Acceptance mapping</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Condition</th><th>Must prove</th></tr></thead>
+        <tbody>
+          <tr><td>REM-1</td><td>Root goal preserved.</td><td>The remap continues to serve the canonical Foundation system goal rather than a narrower backfill-only or spec-only objective.</td></tr>
+          <tr><td>REM-2</td><td>Vocabulary applied.</td><td>Capability, parent capability, child capability, job, process, action, artifact, interface, evidence, and eval are used according to <code>docs/definitions/definitions.html</code> and <code>foundation.spec-selection.job</code>.</td></tr>
+          <tr><td>REM-3</td><td>Every current capability classified.</td><td>Each current capability-type spec has a row naming current classification, proposed parent, proposed role, and action needed.</td></tr>
+          <tr><td>REM-4</td><td>Parent/child links decompose outcomes.</td><td>Parent to child relationships are broader reliable outcome to narrower reliable outcome, not phase to phase or artifact to artifact.</td></tr>
+          <tr><td>REM-5</td><td>Job-shaped names are caught.</td><td>Verb-led or phase-led candidates are rewritten as standing abilities or routed to jobs/process sections.</td></tr>
+          <tr><td>REM-6</td><td>Subsystem-shaped specs are identified.</td><td>Specs whose IDs or titles say <code>system</code> while metadata says capability are retained only with explicit compatibility notes or a later rename plan.</td></tr>
+          <tr><td>REM-7</td><td>Graph and validator consequences are named.</td><td>The plan names metadata, graph edge, self-map, visible graph, AGENTS/skill, and backfill/mapping consequences before edits are closed.</td></tr>
+          <tr><td>REM-8</td><td>Gaps remain visible.</td><td>Parent capabilities without current child specs, such as real-world operation if still unmapped, are explicit gaps and not silently omitted.</td></tr>
+          <tr><td>REM-9</td><td>Smallest wrong artifact is revised first.</td><td>Eval findings point to the exact row, spec, metadata edge, validator rule, or skill instruction that should change next.</td></tr>
+          <tr><td>REM-10</td><td>Parent/child metadata is reciprocal.</td><td>If a capability lists a child capability, that child must declare the same capability as its parent.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
+      <h2>Coverage plan</h2>
+      <p>The first coverage layer is row-level manual review of the remap table. Structural checks come after rows are acceptable because registry and graph checks cannot judge whether a capability name is actually outcome-shaped.</p>
+      <ul>
+        <li>Manual review checks each remap row against the standing-ability, parent-capability, child-capability, triggered-work, and decomposition tests.</li>
+        <li><code>npm run foundation:capability-map-remap:check</code> fails when any current capability spec lacks a remap row, any required parent family is missing, a remap row has an empty required cell, or parent/child capability metadata is stale.</li>
+        <li><code>npm run spec:check</code> checks registry, graph metadata, and self-map structure after edits.</li>
+        <li><code>npm run foundation:self-map:check</code> specifically checks Foundation capability/job/skill ownership assumptions.</li>
+      </ul>
+    </section>
+
+    <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">
+      <h2>Commands and evidence</h2>
+      <ul>
+        <li><code>npm run spec:registry</code> after spec metadata changes.</li>
+        <li><code>npm run foundation:capability-map-remap:check</code> after editing the remap table.</li>
+        <li><code>npm run spec:check</code> before handoff.</li>
+        <li><code>npm run foundation:self-map:check</code> after capability, job, or skill ownership changes.</li>
+        <li><code>npm run foundation:visible-business-graph:check -- --repo .</code> after graph metadata changes.</li>
+      </ul>
+    </section>
+
+    <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
+      <h2>Gaps and follow-ups</h2>
+      <p>The deterministic checker validates table coverage and row shape. It does not replace semantic review because capability/job boundaries require judgment.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation Capability Map Remap Eval · generated starter spec</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

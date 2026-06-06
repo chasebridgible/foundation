@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.map-surfaces-functions.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Map Surfaces and Functions</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,19 +16,20 @@
   "title": "Map Surfaces and Functions",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "high",
-  "parent": "foundation.operating-system.system",
+  "parent": "foundation.change-existing-systems-without-losing-intent.capability",
   "children": [
     "foundation.backfill-surface-function-map.job"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.operating-system.system",
+      "id": "foundation.change-existing-systems-without-losing-intent.capability",
       "relationship": "parent",
       "sections": [
-        "system-intent"
+        "capability-intent",
+        "jobs"
       ]
     },
     {
@@ -106,10 +107,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.map-surfaces-functions.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.map-surfaces-functions.capability:depends-on:spec:foundation.change-existing-systems-without-losing-intent.capability",
       "type": "depends-on",
       "from": "spec:foundation.map-surfaces-functions.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.change-existing-systems-without-losing-intent.capability",
       "source": {
         "specId": "foundation.map-surfaces-functions.capability",
         "sectionId": "capability-intent"
