@@ -1,9 +1,11 @@
 # Agent Capability Scout Brief: 2026-06-06-agent-scout-01
 
-Status: blocked until publish and GitHub App notification finish.
+Status: complete; PR open for owner review because this run proposes a principles-doc patch.
 Run ID: 2026-06-06-agent-scout-01
 Source registry version: 2026-06-05
 Branch: codex/agent-capability-scout-20260606-01
+PR: https://github.com/chasebridgible/foundation/pull/51
+Notification: https://github.com/chasebridgible/foundation/pull/51#issuecomment-4638208969
 
 ## Sources Checked
 
@@ -36,5 +38,4 @@ Branch: codex/agent-capability-scout-20260606-01
 
 ## Requested Owner Action
 
-Review the proposed review-throughput principle. If the owner agrees it is routine doctrine, merge after checks and GitHub App notification pass; otherwise leave the PR open for owner judgment.
-
+Review the proposed review-throughput principle. The PR is intentionally left open for owner judgment because the change updates shared Agent Principles doctrine.
