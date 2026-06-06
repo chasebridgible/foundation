@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.evaluate-quality-completeness.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Evaluate Quality and Completeness</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,20 +16,21 @@
   "title": "Evaluate Quality and Completeness",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "high",
-  "parent": "foundation.operating-system.system",
+  "parent": "foundation.evaluate-learn-improve.capability",
   "children": [
     "foundation.backfill-job-slice-evaluation.job",
     "foundation.backfill-system-coherence-evaluation.job"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.operating-system.system",
+      "id": "foundation.evaluate-learn-improve.capability",
       "relationship": "parent",
       "sections": [
-        "system-intent"
+        "capability-intent",
+        "jobs"
       ]
     },
     {
@@ -111,10 +112,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.evaluate-quality-completeness.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.evaluate-quality-completeness.capability:depends-on:spec:foundation.evaluate-learn-improve.capability",
       "type": "depends-on",
       "from": "spec:foundation.evaluate-quality-completeness.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.evaluate-learn-improve.capability",
       "source": {
         "specId": "foundation.evaluate-quality-completeness.capability",
         "sectionId": "capability-intent"

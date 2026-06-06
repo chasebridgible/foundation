@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.capture-business-system-intent.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Capture Business and System Intent</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,28 +16,24 @@
   "title": "Capture Business and System Intent",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "high",
-  "parent": "foundation.operating-system.system",
+  "parent": "foundation.understand-intent-reality.capability",
   "children": [
-    "foundation.business-intake-fill-loop.job",
-    "foundation.knowledge-data-layer.system"
+    "foundation.business-intake-fill-loop.job"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.operating-system.system",
+      "id": "foundation.understand-intent-reality.capability",
       "relationship": "parent",
       "sections": [
-        "system-intent"
+        "capability-intent",
+        "jobs"
       ]
     },
     {
       "id": "foundation.business-intake-fill-loop.job",
-      "relationship": "child"
-    },
-    {
-      "id": "foundation.knowledge-data-layer.system",
       "relationship": "child"
     }
   ],
@@ -116,10 +112,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.capture-business-system-intent.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.capture-business-system-intent.capability:depends-on:spec:foundation.understand-intent-reality.capability",
       "type": "depends-on",
       "from": "spec:foundation.capture-business-system-intent.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.understand-intent-reality.capability",
       "source": {
         "specId": "foundation.capture-business-system-intent.capability",
         "sectionId": "capability-intent"
@@ -130,16 +126,6 @@
       "type": "realized-by",
       "from": "spec:foundation.capture-business-system-intent.capability",
       "to": "spec:foundation.business-intake-fill-loop.job",
-      "source": {
-        "specId": "foundation.capture-business-system-intent.capability",
-        "sectionId": "capability-intent"
-      }
-    },
-    {
-      "id": "edge:spec:foundation.capture-business-system-intent.capability:contains:spec:foundation.knowledge-data-layer.system",
-      "type": "contains",
-      "from": "spec:foundation.capture-business-system-intent.capability",
-      "to": "spec:foundation.knowledge-data-layer.system",
       "source": {
         "specId": "foundation.capture-business-system-intent.capability",
         "sectionId": "capability-intent"

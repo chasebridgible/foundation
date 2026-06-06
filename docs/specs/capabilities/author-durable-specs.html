@@ -19,12 +19,13 @@
   "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "high",
-  "parent": "foundation.operating-system.system",
+  "parent": "foundation.define-right-work.capability",
   "children": [
     "foundation.backfill-author-specs.job",
     "foundation.html-docs-navigation.job",
     "foundation.spec-process",
     "foundation.spec-selection.job",
+    "foundation.capability-map-remap.job",
     "foundation.author-system-spec.job",
     "foundation.author-capability-spec.job",
     "foundation.author-job-spec.job",
@@ -36,10 +37,11 @@
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.operating-system.system",
+      "id": "foundation.define-right-work.capability",
       "relationship": "parent",
       "sections": [
-        "system-intent"
+        "capability-intent",
+        "jobs"
       ]
     },
     {
@@ -60,6 +62,15 @@
       "sections": [
         "classification-contract",
         "spec-type-rules"
+      ]
+    },
+    {
+      "id": "foundation.capability-map-remap.job",
+      "relationship": "child",
+      "sections": [
+        "job-intent",
+        "proposed-handling",
+        "process"
       ]
     },
     {
@@ -165,10 +176,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.author-durable-specs.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.author-durable-specs.capability:depends-on:spec:foundation.define-right-work.capability",
       "type": "depends-on",
       "from": "spec:foundation.author-durable-specs.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.define-right-work.capability",
       "source": {
         "specId": "foundation.author-durable-specs.capability",
         "sectionId": "capability-intent"
@@ -209,6 +220,16 @@
       "type": "realized-by",
       "from": "spec:foundation.author-durable-specs.capability",
       "to": "spec:foundation.spec-selection.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.capability-map-remap.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.capability-map-remap.job",
       "source": {
         "specId": "foundation.author-durable-specs.capability",
         "sectionId": "jobs"
@@ -358,6 +379,7 @@
           <tr><td>HTML Docs Navigation</td><td>Keep HTML docs navigable as client-visible artifacts.</td><td><code>foundation.html-docs-navigation.job</code></td><td>active</td></tr>
           <tr><td>Spec Maintenance Process</td><td>Keep spec authoring, metadata, graph links, coverage, and workflow-skill execution aligned.</td><td><code>foundation.spec-process</code></td><td>active</td></tr>
           <tr><td>Spec Selection</td><td>Decide whether intent belongs in a system, parent capability, child capability, job, technical, or eval spec before authoring begins.</td><td><code>foundation.spec-selection.job</code></td><td>active</td></tr>
+          <tr><td>Capability Map Remap</td><td>Classify and revise Foundation capability maps when parent/child capability vocabulary changes.</td><td><code>foundation.capability-map-remap.job</code></td><td>active</td></tr>
           <tr><td>Author System Specs</td><td>Create or revise root system specs after Spec Selection classifies system-level intent.</td><td><code>foundation.author-system-spec.job</code></td><td>active</td></tr>
           <tr><td>Author Capability Specs</td><td>Create or revise parent and child capability specs after Spec Selection classifies durable outcomes.</td><td><code>foundation.author-capability-spec.job</code></td><td>active</td></tr>
           <tr><td>Author Job Specs</td><td>Create or revise job specs after Spec Selection classifies triggered work.</td><td><code>foundation.author-job-spec.job</code></td><td>active</td></tr>
@@ -387,6 +409,7 @@
         <thead><tr><th>Evidence</th><th>Eval or check</th><th>Revision target</th></tr></thead>
         <tbody>
           <tr><td>Spec registry, metadata, graph metadata, and examples pass checks.</td><td><code>foundation.backfill-author-specs.eval</code></td><td>Update templates, authoring skill, or spec process.</td></tr>
+          <tr><td>Capability remap rows preserve the root goal and classify every affected capability/job boundary.</td><td><code>foundation.capability-map-remap.eval</code></td><td>Update remap rows, capability specs, graph metadata, validator assumptions, or backfill mapping rules.</td></tr>
         </tbody>
       </table>
     </section>

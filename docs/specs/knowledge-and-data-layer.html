@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.knowledge-data-layer.system">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Knowledge and Data Layer</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,20 +16,20 @@
   "title": "Knowledge and Data Layer",
   "type": "capability",
   "status": "draft",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "on-trigger",
   "confidence": "medium",
-  "parent": "foundation.capture-business-system-intent.capability",
+  "parent": "foundation.preserve-knowledge-context.capability",
   "children": [
-    "foundation.business-intake-fill-loop.job",
-    "foundation.visible-business-graph.system"
+    "foundation.business-intake-fill-loop.job"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.capture-business-system-intent.capability",
+      "id": "foundation.preserve-knowledge-context.capability",
       "relationship": "parent",
       "sections": [
-        "capability-intent"
+        "capability-intent",
+        "jobs"
       ]
     },
     {
@@ -75,15 +75,6 @@
         "job-intent",
         "process",
         "evidence-and-evaluation"
-      ]
-    },
-    {
-      "id": "foundation.visible-business-graph.system",
-      "relationship": "child",
-      "sections": [
-        "system-intent",
-        "graph-contract",
-        "view-contracts"
       ]
     }
   ],
@@ -200,10 +191,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.knowledge-data-layer.system:depends-on:spec:foundation.capture-business-system-intent.capability",
+      "id": "edge:spec:foundation.knowledge-data-layer.system:depends-on:spec:foundation.preserve-knowledge-context.capability",
       "type": "depends-on",
       "from": "spec:foundation.knowledge-data-layer.system",
-      "to": "spec:foundation.capture-business-system-intent.capability",
+      "to": "spec:foundation.preserve-knowledge-context.capability",
       "source": {
         "specId": "foundation.knowledge-data-layer.system",
         "sectionId": "product-intent"
@@ -214,16 +205,6 @@
       "type": "realized-by",
       "from": "spec:foundation.knowledge-data-layer.system",
       "to": "spec:foundation.business-intake-fill-loop.job",
-      "source": {
-        "specId": "foundation.knowledge-data-layer.system",
-        "sectionId": "product-intent"
-      }
-    },
-    {
-      "id": "edge:spec:foundation.knowledge-data-layer.system:contains:spec:foundation.visible-business-graph.system",
-      "type": "contains",
-      "from": "spec:foundation.knowledge-data-layer.system",
-      "to": "spec:foundation.visible-business-graph.system",
       "source": {
         "specId": "foundation.knowledge-data-layer.system",
         "sectionId": "product-intent"
@@ -473,7 +454,7 @@
     </div>
     <h3>Intent</h3>
     <p>This spec defines the first durable shape for an Orderly Systems knowledge and data layer. The layer should capture how a business works, connect that understanding to the organization's existing sources, collect operating data where useful, and produce context, evidence, and evaluation for business improvement work.</p>
-    <p>The system has two cooperating loops. The <strong>knowledge loop</strong> uses the combined <a href="../fundamentals/business-intake.html">business intake workspace</a> to ask business intake questions, read existing sources, mark answer status, and turn reviewed answers into canonical operating substrate. The <strong>data loop</strong> brings SaaS and existing business data into an Orderly-managed database so <strong>Reality answers</strong> can use current measurements instead of only interview memory or static documents. Evaluation then judges those answers against intent. The <a data-spec-link="foundation.visible-business-graph.system" href="./visible-business-graph.html">Visible Business Graph</a> child spec defines how that substrate can become an inspectable graph of capabilities, jobs, actors, processes, tools, evidence, and gaps.</p>
+    <p>The system has two cooperating loops. The <strong>knowledge loop</strong> uses the combined <a href="../fundamentals/business-intake.html">business intake workspace</a> to ask business intake questions, read existing sources, mark answer status, and turn reviewed answers into canonical operating substrate. The <strong>data loop</strong> brings SaaS and existing business data into an Orderly-managed database so <strong>Reality answers</strong> can use current measurements instead of only interview memory or static documents. Evaluation then judges those answers against intent. The <a data-spec-link="foundation.visible-business-graph.system" href="./visible-business-graph.html">Visible Business Graph</a> spec defines how substrate can become an inspectable graph of capabilities, jobs, actors, processes, tools, evidence, and gaps.</p>
     <h3>Out of scope</h3>
     <p>This draft does not choose a database, vector store, sync vendor, SaaS connector set, permission model, or UI. It defines the conceptual contract that those implementation decisions must satisfy later.</p>
   </section>

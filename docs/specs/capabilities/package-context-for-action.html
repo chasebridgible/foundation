@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.package-context-for-action.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Package Context For Action</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,19 +16,20 @@
   "title": "Package Context For Action",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "high",
-  "parent": "foundation.operating-system.system",
+  "parent": "foundation.preserve-knowledge-context.capability",
   "children": [
     "foundation.backfill-context-pack.job"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.operating-system.system",
+      "id": "foundation.preserve-knowledge-context.capability",
       "relationship": "parent",
       "sections": [
-        "system-intent"
+        "capability-intent",
+        "jobs"
       ]
     },
     {
@@ -106,10 +107,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.package-context-for-action.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.package-context-for-action.capability:depends-on:spec:foundation.preserve-knowledge-context.capability",
       "type": "depends-on",
       "from": "spec:foundation.package-context-for-action.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.preserve-knowledge-context.capability",
       "source": {
         "specId": "foundation.package-context-for-action.capability",
         "sectionId": "capability-intent"

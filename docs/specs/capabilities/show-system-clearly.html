@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.show-system-clearly.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-06">
+<title>Show The System Clearly</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.show-system-clearly.capability",
+  "title": "Show The System Clearly",
+  "type": "capability",
+  "status": "active",
+  "lastUpdated": "2026-06-06",
+  "reviewCadence": "per-change",
+  "confidence": "high",
+  "parent": "foundation.operating-system.system",
+  "children": [
+    "foundation.render-inspectable-system-graph.capability",
+    "foundation.visible-business-graph.system"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.operating-system.system",
+      "relationship": "parent",
+      "sections": [
+        "capability-map"
+      ]
+    },
+    {
+      "id": "foundation.render-inspectable-system-graph.capability",
+      "relationship": "child",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.visible-business-graph.system",
+      "relationship": "child",
+      "sections": [
+        "system-intent",
+        "graph-contract"
+      ]
+    },
+    {
+      "id": "foundation.capability-map-remap.job",
+      "relationship": "informs",
+      "sections": [
+        "proposed-handling",
+        "process"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/capabilities/show-system-clearly.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Defines the current remap decision."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.show-system-clearly.capability:remap-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/capability-map-remap-check.mjs",
+      "mapsTo": [
+        "foundation.show-system-clearly.capability#evidence-and-evaluation"
+      ],
+      "command": "npm run foundation:capability-map-remap:check"
+    },
+    {
+      "id": "foundation.show-system-clearly.capability:spec-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.show-system-clearly.capability#evidence-and-evaluation"
+      ],
+      "command": "npm run spec:check"
+    }
+  ],
+  "tags": [
+    "capability",
+    "parent-capability",
+    "foundation"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.show-system-clearly.capability",
+  "nodes": [
+    {
+      "id": "spec:foundation.show-system-clearly.capability",
+      "type": "capability",
+      "label": "Show The System Clearly",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation"
+        ]
+      }
+    },
+    {
+      "id": "evidence:foundation.show-system-clearly.capability:primary",
+      "type": "evidence",
+      "label": "Show The System Clearly evidence",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "generatedFrom": "foundation.show-system-clearly.capability"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.show-system-clearly.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.show-system-clearly.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "capability-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.show-system-clearly.capability:evidenced-by:evidence:foundation.show-system-clearly.capability:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.show-system-clearly.capability",
+      "to": "evidence:foundation.show-system-clearly.capability:primary",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.show-system-clearly.capability:contains:spec:foundation.render-inspectable-system-graph.capability",
+      "type": "contains",
+      "from": "spec:foundation.show-system-clearly.capability",
+      "to": "spec:foundation.render-inspectable-system-graph.capability",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.show-system-clearly.capability:contains:spec:foundation.visible-business-graph.system",
+      "type": "contains",
+      "from": "spec:foundation.show-system-clearly.capability",
+      "to": "spec:foundation.visible-business-graph.system",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "jobs"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Show The System Clearly</div>
+      <div class="sidebar-sub">parent capability</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#capability-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#outcome-contract"><span class="nav-num">02</span>Outcome</a>
+    <a class="nav-item" href="#jobs"><span class="nav-num">03</span>Children</a>
+    <a class="nav-item" href="#interfaces-and-sources"><span class="nav-num">04</span>Sources</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">05</span>Evidence</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/capabilities/show-system-clearly.html</div>
+    <h1>Show The System Clearly</h1>
+    <p class="lede">Goals, capabilities, jobs, actors, evidence, gaps, ownership, and next work can be inspected visually without relying on source or chat history.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
+      <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+      <h1>Capability intent</h1>
+      <p>Goals, capabilities, jobs, actors, evidence, gaps, ownership, and next work can be inspected visually without relying on source or chat history.</p>
+      <p>This is a parent capability: it names an outcome family that decomposes into narrower child capabilities. It is not a phase, artifact group, department, or implementation layer.</p>
+    </section>
+
+    <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="contracts">
+      <h2>Outcome contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Beneficiary</td><td>Humans, agents, and software systems using Foundation.</td><td>Foundation operating system goal.</td></tr>
+          <tr><td>Reliable outcome</td><td>Goals, capabilities, jobs, actors, evidence, gaps, ownership, and next work can be inspected visually without relying on source or chat history.</td><td>Capability remap plan.</td></tr>
+          <tr><td>Capability altitude</td><td>Parent capability outcome family.</td><td><code>foundation.capability-map-remap.job</code></td></tr>
+          <tr><td>Child examples</td><td>Show business goals, capabilities, jobs, evidence, gaps, and ownership visually; make capability graphs understandable.</td><td>System capability workshop and remap table.</td></tr>
+          <tr><td>Failure mode</td><td>Humans and agents cannot see what exists, what is missing, who owns it, or what should happen next.</td><td>Remap eval failure model.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+      <h2>Child capabilities and jobs</h2>
+      <p>Parent capabilities decompose into narrower child capabilities. Jobs usually attach to those child capability specs unless this parent owns a direct operating job.</p>
+      <table class="status-table">
+        <thead><tr><th>Child capability or gap</th><th>Purpose</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><code>foundation.render-inspectable-system-graph.capability</code></td><td>Narrower reliable outcome under this parent family.</td><td>active or draft</td></tr>
+          <tr><td><code>foundation.visible-business-graph.system</code></td><td>Narrower reliable outcome under this parent family.</td><td>active or draft</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interfaces-and-sources" data-spec-section="interfaces-and-sources" data-section-type="interfaces">
+      <h2>Interfaces and sources</h2>
+      <ul>
+        <li><code>foundation.operating-system.system#capability-map</code> names this parent capability family.</li>
+        <li><code>foundation.capability-map-remap.job#proposed-handling</code> records the current child mapping.</li>
+        <li><code>docs/definitions/definitions.html#system-philosophy-concepts</code> defines parent and child capability boundaries.</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Eval or check</th><th>Revision target</th></tr></thead>
+        <tbody>
+          <tr><td>Current child capability specs remain linked and graph-visible.</td><td><code>npm run foundation:capability-map-remap:check</code></td><td>Update remap rows, child capability links, or parent metadata.</td></tr>
+          <tr><td>Spec registry, graph, and self-map resolve.</td><td><code>npm run spec:check</code></td><td>Update metadata, graph edges, or child spec links.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Show The System Clearly - Foundation parent capability spec</p>
+</main>
+<script src="../../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

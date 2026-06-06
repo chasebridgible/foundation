@@ -18,18 +18,15 @@ const errors = [];
 const warnings = [];
 
 const CORE_CAPABILITY_IDS = [
-  "foundation.capture-business-system-intent.capability",
-  "foundation.inventory-classify-artifacts.capability",
-  "foundation.map-surfaces-functions.capability",
-  "foundation.map-capabilities-from-evidence.capability",
-  "foundation.define-jobs-from-capabilities.capability",
-  "foundation.package-context-for-action.capability",
-  "foundation.author-durable-specs.capability",
-  "foundation.generate-maintain-agent-skills.capability",
-  "foundation.evaluate-quality-completeness.capability",
-  "foundation.render-inspectable-system-graph.capability",
-  "foundation.install-foundation-target-repos.capability",
-  "foundation.compound-improvements-safely.capability"
+  "foundation.understand-intent-reality.capability",
+  "foundation.preserve-knowledge-context.capability",
+  "foundation.define-right-work.capability",
+  "foundation.make-outstanding-work-repeatable.capability",
+  "foundation.build-new-systems-from-clear-specs.capability",
+  "foundation.change-existing-systems-without-losing-intent.capability",
+  "foundation.operate-systems-in-real-world.capability",
+  "foundation.show-system-clearly.capability",
+  "foundation.evaluate-learn-improve.capability"
 ];
 
 function fail(message) {
@@ -80,6 +77,13 @@ function coverageHasCheck(metadata) {
   return (metadata.coverage || []).some(item =>
     ["existing", "planned", "gap"].includes(item.status) &&
     (item.command || item.evidence || item.path)
+  );
+}
+
+function coverageHasGap(metadata) {
+  return (metadata.coverage || []).some(item =>
+    item.status === "gap" &&
+    (item.evidence || item.path || item.command)
   );
 }
 
@@ -148,7 +152,10 @@ for (const doc of technicalAndEvalSpecs) {
 for (const doc of capabilitySpecs) {
   const metadata = doc.metadata;
   const jobs = linkedSpecsOfType(metadata, specsById, "job");
-  if (jobs.length === 0) fail(`${metadata.id}: capability must link to at least one job spec.`);
+  const childCapabilities = linkedSpecsOfType(metadata, specsById, "capability");
+  if (jobs.length === 0 && childCapabilities.length === 0 && !coverageHasGap(metadata)) {
+    fail(`${metadata.id}: capability must link to at least one job spec, child capability spec, or explicit gap.`);
+  }
   if (!coverageHasCheck(metadata)) fail(`${metadata.id}: capability must declare coverage or evidence for an eval/check.`);
   const capabilityNode = (doc.graph?.nodes || []).find(node => node.type === "capability" && node.source?.specId === metadata.id);
   if (!capabilityNode) fail(`${metadata.id}: capability graph metadata must expose a capability node.`);
@@ -188,15 +195,6 @@ if (graph) {
     .map(id => `spec:${id}`)
     .filter(nodeId => !graph.nodes.some(node => node.id === nodeId && node.type === "capability"));
   for (const nodeId of missingCoreNodes) fail(`Visible business graph is missing core capability node ${nodeId}.`);
-}
-
-for (const capabilityId of CORE_CAPABILITY_IDS) {
-  const capability = specsById.get(capabilityId)?.metadata;
-  if (!capability) continue;
-  const jobs = linkedSpecsOfType(capability, specsById, "job");
-  if (jobs.length === 1 && capabilityId === "foundation.generate-maintain-agent-skills.capability") {
-    warn(`${capabilityId}: currently reuses ${jobs[0].id}; consider a dedicated skill-authoring job once the workflow grows.`);
-  }
 }
 
 if (errors.length > 0) {

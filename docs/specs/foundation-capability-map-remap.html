@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.capability-map-remap.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-06">
+<title>Foundation Capability Map Remap</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.capability-map-remap.job",
+  "title": "Foundation Capability Map Remap",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-06",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.author-durable-specs.capability",
+  "children": [
+    "foundation.capability-map-remap.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.author-durable-specs.capability",
+      "relationship": "parent",
+      "sections": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.operating-system.system",
+      "relationship": "informs",
+      "sections": [
+        "capability-map"
+      ]
+    },
+    {
+      "id": "foundation.spec-selection.job",
+      "relationship": "depends-on",
+      "sections": [
+        "capability-job-tests",
+        "decision-process"
+      ]
+    },
+    {
+      "id": "foundation.author-capability-spec.job",
+      "relationship": "depends-on",
+      "sections": [
+        "job-intent",
+        "process"
+      ]
+    },
+    {
+      "id": "foundation.capability-map-remap.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-operating-system.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Owns the root system goal and current capability map."
+    },
+    {
+      "path": "foundation/docs/definitions/definitions.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Defines capability, parent capability, child capability, job, artifact, evidence, and eval."
+    },
+    {
+      "path": "foundation/scripts/foundation-self-map-check.mjs",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Enforces Foundation capability/job/skill ownership after remap."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.capability-map-remap.job:remap-eval",
+      "level": "manual",
+      "status": "existing",
+      "path": "foundation/docs/specs/foundation-capability-map-remap-eval.html",
+      "mapsTo": [
+        "foundation.capability-map-remap.job#evidence-and-evaluation"
+      ],
+      "evidence": "Remap eval acceptance table is the semantic gate."
+    },
+    {
+      "id": "foundation.capability-map-remap.job:spec-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.capability-map-remap.job#evidence-and-evaluation"
+      ],
+      "command": "npm run spec:check"
+    },
+    {
+      "id": "foundation.capability-map-remap.job:self-map",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-self-map-check.mjs",
+      "mapsTo": [
+        "foundation.capability-map-remap.job#evidence-and-evaluation"
+      ],
+      "command": "npm run foundation:self-map:check"
+    },
+    {
+      "id": "foundation.capability-map-remap.job:table-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/capability-map-remap-check.mjs",
+      "mapsTo": [
+        "foundation.capability-map-remap.job#proposed-handling",
+        "foundation.capability-map-remap.job#evidence-and-evaluation"
+      ],
+      "command": "npm run foundation:capability-map-remap:check"
+    }
+  ],
+  "tags": [
+    "job",
+    "capability",
+    "remap"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.capability-map-remap.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.capability-map-remap.job",
+      "type": "job",
+      "label": "Foundation Capability Map Remap",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "capability",
+          "remap"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.capability-map-remap.job:main",
+      "type": "process",
+      "label": "Foundation Capability Map Remap process",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.capability-map-remap.job"
+      }
+    },
+    {
+      "id": "actor:foundation.capability-map-remap.job:primary",
+      "type": "actor",
+      "label": "Foundation Capability Map Remap actor",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.capability-map-remap.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.capability-map-remap.job:primary",
+      "type": "evidence",
+      "label": "Foundation Capability Map Remap evidence",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.capability-map-remap.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:has-process:process:foundation.capability-map-remap.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "process:foundation.capability-map-remap.job:main",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:performed-by:actor:foundation.capability-map-remap.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "actor:foundation.capability-map-remap.job:primary",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "job-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:evidenced-by:evidence:foundation.capability-map-remap.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "evidence:foundation.capability-map-remap.job:primary",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "job-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:depends-on:spec:foundation.spec-selection.job",
+      "type": "depends-on",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "spec:foundation.spec-selection.job",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:depends-on:spec:foundation.author-capability-spec.job",
+      "type": "depends-on",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "spec:foundation.author-capability-spec.job",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "process"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">J</div>
+    <div>
+      <div class="sidebar-title">Foundation Capability Map Remap</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Job intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability supported</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current handling</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed handling</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context, tools, and interfaces</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence and evaluation</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">08</span>Revision</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/foundation-capability-map-remap.html</div>
+    <h1>Foundation Capability Map Remap</h1>
+    <p class="lede">This job remaps Foundation capability specs when the root goal, vocabulary, or parent capability model changes.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
+      <div><strong>Canonical section:</strong> <a href="#job-intent">#job-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+      <h1>Job intent</h1>
+      <p>When Foundation's capability language changes, an agent must revise the capability map without turning artifact names, workflow phases, backfill layers, or implementation details into capabilities. This job creates a controlled remap plan first, evaluates that plan, then applies graph and metadata changes in small passes.</p>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th></tr></thead>
+        <tbody>
+          <tr><td>Trigger</td><td>The root Foundation goal, capability/job definitions, parent capability families, or spec-selection rules change.</td></tr>
+          <tr><td>Actor</td><td>Human-guided agent or Foundation maintainer.</td></tr>
+          <tr><td>Output</td><td>A remap plan plus updated system, capability, job, graph, validator, and skill routing artifacts where needed.</td></tr>
+          <tr><td>Completion</td><td>Every affected current capability/job/spec is classified, actioned or explicitly deferred, and the remap eval plus structural checks pass.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <p>This job supports <code>foundation.author-durable-specs.capability</code> by keeping capability specs outcome-shaped, graph-compatible, and aligned with the current Foundation system goal. It also uses <code>foundation.spec-selection.job</code> and <code>foundation.author-capability-spec.job</code> as routing and authoring inputs.</p>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling</h2>
+      <p>The Foundation system spec now contains two capability layers: a draft parent capability family table and a separate table of current implemented capability specs. The graph-backed implemented capability specs still mostly attach directly to <code>foundation.operating-system.system</code>, while the desired parent/child capability model is not yet fully represented in spec metadata, graph metadata, validators, or backfill mapping rules.</p>
+      <table class="status-table">
+        <thead><tr><th>Current artifact</th><th>Current role</th><th>Remap pressure</th></tr></thead>
+        <tbody>
+          <tr><td><code>foundation-operating-system.html#capability-map</code></td><td>Root system map with parent family prose plus implemented capability table.</td><td>Needs one graph-backed parent/child model instead of parallel prose and implementation lists.</td></tr>
+          <tr><td><code>docs/specs/capabilities/*.html</code></td><td>Current implemented capability specs.</td><td>Many are valid child capabilities, but some names read like jobs or phases and need outcome wording.</td></tr>
+          <tr><td><code>foundation-self-map-check.mjs</code></td><td>Validator for core capability/job/skill ownership.</td><td>Currently expects old core capabilities to attach directly to the system.</td></tr>
+          <tr><td>Backfill capability-map and author-specs layers</td><td>Existing-repo mapping workflow.</td><td>Needs parent/child capability and job boundaries to inherit the settled vocabulary.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <p>The remap proceeds from a parent capability draft into a graph-backed map. Each current spec gets one row before implementation changes: current classification, proposed parent capability, proposed child capability role, action needed, and blockers.</p>
+      <h3>Draft parent capability families</h3>
+      <table class="status-table">
+        <thead><tr><th>#</th><th>Parent capability</th><th>Reliable outcome statement</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Understand Intent And Reality</td><td>Humans and agents can know what should happen, what is currently true, what is uncertain, and what question should be asked next.</td></tr>
+          <tr><td>2</td><td>Preserve Knowledge As Useful Context</td><td>Documented knowledge, evidence, decisions, and history can be kept current and retrieved in the right amount for a job.</td></tr>
+          <tr><td>3</td><td>Define The Right Work</td><td>Goals, capabilities, jobs, specs, actors, tools, evidence, evals, and revision loops can be named clearly enough to guide action.</td></tr>
+          <tr><td>4</td><td>Make Outstanding Work Repeatable</td><td>High-quality human, agent, and software work can be turned into bounded, repeatable, quality-gated loops.</td></tr>
+          <tr><td>5</td><td>Build New Systems From Clear Specs</td><td>New systems can be designed, built, and verified from clear intent, contracts, and implementation latitude.</td></tr>
+          <tr><td>6</td><td>Change Existing Systems Without Losing Intent</td><td>Existing repos and operating systems can be understood, revised, and improved without rediscovering or breaking what already matters.</td></tr>
+          <tr><td>7</td><td>Operate Systems In The Real World</td><td>Shipped systems can be deployed, monitored, recovered, and improved from operating evidence.</td></tr>
+          <tr><td>8</td><td>Show The System Clearly</td><td>Goals, capabilities, jobs, actors, evidence, gaps, ownership, and next work can be inspected visually without relying on source or chat history.</td></tr>
+          <tr><td>9</td><td>Evaluate, Learn, And Improve</td><td>Work can be judged against intent, revised at the smallest wrong artifact, and made better as tools, models, and reality change.</td></tr>
+        </tbody>
+      </table>
+      <h3>Initial current-to-new remap</h3>
+      <table class="status-table">
+        <thead><tr><th>Current spec</th><th>Current classification</th><th>Proposed parent</th><th>Action needed</th></tr></thead>
+        <tbody>
+          <tr><td><code>foundation.capture-business-system-intent.capability</code></td><td>Child capability</td><td>Understand Intent And Reality</td><td>Retain, then revise title/outcome toward intent and reality capture.</td></tr>
+          <tr><td><code>foundation.knowledge-data-layer.system</code></td><td>Child capability with subsystem-shaped ID</td><td>Preserve Knowledge As Useful Context</td><td>Retain short-term; flag ID/type cleanup for a later compatibility pass.</td></tr>
+          <tr><td><code>foundation.inventory-classify-artifacts.capability</code></td><td>Child capability with job-shaped title</td><td>Change Existing Systems Without Losing Intent</td><td>Rewrite visible outcome as repo artifacts being source-backed and classified.</td></tr>
+          <tr><td><code>foundation.map-surfaces-functions.capability</code></td><td>Child capability with phase-shaped title</td><td>Change Existing Systems Without Losing Intent</td><td>Rewrite as repo-exposed surfaces and dependencies being knowable from evidence.</td></tr>
+          <tr><td><code>foundation.map-capabilities-from-evidence.capability</code></td><td>Child capability</td><td>Define The Right Work</td><td>Retain and clarify that evidence-backed capability rows are reliably available.</td></tr>
+          <tr><td><code>foundation.define-jobs-from-capabilities.capability</code></td><td>Child capability</td><td>Define The Right Work</td><td>Retain and clarify job derivation as a standing ability, not a one-time phase.</td></tr>
+          <tr><td><code>foundation.package-context-for-action.capability</code></td><td>Child capability</td><td>Preserve Knowledge As Useful Context</td><td>Retain and connect to bounded context retrieval.</td></tr>
+          <tr><td><code>foundation.author-durable-specs.capability</code></td><td>Child capability</td><td>Define The Right Work</td><td>Retain as spec-authoring capability; keep authoring jobs underneath it.</td></tr>
+          <tr><td><code>foundation.generate-maintain-agent-skills.capability</code></td><td>Child capability</td><td>Make Outstanding Work Repeatable</td><td>Retain; add or split dedicated skill-authoring jobs when needed.</td></tr>
+          <tr><td><code>foundation.evaluate-quality-completeness.capability</code></td><td>Child capability</td><td>Evaluate, Learn, And Improve</td><td>Retain and align with semantic eval, not only structural completeness.</td></tr>
+          <tr><td><code>foundation.render-inspectable-system-graph.capability</code></td><td>Child capability</td><td>Show The System Clearly</td><td>Retain and parent visual graph work here.</td></tr>
+          <tr><td><code>foundation.visible-business-graph.system</code></td><td>Child capability with subsystem-shaped ID</td><td>Show The System Clearly</td><td>Retain short-term; flag ID/type cleanup for a later compatibility pass.</td></tr>
+          <tr><td><code>foundation.install-foundation-target-repos.capability</code></td><td>Child capability</td><td>Build New Systems From Clear Specs</td><td>Retain; clarify reusable substrate installation as a build-enabling capability.</td></tr>
+          <tr><td><code>foundation.compound-improvements-safely.capability</code></td><td>Child capability</td><td>Evaluate, Learn, And Improve</td><td>Retain and connect protected change flow to learning cycles.</td></tr>
+          <tr><td><code>foundation.learn-agent-capabilities-over-time.capability</code></td><td>Child capability</td><td>Evaluate, Learn, And Improve</td><td>Retain as draft; connect to keeping Foundation current with agent tooling changes.</td></tr>
+          <tr><td>Operate Systems In The Real World</td><td>Parent capability gap</td><td>Operate Systems In The Real World</td><td>Create as a parent capability with explicit gaps until deployment/monitor/recovery child specs exist.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <ol>
+        <li>Read the root system goal, definitions, spec-selection job, capability authoring job, and current capability map.</li>
+        <li>Generate or refresh the current spec inventory from the registry: system, capability, job, technical, eval, skill ownership, validator ownership, and backfill ownership.</li>
+        <li>For exactly one current capability or proposed parent capability at a time, run the standing-ability, parent-capability, child-capability, triggered-work, and decomposition tests.</li>
+        <li>Write one remap row with current classification, proposed classification, parent, child role, jobs/evidence affected, action needed, and blocker if any.</li>
+        <li>Evaluate the row against <code>foundation.capability-map-remap.eval</code>. Revise until the row preserves intent and rejects artifact/phase/job-shaped names.</li>
+        <li>After every row is acceptable, apply remap edits in passes: system map, parent capability specs, child capability specs, job parent/support links, graph metadata, validators, AGENTS/skills, then backfill/mapping rules.</li>
+        <li>After each pass, run the smallest relevant checks. After all passes, run registry, spec, graph, self-map, and targeted remap checks.</li>
+      </ol>
+      <div class="callout warning"><strong>No bulk closure:</strong> a remap is not complete because the parent family names look right. Every current capability, job owner, skill owner, validator assumption, and backfill boundary affected by the map must either be updated, explicitly deferred with evidence, or marked blocked.</div>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <ul>
+        <li><code>docs/specs/foundation-operating-system.html</code> provides the root goal and capability map.</li>
+        <li><code>docs/definitions/definitions.html#system-philosophy-concepts</code> provides vocabulary for capability, job, parent capability, child capability, process, action, artifact, interface, evidence, and eval.</li>
+        <li><code>docs/specs/spec-selection.html</code> provides standing-ability and triggered-work tests.</li>
+        <li><code>docs/specs/author-capability-spec.html</code> provides the authoring lane for parent and child capability specs.</li>
+        <li><code>docs/specs/index.html#spec-registry</code> provides the current generated spec registry.</li>
+        <li><code>scripts/foundation-self-map-check.mjs</code> and <code>scripts/visible-business-graph-core.mjs</code> enforce graph and ownership assumptions.</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Gate</th><th>Failure means</th></tr></thead>
+        <tbody>
+          <tr><td>Every current capability and proposed parent has a remap row.</td><td><code>foundation.capability-map-remap.eval</code></td><td>The remap can hide drift, omit broad areas, or leave old phase names in place.</td></tr>
+          <tr><td>Parent to child links decompose outcomes.</td><td><code>foundation.author-capability-spec.eval</code></td><td>The map is still a process chain, folder tree, or workflow list.</td></tr>
+          <tr><td>Every current capability spec has a remap row and all parent families are present.</td><td><code>npm run foundation:capability-map-remap:check</code></td><td>The remap plan omitted a current capability, a parent family, or a required row field.</td></tr>
+          <tr><td>Registry and graph metadata resolve.</td><td><code>npm run spec:check</code></td><td>Visible graph or spec registry no longer matches source specs.</td></tr>
+          <tr><td>Skill and job ownership still resolves.</td><td><code>npm run foundation:self-map:check</code></td><td>Agents can no longer tell which capability/job owns Foundation work.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <p>If the remap eval finds a vague parent, job-shaped child capability, missing job owner, stale validator assumption, or omitted backfill consequence, revise the smallest wrong artifact first. Prefer revising the remap row before editing spec metadata. Prefer revising the affected child capability before changing parent graph links. Only update validators after the intended graph relationship is explicit in specs.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Foundation Capability Map Remap · generated starter spec</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

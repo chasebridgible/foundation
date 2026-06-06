@@ -2109,12 +2109,13 @@
       "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
-      "parent": "foundation.operating-system.system",
+      "parent": "foundation.define-right-work.capability",
       "children": [
         "foundation.backfill-author-specs.job",
         "foundation.html-docs-navigation.job",
         "foundation.spec-process",
         "foundation.spec-selection.job",
+        "foundation.capability-map-remap.job",
         "foundation.author-system-spec.job",
         "foundation.author-capability-spec.job",
         "foundation.author-job-spec.job",
@@ -2126,10 +2127,11 @@
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.operating-system.system",
+          "id": "foundation.define-right-work.capability",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -2150,6 +2152,15 @@
           "sections": [
             "classification-contract",
             "spec-type-rules"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "child",
+          "sections": [
+            "job-intent",
+            "proposed-handling",
+            "process"
           ]
         },
         {
@@ -2228,34 +2239,112 @@
       ]
     },
     {
-      "id": "foundation.capture-business-system-intent.capability",
-      "title": "Capture Business and System Intent",
+      "id": "foundation.build-new-systems-from-clear-specs.capability",
+      "title": "Build New Systems From Clear Specs",
       "type": "capability",
       "status": "active",
-      "file": "foundation/docs/specs/capabilities/capture-business-system-intent.html",
+      "file": "foundation/docs/specs/capabilities/build-new-systems-from-clear-specs.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
       "children": [
-        "foundation.business-intake-fill-loop.job",
-        "foundation.knowledge-data-layer.system"
+        "foundation.install-foundation-target-repos.capability"
       ],
       "relatedSpecs": [
         {
           "id": "foundation.operating-system.system",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.install-foundation-target-repos.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling",
+            "process"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/build-new-systems-from-clear-specs.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Defines the current remap decision."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.build-new-systems-from-clear-specs.capability:remap-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.build-new-systems-from-clear-specs.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        },
+        {
+          "id": "foundation.build-new-systems-from-clear-specs.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.build-new-systems-from-clear-specs.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "parent-capability",
+        "foundation"
+      ]
+    },
+    {
+      "id": "foundation.capture-business-system-intent.capability",
+      "title": "Capture Business and System Intent",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/capture-business-system-intent.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.understand-intent-reality.capability",
+      "children": [
+        "foundation.business-intake-fill-loop.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.understand-intent-reality.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "jobs"
           ]
         },
         {
           "id": "foundation.business-intake-fill-loop.job",
-          "relationship": "child"
-        },
-        {
-          "id": "foundation.knowledge-data-layer.system",
           "relationship": "child"
         }
       ],
@@ -2307,26 +2396,118 @@
       ]
     },
     {
-      "id": "foundation.compound-improvements-safely.capability",
-      "title": "Compound Improvements Safely",
+      "id": "foundation.change-existing-systems-without-losing-intent.capability",
+      "title": "Change Existing Systems Without Losing Intent",
       "type": "capability",
       "status": "active",
-      "file": "foundation/docs/specs/capabilities/compound-improvements-safely.html",
+      "file": "foundation/docs/specs/capabilities/change-existing-systems-without-losing-intent.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
       "children": [
-        "foundation.backfill-specs.job",
-        "foundation.backfill-handoff.job"
+        "foundation.inventory-classify-artifacts.capability",
+        "foundation.map-surfaces-functions.capability"
       ],
       "relatedSpecs": [
         {
           "id": "foundation.operating-system.system",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.inventory-classify-artifacts.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.map-surfaces-functions.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling",
+            "process"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/change-existing-systems-without-losing-intent.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Defines the current remap decision."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.change-existing-systems-without-losing-intent.capability:remap-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.change-existing-systems-without-losing-intent.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        },
+        {
+          "id": "foundation.change-existing-systems-without-losing-intent.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.change-existing-systems-without-losing-intent.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "parent-capability",
+        "foundation"
+      ]
+    },
+    {
+      "id": "foundation.compound-improvements-safely.capability",
+      "title": "Compound Improvements Safely",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/compound-improvements-safely.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.evaluate-learn-improve.capability",
+      "children": [
+        "foundation.backfill-specs.job",
+        "foundation.backfill-handoff.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.evaluate-learn-improve.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -2387,20 +2568,21 @@
       "status": "active",
       "file": "foundation/docs/specs/capabilities/define-jobs-from-capabilities.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
-      "parent": "foundation.operating-system.system",
+      "parent": "foundation.define-right-work.capability",
       "children": [
         "foundation.backfill-spec-job-queue.job",
         "foundation.backfill-process-action-map.job"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.operating-system.system",
+          "id": "foundation.define-right-work.capability",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -2455,26 +2637,227 @@
       ]
     },
     {
-      "id": "foundation.evaluate-quality-completeness.capability",
-      "title": "Evaluate Quality and Completeness",
+      "id": "foundation.define-right-work.capability",
+      "title": "Define The Right Work",
       "type": "capability",
       "status": "active",
-      "file": "foundation/docs/specs/capabilities/evaluate-quality-completeness.html",
+      "file": "foundation/docs/specs/capabilities/define-right-work.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
       "children": [
-        "foundation.backfill-job-slice-evaluation.job",
-        "foundation.backfill-system-coherence-evaluation.job"
+        "foundation.map-capabilities-from-evidence.capability",
+        "foundation.define-jobs-from-capabilities.capability",
+        "foundation.author-durable-specs.capability"
       ],
       "relatedSpecs": [
         {
           "id": "foundation.operating-system.system",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.map-capabilities-from-evidence.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.define-jobs-from-capabilities.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.author-durable-specs.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling",
+            "process"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/define-right-work.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Defines the current remap decision."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.define-right-work.capability:remap-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.define-right-work.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        },
+        {
+          "id": "foundation.define-right-work.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.define-right-work.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "parent-capability",
+        "foundation"
+      ]
+    },
+    {
+      "id": "foundation.evaluate-learn-improve.capability",
+      "title": "Evaluate, Learn, And Improve",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/evaluate-learn-improve.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.evaluate-quality-completeness.capability",
+        "foundation.compound-improvements-safely.capability",
+        "foundation.learn-agent-capabilities-over-time.capability"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.evaluate-quality-completeness.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.compound-improvements-safely.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.learn-agent-capabilities-over-time.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling",
+            "process"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/evaluate-learn-improve.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Defines the current remap decision."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.evaluate-learn-improve.capability:remap-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.evaluate-learn-improve.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        },
+        {
+          "id": "foundation.evaluate-learn-improve.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.evaluate-learn-improve.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "parent-capability",
+        "foundation"
+      ]
+    },
+    {
+      "id": "foundation.evaluate-quality-completeness.capability",
+      "title": "Evaluate Quality and Completeness",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/evaluate-quality-completeness.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.evaluate-learn-improve.capability",
+      "children": [
+        "foundation.backfill-job-slice-evaluation.job",
+        "foundation.backfill-system-coherence-evaluation.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.evaluate-learn-improve.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -2535,19 +2918,20 @@
       "status": "active",
       "file": "foundation/docs/specs/capabilities/generate-maintain-agent-skills.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
-      "parent": "foundation.operating-system.system",
+      "parent": "foundation.make-outstanding-work-repeatable.capability",
       "children": [
         "foundation.backfill-author-specs.job"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.operating-system.system",
+          "id": "foundation.make-outstanding-work-repeatable.capability",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -2604,19 +2988,20 @@
       "status": "active",
       "file": "foundation/docs/specs/capabilities/install-foundation-target-repos.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-02",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
-      "parent": "foundation.operating-system.system",
+      "parent": "foundation.build-new-systems-from-clear-specs.capability",
       "children": [
         "foundation.workspace-model.job"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.operating-system.system",
+          "id": "foundation.build-new-systems-from-clear-specs.capability",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -2683,19 +3068,20 @@
       "status": "active",
       "file": "foundation/docs/specs/capabilities/inventory-classify-artifacts.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
-      "parent": "foundation.operating-system.system",
+      "parent": "foundation.change-existing-systems-without-losing-intent.capability",
       "children": [
         "foundation.backfill-artifact-inventory.job"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.operating-system.system",
+          "id": "foundation.change-existing-systems-without-losing-intent.capability",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -2752,20 +3138,20 @@
       "status": "draft",
       "file": "foundation/docs/specs/capabilities/learn-agent-capabilities-over-time.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-05",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.operating-system.system",
+      "parent": "foundation.evaluate-learn-improve.capability",
       "children": [
         "foundation.agent-capability-scout.job"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.operating-system.system",
+          "id": "foundation.evaluate-learn-improve.capability",
           "relationship": "parent",
           "sections": [
-            "capability-map",
-            "evidence-and-revision"
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -2813,25 +3199,108 @@
       ]
     },
     {
-      "id": "foundation.map-capabilities-from-evidence.capability",
-      "title": "Map Capabilities From Evidence",
+      "id": "foundation.make-outstanding-work-repeatable.capability",
+      "title": "Make Outstanding Work Repeatable",
       "type": "capability",
       "status": "active",
-      "file": "foundation/docs/specs/capabilities/map-capabilities-from-evidence.html",
+      "file": "foundation/docs/specs/capabilities/make-outstanding-work-repeatable.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
       "children": [
-        "foundation.backfill-capability-map.job"
+        "foundation.generate-maintain-agent-skills.capability"
       ],
       "relatedSpecs": [
         {
           "id": "foundation.operating-system.system",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.generate-maintain-agent-skills.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling",
+            "process"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/make-outstanding-work-repeatable.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Defines the current remap decision."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.make-outstanding-work-repeatable.capability:remap-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.make-outstanding-work-repeatable.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        },
+        {
+          "id": "foundation.make-outstanding-work-repeatable.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.make-outstanding-work-repeatable.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "parent-capability",
+        "foundation"
+      ]
+    },
+    {
+      "id": "foundation.map-capabilities-from-evidence.capability",
+      "title": "Map Capabilities From Evidence",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/map-capabilities-from-evidence.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.define-right-work.capability",
+      "children": [
+        "foundation.backfill-capability-map.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.define-right-work.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -2888,19 +3357,20 @@
       "status": "active",
       "file": "foundation/docs/specs/capabilities/map-surfaces-functions.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
-      "parent": "foundation.operating-system.system",
+      "parent": "foundation.change-existing-systems-without-losing-intent.capability",
       "children": [
         "foundation.backfill-surface-function-map.job"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.operating-system.system",
+          "id": "foundation.change-existing-systems-without-losing-intent.capability",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -2951,25 +3421,110 @@
       ]
     },
     {
+      "id": "foundation.operate-systems-in-real-world.capability",
+      "title": "Operate Systems In The Real World",
+      "type": "capability",
+      "status": "draft",
+      "file": "foundation/docs/specs/capabilities/operate-systems-in-real-world.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.operating-system.system",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling",
+            "process"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/operate-systems-in-real-world.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Defines the current remap decision."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.operate-systems-in-real-world.capability:remap-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.operate-systems-in-real-world.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        },
+        {
+          "id": "foundation.operate-systems-in-real-world.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.operate-systems-in-real-world.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        },
+        {
+          "id": "foundation.operate-systems-in-real-world.capability:child-capability-gap",
+          "level": "manual",
+          "status": "gap",
+          "path": "foundation/docs/specs/capabilities/operate-systems-in-real-world.html",
+          "mapsTo": [
+            "foundation.operate-systems-in-real-world.capability#jobs",
+            "foundation.operate-systems-in-real-world.capability#evidence-and-evaluation"
+          ],
+          "evidence": "Foundation does not yet have durable child capability specs for deployment, monitoring, incident recovery, or production operations."
+        }
+      ],
+      "tags": [
+        "capability",
+        "parent-capability",
+        "foundation",
+        "gap"
+      ]
+    },
+    {
       "id": "foundation.package-context-for-action.capability",
       "title": "Package Context For Action",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/package-context-for-action.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
-      "parent": "foundation.operating-system.system",
+      "parent": "foundation.preserve-knowledge-context.capability",
       "children": [
         "foundation.backfill-context-pack.job"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.operating-system.system",
+          "id": "foundation.preserve-knowledge-context.capability",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -3020,31 +3575,118 @@
       ]
     },
     {
-      "id": "foundation.render-inspectable-system-graph.capability",
-      "title": "Render the System as an Inspectable Graph",
+      "id": "foundation.preserve-knowledge-context.capability",
+      "title": "Preserve Knowledge As Useful Context",
       "type": "capability",
       "status": "active",
-      "file": "foundation/docs/specs/capabilities/render-inspectable-system-graph.html",
+      "file": "foundation/docs/specs/capabilities/preserve-knowledge-context.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
       "children": [
-        "foundation.visible-business-graph.system",
-        "foundation.html-docs-navigation.job"
+        "foundation.knowledge-data-layer.system",
+        "foundation.package-context-for-action.capability"
       ],
       "relatedSpecs": [
         {
           "id": "foundation.operating-system.system",
           "relationship": "parent",
           "sections": [
-            "system-intent"
+            "capability-map"
           ]
         },
         {
-          "id": "foundation.visible-business-graph.system",
-          "relationship": "child"
+          "id": "foundation.knowledge-data-layer.system",
+          "relationship": "child",
+          "sections": [
+            "product-intent",
+            "capability-contract"
+          ]
+        },
+        {
+          "id": "foundation.package-context-for-action.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling",
+            "process"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/preserve-knowledge-context.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Defines the current remap decision."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.preserve-knowledge-context.capability:remap-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.preserve-knowledge-context.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        },
+        {
+          "id": "foundation.preserve-knowledge-context.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.preserve-knowledge-context.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "parent-capability",
+        "foundation"
+      ]
+    },
+    {
+      "id": "foundation.render-inspectable-system-graph.capability",
+      "title": "Render the System as an Inspectable Graph",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/render-inspectable-system-graph.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.show-system-clearly.capability",
+      "children": [
+        "foundation.html-docs-navigation.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.show-system-clearly.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
         },
         {
           "id": "foundation.html-docs-navigation.job",
@@ -3096,6 +3738,179 @@
         "capability",
         "foundation",
         "graph"
+      ]
+    },
+    {
+      "id": "foundation.show-system-clearly.capability",
+      "title": "Show The System Clearly",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/show-system-clearly.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.render-inspectable-system-graph.capability",
+        "foundation.visible-business-graph.system"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.render-inspectable-system-graph.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.visible-business-graph.system",
+          "relationship": "child",
+          "sections": [
+            "system-intent",
+            "graph-contract"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling",
+            "process"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/show-system-clearly.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Defines the current remap decision."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.show-system-clearly.capability:remap-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.show-system-clearly.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        },
+        {
+          "id": "foundation.show-system-clearly.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.show-system-clearly.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "parent-capability",
+        "foundation"
+      ]
+    },
+    {
+      "id": "foundation.understand-intent-reality.capability",
+      "title": "Understand Intent And Reality",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/understand-intent-reality.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "high",
+      "parent": "foundation.operating-system.system",
+      "children": [
+        "foundation.capture-business-system-intent.capability"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "parent",
+          "sections": [
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.capture-business-system-intent.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling",
+            "process"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/understand-intent-reality.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Defines the current remap decision."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.understand-intent-reality.capability:remap-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.understand-intent-reality.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        },
+        {
+          "id": "foundation.understand-intent-reality.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.understand-intent-reality.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "parent-capability",
+        "foundation"
       ]
     },
     {
@@ -8231,6 +9046,234 @@
       ]
     },
     {
+      "id": "foundation.capability-map-remap.eval",
+      "title": "Foundation Capability Map Remap Eval",
+      "type": "eval",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-capability-map-remap-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.capability-map-remap.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "parent",
+          "sections": [
+            "process",
+            "proposed-handling"
+          ]
+        },
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "depends-on",
+          "sections": [
+            "capability-job-tests",
+            "decision-process"
+          ]
+        },
+        {
+          "id": "foundation.author-capability-spec.eval",
+          "relationship": "depends-on",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Job and remap table under evaluation."
+        },
+        {
+          "path": "foundation/docs/specs/spec-selection.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Capability/job boundary tests."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.capability-map-remap.eval:manual-review",
+          "level": "manual",
+          "status": "existing",
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "mapsTo": [
+            "foundation.capability-map-remap.eval#acceptance-mapping"
+          ],
+          "evidence": "Manual row-level semantic review against the remap job table."
+        },
+        {
+          "id": "foundation.capability-map-remap.eval:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.capability-map-remap.eval#commands-and-evidence"
+          ],
+          "command": "npm run spec:check"
+        },
+        {
+          "id": "foundation.capability-map-remap.eval:table-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.capability-map-remap.eval#acceptance-mapping",
+            "foundation.capability-map-remap.eval#commands-and-evidence"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        }
+      ],
+      "tags": [
+        "eval",
+        "capability",
+        "remap"
+      ]
+    },
+    {
+      "id": "foundation.capability-map-remap.job",
+      "title": "Foundation Capability Map Remap",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/foundation-capability-map-remap.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.author-durable-specs.capability",
+      "children": [
+        "foundation.capability-map-remap.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.author-durable-specs.capability",
+          "relationship": "parent",
+          "sections": [
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "informs",
+          "sections": [
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "depends-on",
+          "sections": [
+            "capability-job-tests",
+            "decision-process"
+          ]
+        },
+        {
+          "id": "foundation.author-capability-spec.job",
+          "relationship": "depends-on",
+          "sections": [
+            "job-intent",
+            "process"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.eval",
+          "relationship": "validated-by",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-capability-map-remap.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-operating-system.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Owns the root system goal and current capability map."
+        },
+        {
+          "path": "foundation/docs/definitions/definitions.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Defines capability, parent capability, child capability, job, artifact, evidence, and eval."
+        },
+        {
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Enforces Foundation capability/job/skill ownership after remap."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.capability-map-remap.job:remap-eval",
+          "level": "manual",
+          "status": "existing",
+          "path": "foundation/docs/specs/foundation-capability-map-remap-eval.html",
+          "mapsTo": [
+            "foundation.capability-map-remap.job#evidence-and-evaluation"
+          ],
+          "evidence": "Remap eval acceptance table is the semantic gate."
+        },
+        {
+          "id": "foundation.capability-map-remap.job:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.capability-map-remap.job#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        },
+        {
+          "id": "foundation.capability-map-remap.job:self-map",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-self-map-check.mjs",
+          "mapsTo": [
+            "foundation.capability-map-remap.job#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:self-map:check"
+        },
+        {
+          "id": "foundation.capability-map-remap.job:table-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-map-remap-check.mjs",
+          "mapsTo": [
+            "foundation.capability-map-remap.job#proposed-handling",
+            "foundation.capability-map-remap.job#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-map-remap:check"
+        }
+      ],
+      "tags": [
+        "job",
+        "capability",
+        "remap"
+      ]
+    },
+    {
       "id": "foundation.html-docs-navigation.job",
       "title": "Foundation HTML Docs Navigation",
       "type": "job",
@@ -8448,107 +9491,75 @@
       "confidence": "high",
       "parent": null,
       "children": [
-        "foundation.capture-business-system-intent.capability",
-        "foundation.inventory-classify-artifacts.capability",
-        "foundation.map-surfaces-functions.capability",
-        "foundation.map-capabilities-from-evidence.capability",
-        "foundation.define-jobs-from-capabilities.capability",
-        "foundation.package-context-for-action.capability",
-        "foundation.author-durable-specs.capability",
-        "foundation.generate-maintain-agent-skills.capability",
-        "foundation.evaluate-quality-completeness.capability",
-        "foundation.render-inspectable-system-graph.capability",
-        "foundation.install-foundation-target-repos.capability",
-        "foundation.compound-improvements-safely.capability",
-        "foundation.learn-agent-capabilities-over-time.capability"
+        "foundation.understand-intent-reality.capability",
+        "foundation.preserve-knowledge-context.capability",
+        "foundation.define-right-work.capability",
+        "foundation.make-outstanding-work-repeatable.capability",
+        "foundation.build-new-systems-from-clear-specs.capability",
+        "foundation.change-existing-systems-without-losing-intent.capability",
+        "foundation.operate-systems-in-real-world.capability",
+        "foundation.show-system-clearly.capability",
+        "foundation.evaluate-learn-improve.capability"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.capture-business-system-intent.capability",
+          "id": "foundation.understand-intent-reality.capability",
           "relationship": "child",
           "sections": [
             "capability-intent"
           ]
         },
         {
-          "id": "foundation.inventory-classify-artifacts.capability",
+          "id": "foundation.preserve-knowledge-context.capability",
           "relationship": "child",
           "sections": [
             "capability-intent"
           ]
         },
         {
-          "id": "foundation.map-surfaces-functions.capability",
+          "id": "foundation.define-right-work.capability",
           "relationship": "child",
           "sections": [
             "capability-intent"
           ]
         },
         {
-          "id": "foundation.map-capabilities-from-evidence.capability",
+          "id": "foundation.make-outstanding-work-repeatable.capability",
           "relationship": "child",
           "sections": [
             "capability-intent"
           ]
         },
         {
-          "id": "foundation.define-jobs-from-capabilities.capability",
+          "id": "foundation.build-new-systems-from-clear-specs.capability",
           "relationship": "child",
           "sections": [
             "capability-intent"
           ]
         },
         {
-          "id": "foundation.package-context-for-action.capability",
+          "id": "foundation.change-existing-systems-without-losing-intent.capability",
           "relationship": "child",
           "sections": [
             "capability-intent"
           ]
         },
         {
-          "id": "foundation.author-durable-specs.capability",
+          "id": "foundation.operate-systems-in-real-world.capability",
           "relationship": "child",
           "sections": [
             "capability-intent"
           ]
         },
         {
-          "id": "foundation.generate-maintain-agent-skills.capability",
+          "id": "foundation.show-system-clearly.capability",
           "relationship": "child",
           "sections": [
             "capability-intent"
           ]
         },
         {
-          "id": "foundation.evaluate-quality-completeness.capability",
-          "relationship": "child",
-          "sections": [
-            "capability-intent"
-          ]
-        },
-        {
-          "id": "foundation.render-inspectable-system-graph.capability",
-          "relationship": "child",
-          "sections": [
-            "capability-intent"
-          ]
-        },
-        {
-          "id": "foundation.install-foundation-target-repos.capability",
-          "relationship": "child",
-          "sections": [
-            "capability-intent"
-          ]
-        },
-        {
-          "id": "foundation.compound-improvements-safely.capability",
-          "relationship": "child",
-          "sections": [
-            "capability-intent"
-          ]
-        },
-        {
-          "id": "foundation.learn-agent-capabilities-over-time.capability",
+          "id": "foundation.evaluate-learn-improve.capability",
           "relationship": "child",
           "sections": [
             "capability-intent"
@@ -9250,20 +10261,20 @@
       "status": "draft",
       "file": "foundation/docs/specs/knowledge-and-data-layer.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "on-trigger",
       "confidence": "medium",
-      "parent": "foundation.capture-business-system-intent.capability",
+      "parent": "foundation.preserve-knowledge-context.capability",
       "children": [
-        "foundation.business-intake-fill-loop.job",
-        "foundation.visible-business-graph.system"
+        "foundation.business-intake-fill-loop.job"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.capture-business-system-intent.capability",
+          "id": "foundation.preserve-knowledge-context.capability",
           "relationship": "parent",
           "sections": [
-            "capability-intent"
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -9309,15 +10320,6 @@
             "job-intent",
             "process",
             "evidence-and-evaluation"
-          ]
-        },
-        {
-          "id": "foundation.visible-business-graph.system",
-          "relationship": "child",
-          "sections": [
-            "system-intent",
-            "graph-contract",
-            "view-contracts"
           ]
         }
       ],
@@ -9936,20 +10938,21 @@
       "status": "draft",
       "file": "foundation/docs/specs/visible-business-graph.html",
       "canonicalSection": "system-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "on-trigger",
       "confidence": "medium",
-      "parent": "foundation.render-inspectable-system-graph.capability",
+      "parent": "foundation.show-system-clearly.capability",
       "children": [
         "foundation.visible-business-graph.technical",
         "foundation.visible-business-graph.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.render-inspectable-system-graph.capability",
+          "id": "foundation.show-system-clearly.capability",
           "relationship": "parent",
           "sections": [
-            "capability-intent"
+            "capability-intent",
+            "jobs"
           ]
         },
         {

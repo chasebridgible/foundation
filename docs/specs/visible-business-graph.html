@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.visible-business-graph.system">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Visible Business Graph</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,20 +16,21 @@
   "title": "Visible Business Graph",
   "type": "capability",
   "status": "draft",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "on-trigger",
   "confidence": "medium",
-  "parent": "foundation.render-inspectable-system-graph.capability",
+  "parent": "foundation.show-system-clearly.capability",
   "children": [
     "foundation.visible-business-graph.technical",
     "foundation.visible-business-graph.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.render-inspectable-system-graph.capability",
+      "id": "foundation.show-system-clearly.capability",
       "relationship": "parent",
       "sections": [
-        "capability-intent"
+        "capability-intent",
+        "jobs"
       ]
     },
     {
@@ -195,10 +196,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.visible-business-graph.system:depends-on:spec:foundation.render-inspectable-system-graph.capability",
+      "id": "edge:spec:foundation.visible-business-graph.system:depends-on:spec:foundation.show-system-clearly.capability",
       "type": "depends-on",
       "from": "spec:foundation.visible-business-graph.system",
-      "to": "spec:foundation.render-inspectable-system-graph.capability",
+      "to": "spec:foundation.show-system-clearly.capability",
       "source": {
         "specId": "foundation.visible-business-graph.system",
         "sectionId": "system-intent"
