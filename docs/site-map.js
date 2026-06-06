@@ -7,7 +7,7 @@ window.SubstrateSiteMap = {
       "sourcePath": "docs"
     }
   ],
-  "fileCount": 93,
+  "fileCount": 106,
   "items": [
     {
       "type": "folder",
@@ -17,10 +17,10 @@ window.SubstrateSiteMap = {
       "items": [
         {
           "type": "file",
-          "name": "sw-definitions.html",
+          "name": "definitions.html",
           "title": "Definitions",
-          "path": "definitions/sw-definitions.html",
-          "sourcePath": "docs/definitions/sw-definitions.html",
+          "path": "definitions/definitions.html",
+          "sourcePath": "docs/definitions/definitions.html",
           "rootPath": "docs"
         }
       ]
@@ -423,6 +423,96 @@ window.SubstrateSiteMap = {
               "specId": "foundation.spec-template.technical"
             }
           ]
+        },
+        {
+          "type": "file",
+          "name": "author-capability-spec-eval.html",
+          "title": "Author Capability Spec Eval",
+          "path": "specs/author-capability-spec-eval.html",
+          "sourcePath": "docs/specs/author-capability-spec-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.author-capability-spec.eval"
+        },
+        {
+          "type": "file",
+          "name": "author-capability-spec.html",
+          "title": "Author Capability Spec Job",
+          "path": "specs/author-capability-spec.html",
+          "sourcePath": "docs/specs/author-capability-spec.html",
+          "rootPath": "docs",
+          "specId": "foundation.author-capability-spec.job"
+        },
+        {
+          "type": "file",
+          "name": "author-eval-spec-eval.html",
+          "title": "Author Eval Spec Eval",
+          "path": "specs/author-eval-spec-eval.html",
+          "sourcePath": "docs/specs/author-eval-spec-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.author-eval-spec.eval"
+        },
+        {
+          "type": "file",
+          "name": "author-eval-spec.html",
+          "title": "Author Eval Spec Job",
+          "path": "specs/author-eval-spec.html",
+          "sourcePath": "docs/specs/author-eval-spec.html",
+          "rootPath": "docs",
+          "specId": "foundation.author-eval-spec.job"
+        },
+        {
+          "type": "file",
+          "name": "author-job-spec-eval.html",
+          "title": "Author Job Spec Eval",
+          "path": "specs/author-job-spec-eval.html",
+          "sourcePath": "docs/specs/author-job-spec-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.author-job-spec.eval"
+        },
+        {
+          "type": "file",
+          "name": "author-job-spec.html",
+          "title": "Author Job Spec Job",
+          "path": "specs/author-job-spec.html",
+          "sourcePath": "docs/specs/author-job-spec.html",
+          "rootPath": "docs",
+          "specId": "foundation.author-job-spec.job"
+        },
+        {
+          "type": "file",
+          "name": "author-system-spec-eval.html",
+          "title": "Author System Spec Eval",
+          "path": "specs/author-system-spec-eval.html",
+          "sourcePath": "docs/specs/author-system-spec-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.author-system-spec.eval"
+        },
+        {
+          "type": "file",
+          "name": "author-system-spec.html",
+          "title": "Author System Spec Job",
+          "path": "specs/author-system-spec.html",
+          "sourcePath": "docs/specs/author-system-spec.html",
+          "rootPath": "docs",
+          "specId": "foundation.author-system-spec.job"
+        },
+        {
+          "type": "file",
+          "name": "author-technical-spec-eval.html",
+          "title": "Author Technical Spec Eval",
+          "path": "specs/author-technical-spec-eval.html",
+          "sourcePath": "docs/specs/author-technical-spec-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.author-technical-spec.eval"
+        },
+        {
+          "type": "file",
+          "name": "author-technical-spec.html",
+          "title": "Author Technical Spec Job",
+          "path": "specs/author-technical-spec.html",
+          "sourcePath": "docs/specs/author-technical-spec.html",
+          "rootPath": "docs",
+          "specId": "foundation.author-technical-spec.job"
         },
         {
           "type": "file",
@@ -855,6 +945,33 @@ window.SubstrateSiteMap = {
           "sourcePath": "docs/specs/process.html",
           "rootPath": "docs",
           "specId": "foundation.spec-process"
+        },
+        {
+          "type": "file",
+          "name": "spec-selection-eval.html",
+          "title": "Spec Selection Eval Spec",
+          "path": "specs/spec-selection-eval.html",
+          "sourcePath": "docs/specs/spec-selection-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.spec-selection.eval"
+        },
+        {
+          "type": "file",
+          "name": "spec-selection-technical.html",
+          "title": "Spec Selection Technical Spec",
+          "path": "specs/spec-selection-technical.html",
+          "sourcePath": "docs/specs/spec-selection-technical.html",
+          "rootPath": "docs",
+          "specId": "foundation.spec-selection.technical"
+        },
+        {
+          "type": "file",
+          "name": "spec-selection.html",
+          "title": "Spec Selection Job",
+          "path": "specs/spec-selection.html",
+          "sourcePath": "docs/specs/spec-selection.html",
+          "rootPath": "docs",
+          "specId": "foundation.spec-selection.job"
         },
         {
           "type": "file",

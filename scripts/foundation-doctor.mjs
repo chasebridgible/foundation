@@ -11,7 +11,12 @@ import {
 const scriptPath = fileURLToPath(import.meta.url);
 const repoRoot = path.dirname(path.dirname(scriptPath));
 const requiredSkills = [
-  "job-spec-interview",
+  "spec-selection",
+  "author-system-spec",
+  "author-capability-spec",
+  "author-job-spec",
+  "author-technical-spec",
+  "author-eval-spec",
   "agentic-workflow-design",
   "backfill-repo",
   "backfill-record-repo-files",
@@ -26,6 +31,7 @@ const requiredSkills = [
   "backfill-spec-adequacy-review",
   "backfill-evaluate-specs",
   "spec-workflow",
+  "job-journey-images",
   "install-foundation-substrate",
   "business-intake-fill-loop"
 ];

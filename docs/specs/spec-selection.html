@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.spec-selection.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-06">
+<title>Spec Selection Job</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.spec-selection.job",
+  "title": "Spec Selection Job",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-06",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.author-durable-specs.capability",
+  "children": [
+    "foundation.spec-selection.technical",
+    "foundation.spec-selection.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.author-durable-specs.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.operating-system.system",
+      "relationship": "informs",
+      "sections": [
+        "system-intent",
+        "capability-map"
+      ]
+    },
+    {
+      "id": "foundation.spec-process",
+      "relationship": "sibling",
+      "sections": [
+        "spec-choice",
+        "spec-authoring"
+      ]
+    },
+    {
+      "id": "foundation.spec-selection.technical",
+      "relationship": "child",
+      "sections": [
+        "contracts",
+        "paths-and-coverage"
+      ]
+    },
+    {
+      "id": "foundation.spec-selection.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.system",
+      "relationship": "informs",
+      "sections": [
+        "system-intent",
+        "capability-map"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.capability",
+      "relationship": "informs",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.job",
+      "relationship": "informs",
+      "sections": [
+        "job-intent",
+        "process"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.technical",
+      "relationship": "informs",
+      "sections": [
+        "required-depth",
+        "capability-contract"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.eval",
+      "relationship": "informs",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/spec-selection.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/spec-selection/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/spec-selection/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/definitions/definitions.html",
+      "kind": "doc",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/docs/specs/process.html",
+      "kind": "doc",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/docs/specs/templates/system-spec-template.html",
+      "kind": "doc",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/docs/specs/templates/capability-spec-template.html",
+      "kind": "doc",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/docs/specs/templates/job-spec-template.html",
+      "kind": "doc",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/docs/specs/templates/technical-spec-template.html",
+      "kind": "doc",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/docs/specs/templates/eval-spec-template.html",
+      "kind": "doc",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.spec-selection.job:registry-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.spec-selection.job#evidence-and-evaluation"
+      ],
+      "command": "npm run spec:check"
+    },
+    {
+      "id": "foundation.spec-selection.job:classification-eval",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/spec-selection-eval.mjs",
+      "mapsTo": [
+        "foundation.spec-selection.job#classification-contract",
+        "foundation.spec-selection.job#clarification-gate",
+        "foundation.spec-selection.job#capability-job-tests",
+        "foundation.spec-selection.job#boundary-tests",
+        "foundation.spec-selection.job#future-eval-path"
+      ],
+      "command": "npm run foundation:spec-selection:eval"
+    }
+  ],
+  "tags": [
+    "job",
+    "foundation",
+    "spec-selection",
+    "classification"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.spec-selection.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.spec-selection.job",
+      "type": "job",
+      "label": "Spec Selection Job",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "foundation",
+          "spec-selection",
+          "classification"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.spec-selection.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.spec-selection.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.job:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.spec-selection.job",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.job:depends-on:spec:foundation.spec-process",
+      "type": "depends-on",
+      "from": "spec:foundation.spec-selection.job",
+      "to": "spec:foundation.spec-process",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.job:supports:spec:foundation.spec-selection.technical",
+      "type": "supports",
+      "from": "spec:foundation.spec-selection.job",
+      "to": "spec:foundation.spec-selection.technical",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.job:supports:spec:foundation.spec-selection.eval",
+      "type": "supports",
+      "from": "spec:foundation.spec-selection.job",
+      "to": "spec:foundation.spec-selection.eval",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">S</div>
+    <div>
+      <div class="sidebar-title">Spec Selection</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability</a>
+    <a class="nav-item" href="#classification-contract"><span class="nav-num">03</span>Contract</a>
+    <a class="nav-item" href="#clarification-gate"><span class="nav-num">04</span>Clarify</a>
+    <a class="nav-item" href="#capability-job-tests"><span class="nav-num">05</span>Cap vs job</a>
+    <a class="nav-item" href="#decision-process"><span class="nav-num">06</span>Process</a>
+    <a class="nav-item" href="#spec-type-rules"><span class="nav-num">07</span>Rules</a>
+    <a class="nav-item" href="#non-spec-boundaries"><span class="nav-num">08</span>Non-spec</a>
+    <a class="nav-item" href="#boundary-tests"><span class="nav-num">09</span>Examples</a>
+    <a class="nav-item" href="#future-eval-path"><span class="nav-num">10</span>Eval path</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">11</span>Evidence</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">12</span>Revision</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">Foundation · spec-selection active</div>
+    <h1>Spec Selection Job</h1>
+    <p class="lede">This job gives humans and agents a repeatable way to decide whether intent belongs in a system, parent capability, child capability, job, technical, or eval spec before authoring begins.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
+      <div><strong>Parent:</strong> <a data-spec-link="foundation.author-durable-specs.capability" href="./capabilities/author-durable-specs.html">foundation.author-durable-specs.capability</a></div>
+    </div>
+    <h3>Intent</h3>
+    <p>Foundation needs a stable discernment layer before it remaps capabilities or authors durable specs. The job is to classify the level of intent, choose the smallest durable spec set that preserves that intent, and reject artifact names, process labels, and implementation details as capabilities unless they are rewritten as reliable outcomes.</p>
+    <h3>Trigger</h3>
+    <p>This job starts when a human or agent is about to create, revise, split, merge, or remap a system goal, capability, job, technical contract, eval, skill, workflow, validator, backfill row, process/action map row, or durable spec artifact.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <table class="status-table">
+        <thead><tr><th>Capability</th><th>How this job supports it</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td><code>foundation.author-durable-specs.capability</code></td><td>Prevents spec authoring from starting at the wrong level of intent, which keeps durable specs graph-compatible and meaningful.</td><td><a data-spec-link="foundation.operating-system.system" href="./foundation-operating-system.html#capability-map">Foundation capability map</a>; <a href="../definitions/definitions.html#system-philosophy-concepts">Definitions</a>.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="classification-contract" data-spec-section="classification-contract" data-section-type="routing-rules">
+      <h2>Classification contract</h2>
+      <p>The classifier must answer one primary question first: <strong>what layer of intent is being named?</strong> It should then choose the primary spec type and any companion specs required to make the work executable and verifiable.</p>
+      <p>The hardest boundary is capability versus job. A capability is a durable ability or standing condition that remains available after work is done. A job is triggered work an actor performs to create, operate, or improve that ability.</p>
+      <table class="status-table">
+        <thead><tr><th>Question</th><th>Classification signal</th><th>Primary output</th></tr></thead>
+        <tbody>
+          <tr><td>Is this the root contract for a whole system, product, repo, or durable subsystem?</td><td>It names the overall goal, boundaries, capability families, operating loop, evidence model, and revision model.</td><td>System spec.</td></tr>
+          <tr><td>Is this a broad standing ability or durable outcome family that child outcomes share?</td><td>It describes one larger reliable result that remains possible across jobs, actors, and runs.</td><td>Parent capability spec.</td></tr>
+          <tr><td>Is this a narrower standing ability or durable outcome inside a parent capability?</td><td>It names a specific reliable condition or possibility that can have jobs, rules, evidence, and evals.</td><td>Child capability spec.</td></tr>
+          <tr><td>Is this named work an actor performs to create, operate, or improve a capability?</td><td>It has a trigger, actor candidates, required context, process, states, outputs, and exit criteria.</td><td>Job spec.</td></tr>
+          <tr><td>Does implementation behavior matter?</td><td>Software, data, automation, infrastructure, integration, permissions, sequencing, failure handling, or contracts must be specified.</td><td>Technical spec, usually attached to a job.</td></tr>
+          <tr><td>Does the acceptance judgment need to be durable?</td><td>The system must know what evidence proves success, what fails, and what gets revised.</td><td>Eval spec.</td></tr>
+        </tbody>
+      </table>
+      <p>The result can be one spec or a small spec set. A broad request may need a system spec plus capability specs. A build request usually needs a job spec, technical spec, and eval spec. A narrow process improvement may only need a job-spec revision if technical and eval details already exist.</p>
+    </section>
+
+    <section id="clarification-gate" data-spec-section="clarification-gate" data-section-type="question-gate">
+      <h2>Clarification gate</h2>
+      <p>Spec Selection must ask before classification only when the answer could change the spec type, owner, companion specs, or non-spec routing. The agent should ask the smallest useful set of questions, no more than three at a time. If the ambiguity is minor, the agent may continue with a labeled assumption and include that assumption in the Spec Selection Result.</p>
+      <table class="status-table">
+        <thead><tr><th>Question type</th><th>Use when</th><th>Example question</th></tr></thead>
+        <tbody>
+          <tr><td>System altitude</td><td>The request might change a whole-system goal or subsystem boundary.</td><td>Are we defining the root system goal or a narrower part of the system?</td></tr>
+          <tr><td>Capability altitude</td><td>The request might name what must become reliably possible.</td><td>What durable ability or outcome should exist after the work?</td></tr>
+          <tr><td>Job altitude</td><td>The request might name work an actor performs.</td><td>What trigger starts this work, and what output closes it?</td></tr>
+          <tr><td>Technical altitude</td><td>The request might be implementation-contract work.</td><td>Which implementation contract or failure mode must be constrained?</td></tr>
+          <tr><td>Eval altitude</td><td>The request might define evidence judgment.</td><td>What evidence should be judged, and what would fail?</td></tr>
+          <tr><td>Non-spec boundary</td><td>The request might be an artifact, interface, process, action, evidence item, or implementation detail inside an existing spec.</td><td>Which existing spec owns this file, interface, process step, or evidence item?</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="capability-job-tests" data-spec-section="capability-job-tests" data-section-type="routing-rules">
+      <h2>Capability and job tests</h2>
+      <p>Before anything is accepted as a parent or child capability, it must pass the standing-ability test. Before anything is accepted as a job, it must pass the triggered-work test. These tests are deliberately simple because future agents must apply them under ambiguity.</p>
+      <table class="status-table">
+        <thead><tr><th>Test</th><th>Passes when</th><th>Fails when</th></tr></thead>
+        <tbody>
+          <tr><td>Standing-ability test</td><td>The phrase survives: "the system, business, user, or agent can reliably..." or "this condition is reliably available..."</td><td>The phrase mainly describes work being performed, a transformation being done, or a phase being completed.</td></tr>
+          <tr><td>Triggered-work test</td><td>The phrase survives: "an actor performs this work when..." and has a trigger, process, output, and completion condition.</td><td>The phrase mainly describes a durable ability, stable condition, or ongoing possibility.</td></tr>
+          <tr><td>Parent-capability test</td><td>The capability is broad enough to contain multiple narrower standing abilities that share one larger purpose.</td><td>The parent is just a folder, artifact group, lifecycle phase, org department, or process chain.</td></tr>
+          <tr><td>Child-capability test</td><td>The child is a narrower standing ability inside the parent and can have its own jobs, rules, evidence, or evals.</td><td>The child is a step, verb phrase, queue row, screen, route, command, checklist, or report.</td></tr>
+          <tr><td>Decomposition test</td><td>Parent to child means broader outcome to narrower outcome.</td><td>The relationship is phase to phase, artifact to artifact, interface to route, process to step, or job to action.</td></tr>
+          <tr><td>Necessity test</td><td>A child capability exists because the parent is too broad to govern jobs, evidence, or rules directly.</td><td>The parent can already own the jobs and evidence clearly without a child layer.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warning"><strong>Classifier rule:</strong> if a candidate capability starts with verbs such as create, record, convert, run, review, update, implement, gather, map, author, evaluate, deploy, or revise, treat it as job-shaped until it can be rewritten as a standing ability or durable condition.</div>
+    </section>
+
+    <section id="decision-process" data-spec-section="decision-process" data-section-type="process-contract">
+      <h2>Decision process</h2>
+      <ol>
+        <li><strong>Restate the intent.</strong> Rewrite the request as the outcome or work the user wants, without choosing the spec type yet.</li>
+        <li><strong>Clarify only material ambiguity.</strong> Ask up to three altitude questions when the answer could change classification, owner, companion specs, or non-spec routing; otherwise proceed with a labeled assumption.</li>
+        <li><strong>Find existing ownership.</strong> Search the registry, system spec, capability map, and relevant job specs before creating anything new.</li>
+        <li><strong>Run the capability/job tests.</strong> Decide whether the request names a standing ability, a durable condition, or triggered work. Do this before choosing parent capability, child capability, or job.</li>
+        <li><strong>Choose the altitude.</strong> Decide whether the request is whole-system intent, parent capability, child capability, work job, implementation behavior, verification judgment, or a non-spec artifact/interface/process/action.</li>
+        <li><strong>Name the primary spec.</strong> Pick the spec type that owns the main intent. Prefer revising an existing owner over creating a new file.</li>
+        <li><strong>Add companion specs only when needed.</strong> Add technical specs when implementation contracts matter. Add eval specs when acceptance judgment must persist beyond the current conversation.</li>
+        <li><strong>Reject overloaded names.</strong> If the name is a layer, artifact, queue, route, screen, command, or phase, rewrite it as an outcome or classify it as an artifact/interface/process/action inside the owning job.</li>
+        <li><strong>Record the routing decision.</strong> The spec or later skill should explain why the selected level is right and what adjacent levels were intentionally not created.</li>
+      </ol>
+    </section>
+
+    <section id="spec-type-rules" data-spec-section="spec-type-rules" data-section-type="routing-rules">
+      <h2>Spec type rules</h2>
+      <h3>System spec</h3>
+      <p>Use a system spec when the work needs a root contract for a whole operating system, product, repo, client system, or durable subsystem. A system spec owns the main goal, boundaries, parent capability families, operating loop, evidence model, and revision model. It should orient future work; it should not own every leaf file or process step.</p>
+      <h3>Parent capability spec</h3>
+      <p>Use a parent capability spec when the system needs to make a broad standing ability or durable outcome family reliable and that outcome family naturally contains multiple child capabilities. A parent capability should still be understandable as one larger thing the system can reliably make possible.</p>
+      <h3>Child capability spec</h3>
+      <p>Use a child capability spec when the outcome is narrower than a parent capability but still names a standing ability or durable condition. A child capability can own jobs, rules, evidence, and evals. It should not be a process step, artifact name, interface name, implementation layer, queue item, or verb phrase for work being performed.</p>
+      <h3>Job spec</h3>
+      <p>Use a job spec when an actor must perform named work so a capability can exist, operate, or improve. A job spec carries trigger, actor candidates, process, required context, tools, interfaces, states, rules, edge cases, outputs, evidence, and revision target. SOPs, checklists, process maps, handoff notes, and job records live inside the job spec by default.</p>
+      <h3>Technical spec</h3>
+      <p>Use a technical spec when software, data, automation, infrastructure, integration, security, permissions, sequencing, concurrency, migration, failure handling, or operational contracts matter. A technical spec explains how implementation should behave. It should attach to the job or capability whose intent it supports.</p>
+      <h3>Eval spec</h3>
+      <p>Use an eval spec when evidence needs a durable judgment contract. An eval spec names the evidence, passing condition, failure condition, review method, and revision target. Tests, metrics, screenshots, traces, audits, customer outcomes, and model judgments can produce evidence; the eval decides whether the evidence is good enough.</p>
+    </section>
+
+    <section id="non-spec-boundaries" data-spec-section="non-spec-boundaries" data-section-type="boundary-rules">
+      <h2>Non-spec boundaries</h2>
+      <p>Not every important thing becomes its own spec. Many things are sections, views, evidence, or implementation details inside the owning spec.</p>
+      <table class="status-table">
+        <thead><tr><th>Thing</th><th>What it is</th><th>Where it usually belongs</th></tr></thead>
+        <tbody>
+          <tr><td>Artifact</td><td>A durable object used, produced, owned, or referenced by the system.</td><td>Owned paths, implementation paths, evidence tables, or context sections.</td></tr>
+          <tr><td>Interface</td><td>The boundary where an actor uses, observes, or depends on the system.</td><td>Job context/interface section, technical contract, or evidence source.</td></tr>
+          <tr><td>Process</td><td>The repeatable path that performs a job.</td><td>Process section inside the job spec, or a linked skill/SOP view.</td></tr>
+          <tr><td>Action</td><td>A concrete thing an actor does or decides.</td><td>Process/action map, job process section, or technical sequence.</td></tr>
+          <tr><td>Evidence</td><td>Observable source-backed reality.</td><td>Eval spec, coverage entry, review report, test output, or evidence table.</td></tr>
+          <tr><td>Implementation detail</td><td>A code, data, infrastructure, or tool detail.</td><td>Technical spec if durable; otherwise the implementation diff or note.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="boundary-tests" data-spec-section="boundary-tests" data-section-type="examples">
+      <h2>Boundary examples</h2>
+      <table class="status-table">
+        <thead><tr><th>Candidate phrase</th><th>Correct classification</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Foundation helps humans and agents accomplish goals...</td><td>System goal in a system spec.</td><td>It names the whole Foundation system purpose.</td></tr>
+          <tr><td>Make outstanding work repeatable.</td><td>Parent capability.</td><td>It names a broad outcome family with multiple child outcomes.</td></tr>
+          <tr><td>Agent-safe workflow loops are available with bounded context and revision gates.</td><td>Child capability.</td><td>It names a standing ability under repeatable work.</td></tr>
+          <tr><td>Create agent-safe workflow loops with bounded context and revision gates.</td><td>Job.</td><td>It names work performed to make that ability available.</td></tr>
+          <tr><td>Run a spec-selection interview for a fuzzy request.</td><td>Job.</td><td>It is work an actor performs to choose the right spec path.</td></tr>
+          <tr><td>Implement a command that scaffolds the selected spec files.</td><td>Technical spec attached to a job.</td><td>Implementation contracts, file writes, and metadata behavior matter.</td></tr>
+          <tr><td>Judge ten candidate requests and verify the selected spec type.</td><td>Eval spec.</td><td>It defines evidence and pass/fail judgment for classification quality.</td></tr>
+          <tr><td><code>docs/definitions/definitions.html</code></td><td>Artifact.</td><td>The file is important context, but the file name is not a capability.</td></tr>
+          <tr><td>API route, command, screen, report, or workflow file.</td><td>Interface or artifact.</td><td>It exposes or supports behavior; it must be rewritten as an outcome before becoming a capability.</td></tr>
+          <tr><td>Pay employees accurately and on time.</td><td>Capability.</td><td>It names a durable business ability.</td></tr>
+          <tr><td>Payroll inputs are complete before each pay run.</td><td>Child capability.</td><td>It names a standing condition under employee payment reliability.</td></tr>
+          <tr><td>Collect approved hours, deductions, and pay changes.</td><td>Job.</td><td>It names work performed before payroll.</td></tr>
+          <tr><td>Run payroll for this pay period.</td><td>Job.</td><td>It has a trigger, process, output, and close condition.</td></tr>
+          <tr><td>Understand and document an existing codebase without rediscovering source.</td><td>Parent capability.</td><td>It is a broad standing ability with multiple child outcomes.</td></tr>
+          <tr><td>A complete source-backed repo file inventory is available.</td><td>Child capability.</td><td>It names a durable evidence condition.</td></tr>
+          <tr><td>Record every repo-owned file into the inventory.</td><td>Job.</td><td>It is triggered inventory work.</td></tr>
+          <tr><td>Business knowledge is preserved as useful context for future work.</td><td>Parent capability.</td><td>It is a broad standing ability across many child outcomes.</td></tr>
+          <tr><td>Job-specific business context is retrievable from documented knowledge.</td><td>Child capability.</td><td>It names a reliable retrieval condition.</td></tr>
+          <tr><td>Convert meeting notes into retrievable job context.</td><td>Job.</td><td>It is transformation work performed by an actor.</td></tr>
+          <tr><td>Buyers can understand the offer, price, proof, and risk reversal.</td><td>Child capability.</td><td>It names a durable buyer-facing ability.</td></tr>
+          <tr><td>Run a sales call for one qualified prospect.</td><td>Job.</td><td>It is triggered work with an actor and outcome.</td></tr>
+          <tr><td>Fulfillment work is scoped from the sold promise.</td><td>Child capability.</td><td>It names a standing operating condition.</td></tr>
+          <tr><td>Create a fulfillment kickoff plan for a new customer.</td><td>Job.</td><td>It is work performed after a sale.</td></tr>
+          <tr><td>Production failures are detected before they harm users.</td><td>Child capability.</td><td>It names a reliable operating ability.</td></tr>
+          <tr><td>Review production alerts and decide whether to open an incident.</td><td>Job.</td><td>It is work with decision criteria and an exit state.</td></tr>
+          <tr><td>Users can update notification preferences.</td><td>Capability or child capability.</td><td>It names a reliable user-facing ability; parent/child depends on the surrounding capability map.</td></tr>
+          <tr><td>Implement notification preference persistence.</td><td>Technical spec attached to a job.</td><td>It names implementation behavior needed for a user-facing ability.</td></tr>
+          <tr><td>Changes are reviewed against upstream intent before merge.</td><td>Child capability.</td><td>It names a standing quality-control condition.</td></tr>
+          <tr><td>Review one pull request against its job and eval specs.</td><td>Job.</td><td>It is triggered review work.</td></tr>
+          <tr><td>App releases can be deployed safely.</td><td>Capability.</td><td>It names a reliable operating ability.</td></tr>
+          <tr><td>Deploy the app to production.</td><td>Job.</td><td>It is triggered release work.</td></tr>
+          <tr><td>Deployment rollback behavior is defined.</td><td>Technical spec or child capability depending scope.</td><td>It can be a technical contract for one system or a broader operating ability if reusable across systems.</td></tr>
+          <tr><td>Eval results identify the smallest wrong artifact.</td><td>Child capability.</td><td>It names a durable evaluation ability.</td></tr>
+          <tr><td>Evaluate one slice and revise until acceptable.</td><td>Job.</td><td>It is work performed in a revision loop.</td></tr>
+          <tr><td>Source evidence is distinguishable from assumptions.</td><td>Child capability.</td><td>It names a standing knowledge-quality condition.</td></tr>
+          <tr><td>Label each row as fact, inference, assumption, or gap.</td><td>Job.</td><td>It is row-level classification work.</td></tr>
+          <tr><td>Visible system graphs are inspectable by humans and agents.</td><td>Child capability.</td><td>It names a standing visibility ability.</td></tr>
+          <tr><td>Regenerate and verify the visible business graph.</td><td>Job.</td><td>It is triggered maintenance work after metadata changes.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="future-eval-path" data-spec-section="future-eval-path" data-section-type="verification-contract">
+      <h2>Eval path</h2>
+      <p>The skill must not self-certify classification. It must compare the routing decision against the eval contract and fixture examples before handing off. The first eval is universal for spec selection; type-specific evals run after the selected spec type is known.</p>
+      <table class="status-table">
+        <thead><tr><th>Eval layer</th><th>Purpose</th><th>When used</th></tr></thead>
+        <tbody>
+          <tr><td>Spec-selection eval</td><td>Judge whether the request was classified at the right layer: system, parent capability, child capability, job, technical, eval, artifact, interface, process, action, or evidence.</td><td>Before creating or revising durable specs from fuzzy intent.</td></tr>
+          <tr><td>Capability/job boundary eval</td><td>Stress-test standing ability versus triggered work, parent versus child decomposition, and whether child capabilities are actually needed.</td><td>Whenever a capability or job is created, split, merged, renamed, or remapped.</td></tr>
+          <tr><td>System spec eval</td><td>Check whether a system spec has one root goal, boundaries, capability families, operating loop, evidence model, and revision model.</td><td>After classifying work as system-level.</td></tr>
+          <tr><td>Capability spec eval</td><td>Check whether a capability is an outcome statement with jobs, evidence, constraints, and parent/child links that decompose outcomes.</td><td>After classifying work as parent or child capability.</td></tr>
+          <tr><td>Job spec eval</td><td>Check whether a job has trigger, actor candidates, process, context, states, rules, outputs, evidence, and revision targets.</td><td>After classifying work as a job.</td></tr>
+          <tr><td>Technical spec eval</td><td>Check whether implementation contracts, sequencing, data, permissions, failure modes, and operational constraints are explicit enough to build.</td><td>After classifying work as technical or technical companion work.</td></tr>
+          <tr><td>Eval spec eval</td><td>Check whether evidence, acceptance conditions, failure modes, judge method, and revision targets are clear enough to reject bad output.</td><td>After classifying work as eval or eval companion work.</td></tr>
+        </tbody>
+      </table>
+      <p>The universal spec-selection eval should run first because the wrong spec type makes every downstream adequacy eval less useful. Once classification is correct, the type-specific eval can judge whether the selected spec is strong enough.</p>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <ul>
+        <li><a href="../definitions/definitions.html#system-philosophy-concepts">Definitions</a> is the vocabulary source for capability, job, process, action, artifact, interface, evidence, and eval.</li>
+        <li><a data-spec-link="foundation.operating-system.system" href="./foundation-operating-system.html#capability-map">Foundation Operating System</a> is the source for the current system goal and parent capability families.</li>
+        <li><a data-spec-link="foundation.spec-process" href="./process.html#spec-choice">Spec Process</a> remains the current authoring workflow and registry/check contract.</li>
+        <li>The spec-selection skill uses this job spec as its process source and hands off to type-specific authoring skills.</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Acceptance condition</th><th>Eval spec or gap</th></tr></thead>
+        <tbody>
+          <tr><td>Spec registry, graph metadata, and self-map checks.</td><td>The spec is structurally valid and attached to its owning capability.</td><td><code>npm run spec:check</code></td></tr>
+          <tr><td>Classification examples across system, parent capability, child capability, job, technical, eval, artifact, interface, process, and action candidates.</td><td>The eval accepts only classifications that preserve the layer of intent, pass the standing-ability and triggered-work tests, and reject artifact/layer names as capabilities.</td><td><code>foundation.spec-selection.eval</code></td></tr>
+          <tr><td>Type-specific adequacy examples for system, capability, job, technical, and eval specs.</td><td>After classification, the selected spec type has its own adequacy eval or an explicit gap.</td><td><code>foundation.author-system-spec.eval</code>, <code>foundation.author-capability-spec.eval</code>, <code>foundation.author-job-spec.eval</code>, <code>foundation.author-technical-spec.eval</code>, <code>foundation.author-eval-spec.eval</code></td></tr>
+          <tr><td>Human review of the language in this spec.</td><td>The vocabulary is clear enough to become a skill prompt and later validator/eval contract.</td><td>Current open review gate.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <p>This job spec changes when agents misroute spec work, when examples expose a boundary gap, or when templates/evals add new spec-type rules.</p>
+      <ul>
+        <li><strong>Revision target:</strong> this job spec first, then <code>skills/spec-selection/SKILL.md</code>, the type-specific authoring skills, templates, and validators.</li>
+        <li><strong>Update trigger:</strong> ambiguous classifications, broad capability names, jobs misclassified as capabilities, or artifact/interface names passing as outcomes.</li>
+        <li><strong>Promotion rule:</strong> mark this spec active only after the language, skill handoff, and classification eval are accepted or explicitly scoped with remaining gaps.</li>
+      </ul>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Spec Selection Job - active classification contract</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

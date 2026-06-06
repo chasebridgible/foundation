@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.author-durable-specs.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-03">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Author Durable Specs</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,7 +16,7 @@
   "title": "Author Durable Specs",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-03",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.operating-system.system",
@@ -24,6 +24,12 @@
     "foundation.backfill-author-specs.job",
     "foundation.html-docs-navigation.job",
     "foundation.spec-process",
+    "foundation.spec-selection.job",
+    "foundation.author-system-spec.job",
+    "foundation.author-capability-spec.job",
+    "foundation.author-job-spec.job",
+    "foundation.author-technical-spec.job",
+    "foundation.author-eval-spec.job",
     "example.business.pay-employees.job",
     "example.software.notification-preferences.job",
     "fup.kitchen-queue.job"
@@ -46,6 +52,34 @@
     },
     {
       "id": "foundation.spec-process",
+      "relationship": "child"
+    },
+    {
+      "id": "foundation.spec-selection.job",
+      "relationship": "child",
+      "sections": [
+        "classification-contract",
+        "spec-type-rules"
+      ]
+    },
+    {
+      "id": "foundation.author-system-spec.job",
+      "relationship": "child"
+    },
+    {
+      "id": "foundation.author-capability-spec.job",
+      "relationship": "child"
+    },
+    {
+      "id": "foundation.author-job-spec.job",
+      "relationship": "child"
+    },
+    {
+      "id": "foundation.author-technical-spec.job",
+      "relationship": "child"
+    },
+    {
+      "id": "foundation.author-eval-spec.job",
       "relationship": "child"
     },
     {
@@ -171,6 +205,66 @@
       }
     },
     {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.spec-selection.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.spec-selection.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.author-system-spec.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.author-system-spec.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.author-capability-spec.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.author-capability-spec.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.author-job-spec.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.author-job-spec.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.author-technical-spec.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.author-technical-spec.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.author-eval-spec.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.author-eval-spec.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
       "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:example.business.pay-employees.job",
       "type": "realized-by",
       "from": "spec:foundation.author-durable-specs.capability",
@@ -230,7 +324,7 @@
     <p class="lede">This capability turns reviewed intent and evidence into source-of-truth contracts that humans and agents can read.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-03</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
       <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
     </div>
   </section>
@@ -263,6 +357,12 @@
           <tr><td>Backfill Author Specs</td><td>Write job and technical specs from the backfill substrate.</td><td><code>foundation.backfill-author-specs.job</code></td><td>active</td></tr>
           <tr><td>HTML Docs Navigation</td><td>Keep HTML docs navigable as client-visible artifacts.</td><td><code>foundation.html-docs-navigation.job</code></td><td>active</td></tr>
           <tr><td>Spec Maintenance Process</td><td>Keep spec authoring, metadata, graph links, coverage, and workflow-skill execution aligned.</td><td><code>foundation.spec-process</code></td><td>active</td></tr>
+          <tr><td>Spec Selection</td><td>Decide whether intent belongs in a system, parent capability, child capability, job, technical, or eval spec before authoring begins.</td><td><code>foundation.spec-selection.job</code></td><td>active</td></tr>
+          <tr><td>Author System Specs</td><td>Create or revise root system specs after Spec Selection classifies system-level intent.</td><td><code>foundation.author-system-spec.job</code></td><td>active</td></tr>
+          <tr><td>Author Capability Specs</td><td>Create or revise parent and child capability specs after Spec Selection classifies durable outcomes.</td><td><code>foundation.author-capability-spec.job</code></td><td>active</td></tr>
+          <tr><td>Author Job Specs</td><td>Create or revise job specs after Spec Selection classifies triggered work.</td><td><code>foundation.author-job-spec.job</code></td><td>active</td></tr>
+          <tr><td>Author Technical Specs</td><td>Create or revise technical specs after Spec Selection classifies implementation contracts.</td><td><code>foundation.author-technical-spec.job</code></td><td>active</td></tr>
+          <tr><td>Author Eval Specs</td><td>Create or revise eval specs after Spec Selection classifies evidence judgment.</td><td><code>foundation.author-eval-spec.job</code></td><td>active</td></tr>
           <tr><td>Business Job Spec Example</td><td>Demonstrate business job spec shape.</td><td><code>example.business.pay-employees.job</code></td><td>active</td></tr>
           <tr><td>Software Job Spec Example</td><td>Demonstrate software job spec shape.</td><td><code>example.software.notification-preferences.job</code></td><td>active</td></tr>
           <tr><td>Kitchen Queue Example</td><td>Demonstrate job, technical, and eval split.</td><td><code>fup.kitchen-queue.job</code></td><td>active</td></tr>
@@ -275,7 +375,9 @@
       <ul>
         <li>docs/specs/process.html is the spec authoring process contract.</li>
         <li>docs/specs/templates/*.html define the copyable shapes.</li>
-        <li>skills/spec-workflow/SKILL.md and skills/job-spec-interview/SKILL.md guide agents.</li>
+        <li>skills/spec-selection/SKILL.md routes spec work before authoring starts.</li>
+        <li>skills/author-system-spec/SKILL.md, skills/author-capability-spec/SKILL.md, skills/author-job-spec/SKILL.md, skills/author-technical-spec/SKILL.md, and skills/author-eval-spec/SKILL.md guide type-specific authoring.</li>
+        <li>skills/spec-workflow/SKILL.md keeps metadata, graph links, registry, checks, and co-evolution aligned.</li>
       </ul>
     </section>
 

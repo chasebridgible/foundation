@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-template.system">
 <meta name="spec:type" content="template">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-31">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>System Spec Template</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,7 +16,7 @@
   "title": "System Spec Template",
   "type": "template",
   "status": "active",
-  "lastUpdated": "2026-05-31",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "quarterly",
   "confidence": "high",
   "parent": "foundation.spec-system",
@@ -132,9 +132,10 @@
     <p class="lede">A system spec defines the durable intent, boundaries, capability families, operating loop, and evidence model for a whole system. It should be broad enough to orient agents and specific enough to decide what capability or job spec owns the next change.</p>
     <div class="meta-row">
       <div><strong>Template status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-31</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
     </div>
     <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace metadata, visible placeholders, related spec IDs, owned paths, coverage entries, and domain language before using it to drive work.</div>
+    <div class="callout warning"><strong>Boundary rule:</strong> a system spec has one root operating goal for a whole system, product, repo, client system, or durable subsystem. Do not use this template for a feature, artifact, workflow phase, or implementation detail.</div>
     <h3>Intent</h3>
     <p>State the goal this system exists to produce and the real-world result that should become more reliable because the system exists.</p>
     <h3>Boundary</h3>

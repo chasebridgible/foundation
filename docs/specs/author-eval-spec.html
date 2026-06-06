@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.author-eval-spec.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-06">
+<title>Author Eval Spec Job</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.author-eval-spec.job",
+  "title": "Author Eval Spec Job",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-06",
+  "reviewCadence": "per-change",
+  "confidence": "low",
+  "parent": "foundation.author-durable-specs.capability",
+  "children": [
+    "foundation.author-eval-spec.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.spec-selection.job",
+      "relationship": "depends-on",
+      "sections": [
+        "spec-type-rules"
+      ]
+    },
+    {
+      "id": "foundation.author-eval-spec.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "verification-contract"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.eval",
+      "relationship": "informs",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/author-eval-spec.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/author-eval-spec/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/author-eval-spec/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "foundation.author-eval-spec.job:lane-eval",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/author-eval-spec-eval.html",
+      "mapsTo": [
+        "foundation.author-eval-spec.job#evidence-and-evaluation"
+      ]
+    }
+  ],
+  "tags": [
+    "job",
+    "spec-authoring",
+    "eval"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.author-eval-spec.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.author-eval-spec.job",
+      "type": "job",
+      "label": "Author Eval Spec Job",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "spec-authoring",
+          "eval"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.author-eval-spec.job:main",
+      "type": "process",
+      "label": "Author Eval Spec Job process",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-eval-spec.job"
+      }
+    },
+    {
+      "id": "actor:foundation.author-eval-spec.job:primary",
+      "type": "actor",
+      "label": "Author Eval Spec Job actor",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.author-eval-spec.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.author-eval-spec.job:primary",
+      "type": "evidence",
+      "label": "Author Eval Spec Job evidence",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-eval-spec.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.author-eval-spec.job:has-process:process:foundation.author-eval-spec.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.author-eval-spec.job",
+      "to": "process:foundation.author-eval-spec.job:main",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-eval-spec.job:performed-by:actor:foundation.author-eval-spec.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.author-eval-spec.job",
+      "to": "actor:foundation.author-eval-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "job-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-eval-spec.job:evidenced-by:evidence:foundation.author-eval-spec.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.author-eval-spec.job",
+      "to": "evidence:foundation.author-eval-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-eval-spec.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.author-eval-spec.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "job-intent"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">J</div>
+    <div>
+      <div class="sidebar-title">Author Eval Spec Job</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Job intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability supported</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current handling</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed handling</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context, tools, and interfaces</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence and evaluation</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">08</span>Revision</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/author-eval-spec.html</div>
+    <h1>Author Eval Spec Job</h1>
+    <p class="lede">This job authors or revises eval specs after Spec Selection classifies the work as evidence judgment.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
+      <div><strong>Canonical section:</strong> <a href="#job-intent">#job-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+      <h1>Job intent</h1>
+      <p>This job turns a Spec Selection Result for evaluation into an HTML-native eval spec that defines evidence, acceptance, failure, judge method, revision targets, and gaps.</p>
+    </section>
+
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <p>Supports <code>foundation.author-durable-specs.capability</code> by making quality gates durable, source-backed, and reusable across agent runs.</p>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling</h2>
+      <p>Without a dedicated eval lane, agents can treat tests, scorecards, judge prompts, and review notes as interchangeable. This lane preserves the distinction: tests collect evidence; evals judge whether evidence is good enough.</p>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <p>The lane starts only from a Spec Selection Result whose primary classification is <code>eval</code> or that names an eval companion spec as required. It must attach to the spec or workflow being judged.</p>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <ol>
+        <li>Read the Spec Selection Result, target spec, eval template, and AI eval principles when a judge or rubric is involved.</li>
+        <li>Run the readiness gate: ask only questions that materially change evidence, pass/fail/block conditions, judge method, revision routing, or anti-shortcut cases; otherwise continue with labeled assumptions.</li>
+        <li>Define what evidence is collected, how it is judged, what fails, what revisions are routed, and what gaps remain.</li>
+        <li>Add anti-shortcut cases when agents could pass structurally while missing intent.</li>
+        <li>Author or revise HTML prose, metadata, graph edges, coverage, and visible links.</li>
+        <li>Run the eval-spec eval, revise blocking findings, then run registry and graph checks.</li>
+      </ol>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <ul>
+        <li><code>skills/author-eval-spec/SKILL.md</code> is the agent procedure.</li>
+        <li><code>docs/specs/templates/eval-spec-template.html</code> is the authoring shape.</li>
+        <li><code>foundation.author-eval-spec.eval</code> is the quality gate.</li>
+      </ul>
+      <p><strong>Readiness questions:</strong> What evidence should be judged? What must pass, fail, block, or route revision? What judge method or deterministic check should be used? What shortcuts or generic outputs must this eval reject?</p>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <p>The authored eval spec is acceptable only when evidence sources, pass/fail conditions, judge method, revision targets, blocker semantics, and fixture/calibration needs are explicit.</p>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <p>Revise this job when agents accept vague quality language, fail to name revision targets, confuse tests with evals, or omit anti-shortcut cases for agent output.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Author Eval Spec Job · generated starter spec</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

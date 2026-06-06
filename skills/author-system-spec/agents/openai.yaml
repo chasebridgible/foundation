@@ -1,0 +1,4 @@
+interface:
+  display_name: "Author System Spec"
+  short_description: "Write root system specs"
+  default_prompt: "Use $author-system-spec after spec-selection classifies this as a system spec."

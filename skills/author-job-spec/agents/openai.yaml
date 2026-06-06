@@ -1,0 +1,4 @@
+interface:
+  display_name: "Author Job Spec"
+  short_description: "Write triggered-work job specs"
+  default_prompt: "Use $author-job-spec after spec-selection classifies this as a job."
