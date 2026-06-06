@@ -1,0 +1,4 @@
+interface:
+  display_name: "Author Eval Spec"
+  short_description: "Write evidence judgment specs"
+  default_prompt: "Use $author-eval-spec after spec-selection classifies this as eval spec work."

@@ -5,6 +5,8 @@
 - Read `docs/specs/index.html` and `docs/specs/foundation-operating-system.html` before behavior-changing work or spec authoring.
 - For spec work, follow `docs/specs/process.html#spec-authoring`; `spec-metadata` is canonical; capability specs expose jobs with `realized-by`, and job specs connect back with `supports`.
 - Before creating or revising a durable spec, skill, validator, template, or workflow, name the Foundation capability and owning job spec. If no job owns the work, create or revise the job first.
+- Before creating, revising, splitting, remapping, or routing any system, capability, job, technical, eval, artifact/interface/process/action, or ambiguous spec request, use `skills/spec-selection/SKILL.md` and produce a Spec Selection Result.
+- After Spec Selection, use the selected type-specific authoring skill. Authoring skills do not choose their own spec type.
 - Use the most specific skill that applies. Layer skills beat broad workflow skills.
 - Layer skills own their exact loops, shortcut bans, outstanding gates, checks, evals, revision gates, and handoff gates.
 - Use `docs/principles/ai-evals-principles.html` before judge/eval changes, and `docs/principles/sw-design-principles.html` before UI, rendered UX, accessibility, or visual-verification work.
@@ -15,9 +17,14 @@
 
 | Work | Skill |
 | --- | --- |
-| Turn fuzzy intent into a job | `skills/job-spec-interview/SKILL.md` |
+| Select the right spec type | `skills/spec-selection/SKILL.md` |
+| Author a system spec | `skills/author-system-spec/SKILL.md` |
+| Author a capability spec | `skills/author-capability-spec/SKILL.md` |
+| Author a job spec | `skills/author-job-spec/SKILL.md` |
+| Author a technical spec | `skills/author-technical-spec/SKILL.md` |
+| Author an eval spec | `skills/author-eval-spec/SKILL.md` |
 | Design agent workflows, skills, queues, validators, evals, or handoffs | `skills/agentic-workflow-design/SKILL.md` |
-| Create or revise specs | `skills/spec-workflow/SKILL.md` |
+| Keep spec metadata, graph links, registry, checks, and code/spec/test changes aligned | `skills/spec-workflow/SKILL.md` |
 | Create job journey images | `skills/job-journey-images/SKILL.md` |
 
 ## Backfill Skills

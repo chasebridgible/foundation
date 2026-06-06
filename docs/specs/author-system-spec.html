@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.author-system-spec.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-06">
+<title>Author System Spec Job</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.author-system-spec.job",
+  "title": "Author System Spec Job",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-06",
+  "reviewCadence": "per-change",
+  "confidence": "low",
+  "parent": "foundation.author-durable-specs.capability",
+  "children": [
+    "foundation.author-system-spec.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.spec-selection.job",
+      "relationship": "depends-on",
+      "sections": [
+        "classification-contract"
+      ]
+    },
+    {
+      "id": "foundation.author-system-spec.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "verification-contract"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.system",
+      "relationship": "informs",
+      "sections": [
+        "system-intent",
+        "capability-map"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/author-system-spec.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/author-system-spec/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/author-system-spec/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "foundation.author-system-spec.job:lane-eval",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/author-system-spec-eval.html",
+      "mapsTo": [
+        "foundation.author-system-spec.job#evidence-and-evaluation"
+      ]
+    }
+  ],
+  "tags": [
+    "job",
+    "spec-authoring",
+    "system"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.author-system-spec.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.author-system-spec.job",
+      "type": "job",
+      "label": "Author System Spec Job",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "spec-authoring",
+          "system"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.author-system-spec.job:main",
+      "type": "process",
+      "label": "Author System Spec Job process",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-system-spec.job"
+      }
+    },
+    {
+      "id": "actor:foundation.author-system-spec.job:primary",
+      "type": "actor",
+      "label": "Author System Spec Job actor",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.author-system-spec.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.author-system-spec.job:primary",
+      "type": "evidence",
+      "label": "Author System Spec Job evidence",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-system-spec.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.author-system-spec.job:has-process:process:foundation.author-system-spec.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.author-system-spec.job",
+      "to": "process:foundation.author-system-spec.job:main",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-system-spec.job:performed-by:actor:foundation.author-system-spec.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.author-system-spec.job",
+      "to": "actor:foundation.author-system-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "job-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-system-spec.job:evidenced-by:evidence:foundation.author-system-spec.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.author-system-spec.job",
+      "to": "evidence:foundation.author-system-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-system-spec.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.author-system-spec.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "job-intent"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">J</div>
+    <div>
+      <div class="sidebar-title">Author System Spec Job</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Job intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability supported</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current handling</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed handling</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context, tools, and interfaces</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence and evaluation</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">08</span>Revision</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/author-system-spec.html</div>
+    <h1>Author System Spec Job</h1>
+    <p class="lede">This job authors or revises root system specs after Spec Selection classifies the work as whole-system intent.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
+      <div><strong>Canonical section:</strong> <a href="#job-intent">#job-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+      <h1>Job intent</h1>
+      <p>This job turns a Spec Selection Result for system-level intent into an HTML-native system spec with one root goal, boundaries, parent capability families, operating loop, evidence model, and revision model.</p>
+    </section>
+
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <p>Supports <code>foundation.author-durable-specs.capability</code> by ensuring whole-system intent is captured before child capabilities, jobs, technical contracts, and evals depend on it.</p>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling</h2>
+      <p>Before this lane, generic spec requests could start in a job or capability template even when the user was changing the root system goal. That let downstream maps drift because the system goal was not settled first.</p>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <p>The lane starts only from a Spec Selection Result whose primary classification is <code>system</code>. If the request is a feature, workflow, artifact, interface, or implementation detail, the lane rejects it and returns to Spec Selection.</p>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <ol>
+        <li>Read the Spec Selection Result, existing system spec if present, Foundation definitions, and system template.</li>
+        <li>Run the readiness gate: ask only questions that materially change root goal, boundary, capability families, evidence, or revision model; otherwise continue with labeled assumptions.</li>
+        <li>Confirm there is one root goal and that broader philosophical framing belongs outside the operating goal when needed.</li>
+        <li>Define system boundaries, actors, parent capability families, operating loop, evidence model, revision model, and open decisions.</li>
+        <li>Author or revise HTML prose, <code>spec-metadata</code>, <code>graph-metadata</code>, coverage, visible links, and owned paths together.</li>
+        <li>Run the system-spec eval, revise blocking findings, then run registry and graph checks.</li>
+      </ol>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <ul>
+        <li><code>skills/author-system-spec/SKILL.md</code> is the agent procedure.</li>
+        <li><code>docs/specs/templates/system-spec-template.html</code> is the authoring shape.</li>
+        <li><code>foundation.author-system-spec.eval</code> is the quality gate.</li>
+      </ul>
+      <p><strong>Readiness questions:</strong> What is the single root operating goal? What is inside and outside the system boundary? What parent capability families must this system make reliable? How should evidence revise the system over time?</p>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <p>The authored system spec is acceptable only when it has one root operating goal, coherent capability families, explicit boundaries, evidence and revision rules, graph-compatible metadata, and no unresolved classification mismatch.</p>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <p>Revise this job when agents create system specs for non-system work, omit the root goal, duplicate child-spec detail into the system spec, or fail to connect the system goal to capabilities and evaluation.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Author System Spec Job · generated starter spec</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

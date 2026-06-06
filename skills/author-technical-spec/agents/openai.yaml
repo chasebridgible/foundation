@@ -1,0 +1,4 @@
+interface:
+  display_name: "Author Technical Spec"
+  short_description: "Write implementation contract specs"
+  default_prompt: "Use $author-technical-spec after spec-selection classifies this as technical spec work."

@@ -391,7 +391,7 @@
 
 <main class="main">
   <section id="overview" class="overview-section">
-    <div class="spec-eyebrow">Core Concepts · sw-definitions.html</div>
+    <div class="spec-eyebrow">Core Concepts · definitions.html</div>
     <h1>Definitions</h1>
     <p class="lede">Plain-language glossary of terms that show up across <code>docs/education/</code> and the wider agent / spec / harness conversation. Grow this over time.</p>
     <div class="meta-row">
@@ -446,22 +446,52 @@
 <section id="system-philosophy-concepts" class="level2 spec-section">
 <h2>System philosophy concepts</h2>
 <p>These terms connect business, software development, agent workflows, and context substrate. See <code>../fundamentals/system-philosophy.html</code> for the long form.</p>
+<h3>Canonical vocabulary for capability and job mapping</h3>
+<p>This vocabulary is the settled source for remapping Foundation capabilities and jobs. Use it before changing capability maps, job specs, process/action maps, graph metadata, or spec-selection rules.</p>
+<table class="status-table">
+<thead><tr><th>Term</th><th>Definition</th><th>Not this</th></tr></thead>
+<tbody>
+<tr><td>Capability</td><td>A reliable ability to produce an outcome under real constraints. A capability names what the system, business, repo, human, agent, or software must be able to make possible.</td><td>A file, layer name, implementation component, phase, task list, or process label.</td></tr>
+<tr><td>Parent capability</td><td>A broad reliable outcome family that gives related child capabilities one shared purpose. It names the larger result those child capabilities collectively make possible.</td><td>A bucket for unrelated work, a lifecycle phase, or a department-like heading that only groups artifacts.</td></tr>
+<tr><td>Child capability</td><td>A narrower reliable outcome inside a parent capability. It names a specific part of the parent outcome and can have its own jobs, rules, evidence, and evals.</td><td>A process step, queue item, screen, route, command, report, or implementation detail.</td></tr>
+<tr><td>Job</td><td>A named body of work an actor performs so a capability can exist, operate, or improve. A job has a trigger, actor candidates, required context, process, rules, states, outputs, evidence, and exit criteria.</td><td>The capability itself, a single action, or a static artifact.</td></tr>
+<tr><td>Process</td><td>The repeatable sequence of actions, decisions, checks, and handoffs that performs a job. In agent work, a reusable process is often encoded as a skill.</td><td>A capability, a job outcome, or a separate spec type by default.</td></tr>
+<tr><td>Action</td><td>A concrete thing an actor does or decides: click, approve, run, edit, call, submit, inspect, deploy, revise, or hand off.</td><td>A full job, a durable capability, or the evidence that proves the action happened.</td></tr>
+<tr><td>Artifact</td><td>A durable object used, produced, owned, or referenced by the system: source file, spec, report, registry row, dataset, screenshot, log, template, generated output, or document.</td><td>A capability by itself. An artifact may support, expose, or prove a capability, but it is not the reliable outcome.</td></tr>
+<tr><td>Interface</td><td>The boundary where an actor, customer, software system, agent, or operator can use, observe, or depend on the system. In software this can be a screen, route, API, command, schema, workflow, dashboard, or doc. In business this can be an offer, form, call, handoff, invoice, report, SOP, or meeting.</td><td>The capability itself. Interfaces expose or imply capabilities; they do not replace the outcome statement.</td></tr>
+<tr><td>Evidence</td><td>Source-backed observable reality used to judge whether intent became result: test output, metric, audit, screenshot, trace, customer response, revenue signal, review, source citation, or production behavior.</td><td>An unsupported claim, guess, nearby example, or confidence statement without a source.</td></tr>
+<tr><td>Eval</td><td>The judgment contract that compares evidence against intent and decides accept, revise, continue, block, or stop. An eval may use tests, metrics, inspections, audits, scorecards, customer outcomes, review notes, or model judgments.</td><td>The evidence itself. A test produces evidence; an eval decides whether the evidence is good enough.</td></tr>
+</tbody>
+</table>
+<h3>Boundary rules</h3>
+<ul>
+<li>A capability should be readable as "the system can reliably..." followed by a meaningful outcome.</li>
+<li>A parent and child capability relationship decomposes outcomes. "Understand and document an existing codebase" can be a child capability. A layer name like "Artifact Inventory" should be rewritten as an outcome like "record repo files into a complete, source-backed inventory."</li>
+<li>A job should be readable as "an actor performs this work to support a capability." "Run payroll for this pay period" is a job supporting the capability "pay employees accurately and on time."</li>
+<li>A process is how the job runs. A skill, SOP, checklist, or process/action map may encode the process, but it should attach to the job instead of becoming a new capability by default.</li>
+<li>An action is the smallest executable or decision unit inside a process. It is too small to be a capability or job unless repeated actions are being grouped into a named body of work.</li>
+<li>An artifact or interface can be evidence for a capability, a tool used by a job, or a place where work happens. It becomes a capability only when rewritten as the reliable outcome it enables.</li>
+<li>Evidence must name what was observed and where it came from. Eval must name how that evidence is judged and what artifact changes when the evidence fails.</li>
+</ul>
 <p><strong>Action.</strong> A concrete thing an actor does in the real world or inside a system: edit a file, call a customer, approve a change, send an invoice, run a test, update a dashboard.</p>
 <p><strong>Actor.</strong> The person, agent, software system, vendor, process, or hybrid that performs an action, process, or job. Define the job before choosing the actor.</p>
+<p><strong>Artifact.</strong> A durable object used, produced, owned, or referenced by the system: source file, spec, report, registry row, dataset, screenshot, log, template, generated output, or document. Artifacts can support, expose, or prove capabilities, but an artifact name is not a capability unless it is rewritten as the reliable outcome the artifact enables.</p>
 <p><strong>Business stack.</strong> The full set of offers, capabilities, jobs, actors, tools, data, processes, distribution, money flows, and learning loops that turn effort into business outcomes. Broader than a tech stack.</p>
-<p><strong>Capability.</strong> A system's ability to reliably produce a class of outcome under real constraints. A business capability can be offer creation, distribution, sales, fulfillment, retention, hiring, finance, or learning. A portable software capability is one domain-specific form used by Orderly Systems: the implementation pieces needed to deliver that capability can travel together to another client.</p>
+<p><strong>Capability.</strong> A system's ability to reliably produce a class of outcome under real constraints. A capability should name what must become possible, not the artifact, layer, phase, or task used to make it possible. A business capability can be offer creation, distribution, sales, fulfillment, retention, hiring, finance, or learning. A portable software capability is one domain-specific form used by Orderly Systems: the implementation pieces needed to deliver that capability can travel together to another client.</p>
+<p><strong>Parent capability.</strong> A broad capability that names an outcome family and gives related child capabilities one shared purpose. It describes the larger result those child capabilities collectively make possible.</p>
+<p><strong>Child capability.</strong> A narrower capability under a parent capability. It makes one specific part of the parent outcome reliable and may have its own jobs, rules, evidence, and evals.</p>
 <p><strong>Context.</strong> Knowledge prepared for action: the relevant subset of knowledge plus the current goal, constraints, state, actor, tools, risk, and evidence needed for a specific job.</p>
 <p><strong>Context substrate.</strong> Durable artifacts that preserve the context actors need for future work: specs, capability maps, job specs, decision rules, offer context, examples, data definitions, principles, and evidence history. A knowledge base is one implementation of context substrate, not the whole category.</p>
 <p><strong>Decision.</strong> A choice made by an actor under criteria and constraints. Decisions are actions at judgment boundaries and should name the evidence that would make the choice better next time.</p>
 <p><strong>Distribution.</strong> The business capability of making an offer reachable, visible, credible, and available to the right market. Sales is one job family inside distribution, not the whole distribution system.</p>
 <p><strong>Data.</strong> Recorded fact or event history: transactions, metrics, decisions, exceptions, outcomes, logs, notes, or observations. Data becomes evidence when the system selects it to judge intent.</p>
-<p><strong>Evidence.</strong> Observable reality used to decide whether intent became result: a test result, metric, audit, customer response, revenue signal, rendered screenshot, trace, review, or production outcome.</p>
-<p><strong>Eval.</strong> The judgment that compares evidence against intent and decides whether to accept, revise, continue, or stop. An eval can use tests, metrics, inspections, audits, scorecards, customer outcomes, review notes, or model judgments.</p>
+<p><strong>Evidence.</strong> Source-backed observable reality used to decide whether intent became result: a test result, metric, audit, customer response, revenue signal, rendered screenshot, trace, review, source citation, or production outcome. Evidence must name what was observed and where it came from.</p>
+<p><strong>Eval.</strong> The judgment contract that compares evidence against intent and decides whether to accept, revise, continue, block, or stop. An eval can use tests, metrics, inspections, audits, scorecards, customer outcomes, review notes, or model judgments. A test produces evidence; an eval judges whether the evidence is good enough.</p>
 <p><strong>Test.</strong> A concrete check that produces evidence. In software this is often executable code such as a unit, integration, smoke, visual, or rendered-UX test. In business it can be a checklist, inspection, audit, quality gate, or sample review. A test collects evidence; an eval judges whether the evidence satisfies intent.</p>
 <p><strong>Goal.</strong> The desired outcome the system is trying to produce. Goals require intent-driven systems; otherwise they remain wishes.</p>
-<p><strong>Interface.</strong> The place where an actor, user, customer, vendor, or other system meets the system. In software, an interface can be a screen, route, command, schema, workflow file, dashboard, or document. In business, an interface can be an offer, sales call, intake form, fulfillment handoff, invoice, SOP, metric report, or decision meeting.</p>
+<p><strong>Interface.</strong> The boundary where an actor, user, customer, vendor, agent, operator, or other system can use, observe, or depend on the system. In software, an interface can be a screen, route, API, command, schema, workflow file, dashboard, or document. In business, an interface can be an offer, sales call, intake form, fulfillment handoff, invoice, SOP, metric report, or decision meeting. Interfaces expose or imply capabilities, but they do not replace the outcome statement.</p>
 <p><strong>Intent.</strong> A statement of what should become true. Intent becomes useful when it is clear enough that another actor can act on it and evidence can verify whether it became reality.</p>
-<p><strong>Job.</strong> The named body of work required for a capability to exist, operate, or improve. A job carries intent, constraints, actor candidates, process, success criteria, measurement, escalation, and revision history.</p>
+<p><strong>Job.</strong> The named body of work required for a capability to exist, operate, or improve. A job carries trigger, intent, constraints, actor candidates, required context, process, states, rules, outputs, success criteria, measurement, escalation, and revision history.</p>
 <p><strong>Knowledge.</strong> Stored understanding: facts, history, decisions, definitions, examples, data, principles, notes, and prior interpretations.</p>
 <p><strong>Process / workflow / skill.</strong> A repeatable sequence of actions, decisions, checks, and handoffs that performs a job. In agent work this is often called a skill; in business operations it is often called an SOP, process, or checklist. The process lives inside the job spec unless it needs a separate reusable view.</p>
 <p><strong>Role / title.</strong> A named accountability position such as founder, CEO, engineer, designer, operator, or salesperson. A role is not itself a job; it contains jobs and owns outcomes.</p>

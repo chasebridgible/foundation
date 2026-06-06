@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-process">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-03">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Spec Maintenance Process</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Spec Maintenance Process",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-03",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": "foundation.author-durable-specs.capability",
@@ -48,6 +48,14 @@
       "sections": [
         "metadata-contract",
         "states-and-rules"
+      ]
+    },
+    {
+      "id": "foundation.spec-selection.job",
+      "relationship": "depends-on",
+      "sections": [
+        "classification-contract",
+        "decision-process"
       ]
     },
     {
@@ -237,7 +245,7 @@
 
     <section id="spec-choice" data-spec-section="spec-choice" data-section-type="routing-rules">
       <h2>Spec choice</h2>
-      <p>Choose the spec type by the layer of intent. Do not create several specs when one job spec can carry the job, its SOP/checklist/process, and its evidence needs clearly.</p>
+      <p>Choose the spec type through <a data-spec-link="foundation.spec-selection.job" href="./spec-selection.html">Spec Selection</a> before authoring begins. Do not create several specs when one job spec can carry the job, its SOP/checklist/process, and its evidence needs clearly.</p>
       <table class="status-table">
         <thead><tr><th>Use this spec</th><th>When the intent is</th><th>Example</th></tr></thead>
         <tbody>
@@ -249,6 +257,7 @@
         </tbody>
       </table>
       <p>A capability usually has multiple jobs. A job usually has a process. A technical spec is added when implementation details matter. An eval spec is added when the work needs a durable definition of what evidence will prove it worked.</p>
+      <div class="callout warning"><strong>Routing rule:</strong> generic spec requests must produce a Spec Selection Result first. Then the selected type-specific authoring skill writes the spec; authoring skills do not choose their own spec type.</div>
     </section>
 
     <section id="spec-authoring" data-spec-section="spec-authoring" data-section-type="authoring-contract">

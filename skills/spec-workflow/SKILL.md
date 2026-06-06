@@ -1,31 +1,32 @@
 ---
 name: spec-workflow
-description: Create, update, and verify HTML-native specs. Use when Codex is asked to create a system, capability, job, technical, or eval spec; revise spec metadata; map tests or evidence; change behavior governed by specs; or keep implementation/spec/eval changes aligned with the repo's spec process.
+description: Maintain and verify HTML-native spec mechanics after spec-selection has chosen the spec lane. Use for spec metadata, graph links, registry generation, checks, code/spec/test co-evolution, and alignment of implementation paths, coverage, and visible prose.
 ---
 
 # Spec Workflow
 
-Use this skill as the execution wrapper for the repo's HTML-native spec system. The source of truth is the spec docs, especially `docs/specs/index.html`, `docs/specs/process.html`, and the relevant system, capability, job, technical, or eval spec. Do not duplicate durable requirements into this skill.
+Use this skill as the mechanical execution wrapper for the repo's HTML-native spec system. It does not decide which spec type to create. Classification belongs to `skills/spec-selection/SKILL.md`; authoring belongs to the selected type-specific authoring skill. The source of truth is the spec docs, especially `docs/specs/index.html`, `docs/specs/process.html`, and the relevant system, capability, job, technical, or eval spec.
 
 ## Entry Workflow
 
 1. Read `docs/specs/index.html#spec-registry` first. Use it to resolve spec IDs, files, related specs, owned paths, implementation references, and coverage.
 2. Read `docs/specs/foundation-operating-system.html#capability-map` before authoring Foundation-owned specs, skills, validators, templates, or workflows.
-3. Name the owning Foundation capability and owning job spec before writing. If no owning job exists, create or revise the job spec before adding a new skill, validator, template, or durable workflow.
-4. If creating or revising a spec, read `docs/specs/process.html#spec-authoring` and `docs/specs/linking.html#html-native-metadata`.
-5. If implementing behavior, load only the relevant capability, job, eval, and technical spec sections. Prefer the lowest-level owning spec over broad parent specs.
-6. If no spec covers the behavior, create or update the spec before changing durable behavior.
-7. Identify the risk tier from `docs/specs/process.html#risk-tiers` and scale spec/test depth to that tier.
-8. Keep prose, `spec-metadata`, `graph-metadata`, HTML meta tags, visible path lists, and coverage tables aligned.
-9. If `spec-metadata` changes, run `npm run spec:registry`, then `npm run spec:check`.
-10. If `graph-metadata` changes, run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
-11. If Foundation capability, job, or skill ownership changes, run `npm run foundation:self-map:check`.
-12. Before handoff, run `npm run spec:check`, graph check, and the self-map check when Foundation itself changed; then report any remaining semantic review risk.
+3. If the work creates, revises, splits, remaps, or routes a spec and no Spec Selection Result exists yet, stop and use `skills/spec-selection/SKILL.md` first.
+4. Name the owning Foundation capability and owning job spec before writing. If no owning job exists, create or revise the job spec through the selected authoring lane before adding a new skill, validator, template, or durable workflow.
+5. If creating or revising a spec, read `docs/specs/process.html#spec-authoring` and `docs/specs/linking.html#html-native-metadata`.
+6. If implementing behavior, load only the relevant capability, job, eval, and technical spec sections. Prefer the lowest-level owning spec over broad parent specs.
+7. If no spec covers the behavior, create or update the spec through Spec Selection before changing durable behavior.
+8. Identify the risk tier from `docs/specs/process.html#risk-tiers` and scale spec/test depth to that tier.
+9. Keep prose, `spec-metadata`, `graph-metadata`, HTML meta tags, visible path lists, and coverage tables aligned.
+10. If `spec-metadata` changes, run `npm run spec:registry`, then `npm run spec:check`.
+11. If `graph-metadata` changes, run `npm run foundation:visible-business-graph:check -- --repo <repo>`.
+12. If Foundation capability, job, or skill ownership changes, run `npm run foundation:self-map:check`.
+13. Before handoff, run `npm run spec:check`, graph check, and the self-map check when Foundation itself changed; then report any remaining semantic review risk.
 
 ## Authoring Rules
 
 - Author specs as HTML.
-- Copy the closest template in `docs/specs/templates/`: system for whole-system intent, capability for a reliable outcome, job for the work contract and process, technical for implementation behavior, or eval for verification.
+- Copy the template selected by Spec Selection and the active type-specific authoring skill.
 - Use `npm run spec:new -- --type job --id product.feature.job --title "Feature Job Spec" --out docs/specs/features/feature-job.html` for a valid starter file.
 - Fill `spec-metadata` before generating the spec content.
 - Fill `graph-metadata` before handoff. Every system, capability, job, technical, eval, template, and index spec must expose graph nodes and edges.

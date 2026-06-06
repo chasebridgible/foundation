@@ -22,7 +22,12 @@ function makeFoundation(root) {
   fs.mkdirSync(path.join(root, ".git"), { recursive: true });
   write(path.join(root, "AGENTS.md"), "# AGENTS.md\n");
   for (const skill of [
-    "job-spec-interview",
+    "spec-selection",
+    "author-system-spec",
+    "author-capability-spec",
+    "author-job-spec",
+    "author-technical-spec",
+    "author-eval-spec",
     "agentic-workflow-design",
     "backfill-repo",
     "backfill-record-repo-files",
@@ -37,6 +42,7 @@ function makeFoundation(root) {
     "backfill-spec-adequacy-review",
     "backfill-evaluate-specs",
     "spec-workflow",
+    "job-journey-images",
     "install-foundation-substrate",
     "business-intake-fill-loop"
   ]) {

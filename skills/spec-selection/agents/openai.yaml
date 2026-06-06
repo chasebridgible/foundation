@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec Selection"
+  short_description: "Choose the right spec type"
+  default_prompt: "Use $spec-selection to classify this request, produce a Spec Selection Result, and hand off to the correct spec-authoring skill."

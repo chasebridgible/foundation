@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.spec-system">
 <meta name="spec:type" content="index">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Spec System</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="schema" href="./spec-registry.schema.json">
@@ -16,7 +16,7 @@
   "title": "Spec System",
   "type": "index",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "monthly",
   "confidence": "high",
   "parent": null,
@@ -146,12 +146,12 @@
       "ownership": "direct"
     },
     {
-      "path": "foundation/skills/job-spec-interview/SKILL.md",
+      "path": "foundation/skills/spec-selection/SKILL.md",
       "kind": "workflow",
       "ownership": "direct"
     },
     {
-      "path": "foundation/skills/job-spec-interview/agents/openai.yaml",
+      "path": "foundation/skills/spec-selection/agents/openai.yaml",
       "kind": "config",
       "ownership": "direct"
     },
@@ -333,7 +333,7 @@
       "status": "active",
       "file": "foundation/docs/specs/index.html",
       "canonicalSection": "overview",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": null,
@@ -463,12 +463,12 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/job-spec-interview/SKILL.md",
+          "path": "foundation/skills/spec-selection/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/job-spec-interview/agents/openai.yaml",
+          "path": "foundation/skills/spec-selection/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
         },
@@ -513,7 +513,7 @@
       "status": "active",
       "file": "foundation/docs/specs/process.html",
       "canonicalSection": "workflow-contract",
-      "lastUpdated": "2026-06-03",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "monthly",
       "confidence": "high",
       "parent": "foundation.author-durable-specs.capability",
@@ -545,6 +545,14 @@
           "sections": [
             "metadata-contract",
             "states-and-rules"
+          ]
+        },
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "depends-on",
+          "sections": [
+            "classification-contract",
+            "decision-process"
           ]
         },
         {
@@ -642,7 +650,7 @@
       "status": "active",
       "file": "foundation/docs/specs/templates/system-spec-template.html",
       "canonicalSection": "system-intent",
-      "lastUpdated": "2026-05-31",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -693,7 +701,7 @@
       "status": "active",
       "file": "foundation/docs/specs/templates/capability-spec-template.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-05-31",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -743,7 +751,7 @@
       "status": "active",
       "file": "foundation/docs/specs/templates/job-spec-template.html",
       "canonicalSection": "job-intent",
-      "lastUpdated": "2026-05-31",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -794,7 +802,7 @@
       "status": "active",
       "file": "foundation/docs/specs/templates/technical-spec-template.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-31",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -838,7 +846,7 @@
       "status": "active",
       "file": "foundation/docs/specs/templates/eval-spec-template.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-31",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "quarterly",
       "confidence": "high",
       "parent": "foundation.spec-system",
@@ -1316,6 +1324,505 @@
       ]
     },
     {
+      "id": "foundation.author-capability-spec.eval",
+      "title": "Author Capability Spec Eval",
+      "type": "eval",
+      "status": "active",
+      "file": "foundation/docs/specs/author-capability-spec-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "low",
+      "parent": "foundation.author-capability-spec.job",
+      "children": [],
+      "relatedSpecs": [],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/author-capability-spec-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [],
+      "tags": [
+        "eval",
+        "spec-authoring"
+      ]
+    },
+    {
+      "id": "foundation.author-capability-spec.job",
+      "title": "Author Capability Spec Job",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/author-capability-spec.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "low",
+      "parent": "foundation.author-durable-specs.capability",
+      "children": [
+        "foundation.author-capability-spec.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "depends-on",
+          "sections": [
+            "capability-job-tests"
+          ]
+        },
+        {
+          "id": "foundation.author-capability-spec.eval",
+          "relationship": "validated-by",
+          "sections": [
+            "verification-contract"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.capability",
+          "relationship": "informs",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/author-capability-spec.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/author-capability-spec/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/author-capability-spec/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "foundation.author-capability-spec.job:lane-eval",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/author-capability-spec-eval.html",
+          "mapsTo": [
+            "foundation.author-capability-spec.job#evidence-and-evaluation"
+          ]
+        }
+      ],
+      "tags": [
+        "job",
+        "spec-authoring",
+        "capability"
+      ]
+    },
+    {
+      "id": "foundation.author-eval-spec.eval",
+      "title": "Author Eval Spec Eval",
+      "type": "eval",
+      "status": "active",
+      "file": "foundation/docs/specs/author-eval-spec-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "low",
+      "parent": "foundation.author-eval-spec.job",
+      "children": [],
+      "relatedSpecs": [],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/author-eval-spec-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [],
+      "tags": [
+        "eval",
+        "spec-authoring"
+      ]
+    },
+    {
+      "id": "foundation.author-eval-spec.job",
+      "title": "Author Eval Spec Job",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/author-eval-spec.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "low",
+      "parent": "foundation.author-durable-specs.capability",
+      "children": [
+        "foundation.author-eval-spec.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "depends-on",
+          "sections": [
+            "spec-type-rules"
+          ]
+        },
+        {
+          "id": "foundation.author-eval-spec.eval",
+          "relationship": "validated-by",
+          "sections": [
+            "verification-contract"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.eval",
+          "relationship": "informs",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/author-eval-spec.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/author-eval-spec/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/author-eval-spec/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "foundation.author-eval-spec.job:lane-eval",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/author-eval-spec-eval.html",
+          "mapsTo": [
+            "foundation.author-eval-spec.job#evidence-and-evaluation"
+          ]
+        }
+      ],
+      "tags": [
+        "job",
+        "spec-authoring",
+        "eval"
+      ]
+    },
+    {
+      "id": "foundation.author-job-spec.eval",
+      "title": "Author Job Spec Eval",
+      "type": "eval",
+      "status": "active",
+      "file": "foundation/docs/specs/author-job-spec-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "low",
+      "parent": "foundation.author-job-spec.job",
+      "children": [],
+      "relatedSpecs": [],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/author-job-spec-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [],
+      "tags": [
+        "eval",
+        "spec-authoring"
+      ]
+    },
+    {
+      "id": "foundation.author-job-spec.job",
+      "title": "Author Job Spec Job",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/author-job-spec.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "low",
+      "parent": "foundation.author-durable-specs.capability",
+      "children": [
+        "foundation.author-job-spec.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "depends-on",
+          "sections": [
+            "capability-job-tests"
+          ]
+        },
+        {
+          "id": "foundation.author-job-spec.eval",
+          "relationship": "validated-by",
+          "sections": [
+            "verification-contract"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.job",
+          "relationship": "informs",
+          "sections": [
+            "job-intent",
+            "process"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/author-job-spec.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/author-job-spec/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/author-job-spec/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "foundation.author-job-spec.job:lane-eval",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/author-job-spec-eval.html",
+          "mapsTo": [
+            "foundation.author-job-spec.job#evidence-and-evaluation"
+          ]
+        }
+      ],
+      "tags": [
+        "job",
+        "spec-authoring"
+      ]
+    },
+    {
+      "id": "foundation.author-system-spec.eval",
+      "title": "Author System Spec Eval",
+      "type": "eval",
+      "status": "active",
+      "file": "foundation/docs/specs/author-system-spec-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "low",
+      "parent": "foundation.author-system-spec.job",
+      "children": [],
+      "relatedSpecs": [],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/author-system-spec-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [],
+      "tags": [
+        "eval",
+        "spec-authoring"
+      ]
+    },
+    {
+      "id": "foundation.author-system-spec.job",
+      "title": "Author System Spec Job",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/author-system-spec.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "low",
+      "parent": "foundation.author-durable-specs.capability",
+      "children": [
+        "foundation.author-system-spec.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "depends-on",
+          "sections": [
+            "classification-contract"
+          ]
+        },
+        {
+          "id": "foundation.author-system-spec.eval",
+          "relationship": "validated-by",
+          "sections": [
+            "verification-contract"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.system",
+          "relationship": "informs",
+          "sections": [
+            "system-intent",
+            "capability-map"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/author-system-spec.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/author-system-spec/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/author-system-spec/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "foundation.author-system-spec.job:lane-eval",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/author-system-spec-eval.html",
+          "mapsTo": [
+            "foundation.author-system-spec.job#evidence-and-evaluation"
+          ]
+        }
+      ],
+      "tags": [
+        "job",
+        "spec-authoring",
+        "system"
+      ]
+    },
+    {
+      "id": "foundation.author-technical-spec.eval",
+      "title": "Author Technical Spec Eval",
+      "type": "eval",
+      "status": "active",
+      "file": "foundation/docs/specs/author-technical-spec-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "low",
+      "parent": "foundation.author-technical-spec.job",
+      "children": [],
+      "relatedSpecs": [],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/author-technical-spec-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [],
+      "tags": [
+        "eval",
+        "spec-authoring"
+      ]
+    },
+    {
+      "id": "foundation.author-technical-spec.job",
+      "title": "Author Technical Spec Job",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/author-technical-spec.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "low",
+      "parent": "foundation.author-durable-specs.capability",
+      "children": [
+        "foundation.author-technical-spec.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "depends-on",
+          "sections": [
+            "spec-type-rules"
+          ]
+        },
+        {
+          "id": "foundation.author-technical-spec.eval",
+          "relationship": "validated-by",
+          "sections": [
+            "verification-contract"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.technical",
+          "relationship": "informs",
+          "sections": [
+            "required-depth",
+            "contracts"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/author-technical-spec.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/author-technical-spec/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/author-technical-spec/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "foundation.author-technical-spec.job:lane-eval",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/docs/specs/author-technical-spec-eval.html",
+          "mapsTo": [
+            "foundation.author-technical-spec.job#evidence-and-evaluation"
+          ]
+        }
+      ],
+      "tags": [
+        "job",
+        "spec-authoring",
+        "technical"
+      ]
+    },
+    {
       "id": "foundation.business-intake-fill-loop.eval",
       "title": "Business Intake Fill Loop Evaluation",
       "type": "eval",
@@ -1599,7 +2106,7 @@
       "status": "active",
       "file": "foundation/docs/specs/capabilities/author-durable-specs.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-03",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
@@ -1607,6 +2114,12 @@
         "foundation.backfill-author-specs.job",
         "foundation.html-docs-navigation.job",
         "foundation.spec-process",
+        "foundation.spec-selection.job",
+        "foundation.author-system-spec.job",
+        "foundation.author-capability-spec.job",
+        "foundation.author-job-spec.job",
+        "foundation.author-technical-spec.job",
+        "foundation.author-eval-spec.job",
         "example.business.pay-employees.job",
         "example.software.notification-preferences.job",
         "fup.kitchen-queue.job"
@@ -1629,6 +2142,34 @@
         },
         {
           "id": "foundation.spec-process",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "child",
+          "sections": [
+            "classification-contract",
+            "spec-type-rules"
+          ]
+        },
+        {
+          "id": "foundation.author-system-spec.job",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.author-capability-spec.job",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.author-job-spec.job",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.author-technical-spec.job",
+          "relationship": "child"
+        },
+        {
+          "id": "foundation.author-eval-spec.job",
           "relationship": "child"
         },
         {
@@ -6412,11 +6953,6 @@
           "path": "foundation/docs/specs/foundation-backfill-spec-job-queue.html",
           "kind": "doc",
           "ownership": "direct"
-        },
-        {
-          "path": "foundation/skills/job-spec-interview/SKILL.md",
-          "kind": "workflow",
-          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -7907,7 +8443,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-operating-system.html",
       "canonicalSection": "system-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": null,
@@ -8594,10 +9130,16 @@
           "notes": "Spec authoring and update obligations."
         },
         {
-          "path": "foundation/skills/job-spec-interview/SKILL.md",
+          "path": "foundation/skills/spec-selection/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
-          "notes": "Human-heavy job spec creation workflow."
+          "notes": "Spec-type routing workflow before spec authoring begins."
+        },
+        {
+          "path": "foundation/skills/author-job-spec/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Type-specific job spec authoring workflow."
         },
         {
           "path": "foundation/skills/backfill-repo/SKILL.md",
@@ -8858,6 +9400,330 @@
         "source-registry",
         "context-pack",
         "substrate"
+      ]
+    },
+    {
+      "id": "foundation.spec-selection.eval",
+      "title": "Spec Selection Eval Spec",
+      "type": "eval",
+      "status": "active",
+      "file": "foundation/docs/specs/spec-selection-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.spec-selection.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "parent",
+          "sections": [
+            "classification-contract",
+            "capability-job-tests",
+            "boundary-tests"
+          ]
+        },
+        {
+          "id": "foundation.spec-selection.technical",
+          "relationship": "sibling",
+          "sections": [
+            "contracts"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/spec-selection-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/docs/specs/fixtures/spec-selection-classification.jsonl",
+          "kind": "example",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/spec-selection-eval.mjs",
+          "kind": "source",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.spec-selection.eval:fixture-review",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/spec-selection-eval.mjs",
+          "mapsTo": [
+            "foundation.spec-selection.eval#acceptance-mapping",
+            "foundation.spec-selection.eval#coverage-plan"
+          ],
+          "command": "npm run foundation:spec-selection:eval",
+          "evidence": "Fixture examples cover system, parent capability, child capability, job, technical, eval, artifact/interface, process/action, and ambiguous boundary cases."
+        }
+      ],
+      "tags": [
+        "eval",
+        "spec-selection"
+      ]
+    },
+    {
+      "id": "foundation.spec-selection.technical",
+      "title": "Spec Selection Technical Spec",
+      "type": "technical",
+      "status": "active",
+      "file": "foundation/docs/specs/spec-selection-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.spec-selection.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.spec-selection.job",
+          "relationship": "parent",
+          "sections": [
+            "classification-contract",
+            "decision-process"
+          ]
+        },
+        {
+          "id": "foundation.spec-selection.eval",
+          "relationship": "validated-by",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/spec-selection-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/skills/spec-selection/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/fixtures/spec-selection-classification.jsonl",
+          "kind": "example",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/scripts/spec-selection-eval.mjs",
+          "kind": "source",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.spec-selection.technical:eval",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/spec-selection-eval.mjs",
+          "mapsTo": [
+            "foundation.spec-selection.technical#contracts",
+            "foundation.spec-selection.technical#failure-modes"
+          ],
+          "command": "npm run foundation:spec-selection:eval"
+        }
+      ],
+      "tags": [
+        "technical",
+        "spec-selection"
+      ]
+    },
+    {
+      "id": "foundation.spec-selection.job",
+      "title": "Spec Selection Job",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/spec-selection.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.author-durable-specs.capability",
+      "children": [
+        "foundation.spec-selection.technical",
+        "foundation.spec-selection.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.author-durable-specs.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.operating-system.system",
+          "relationship": "informs",
+          "sections": [
+            "system-intent",
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.spec-process",
+          "relationship": "sibling",
+          "sections": [
+            "spec-choice",
+            "spec-authoring"
+          ]
+        },
+        {
+          "id": "foundation.spec-selection.technical",
+          "relationship": "child",
+          "sections": [
+            "contracts",
+            "paths-and-coverage"
+          ]
+        },
+        {
+          "id": "foundation.spec-selection.eval",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.system",
+          "relationship": "informs",
+          "sections": [
+            "system-intent",
+            "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.capability",
+          "relationship": "informs",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.job",
+          "relationship": "informs",
+          "sections": [
+            "job-intent",
+            "process"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.technical",
+          "relationship": "informs",
+          "sections": [
+            "required-depth",
+            "capability-contract"
+          ]
+        },
+        {
+          "id": "foundation.spec-template.eval",
+          "relationship": "informs",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/spec-selection.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/spec-selection/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/spec-selection/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/definitions/definitions.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/process.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/templates/system-spec-template.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/templates/capability-spec-template.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/templates/job-spec-template.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/templates/technical-spec-template.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/templates/eval-spec-template.html",
+          "kind": "doc",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.spec-selection.job:registry-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.spec-selection.job#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        },
+        {
+          "id": "foundation.spec-selection.job:classification-eval",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/spec-selection-eval.mjs",
+          "mapsTo": [
+            "foundation.spec-selection.job#classification-contract",
+            "foundation.spec-selection.job#clarification-gate",
+            "foundation.spec-selection.job#capability-job-tests",
+            "foundation.spec-selection.job#boundary-tests",
+            "foundation.spec-selection.job#future-eval-path"
+          ],
+          "command": "npm run foundation:spec-selection:eval"
+        }
+      ],
+      "tags": [
+        "job",
+        "foundation",
+        "spec-selection",
+        "classification"
       ]
     },
     {

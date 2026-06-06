@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.author-job-spec.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-06">
+<title>Author Job Spec Job</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.author-job-spec.job",
+  "title": "Author Job Spec Job",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-06",
+  "reviewCadence": "per-change",
+  "confidence": "low",
+  "parent": "foundation.author-durable-specs.capability",
+  "children": [
+    "foundation.author-job-spec.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.spec-selection.job",
+      "relationship": "depends-on",
+      "sections": [
+        "capability-job-tests"
+      ]
+    },
+    {
+      "id": "foundation.author-job-spec.eval",
+      "relationship": "validated-by",
+      "sections": [
+        "verification-contract"
+      ]
+    },
+    {
+      "id": "foundation.spec-template.job",
+      "relationship": "informs",
+      "sections": [
+        "job-intent",
+        "process"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/author-job-spec.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/author-job-spec/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/author-job-spec/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "foundation.author-job-spec.job:lane-eval",
+      "level": "manual",
+      "status": "planned",
+      "path": "foundation/docs/specs/author-job-spec-eval.html",
+      "mapsTo": [
+        "foundation.author-job-spec.job#evidence-and-evaluation"
+      ]
+    }
+  ],
+  "tags": [
+    "job",
+    "spec-authoring"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.author-job-spec.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.author-job-spec.job",
+      "type": "job",
+      "label": "Author Job Spec Job",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "spec-authoring"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.author-job-spec.job:main",
+      "type": "process",
+      "label": "Author Job Spec Job process",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-job-spec.job"
+      }
+    },
+    {
+      "id": "actor:foundation.author-job-spec.job:primary",
+      "type": "actor",
+      "label": "Author Job Spec Job actor",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.author-job-spec.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.author-job-spec.job:primary",
+      "type": "evidence",
+      "label": "Author Job Spec Job evidence",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-job-spec.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.author-job-spec.job:has-process:process:foundation.author-job-spec.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.author-job-spec.job",
+      "to": "process:foundation.author-job-spec.job:main",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-job-spec.job:performed-by:actor:foundation.author-job-spec.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.author-job-spec.job",
+      "to": "actor:foundation.author-job-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "job-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-job-spec.job:evidenced-by:evidence:foundation.author-job-spec.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.author-job-spec.job",
+      "to": "evidence:foundation.author-job-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.author-job-spec.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.author-job-spec.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "job-intent"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">J</div>
+    <div>
+      <div class="sidebar-title">Author Job Spec Job</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Job intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability supported</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current handling</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed handling</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context, tools, and interfaces</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence and evaluation</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">08</span>Revision</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/author-job-spec.html</div>
+    <h1>Author Job Spec Job</h1>
+    <p class="lede">This job authors or revises job specs after Spec Selection classifies the work as triggered work an actor performs.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
+      <div><strong>Canonical section:</strong> <a href="#job-intent">#job-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+      <h1>Job intent</h1>
+      <p>This job turns a Spec Selection Result for triggered work into an HTML-native job spec with trigger, actor, process, context, states, rules, outputs, evidence, and revision target.</p>
+    </section>
+
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <p>Supports <code>foundation.author-durable-specs.capability</code> by making work contracts concrete enough for humans and agents to execute without rediscovering intent.</p>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling</h2>
+      <p>The retired generic interview model mixed spec-type routing with job authoring. This lane keeps job authoring narrow and starts only after routing is complete.</p>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <p>The lane starts only from a Spec Selection Result whose primary classification is <code>job</code>. If the request names a durable ability, system goal, implementation contract, or eval contract, the lane returns to Spec Selection.</p>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <ol>
+        <li>Read the Spec Selection Result, owning capability, job template, and any related technical/eval specs.</li>
+        <li>Run the readiness gate: ask only questions that materially change trigger, actor, output, process, state, rule, evidence, or revision target; otherwise continue with labeled assumptions.</li>
+        <li>Capture trigger, actor candidates, desired outcome, process, context, tools, interfaces, states, rules, edge cases, outputs, and exit criteria.</li>
+        <li>Name technical and eval companions when implementation or durable judgment matters.</li>
+        <li>Author or revise HTML prose, metadata, graph edges, coverage, and visible links.</li>
+        <li>Run the job-spec eval, revise blocking findings, then run registry and graph checks.</li>
+      </ol>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <ul>
+        <li><code>skills/author-job-spec/SKILL.md</code> is the agent procedure.</li>
+        <li><code>docs/specs/templates/job-spec-template.html</code> is the authoring shape.</li>
+        <li><code>foundation.author-job-spec.eval</code> is the quality gate.</li>
+      </ul>
+      <p><strong>Readiness questions:</strong> What triggers this job? Who or what performs it? What output or state proves it is complete? What states, rules, permissions, edge cases, or recovery paths matter?</p>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <p>The authored job spec is acceptable only when a downstream agent can perform the work from the spec, understand when it starts and ends, know what context and interfaces matter, and see how evidence will be judged.</p>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <p>Revise this job when agents write generic prose, omit trigger/state/rule/evidence details, classify a capability inside the job lane, or hide required technical/eval companions.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Author Job Spec Job · generated starter spec</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>
