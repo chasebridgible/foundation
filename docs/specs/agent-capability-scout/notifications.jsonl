@@ -1,1 +1,1 @@
-
+{"runId":"2026-06-06-agent-scout-01","target":"github-app-pr-comment","status":"blocked","summary":"Notification pending until PR exists and GitHub App notifier runs with @chasebridgible mention.","blocker":"Pending PR creation."}
