@@ -323,7 +323,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-06-05",
+  "lastUpdated": "2026-06-06",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -2610,7 +2610,7 @@
       ],
       "implementationPaths": [
         {
-          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Evaluation workflow calibrated by this example."
@@ -3366,12 +3366,12 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/artifact-inventory-fill-loop/SKILL.md",
+          "path": "foundation/skills/backfill-record-repo-files/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/artifact-inventory-fill-loop/agents/openai.yaml",
+          "path": "foundation/skills/backfill-record-repo-files/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
         },
@@ -3703,7 +3703,7 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/backfill-author-specs/SKILL.md",
+          "path": "foundation/skills/backfill-write-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         },
@@ -4103,12 +4103,12 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/capability-map-fill-loop/SKILL.md",
+          "path": "foundation/skills/backfill-map-system-capabilities/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/capability-map-fill-loop/agents/openai.yaml",
+          "path": "foundation/skills/backfill-map-system-capabilities/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
         }
@@ -5037,7 +5037,7 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         }
@@ -5214,7 +5214,7 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/backfill-process-action-map/SKILL.md",
+          "path": "foundation/skills/backfill-map-actions/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         },
@@ -5261,7 +5261,7 @@
       ],
       "implementationPaths": [
         {
-          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-repo/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Orchestrator skill that sequences the layer skills."
@@ -5285,7 +5285,7 @@
           "notes": "Golden example for evaluator calibration."
         },
         {
-          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Slice and graph semantic evaluation workflow."
@@ -5506,7 +5506,7 @@
           "id": "FBO-1",
           "level": "static",
           "status": "existing",
-          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-repo/SKILL.md",
           "mapsTo": [
             "foundation.backfill-orchestration.technical#internal-sequence"
           ],
@@ -5888,7 +5888,7 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/backfill-process-action-map/SKILL.md",
+          "path": "foundation/skills/backfill-map-actions/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         }
@@ -6025,12 +6025,12 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/evaluate-backfill-specs/agents/openai.yaml",
+          "path": "foundation/skills/backfill-evaluate-specs/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
         }
@@ -6049,7 +6049,7 @@
           "notes": "Golden example for evaluator calibration."
         },
         {
-          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-repo/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Backfill orchestrator invokes this evaluation per slice and again after graph coverage is complete."
@@ -6072,7 +6072,7 @@
           "id": "FBE-1",
           "level": "static",
           "status": "existing",
-          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
           "mapsTo": [
             "foundation.backfill-quality-evaluation.eval#evaluator-journey",
             "foundation.backfill-quality-evaluation.eval#output-contract"
@@ -6097,13 +6097,13 @@
           "mapsTo": [
             "foundation.backfill-quality-evaluation.eval#paths-and-coverage"
           ],
-          "evidence": "Doctor fixtures include evaluate-backfill-specs as a required Foundation skill."
+          "evidence": "Doctor fixtures include backfill-evaluate-specs as a required Foundation skill."
         },
         {
           "id": "FBE-4",
           "level": "static",
           "status": "existing",
-          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
           "mapsTo": [
             "foundation.backfill-quality-evaluation.eval#scoring-rubric",
             "foundation.backfill-quality-evaluation.eval#acceptability-gate"
@@ -6656,12 +6656,12 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-repo/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/backfill-specs/agents/openai.yaml",
+          "path": "foundation/skills/backfill-repo/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
         },
@@ -6745,13 +6745,13 @@
           "notes": "Builds repo evidence inventory and coverage ledger."
         },
         {
-          "path": "foundation/skills/backfill-process-action-map/SKILL.md",
+          "path": "foundation/skills/backfill-map-actions/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Maps concrete process/action rows before job spec authoring."
         },
         {
-          "path": "foundation/skills/backfill-author-specs/SKILL.md",
+          "path": "foundation/skills/backfill-write-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Runs the one-target Author Specs layer loop from Process / Action Map rows to job/technical spec pairs."
@@ -6781,7 +6781,7 @@
           "notes": "Reviews slice adequacy before strict evaluator scoring."
         },
         {
-          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Scores slices and completed backfill graphs against the golden example and strict 100-point rubric."
@@ -7002,7 +7002,7 @@
           "id": "FBS-1",
           "level": "static",
           "status": "existing",
-          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-repo/SKILL.md",
           "mapsTo": [
             "foundation.backfill-specs.job#interface-journey",
             "foundation.backfill-specs.job#ux-contracts"
@@ -7027,7 +7027,7 @@
           "mapsTo": [
             "foundation.backfill-specs.job#states-and-rules"
           ],
-          "evidence": "Foundation doctor fixtures include backfill-specs as a required Foundation skill."
+          "evidence": "Foundation doctor fixtures include backfill-repo as a required Foundation skill."
         },
         {
           "id": "FBS-4",
@@ -7053,7 +7053,7 @@
           "id": "FBS-6",
           "level": "static",
           "status": "existing",
-          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-repo/SKILL.md",
           "mapsTo": [
             "foundation.backfill-specs.job#ux-contracts"
           ],
@@ -7063,7 +7063,7 @@
           "id": "FBS-7",
           "level": "static",
           "status": "existing",
-          "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
           "mapsTo": [
             "foundation.backfill-specs.job#test-coverage"
           ],
@@ -7084,7 +7084,7 @@
           "id": "FBS-9",
           "level": "static",
           "status": "existing",
-          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-repo/SKILL.md",
           "mapsTo": [
             "foundation.backfill-specs.job#interface-journey",
             "foundation.backfill-specs.job#ux-contracts"
@@ -7375,7 +7375,7 @@
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/surface-function-map-fill-loop/SKILL.md",
+          "path": "foundation/skills/backfill-map-repo-surfaces/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         }
@@ -8094,7 +8094,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-doctor-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-06-03",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.job",
@@ -8253,6 +8253,17 @@
             "foundation.workspace-doctor.technical#contracts"
           ],
           "evidence": "target package script sync adds missing Foundation aliases idempotently from the command manifest"
+        },
+        {
+          "id": "FWD-A9",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.eval#acceptance-mapping",
+            "foundation.workspace-doctor.technical#contracts"
+          ],
+          "evidence": "foundation repo self-check allows canonical Foundation AGENTS rules and foundation.* spec IDs"
         }
       ],
       "tags": [
@@ -8269,7 +8280,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-workspace-doctor-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-06-03",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.workspace-model.job",
@@ -8420,6 +8431,16 @@
             "foundation.workspace-doctor.technical#contracts"
           ],
           "evidence": "target package script sync adds missing Foundation aliases idempotently from the command manifest"
+        },
+        {
+          "id": "FWD-T8",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/scripts/foundation-doctor.test.mjs",
+          "mapsTo": [
+            "foundation.workspace-doctor.technical#contracts"
+          ],
+          "evidence": "foundation repo self-check allows canonical Foundation AGENTS rules and foundation.* spec IDs"
         }
       ],
       "tags": [
@@ -8579,7 +8600,7 @@
           "notes": "Human-heavy job spec creation workflow."
         },
         {
-          "path": "foundation/skills/backfill-specs/SKILL.md",
+          "path": "foundation/skills/backfill-repo/SKILL.md",
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Existing repo adoption workflow for creating draft job and technical specs."

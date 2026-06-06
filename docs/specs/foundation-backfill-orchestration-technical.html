@@ -141,7 +141,7 @@
       "ownership": "direct"
     },
     {
-      "path": "foundation/skills/backfill-process-action-map/SKILL.md",
+      "path": "foundation/skills/backfill-map-actions/SKILL.md",
       "kind": "workflow",
       "ownership": "direct"
     },
@@ -188,7 +188,7 @@
   ],
   "implementationPaths": [
     {
-      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-repo/SKILL.md",
       "kind": "workflow",
       "ownership": "reference",
       "notes": "Orchestrator skill that sequences the layer skills."
@@ -212,7 +212,7 @@
       "notes": "Golden example for evaluator calibration."
     },
     {
-      "path": "foundation/skills/evaluate-backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-evaluate-specs/SKILL.md",
       "kind": "workflow",
       "ownership": "reference",
       "notes": "Slice and graph semantic evaluation workflow."
@@ -433,7 +433,7 @@
       "id": "FBO-1",
       "level": "static",
       "status": "existing",
-      "path": "foundation/skills/backfill-specs/SKILL.md",
+      "path": "foundation/skills/backfill-repo/SKILL.md",
       "mapsTo": [
         "foundation.backfill-orchestration.technical#internal-sequence"
       ],
@@ -766,17 +766,17 @@
       <table class="status-table">
         <thead><tr><th>Artifact</th><th>Required fields</th><th>Invariant</th><th>Owner</th></tr></thead>
         <tbody>
-          <tr><td>Backfill report</td><td>run ID, date, target repo, Foundation revision, top-level spec, embedded Job / Spec Queue, review queue, evaluation status, validation results</td><td>Can resume the run from durable files.</td><td><code>backfill-specs</code></td></tr>
-          <tr><td>Execution run log</td><td>run ID, sequence, timestamp, slice, phase, event, summary, artifacts read/changed, commands, checks, duration, result, next action</td><td>Append-only JSONL events describe what happened without replacing the queue as canonical state.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Backfill report</td><td>run ID, date, target repo, Foundation revision, top-level spec, embedded Job / Spec Queue, review queue, evaluation status, validation results</td><td>Can resume the run from durable files.</td><td><code>backfill-repo</code></td></tr>
+          <tr><td>Execution run log</td><td>run ID, sequence, timestamp, slice, phase, event, summary, artifacts read/changed, commands, checks, duration, result, next action</td><td>Append-only JSONL events describe what happened without replacing the queue as canonical state.</td><td><code>backfill-repo</code></td></tr>
           <tr><td>Layer artifact row</td><td>layer ID, run ID, canonical JSONL path, eval JSONL path, HTML summary path, checker result, eval result, pending count, next layer</td><td>Every durable layer can hand off through machine-readable state and human-readable summaries.</td><td>owning layer spec</td></tr>
           <tr><td>Surface / Function Map row</td><td>ID, kind, upstream file rows, evidence paths, exposed/dependent object, operation, consumer/actor hints, rules/states, review flags</td><td>Every behavior-bearing file row is resolved to surfaces, support classification, or review.</td><td><code>foundation.backfill-surface-function-map</code></td></tr>
           <tr><td>Capability Map row</td><td>ID, actor, outcome, domain object, actions, states, permissions/rules, surfaces, backing contracts, failure/recovery, evidence, status, split state, upstream surface refs</td><td>Every ready surface is represented by a terminal capability row before Define Spec Jobs consumes it.</td><td><code>foundation.backfill-capability-map</code></td></tr>
-          <tr><td>Job / Spec Queue slice</td><td>ID, scope, capability IDs, status, owner skill, job spec, technical spec, score, next action, exit criterion, blocking gaps, evidence rows</td><td>Every slice has exactly one current next action unless it is acceptable, out of scope, or blocked by human decision.</td><td><code>backfill-specs</code></td></tr>
+          <tr><td>Job / Spec Queue slice</td><td>ID, scope, capability IDs, status, owner skill, job spec, technical spec, score, next action, exit criterion, blocking gaps, evidence rows</td><td>Every slice has exactly one current next action unless it is acceptable, out of scope, or blocked by human decision.</td><td><code>backfill-repo</code></td></tr>
           <tr><td>Context Pack row</td><td>slice ID, file rows, surface rows, capability rows, tests, docs, schemas, snippets, excluded near-misses, sufficiency rationale</td><td>Slice work loads bounded evidence instead of rediscovering the repo.</td><td><code>foundation.backfill-context-pack</code></td></tr>
           <tr><td>Inventory row</td><td>ID, category, label, evidence path, owning spec, coverage layer, missing detail, notes</td><td>Every relevant row maps to a capability row, non-behavioral support note, parent-owned reason, blocked human decision, or out-of-scope status by completion.</td><td><code>backfill-artifact-inventory</code></td></tr>
-          <tr><td>Process/action row</td><td>actor, entry point, intent, actions, states, success, failure/recovery, evidence, owning spec</td><td>Every user-facing or operator-facing entry point maps to concrete process/action rows.</td><td><code>backfill-process-action-map</code></td></tr>
+          <tr><td>Process/action row</td><td>actor, entry point, intent, actions, states, success, failure/recovery, evidence, owning spec</td><td>Every user-facing or operator-facing entry point maps to concrete process/action rows.</td><td><code>backfill-map-actions</code></td></tr>
           <tr><td>Adequacy row</td><td>slice, specs, inventory result, process/action result, rendered UX result, technical result, architecture flexibility result, traceability result, revisions, evaluator readiness</td><td>A slice advances to strict evaluation after Review Spec Adequacy passes or records isolated non-blocking human questions.</td><td><code>backfill-spec-adequacy-review</code></td></tr>
-          <tr><td>Evaluation row</td><td>slice, total score, category scores, citations, revision owner, next action, queue status</td><td>A slice advances to acceptable only when it reaches the strict 100-point threshold.</td><td><code>evaluate-backfill-specs</code></td></tr>
+          <tr><td>Evaluation row</td><td>slice, total score, category scores, citations, revision owner, next action, queue status</td><td>A slice advances to acceptable only when it reaches the strict 100-point threshold.</td><td><code>backfill-evaluate-specs</code></td></tr>
         </tbody>
       </table>
     </section>
@@ -798,7 +798,7 @@
           <tr><td>Process/action map depth</td><td>User-facing and operator-facing behavior is sliced by concrete process/action rows where possible.</td><td>Process/action-sized specs can carry specific states, rules, and rendered examples.</td></tr>
           <tr><td>Parent/child graph</td><td>Parent specs define vocabulary and boundaries; child specs carry behavior.</td><td>Behavior coverage has an explicit owner.</td></tr>
           <tr><td>Adequacy gate</td><td>The review question is whether a future build agent could implement intended behavior from specs alone while preserving required contracts and using implementation latitude where architecture is flexible.</td><td>This is the practical signal that the spec has enough detail.</td></tr>
-          <tr><td>Evaluation gate</td><td>The final graph is judged by <code>evaluate-backfill-specs</code> against the golden example and scoring rubric.</td><td>Backfill quality is evaluated as a system output, not just a file-generation task.</td></tr>
+          <tr><td>Evaluation gate</td><td>The final graph is judged by <code>backfill-evaluate-specs</code> against the golden example and scoring rubric.</td><td>Backfill quality is evaluated as a system output, not just a file-generation task.</td></tr>
         </tbody>
       </table>
     </section>
@@ -854,12 +854,12 @@
       <h3>Direct paths</h3>
       <ul class="path-list">
         <li data-implementation-path="foundation/skills/backfill-artifact-inventory/SKILL.md"><code>foundation/skills/backfill-artifact-inventory/SKILL.md</code> - inventory and coverage ledger workflow.</li>
-        <li data-implementation-path="foundation/skills/backfill-process-action-map/SKILL.md"><code>foundation/skills/backfill-process-action-map/SKILL.md</code> - concrete Process / Action Map workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-map-actions/SKILL.md"><code>foundation/skills/backfill-map-actions/SKILL.md</code> - concrete Process / Action Map workflow.</li>
         <li data-implementation-path="foundation/skills/backfill-job-spec-author/SKILL.md"><code>foundation/skills/backfill-job-spec-author/SKILL.md</code> - job Author Specs workflow.</li>
         <li data-implementation-path="foundation/skills/backfill-rendered-ux-spec/SKILL.md"><code>foundation/skills/backfill-rendered-ux-spec/SKILL.md</code> - rendered UX workflow.</li>
         <li data-implementation-path="foundation/skills/backfill-technical-spec-author/SKILL.md"><code>foundation/skills/backfill-technical-spec-author/SKILL.md</code> - technical Author Specs workflow.</li>
         <li data-implementation-path="foundation/skills/backfill-spec-adequacy-review/SKILL.md"><code>foundation/skills/backfill-spec-adequacy-review/SKILL.md</code> - Review Spec Adequacy workflow.</li>
-        <li data-implementation-path="foundation/skills/evaluate-backfill-specs/SKILL.md"><code>foundation/skills/evaluate-backfill-specs/SKILL.md</code> - graph-level semantic evaluation workflow.</li>
+        <li data-implementation-path="foundation/skills/backfill-evaluate-specs/SKILL.md"><code>foundation/skills/backfill-evaluate-specs/SKILL.md</code> - graph-level semantic evaluation workflow.</li>
         <li data-implementation-path="foundation/scripts/spec-job-queue-report-check.mjs"><code>foundation/scripts/spec-job-queue-report-check.mjs</code> - Job / Spec Queue validation command.</li>
         <li data-implementation-path="foundation/scripts/backfill-run-log-check.mjs"><code>foundation/scripts/backfill-run-log-check.mjs</code> - execution run log validation command.</li>
       </ul>

@@ -95,12 +95,12 @@ Use this sequence when a repo already has substantial code, docs, plans, or test
 
 1. Use `skills/install-foundation-substrate/SKILL.md` to connect the repo to Foundation.
 2. Run `npm run foundation:doctor -- --repo /path/to/target-repo`.
-3. Use `skills/backfill-specs/SKILL.md` to orchestrate Artifact Inventory, Surface / Function Map, Capability Map, Define Spec Jobs, Context Pack, Process / Action Map, job specs, rendered UX, technical specs, and Review Spec Adequacy until capability coverage is complete.
+3. Use `skills/backfill-repo/SKILL.md` to orchestrate Artifact Inventory, Surface / Function Map, Capability Map, Define Spec Jobs, Context Pack, Process / Action Map, job specs, rendered UX, technical specs, and Review Spec Adequacy until capability coverage is complete.
 4. Keep the active dated report and run-log JSONL named in the target repo `AGENTS.md` while backfill is in progress; the report owns the Capability Map and Job / Spec Queue.
 5. Keep job specs architecture-agnostic and technical specs contract-first: required contracts, current evidence, architecture constraints, and implementation latitude.
 6. Run `npm run backfill:queue:check -- /path/to/target-repo/docs/specs/backfill/review-report-YYYYMMDD-NN.html` after Capability Map or Job / Spec Queue updates so durable run state stays machine-checkable.
 7. Run `npm run backfill:run-log:check -- /path/to/target-repo/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl` after run-log updates so execution observability stays machine-checkable.
-8. Use `skills/evaluate-backfill-specs/SKILL.md` to score capability-backed slices and the completed graph, revise weak categories, and mark only strict 96+ results acceptable.
+8. Use `skills/backfill-evaluate-specs/SKILL.md` to score capability-backed slices and the completed graph, revise weak categories, and mark only strict 96+ results acceptable.
 9. Leave existing docs and code in place until the backfilled specs are reviewed and a separate cleanup pass is approved.
 10. Use a later eval-backfill workflow for eval specs and acceptance mapping.
 

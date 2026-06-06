@@ -24,18 +24,18 @@ function makeFoundation(root) {
   for (const skill of [
     "job-spec-interview",
     "agentic-workflow-design",
-    "backfill-specs",
-    "artifact-inventory-fill-loop",
-    "surface-function-map-fill-loop",
-    "capability-map-fill-loop",
+    "backfill-repo",
+    "backfill-record-repo-files",
+    "backfill-map-repo-surfaces",
+    "backfill-map-system-capabilities",
     "backfill-artifact-inventory",
-    "backfill-process-action-map",
-    "backfill-author-specs",
+    "backfill-map-actions",
+    "backfill-write-specs",
     "backfill-job-spec-author",
     "backfill-rendered-ux-spec",
     "backfill-technical-spec-author",
     "backfill-spec-adequacy-review",
-    "evaluate-backfill-specs",
+    "backfill-evaluate-specs",
     "spec-workflow",
     "install-foundation-substrate",
     "business-intake-fill-loop"
@@ -127,6 +127,33 @@ test("target repo adapter passes when it points to Foundation", () => {
 
   assert.equal(statusById(report, "repo-agents"), "pass");
   assert.equal(statusById(report, "repo-agents-adapter"), "pass");
+});
+
+test("foundation repo self-check allows canonical rules and foundation spec IDs", () => {
+  const foundation = makeDir();
+  const globalAgents = path.join(makeDir(), "AGENTS.md");
+  makeFoundation(foundation);
+  write(path.join(foundation, "AGENTS.md"), `# AGENTS.md
+
+- Specs are HTML-native durable contracts.
+- Use the Spec workflow skill.
+- If spec metadata changes, run the registry.
+`);
+  write(path.join(foundation, "docs", "specs", "foundation.html"), `<script type="application/json" id="spec-metadata">
+{ "id": "foundation.self-check.job" }
+</script>`);
+  write(globalAgents, `# Global\n\n- Use Foundation at ${foundation}.\n- Read Foundation AGENTS.md before work.\n`);
+
+  const report = runDoctor({
+    foundationPath: foundation,
+    globalAgentsPath: globalAgents,
+    repoPath: foundation,
+    skipSpecCheck: true
+  });
+
+  assert.equal(statusById(report, "repo-agents"), "pass");
+  assert.equal(statusById(report, "repo-agents-adapter"), "pass");
+  assert.equal(statusById(report, "repo-spec-ids"), "pass");
 });
 
 test("target repo AGENTS fails when it duplicates Foundation-owned rules", () => {

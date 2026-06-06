@@ -1,11 +1,11 @@
 ---
-name: backfill-author-specs
+name: backfill-write-specs
 description: Use when creating, filling, checking, evaluating, revising, refreshing, reporting, or handing off the Backfill Author Specs layer from outstanding Process / Action Map rows. Runs the one-target-at-a-time loop that produces one job/descriptive spec and one contract-first technical spec per queued target.
 ---
 
-# Backfill Author Specs
+# Backfill: Write Specs
 
-Use this skill inside `backfill-specs` after Process / Action Map handoff and before Slice Evaluation.
+Use this skill inside `backfill-repo` after Process / Action Map handoff and before Slice Evaluation.
 
 Owning capability: `foundation.author-durable-specs.capability`.
 Owning job: `foundation.backfill-author-specs.job`.

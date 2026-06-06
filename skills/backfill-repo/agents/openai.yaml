@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backfill Specs"
+  short_description: "Orchestrate existing repo backfill"
+  default_prompt: "Use $backfill-repo to run the repo-wide loop: Inventory Artifacts, Map Surfaces, Map Capabilities, Define Spec Jobs, Gather Context, Map Processes, Author Specs, rendered UX, architecture-flexible technical contracts, Review Spec Adequacy, strict evaluation, revision, queue validation, and run-log validation until capability coverage is complete."

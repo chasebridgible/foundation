@@ -13,18 +13,18 @@ const repoRoot = path.dirname(path.dirname(scriptPath));
 const requiredSkills = [
   "job-spec-interview",
   "agentic-workflow-design",
-  "backfill-specs",
-  "artifact-inventory-fill-loop",
-  "surface-function-map-fill-loop",
-  "capability-map-fill-loop",
+  "backfill-repo",
+  "backfill-record-repo-files",
+  "backfill-map-repo-surfaces",
+  "backfill-map-system-capabilities",
   "backfill-artifact-inventory",
-  "backfill-process-action-map",
-  "backfill-author-specs",
+  "backfill-map-actions",
+  "backfill-write-specs",
   "backfill-job-spec-author",
   "backfill-rendered-ux-spec",
   "backfill-technical-spec-author",
   "backfill-spec-adequacy-review",
-  "evaluate-backfill-specs",
+  "backfill-evaluate-specs",
   "spec-workflow",
   "install-foundation-substrate",
   "business-intake-fill-loop"
@@ -348,6 +348,7 @@ function checkTargetRepo(options) {
   const out = [];
   const repoPath = options.repoPath;
   const foundationPath = options.foundationPath;
+  const isFoundationRepo = path.resolve(repoPath || "") === path.resolve(foundationPath || "");
   if (!repoPath) return out;
 
   out.push(exists(repoPath)
@@ -363,18 +364,22 @@ function checkTargetRepo(options) {
     out.push(fail("repo", "repo-agents", "Target repo AGENTS.md is missing"));
   } else {
     const content = read(agentsPath);
-    out.push(content.includes(foundationPath) || /foundation/i.test(content)
+    out.push(isFoundationRepo || content.includes(foundationPath) || /foundation/i.test(content)
       ? pass("repo", "repo-agents", "Target repo AGENTS.md points to Foundation")
       : fail("repo", "repo-agents", "Target repo AGENTS.md does not point to Foundation"));
 
-    const duplicatedRules = [
-      "Specs are HTML-native durable contracts",
-      "Use the Spec workflow skill",
-      "If spec metadata changes"
-    ].filter(text => content.includes(text));
-    out.push(duplicatedRules.length === 0
-      ? pass("repo", "repo-agents-adapter", "Target repo AGENTS.md looks like an adapter")
-      : fail("repo", "repo-agents-adapter", "Target repo AGENTS.md duplicates Foundation-owned rules", { duplicatedRules }));
+    if (isFoundationRepo) {
+      out.push(pass("repo", "repo-agents-adapter", "Foundation repo AGENTS.md is the canonical rule source"));
+    } else {
+      const duplicatedRules = [
+        "Specs are HTML-native durable contracts",
+        "Use the Spec workflow skill",
+        "If spec metadata changes"
+      ].filter(text => content.includes(text));
+      out.push(duplicatedRules.length === 0
+        ? pass("repo", "repo-agents-adapter", "Target repo AGENTS.md looks like an adapter")
+        : fail("repo", "repo-agents-adapter", "Target repo AGENTS.md duplicates Foundation-owned rules", { duplicatedRules }));
+    }
   }
 
   const specsDir = path.join(repoPath, "docs", "specs");
@@ -382,22 +387,26 @@ function checkTargetRepo(options) {
     out.push(warn("repo", "repo-specs-dir", "Target repo has no docs/specs directory yet"));
   } else {
     out.push(pass("repo", "repo-specs-dir", "Target repo docs/specs directory exists"));
-    const badIds = [];
-    for (const file of listHtmlFiles(specsDir)) {
-      try {
-        const metadata = extractSpecMetadata(read(file));
-        if (metadata?.id?.startsWith("foundation.")) {
-          badIds.push({ file: path.relative(repoPath, file), id: metadata.id });
+    if (isFoundationRepo) {
+      out.push(pass("repo", "repo-spec-ids", "Foundation repo owns foundation.* spec IDs"));
+    } else {
+      const badIds = [];
+      for (const file of listHtmlFiles(specsDir)) {
+        try {
+          const metadata = extractSpecMetadata(read(file));
+          if (metadata?.id?.startsWith("foundation.")) {
+            badIds.push({ file: path.relative(repoPath, file), id: metadata.id });
+          }
+        } catch (error) {
+          out.push(fail("repo", "repo-spec-parse", `Could not parse spec metadata in ${path.relative(repoPath, file)}`, {
+            error: error.message
+          }));
         }
-      } catch (error) {
-        out.push(fail("repo", "repo-spec-parse", `Could not parse spec metadata in ${path.relative(repoPath, file)}`, {
-          error: error.message
-        }));
       }
+      out.push(badIds.length === 0
+        ? pass("repo", "repo-spec-ids", "Target repo specs do not use foundation.* IDs")
+        : fail("repo", "repo-spec-ids", "Target repo contains product specs under foundation.* IDs", { badIds }));
     }
-    out.push(badIds.length === 0
-      ? pass("repo", "repo-spec-ids", "Target repo specs do not use foundation.* IDs")
-      : fail("repo", "repo-spec-ids", "Target repo contains product specs under foundation.* IDs", { badIds }));
   }
 
   out.push(...checkTargetHtmlDocsNavigation(repoPath));

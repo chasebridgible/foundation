@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.workspace-doctor.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-03">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Foundation Workspace Doctor Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Workspace Doctor Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-06-03",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.workspace-model.job",
@@ -110,6 +110,14 @@
       "path": "foundation/scripts/foundation-doctor.test.mjs",
       "mapsTo": ["foundation.workspace-doctor.technical#contracts"],
       "evidence": "target package script sync adds missing Foundation aliases idempotently from the command manifest"
+    },
+    {
+      "id": "FWD-T8",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/scripts/foundation-doctor.test.mjs",
+      "mapsTo": ["foundation.workspace-doctor.technical#contracts"],
+      "evidence": "foundation repo self-check allows canonical Foundation AGENTS rules and foundation.* spec IDs"
     }
   ],
   "tags": [
@@ -209,7 +217,7 @@
     <p class="lede">The Foundation doctor is an on-demand diagnostic command that tells a user whether the canonical Foundation repo, global Codex pointer, target repo adapter, target spec namespace, and target CI pinning are shaped correctly for the workspace model.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-03</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
       <div><strong>Canonical section:</strong> <a href="#required-depth">#required-depth</a></div>
     </div>
   </section>
@@ -228,7 +236,7 @@
         <li>Validate the Foundation repo exists, is a Git repo, has <code>AGENTS.md</code>, and contains the required Foundation skills.</li>
         <li>Validate global Codex instructions exist and explicitly point to the canonical Foundation path and Foundation <code>AGENTS.md</code>.</li>
         <li>Run Foundation spec registry/check unless the caller deliberately skips it.</li>
-        <li>When a target repo is provided, validate repo shape, local <code>AGENTS.md</code> adapter behavior, target spec namespace, target-local HTML docs navigation assets, Foundation package aliases, and GitHub workflow Foundation pinning.</li>
+        <li>When a target repo is provided, validate repo shape, local <code>AGENTS.md</code> adapter behavior, target spec namespace, target-local HTML docs navigation assets, Foundation package aliases, and GitHub workflow Foundation pinning. If the target repo path is the Foundation path, use self-check mode so canonical Foundation rules and <code>foundation.*</code> specs are allowed.</li>
         <li>Render a stable text or JSON report and exit nonzero when any failure exists.</li>
       </ol>
     </section>
@@ -243,8 +251,8 @@
           <tr><td>Required skills</td><td>Fail when job spec interview, backfill orchestrator/sub-skills, Artifact Inventory fill loop, Surface / Function Map fill loop, Capability Map fill loop, backfill evaluator, spec workflow, or target repo setup skills are missing.</td><td>The workspace model depends on skills as executable process.</td></tr>
           <tr><td>Global Codex pointer</td><td>Fail when missing or not pointing to the canonical Foundation path and Foundation <code>AGENTS.md</code>.</td><td>Starting in a target repo should still discover Foundation.</td></tr>
           <tr><td>Foundation spec check</td><td>Fail when registry or spec metadata checks fail; warn only when skipped by flag.</td><td>Foundation cannot be canonical if its own registry is stale or invalid.</td></tr>
-          <tr><td>Target repo adapter</td><td>Fail when missing, not pointing to Foundation, or duplicating Foundation-owned rules.</td><td>Local instructions should refine project context, not fork shared process.</td></tr>
-          <tr><td>Target spec namespace</td><td>Warn when no target specs exist; fail when target specs use <code>foundation.*</code> IDs.</td><td>Shared workflow specs live in Foundation; product specs live in the target namespace.</td></tr>
+          <tr><td>Target repo adapter</td><td>Fail when missing, not pointing to Foundation, or duplicating Foundation-owned rules. In Foundation self-check mode, pass because Foundation <code>AGENTS.md</code> is the canonical rule source.</td><td>Local instructions should refine project context, not fork shared process; Foundation itself owns the shared process.</td></tr>
+          <tr><td>Target spec namespace</td><td>Warn when no target specs exist; fail when target specs use <code>foundation.*</code> IDs. In Foundation self-check mode, pass because Foundation owns <code>foundation.*</code> specs.</td><td>Shared workflow specs live in Foundation; product specs live in the target namespace.</td></tr>
           <tr><td>Target HTML docs navigation</td><td>Warn when target docs exist without local navigation assets, without script includes, without a <code>site-map</code> command, or with a stale <code>docs/site-nav.js</code> that lacks the shared collapse control.</td><td>Foundation-based repos should inherit the visible HTML substrate without silently losing page navigation or collapse behavior.</td></tr>
           <tr><td>Target Foundation package aliases</td><td>Pass when every manifest-owned Foundation alias points at the expected Foundation script; fail when a target <code>package.json</code> is missing aliases such as <code>foundation:process-action-map:*</code> or points an alias at a stale script. The repair path is <code>npm run foundation:target-scripts:sync -- --repo &lt;target-repo&gt;</code>.</td><td>Connected target repos should not fail mid-backfill because a newer Foundation layer has no local npm alias.</td></tr>
           <tr><td>Target CI pin</td><td>Warn when CI is absent, does not mention Foundation, or mentions Foundation without a pinned commit SHA.</td><td>CI maturity should be visible without blocking early local setup.</td></tr>
@@ -285,13 +293,14 @@
       <table class="status-table">
         <thead><tr><th>ID</th><th>Maps to</th><th>Evidence</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>FWD-T1</td><td><code>#contracts</code></td><td>Machine setup passes when global pointer and required skills, including <code>artifact-inventory-fill-loop</code>, <code>surface-function-map-fill-loop</code>, and <code>capability-map-fill-loop</code>, exist.</td><td>existing</td></tr>
+          <tr><td>FWD-T1</td><td><code>#contracts</code></td><td>Machine setup passes when global pointer and required skills, including <code>backfill-record-repo-files</code>, <code>backfill-map-repo-surfaces</code>, and <code>backfill-map-system-capabilities</code>, exist.</td><td>existing</td></tr>
           <tr><td>FWD-T2</td><td><code>#contracts</code></td><td>Target repo adapter passes when it points to Foundation.</td><td>existing</td></tr>
           <tr><td>FWD-T3</td><td><code>#failure-modes</code></td><td>Target repo AGENTS fails when it duplicates Foundation-owned rules.</td><td>existing</td></tr>
           <tr><td>FWD-T4</td><td><code>#failure-modes</code></td><td>Target repo specs fail when product specs use Foundation namespace.</td><td>existing</td></tr>
           <tr><td>FWD-T5</td><td><code>#contracts</code>, <code>#failure-modes</code></td><td>Target repo HTML docs navigation warns for missing or stale nav assets and passes when script includes resolve to a collapse-capable local renderer.</td><td>existing</td></tr>
           <tr><td>FWD-T6</td><td><code>#contracts</code>, <code>#failure-modes</code></td><td>Target repo Foundation package aliases fail when required aliases are missing and pass when the command manifest is current.</td><td>existing</td></tr>
           <tr><td>FWD-T7</td><td><code>#contracts</code></td><td>Target package script sync adds missing Foundation aliases idempotently from the manifest.</td><td>existing</td></tr>
+          <tr><td>FWD-T8</td><td><code>#contracts</code></td><td>Foundation repo self-check allows canonical Foundation AGENTS rules and <code>foundation.*</code> spec IDs.</td><td>existing</td></tr>
         </tbody>
       </table>
     </section>
