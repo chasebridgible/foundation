@@ -131,7 +131,11 @@ function surfaceSpecsForPath(filePath) {
 
 function prepareArtifactInventory(repoRoot, runId = "20260529-01") {
   runNode(fileInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
-  runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--all"], repoRoot);
+  for (;;) {
+    const next = JSON.parse(runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot));
+    if (!next.target) break;
+    runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--path", next.target.path], repoRoot);
+  }
   runNode(fileCheckScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   runNode(fileEvalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
 }
@@ -286,6 +290,36 @@ test("fill --next names the next pending surface target without mutating rows", 
   assert.equal(payload.schema, "foundation.backfill.capability-map-next-target.v1");
   assert.equal(typeof payload.target.surfaceId, "string");
   assert.deepEqual(after, before);
+
+  const other = before.find(row => row.upstreamSurfaceIds[0] !== payload.target.surfaceId);
+  assert.throws(
+    () => runNode(capabilityFillScript, [
+      "--repo", repoRoot,
+      "--run-id", runId,
+      "--surface-ids", other.upstreamSurfaceIds[0],
+      "--capabilities-json", JSON.stringify([{
+        name: "Out of order reviewed outcome",
+        capabilityTitle: "Out of order reviewed outcome",
+        capabilityAltitude: "sole",
+        actor: "Repository actor",
+        intendedOutcome: "Review out of order behavior.",
+        domainObject: "Out of order surface",
+        actions: ["Review"],
+        states: ["ready"],
+        rules: ["Must follow current target"],
+        experience: "Reviewer sees the current target.",
+        backingContracts: ["surface"],
+        failureAndRecovery: ["Return to current target"],
+        evidence: [other.upstreamSurfaceIds[0]],
+        status: "ready-for-queue",
+        confidence: "high"
+      }])
+    ], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /must include the current --next surface target/);
+      return true;
+    }
+  );
 });
 
 test("fill groups reviewed surfaces and checker passes handoff", () => {

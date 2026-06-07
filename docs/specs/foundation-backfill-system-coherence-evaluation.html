@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-system-coherence-evaluation.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Evaluate System Coherence</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Evaluate System Coherence",
   "type": "job",
   "status": "draft",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.evaluate-quality-completeness.capability",
@@ -292,8 +292,8 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-system-coherence-evaluation.html</div>
     <h1>Foundation Backfill Evaluate System Coherence</h1>
     <p class="lede">Evaluate System Coherence evaluates the completed spec graph after slice-level acceptance and checks whether system intent, evidence relationships, capability coverage, and verification links survive as a whole. This layer answers: <strong>Could a future agent rebuild the system intent from these specs without reading source?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Evaluate Job Slices</div><div><strong>Next:</strong> Handoff</div></div>
-    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Upstream:</strong> Evaluate Job Slices</div><div><strong>Next:</strong> Handoff</div></div>
+    <p>This layer is a reproducible unit in the backfill substrate. It initializes only after every slice is outstanding, evaluates the whole spec graph for rebuild readiness, writes canonical eval receipts, derives a readable HTML summary, routes graph-level failures back to the smallest owning layer, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
 
@@ -318,7 +318,7 @@
       <h2>Small-loop journey</h2>
       <ol>
         <li><strong>Initialize:</strong> create the canonical Foundation Backfill Evaluate System Coherence artifact from Evaluate Job Slices handoff output.</li>
-        <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
+        <li><strong>Select graph:</strong> evaluate the complete accepted slice graph, not a batch of pending rows.</li>
         <li><strong>Fill:</strong> agent walks parent/child specs, Capability Map, queue terminals, evidence links, verification targets, unresolved questions, and cross-slice consistency to produce graph findings.</li>
         <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
         <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>

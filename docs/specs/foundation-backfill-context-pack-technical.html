@@ -249,7 +249,7 @@
       <table class="status-table"><thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead><tbody>
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
-        <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
+        <tr><td>One-slice fill loop</td><td>Agents process exactly one queued slice at a time and write exactly one Context Pack row for that slice. Multiple slice IDs, multi-pack payloads, parent-wide evidence dumps, generated files, <code>--all</code>, and <code>--batch-size</code> fail before writing.</td><td>Long-running work survives context compaction, and context stays bounded to the authorable slice.</td></tr>
         <tr><td>Deterministic checker</td><td>validates each Context Pack references valid queue slices and upstream row IDs, all required evidence categories have entries or explicit gaps, file-like evidence has exact paths plus line ranges, snippets, or symbols, generic full-file evidence is rejected, and pack size stays within configured limits.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>samples packs against queue slices to judge whether necessary files or surfaces were omitted, irrelevant evidence is bloating context, specificity is weak, or the pack cannot support Process / Action Map and later Author Specs.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
         <tr><td>Handoff gate</td><td>each active queued child/sole slice has a bounded Context Pack or explicit blocker; every pack preserves queue capability refs and rejects parent, <code>needs-split</code>, blocked, or non-queueable refs as active work; checker artifact passes for the current pack fingerprint; eval receipt and HTML summary exist for the current pack fingerprint; eval revision targets are zero; report names next layer as Process / Action Map.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
@@ -260,8 +260,9 @@
       <h2>Checker and fill loop</h2>
       <ol>
         <li>Read active report, run log, upstream artifacts, and current layer artifact.</li>
-        <li>Select next pending or failed batch by deterministic order plus risk priority.</li>
-        <li>Inspect only the evidence needed for the batch and update canonical JSONL rows.</li>
+        <li>Select the next pending or failed slice with <code>foundation:context-pack:fill -- --next</code>.</li>
+        <li>Inspect only that queued slice, its child/sole capability refs, and the evidence needed to make one bounded pack sufficient.</li>
+        <li>Write exactly one Context Pack row for that same slice with inline <code>--packs-json</code>. If source evidence must expand to parent-wide context, route the issue back to Job / Spec Queue or Capability Map.</li>
         <li>Run the checker; repair structural failures before semantic eval.</li>
         <li>Run or append eval receipts; generate HTML summary from JSONL.</li>
         <li>Revise failed rows until the gate passes or a named human decision blocks progress.</li>

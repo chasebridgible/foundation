@@ -68,6 +68,12 @@
       "path": "foundation/docs/specs/foundation-backfill-spec-job-queue.html",
       "kind": "doc",
       "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/backfill-create-work-slices/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct",
+      "notes": "Agent-facing one-capability, one-slice Define Spec Jobs loop."
     }
   ],
   "implementationPaths": [
@@ -330,7 +336,7 @@
     <h1>Foundation Backfill Define Spec Jobs</h1>
     <p class="lede">Define Spec Jobs decides whether capability rows are too broad and creates the durable work queue that prevents agents from closing coarse slices prematurely. This layer answers: <strong>What exact slice should the agent work on next, and when is it complete?</strong></p>
     <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Upstream:</strong> Capability Map</div><div><strong>Next:</strong> Context Pack</div></div>
-    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
+    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, selects exactly one queue-eligible child or sole capability with <code>--next</code>, writes exactly one authorable queue slice for that capability, checks deterministic structure, writes canonical JSONL eval receipts, revises failed rows, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
 
@@ -357,8 +363,8 @@
       <ol>
         <li><strong>Initialize:</strong> create the canonical Foundation Backfill Define Spec Jobs artifact from Capability Map handoff output.</li>
         <li><strong>Semantic audit:</strong> before queue rows can be accepted, verify the upstream Capability Map has no unresolved <code>needs-split</code> rows, parent rows have child outcomes, and every queue source is a queue-eligible child or sole capability.</li>
-        <li><strong>Select batch:</strong> choose pending child/sole rows or slices using deterministic order plus risk priority.</li>
-        <li><strong>Fill:</strong> agent writes exact exit criteria, owner spec targets, next action, and blocking questions for one precise child/sole capability slice without hiding multiple behavior families in one row.</li>
+        <li><strong>Select capability:</strong> use <code>foundation:spec-job-queue:fill -- --next</code> to choose exactly one queue-eligible child or sole capability.</li>
+        <li><strong>Fill:</strong> agent writes exact exit criteria, owner spec targets, next action, and blocking questions for exactly one authorable slice for that same capability without hiding multiple behavior families in one row.</li>
         <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
         <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>
         <li><strong>Revise:</strong> route failed rows back to the fill loop with row IDs and findings.</li>

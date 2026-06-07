@@ -15,17 +15,21 @@ Detailed contracts live in:
 - `docs/specs/foundation-backfill-artifact-inventory.html` plus its technical and eval specs
 - `docs/specs/foundation-backfill-surface-function-map.html` plus its technical and eval specs
 - `docs/specs/foundation-backfill-capability-map.html` plus its technical and eval specs
+- `docs/specs/foundation-backfill-spec-job-queue.html` plus its technical and eval specs
+- `docs/specs/foundation-backfill-context-pack.html` plus its technical and eval specs
 - `docs/specs/foundation-backfill-author-specs.html` plus its technical and eval specs
 - `docs/specs/examples/backfill-golden-example.html`
 
 Read those only when changing the workflow, resolving ambiguity, or calibrating quality.
 Read the Artifact Inventory specs before starting or resuming that layer. Its canonical file and command namespace is `artifact-inventory`.
 Read the Surface / Function Map or Capability Map specs before starting or resuming those layers. Their canonical command namespaces are `surface-function-map` and `capability-map`.
+Read the Job / Spec Queue and Context Pack specs before starting or resuming those layers. Their canonical command namespaces are `spec-job-queue` and `context-pack`.
 Read the Author Specs specs before starting or resuming that layer. Its canonical command namespace is `author-specs`.
 
 ## Non-Negotiables
 
 - Whole-repo backfill means capability coverage is closed, not that broad slices were summarized.
+- Deterministic tools enumerate, route, validate, and persist; agents interpret exactly one bounded meaning unit at a time; evals prevent advancement until that unit is outstanding.
 - Capability formula: actor + intended outcome + domain object + actions + state model + permissions/rules + visible or operator experience + backing contracts + failure/recovery + evidence.
 - Routes, screens, endpoints, tables, jobs, workflows, and infrastructure resources are evidence surfaces, not completion units.
 - Split capabilities when actors, outcomes, objects, state models, permission models, contracts, recovery behavior, or verification targets differ. Broad rows must become parent + child rows or narrower sole rows before Define Spec Jobs.
@@ -35,6 +39,19 @@ Read the Author Specs specs before starting or resuming that layer. Its canonica
 - Each slice must be evaluated, revised, and re-evaluated until outstanding before closure.
 - Outstanding means the owning eval spec's strict gate is met, revision targets are closed or named as blockers, rebuild readiness is maxed, and no attached capability needs split or survives as parent-only coverage.
 - Backfilled specs start as `status: draft` with low or medium confidence.
+
+## Bounded Units
+
+| Layer | Unit |
+| --- | --- |
+| File Manifest | whole repo, deterministic enumeration only |
+| Artifact Inventory | exactly one repo-owned file |
+| Surface / Function Map | exactly one eligible file |
+| Capability Map | one outcome boundary that includes the current `--next` surface |
+| Job / Spec Queue | exactly one queue-eligible child/sole capability and one authorable slice |
+| Context Pack | exactly one queued slice and one Context Pack row |
+| Process / Action Map | exactly one Context Pack row |
+| Author Specs | exactly one Process / Action Map row |
 
 ## Required Artifacts
 
@@ -83,14 +100,14 @@ Define Spec Jobs rows must include stable slice ID, name, scope, upstream capabi
 Repeat until capability coverage is closed:
 
 1. Create or resume the dated report and run log.
-2. Inventory Artifacts before capability inference: every repo-owned file must be mapped in the canonical Artifact Inventory and pass the check/eval gate.
-3. Map Surfaces before capability inference: every eligible artifact row must resolve to ready surfaces, support classifications, or review blockers.
-4. Map Capabilities: every ready surface must map to a queue-eligible `child` or `sole` capability row, or to an explicit `blocked` row with evidence.
+2. Inventory Artifacts before capability inference: use `backfill-record-repo-files`; `--next` selects exactly one repo-owned file, the agent reads that file, `--path` maps that same file, checks/eval route weak rows back through the one-file loop, and every repo-owned file must be mapped before handoff.
+3. Map Surfaces before capability inference: use `backfill-map-repo-surfaces`; `--next` selects exactly one eligible file, the agent reads the complete file, `--path` marks every surface/support classification for that same file, and every eligible artifact row must resolve before handoff.
+4. Map Capabilities: use `backfill-map-system-capabilities`; `--next` selects the current surface, the agent defines one outcome boundary that includes that surface and only directly related ready surfaces, and every ready surface must map to a queue-eligible `child` or `sole` capability row, or to an explicit `blocked` row with evidence.
 5. Apply the split rule; parent rows organize child outcomes but do not enter Job / Spec Queue, and `needs-split` rows cannot close or hand off.
-6. Define Spec Jobs by refreshing the Job / Spec Queue from capability rows.
+6. Define Spec Jobs with `backfill-create-work-slices`; `--next` selects exactly one queue-eligible child/sole capability, the agent writes exactly one authorable queue slice for it, and broad or multi-slice work routes back to Capability Map instead of being queued.
 7. Pick the next queue-eligible child/sole capability-backed slice that is queued, in progress, needs job, needs technical, needs evaluation, needs revision, or revision-ready.
 8. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
-9. Gather Context with `foundation:context-pack:*` commands until the Context Pack handoff names Process / Action Map.
+9. Gather Context with `backfill-gather-context` and `foundation:context-pack:*`; `--next` selects exactly one queued slice, the agent writes exactly one bounded Context Pack row for it, and parent-wide or bloated packs route upstream.
 10. Use `backfill-map-actions` and `foundation:process-action-map:*` commands to Map Processes for each active Context Pack row. Follow the current `--next` target only and do not use generated drivers, shell loops, regex classifiers, or reusable templates to produce multiple Process / Action Map rows.
 11. Use `backfill-write-specs` and `foundation:author-specs:*` commands to Author Specs for each active Process / Action Map row. Follow the current `--next` target only: author one job/descriptive spec and one technical spec, run check, run row eval, revise to outstanding, then continue. Do not use generated drivers, shell loops, template synthesizers, or bulk payloads to create, fill, check, or evaluate multiple targets.
 12. Use `backfill-job-spec-author` inside the current Author Specs target.
@@ -115,7 +132,8 @@ After all behavior-bearing surfaces are covered by outstanding child/sole capabi
 - `skills/backfill-record-repo-files/SKILL.md` - Inventory Artifacts
 - `skills/backfill-map-repo-surfaces/SKILL.md` - Map Surfaces
 - `skills/backfill-map-system-capabilities/SKILL.md` - Map Capabilities
-- `foundation:context-pack:*` command family - Gather Context
+- `skills/backfill-create-work-slices/SKILL.md` - Define Spec Jobs
+- `skills/backfill-gather-context/SKILL.md` - Gather Context
 - `skills/backfill-map-actions/SKILL.md` - Map Processes
 - `skills/backfill-write-specs/SKILL.md` - Author Specs layer
 - `skills/backfill-job-spec-author/SKILL.md` - current target job/descriptive spec authoring

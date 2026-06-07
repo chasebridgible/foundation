@@ -51,18 +51,25 @@ Use the settled capability model:
 - `needs-split`: too broad or mixed; must become parent + child rows or narrower sole rows before handoff.
 - `blocked`: evidence is insufficient or contradictory; requires blocker or human-decision detail and cannot queue.
 
+## Bounded Unit
+
+The unit is one outcome boundary that includes the current `--next` Surface / Function Map row.
+
+An outcome boundary is the smallest source-backed actor/outcome/domain-object grouping that can preserve meaning without bundling unrelated behavior. The agent may include directly related ready surfaces only when they share the same actor, intended outcome, domain object, state/rule model, contract family, and recovery behavior. If those differ, create separate capability rows or mark the current row `needs-split`/`blocked`.
+
 ## Required Loop
 
 1. Use `--next` to select a pending or failed surface target.
 2. Read the selected Surface / Function Map row and enough nearby ready surface rows to decide whether they belong to the same actor/outcome capability.
 3. Group only reviewed ready-for-capability surface rows. Support classifications are evidence, not upstream capability rows.
 4. Immediately mark that reviewed group with inline `--capabilities-json`.
-5. Do not rely on generated capability files, all-file fill modes, or broad path/domain summaries. The fill command rejects those shortcuts.
-6. Run the batch checker often enough that missing formula fields, uncovered surfaces, stale upstream refs, and split issues are fixed before many more rows are marked.
-7. Repeat until every ready surface is covered by a queue-eligible `child` or `sole` row, or by an explicit `blocked` row with evidence. Parent rows do not cover behavior by themselves, and `needs-split` rows must be resolved before Job / Spec Queue.
-8. Run handoff check and eval once the layer is terminal.
-9. Revise every row named in eval `revisionTargets`; warnings are not handoff-ready.
-10. Rerun check and eval until `revisionTargets` is empty, run the visible business graph check when specs already exist, then record report state.
+5. The reviewed group must include the current `--next` surface. Do not skip ahead to an easier surface or close a broad domain bucket.
+6. Do not rely on generated capability files, all-file fill modes, batch options, broad path/domain summaries, or artifact/layer/phase names. The fill command rejects those shortcuts.
+7. Run the batch checker after the current outcome boundary, or often enough that missing formula fields, uncovered surfaces, stale upstream refs, and split issues are fixed before more rows are marked.
+8. Repeat until every ready surface is covered by a queue-eligible `child` or `sole` row, or by an explicit `blocked` row with evidence. Parent rows do not cover behavior by themselves, and `needs-split` rows must be resolved before Job / Spec Queue.
+9. Run handoff check and eval once the layer is terminal.
+10. Revise every row named in eval `revisionTargets`; warnings are not handoff-ready.
+11. Rerun check and eval until `revisionTargets` is empty, run the visible business graph check when specs already exist, then record report state.
 
 ## Capability JSON Shape
 

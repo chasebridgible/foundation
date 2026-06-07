@@ -10,6 +10,7 @@
 - Capability specs must be outcome-shaped. Child capability titles and graph labels cannot be job, artifact, layer, route, command, queue, or phase names; run `npm run foundation:capability-language:check` after capability-map, capability-spec, or capability-template changes.
 - Use the most specific skill that applies. Layer skills beat broad workflow skills.
 - Layer skills own their exact loops, shortcut bans, outstanding gates, checks, evals, revision gates, and handoff gates.
+- Backfill follows the bounded meaning unit rule: deterministic tools enumerate, route, validate, and persist; agents interpret exactly one bounded meaning unit at a time; evals prevent advancement until that unit is outstanding.
 - Use `docs/principles/ai-evals-principles.html` before judge/eval changes, and `docs/principles/sw-design-principles.html` before UI, rendered UX, accessibility, or visual-verification work.
 - If spec metadata changes, run `npm run spec:registry`, then `npm run spec:check`; if Foundation capability/job/skill ownership changes, run `npm run foundation:self-map:check`.
 - Protected `main` requires branch -> PR -> required checks pass -> merge.
@@ -39,6 +40,8 @@ Backfill Capability Map rows use `parent`, `child`, `sole`, `needs-split`, and `
 | Record repo files | `skills/backfill-record-repo-files/SKILL.md` |
 | Map what the repo exposes | `skills/backfill-map-repo-surfaces/SKILL.md` |
 | Name what the system can do | `skills/backfill-map-system-capabilities/SKILL.md` |
+| Break work into slices | `skills/backfill-create-work-slices/SKILL.md` |
+| Gather bounded context | `skills/backfill-gather-context/SKILL.md` |
 | Map user and operator actions | `skills/backfill-map-actions/SKILL.md` |
 | Write specs from mapped work | `skills/backfill-write-specs/SKILL.md` |
 | Evaluate generated backfill specs | `skills/backfill-evaluate-specs/SKILL.md` |
@@ -46,3 +49,16 @@ Backfill Capability Map rows use `parent`, `child`, `sole`, `needs-split`, and `
 ## Backfill Sequence
 
 Record repo files -> map what the repo exposes -> name what the system can do -> break work into slices -> gather context -> map user/operator actions -> write specs -> check slices -> check the system -> hand off.
+
+## Backfill Units
+
+| Layer | Unit agents may interpret before checking/eval |
+| --- | --- |
+| File Manifest | whole repo, deterministic only |
+| Artifact Inventory | exactly one repo-owned file |
+| Surface / Function Map | exactly one eligible file |
+| Capability Map | one outcome boundary that includes the current `--next` surface |
+| Job / Spec Queue | exactly one queue-eligible child/sole capability and one authorable slice |
+| Context Pack | exactly one queued slice and one Context Pack row |
+| Process / Action Map | exactly one Context Pack row |
+| Author Specs | exactly one Process / Action Map row |

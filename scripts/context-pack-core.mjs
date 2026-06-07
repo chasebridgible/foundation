@@ -422,7 +422,7 @@ function createAgentMarkedContextPackRow({ queueById, selectedSliceIds, spec, qu
   const upstreamSliceId = isNonEmptyString(spec.upstreamSliceId || spec.sliceId)
     ? String(spec.upstreamSliceId || spec.sliceId).trim()
     : (selectedSliceIds.length === 1 ? selectedSliceIds[0] : null);
-  if (!upstreamSliceId) throw new Error("Context Pack spec requires upstreamSliceId when filling multiple slices");
+  if (!upstreamSliceId) throw new Error("Context Pack spec requires upstreamSliceId or the current one-slice --slice-ids value");
   if (!selected.has(upstreamSliceId)) throw new Error(`Context Pack references slice not included in --slice-ids: ${upstreamSliceId}`);
   const queueRow = queueById.get(upstreamSliceId);
   if (!queueRow) throw new Error(`Context Pack references unknown Define Spec Jobs slice: ${upstreamSliceId}`);
@@ -496,8 +496,21 @@ function parseSliceIds(value) {
 function markContextPackRowsForSlices({ queueRows, packRows, sliceIds, packSpecs, queueFingerprint }) {
   const selectedSliceIds = normalizeStringList(sliceIds);
   if (selectedSliceIds.length === 0) throw new Error("Context Pack fill requires --slice-ids");
+  if (selectedSliceIds.length !== 1) {
+    throw new Error("Context Pack fill reviews exactly one queued slice at a time; pass exactly one --slice-ids value");
+  }
   if (!Array.isArray(packSpecs) || packSpecs.length === 0) {
     throw new Error("Context Pack fill requires at least one pack spec");
+  }
+  if (packSpecs.length !== 1) {
+    throw new Error("Context Pack fill writes exactly one Context Pack row for the current queued slice");
+  }
+  const currentTarget = nextContextPackTarget({ queueRows, packRows });
+  if (!currentTarget) {
+    throw new Error("Context Pack fill has no current --next target; run handoff check/eval/report instead of filling another row");
+  }
+  if (currentTarget.upstreamSliceId !== selectedSliceIds[0]) {
+    throw new Error(`Context Pack fill must use the current --next slice target ${currentTarget.upstreamSliceId}; received ${selectedSliceIds[0]}`);
   }
 
   const queueById = new Map(queueRows.map(row => [row.sliceId, row]));
@@ -565,7 +578,7 @@ function nextContextPackTarget({ queueRows, packRows }) {
       if (leftRank !== rightRank) return leftRank - rightRank;
       return compareContextPackRows(left, right);
     });
-  const target = candidates[0] || packRows.filter(row => isReadyForProcessMapStatus(row.status)).sort(compareContextPackRows)[0] || null;
+  const target = candidates[0] || null;
   if (!target) return null;
   const queueRow = queueById.get(target.upstreamSliceId);
   return {

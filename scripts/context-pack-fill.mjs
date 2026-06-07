@@ -23,9 +23,9 @@ const scriptPath = fileURLToPath(import.meta.url);
 function usage() {
   return `Usage:
   npm run foundation:context-pack:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --next [--out-dir path]
-  npm run foundation:context-pack:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --slice-ids slice:a,slice:b --packs-json '[...]' [--run-log path]
+  npm run foundation:context-pack:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --slice-ids slice:a --packs-json '[{...}]' [--run-log path]
 
-Creates reviewed Context Pack rows from Define Spec Jobs slices. Generated pack files, --all, and --batch-size shortcuts are rejected.`;
+Creates one reviewed Context Pack row from the current --next queued slice. Generated pack files, multiple slice IDs, multi-pack payloads, --all, and --batch-size shortcuts are rejected.`;
 }
 
 function readPackSpecs(options) {

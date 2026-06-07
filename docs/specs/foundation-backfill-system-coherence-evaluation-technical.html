@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-system-coherence-evaluation.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Evaluate System Coherence Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Evaluate System Coherence Technical Spec",
   "type": "technical",
   "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-system-coherence-evaluation.job",
@@ -185,7 +185,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-system-coherence-evaluation-technical.html</div>
     <h1>Foundation Backfill Evaluate System Coherence Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Evaluate System Coherence deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-system-coherence-evaluation.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Parent:</strong> foundation.backfill-system-coherence-evaluation.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -205,7 +205,7 @@
       <table class="status-table"><thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead><tbody>
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
-        <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
+        <tr><td>Whole-graph eval loop</td><td>Agents evaluate the completed graph only after slice acceptance, route failures to the smallest owning artifact, and rerun graph evaluation after revisions.</td><td>Long-running work survives context compaction and prevents parent-level or summary-only closure.</td></tr>
         <tr><td>Deterministic checker</td><td>validates graph references resolve, every relevant capability has owner specs or terminal classification, every behavior-bearing file/surface routes to a spec/capability, and no draft graph orphan exists.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>judges whole-graph rebuild usefulness, contradiction handling, source-backed intent, architecture latitude, and whether future agents would still need source to discover core behavior.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
         <tr><td>Handoff gate</td><td>graph eval is acceptable or has named revision blockers; checker passes; eval JSONL and HTML summary exist; report names next layer as Handoff.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>

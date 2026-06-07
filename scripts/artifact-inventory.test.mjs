@@ -63,6 +63,14 @@ function runNode(script, args, cwd) {
   return execFileSync(process.execPath, [script, ...args], { cwd, encoding: "utf8", maxBuffer: 20 * 1024 * 1024 });
 }
 
+function fillAllInventoryRows(repoRoot, runId, extraArgs = []) {
+  for (;;) {
+    const next = JSON.parse(runNode(fillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot));
+    if (!next.target) return;
+    runNode(fillScript, ["--repo", repoRoot, "--run-id", runId, "--path", next.target.path, ...extraArgs], repoRoot);
+  }
+}
+
 function hasFailure(results, id) {
   return results.some(result => result.id === id && result.status === "fail");
 }
@@ -95,9 +103,35 @@ test("checker rejects pending rows at handoff and allows them in batch phase", (
 test("fill maps pending rows and checker passes the deterministic handoff gate", () => {
   const repoRoot = makeRepo();
   runNode(initScript, ["--repo", repoRoot, "--run-id", "20260527-01"], repoRoot);
-  runNode(fillScript, ["--repo", repoRoot, "--run-id", "20260527-01", "--all"], repoRoot);
+  fillAllInventoryRows(repoRoot, "20260527-01");
   const output = runNode(checkScript, ["--repo", repoRoot, "--run-id", "20260527-01"], repoRoot);
   assert.match(output, /Summary: .* 0 fail/);
+});
+
+test("fill exposes one next file and rejects batch shortcuts", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260527-01";
+  runNode(initScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
+  const next = JSON.parse(runNode(fillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot));
+  assert.equal(next.schema, "foundation.backfill.artifact-inventory-next-target.v1");
+  assert.equal(typeof next.target.path, "string");
+  runNode(fillScript, ["--repo", repoRoot, "--run-id", runId, "--path", next.target.path], repoRoot);
+  const rows = readJsonl(registryPathFor(repoRoot, runId)).rows;
+  assert.equal(rows.filter(row => row.status === "mapped").length, 1);
+  assert.throws(
+    () => runNode(fillScript, ["--repo", repoRoot, "--run-id", runId, "--all"], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /exactly one file at a time/);
+      return true;
+    }
+  );
+  assert.throws(
+    () => runNode(fillScript, ["--repo", repoRoot, "--run-id", runId, "--batch-size", "10"], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /exactly one file at a time/);
+      return true;
+    }
+  );
 });
 
 test("checker rejects duplicate rows, stale hashes, and invalid statuses", () => {
@@ -143,7 +177,7 @@ test("refresh command writes changed-file receipt", () => {
   const repoRoot = makeRepo();
   const runId = "20260527-01";
   runNode(initScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
-  runNode(fillScript, ["--repo", repoRoot, "--run-id", runId, "--all"], repoRoot);
+  fillAllInventoryRows(repoRoot, runId);
   fs.appendFileSync(path.join(repoRoot, "src", "routes", "dashboard.ts"), "\nexport const changed = true;\n", "utf8");
   const output = runNode(refreshScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   const payload = JSON.parse(output);
@@ -155,7 +189,7 @@ test("eval writes canonical JSONL and derived HTML summary", () => {
   const repoRoot = makeRepo();
   const runId = "20260527-01";
   runNode(initScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
-  runNode(fillScript, ["--repo", repoRoot, "--run-id", runId, "--all"], repoRoot);
+  fillAllInventoryRows(repoRoot, runId);
   const output = runNode(evalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
   assert.match(output, /Acceptable: yes/);
   const receipts = readJsonl(evalReceiptPathFor(repoRoot, runId));
@@ -170,7 +204,7 @@ test("report command records registry handoff state", () => {
   const runId = "20260527-01";
   const runLog = path.join("docs", "specs", "backfill", `run-log-${runId}.jsonl`);
   runNode(initScript, ["--repo", repoRoot, "--run-id", runId, "--run-log", runLog], repoRoot);
-  runNode(fillScript, ["--repo", repoRoot, "--run-id", runId, "--all", "--run-log", runLog], repoRoot);
+  fillAllInventoryRows(repoRoot, runId, ["--run-log", runLog]);
   runNode(checkScript, ["--repo", repoRoot, "--run-id", runId, "--run-log", runLog], repoRoot);
   runNode(evalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all", "--run-log", runLog], repoRoot);
   const reportOutput = runNode(reportScript, ["--repo", repoRoot, "--run-id", runId, "--run-log", runLog], repoRoot);
