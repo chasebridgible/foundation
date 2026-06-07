@@ -84,7 +84,9 @@ function relativeSpecPath(file) {
 
 function isGeneratedNonSpecHtml(file) {
   const relativeFile = relativeSpecPath(file);
-  return /^docs\/specs\/backfill\/(?:artifact-inventory|surface-function-map)-(eval-summary|handoff)-\d{8}-\d{2}\.html$/.test(relativeFile) ||
+  if (/^docs\/specs\/backfill\/(?:review-report|evaluation-report)-\d{8}-\d{2}\.html$/.test(relativeFile)) return false;
+  return /^docs\/specs\/backfill\/.*\.html$/.test(relativeFile) ||
+    /^docs\/specs\/backfill\/(?:artifact-inventory|surface-function-map)-(eval-summary|handoff)-\d{8}-\d{2}\.html$/.test(relativeFile) ||
     /^docs\/specs\/backfill\/capability-map-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
     /^docs\/specs\/backfill\/spec-job-queue-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
     /^docs\/specs\/backfill\/context-pack-summary-\d{8}-\d{2}\.html$/.test(relativeFile) ||
