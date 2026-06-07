@@ -1,4 +1,4 @@
 interface:
   display_name: "Author Capability Spec"
-  short_description: "Write parent or child capability specs"
-  default_prompt: "Use $author-capability-spec after spec-selection classifies this as a parent or child capability."
+  short_description: "Write outcome-shaped capability specs"
+  default_prompt: "Use $author-capability-spec after spec-selection classifies this as a parent or child capability, keeping visible titles and reliable outcomes outcome-shaped."

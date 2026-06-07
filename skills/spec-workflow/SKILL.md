@@ -31,7 +31,8 @@ Use this skill as the mechanical execution wrapper for the repo's HTML-native sp
 - Fill `spec-metadata` before generating the spec content.
 - Fill `graph-metadata` before handoff. Every system, capability, job, technical, eval, template, and index spec must expose graph nodes and edges.
 - For Foundation-owned work, attach every job to a capability. Before adding or changing a skill, answer: Which Foundation capability does this improve? Is there already a job spec for this work?
-- Keep capability/job graph edges explicit: capability specs realize child jobs with `realized-by` edges, and job specs support their owning capability with `supports` edges. A `parent` or `children` registry link alone is not enough.
+- Keep capability/job graph edges explicit: parent capability specs contain child capability specs with `contains` edges, capability specs realize child jobs with `realized-by` edges, and job specs support their owning capability with `supports` edges. A `parent` or `children` registry link alone is not enough.
+- After capability-map, capability-spec, or capability-template changes, run `npm run foundation:capability-language:check` so child capability titles and reliable outcomes stay outcome-shaped.
 - Every Foundation skill must have an owning capability, an owning job spec, a technical spec when it defines scripts or data contracts, an eval spec when quality judgment matters, and tests or checks when it mutates repo state.
 - Use stable dotted spec IDs.
 - Set exactly one section with `data-spec-canonical="true"`.

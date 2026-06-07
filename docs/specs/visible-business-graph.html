@@ -7,13 +7,13 @@
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="draft">
 <meta name="spec:last-updated" content="2026-06-06">
-<title>Visible Business Graph</title>
+<title>Business Graph Is Visible</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.visible-business-graph.system",
-  "title": "Visible Business Graph",
+  "title": "Business Graph Is Visible",
   "type": "capability",
   "status": "draft",
   "lastUpdated": "2026-06-06",
@@ -173,7 +173,7 @@
     {
       "id": "spec:foundation.visible-business-graph.system",
       "type": "capability",
-      "label": "Visible Business Graph",
+      "label": "Business Graph Is Visible",
       "source": {
         "specId": "foundation.visible-business-graph.system",
         "sectionId": "system-intent"
@@ -278,7 +278,7 @@
   <div class="sidebar-logo">
     <div class="logo-mark">S</div>
     <div>
-      <div class="sidebar-title">Visible Business Graph</div>
+      <div class="sidebar-title">Business Graph Is Visible</div>
       <div class="sidebar-sub">capability spec</div>
     </div>
   </div>
@@ -298,7 +298,7 @@
 <main class="main">
   <section id="system-intent" data-spec-section="system-intent" data-section-type="system-intent" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/visible-business-graph.html</div>
-    <h1>Visible Business Graph</h1>
+    <h1>Business Graph Is Visible</h1>
     <p class="lede">Foundation should make a business inspectable: what it can do, which jobs make those outcomes real, who or what handles the work, how work moves, what tools and evidence support it, and where the operating system is fragile or stale.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> draft</div>
@@ -307,9 +307,15 @@
       <div><strong>Confidence:</strong> medium</div>
     </div>
     <h3>Intent</h3>
-    <p>The Visible Business Graph turns Foundation's HTML-native business substrate into a navigable graph for humans and agents. The canonical artifacts remain reviewable HTML specs and structured metadata. Visual canvases, cards, filters, and app views are derived surfaces that help a client see the business instead of reading a long document set. The broader principle is defined in <a href="../fundamentals/visible-business-foundation.html">Visible Business Foundation</a>: Foundation should make business architecture inspectable and connected to reality.</p>
+    <p>The Business Graph Is Visible turns Foundation's HTML-native business substrate into a navigable graph for humans and agents. The canonical artifacts remain reviewable HTML specs and structured metadata. Visual canvases, cards, filters, and app views are derived surfaces that help a client see the business instead of reading a long document set. The broader principle is defined in <a href="../fundamentals/visible-business-foundation.html">Visible Business Foundation</a>: Foundation should make business architecture inspectable and connected to reality.</p>
     <p>The graph should treat software and non-software work the same way: a person, vendor, agent, spreadsheet, SaaS workflow, or custom application may all implement jobs that support a capability. The durable object is the business outcome and the work required to produce it reliably, not the current implementation choice.</p>
     <p>Foundation itself is the first required graph-compatible corpus. Every Foundation HTML spec must carry valid <code>graph-metadata</code>, and new specs must be scaffolded with graph metadata by default.</p>
+    <table class="status-table">
+      <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+      <tbody>
+        <tr><td>Reliable outcome</td><td>Goals, capabilities, jobs, actors, evidence, gaps, ownership, and next work are visible as a graph that links back to source HTML specs.</td><td>Foundation capability remap and graph renderer contracts.</td></tr>
+      </tbody>
+    </table>
     <h3>Boundary</h3>
     <p>This spec defines the business graph contract and visualization requirements. It does not select a web framework, canvas library, database, embedding strategy, authentication model, or client portal implementation. Those belong in future technical and job specs once a pilot proves the graph shape.</p>
   </section>
@@ -430,7 +436,7 @@
   </article>
 
   <hr>
-  <p class="footer-note">Visible Business Graph · draft system spec</p>
+  <p class="footer-note">Business Graph Is Visible · draft system spec</p>
 </main>
 <script src="../site-map.js?v=20260602-nav-collapse"></script>
 <script src="../site-nav.js?v=20260602-nav-collapse"></script>

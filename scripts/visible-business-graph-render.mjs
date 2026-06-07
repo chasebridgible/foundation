@@ -170,6 +170,7 @@ function render(graph, outPath) {
     stroke-width: 1.35;
   }
   .graph-edge-realized-by { stroke: var(--edge-accent, rgba(110,168,254,.52)); stroke-width: 1.6; }
+  .graph-edge-contains { stroke: var(--edge-accent, rgba(110,168,254,.42)); stroke-width: 1.45; }
   .graph-edge-has-process { stroke: var(--edge-accent, rgba(88,214,169,.44)); }
   .graph-edge-performed-by { stroke: var(--edge-accent, rgba(224,184,79,.42)); }
   .graph-edge-uses-tool { stroke: var(--edge-accent, rgba(110,168,254,.34)); }
@@ -356,6 +357,32 @@ function capabilityJobs(capabilityId) {
   return sortedNodes(ids);
 }
 
+function isCapabilityId(id) {
+  return nodesById.get(id)?.type === "capability";
+}
+
+function isRootId(id) {
+  return ["index", "system"].includes(nodesById.get(id)?.type);
+}
+
+function capabilityParents(capabilityId) {
+  const ids = new Set();
+  for (const edge of graph.edges) {
+    if (edge.type === "contains" && edge.to === capabilityId && isCapabilityId(edge.from)) ids.add(edge.from);
+    if (edge.type === "depends-on" && edge.from === capabilityId && isCapabilityId(edge.to)) ids.add(edge.to);
+  }
+  return sortedNodes(ids);
+}
+
+function capabilityChildren(capabilityId) {
+  const ids = new Set();
+  for (const edge of graph.edges) {
+    if (edge.type === "contains" && edge.from === capabilityId && isCapabilityId(edge.to)) ids.add(edge.to);
+    if (edge.type === "depends-on" && edge.to === capabilityId && isCapabilityId(edge.from)) ids.add(edge.from);
+  }
+  return sortedNodes(ids);
+}
+
 function jobCapabilities(jobId) {
   const ids = new Set();
   for (const edge of graph.edges) {
@@ -454,12 +481,35 @@ function nodesForView() {
   return nodesForActorsMap();
 }
 
+function isRootCapabilityEdge(edge) {
+  return (edge.type === "contains" && isRootId(edge.from) && isCapabilityId(edge.to))
+    || (edge.type === "depends-on" && isCapabilityId(edge.from) && isRootId(edge.to));
+}
+
+function isCapabilityHierarchyEdge(edge) {
+  return (edge.type === "contains" && isCapabilityId(edge.from) && isCapabilityId(edge.to))
+    || (edge.type === "depends-on" && isCapabilityId(edge.from) && isCapabilityId(edge.to));
+}
+
+function visualEdgeEndpoints(edge) {
+  if (view === "actors" && edge.type === "performed-by") {
+    return { fromId: edge.to, toId: edge.from };
+  }
+  if (view === "capability") {
+    if (edge.type === "depends-on" && isCapabilityId(edge.from) && (isCapabilityId(edge.to) || isRootId(edge.to))) {
+      return { fromId: edge.to, toId: edge.from };
+    }
+  }
+  return { fromId: edge.from, toId: edge.to };
+}
+
 function edgesForView(nodeIds) {
   const visibleEdges = graph.edges.filter(edge => nodeIds.has(edge.from) && nodeIds.has(edge.to));
   if (view === "capability") {
-    return visibleEdges.filter(edge => {
+    const candidates = visibleEdges.filter(edge => {
       const from = nodesById.get(edge.from);
       const to = nodesById.get(edge.to);
+      if (isRootCapabilityEdge(edge) || isCapabilityHierarchyEdge(edge)) return true;
       const isExpandedCapabilityJob = expandedCapabilityIds.has(edge.from)
         && from?.type === "capability"
         && to?.type === "job"
@@ -471,6 +521,14 @@ function edgesForView(nodeIds) {
       if (isExpandedJobContext) return true;
       return false;
     });
+    const visualEdgesByKey = new Map();
+    for (const edge of candidates) {
+      const endpoints = visualEdgeEndpoints(edge);
+      const key = endpoints.fromId + "->" + endpoints.toId + ":" + (isCapabilityHierarchyEdge(edge) || isRootCapabilityEdge(edge) ? "hierarchy" : edge.type);
+      const current = visualEdgesByKey.get(key);
+      if (!current || (current.type !== "contains" && edge.type === "contains")) visualEdgesByKey.set(key, edge);
+    }
+    return [...visualEdgesByKey.values()];
   }
   return visibleEdges.filter(edge => edge.type === "performed-by" && expandedActorIds.has(edge.to));
 }
@@ -478,12 +536,12 @@ function edgesForView(nodeIds) {
 function layerForNode(node) {
   if (view === "capability") {
     if (["index", "system"].includes(node.type)) return 0;
-    if (node.type === "capability") return 1;
-    if (node.type === "job") return 2;
-    if (node.type === "process") return 3;
-    if (["actor", "tool"].includes(node.type)) return 4;
-    if (["evidence", "metric", "gap"].includes(node.type)) return 5;
-    return 6;
+    if (node.type === "capability") return capabilityParents(node.id).length > 0 ? 2 : 1;
+    if (node.type === "job") return 3;
+    if (node.type === "process") return 4;
+    if (["actor", "tool"].includes(node.type)) return 5;
+    if (["evidence", "metric", "gap"].includes(node.type)) return 6;
+    return 7;
   }
   if (node.type === "actor") return 0;
   if (node.type === "job") return 1;
@@ -562,7 +620,9 @@ function layoutCapabilityMap(nodes, viewportWidth) {
   const visibleIds = new Set(nodes.map(node => node.id));
   const roots = sortByLabel(nodes.filter(node => ["index", "system"].includes(node.type)));
   const capabilities = sortByLabel(nodes.filter(node => node.type === "capability"));
-  const capabilityGroups = capabilities.map(capability => {
+  const topCapabilities = capabilities.filter(capability => capabilityParents(capability.id).length === 0);
+
+  function jobGroupsForCapability(capability) {
     const jobGroups = capabilityJobs(capability.id)
       .filter(job => visibleIds.has(job.id))
       .map(job => {
@@ -574,15 +634,42 @@ function layoutCapabilityMap(nodes, viewportWidth) {
         }
         const rowWidths = [...rows.values()].map(row => rowWidth(row.length, cardSize.childGapX));
         const width = Math.max(cardSize.width, ...rowWidths);
-        const maxContextLayer = Math.max(2, ...rows.keys());
+        const maxContextLayer = Math.max(3, ...rows.keys());
         return { job, rows, width, maxContextLayer };
       });
-    const jobsWidth = jobGroups.reduce((sum, group, index) => {
+    return jobGroups;
+  }
+
+  function jobsWidth(jobGroups) {
+    return jobGroups.reduce((sum, group, index) => {
       return sum + group.width + (index === 0 ? 0 : cardSize.groupGapX);
     }, 0);
-    const width = Math.max(cardSize.width, jobsWidth);
-    const maxLayer = Math.max(1, ...jobGroups.map(group => group.maxContextLayer));
-    return { capability, jobGroups, width, maxLayer };
+  }
+
+  const capabilityGroups = topCapabilities.map(capability => {
+    const directJobGroups = jobGroupsForCapability(capability);
+    const childGroups = capabilityChildren(capability.id)
+      .filter(child => visibleIds.has(child.id))
+      .map(child => {
+        const jobGroups = jobGroupsForCapability(child);
+        return {
+          capability: child,
+          jobGroups,
+          width: Math.max(cardSize.width, jobsWidth(jobGroups)),
+          maxLayer: Math.max(2, ...jobGroups.map(group => group.maxContextLayer))
+        };
+      });
+    const childBandWidth = childGroups.reduce((sum, group, index) => {
+      return sum + group.width + (index === 0 ? 0 : cardSize.groupGapX);
+    }, 0);
+    const directJobsWidth = jobsWidth(directJobGroups);
+    const width = Math.max(cardSize.width, childBandWidth, directJobsWidth);
+    const maxLayer = Math.max(
+      childGroups.length > 0 ? 2 : 1,
+      ...childGroups.map(group => group.maxLayer),
+      ...directJobGroups.map(group => group.maxContextLayer)
+    );
+    return { capability, directJobGroups, childGroups, width, maxLayer };
   });
   const rootBandWidth = rowWidth(roots.length, cardSize.gapX);
   const capabilityBandWidth = capabilityGroups.reduce((sum, group, index) => {
@@ -597,21 +684,19 @@ function layoutCapabilityMap(nodes, viewportWidth) {
   const positioned = new Map();
   const rootY = cardSize.margin;
   const capabilityY = roots.length > 0 ? cardSize.margin + cardSize.gapY : cardSize.margin;
+  const childCapabilityY = capabilityY + cardSize.gapY;
+  const childJobY = childCapabilityY + cardSize.gapY;
   let maxLayer = capabilities.length > 0 ? 1 : 0;
   centerRow(roots, rootY, positioned, layoutWidth);
-  let x = (layoutWidth - capabilityBandWidth) / 2;
-  for (const group of capabilityGroups) {
-    const capabilityX = x + (group.width - cardSize.width) / 2;
-    positioned.set(group.capability.id, { x: capabilityX, y: capabilityY });
-    const jobsWidth = group.jobGroups.reduce((sum, jobGroup, index) => {
-      return sum + jobGroup.width + (index === 0 ? 0 : cardSize.groupGapX);
-    }, 0);
-    let jobX = x + (group.width - jobsWidth) / 2;
-    for (const jobGroup of group.jobGroups) {
-      positioned.set(jobGroup.job.id, { x: jobX + (jobGroup.width - cardSize.width) / 2, y: capabilityY + cardSize.gapY });
-      maxLayer = Math.max(maxLayer, 2);
+
+  function positionJobGroups(jobGroups, rowY, originX, groupWidth) {
+    const bandWidth = jobsWidth(jobGroups);
+    let jobX = originX + (groupWidth - bandWidth) / 2;
+    for (const jobGroup of jobGroups) {
+      positioned.set(jobGroup.job.id, { x: jobX + (jobGroup.width - cardSize.width) / 2, y: rowY });
+      maxLayer = Math.max(maxLayer, 3);
       for (const [layer, contextRow] of jobGroup.rows) {
-        const y = capabilityY + (layer - 1) * cardSize.gapY;
+        const y = rowY + Math.max(1, layer - 3) * cardSize.gapY;
         centerRow(sortByLabel(contextRow), y, positioned, jobGroup.width, cardSize.childGapX);
         for (const node of contextRow) {
           const pos = positioned.get(node.id);
@@ -621,9 +706,31 @@ function layoutCapabilityMap(nodes, viewportWidth) {
       }
       jobX += jobGroup.width + cardSize.groupGapX;
     }
+  }
+
+  let x = (layoutWidth - capabilityBandWidth) / 2;
+  for (const group of capabilityGroups) {
+    const capabilityX = x + (group.width - cardSize.width) / 2;
+    positioned.set(group.capability.id, { x: capabilityX, y: capabilityY });
+    maxLayer = Math.max(maxLayer, 1);
+    if (group.childGroups.length > 0) {
+      const childBandWidth = group.childGroups.reduce((sum, childGroup, index) => {
+        return sum + childGroup.width + (index === 0 ? 0 : cardSize.groupGapX);
+      }, 0);
+      let childX = x + (group.width - childBandWidth) / 2;
+      for (const childGroup of group.childGroups) {
+        positioned.set(childGroup.capability.id, { x: childX + (childGroup.width - cardSize.width) / 2, y: childCapabilityY });
+        maxLayer = Math.max(maxLayer, 2);
+        positionJobGroups(childGroup.jobGroups, childJobY, childX, childGroup.width);
+        childX += childGroup.width + cardSize.groupGapX;
+      }
+      if (group.directJobGroups.length > 0) positionJobGroups(group.directJobGroups, childJobY, x, group.width);
+    } else {
+      positionJobGroups(group.directJobGroups, childCapabilityY, x, group.width);
+    }
     x += group.width + cardSize.groupGapX;
   }
-  const lastY = capabilityY + (maxLayer - 1) * cardSize.gapY;
+  const lastY = Math.max(...[...positioned.values()].map(position => position.y), rootY);
   return {
     positions: positioned,
     size: {

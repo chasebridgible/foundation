@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-capability-map.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-29">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Capability Map Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Capability Map Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-05-29",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-capability-map.job",
@@ -221,7 +221,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-capability-map-technical.html</div>
     <h1>Foundation Backfill Capability Map Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Capability Map deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-capability-map.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Parent:</strong> foundation.backfill-capability-map.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory. Capability rows are semantic groupings of reviewed Surface / Function Map rows, not generated path summaries.</p>
   </section>
 
@@ -229,7 +229,7 @@
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
-        <tr><td>Layer row</td><td>schema, runId, capabilityId, name, upstreamSurfaceIds, upstreamSurfaceRefs, surfaceRefs, evidenceRefs, actor, intendedOutcome, domainObject, actions, states, rules, experience, backingContracts, failureAndRecovery, evidence, spec hints, verificationTargets, blockingGaps, humanDecisions, reviewFlags, splitNeeded, splitReason, splitCriteria, status, confidence, createdAt, updatedAt</td><td>Every terminal row has stable identity, current upstream surface fingerprints, complete formula fields, and traceable evidence.</td></tr>
+        <tr><td>Layer row</td><td>schema, runId, capabilityId, name, capabilityTitle, capabilityAltitude, parentCapabilityId, parentCapabilityName, queueEligible, notCapabilityReason, blockerOrSplitReason, upstreamSurfaceIds, upstreamSurfaceRefs, surfaceRefs, evidenceRefs, actor, intendedOutcome, domainObject, actions, states, rules, experience, backingContracts, failureAndRecovery, evidence, spec hints, verificationTargets, blockingGaps, humanDecisions, reviewFlags, splitNeeded, splitReason, splitCriteria, status, confidence, createdAt, updatedAt</td><td>Every terminal row has stable identity, current upstream surface fingerprints, complete formula fields, queue eligibility derived from child/sole altitude only, and traceable evidence.</td></tr>
         <tr><td>Canonical artifact</td><td>capability-map-YYYYMMDD-NN.jsonl, capability-map-check-YYYYMMDD-NN.json, capability-map-eval-YYYYMMDD-NN.jsonl</td><td>JSONL/JSON files are machine-parseable source-of-record artifacts for the layer.</td></tr>
         <tr><td>Derived artifact</td><td>capability-map-summary-YYYYMMDD-NN.html, capability graph views, report tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
         <tr><td>Report entry</td><td>artifact paths, ready surface count, row counts by status, checker result, eval result, eval revision-target count, latest run-log sequence, embedded <code>backfill-capability-map</code> JSON, next layer</td><td>A new agent can resume from report plus artifacts, and Define Spec Jobs can consume a report-embedded Capability Map view derived from canonical JSONL only after eval revision targets are resolved.</td></tr>
@@ -242,10 +242,10 @@
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
         <tr><td>Reviewed-surface fill loop</td><td>Agents select the next pending target, review the selected Surface / Function Map row and enough nearby ready rows to decide grouping, then pass inline capability JSON for that reviewed surface set. The fill command rejects generated capability files, all-file fill modes, and batch-size shortcuts.</td><td>Capability rows require semantic judgment about actors, outcomes, states, rules, contracts, and recovery; path-derived bulk synthesis is too weak to be the source of record.</td></tr>
-        <tr><td>Deterministic checker</td><td>validates upstream Surface / Function Map check/eval handoff, every ready Surface / Function Map row represented by at least one terminal capability row, no capability rows attached to support/pending surface rows, capability status enums, upstream references, duplicate capability IDs, required formula fields, stale upstream surface fingerprints, split flags, handoff states, and optional report drift.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates upstream Surface / Function Map check/eval handoff, every ready Surface / Function Map row represented by at least one queue-eligible child/sole capability row or explicit blocker, no capability rows attached to support/pending surface rows, capability status and altitude enums, parent-child linkage, parent rows decomposed into child outcomes, no parent-only surface coverage, no unresolved <code>needs-split</code> rows at handoff, upstream references, duplicate capability IDs, required formula fields, stale upstream surface fingerprints, split/blocker flags, handoff states, artifact/layer/phase-shaped names, and optional report drift.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>samples capabilities against surfaces and source evidence to detect vague outcomes, missing actors, missing state/rule contracts, over-merged domains, and unsupported capability claims.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
         <tr><td>Refresh</td><td>When upstream Surface / Function Map rows change, matching Capability Map rows are preserved only if stored upstream surface fingerprints still match. Changed/new ready surfaces return to <code>pending</code> and must be grouped again by an agent.</td><td>The layer participates in steady-state changed-surface refresh instead of only bootstrap backfill.</td></tr>
-        <tr><td>Handoff gate</td><td>all ready surfaces are capability-owned, broad rows are flagged <code>needs-split</code>, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Define Spec Jobs only after warnings are resolved.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Handoff gate</td><td>all ready surfaces are covered by queue-eligible child/sole capabilities or explicit blockers, parent rows have child rows, unresolved <code>needs-split</code> rows are zero, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Define Spec Jobs only after warnings are resolved.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 

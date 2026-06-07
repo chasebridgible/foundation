@@ -234,6 +234,7 @@ function createPendingProcessActionMapRow(packRow, packArtifactFingerprint = nul
     upstreamPackRef: upstreamPackRef(packRow, packArtifactFingerprint),
     upstreamSliceId: packRow.upstreamSliceId,
     upstreamCapabilityIds: normalizeStringList(packRow.upstreamCapabilityIds),
+    capabilityRefs: asObjectArray(packRow.capabilityRefs),
     actor: "",
     role: "",
     trigger: "",
@@ -313,6 +314,7 @@ function createAgentMarkedProcessActionMapRow({ packById, packBySliceId, selecte
     upstreamPackRef: upstreamPackRef(packRow, packArtifactFingerprint),
     upstreamSliceId: packRow.upstreamSliceId,
     upstreamCapabilityIds: normalizeStringList(packRow.upstreamCapabilityIds),
+    capabilityRefs: asObjectArray(packRow.capabilityRefs),
     actor: normalizeNullableString(spec.actor) || "",
     role: normalizeNullableString(spec.role) || "",
     trigger: normalizeNullableString(spec.trigger || spec.entryPoint) || "",
@@ -654,7 +656,7 @@ function validateProcessActionMapRowShape(row, prefix, results, phase) {
   if (!isNonEmptyString(row?.upstreamSliceId)) results.push(fail(`${prefix}:upstream-slice-id`, "Process / Action Map row requires upstreamSliceId"));
   if (!VALID_PROCESS_ACTION_MAP_STATUSES.has(row?.status)) results.push(fail(`${prefix}:status`, "Process / Action Map status is outside enum", { status: row?.status }));
   if (!VALID_CONFIDENCE.has(row?.confidence)) results.push(fail(`${prefix}:confidence`, "Process / Action Map confidence is outside enum", { confidence: row?.confidence }));
-  for (const field of ["upstreamCapabilityIds", "actions", "permissions", "rules", "visibleBehavior", "edgeCases", "recoveryPaths", "evidenceRefs", "explicitGaps", "blockingQuestions", "blockingGaps", "humanDecisions", "reviewFlags"]) {
+  for (const field of ["upstreamCapabilityIds", "capabilityRefs", "actions", "permissions", "rules", "visibleBehavior", "edgeCases", "recoveryPaths", "evidenceRefs", "explicitGaps", "blockingQuestions", "blockingGaps", "humanDecisions", "reviewFlags"]) {
     if (!Array.isArray(row?.[field])) results.push(fail(`${prefix}:${field}`, `${field} must be an array`));
   }
   if (!row?.upstreamPackRef || typeof row.upstreamPackRef !== "object" || Array.isArray(row.upstreamPackRef)) results.push(fail(`${prefix}:upstream-pack-ref`, "upstreamPackRef must be an object"));
@@ -716,6 +718,12 @@ function validateProcessActionMapRows({ packRows, processRows, phase = "handoff"
       }
       const missingCapabilities = normalizeStringList(packRow.upstreamCapabilityIds).filter(id => !normalizeStringList(row.upstreamCapabilityIds).includes(id));
       if (missingCapabilities.length > 0) results.push(fail(`${prefix}:upstream-capability-coverage`, "Process row must carry every upstream capability ID from Context Pack", { missingCapabilities }));
+      const missingCapabilityRefs = asObjectArray(packRow.capabilityRefs)
+        .filter(ref => !asObjectArray(row.capabilityRefs).some(rowRef => rowRef.capabilityId === ref.capabilityId));
+      if (missingCapabilityRefs.length > 0) results.push(fail(`${prefix}:capability-ref-coverage`, "Process row must carry child/sole capabilityRefs from Context Pack", { missingCapabilityRefs: missingCapabilityRefs.map(ref => ref.capabilityId) }));
+      const unqueueableRefs = asObjectArray(row.capabilityRefs)
+        .filter(ref => ref.capabilityAltitude === "parent" || ref.capabilityAltitude === "needs-split" || ref.capabilityAltitude === "blocked" || ref.queueEligible === false);
+      if (unqueueableRefs.length > 0) results.push(fail(`${prefix}:capability-ref-queue-eligible`, "Process row cannot carry parent, needs-split, blocked, or non-queueEligible capability refs as active work", { unqueueableRefs: unqueueableRefs.map(ref => ref.capabilityId) }));
     }
     for (const [refIndex, ref] of asObjectArray(row.evidenceRefs).entries()) {
       const label = `${prefix}:evidence-refs:${refIndex + 1}`;
@@ -888,6 +896,7 @@ function buildProcessActionMapPayload({ runId, repoRoot, processRows }) {
       upstreamPackId: row.upstreamPackId,
       upstreamSliceId: row.upstreamSliceId,
       upstreamCapabilityIds: row.upstreamCapabilityIds,
+      capabilityRefs: row.capabilityRefs || [],
       status: row.status,
       confidence: row.confidence,
       actor: row.actor,

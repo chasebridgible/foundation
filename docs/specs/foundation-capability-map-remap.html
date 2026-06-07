@@ -88,6 +88,12 @@
       "kind": "workflow",
       "ownership": "reference",
       "notes": "Enforces Foundation capability/job/skill ownership after remap."
+    },
+    {
+      "path": "foundation/scripts/capability-language-check.mjs",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Enforces outcome-shaped capability language after remap."
     }
   ],
   "coverage": [
@@ -131,6 +137,16 @@
         "foundation.capability-map-remap.job#evidence-and-evaluation"
       ],
       "command": "npm run foundation:capability-map-remap:check"
+    },
+    {
+      "id": "foundation.capability-map-remap.job:language-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/capability-language-check.mjs",
+      "mapsTo": [
+        "foundation.capability-map-remap.job#evidence-and-evaluation"
+      ],
+      "command": "npm run foundation:capability-language:check"
     }
   ],
   "tags": [
@@ -329,14 +345,14 @@
 
     <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
       <h2>Current handling</h2>
-      <p>The Foundation system spec now contains two capability layers: a draft parent capability family table and a separate table of current implemented capability specs. The graph-backed implemented capability specs still mostly attach directly to <code>foundation.operating-system.system</code>, while the desired parent/child capability model is not yet fully represented in spec metadata, graph metadata, validators, or backfill mapping rules.</p>
+      <p>The Foundation system spec now contains graph-backed parent capability families and current child capability specs. The remaining pressure is semantic enforcement: visible titles, reliable outcomes, graph links, validators, and skills must keep capability language outcome-shaped instead of drifting back to artifact names, workflow phases, or implementation layers. Backfill mapping rules are intentionally deferred to a later propagation pass.</p>
       <table class="status-table">
         <thead><tr><th>Current artifact</th><th>Current role</th><th>Remap pressure</th></tr></thead>
         <tbody>
-          <tr><td><code>foundation-operating-system.html#capability-map</code></td><td>Root system map with parent family prose plus implemented capability table.</td><td>Needs one graph-backed parent/child model instead of parallel prose and implementation lists.</td></tr>
-          <tr><td><code>docs/specs/capabilities/*.html</code></td><td>Current implemented capability specs.</td><td>Many are valid child capabilities, but some names read like jobs or phases and need outcome wording.</td></tr>
-          <tr><td><code>foundation-self-map-check.mjs</code></td><td>Validator for core capability/job/skill ownership.</td><td>Currently expects old core capabilities to attach directly to the system.</td></tr>
-          <tr><td>Backfill capability-map and author-specs layers</td><td>Existing-repo mapping workflow.</td><td>Needs parent/child capability and job boundaries to inherit the settled vocabulary.</td></tr>
+          <tr><td><code>foundation-operating-system.html#capability-map</code></td><td>Root system map with parent family table plus current child capability table.</td><td>Needs generated graph/canvas and validators to stay current whenever the map changes.</td></tr>
+          <tr><td><code>docs/specs/capabilities/*.html</code></td><td>Current parent and child capability specs.</td><td>Visible titles and reliable outcomes must stay outcome-shaped even when IDs retain older compatibility names.</td></tr>
+          <tr><td><code>foundation-self-map-check.mjs</code> and capability language checks</td><td>Validators for core capability/job/skill ownership and semantic shape.</td><td>Must reject missing links, stale generated graph artifacts, and job/phase/artifact-shaped child capability titles.</td></tr>
+          <tr><td>Backfill capability-map and author-specs layers</td><td>Existing-repo mapping workflow.</td><td>Deferred follow-up: parent/child capability and job boundaries still need to propagate into target-repo backfill layers.</td></tr>
         </tbody>
       </table>
     </section>
@@ -363,22 +379,25 @@
       <table class="status-table">
         <thead><tr><th>Current spec</th><th>Current classification</th><th>Proposed parent</th><th>Action needed</th></tr></thead>
         <tbody>
-          <tr><td><code>foundation.capture-business-system-intent.capability</code></td><td>Child capability</td><td>Understand Intent And Reality</td><td>Retain, then revise title/outcome toward intent and reality capture.</td></tr>
+          <tr><td><code>foundation.capture-business-system-intent.capability</code></td><td>Child capability</td><td>Understand Intent And Reality</td><td>Visible title and outcome now state that business and system intent is clear.</td></tr>
           <tr><td><code>foundation.knowledge-data-layer.system</code></td><td>Child capability with subsystem-shaped ID</td><td>Preserve Knowledge As Useful Context</td><td>Retain short-term; flag ID/type cleanup for a later compatibility pass.</td></tr>
-          <tr><td><code>foundation.inventory-classify-artifacts.capability</code></td><td>Child capability with job-shaped title</td><td>Change Existing Systems Without Losing Intent</td><td>Rewrite visible outcome as repo artifacts being source-backed and classified.</td></tr>
-          <tr><td><code>foundation.map-surfaces-functions.capability</code></td><td>Child capability with phase-shaped title</td><td>Change Existing Systems Without Losing Intent</td><td>Rewrite as repo-exposed surfaces and dependencies being knowable from evidence.</td></tr>
-          <tr><td><code>foundation.map-capabilities-from-evidence.capability</code></td><td>Child capability</td><td>Define The Right Work</td><td>Retain and clarify that evidence-backed capability rows are reliably available.</td></tr>
-          <tr><td><code>foundation.define-jobs-from-capabilities.capability</code></td><td>Child capability</td><td>Define The Right Work</td><td>Retain and clarify job derivation as a standing ability, not a one-time phase.</td></tr>
-          <tr><td><code>foundation.package-context-for-action.capability</code></td><td>Child capability</td><td>Preserve Knowledge As Useful Context</td><td>Retain and connect to bounded context retrieval.</td></tr>
-          <tr><td><code>foundation.author-durable-specs.capability</code></td><td>Child capability</td><td>Define The Right Work</td><td>Retain as spec-authoring capability; keep authoring jobs underneath it.</td></tr>
-          <tr><td><code>foundation.generate-maintain-agent-skills.capability</code></td><td>Child capability</td><td>Make Outstanding Work Repeatable</td><td>Retain; add or split dedicated skill-authoring jobs when needed.</td></tr>
-          <tr><td><code>foundation.evaluate-quality-completeness.capability</code></td><td>Child capability</td><td>Evaluate, Learn, And Improve</td><td>Retain and align with semantic eval, not only structural completeness.</td></tr>
-          <tr><td><code>foundation.render-inspectable-system-graph.capability</code></td><td>Child capability</td><td>Show The System Clearly</td><td>Retain and parent visual graph work here.</td></tr>
+          <tr><td><code>foundation.inventory-classify-artifacts.capability</code></td><td>Child capability</td><td>Change Existing Systems Without Losing Intent</td><td>Visible title and outcome now state that repo artifacts are known and classified.</td></tr>
+          <tr><td><code>foundation.map-surfaces-functions.capability</code></td><td>Child capability</td><td>Change Existing Systems Without Losing Intent</td><td>Visible title and outcome now state that repo surfaces are evidence-backed.</td></tr>
+          <tr><td><code>foundation.map-capabilities-from-evidence.capability</code></td><td>Child capability</td><td>Define The Right Work</td><td>Visible title and outcome now state that evidence becomes capability maps.</td></tr>
+          <tr><td><code>foundation.define-jobs-from-capabilities.capability</code></td><td>Child capability</td><td>Define The Right Work</td><td>Visible title and outcome now state that capabilities become workable jobs.</td></tr>
+          <tr><td><code>foundation.package-context-for-action.capability</code></td><td>Child capability</td><td>Preserve Knowledge As Useful Context</td><td>Visible title and outcome now state that context is bounded for action.</td></tr>
+          <tr><td><code>foundation.author-durable-specs.capability</code></td><td>Child capability</td><td>Define The Right Work</td><td>Visible title and outcome now state that specs preserve durable intent.</td></tr>
+          <tr><td><code>foundation.generate-maintain-agent-skills.capability</code></td><td>Child capability</td><td>Make Outstanding Work Repeatable</td><td>Visible title and outcome now state that agent skills preserve repeatable work.</td></tr>
+          <tr><td><code>foundation.evaluate-quality-completeness.capability</code></td><td>Child capability</td><td>Evaluate, Learn, And Improve</td><td>Visible title and outcome now state that quality and completeness are judged.</td></tr>
+          <tr><td><code>foundation.render-inspectable-system-graph.capability</code></td><td>Child capability</td><td>Show The System Clearly</td><td>Visible title and outcome now state that system graphs are inspectable.</td></tr>
           <tr><td><code>foundation.visible-business-graph.system</code></td><td>Child capability with subsystem-shaped ID</td><td>Show The System Clearly</td><td>Retain short-term; flag ID/type cleanup for a later compatibility pass.</td></tr>
-          <tr><td><code>foundation.install-foundation-target-repos.capability</code></td><td>Child capability</td><td>Build New Systems From Clear Specs</td><td>Retain; clarify reusable substrate installation as a build-enabling capability.</td></tr>
-          <tr><td><code>foundation.compound-improvements-safely.capability</code></td><td>Child capability</td><td>Evaluate, Learn, And Improve</td><td>Retain and connect protected change flow to learning cycles.</td></tr>
-          <tr><td><code>foundation.learn-agent-capabilities-over-time.capability</code></td><td>Child capability</td><td>Evaluate, Learn, And Improve</td><td>Retain as draft; connect to keeping Foundation current with agent tooling changes.</td></tr>
-          <tr><td>Operate Systems In The Real World</td><td>Parent capability gap</td><td>Operate Systems In The Real World</td><td>Create as a parent capability with explicit gaps until deployment/monitor/recovery child specs exist.</td></tr>
+          <tr><td><code>foundation.install-foundation-target-repos.capability</code></td><td>Child capability</td><td>Build New Systems From Clear Specs</td><td>Visible title and outcome now state that Foundation is installable in target repos.</td></tr>
+          <tr><td><code>foundation.compound-improvements-safely.capability</code></td><td>Child capability</td><td>Evaluate, Learn, And Improve</td><td>Visible title and outcome now state that improvements compound safely.</td></tr>
+          <tr><td><code>foundation.learn-agent-capabilities-over-time.capability</code></td><td>Child capability</td><td>Evaluate, Learn, And Improve</td><td>Visible title and outcome now state that agent capability changes stay known.</td></tr>
+          <tr><td><code>foundation.systems-ship-safely.capability</code></td><td>Child capability with scoped job gap</td><td>Operate Systems In The Real World</td><td>New child capability; job, technical, and eval specs for safe shipping remain a named gap.</td></tr>
+          <tr><td><code>foundation.system-health-visible.capability</code></td><td>Child capability with scoped job gap</td><td>Operate Systems In The Real World</td><td>New child capability; job, technical, and eval specs for system-health visibility remain a named gap.</td></tr>
+          <tr><td><code>foundation.failure-recovery-ready.capability</code></td><td>Child capability with scoped job gap</td><td>Operate Systems In The Real World</td><td>New child capability; job, technical, and eval specs for failure recovery remain a named gap.</td></tr>
+          <tr><td><code>foundation.operating-lessons-improve-system.capability</code></td><td>Child capability with scoped job gap</td><td>Operate Systems In The Real World</td><td>New child capability; job, technical, and eval specs for operating lessons remain a named gap.</td></tr>
         </tbody>
       </table>
     </section>

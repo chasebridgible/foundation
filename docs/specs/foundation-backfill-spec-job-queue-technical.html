@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-spec-job-queue.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-29">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Define Spec Jobs Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Define Spec Jobs Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-05-29",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-spec-job-queue.job",
@@ -128,7 +128,7 @@
         "foundation.backfill-spec-job-queue.technical#checker-and-fill-loop",
         "foundation.backfill-spec-job-queue.technical#failure-modes"
       ],
-      "evidence": "Define Spec Jobs tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, needs-split child-slice coverage, eval scoring, refresh invalidation, and report drift."
+      "evidence": "Define Spec Jobs tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, child/sole queue eligibility, eval scoring, refresh invalidation, and report drift."
     }
   ],
   "tags": [
@@ -229,7 +229,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-spec-job-queue-technical.html</div>
     <h1>Foundation Backfill Define Spec Jobs Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Define Spec Jobs deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-spec-job-queue.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Parent:</strong> foundation.backfill-spec-job-queue.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -237,7 +237,7 @@
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
-        <tr><td>Layer row</td><td>runId, sliceId, upstreamCapabilityIds, upstreamCapabilityRefs, name, ownerSkill, scope, includedBehaviors, excludedBehaviors, exitCriterion, nextAction, verificationTargets, status, confidence, evidenceRefs, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity, current upstream fingerprints, objective completion criteria, traceable evidence, and semantic anchors that match upstream capability identity.</td></tr>
+        <tr><td>Layer row</td><td>runId, sliceId, upstreamCapabilityIds, upstreamCapabilityRefs, capabilityRefs, capabilityAltitude, parentCapabilityId, parentCapabilityName, name, ownerSkill, scope, includedBehaviors, excludedBehaviors, exitCriterion, nextAction, verificationTargets, status, confidence, evidenceRefs, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity, current child/sole upstream fingerprints, objective completion criteria, traceable evidence, and semantic anchors that match upstream capability identity.</td></tr>
         <tr><td>Canonical artifact</td><td>spec-job-queue-YYYYMMDD-NN.jsonl, spec-job-queue-eval-YYYYMMDD-NN.jsonl</td><td>JSONL files are append-friendly and machine-parseable; each line is one receipt or row.</td></tr>
         <tr><td>Derived artifact</td><td>spec-job-queue-summary-YYYYMMDD-NN.html, report embedded queue table</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
         <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts.</td></tr>
@@ -250,9 +250,9 @@
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
         <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
-        <tr><td>Deterministic checker</td><td>validates every terminal capability has queue coverage, every slice references valid and current capability IDs, needs-split capabilities have multiple child slices or an explicit blocker, terminal statuses require evidence, active slices carry exactly one current next action, and child-slice name/scope/included behaviors/rationale align with capability identity and splitCriteria rather than incidental source paths.</td><td>Structural and mechanically detectable semantic drift should fail before eval or handoff.</td></tr>
+        <tr><td>Deterministic checker</td><td>validates every queue-eligible child/sole capability has queue coverage, every slice references valid and current child/sole capability IDs and refs, parent, <code>needs-split</code>, blocked, and non-queueable rows are rejected, terminal statuses require evidence, active slices carry exactly one current next action, and slice name/scope/included behaviors/rationale align with capability identity rather than incidental source paths.</td><td>Structural and mechanically detectable semantic drift should fail before eval or handoff.</td></tr>
         <tr><td>Semantic eval</td><td>samples slices against capability rows to judge whether the slice is small enough, aligned to capability identity and splitCriteria, exit criteria are objective, evidence references are specific, and no hidden behavior is parked inside a parent summary. Findings at warning or blocking severity become revision targets.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Handoff gate</td><td>Job / Spec Queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue fingerprint, and report names next layer as Context Pack.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Handoff gate</td><td>Job / Spec Queue is complete, every slice references only queue-eligible child/sole capabilities, checker passes, eval receipt and HTML summary exist for the exact current queue fingerprint, and report names next layer as Context Pack.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 
@@ -260,7 +260,7 @@
       <h2>Checker and fill loop</h2>
       <ol>
         <li>Read active report, run log, upstream artifacts, and current layer artifact.</li>
-        <li>Run the upstream semantic audit: terminal capabilities must have identity anchors, and needs-split capabilities must have concrete splitCriteria anchors before queue work proceeds.</li>
+        <li>Run the upstream semantic audit: queue sources must be child or sole capabilities with identity anchors and <code>queueEligible: true</code>; parent, <code>needs-split</code>, blocked, and non-capability rows are revision targets before queue work proceeds.</li>
         <li>Select next pending or failed batch by deterministic order plus risk priority.</li>
         <li>Inspect only the evidence needed for the batch and update canonical JSONL rows.</li>
         <li>Run the checker; repair structural failures before semantic eval.</li>

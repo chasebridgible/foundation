@@ -198,6 +198,10 @@ function upstreamSliceRef(row, queueFingerprint = null) {
     name: row.name,
     status: row.status,
     upstreamCapabilityIds: Array.isArray(row.upstreamCapabilityIds) ? row.upstreamCapabilityIds : [],
+    capabilityAltitude: row.capabilityAltitude || null,
+    parentCapabilityId: row.parentCapabilityId || null,
+    parentCapabilityName: row.parentCapabilityName || null,
+    capabilityRefs: Array.isArray(row.capabilityRefs) ? row.capabilityRefs : [],
     queueFingerprint,
     sliceFingerprint: sliceFingerprint(row)
   };
@@ -386,6 +390,7 @@ function createPendingContextPackRow(queueRow, queueFingerprint = null, ordinal 
     upstreamSliceId: queueRow.sliceId,
     upstreamSliceRef: upstreamSliceRef(queueRow, queueFingerprint),
     upstreamCapabilityIds: Array.isArray(queueRow.upstreamCapabilityIds) ? [...queueRow.upstreamCapabilityIds] : [],
+    capabilityRefs: Array.isArray(queueRow.capabilityRefs) ? queueRow.capabilityRefs : [],
     upstreamSurfaceIds: [],
     upstreamFileIds: [],
     evidenceRefs: createTraceEvidenceRefs(queueRow),
@@ -457,6 +462,7 @@ function createAgentMarkedContextPackRow({ queueById, selectedSliceIds, spec, qu
     upstreamSliceId,
     upstreamSliceRef: upstreamSliceRef(queueRow, queueFingerprint),
     upstreamCapabilityIds: Array.isArray(queueRow.upstreamCapabilityIds) ? [...queueRow.upstreamCapabilityIds] : [],
+    capabilityRefs: Array.isArray(queueRow.capabilityRefs) ? queueRow.capabilityRefs : [],
     upstreamSurfaceIds: normalizeStringList(spec.upstreamSurfaceIds || spec.surfaceIds),
     upstreamFileIds: normalizeStringList(spec.upstreamFileIds || spec.fileIds),
     evidenceRefs,
@@ -693,6 +699,7 @@ function validateContextPackRowShape(row, prefix, results, phase) {
   }
   for (const field of [
     "upstreamCapabilityIds",
+    "capabilityRefs",
     "upstreamSurfaceIds",
     "upstreamFileIds",
     "evidenceRefs",
@@ -775,6 +782,16 @@ function validateContextPackRows({ queueRows, capabilityRows, surfaceRows, fileR
       const missingCapabilities = (queueRow.upstreamCapabilityIds || []).filter(capabilityId => !(row.upstreamCapabilityIds || []).includes(capabilityId));
       if (missingCapabilities.length > 0) {
         results.push(fail(`${prefix}:upstream-capability-coverage`, "Context Pack row must carry every upstream capability ID from its queue slice", { missingCapabilities }));
+      }
+      const missingCapabilityRefs = (queueRow.capabilityRefs || [])
+        .filter(ref => !asObjectArray(row.capabilityRefs).some(rowRef => rowRef.capabilityId === ref.capabilityId));
+      if (missingCapabilityRefs.length > 0) {
+        results.push(fail(`${prefix}:capability-ref-coverage`, "Context Pack row must carry child/sole capabilityRefs from its queue slice", { missingCapabilityRefs: missingCapabilityRefs.map(ref => ref.capabilityId) }));
+      }
+      const unqueueableRefs = asObjectArray(row.capabilityRefs)
+        .filter(ref => ref.capabilityAltitude === "parent" || ref.capabilityAltitude === "needs-split" || ref.capabilityAltitude === "blocked" || ref.queueEligible === false);
+      if (unqueueableRefs.length > 0) {
+        results.push(fail(`${prefix}:capability-ref-queue-eligible`, "Context Pack rows cannot carry parent, needs-split, blocked, or non-queueEligible capability refs as active work", { unqueueableRefs: unqueueableRefs.map(ref => ref.capabilityId) }));
       }
     }
 
@@ -1210,6 +1227,7 @@ function buildContextPackPayload({ runId, repoRoot, packRows }) {
       packId: row.packId,
       upstreamSliceId: row.upstreamSliceId,
       upstreamCapabilityIds: row.upstreamCapabilityIds,
+      capabilityRefs: row.capabilityRefs || [],
       upstreamSurfaceIds: row.upstreamSurfaceIds,
       upstreamFileIds: row.upstreamFileIds,
       status: row.status,

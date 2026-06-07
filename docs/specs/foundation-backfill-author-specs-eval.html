@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-author-specs.eval">
 <meta name="spec:type" content="eval">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-04">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Author Specs Eval Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Author Specs Eval Spec",
   "type": "eval",
   "status": "active",
-  "lastUpdated": "2026-06-04",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.backfill-author-specs.job",
@@ -190,7 +190,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-author-specs-eval.html</div>
     <h1>Foundation Backfill Author Specs Eval Spec</h1>
     <p class="lede">This test layer defines the deterministic and semantic gates that prove Foundation Backfill Author Specs can hand off safely.</p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-04</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
     <p>The tests treat the layer as a reproducible unit: structure is checked mechanically, semantic quality is judged through row-level eval receipts, and the HTML summary is a derived review surface. Completion means outstanding with no warnings, blockers, placeholders, stale state, or revision targets.</p>
   </section>
 
@@ -203,7 +203,7 @@
         <tr><td>AC-3</td><td>State model is valid.</td><td>Rows only use declared states: pending, authored, needs-revision, ready-for-slice-eval, blocked.</td></tr>
         <tr><td>AC-4</td><td>Checker blocks structural drift.</td><td>Missing rows, duplicate IDs, invalid enums, missing required fields, stale upstream references, invalid job/technical spec metadata, missing graph metadata, missing canonical sections, missing owned paths, and report drift fail.</td></tr>
         <tr><td>AC-5</td><td>Eval blocks weak semantics.</td><td>Vague, over-broad, unsupported, under-evidenced, placeholder-filled, graph-orphaned, contract-thin, materially incomplete, generic-compressed, or rebuild-unready specs produce revision targets.</td></tr>
-        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>Each active Process / Action Map row has a ready job/technical spec pair or explicit blocker; checker passes; every non-pending row has a current outstanding row-level eval receipt; <code>--next</code> returns no target; summary eval is outstanding; report names next layer as Evaluate Job Slices.</td></tr>
+        <tr><td>AC-6</td><td>Handoff is explicit.</td><td>Each active Process / Action Map row has a ready job/technical spec pair or explicit blocker; every row preserves child/sole capability refs and blocks parent, needs-split, blocked, or non-queueable refs as active work; checker passes; every non-pending row has a current outstanding row-level eval receipt; <code>--next</code> returns no target; summary eval is outstanding; report names next layer as Evaluate Job Slices.</td></tr>
         <tr><td>AC-7</td><td>Shortcut paths fail.</td><td>Fill rejects <code>--all</code>, <code>--batch-size</code>, generated author files, bulk JSON, multiple IDs, and out-of-order targets; eval rejects stale or missing check artifacts.</td></tr>
         <tr><td>AC-8</td><td>Row material is preserved.</td><td>The job/technical pair preserves every material Process / Action Map item: actor or role, trigger, intended outcome, domain object, actions, states and transitions, permissions, rules, visible/operator behavior, edge cases, recovery paths, evidence refs, explicit gaps, blockers, and human decisions.</td></tr>
         <tr><td>AC-9</td><td>Spec-only rebuild readiness is proven.</td><td>The spec pair answers what behavior must exist, required contracts, current evidence, flexible versus constrained implementation space, failures/recovery, row-specific verification, and remaining uncertainty.</td></tr>

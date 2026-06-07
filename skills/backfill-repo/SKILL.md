@@ -28,12 +28,12 @@ Read the Author Specs specs before starting or resuming that layer. Its canonica
 - Whole-repo backfill means capability coverage is closed, not that broad slices were summarized.
 - Capability formula: actor + intended outcome + domain object + actions + state model + permissions/rules + visible or operator experience + backing contracts + failure/recovery + evidence.
 - Routes, screens, endpoints, tables, jobs, workflows, and infrastructure resources are evidence surfaces, not completion units.
-- Split capabilities when actors, outcomes, objects, state models, permission models, contracts, recovery behavior, or verification targets differ.
+- Split capabilities when actors, outcomes, objects, state models, permission models, contracts, recovery behavior, or verification targets differ. Broad rows must become parent + child rows or narrower sole rows before Define Spec Jobs.
 - Job specs stay architecture-agnostic unless implementation details are user-visible or required constraints. A job spec is the contract for the capability-backed body of work and contains the process by default.
 - Technical specs are contract-first: required contracts, current evidence, architecture constraints, implementation latitude.
 - Authored specs must include `graph-metadata` so the repo's capabilities, jobs, processes, actors, tools, evidence, metrics, evals, and gaps can render in the Visible Business Graph.
 - Each slice must be evaluated, revised, and re-evaluated until outstanding before closure.
-- Outstanding means the owning eval spec's strict gate is met, revision targets are closed or named as blockers, rebuild readiness is maxed, and no attached capability needs split.
+- Outstanding means the owning eval spec's strict gate is met, revision targets are closed or named as blockers, rebuild readiness is maxed, and no attached capability needs split or survives as parent-only coverage.
 - Backfilled specs start as `status: draft` with low or medium confidence.
 
 ## Required Artifacts
@@ -63,7 +63,7 @@ The report must contain:
 - `<script type="application/json" id="backfill-author-specs">`
 - visible tables for humans showing the same state
 
-Capability rows must include stable ID, actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, spec owners/sections, verification targets, status, split state, gaps, and human decisions.
+Capability rows must include stable ID, capability title, capability altitude, parent capability linkage when child, queue eligibility, actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, spec owners/sections, verification targets, status, split/blocker state, gaps, and human decisions.
 
 Define Spec Jobs rows must include stable slice ID, name, scope, upstream capability IDs, status, owner skill, spec IDs, next action, exit criterion, blocking questions/gaps, human decisions, and verification targets where applicable.
 
@@ -85,10 +85,10 @@ Repeat until capability coverage is closed:
 1. Create or resume the dated report and run log.
 2. Inventory Artifacts before capability inference: every repo-owned file must be mapped in the canonical Artifact Inventory and pass the check/eval gate.
 3. Map Surfaces before capability inference: every eligible artifact row must resolve to ready surfaces, support classifications, or review blockers.
-4. Map Capabilities: every ready surface must map to a `ready-for-queue` or `needs-split` capability row.
-5. Apply the split rule; rows needing split cannot close.
+4. Map Capabilities: every ready surface must map to a queue-eligible `child` or `sole` capability row, or to an explicit `blocked` row with evidence.
+5. Apply the split rule; parent rows organize child outcomes but do not enter Job / Spec Queue, and `needs-split` rows cannot close or hand off.
 6. Define Spec Jobs by refreshing the Job / Spec Queue from capability rows.
-7. Pick the next capability-backed slice that is queued, in progress, needs split, needs job, needs technical, needs evaluation, needs revision, or revision-ready.
+7. Pick the next queue-eligible child/sole capability-backed slice that is queued, in progress, needs job, needs technical, needs evaluation, needs revision, or revision-ready.
 8. Append run-log events for phase start/complete/checkpoint/evaluation/validation/handoff.
 9. Gather Context with `foundation:context-pack:*` commands until the Context Pack handoff names Process / Action Map.
 10. Use `backfill-map-actions` and `foundation:process-action-map:*` commands to Map Processes for each active Context Pack row. Follow the current `--next` target only and do not use generated drivers, shell loops, regex classifiers, or reusable templates to produce multiple Process / Action Map rows.
@@ -101,13 +101,13 @@ Repeat until capability coverage is closed:
 17. If below threshold, mark `needs-revision`, route the gap to the owning skill, revise, and re-evaluate.
 18. If outstanding, mark the slice and attached capability rows outstanding.
 19. Run validation after meaningful report/log/spec changes:
-    - `npm run backfill:queue:check -- <target-repo>/docs/specs/backfill/review-report-YYYYMMDD-NN.html`
+    - `npm run backfill:spec-job-queue:check -- <target-repo>/docs/specs/backfill/review-report-YYYYMMDD-NN.html`
     - `npm run backfill:run-log:check -- <target-repo>/docs/specs/backfill/run-log-YYYYMMDD-NN.jsonl`
     - target registry/spec checks required by its `AGENTS.md`
     - `npm run foundation:visible-business-graph:check -- --repo <target-repo>` after spec graph metadata exists
 20. Update report status, Capability Map, remaining Job / Spec Queue, run-log sequence, and next action.
 
-After all capability rows are outstanding, parent-owned with a precise reason, blocked by a named human decision, or out of scope, run `backfill-evaluate-specs` on the full graph to Evaluate System Coherence. If system-coherence evaluation needs revision, route it back through the loop.
+After all behavior-bearing surfaces are covered by outstanding child/sole capabilities or explicit blockers, every parent has child rows, and no `needs-split` row remains, run `backfill-evaluate-specs` on the full graph to Evaluate System Coherence. If system-coherence evaluation needs revision, route it back through the loop.
 
 ## Skill Chain
 
@@ -128,8 +128,8 @@ After all capability rows are outstanding, parent-owned with a precise reason, b
 
 Backfill is complete when:
 
-- every relevant capability row is outstanding, parent-owned with a precise reason, blocked by a named human decision, or out of scope
-- every manifest file has a mapped Artifact Inventory row, and every relevant evidence surface maps to a capability row or non-behavioral support note
+- every relevant capability row is outstanding child/sole work, a parent with child outcomes, blocked by a named human decision, or out of scope
+- every manifest file has a mapped Artifact Inventory row, and every relevant evidence surface maps to a queue-eligible child/sole capability row, explicit blocker, or non-behavioral support note
 - graph-level evaluation is outstanding
 - queue, run log, registry, spec checks, and visible business graph checks pass
 - for Foundation-owned changes, `npm run foundation:self-map:check` passes

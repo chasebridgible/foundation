@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-specs.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-03">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Specs</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Specs",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-03",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.compound-improvements-safely.capability",
@@ -912,7 +912,7 @@
     <p class="lede">Backfill Specs is the Foundation workflow for meeting an existing repository where it is, reading the built system as evidence, and creating a complete draft job and technical spec graph that becomes the repo's intended contract from here forward while preserving implementation flexibility.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-03</div>
+      <div><strong>Updated:</strong> 2026-06-07</div>
       <div><strong>Canonical section:</strong> <a href="#product-intent">#product-intent</a></div>
     </div>
   </section>
@@ -925,7 +925,7 @@
       <p>The backfill workflow converts existing code, schemas, tests, and supporting docs into an outstanding rebuild-grade set of draft job and technical specs backed by durable evidence layers. It gives the user a reviewable spec graph, a top-level system/app contract, capability-level specs, canonical JSONL layer artifacts, derived HTML summaries, a dated HTML report with an embedded queue, and a JSONL execution run log that makes the work observable across long sessions and context resets.</p>
       <p>Backfilled specs are intent-rigid and architecture-flexible. Job specs define user and operator intent at an architecture-agnostic level. Technical specs preserve required contracts and classify current implementation evidence, architecture constraints, and implementation latitude.</p>
       <p>Backfill completeness is capability-based. A capability combines actor, intended outcome, domain object, actions, state model, permissions/rules, user or operator-visible experience, backing contracts, failure/recovery behavior, and evidence. Routes, screens, endpoints, tables, jobs, workflows, and infrastructure resources are evidence for capabilities, not proof of coverage on their own.</p>
-      <p>The workflow is designed for large repos and monorepos. It operates in loops: create a capability-backed slice, evaluate the slice, revise weak categories, mark the slice outstanding, then continue. It loads the evidence needed for the current slice and keeps moving through the Job / Spec Queue until every relevant capability is outstanding, blocked by a named human decision, parent-owned with an explicit reason, or marked out of scope.</p>
+      <p>The workflow is designed for large repos and monorepos. It operates in loops: create a child/sole capability-backed slice, evaluate the slice, revise weak categories, mark the slice outstanding, then continue. It loads the evidence needed for the current slice and keeps moving through the Job / Spec Queue until every behavior-bearing surface is covered by outstanding child/sole capability work, blocked by a named human decision, or marked out of scope. Parent capabilities organize child outcomes; they do not close coverage by themselves.</p>
       <p>This spec is the umbrella workflow contract: the whole backfill system produces outstanding rebuild-grade specs from existing repos. Each durable layer job spec owns the exact agent behavior, artifact contract, row or slice loop, and correctness gate for that layer.</p>
       <p>The sequence is a no-skip contract. Inventory Artifacts proves the repo was seen; Map Surfaces, Map Capabilities, Define Spec Jobs, Gather Context, Map Processes, Author Specs, Evaluate Job Slices, and Evaluate System Coherence are the required process steps for proving the system was understood. A later layer cannot claim completion from chat memory, broad repo search, or a direct jump from artifact rows to specs.</p>
       <p>The durable artifact names are Artifact Inventory, Surface / Function Map, Capability Map, Job / Spec Queue, Context Pack, Process / Action Map, Specs, Job / Capability Eval, and System Eval. Spec file names, script file names, spec IDs, artifact names, and command names use canonical implementation keys such as <code>artifact-inventory</code>, <code>surface-function-map</code>, <code>capability-map</code>, <code>spec-job-queue</code>, <code>context-pack</code>, and <code>process-action-map</code>.</p>
@@ -954,8 +954,8 @@
         <li><strong>Run identity:</strong> the agent creates or continues a dated report such as <code>docs/specs/backfill/review-report-20260521-01.html</code> and matching run log such as <code>docs/specs/backfill/run-log-20260521-01.jsonl</code>. If a target repo adapter names the current report, that file is canonical for the run.</li>
         <li><strong>Inventory Artifacts:</strong> the agent creates or refreshes the manifest and artifact inventory so every repo-owned file has exactly one current row. Canonical files and commands use <code>artifact-inventory</code>.</li>
         <li><strong>Map Surfaces:</strong> eligible mapped artifact rows become evidence surfaces such as routes, screens, APIs, commands, jobs, tables, workflows, infra resources, active behavior docs, and dependencies; inert rows remain Artifact Inventory evidence.</li>
-        <li><strong>Map Capabilities:</strong> ready surfaces become capability rows using the full formula: actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
-        <li><strong>Define Spec Jobs:</strong> broad capability rows are split before closure, and a durable Job / Spec Queue names exact slices, owner layer, exit criteria, status, blockers, and next action.</li>
+        <li><strong>Map Capabilities:</strong> ready surfaces become parent, child, sole, needs-split, or blocked capability rows using the full formula: actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence.</li>
+        <li><strong>Define Spec Jobs:</strong> broad capability rows are split before closure, and a durable Job / Spec Queue names exact child/sole slices, owner layer, exit criteria, status, blockers, and next action.</li>
         <li><strong>Gather Context:</strong> each queued slice receives a Context Pack with only the artifacts, surfaces, capabilities, tests, docs, schemas, and snippets needed for that slice.</li>
         <li><strong>Map Processes:</strong> user and operator processes/actions, states, rules, permissions, empty/loading/error states, recovery paths, and visible behavior are mapped before specs are authored.</li>
         <li><strong>Author Specs:</strong> the agent consumes one outstanding Process / Action Map row at a time, writes or updates one architecture-agnostic job spec and one contract-first technical spec, checks them, evaluates that row to outstanding, and only then moves to the next target.</li>
@@ -1010,7 +1010,7 @@
           This is a hard loop: create -&gt; evaluate -&gt; revise -&gt; re-evaluate -&gt; outstanding -&gt; continue.
         </li>
         <li><strong>System Coherence Evaluation</strong><br>
-          Evaluates the whole spec graph after all slices are outstanding, parent-owned with a precise reason, blocked by a named human decision, or out of scope.<br>
+          Evaluates the whole spec graph after all child/sole slices are outstanding, blocked by a named human decision, or out of scope, with parent rows decomposed into children.<br>
           This asks the hard question: "Could a future agent rebuild the system from these specs without reading source?"<br>
           Needs job, technical, and eval specs.
         </li>
@@ -1034,8 +1034,8 @@
           <tr><td>Artifact Inventory active</td><td>Every repo-owned file has exactly one current row, and changed-file refresh is supported from V1.</td><td>The repo has been seen before later layers claim it has been understood.</td></tr>
           <tr><td>Surface / Function Map active</td><td>Every behavior-bearing file row becomes an exposed or dependent surface, support classification, or review flag.</td><td>The user can inspect what the repo exposes or depends on before capability synthesis.</td></tr>
           <tr><td>Top-level spec needed</td><td>Create the top-level system/app draft early and use it as parent or spine for child specs.</td><td>Slice specs have a shared product context.</td></tr>
-          <tr><td>Capability Map active</td><td>Every ready Surface / Function Map row maps to a capability row that states actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, status, and split state.</td><td>The user can see what the whole repo means before trusting Job / Spec Queue closure.</td></tr>
-          <tr><td>Split required</td><td>A capability row that combines different actors, outcomes, state models, permission models, backing contracts, recovery behavior, or verification targets becomes <code>needs-split</code>.</td><td>The agent creates smaller capability rows before marking coverage complete.</td></tr>
+          <tr><td>Capability Map active</td><td>Every ready Surface / Function Map row maps to a queue-eligible child/sole capability row, an explicit blocker, or a parent row that decomposes into child outcomes. Each row states actor, outcome, domain object, actions, states, rules, surfaces, backing contracts, failure/recovery, evidence, status, capability altitude, queue eligibility, and split/blocker state.</td><td>The user can see what the whole repo means before trusting Job / Spec Queue closure.</td></tr>
+          <tr><td>Split required</td><td>A capability row that combines different actors, outcomes, state models, permission models, backing contracts, recovery behavior, or verification targets becomes <code>needs-split</code> and must be revised into parent + child rows or narrower sole rows before handoff.</td><td>The agent creates smaller capability rows before marking coverage complete.</td></tr>
           <tr><td>Slice in progress</td><td>Load the files needed to understand the current capability-backed slice and list evidence paths in the report.</td><td>The agent can keep moving in large repos with bounded context.</td></tr>
           <tr><td>Slice evaluated</td><td>After checks pass, evaluator score is outstanding, capability rows are covered, and the Job / Spec Queue is updated, the next ready slice becomes the current slice.</td><td>The agent keeps moving through the remaining Job / Spec Queue without lowering quality.</td></tr>
           <tr><td>Spec drafted</td><td>Backfilled specs start as <code>status: draft</code> with low or medium confidence.</td><td>The user reviews and promotes specs after the backfill graph is complete.</td></tr>
@@ -1045,7 +1045,7 @@
           <tr><td>Fallback behavior found</td><td>Record the current fallback as evidence and add a review question about whether it is intended.</td><td>The intended spec names the supported product behavior clearly.</td></tr>
           <tr><td>UX slice drafted</td><td>User-facing job specs include rendered, interactive HTML-native examples when the intended experience can be represented visually.</td><td>The user can open the spec and inspect the intended interface and state behavior directly.</td></tr>
           <tr><td>Slice eval active</td><td>A slice cannot become outstanding until checker and semantic eval results are recorded and revision targets are closed or blocked by named human decisions.</td><td>Coarse or under-specified work stays in the loop instead of becoming substrate.</td></tr>
-          <tr><td>Graph complete</td><td>Final handoff happens after every relevant capability is outstanding, parent-owned with a precise reason, blocked by a named human decision, or marked out of scope, and every relevant evidence surface maps to a capability row.</td><td>The user receives one review phase for the draft spec system.</td></tr>
+          <tr><td>Graph complete</td><td>Final handoff happens after every relevant child/sole capability is outstanding, blocked by a named human decision, or marked out of scope, every parent decomposes into child outcomes, and every relevant evidence surface maps to child/sole coverage, explicit blocker, or non-behavioral support.</td><td>The user receives one review phase for the draft spec system.</td></tr>
           <tr><td>Evaluation complete</td><td>Evaluate Backfill Specs scores the graph and records whether it is outstanding under the strict 100-point rubric.</td><td>The user receives a quality judgment and concrete revision queue.</td></tr>
         </tbody>
       </table>

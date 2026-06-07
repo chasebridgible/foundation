@@ -32,4 +32,4 @@ Ask only questions that materially change the job contract. Limit to three at a 
 - What output or state proves the job is complete?
 - What states, rules, permissions, edge cases, or recovery paths matter?
 
-A job spec does not decide whether work is a capability. If that boundary is unclear, return to `spec-selection`.
+A job spec does not decide whether work is a capability. If that boundary is unclear, return to `spec-selection`. Jobs may support multiple capabilities, but they need a primary owning capability and evidence that the job is not hiding several unrelated jobs.

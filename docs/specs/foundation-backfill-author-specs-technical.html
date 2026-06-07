@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-author-specs.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-04">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Author Specs Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Author Specs Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-06-04",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.backfill-author-specs.job",
@@ -222,7 +222,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-author-specs-technical.html</div>
     <h1>Foundation Backfill Author Specs Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Author Specs deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-04</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Parent:</strong> foundation.backfill-author-specs.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows, check artifacts, and eval receipts, while HTML summaries and report sections are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -230,7 +230,7 @@
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
-        <tr><td>Layer row</td><td>schema, runId, authorSpecId, upstreamProcessMapId, upstreamProcessRef, upstreamPackId, upstreamSliceId, upstreamCapabilityIds, processSummary, specTargets, jobSpecId, technicalSpecId, jobSpecPath, technicalSpecPath, renderedUxRequired, renderedUxStatus, evidenceRefs, blockers, reviewFlags, status, confidence, timestamps</td><td>Every row has stable identity, upstream Process / Action Map fingerprint, target spec paths, and traceable evidence.</td></tr>
+        <tr><td>Layer row</td><td>schema, runId, authorSpecId, upstreamProcessMapId, upstreamProcessRef, upstreamPackId, upstreamSliceId, upstreamCapabilityIds, capabilityRefs, processSummary, specTargets, jobSpecId, technicalSpecId, jobSpecPath, technicalSpecPath, renderedUxRequired, renderedUxStatus, evidenceRefs, blockers, reviewFlags, status, confidence, timestamps</td><td>Every row has stable identity, upstream Process / Action Map fingerprint, child/sole capability refs, target spec paths, and traceable evidence.</td></tr>
         <tr><td>Canonical artifact</td><td>author-specs-YYYYMMDD-NN.jsonl, author-specs-check-YYYYMMDD-NN.json, author-specs-eval-YYYYMMDD-NN.jsonl</td><td>JSON/JSONL files are machine-parseable; each JSONL line is one row or receipt.</td></tr>
         <tr><td>Derived artifact</td><td>author-specs-summary-YYYYMMDD-NN.html, review-report-YYYYMMDD-NN.html, draft target-owned HTML specs</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
         <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts.</td></tr>
@@ -248,7 +248,7 @@
         <tr><td>Material fidelity</td><td>Row eval compares the authored job/technical text against the current Process / Action Map row and blocks if actor or role, trigger, intended outcome, domain object, actions, states, transitions, permissions, rules, visible/operator behavior, edge cases, recovery paths, evidence refs, explicit gaps, blockers, or human decisions are omitted.</td><td>Author Specs must preserve upstream intent, not only produce valid-looking spec files.</td></tr>
         <tr><td>Rebuild readiness</td><td>Row eval blocks if the spec pair does not answer what behavior must exist, required contracts, current evidence, flexible versus constrained implementation space, failures/recovery, row-specific verification, and remaining uncertainty.</td><td>A future agent must be able to continue from specs without rediscovering source.</td></tr>
         <tr><td>Row continuation signal</td><td>A row-targeted eval that passes writes next action as selecting the next Author Specs target; only non-target all-row eval can direct handoff.</td><td>A single outstanding row must not be mistaken for whole-layer completion.</td></tr>
-        <tr><td>Handoff gate</td><td>each active Process / Action Map row has a ready job/technical spec pair or explicit blocker; checker passes; every non-pending row has a current outstanding eval receipt; <code>--next</code> returns no target; HTML summary exists; report names next layer as Evaluate Job Slices.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Handoff gate</td><td>each active Process / Action Map row has a ready job/technical spec pair or explicit blocker; every Author Specs row preserves child/sole capability refs and rejects parent, <code>needs-split</code>, blocked, or non-queueable refs as active work; checker passes; every non-pending row has a current outstanding eval receipt; <code>--next</code> returns no target; HTML summary exists; report names next layer as Evaluate Job Slices.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 

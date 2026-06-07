@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import test from "node:test";
 import vm from "node:vm";
 import {
@@ -16,6 +16,7 @@ import {
 const repoRoot = path.dirname(path.dirname(new URL(import.meta.url).pathname));
 const buildScript = path.join(repoRoot, "scripts", "visible-business-graph-build.mjs");
 const renderScript = path.join(repoRoot, "scripts", "visible-business-graph-render.mjs");
+const generatedCheckScript = path.join(repoRoot, "scripts", "visible-business-graph-generated-check.mjs");
 const evalScript = path.join(repoRoot, "scripts", "visible-business-graph-eval.mjs");
 const specNewScript = path.join(repoRoot, "docs", "specs", "new-spec.mjs");
 
@@ -472,7 +473,8 @@ test("example client builds, renders, and evaluates", () => {
   const stageWidth = Number.parseFloat(harness.graphStage.style.width);
   const systemCenter = Number.parseFloat(systemCard.style.left) + 105;
   assert.equal(Math.abs(systemCenter - stageWidth / 2) < 1, true, "system layer should be horizontally centered");
-  assert.equal(harness.edgeLayer.innerHTML.trim(), "", "overview should not draw global graph edges before expansion");
+  assert.match(harness.edgeLayer.innerHTML, /data-edge-type="contains"/, "overview should draw system-to-capability hierarchy edges");
+  assert.doesNotMatch(harness.edgeLayer.innerHTML, /data-edge-type="realized-by"/, "overview should keep capability-to-job edges hidden before expansion");
   const capabilityYValues = new Set(
     cards
       .filter(card => card.getAttribute("data-type") === "capability")
@@ -505,7 +507,7 @@ test("example client builds, renders, and evaluates", () => {
   const expandedCard = cards.find(card => card.getAttribute("data-node") === capabilityId);
   assert.equal(expandedCard.getAttribute("aria-expanded"), "true", "clicking a capability should expand it");
   assert.equal(expandedCard.getAttribute("data-accented"), "true", "expanded capability should expose its branch accent");
-  assert.equal(cards.some(card => card.getAttribute("data-layer") === "2"), true, "expanded capability should reveal job cards");
+  assert.equal(cards.some(card => card.getAttribute("data-type") === "job"), true, "expanded capability should reveal job cards");
   assert.match(harness.edgeLayer.innerHTML, /data-edge-type="realized-by"/, "expanded capability should draw local job realization edges");
   assert.match(harness.edgeLayer.innerHTML, /--edge-accent:/, "expanded capability edges should inherit the capability branch accent");
   assert.doesNotMatch(harness.edgeLayer.innerHTML, /data-edge-type="supports"/, "capability map should not draw reverse support edges");
@@ -562,4 +564,174 @@ test("example client builds, renders, and evaluates", () => {
     target: harness.canvas
   });
   assert.match(harness.graphStage.style.transform, /translate\(-?\d+px, 35px\)/, "dragging the canvas background should pan the stage from the centered starting position");
+});
+
+test("capability map shows parent and child capabilities before jobs expand", () => {
+  const root = makeRepo();
+  const systemMetadata = {
+    id: "example.system",
+    title: "Example System",
+    type: "system",
+    status: "draft",
+    confidence: "medium",
+    children: ["example.parent.capability"],
+    tags: ["system"]
+  };
+  const parentMetadata = {
+    id: "example.parent.capability",
+    title: "Run The Business Reliably",
+    type: "capability",
+    status: "draft",
+    confidence: "medium",
+    parent: "example.system",
+    children: ["example.child.capability"],
+    tags: ["capability"]
+  };
+  const childMetadata = {
+    id: "example.child.capability",
+    title: "Schedule Work Clearly",
+    type: "capability",
+    status: "draft",
+    confidence: "medium",
+    parent: "example.parent.capability",
+    children: ["example.schedule.job"],
+    tags: ["capability"]
+  };
+  const jobMetadata = {
+    id: "example.schedule.job",
+    title: "Schedule The Next Job",
+    type: "job",
+    status: "draft",
+    confidence: "medium",
+    parent: "example.child.capability",
+    children: [],
+    tags: ["job"]
+  };
+  writeSpec(root, "system.html", {
+    id: systemMetadata.id,
+    title: systemMetadata.title,
+    type: systemMetadata.type,
+    children: systemMetadata.children,
+    graph: createDefaultGraphMetadata(systemMetadata, ["system-intent", "capability-map"])
+  });
+  writeSpec(root, "parent-capability.html", {
+    id: parentMetadata.id,
+    title: parentMetadata.title,
+    type: parentMetadata.type,
+    parent: parentMetadata.parent,
+    children: parentMetadata.children,
+    graph: createDefaultGraphMetadata(parentMetadata, ["capability-intent", "jobs"])
+  });
+  writeSpec(root, "child-capability.html", {
+    id: childMetadata.id,
+    title: childMetadata.title,
+    type: childMetadata.type,
+    parent: childMetadata.parent,
+    children: childMetadata.children,
+    graph: createDefaultGraphMetadata(childMetadata, ["capability-intent", "jobs"])
+  });
+  writeSpec(root, "job.html", {
+    id: jobMetadata.id,
+    title: jobMetadata.title,
+    type: jobMetadata.type,
+    parent: jobMetadata.parent,
+    graph: createDefaultGraphMetadata(jobMetadata, ["job-intent", "capability-supported", "process", "evidence-and-evaluation"])
+  });
+  const graphPath = path.join(root, "docs", "visible-business-graph", "business-graph.json");
+  const canvasPath = path.join(root, "docs", "visible-business-graph", "canvas.html");
+  runNode(buildScript, ["--repo", root, "--out", graphPath]);
+  runNode(renderScript, ["--graph", graphPath, "--out", canvasPath]);
+  const canvas = fs.readFileSync(canvasPath, "utf8");
+  const harness = executeCanvas(canvas, { canvasWidth: 920 });
+  let cards = harness.graphStage.querySelectorAll(".node-card");
+  const parentCard = cards.find(card => card.getAttribute("data-node") === "spec:example.parent.capability");
+  const childCard = cards.find(card => card.getAttribute("data-node") === "spec:example.child.capability");
+  assert.ok(parentCard, "capability map should show the parent capability by default");
+  assert.ok(childCard, "capability map should show the child capability by default");
+  assert.equal(parentCard.getAttribute("data-layer"), "1");
+  assert.equal(childCard.getAttribute("data-layer"), "2");
+  assert.equal(Number.parseFloat(parentCard.style.top) < Number.parseFloat(childCard.style.top), true, "child capability should be one visual row below parent capability");
+  assert.equal(cards.some(card => card.getAttribute("data-type") === "job"), false, "jobs should stay hidden until a capability is expanded");
+  assert.match(harness.edgeLayer.innerHTML, /data-edge-type="contains"/, "parent-child capability edges should be visible before expansion");
+  assert.doesNotMatch(harness.edgeLayer.innerHTML, /data-edge-type="realized-by"/, "job realization edges should stay hidden before child expansion");
+
+  childCard.dispatchEvent("click", { target: childCard });
+  cards = harness.graphStage.querySelectorAll(".node-card");
+  const jobCard = cards.find(card => card.getAttribute("data-node") === "spec:example.schedule.job");
+  assert.ok(jobCard, "clicking a child capability should reveal its jobs");
+  assert.equal(Number.parseFloat(childCard.style.top) < Number.parseFloat(jobCard.style.top), true, "jobs should render below the child capability");
+  assert.match(harness.edgeLayer.innerHTML, /data-edge-type="realized-by"/, "expanded child capability should draw job realization edges");
+});
+
+test("generated graph check fails when graph or canvas artifacts are stale", () => {
+  const root = makeRepo();
+  const systemMetadata = {
+    id: "example.system",
+    title: "Example System",
+    type: "system",
+    status: "draft",
+    confidence: "medium",
+    children: ["example.capability"],
+    tags: ["system"]
+  };
+  const capabilityMetadata = {
+    id: "example.capability",
+    title: "Example Capability",
+    type: "capability",
+    status: "draft",
+    confidence: "medium",
+    parent: "example.system",
+    children: [],
+    tags: ["capability"]
+  };
+  writeSpec(root, "system.html", {
+    id: "example.system",
+    title: "Example System",
+    type: "system",
+    children: ["example.capability"],
+    graph: createDefaultGraphMetadata(systemMetadata, ["system-intent", "capability-map"])
+  });
+  writeSpec(root, "capability.html", {
+    id: "example.capability",
+    title: "Example Capability",
+    type: "capability",
+    parent: "example.system",
+    graph: createDefaultGraphMetadata(capabilityMetadata, ["capability-intent", "jobs"])
+  });
+  const graphPath = path.join(root, "docs", "visible-business-graph", "foundation-graph.json");
+  const canvasPath = path.join(root, "docs", "visible-business-graph", "foundation-canvas.html");
+  runNode(buildScript, ["--repo", root, "--out", graphPath]);
+  runNode(renderScript, ["--graph", graphPath, "--out", canvasPath]);
+  runNode(generatedCheckScript, ["--repo", root, "--graph", graphPath, "--canvas", canvasPath]);
+
+  const newCapabilityMetadata = {
+    id: "example.new-capability",
+    title: "Example New Capability",
+    type: "capability",
+    status: "draft",
+    confidence: "medium",
+    parent: "example.system",
+    children: [],
+    tags: ["capability"]
+  };
+  writeSpec(root, "new-capability.html", {
+    id: "example.new-capability",
+    title: "Example New Capability",
+    type: "capability",
+    parent: "example.system",
+    graph: createDefaultGraphMetadata(newCapabilityMetadata, ["capability-intent", "jobs"])
+  });
+
+  const staleCheck = spawnSync(process.execPath, [
+    generatedCheckScript,
+    "--repo", root,
+    "--graph", graphPath,
+    "--canvas", canvasPath
+  ], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    maxBuffer: 20 * 1024 * 1024
+  });
+  assert.equal(staleCheck.status, 1);
+  assert.match(staleCheck.stderr, /Generated graph JSON does not match current repo graph extraction/);
 });

@@ -34,8 +34,9 @@ Eval gate: `foundation.spec-selection.eval`.
    - non-spec artifact, interface, process, action, evidence, or implementation detail
 6. Name companion specs only when needed for implementation or durable judgment.
 7. Reject nearby wrong classifications explicitly.
-8. Evaluate the routing decision against `foundation.spec-selection.eval`; revise until no blocking finding remains.
-9. Hand off to the selected type-specific authoring skill.
+8. For capability classifications, name whether the visible title should be a parent outcome family or child reliable outcome; reject artifact, layer, phase, route, command, queue, or triggered-work names as capability titles.
+9. Evaluate the routing decision against `foundation.spec-selection.eval`; revise until no blocking finding remains.
+10. Hand off to the selected type-specific authoring skill.
 
 ## Clarification Gate
 

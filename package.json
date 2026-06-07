@@ -61,9 +61,12 @@
     "foundation:author-specs:test": "node --test scripts/author-specs.test.mjs",
     "foundation:spec-selection:eval": "node scripts/spec-selection-eval.mjs",
     "foundation:capability-map-remap:check": "node scripts/capability-map-remap-check.mjs",
+    "foundation:capability-language:check": "node scripts/capability-language-check.mjs",
+    "foundation:capability-language:test": "node --test scripts/capability-language-check.test.mjs",
     "foundation:visible-business-graph:check": "node scripts/visible-business-graph-check.mjs",
     "foundation:visible-business-graph:build": "node scripts/visible-business-graph-build.mjs",
     "foundation:visible-business-graph:render": "node scripts/visible-business-graph-render.mjs",
+    "foundation:visible-business-graph:generated-check": "node scripts/visible-business-graph-generated-check.mjs",
     "foundation:visible-business-graph:eval": "node scripts/visible-business-graph-eval.mjs",
     "foundation:visible-business-graph:test": "node --test scripts/visible-business-graph.test.mjs",
     "foundation:self-map:check": "node scripts/foundation-self-map-check.mjs",
@@ -74,7 +77,7 @@
     "foundation:agent-capability-scout:notify:test": "node --test scripts/agent-capability-scout-notify.test.mjs",
     "spec:new": "node docs/specs/new-spec.mjs",
     "spec:registry": "node docs/specs/generate-registry.mjs",
-    "spec:check": "node docs/specs/generate-registry.mjs --check && node docs/specs/check-specs.mjs && node scripts/visible-business-graph-check.mjs --repo . && node scripts/foundation-self-map-check.mjs",
+    "spec:check": "node docs/specs/generate-registry.mjs --check && node docs/specs/check-specs.mjs && node scripts/capability-language-check.mjs --repo . && node scripts/visible-business-graph-check.mjs --repo . && node scripts/visible-business-graph-generated-check.mjs --repo . && node scripts/foundation-self-map-check.mjs",
     "site-map": "node docs/generate-site-map.mjs"
   }
 }

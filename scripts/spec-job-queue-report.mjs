@@ -31,8 +31,13 @@ function renderSection(state) {
       <tr><td>Queue</td><td><code>${state.queuePath}</code></td></tr>
       <tr><td>Queue fingerprint</td><td><code>${state.queueFingerprint || "missing"}</code></td></tr>
       <tr><td>Capability rows</td><td>${state.capabilityCount}</td></tr>
+      <tr><td>Parent capabilities</td><td>${state.parentCapabilityCount}</td></tr>
+      <tr><td>Child capabilities</td><td>${state.childCapabilityCount}</td></tr>
+      <tr><td>Sole capabilities</td><td>${state.soleCapabilityCount}</td></tr>
       <tr><td>Needs-split capabilities</td><td>${state.needsSplitCount}</td></tr>
-      <tr><td>Unresolved needs-split capabilities</td><td>${state.unresolvedNeedsSplitCount}</td></tr>
+      <tr><td>Blocked capabilities</td><td>${state.blockedCapabilityCount}</td></tr>
+      <tr><td>Queue-eligible capabilities</td><td>${state.queueEligibleCapabilityCount}</td></tr>
+      <tr><td>Unqueueable references</td><td>${state.unqueueableReferenceCount}</td></tr>
       <tr><td>Queue slices</td><td>${state.queueSliceCount}</td></tr>
       <tr><td>Pending slices</td><td>${state.pendingCount}</td></tr>
       <tr><td>Ready slices</td><td>${state.readyCount}</td></tr>
@@ -61,11 +66,11 @@ function renderSection(state) {
 function renderQueueRows(payload) {
   const rows = payload.queue.length === 0
     ? "<tr><td colspan=\"6\">No queue slices.</td></tr>"
-    : payload.queue.map(row => `<tr><td><code>${row.sliceId}</code></td><td>${row.name}</td><td>${row.status}</td><td>${row.ownerSkill}</td><td>${row.upstreamCapabilityIds.length}</td><td>${row.nextAction || ""}</td></tr>`).join("\n");
+    : payload.queue.map(row => `<tr><td><code>${row.sliceId}</code></td><td>${row.name}</td><td>${row.capabilityAltitude || ""}</td><td>${row.status}</td><td>${row.ownerSkill}</td><td>${row.upstreamCapabilityIds.length}</td><td>${row.nextAction || ""}</td></tr>`).join("\n");
   return `<section id="spec-job-queue-v1-table" data-spec-section="spec-job-queue-v1-table" data-section-type="state">
   <h2>Define Spec Jobs Rows</h2>
   <table class="status-table">
-    <thead><tr><th>ID</th><th>Name</th><th>Status</th><th>Owner</th><th>Capabilities</th><th>Next action</th></tr></thead>
+    <thead><tr><th>ID</th><th>Name</th><th>Capability altitude</th><th>Status</th><th>Owner</th><th>Capabilities</th><th>Next action</th></tr></thead>
     <tbody>${rows}</tbody>
   </table>
 </section>`;

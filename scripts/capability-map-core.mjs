@@ -25,10 +25,42 @@ import {
   validateSurfaceFunctionMap
 } from "./surface-function-map-core.mjs";
 
-const VALID_CAPABILITY_STATUSES = new Set(["pending", "mapped", "needs-split", "ready-for-queue"]);
+const VALID_CAPABILITY_STATUSES = new Set(["pending", "mapped", "needs-split", "ready-for-queue", "blocked"]);
+const VALID_CAPABILITY_ALTITUDES = new Set(["parent", "child", "sole", "needs-split", "blocked"]);
+const QUEUE_ELIGIBLE_CAPABILITY_ALTITUDES = new Set(["child", "sole"]);
 const VALID_CONFIDENCE = new Set(["low", "medium", "high"]);
 const VALID_REVIEW_FLAG_SEVERITY = new Set(["info", "warning", "blocking"]);
-const TERMINAL_CAPABILITY_STATUSES = new Set(["needs-split", "ready-for-queue"]);
+const TERMINAL_CAPABILITY_STATUSES = new Set(["needs-split", "ready-for-queue", "blocked"]);
+const NON_CAPABILITY_TITLE_PATTERNS = [
+  /\bartifact\s+inventory\b/i,
+  /\bfile\s+registry\b/i,
+  /\bsurface\s+(registry|map|function\s+map)\b/i,
+  /\bcapability\s+(matrix|map)\b/i,
+  /\bcontext\s+pack\b/i,
+  /\b(job|spec)\s+queue\b/i,
+  /\bprocess\s*\/?\s*action\s+map\b/i,
+  /\bauthor\s+specs?\b/i,
+  /\bevaluation\b/i,
+  /\bhandoff\b/i,
+  /\bdeployment\b/i,
+  /\bphase\b/i,
+  /\blayer\b/i,
+  /\bqueue\b/i
+];
+const SHORT_NON_CAPABILITY_TERMS = new Set([
+  "route",
+  "routes",
+  "command",
+  "commands",
+  "screen",
+  "screens",
+  "table",
+  "tables",
+  "job",
+  "jobs",
+  "api",
+  "apis"
+]);
 const GENERIC_WORDS = new Set([
   "manage",
   "handles",
@@ -95,6 +127,87 @@ function normalizeNullableString(value) {
   return isNonEmptyString(value) ? value.trim() : null;
 }
 
+function normalizeCapabilityAltitude(value) {
+  if (!isNonEmptyString(value)) return "";
+  const normalized = value.trim().toLowerCase();
+  return VALID_CAPABILITY_ALTITUDES.has(normalized) ? normalized : "";
+}
+
+function capabilityAltitudeFor(row) {
+  const explicit = normalizeCapabilityAltitude(row?.capabilityAltitude || row?.altitude);
+  if (explicit) return explicit;
+  if (row?.status === "needs-split" || row?.splitNeeded === true) return "needs-split";
+  if (row?.status === "blocked") return "blocked";
+  if (isNonEmptyString(row?.parentCapabilityId)) return "child";
+  if (row?.status === "ready-for-queue") return "sole";
+  return "";
+}
+
+function capabilityTitleFor(row) {
+  return isNonEmptyString(row?.capabilityTitle) ? row.capabilityTitle.trim() : (isNonEmptyString(row?.name) ? row.name.trim() : "");
+}
+
+function isQueueEligibleCapability(row) {
+  const altitude = capabilityAltitudeFor(row);
+  return row?.status === "ready-for-queue" &&
+    row?.queueEligible === true &&
+    QUEUE_ELIGIBLE_CAPABILITY_ALTITUDES.has(altitude);
+}
+
+function capabilityHasBlockingDetail(row) {
+  return normalizeStringList(row?.blockingGaps).length > 0 ||
+    normalizeStringList(row?.humanDecisions).length > 0 ||
+    rowHasBlockingFlag(row) ||
+    isNonEmptyString(row?.blockerOrSplitReason) ||
+    isNonEmptyString(row?.notCapabilityReason);
+}
+
+function titleLooksLikeNonCapability(value) {
+  if (!isNonEmptyString(value)) return false;
+  if (NON_CAPABILITY_TITLE_PATTERNS.some(pattern => pattern.test(value))) return true;
+  const words = value.toLowerCase().match(/[a-z0-9]+/g) || [];
+  return words.length > 0 && words.length <= 5 && words.some(word => SHORT_NON_CAPABILITY_TERMS.has(word));
+}
+
+function capabilityModelCounts(capabilityRows) {
+  const counts = {
+    parentCapabilityCount: 0,
+    childCapabilityCount: 0,
+    soleCapabilityCount: 0,
+    needsSplitCount: 0,
+    blockedCapabilityCount: 0,
+    queueEligibleCapabilityCount: 0
+  };
+  for (const row of capabilityRows) {
+    const altitude = capabilityAltitudeFor(row);
+    if (altitude === "parent") counts.parentCapabilityCount += 1;
+    if (altitude === "child") counts.childCapabilityCount += 1;
+    if (altitude === "sole") counts.soleCapabilityCount += 1;
+    if (altitude === "needs-split") counts.needsSplitCount += 1;
+    if (altitude === "blocked") counts.blockedCapabilityCount += 1;
+    if (isQueueEligibleCapability(row)) counts.queueEligibleCapabilityCount += 1;
+  }
+  return counts;
+}
+
+function parentOnlyCoverageFailuresFor(surfaceRows, capabilityRows) {
+  const rowsBySurface = new Map();
+  for (const row of capabilityRows) {
+    for (const surfaceId of row.upstreamSurfaceIds || []) {
+      if (!rowsBySurface.has(surfaceId)) rowsBySurface.set(surfaceId, []);
+      rowsBySurface.get(surfaceId).push(row);
+    }
+  }
+  return readySurfaceRows(surfaceRows)
+    .filter(surface => {
+      const attached = rowsBySurface.get(surface.surfaceId) || [];
+      return attached.some(row => capabilityAltitudeFor(row) === "parent") &&
+        !attached.some(isQueueEligibleCapability) &&
+        !attached.some(row => capabilityAltitudeFor(row) === "blocked" && capabilityHasBlockingDetail(row));
+    })
+    .map(surface => ({ surfaceId: surface.surfaceId, label: surface.label, path: surfaceDisplayPath(surface) }));
+}
+
 function preferredField(source, primary, legacy) {
   return source?.[primary] !== undefined ? source[primary] : source?.[legacy];
 }
@@ -148,6 +261,13 @@ function createPendingCapabilityRow(surfaceRow) {
     runId: surfaceRow.runId,
     capabilityId: stableCapabilityId([surfaceRow.surfaceId], "pending", "extract capability", surfaceRow.exposedObject || surfaceRow.label, name),
     name,
+    capabilityTitle: name,
+    capabilityAltitude: "",
+    parentCapabilityId: null,
+    parentCapabilityName: null,
+    queueEligible: false,
+    notCapabilityReason: "",
+    blockerOrSplitReason: "",
     upstreamSurfaceIds: [surfaceRow.surfaceId],
     upstreamSurfaceRefs: [upstreamSurfaceRef(surfaceRow)],
     surfaceRefs: [{
@@ -307,10 +427,14 @@ function createAgentMarkedCapabilityRow(surfaceById, selectedSurfaceIds, spec) {
     if (!isReadySurface(surface)) throw new Error(`Capability row references surface not ready for capability: ${surfaceId}`);
   }
 
+  const requestedAltitude = normalizeCapabilityAltitude(spec.capabilityAltitude || spec.altitude);
+  const parentCapabilityId = normalizeNullableString(spec.parentCapabilityId || spec.parentId);
   const statusFromSpec = isNonEmptyString(spec.status) ? spec.status.trim() : null;
   let status = statusFromSpec && VALID_CAPABILITY_STATUSES.has(statusFromSpec) ? statusFromSpec : null;
   if (!status) {
-    status = spec.splitNeeded === true || isNonEmptyString(spec.splitReason) || normalizeStringList(spec.splitCriteria).length > 0
+    status = requestedAltitude === "blocked"
+      ? "blocked"
+      : requestedAltitude === "needs-split" || spec.splitNeeded === true || isNonEmptyString(spec.splitReason) || normalizeStringList(spec.splitCriteria).length > 0
       ? "needs-split"
       : "ready-for-queue";
   }
@@ -322,6 +446,20 @@ function createAgentMarkedCapabilityRow(surfaceById, selectedSurfaceIds, spec) {
   const name = isNonEmptyString(spec.name)
     ? spec.name.trim()
     : `${actor || "Actor"} ${intendedOutcome || "capability"}`.trim();
+  const capabilityTitle = isNonEmptyString(spec.capabilityTitle)
+    ? spec.capabilityTitle.trim()
+    : name;
+  const capabilityAltitude = requestedAltitude ||
+    (status === "needs-split" ? "needs-split" :
+      status === "blocked" ? "blocked" :
+        parentCapabilityId ? "child" : "sole");
+  const queueEligible = status === "ready-for-queue" && QUEUE_ELIGIBLE_CAPABILITY_ALTITUDES.has(capabilityAltitude);
+  const notCapabilityReason = isNonEmptyString(spec.notCapabilityReason)
+    ? spec.notCapabilityReason.trim()
+    : "";
+  const blockerOrSplitReason = isNonEmptyString(spec.blockerOrSplitReason)
+    ? spec.blockerOrSplitReason.trim()
+    : (isNonEmptyString(spec.splitReason) ? spec.splitReason.trim() : "");
   const capabilityId = isNonEmptyString(spec.capabilityId || spec.id)
     ? String(spec.capabilityId || spec.id).trim()
     : stableCapabilityId(rowSurfaceIds, actor, intendedOutcome, domainObject, name);
@@ -339,6 +477,13 @@ function createAgentMarkedCapabilityRow(surfaceById, selectedSurfaceIds, spec) {
     runId: surfaces[0].runId,
     capabilityId,
     name,
+    capabilityTitle,
+    capabilityAltitude,
+    parentCapabilityId,
+    parentCapabilityName: normalizeNullableString(spec.parentCapabilityName || spec.parentName),
+    queueEligible,
+    notCapabilityReason,
+    blockerOrSplitReason,
     upstreamSurfaceIds: rowSurfaceIds,
     upstreamSurfaceRefs: surfaces.map(upstreamSurfaceRef),
     surfaceRefs,
@@ -372,7 +517,7 @@ function createAgentMarkedCapabilityRow(surfaceById, selectedSurfaceIds, spec) {
     humanDecisions: normalizeStringList(spec.humanDecisions),
     reviewFlags: normalizeReviewFlags(spec.reviewFlags, status),
     splitNeeded: status === "needs-split" || spec.splitNeeded === true,
-    splitReason: isNonEmptyString(spec.splitReason) ? spec.splitReason.trim() : "",
+    splitReason: isNonEmptyString(spec.splitReason) ? spec.splitReason.trim() : (status === "needs-split" ? blockerOrSplitReason : ""),
     splitCriteria: normalizeStringList(spec.splitCriteria),
     status,
     confidence: VALID_CONFIDENCE.has(spec.confidence) ? spec.confidence : "medium",
@@ -507,6 +652,12 @@ function validateCapabilityRowShape(row, prefix, results) {
   if (!isNonEmptyString(row?.runId)) results.push(fail(`${prefix}:run-id`, "Capability row requires runId"));
   if (!isNonEmptyString(row?.capabilityId)) results.push(fail(`${prefix}:capability-id`, "Capability row requires capabilityId"));
   if (!isNonEmptyString(row?.name)) results.push(fail(`${prefix}:name`, "Capability row requires name"));
+  if (row?.queueEligible !== true && row?.queueEligible !== false) {
+    results.push(fail(`${prefix}:queue-eligible`, "Capability row requires boolean queueEligible"));
+  }
+  if (!isNonEmptyString(capabilityTitleFor(row))) {
+    results.push(fail(`${prefix}:capability-title`, "Capability row requires capabilityTitle"));
+  }
   if (!VALID_CAPABILITY_STATUSES.has(row?.status)) {
     results.push(fail(`${prefix}:status`, "Capability status is outside enum", { status: row?.status }));
   }
@@ -543,8 +694,9 @@ function validateCapabilityRowShape(row, prefix, results) {
     results.push(fail(`${prefix}:evidence-refs`, "Capability rows require evidenceRefs"));
   }
   validateReviewFlags(row, prefix, results);
+  validateCapabilityModel(row, prefix, results);
 
-  if (TERMINAL_CAPABILITY_STATUSES.has(row?.status)) {
+  if (TERMINAL_CAPABILITY_STATUSES.has(row?.status) && row?.status !== "blocked") {
     for (const field of ["actor", "intendedOutcome", "domainObject", "experience"]) {
       if (!isNonEmptyString(row?.[field])) results.push(fail(`${prefix}:${field}`, `Terminal capability row requires ${field}`));
     }
@@ -560,10 +712,59 @@ function validateCapabilityRowShape(row, prefix, results) {
   }
   if (row?.status === "needs-split") {
     if (row?.splitNeeded !== true) results.push(fail(`${prefix}:needs-split-flag`, "needs-split rows require splitNeeded true"));
-    if (!isNonEmptyString(row?.splitReason)) results.push(fail(`${prefix}:split-reason`, "needs-split rows require splitReason"));
+    if (!isNonEmptyString(row?.splitReason) && !isNonEmptyString(row?.blockerOrSplitReason)) results.push(fail(`${prefix}:split-reason`, "needs-split rows require splitReason"));
     if (!isStringArray(row?.splitCriteria) || row.splitCriteria.length === 0) {
       results.push(fail(`${prefix}:split-criteria`, "needs-split rows require splitCriteria"));
     }
+  }
+  if (row?.status === "blocked" && !capabilityHasBlockingDetail(row)) {
+    results.push(fail(`${prefix}:blocked-detail`, "Blocked capability rows require blockerOrSplitReason, blockingGaps, humanDecisions, notCapabilityReason, or a blocking review flag"));
+  }
+}
+
+function validateCapabilityModel(row, prefix, results) {
+  const altitude = capabilityAltitudeFor(row);
+  const title = capabilityTitleFor(row);
+  const terminal = TERMINAL_CAPABILITY_STATUSES.has(row?.status);
+  if (terminal && !VALID_CAPABILITY_ALTITUDES.has(altitude)) {
+    results.push(fail(`${prefix}:capability-altitude`, "Terminal capability rows require capabilityAltitude parent, child, sole, needs-split, or blocked", { capabilityAltitude: row?.capabilityAltitude || null }));
+    return;
+  }
+  if (altitude && row?.capabilityAltitude !== altitude) {
+    results.push(fail(`${prefix}:capability-altitude-normalized`, "capabilityAltitude must use the normalized Foundation capability model enum", { expected: altitude, actual: row?.capabilityAltitude || null }));
+  }
+  if (altitude === "parent" && isNonEmptyString(row?.parentCapabilityId)) {
+    results.push(fail(`${prefix}:parent-has-parent`, "Parent capability rows cannot name their own parentCapabilityId"));
+  }
+  if (altitude === "child" && !isNonEmptyString(row?.parentCapabilityId)) {
+    results.push(fail(`${prefix}:child-parent-id`, "Child capability rows require parentCapabilityId"));
+  }
+  if (altitude === "child" && !isNonEmptyString(row?.parentCapabilityName)) {
+    results.push(fail(`${prefix}:child-parent-name`, "Child capability rows require parentCapabilityName"));
+  }
+  if (altitude === "sole" && isNonEmptyString(row?.parentCapabilityId)) {
+    results.push(fail(`${prefix}:sole-parent-id`, "Sole capability rows cannot carry parentCapabilityId"));
+  }
+  if (altitude === "needs-split" && row?.status !== "needs-split") {
+    results.push(fail(`${prefix}:needs-split-status`, "needs-split capabilityAltitude requires status needs-split"));
+  }
+  if (altitude === "blocked" && row?.status !== "blocked") {
+    results.push(fail(`${prefix}:blocked-status`, "blocked capabilityAltitude requires status blocked"));
+  }
+  if (row?.queueEligible === true && !isQueueEligibleCapability(row)) {
+    results.push(fail(`${prefix}:queue-eligible-model`, "Only ready child or sole capability rows may be queueEligible"));
+  }
+  if (QUEUE_ELIGIBLE_CAPABILITY_ALTITUDES.has(altitude) && row?.status === "ready-for-queue" && row?.queueEligible !== true) {
+    results.push(fail(`${prefix}:queue-eligible-required`, "Ready child or sole capability rows must set queueEligible true"));
+  }
+  if ((altitude === "parent" || altitude === "needs-split" || altitude === "blocked") && row?.queueEligible === true) {
+    results.push(fail(`${prefix}:queue-eligible-forbidden`, "Parent, needs-split, and blocked capability rows are not queueable"));
+  }
+  if (titleLooksLikeNonCapability(title) && !isNonEmptyString(row?.notCapabilityReason)) {
+    results.push(fail(`${prefix}:not-capability-reason`, "Artifact, interface, process, action, job, layer, route, command, screen, table, phase, or queue names require notCapabilityReason instead of passing as capabilities", { capabilityTitle: title }));
+  }
+  if (isNonEmptyString(row?.notCapabilityReason) && row?.queueEligible === true) {
+    results.push(fail(`${prefix}:not-capability-queue`, "Rows with notCapabilityReason cannot be queueEligible"));
   }
 }
 
@@ -573,9 +774,13 @@ function validateCapabilityRows({ surfaceRows, capabilityRows, phase = "handoff"
   const rowsBySurface = new Map();
   const pending = [];
   const mapped = [];
+  const needsSplit = [];
   const blockingFlags = [];
   const stale = [];
   const badSurfaceRefs = [];
+  const parentRows = [];
+  const childRows = [];
+  const parentOnlyCoverageFailures = [];
 
   results.push(validateUnique(capabilityRows, "capabilityId", "capability"));
 
@@ -584,7 +789,11 @@ function validateCapabilityRows({ surfaceRows, capabilityRows, phase = "handoff"
     validateCapabilityRowShape(row, prefix, results);
     if (row.status === "pending") pending.push(row.capabilityId);
     if (row.status === "mapped") mapped.push(row.capabilityId);
+    if (row.status === "needs-split") needsSplit.push(row.capabilityId);
     if (rowHasBlockingFlag(row)) blockingFlags.push(row.capabilityId);
+    const altitude = capabilityAltitudeFor(row);
+    if (altitude === "parent") parentRows.push(row);
+    if (altitude === "child") childRows.push(row);
 
     for (const surfaceId of row.upstreamSurfaceIds || []) {
       if (!rowsBySurface.has(surfaceId)) rowsBySurface.set(surfaceId, []);
@@ -617,19 +826,41 @@ function validateCapabilityRows({ surfaceRows, capabilityRows, phase = "handoff"
   const uncovered = [];
   for (const surface of readySurfaceRows(surfaceRows)) {
     const attached = rowsBySurface.get(surface.surfaceId) || [];
-    const hasTerminal = attached.some(row => TERMINAL_CAPABILITY_STATUSES.has(row.status));
-    const hasBlocking = attached.some(row => rowHasBlockingFlag(row));
-    if (!hasTerminal && !hasBlocking) {
+    const hasQueueableOutcome = attached.some(isQueueEligibleCapability);
+    const hasBlockedOutcome = attached.some(row => capabilityAltitudeFor(row) === "blocked" && capabilityHasBlockingDetail(row));
+    const hasParent = attached.some(row => capabilityAltitudeFor(row) === "parent");
+    if (hasParent && !hasQueueableOutcome && !hasBlockedOutcome) {
+      parentOnlyCoverageFailures.push({ surfaceId: surface.surfaceId, label: surface.label, path: surfaceDisplayPath(surface) });
+    }
+    if (!hasQueueableOutcome && !hasBlockedOutcome) {
       uncovered.push({ surfaceId: surface.surfaceId, label: surface.label, path: surfaceDisplayPath(surface) });
     }
   }
   if (uncovered.length === 0) {
-    results.push(pass("capability-covers-ready-surfaces", "Every ready Surface / Function Map row maps to a terminal capability row or blocking review row"));
+    results.push(pass("capability-covers-ready-surfaces", "Every ready Surface / Function Map row maps to a queue-eligible child/sole capability or an explicit blocker"));
   } else if (phase === "handoff") {
-    results.push(fail("capability-covers-ready-surfaces", "Capability Map must cover every ready Surface / Function Map row before Define Spec Jobs", { uncovered }));
+    results.push(fail("capability-covers-ready-surfaces", "Capability Map must cover every ready Surface / Function Map row with a queue-eligible child/sole capability or explicit blocker before Define Spec Jobs", { uncovered }));
   } else {
     results.push(warn("capability-covers-ready-surfaces", `${uncovered.length} ready Surface / Function Map row(s) still need capability coverage`, { uncovered }));
   }
+  results.push(parentOnlyCoverageFailures.length === 0
+    ? pass("capability-no-parent-only-surface-coverage", "No ready surface is covered only by a parent capability")
+    : fail("capability-no-parent-only-surface-coverage", "Parent capability rows cannot be the only coverage for behavior-bearing surfaces", { parentOnlyCoverageFailures }));
+
+  const parentById = new Map(parentRows.map(row => [row.capabilityId, row]));
+  const childParentIds = new Set(childRows.map(row => row.parentCapabilityId).filter(isNonEmptyString));
+  const missingParents = childRows
+    .filter(row => !parentById.has(row.parentCapabilityId))
+    .map(row => ({ capabilityId: row.capabilityId, name: row.name, parentCapabilityId: row.parentCapabilityId }));
+  results.push(missingParents.length === 0
+    ? pass("capability-child-parent-resolves", "Every child capability resolves to a parent capability row")
+    : fail("capability-child-parent-resolves", "Child capability rows must resolve parentCapabilityId to a parent row", { missingParents }));
+  const parentWithoutChildren = parentRows
+    .filter(row => !childParentIds.has(row.capabilityId))
+    .map(row => ({ capabilityId: row.capabilityId, name: row.name }));
+  results.push(parentWithoutChildren.length === 0
+    ? pass("capability-parent-has-child-outcomes", "Every parent capability decomposes to child capabilities")
+    : fail("capability-parent-has-child-outcomes", "Parent capability rows must decompose into child capability rows", { parentWithoutChildren }));
 
   if (phase === "handoff") {
     results.push(pending.length === 0
@@ -637,7 +868,10 @@ function validateCapabilityRows({ surfaceRows, capabilityRows, phase = "handoff"
       : fail("handoff-no-pending-capabilities", "Handoff requires zero pending capability rows", { pending }));
     results.push(mapped.length === 0
       ? pass("handoff-no-mapped-intermediate-capabilities", "No mapped intermediate capability rows remain")
-      : fail("handoff-no-mapped-intermediate-capabilities", "Handoff requires rows to be ready-for-queue or needs-split", { mapped }));
+      : fail("handoff-no-mapped-intermediate-capabilities", "Handoff requires zero mapped intermediate capability rows", { mapped }));
+    results.push(needsSplit.length === 0
+      ? pass("handoff-no-needs-split-capabilities", "No needs-split capability rows remain")
+      : fail("handoff-no-needs-split-capabilities", "Handoff requires broad capability rows to be split into parent plus child/sole outcomes before Define Spec Jobs", { needsSplit }));
     results.push(blockingFlags.length === 0
       ? pass("handoff-no-blocking-capability-flags", "No blocking capability review flags remain")
       : fail("handoff-no-blocking-capability-flags", "Handoff requires no blocking capability review flags", { blockingFlags }));
@@ -665,6 +899,8 @@ function validateCapabilityReportState({ repoRoot, runId, outDir, reportPath, su
   const pendingCount = capabilityRows.filter(row => row.status === "pending").length;
   const mappedCount = capabilityRows.filter(row => row.status === "mapped").length;
   const blockingFlagCount = capabilityRows.filter(row => (row.reviewFlags || []).some(flag => flag.severity === "blocking")).length;
+  const modelCounts = capabilityModelCounts(capabilityRows);
+  const parentOnlyCoverageFailures = parentOnlyCoverageFailuresFor(surfaceRows, capabilityRows);
   const expected = {
     registryPath: path.relative(repoRoot, capabilityMapPathFor(repoRoot, runId, outDir)),
     checkerPath: path.relative(repoRoot, checkPath),
@@ -680,10 +916,16 @@ function validateCapabilityReportState({ repoRoot, runId, outDir, reportPath, su
     pendingCount,
     mappedCount,
     readyForQueueCount: capabilityRows.filter(row => row.status === "ready-for-queue").length,
-    needsSplitCount: capabilityRows.filter(row => row.status === "needs-split").length,
+    needsSplitCount: modelCounts.needsSplitCount,
+    parentCapabilityCount: modelCounts.parentCapabilityCount,
+    childCapabilityCount: modelCounts.childCapabilityCount,
+    soleCapabilityCount: modelCounts.soleCapabilityCount,
+    blockedCapabilityCount: modelCounts.blockedCapabilityCount,
+    queueEligibleCapabilityCount: modelCounts.queueEligibleCapabilityCount,
+    parentOnlyCoverageFailures: parentOnlyCoverageFailures.length,
     blockingFlagCount,
     capabilityCount: capabilityRows.length,
-    nextLayer: pendingCount === 0 && mappedCount === 0 && blockingFlagCount === 0 && checkerPass && evalHandoffReady
+    nextLayer: pendingCount === 0 && mappedCount === 0 && modelCounts.needsSplitCount === 0 && parentOnlyCoverageFailures.length === 0 && blockingFlagCount === 0 && checkerPass && evalHandoffReady
       ? "Define Spec Jobs"
       : "Capability Map revision"
   };
@@ -778,6 +1020,27 @@ function scoreCapabilityRow(row, surfaceById) {
   }
 
   const surfaces = (row.upstreamSurfaceIds || []).map(id => surfaceById.get(id)).filter(Boolean);
+  const altitude = capabilityAltitudeFor(row);
+  if (TERMINAL_CAPABILITY_STATUSES.has(row.status) && !VALID_CAPABILITY_ALTITUDES.has(altitude)) {
+    findings.push({ category: "splitDiscipline", severity: "blocking", message: "Capability row lacks a valid capabilityAltitude." });
+    categoryScores.splitDiscipline = 0;
+  }
+  if (row.queueEligible === true && !isQueueEligibleCapability(row)) {
+    findings.push({ category: "splitDiscipline", severity: "blocking", message: "Only ready child or sole capabilities may be queueEligible." });
+    categoryScores.splitDiscipline = 0;
+  }
+  if (altitude === "parent" && row.queueEligible === true) {
+    findings.push({ category: "splitDiscipline", severity: "blocking", message: "Parent capability rows organize children and cannot be queued as work." });
+    categoryScores.splitDiscipline = 0;
+  }
+  if (altitude === "needs-split") {
+    findings.push({ category: "splitDiscipline", severity: "blocking", message: "needs-split rows are revision targets and must be split before handoff." });
+    categoryScores.splitDiscipline = 0;
+  }
+  if (titleLooksLikeNonCapability(capabilityTitleFor(row)) && row.queueEligible === true) {
+    findings.push({ category: "specificity", severity: "blocking", message: "Artifact, layer, phase, route, command, queue, job, screen, or table names cannot pass as queueable capabilities." });
+    categoryScores.specificity = 0;
+  }
   if (surfaces.length === 0) {
     findings.push({ category: "surfaceTraceability", severity: "blocking", message: "Capability row has no resolvable upstream surfaces." });
     categoryScores.surfaceTraceability = 0;
@@ -933,6 +1196,13 @@ function toReportCapability(row) {
   return {
     id: row.capabilityId,
     name: row.name,
+    capabilityTitle: capabilityTitleFor(row),
+    capabilityAltitude: capabilityAltitudeFor(row),
+    parentCapabilityId: row.parentCapabilityId || null,
+    parentCapabilityName: row.parentCapabilityName || null,
+    queueEligible: isQueueEligibleCapability(row),
+    notCapabilityReason: row.notCapabilityReason || "",
+    blockerOrSplitReason: row.blockerOrSplitReason || row.splitReason || "",
     actor: row.actor,
     intendedOutcome: row.intendedOutcome,
     domainObject: row.domainObject,
@@ -969,22 +1239,26 @@ function buildCapabilityMapPayload({ runId, repoRoot, capabilityRows }) {
 
 export {
   VALID_CAPABILITY_STATUSES,
+  VALID_CAPABILITY_ALTITUDES,
   VALID_CONFIDENCE,
   VALID_REVIEW_FLAG_SEVERITY,
   appendRunLogEvent,
   aggregateCapabilityEval,
   buildCapabilityMapPayload,
+  capabilityAltitudeFor,
   capabilityCheckPathFor,
   capabilityEvalReceiptPathFor,
   capabilityMapPathFor,
   capabilityRefreshPathFor,
   capabilitySummaryPathFor,
+  capabilityModelCounts,
   createAgentMarkedCapabilityRow,
   createInitialCapabilityRows,
   createPendingCapabilityRow,
   defaultBackfillDir,
   ensureDir,
   isReadySurface,
+  isQueueEligibleCapability,
   markCapabilityRowsForSurfaces,
   mergeCapabilityRowsForRefresh,
   nextCapabilityMapTarget,
@@ -996,6 +1270,7 @@ export {
   readJsonl,
   readSurfaceFunctionMapRows,
   readySurfaceRows,
+  parentOnlyCoverageFailuresFor,
   renderResultsText,
   scoreCapabilityRow,
   selectCapabilityEvalSample,

@@ -202,7 +202,9 @@ function prepareCapabilityMap(repoRoot, runId) {
     "--run-id", runId,
     "--surface-ids", dashboardSurfaceIds.join(","),
     "--capabilities-json", JSON.stringify([{
-      name: "Authenticated dashboard discovery capability",
+      name: "Authenticated reviewers can inspect dashboard screen API and persistence evidence for operational decisions",
+      capabilityTitle: "Authenticated reviewers can inspect dashboard screen API and persistence evidence for operational decisions",
+      capabilityAltitude: "sole",
       actor: "Authenticated workspace reviewer",
       intendedOutcome: "Review dashboard screen data and persistence context for operational decisions.",
       domainObject: "Authenticated dashboard review workflow",
@@ -213,10 +215,7 @@ function prepareCapabilityMap(repoRoot, runId) {
       backingContracts: ["Dashboard page screen", "GET /dashboard API", "dashboard_events table"],
       failureAndRecovery: ["API or persistence failure routes to bounded dashboard revision evidence"],
       evidence: dashboardSurfaceIds.map(surfaceId => `${surfaceId} reviewed and mapped to dashboard behavior`),
-      status: "needs-split",
-      splitNeeded: true,
-      splitReason: "Screen rendering, API payload, and persistence contracts need separate Context Pack slices before spec authoring.",
-      splitCriteria: ["Screen rendering behavior is separated from API payload verification.", "API payload verification is separated from database persistence contract coverage."],
+      status: "ready-for-queue",
       confidence: "high"
     }])
   ], repoRoot);
@@ -225,7 +224,9 @@ function prepareCapabilityMap(repoRoot, runId) {
     "--run-id", runId,
     "--surface-ids", packageSurfaceIds.join(","),
     "--capabilities-json", JSON.stringify([{
-      name: "Developer test command execution",
+      name: "Repository developers can run the project test suite from the package script",
+      capabilityTitle: "Repository developers can run the project test suite from the package script",
+      capabilityAltitude: "sole",
       actor: "Repository developer",
       intendedOutcome: "Run the project test suite from the package script.",
       domainObject: "Repository package test script boundary",
@@ -302,19 +303,20 @@ function dashboardSlices(capabilityId) {
 function preparePassingSpecJobQueueHandoff(repoRoot, runId) {
   prepareCapabilityMap(repoRoot, runId);
   runNode(splitInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
-  const readyIds = capabilityIdsByStatus(repoRoot, runId, "ready-for-queue");
-  const splitIds = capabilityIdsByStatus(repoRoot, runId, "needs-split");
+  const capabilityRows = readJsonl(capabilityMapPathFor(repoRoot, runId)).rows;
+  const packageId = capabilityRows.find(row => row.name.toLowerCase().includes("project test suite"))?.capabilityId;
+  const dashboardId = capabilityRows.find(row => row.name.toLowerCase().includes("dashboard"))?.capabilityId;
   runNode(splitFillScript, [
     "--repo", repoRoot,
     "--run-id", runId,
-    "--capability-ids", readyIds.join(","),
-    "--slices-json", JSON.stringify(readyPackageSlice(readyIds[0]))
+    "--capability-ids", packageId,
+    "--slices-json", JSON.stringify(readyPackageSlice(packageId))
   ], repoRoot);
   runNode(splitFillScript, [
     "--repo", repoRoot,
     "--run-id", runId,
-    "--capability-ids", splitIds.join(","),
-    "--slices-json", JSON.stringify(dashboardSlices(splitIds[0]))
+    "--capability-ids", dashboardId,
+    "--slices-json", JSON.stringify(dashboardSlices(dashboardId))
   ], repoRoot);
   runNode(splitCheckScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   runNode(splitEvalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
@@ -871,6 +873,29 @@ test("handoff and scoring reject under-reviewed Author Specs rows", () => {
   const report = JSON.parse(runNode(authorReportScript, ["--repo", repoRoot, "--run-id", runId], repoRoot));
   assert.notEqual(report.state.nextLayer, "Evaluate Job Slices");
   assert.equal(report.state.rowOutstandingMissingCount > 0, true);
+});
+
+test("checker rejects parent capability refs carried into Author Specs work", () => {
+  const repoRoot = makeRepo();
+  const runId = "20260603-16";
+  const processReport = preparePassingProcessActionMapHandoff(repoRoot, runId);
+  runNode(authorInitScript, ["--repo", repoRoot, "--run-id", runId, "--report", processReport], repoRoot);
+  const authorPath = authorSpecsPathFor(repoRoot, runId);
+  const rows = readJsonl(authorPath).rows;
+  writeJsonl(authorPath, rows.map((row, index) => index === 0
+    ? {
+        ...row,
+        capabilityRefs: [{
+          capabilityId: "cap-parent-dashboard",
+          name: "Dashboard parent",
+          capabilityTitle: "Operators can understand dashboard health across the workspace",
+          capabilityAltitude: "parent",
+          queueEligible: false
+        }]
+      }
+    : row));
+  const results = validateAuthorSpecs({ repoRoot, runId }).results;
+  assert.equal(results.some(result => result.status === "fail" && result.id.endsWith(":capability-ref-queue-eligible")), true);
 });
 
 test("row scorer rejects generic compression of Process / Action Map specifics", () => {

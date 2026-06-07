@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.visible-business-graph.eval">
 <meta name="spec:type" content="eval">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Visible Business Graph Evaluation</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Visible Business Graph Evaluation",
   "type": "eval",
   "status": "draft",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.visible-business-graph.system",
@@ -41,7 +41,8 @@
   "implementationPaths": [
     { "path": "foundation/examples/visible-business-client/docs/visible-business-graph/expected-graph.json", "kind": "example", "ownership": "reference", "notes": "Expected graph fixture for the canonical example client." },
     { "path": "foundation/docs/visible-business-graph/foundation-graph.json", "kind": "example", "ownership": "reference", "notes": "Generated Foundation graph artifact." },
-    { "path": "foundation/docs/visible-business-graph/foundation-canvas.html", "kind": "example", "ownership": "reference", "notes": "Generated Foundation graph canvas." }
+    { "path": "foundation/docs/visible-business-graph/foundation-canvas.html", "kind": "example", "ownership": "reference", "notes": "Generated Foundation graph canvas." },
+    { "path": "foundation/scripts/visible-business-graph-generated-check.mjs", "kind": "workflow", "ownership": "reference", "notes": "Freshness gate for committed Foundation graph and canvas artifacts." }
   ],
   "coverage": [
     {
@@ -53,7 +54,7 @@
         "foundation.visible-business-graph.eval#verification-contract",
         "foundation.visible-business-graph.eval#acceptance-mapping"
       ],
-      "evidence": "Integration tests and CLI eval verify graph completeness, expected nodes/edges, source links, rendered canvas content, inline capability/job expansion, actors-map expansion, and generated canvas interaction contracts."
+      "evidence": "Integration tests and CLI eval verify graph completeness, expected nodes/edges, source links, rendered canvas content, visible parent/child capability hierarchy, inline capability/job expansion, actors-map expansion, and generated canvas interaction contracts."
     }
   ],
   "tags": ["eval", "visible-business", "graph"]
@@ -133,7 +134,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/visible-business-graph-eval.html</div>
     <h1>Visible Business Graph Evaluation</h1>
     <p class="lede">A graph is acceptable only when it is complete enough for humans and agents to inspect what the system can do, how work is handled, and why the graph claims are trusted.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-06-01</div><div><strong>Parent:</strong> foundation.visible-business-graph.system</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-06-06</div><div><strong>Parent:</strong> foundation.visible-business-graph.system</div></div>
   </section>
 
   <article class="doc-body">
@@ -146,15 +147,16 @@
           <tr><td>AC-2</td><td>The generated Foundation graph has no dangling nodes, orphan technical/eval/template specs, or unresolved source sections.</td><td>Graph check output and graph JSON.</td></tr>
           <tr><td>AC-3</td><td>Capability child jobs are connected with <code>realized-by</code> edges, and job specs connect back to owning capabilities with <code>supports</code> edges.</td><td><code>foundation:visible-business-graph:test</code> and graph check output.</td></tr>
           <tr><td>AC-4</td><td>The canonical example client graph contains expected system, capability, job, actor, process, tool, evidence, metric, and gap nodes.</td><td>Expected graph fixture and eval report.</td></tr>
-          <tr><td>AC-5</td><td>The canvas renders locally and includes source links, centered top-down layout, a one-row horizontal capability band, centered initial pan in a narrow canvas, shared document-navigation collapse behavior, deterministic branch accent color, selected-path edge policy, a primary capability map with inline capability/job expansion, an actors map with actor-to-job expansion, and pointer drag panning.</td><td>Rendered canvas HTML, executed renderer behavior tests, browser smoke check.</td></tr>
-          <tr><td>AC-6</td><td>New specs scaffold graph metadata by default.</td><td><code>spec:new -- --print</code> assertions in unit tests.</td></tr>
+          <tr><td>AC-5</td><td>The canvas renders locally and includes source links, centered top-down layout, system/index nodes above parent or sole capabilities, direct child capabilities one row below their parent, visible capability hierarchy edges before expansion, centered initial pan in a narrow canvas, shared document-navigation collapse behavior, deterministic branch accent color, selected-path edge policy, a primary capability map with inline capability/job expansion, an actors map with actor-to-job expansion, and pointer drag panning.</td><td>Rendered canvas HTML, executed renderer behavior tests, browser smoke check.</td></tr>
+          <tr><td>AC-6</td><td>The committed Foundation graph JSON and canvas are current with the HTML specs whenever spec checks pass.</td><td><code>foundation:visible-business-graph:generated-check</code> and <code>spec:check</code>.</td></tr>
+          <tr><td>AC-7</td><td>New specs scaffold graph metadata by default.</td><td><code>spec:new -- --print</code> assertions in unit tests.</td></tr>
         </tbody>
       </table>
     </section>
 
     <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
       <h2>Coverage plan</h2>
-      <p>Unit tests cover parser and validator behavior, including required capability-to-job <code>realized-by</code> edges and job-to-capability <code>supports</code> edges. Integration tests cover Foundation-wide graph compatibility and example-client render/eval. Renderer tests execute the generated canvas script to verify centered top-down layout, one-row capability band behavior, centered initial pan in narrow canvases, shared document-navigation collapse behavior, deterministic branch accent color, selected-path edge policy, collapsed initial jobs, inline capability expansion, inline job expansion, job-context node visibility, actors-map expansion, <code>aria-expanded</code> updates, and pointer drag panning. Browser smoke review remains required before treating the canvas as a client-ready UI.</p>
+      <p>Unit tests cover parser and validator behavior, including required capability-to-job <code>realized-by</code> edges and job-to-capability <code>supports</code> edges. Integration tests cover Foundation-wide graph compatibility and example-client render/eval. Renderer tests execute the generated canvas script to verify centered top-down layout, visible parent/child capability rows, default capability hierarchy edges, centered initial pan in narrow canvases, shared document-navigation collapse behavior, deterministic branch accent color, selected-path edge policy, collapsed initial jobs, inline capability expansion, inline job expansion, job-context node visibility, actors-map expansion, <code>aria-expanded</code> updates, and pointer drag panning. Browser smoke review remains required before treating the canvas as a client-ready UI.</p>
     </section>
 
     <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">
@@ -164,6 +166,7 @@
         <li><code>npm run foundation:visible-business-graph:check -- --repo .</code></li>
         <li><code>npm run foundation:visible-business-graph:build -- --repo . --out docs/visible-business-graph/foundation-graph.json</code></li>
         <li><code>npm run foundation:visible-business-graph:render -- --graph docs/visible-business-graph/foundation-graph.json --out docs/visible-business-graph/foundation-canvas.html</code></li>
+        <li><code>npm run foundation:visible-business-graph:generated-check -- --repo .</code></li>
         <li><code>npm run foundation:visible-business-graph:eval -- --repo examples/visible-business-client --graph examples/visible-business-client/docs/visible-business-graph/business-graph.json --canvas examples/visible-business-client/docs/visible-business-graph/canvas.html --expected examples/visible-business-client/docs/visible-business-graph/expected-graph.json</code></li>
       </ul>
     </section>

@@ -18,10 +18,13 @@ import {
   writeJsonl
 } from "./artifact-inventory-core.mjs";
 import {
+  capabilityAltitudeFor,
   capabilityCheckPathFor,
   capabilityEvalReceiptPathFor,
   capabilityMapPathFor,
+  capabilityModelCounts,
   capabilitySummaryPathFor,
+  isQueueEligibleCapability,
   parseJsonScript,
   readCapabilityMapRows,
   validateCapabilityMap
@@ -226,6 +229,11 @@ function upstreamCapabilityRef(row) {
   return {
     capabilityId: row.capabilityId,
     name: row.name,
+    capabilityTitle: row.capabilityTitle || row.name,
+    capabilityAltitude: capabilityAltitudeFor(row),
+    parentCapabilityId: row.parentCapabilityId || null,
+    parentCapabilityName: row.parentCapabilityName || null,
+    queueEligible: isQueueEligibleCapability(row),
     status: row.status,
     splitNeeded: row.splitNeeded === true,
     splitCriteria: Array.isArray(row.splitCriteria) ? row.splitCriteria : [],
@@ -234,7 +242,7 @@ function upstreamCapabilityRef(row) {
 }
 
 function terminalCapabilityRows(capabilityRows) {
-  return capabilityRows.filter(row => row.status === "ready-for-queue" || row.status === "needs-split");
+  return capabilityRows.filter(isQueueEligibleCapability);
 }
 
 function readEvalSummary(receiptPath) {
@@ -298,9 +306,17 @@ function createPendingSliceRow(capabilityRow, ordinal = 1) {
     name,
     upstreamCapabilityIds: [capabilityRow.capabilityId],
     upstreamCapabilityRefs: [upstreamCapabilityRef(capabilityRow)],
+    capabilityAltitude: capabilityAltitudeFor(capabilityRow),
+    parentCapabilityId: capabilityRow.parentCapabilityId || null,
+    parentCapabilityName: capabilityRow.parentCapabilityName || null,
     capabilityRefs: [{
       capabilityId: capabilityRow.capabilityId,
       name: capabilityRow.name,
+      capabilityTitle: capabilityRow.capabilityTitle || capabilityRow.name,
+      capabilityAltitude: capabilityAltitudeFor(capabilityRow),
+      parentCapabilityId: capabilityRow.parentCapabilityId || null,
+      parentCapabilityName: capabilityRow.parentCapabilityName || null,
+      queueEligible: isQueueEligibleCapability(capabilityRow),
       status: capabilityRow.status,
       splitNeeded: capabilityRow.splitNeeded === true
     }],
@@ -358,8 +374,8 @@ function createAgentMarkedSpecJobQueueRow(capabilityById, selectedCapabilityIds,
     if (!selectedSet.has(capabilityId)) throw new Error(`Spec Job Queue slice references capability not included in --capability-ids: ${capabilityId}`);
     const capability = capabilityById.get(capabilityId);
     if (!capability) throw new Error(`Spec Job Queue slice references unknown capability: ${capabilityId}`);
-    if (capability.status !== "ready-for-queue" && capability.status !== "needs-split") {
-      throw new Error(`Spec Job Queue slice references capability not ready for queue: ${capabilityId}`);
+    if (!isQueueEligibleCapability(capability)) {
+      throw new Error(`Spec Job Queue slice references capability that is not queueEligible child/sole work: ${capabilityId}`);
     }
   }
 
@@ -382,9 +398,17 @@ function createAgentMarkedSpecJobQueueRow(capabilityById, selectedCapabilityIds,
     name,
     upstreamCapabilityIds: rowCapabilityIds,
     upstreamCapabilityRefs: capabilities.map(upstreamCapabilityRef),
+    capabilityAltitude: capabilities.length === 1 ? capabilityAltitudeFor(capabilities[0]) : "mixed",
+    parentCapabilityId: capabilities.length === 1 ? capabilities[0].parentCapabilityId || null : null,
+    parentCapabilityName: capabilities.length === 1 ? capabilities[0].parentCapabilityName || null : null,
     capabilityRefs: capabilities.map(capability => ({
       capabilityId: capability.capabilityId,
       name: capability.name,
+      capabilityTitle: capability.capabilityTitle || capability.name,
+      capabilityAltitude: capabilityAltitudeFor(capability),
+      parentCapabilityId: capability.parentCapabilityId || null,
+      parentCapabilityName: capability.parentCapabilityName || null,
+      queueEligible: isQueueEligibleCapability(capability),
       status: capability.status,
       splitNeeded: capability.splitNeeded === true
     })),
@@ -445,17 +469,9 @@ function markSpecJobQueueRowsForCapabilities({ capabilityRows, queueRows, capabi
   for (const capabilityId of selectedCapabilityIds) {
     const capability = capabilityById.get(capabilityId);
     if (!capability) throw new Error(`Unknown Capability Map row: ${capabilityId}`);
-    if (capability.status !== "ready-for-queue" && capability.status !== "needs-split") {
-      throw new Error(`Capability is not ready for Define Spec Jobs: ${capabilityId}`);
+    if (!isQueueEligibleCapability(capability)) {
+      throw new Error(`Capability is not queueEligible child/sole work for Define Spec Jobs: ${capabilityId}`);
     }
-  }
-
-  const selectedNeedsSplit = selectedCapabilityIds
-    .map(capabilityId => capabilityById.get(capabilityId))
-    .filter(row => row?.status === "needs-split");
-  const explicitBlocked = sliceSpecs.every(spec => spec?.status === "blocked" || spec?.status === "out-of-scope");
-  if (selectedNeedsSplit.length > 0 && sliceSpecs.length < 2 && explicitBlocked === false) {
-    throw new Error("needs-split capabilities require at least two child slice specs or an explicit blocked/out-of-scope slice");
   }
 
   const nextRows = sliceSpecs.map((spec, index) => createAgentMarkedSpecJobQueueRow(
@@ -608,6 +624,14 @@ function validateSpecJobQueueRowShape(row, prefix, results, phase) {
   if (!Array.isArray(row?.capabilityRefs) || !row.capabilityRefs.every(ref => ref && typeof ref === "object" && !Array.isArray(ref))) {
     results.push(fail(`${prefix}:capability-refs`, "capabilityRefs must be an array of objects"));
   }
+  if (row?.status !== "pending") {
+    if (!isNonEmptyString(row?.capabilityAltitude)) {
+      results.push(fail(`${prefix}:capability-altitude`, "Non-pending queue rows must carry capabilityAltitude from the upstream child/sole capability"));
+    }
+    if (row?.capabilityAltitude === "parent" || row?.capabilityAltitude === "needs-split" || row?.capabilityAltitude === "blocked") {
+      results.push(fail(`${prefix}:capability-altitude-queueable`, "Queue rows cannot be derived from parent, needs-split, or blocked capability rows", { capabilityAltitude: row.capabilityAltitude }));
+    }
+  }
   if (!Array.isArray(row?.evidenceRefs) || row.evidenceRefs.length === 0) {
     results.push(fail(`${prefix}:evidence-refs`, "Spec Job Queue rows require evidenceRefs"));
   }
@@ -669,8 +693,13 @@ function validateSpecJobQueueRows({ capabilityRows, queueRows, phase = "handoff"
       const capability = capabilityById.get(capabilityId);
       if (!capability) {
         results.push(fail(`${prefix}:upstream-capability-resolves`, "Spec Job Queue row references missing Capability Map row", { capabilityId }));
-      } else if (capability.status !== "ready-for-queue" && capability.status !== "needs-split") {
-        results.push(fail(`${prefix}:upstream-capability-terminal`, "Spec Job Queue row references capability that is not ready-for-queue or needs-split", { capabilityId, status: capability.status }));
+      } else if (!isQueueEligibleCapability(capability)) {
+        results.push(fail(`${prefix}:upstream-capability-queue-eligible`, "Spec Job Queue row references a capability that is not queueEligible child/sole work", {
+          capabilityId,
+          status: capability.status,
+          capabilityAltitude: capabilityAltitudeFor(capability),
+          queueEligible: capability.queueEligible === true
+        }));
       }
     }
 
@@ -701,23 +730,19 @@ function validateSpecJobQueueRows({ capabilityRows, queueRows, phase = "handoff"
     results.push(warn("spec-job-queue-covers-capabilities", `${uncovered.length} terminal capability row(s) still need queue coverage`, { uncovered }));
   }
 
-  const unsplit = [];
-  for (const capability of terminalCapabilities.filter(row => row.status === "needs-split")) {
-    const attached = rowsByCapability.get(capability.capabilityId) || [];
-    const usableChildren = attached.filter(row => row.status !== "pending" && row.status !== "out-of-scope" && row.status !== "blocked");
-    const explicitBlocked = attached.length > 0 && attached.every(row => (row.status === "blocked" || row.status === "out-of-scope") && hasBlockingDetail(row));
-    if (usableChildren.length < 2 && !explicitBlocked) {
-      unsplit.push({
-        capabilityId: capability.capabilityId,
-        name: capability.name,
-        childSliceCount: usableChildren.length,
-        splitCriteria: capability.splitCriteria || []
-      });
-    }
-  }
-  results.push(unsplit.length === 0
-    ? pass("spec-job-queue-needs-split-child-slices", "Every needs-split capability has child slices or an explicit blocker")
-    : fail("spec-job-queue-needs-split-child-slices", "needs-split capability rows require multiple child slices before handoff", { unsplit }));
+  const unqueueableReferences = queueRows
+    .flatMap(row => (row.upstreamCapabilityIds || []).map(capabilityId => ({ row, capability: capabilityById.get(capabilityId), capabilityId })))
+    .filter(item => item.capability && !isQueueEligibleCapability(item.capability))
+    .map(item => ({
+      sliceId: item.row.sliceId,
+      capabilityId: item.capabilityId,
+      capabilityAltitude: capabilityAltitudeFor(item.capability),
+      status: item.capability.status,
+      queueEligible: item.capability.queueEligible === true
+    }));
+  results.push(unqueueableReferences.length === 0
+    ? pass("spec-job-queue-only-queue-eligible-capabilities", "Queue rows only reference child or sole queue-eligible capabilities")
+    : fail("spec-job-queue-only-queue-eligible-capabilities", "Parent, needs-split, blocked, and non-capability rows cannot enter Define Spec Jobs", { unqueueableReferences }));
 
   const semanticAlignmentIssues = auditSpecJobQueueSemanticAlignment({ capabilityRows, queueRows });
   results.push(semanticAlignmentIssues.length === 0
@@ -955,17 +980,6 @@ function validateSpecJobQueueStartSemanticAudit(capabilityRows) {
       });
       continue;
     }
-    if (capability.status === "needs-split") {
-      const weakCriteria = (capability.splitCriteria || []).filter(criterion => semanticTokensFromText(criterion).size < 2);
-      if (weakCriteria.length > 0) {
-        auditIssues.push({
-          capabilityId: capability.capabilityId,
-          name: capability.name,
-          reason: "needs-split capability has weak splitCriteria that cannot anchor child-slice taxonomy.",
-          weakCriteria
-        });
-      }
-    }
   }
   return auditIssues.length === 0
     ? [pass("spec-job-queue-upstream-semantic-audit", "Terminal Capability Map rows have semantic anchors for Define Spec Jobs")]
@@ -1059,6 +1073,11 @@ function scoreSpecJobQueueRow(row, capabilityById, siblingRowsByCapabilityId = n
     findings.push(...semanticAlignmentFindings);
     categoryScores.splitDiscipline = 0;
   }
+  const nonQueueableCapabilities = capabilities.filter(capability => !isQueueEligibleCapability(capability));
+  if (nonQueueableCapabilities.length > 0) {
+    findings.push({ category: "splitDiscipline", severity: "blocking", message: "Queue slice references parent, needs-split, blocked, or otherwise non-queueEligible capability rows." });
+    categoryScores.splitDiscipline = 0;
+  }
 
   if (textIsVague(row.name) || textIsVague(row.scope)) {
     findings.push({ category: "sliceSpecificity", severity: "warning", message: "Queue slice name or scope is too vague to be a durable work item." });
@@ -1086,23 +1105,6 @@ function scoreSpecJobQueueRow(row, capabilityById, siblingRowsByCapabilityId = n
     categoryScores.exitCriteria = 0;
   }
 
-  const needsSplitCapabilities = capabilities.filter(capability => capability.status === "needs-split");
-  if (needsSplitCapabilities.length > 0) {
-    const underSplit = needsSplitCapabilities.filter(capability => {
-      const siblings = siblingRowsByCapabilityId.get(capability.capabilityId) || [];
-      const usable = siblings.filter(candidate => candidate.status !== "pending" && candidate.status !== "blocked" && candidate.status !== "out-of-scope");
-      const explicitlyBlocked = siblings.length > 0 && siblings.every(candidate => (candidate.status === "blocked" || candidate.status === "out-of-scope") && hasBlockingDetail(candidate));
-      return usable.length < 2 && !explicitlyBlocked;
-    });
-    if (underSplit.length > 0) {
-      findings.push({ category: "splitDiscipline", severity: "blocking", message: "Queue slice references needs-split capabilities without enough child slices." });
-      categoryScores.splitDiscipline = 0;
-    }
-    if (!isNonEmptyString(row.childSliceRationale) && row.status !== "blocked" && row.status !== "out-of-scope") {
-      findings.push({ category: "splitDiscipline", severity: "warning", message: "Child slice should state the split rationale for needs-split upstream capability." });
-      categoryScores.splitDiscipline = Math.min(categoryScores.splitDiscipline, 18);
-    }
-  }
   if ((row.upstreamCapabilityIds || []).length > 3) {
     findings.push({ category: "splitDiscipline", severity: "blocking", message: "Queue slice references too many capabilities for one durable work item." });
     categoryScores.splitDiscipline = 0;
@@ -1238,6 +1240,10 @@ function buildSpecJobQueuePayload({ runId, repoRoot, queueRows }) {
       sliceId: row.sliceId,
       name: row.name,
       upstreamCapabilityIds: row.upstreamCapabilityIds,
+      capabilityAltitude: row.capabilityAltitude || null,
+      parentCapabilityId: row.parentCapabilityId || null,
+      parentCapabilityName: row.parentCapabilityName || null,
+      capabilityRefs: row.capabilityRefs || [],
       status: row.status,
       confidence: row.confidence,
       ownerSkill: row.ownerSkill,
@@ -1278,15 +1284,12 @@ function buildSpecJobQueueReportState({ repoRoot, runId, outDir, capabilityRows,
   const acceptableCount = queueRows.filter(row => row.status === "acceptable").length;
   const blockedCount = queueRows.filter(row => row.status === "blocked").length;
   const outOfScopeCount = queueRows.filter(row => row.status === "out-of-scope").length;
-  const needsSplitCount = terminalCapabilityRows(capabilityRows).filter(row => row.status === "needs-split").length;
-  const rowsByCapability = siblingRowsByCapabilityId(queueRows);
-  const unresolvedNeedsSplitCount = terminalCapabilityRows(capabilityRows)
-    .filter(row => row.status === "needs-split")
-    .filter(row => {
-      const attached = rowsByCapability.get(row.capabilityId) || [];
-      const usable = attached.filter(slice => slice.status !== "pending" && slice.status !== "blocked" && slice.status !== "out-of-scope");
-      const blocked = attached.length > 0 && attached.every(slice => (slice.status === "blocked" || slice.status === "out-of-scope") && hasBlockingDetail(slice));
-      return usable.length < 2 && !blocked;
+  const modelCounts = capabilityModelCounts(capabilityRows);
+  const unqueueableReferenceCount = queueRows
+    .flatMap(row => row.upstreamCapabilityIds || [])
+    .filter(capabilityId => {
+      const capability = capabilityRows.find(row => row.capabilityId === capabilityId);
+      return capability && !isQueueEligibleCapability(capability);
     }).length;
   const latestRunLogSequence = (() => {
     if (!runLogPath || !fs.existsSync(runLogPath)) return null;
@@ -1318,8 +1321,13 @@ function buildSpecJobQueueReportState({ repoRoot, runId, outDir, capabilityRows,
     evalWarningCount: evalFindings.filter(finding => finding?.severity === "warning").length,
     evalBlockingFindingCount: evalFindings.filter(finding => finding?.severity === "blocking").length,
     capabilityCount: terminalCapabilityRows(capabilityRows).length,
-    needsSplitCount,
-    unresolvedNeedsSplitCount,
+    parentCapabilityCount: modelCounts.parentCapabilityCount,
+    childCapabilityCount: modelCounts.childCapabilityCount,
+    soleCapabilityCount: modelCounts.soleCapabilityCount,
+    needsSplitCount: modelCounts.needsSplitCount,
+    blockedCapabilityCount: modelCounts.blockedCapabilityCount,
+    queueEligibleCapabilityCount: modelCounts.queueEligibleCapabilityCount,
+    unqueueableReferenceCount,
     queueSliceCount: queueRows.length,
     pendingCount,
     readyCount,
@@ -1329,7 +1337,7 @@ function buildSpecJobQueueReportState({ repoRoot, runId, outDir, capabilityRows,
     outOfScopeCount,
     currentSliceId: nextTarget?.sliceId || null,
     latestRunLogSequence,
-    nextLayer: pendingCount === 0 && inProgressCount === 0 && unresolvedNeedsSplitCount === 0 && checkerPass && evalHandoffReady
+    nextLayer: pendingCount === 0 && inProgressCount === 0 && unqueueableReferenceCount === 0 && checkerPass && evalHandoffReady
       ? "Context Pack"
       : "Define Spec Jobs revision"
   };

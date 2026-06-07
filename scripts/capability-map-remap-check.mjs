@@ -18,6 +18,12 @@ const requiredParentCapabilities = [
   "Show The System Clearly",
   "Evaluate, Learn, And Improve"
 ];
+const expectedOperateChildCapabilities = [
+  "foundation.systems-ship-safely.capability",
+  "foundation.system-health-visible.capability",
+  "foundation.failure-recovery-ready.capability",
+  "foundation.operating-lessons-improve-system.capability"
+];
 
 function fail(message) {
   console.error(message);
@@ -101,8 +107,30 @@ for (const spec of capabilitySpecsById.values()) {
   }
 }
 
-if (!remapRows.some(row => row[0] === "Operate Systems In The Real World" && row[1] === "Parent capability gap")) {
-  errors.push("Missing explicit gap row for Operate Systems In The Real World");
+const operateGapRow = remapRows.find(row => row[0] === "Operate Systems In The Real World" && row[1] === "Parent capability gap");
+if (operateGapRow) {
+  errors.push("Operate Systems In The Real World must decompose into child capability rows; do not keep the old parent capability gap row.");
+}
+
+for (const capabilityId of expectedOperateChildCapabilities) {
+  const row = remapBySpec.get(capabilityId);
+  if (!row) {
+    errors.push(`Missing Operate Systems In The Real World child capability remap row: ${capabilityId}`);
+    continue;
+  }
+  if (row[2] !== "Operate Systems In The Real World") {
+    errors.push(`${capabilityId}: expected proposed parent Operate Systems In The Real World, found ${row[2]}`);
+  }
+  if (!/Child capability/.test(row[1]) || !/scoped job gap/.test(row[1])) {
+    errors.push(`${capabilityId}: operation child capability rows must be classified as child capabilities with scoped job gaps.`);
+  }
+}
+
+for (const [specId, row] of remapBySpec) {
+  const classification = row[1].toLowerCase();
+  if (classification.includes("job-shaped") || classification.includes("phase-shaped")) {
+    errors.push(`${specId}: remap classification still admits job-shaped or phase-shaped capability language.`);
+  }
 }
 
 if (errors.length > 0) {

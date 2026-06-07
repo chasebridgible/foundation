@@ -124,6 +124,7 @@
           <tr><td>CAP-4</td><td>Jobs are explicit.</td><td>Capability specs expose realizing jobs with registry links and <code>realized-by</code> graph edges.</td></tr>
           <tr><td>CAP-5</td><td>Readiness questions are handled.</td><td>Material ambiguity about outcome, parent/child altitude, realizing jobs, evidence, or constraints is answered, blocked, or captured as a labeled assumption.</td></tr>
           <tr><td>CAP-6</td><td>Evidence is visible.</td><td>Evidence, evals, gaps, and revision targets are named.</td></tr>
+          <tr><td>CAP-7</td><td>Deterministic language check passes.</td><td><code>npm run foundation:capability-language:check</code> rejects job-shaped child titles, artifact-only titles, and missing or weak reliable-outcome rows.</td></tr>
         </tbody>
       </table>
     </section>
@@ -135,7 +136,7 @@
 
     <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">
       <h2>Commands and evidence</h2>
-      <ul><li><code>npm run spec:check</code></li><li><code>npm run foundation:self-map:check</code></li></ul>
+      <ul><li><code>npm run foundation:capability-language:check</code></li><li><code>npm run spec:check</code></li><li><code>npm run foundation:self-map:check</code></li></ul>
     </section>
 
     <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
