@@ -7,6 +7,7 @@
 - Before creating or revising a durable spec, skill, validator, template, or workflow, name the Foundation capability and owning job spec. If no job owns the work, create or revise the job first.
 - Before creating, revising, splitting, remapping, or routing any system, capability, job, technical, eval, artifact/interface/process/action, or ambiguous spec request, use `skills/spec-selection/SKILL.md` and produce a Spec Selection Result.
 - After Spec Selection, use the selected type-specific authoring skill. Authoring skills do not choose their own spec type.
+- Capability specs must be outcome-shaped. Child capability titles and graph labels cannot be job, artifact, layer, route, command, queue, or phase names; run `npm run foundation:capability-language:check` after capability-map, capability-spec, or capability-template changes.
 - Use the most specific skill that applies. Layer skills beat broad workflow skills.
 - Layer skills own their exact loops, shortcut bans, outstanding gates, checks, evals, revision gates, and handoff gates.
 - Use `docs/principles/ai-evals-principles.html` before judge/eval changes, and `docs/principles/sw-design-principles.html` before UI, rendered UX, accessibility, or visual-verification work.
@@ -30,6 +31,7 @@
 ## Backfill Skills
 
 Use these when adopting or continuing an existing-repo backfill.
+Backfill Capability Map rows use `parent`, `child`, `sole`, `needs-split`, and `blocked`; only queue-eligible `child` and `sole` rows can enter Job / Spec Queue, Context Pack, Process / Action Map, or Author Specs.
 
 | Work | Skill |
 | --- | --- |

@@ -9,8 +9,10 @@ import {
   capabilityEvalReceiptPathFor,
   capabilityMapPathFor,
   capabilitySummaryPathFor,
+  capabilityModelCounts,
   defaultBackfillDir,
   ensureDir,
+  parentOnlyCoverageFailuresFor,
   parseCliArgs,
   readJson,
   readJsonl,
@@ -51,7 +53,8 @@ function buildState({ repoRoot, runId, outDir, runLogPath }) {
   const pendingCount = matrix.rows.filter(row => row.status === "pending").length;
   const mappedCount = matrix.rows.filter(row => row.status === "mapped").length;
   const readyForQueueCount = matrix.rows.filter(row => row.status === "ready-for-queue").length;
-  const needsSplitCount = matrix.rows.filter(row => row.status === "needs-split").length;
+  const modelCounts = capabilityModelCounts(matrix.rows);
+  const parentOnlyCoverageFailures = parentOnlyCoverageFailuresFor(surfaceFunctionMap.rows, matrix.rows);
   const blockingFlagCount = matrix.rows.filter(row => (row.reviewFlags || []).some(flag => flag.severity === "blocking")).length;
   const checkerPass = check?.summary?.fail === 0;
   const evalPass = Boolean(evalSummary?.acceptabilityGate?.acceptable);
@@ -80,11 +83,17 @@ function buildState({ repoRoot, runId, outDir, runLogPath }) {
     pendingCount,
     mappedCount,
     readyForQueueCount,
-    needsSplitCount,
+    needsSplitCount: modelCounts.needsSplitCount,
+    parentCapabilityCount: modelCounts.parentCapabilityCount,
+    childCapabilityCount: modelCounts.childCapabilityCount,
+    soleCapabilityCount: modelCounts.soleCapabilityCount,
+    blockedCapabilityCount: modelCounts.blockedCapabilityCount,
+    queueEligibleCapabilityCount: modelCounts.queueEligibleCapabilityCount,
+    parentOnlyCoverageFailures: parentOnlyCoverageFailures.length,
     blockingFlagCount,
     capabilityCount: matrix.rows.length,
     latestRunLogSequence: latestRunLogSequence(runLogPath),
-    nextLayer: pendingCount === 0 && mappedCount === 0 && blockingFlagCount === 0 && checkerPass && evalHandoffReady
+    nextLayer: pendingCount === 0 && mappedCount === 0 && modelCounts.needsSplitCount === 0 && parentOnlyCoverageFailures.length === 0 && blockingFlagCount === 0 && checkerPass && evalHandoffReady
       ? "Define Spec Jobs"
       : "Capability Map revision"
   };
@@ -102,6 +111,12 @@ function renderSection(state) {
       <tr><td>Mapped intermediate rows</td><td>${state.mappedCount}</td></tr>
       <tr><td>Ready-for-queue rows</td><td>${state.readyForQueueCount}</td></tr>
       <tr><td>Needs-split rows</td><td>${state.needsSplitCount}</td></tr>
+      <tr><td>Parent capabilities</td><td>${state.parentCapabilityCount}</td></tr>
+      <tr><td>Child capabilities</td><td>${state.childCapabilityCount}</td></tr>
+      <tr><td>Sole capabilities</td><td>${state.soleCapabilityCount}</td></tr>
+      <tr><td>Blocked capabilities</td><td>${state.blockedCapabilityCount}</td></tr>
+      <tr><td>Queue-eligible capabilities</td><td>${state.queueEligibleCapabilityCount}</td></tr>
+      <tr><td>Parent-only coverage failures</td><td>${state.parentOnlyCoverageFailures}</td></tr>
       <tr><td>Blocking flags</td><td>${state.blockingFlagCount}</td></tr>
       <tr><td>Checker result</td><td>${state.checkerResult}</td></tr>
       <tr><td>Eval result</td><td>${state.evalResult}${state.evalScore === null ? "" : `, score ${state.evalScore}`}</td></tr>
@@ -121,11 +136,11 @@ function renderSection(state) {
 function renderCapabilityRows(matrixPayload) {
   const rows = matrixPayload.capabilities.length === 0
     ? "<tr><td colspan=\"5\">No capability rows.</td></tr>"
-    : matrixPayload.capabilities.map(row => `<tr><td><code>${row.id}</code></td><td>${row.name}</td><td>${row.actor}</td><td>${row.status}</td><td>${row.upstreamSurfaceIds.length}</td></tr>`).join("\n");
+    : matrixPayload.capabilities.map(row => `<tr><td><code>${row.id}</code></td><td>${row.capabilityTitle || row.name}</td><td>${row.capabilityAltitude || ""}</td><td>${row.queueEligible ? "yes" : "no"}</td><td>${row.status}</td><td>${row.upstreamSurfaceIds.length}</td></tr>`).join("\n");
   return `<section id="capability-map-v1-table" data-spec-section="capability-map-v1-table" data-section-type="state">
   <h2>Capability Map Rows</h2>
   <table class="status-table">
-    <thead><tr><th>ID</th><th>Name</th><th>Actor</th><th>Status</th><th>Surfaces</th></tr></thead>
+    <thead><tr><th>ID</th><th>Capability</th><th>Altitude</th><th>Queue</th><th>Status</th><th>Surfaces</th></tr></thead>
     <tbody>${rows}</tbody>
   </table>
 </section>`;

@@ -47,4 +47,4 @@ Split capability rows when actors, outcomes, objects, actions, states, permissio
 
 ## Done
 
-The layer is done when every mapped Artifact Inventory row contributes to a capability row, non-behavioral support note, parent-owned reason, out-of-scope reason, or named human decision, and graph-relevant evidence is specific enough for downstream specs to emit source-backed graph nodes.
+The layer is done when every mapped Artifact Inventory row contributes to child/sole capability coverage, non-behavioral support note, out-of-scope reason, or named human decision, and graph-relevant evidence is specific enough for downstream specs to emit source-backed graph nodes.

@@ -201,7 +201,9 @@ function prepareCapabilityMap(repoRoot, runId = "20260529-01", runLog = null) {
     "--run-id", runId,
     "--surface-ids", packageSurfaceIds.join(","),
     "--capabilities-json", JSON.stringify([{
-      name: "Developer test command execution",
+      name: "Repository developers can run the project test suite from the package script",
+      capabilityTitle: "Repository developers can run the project test suite from the package script",
+      capabilityAltitude: "sole",
       actor: "Repository developer",
       intendedOutcome: "Run the project test suite from the package script.",
       domainObject: "Repository package test script boundary",

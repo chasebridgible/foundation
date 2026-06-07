@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-capability-map.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Capability Map</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Capability Map",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.map-capabilities-from-evidence.capability",
@@ -303,7 +303,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-capability-map.html</div>
     <h1>Foundation Backfill Capability Map</h1>
     <p class="lede">Capability Map converts surfaces into actor/outcome units using the formula: actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, and evidence. This layer answers: <strong>What is this system supposed to let someone or something do?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Upstream:</strong> Surface / Function Map</div><div><strong>Next:</strong> Define Spec Jobs</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Upstream:</strong> Surface / Function Map</div><div><strong>Next:</strong> Define Spec Jobs</div></div>
     <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills reviewed surface groups, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
@@ -318,11 +318,12 @@
         <tr><td>Derived artifacts</td><td><ul><li><code>capability-map-summary-YYYYMMDD-NN.html</code></li>
 <li><code>capability graph views</code></li>
 <li><code>report tables</code></li></ul></td></tr>
-        <tr><td>State model</td><td><ul><li><code>pending</code></li>
+        <tr><td>Row status model</td><td><ul><li><code>pending</code></li>
 <li><code>mapped</code></li>
 <li><code>needs-split</code></li>
 <li><code>ready-for-queue</code></li></ul></td></tr>
-        <tr><td>Core row</td><td>capability row with stable capability ID, run ID, upstream surface IDs, upstream surface freshness refs, actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, evidence links, status, split flags, confidence, review flags, checker result, and eval result.</td></tr>
+        <tr><td>Capability altitude model</td><td><ul><li><code>parent</code> - broad outcome family, never authorable work</li><li><code>child</code> - specific reliable outcome under a parent, queueable when evidence-backed</li><li><code>sole</code> - specific reliable outcome with no parent split needed, queueable when evidence-backed</li><li><code>needs-split</code> - too broad or mixed, must be revised before handoff</li><li><code>blocked</code> - evidence or decision blocker, not queueable</li></ul></td></tr>
+        <tr><td>Core row</td><td>capability row with stable capability ID, run ID, capability title, capability altitude, parent capability linkage, queue eligibility, upstream surface IDs, upstream surface freshness refs, actor, intended outcome, domain object, actions, states, rules, experience, backing contracts, failure/recovery, evidence links, status, split or blocker reason, confidence, review flags, checker result, and eval result.</td></tr>
       </tbody></table>
     </section>
 
@@ -342,7 +343,7 @@
     <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
       <h2>Checker and eval contract</h2>
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
-        <tr><td>Checker</td><td>validates the upstream Surface / Function Map handoff, capability JSONL parsing, every ready surface maps to a terminal capability row, every capability has the full formula fields, broad rows are marked needs-split, upstream surface freshness refs match, evidence references resolve, and status values are valid.</td></tr>
+        <tr><td>Checker</td><td>validates the upstream Surface / Function Map handoff, capability JSONL parsing, every ready surface maps to a queue-eligible child/sole capability row or explicit blocker, every capability has the full formula fields, parent rows decompose into child outcomes, broad rows do not remain <code>needs-split</code> at handoff, upstream surface freshness refs match, evidence references resolve, capability altitude values are valid, and artifact/layer/phase names do not pass as capabilities.</td></tr>
         <tr><td>Eval receipt</td><td>samples capabilities against surfaces and source evidence to detect vague outcomes, missing actors, missing state/rule contracts, over-merged domains, and unsupported capability claims. Eval output is canonical JSONL; HTML is a derived summary for human review.</td></tr>
         <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
@@ -350,10 +351,11 @@
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>all ready Surface / Function Map rows are capability-owned, broad rows are flagged for split, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Define Spec Jobs.</p>
+      <p>all ready Surface / Function Map rows are covered by queue-eligible child/sole capabilities or explicit blockers, parent rows have child rows, <code>needs-split</code> rows are zero, checker passes, eval receipt and HTML summary exist with zero revision targets, and report names next layer as Define Spec Jobs.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
-        <li>All rows are in valid terminal states: <code>ready-for-queue</code> or <code>needs-split</code>.</li>
+        <li>All rows use valid status and capability-altitude values; only child and sole rows may set <code>queueEligible: true</code>.</li>
+        <li>Parent rows are graph structure only and are never the only coverage for behavior-bearing surfaces.</li>
         <li>Checker passes for structure, references, currentness, and required fields.</li>
         <li>Eval JSONL and HTML summary exist and list zero revision targets.</li>
         <li>Active report records counts, artifact paths, checker/eval status, run-log sequence, embedded <code>backfill-capability-map</code> JSON, and next layer.</li>

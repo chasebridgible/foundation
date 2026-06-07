@@ -1,8 +1,98 @@
 {
   "schema": "foundation.visible-business-graph.v1",
-  "generatedAt": "2026-06-01T23:25:04.639Z",
+  "generatedAt": "2026-06-06T23:44:21.643Z",
   "repoName": "foundation",
   "sources": [
+    {
+      "specId": "foundation.author-capability-spec.eval",
+      "title": "Author Capability Spec Eval",
+      "type": "eval",
+      "file": "docs/specs/author-capability-spec-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "active",
+      "confidence": "low"
+    },
+    {
+      "specId": "foundation.author-capability-spec.job",
+      "title": "Author Capability Spec Job",
+      "type": "job",
+      "file": "docs/specs/author-capability-spec.html",
+      "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "low"
+    },
+    {
+      "specId": "foundation.author-eval-spec.eval",
+      "title": "Author Eval Spec Eval",
+      "type": "eval",
+      "file": "docs/specs/author-eval-spec-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "active",
+      "confidence": "low"
+    },
+    {
+      "specId": "foundation.author-eval-spec.job",
+      "title": "Author Eval Spec Job",
+      "type": "job",
+      "file": "docs/specs/author-eval-spec.html",
+      "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "low"
+    },
+    {
+      "specId": "foundation.author-job-spec.eval",
+      "title": "Author Job Spec Eval",
+      "type": "eval",
+      "file": "docs/specs/author-job-spec-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "active",
+      "confidence": "low"
+    },
+    {
+      "specId": "foundation.author-job-spec.job",
+      "title": "Author Job Spec Job",
+      "type": "job",
+      "file": "docs/specs/author-job-spec.html",
+      "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "low"
+    },
+    {
+      "specId": "foundation.author-system-spec.eval",
+      "title": "Author System Spec Eval",
+      "type": "eval",
+      "file": "docs/specs/author-system-spec-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "active",
+      "confidence": "low"
+    },
+    {
+      "specId": "foundation.author-system-spec.job",
+      "title": "Author System Spec Job",
+      "type": "job",
+      "file": "docs/specs/author-system-spec.html",
+      "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "low"
+    },
+    {
+      "specId": "foundation.author-technical-spec.eval",
+      "title": "Author Technical Spec Eval",
+      "type": "eval",
+      "file": "docs/specs/author-technical-spec-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "active",
+      "confidence": "low"
+    },
+    {
+      "specId": "foundation.author-technical-spec.job",
+      "title": "Author Technical Spec Job",
+      "type": "job",
+      "file": "docs/specs/author-technical-spec.html",
+      "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "low"
+    },
     {
       "specId": "foundation.business-intake-fill-loop.eval",
       "title": "Business Intake Fill Loop Evaluation",
@@ -32,7 +122,7 @@
     },
     {
       "specId": "foundation.author-durable-specs.capability",
-      "title": "Author Durable Specs",
+      "title": "Specs Preserve Durable Intent",
       "type": "capability",
       "file": "docs/specs/capabilities/author-durable-specs.html",
       "canonicalSection": "capability-intent",
@@ -40,8 +130,17 @@
       "confidence": "high"
     },
     {
+      "specId": "foundation.build-new-systems-from-clear-specs.capability",
+      "title": "Build New Systems From Clear Specs",
+      "type": "capability",
+      "file": "docs/specs/capabilities/build-new-systems-from-clear-specs.html",
+      "canonicalSection": "capability-intent",
+      "status": "active",
+      "confidence": "high"
+    },
+    {
       "specId": "foundation.capture-business-system-intent.capability",
-      "title": "Capture Business and System Intent",
+      "title": "Business And System Intent Is Clear",
       "type": "capability",
       "file": "docs/specs/capabilities/capture-business-system-intent.html",
       "canonicalSection": "capability-intent",
@@ -49,8 +148,17 @@
       "confidence": "high"
     },
     {
+      "specId": "foundation.change-existing-systems-without-losing-intent.capability",
+      "title": "Change Existing Systems Without Losing Intent",
+      "type": "capability",
+      "file": "docs/specs/capabilities/change-existing-systems-without-losing-intent.html",
+      "canonicalSection": "capability-intent",
+      "status": "active",
+      "confidence": "high"
+    },
+    {
       "specId": "foundation.compound-improvements-safely.capability",
-      "title": "Compound Improvements Safely",
+      "title": "Improvements Compound Safely",
       "type": "capability",
       "file": "docs/specs/capabilities/compound-improvements-safely.html",
       "canonicalSection": "capability-intent",
@@ -59,7 +167,7 @@
     },
     {
       "specId": "foundation.define-jobs-from-capabilities.capability",
-      "title": "Define Jobs From Capabilities",
+      "title": "Capabilities Become Workable Jobs",
       "type": "capability",
       "file": "docs/specs/capabilities/define-jobs-from-capabilities.html",
       "canonicalSection": "capability-intent",
@@ -67,8 +175,26 @@
       "confidence": "high"
     },
     {
+      "specId": "foundation.define-right-work.capability",
+      "title": "Define The Right Work",
+      "type": "capability",
+      "file": "docs/specs/capabilities/define-right-work.html",
+      "canonicalSection": "capability-intent",
+      "status": "active",
+      "confidence": "high"
+    },
+    {
+      "specId": "foundation.evaluate-learn-improve.capability",
+      "title": "Evaluate, Learn, And Improve",
+      "type": "capability",
+      "file": "docs/specs/capabilities/evaluate-learn-improve.html",
+      "canonicalSection": "capability-intent",
+      "status": "active",
+      "confidence": "high"
+    },
+    {
       "specId": "foundation.evaluate-quality-completeness.capability",
-      "title": "Evaluate Quality and Completeness",
+      "title": "Quality And Completeness Are Judged",
       "type": "capability",
       "file": "docs/specs/capabilities/evaluate-quality-completeness.html",
       "canonicalSection": "capability-intent",
@@ -76,8 +202,17 @@
       "confidence": "high"
     },
     {
+      "specId": "foundation.failure-recovery-ready.capability",
+      "title": "Failure Recovery Is Ready",
+      "type": "capability",
+      "file": "docs/specs/capabilities/failure-recovery-ready.html",
+      "canonicalSection": "capability-intent",
+      "status": "draft",
+      "confidence": "medium"
+    },
+    {
       "specId": "foundation.generate-maintain-agent-skills.capability",
-      "title": "Generate and Maintain Agent Skills",
+      "title": "Agent Skills Preserve Repeatable Work",
       "type": "capability",
       "file": "docs/specs/capabilities/generate-maintain-agent-skills.html",
       "canonicalSection": "capability-intent",
@@ -86,7 +221,7 @@
     },
     {
       "specId": "foundation.install-foundation-target-repos.capability",
-      "title": "Install Foundation Into Target Repos",
+      "title": "Foundation Is Installable In Target Repos",
       "type": "capability",
       "file": "docs/specs/capabilities/install-foundation-target-repos.html",
       "canonicalSection": "capability-intent",
@@ -95,7 +230,7 @@
     },
     {
       "specId": "foundation.inventory-classify-artifacts.capability",
-      "title": "Inventory and Classify Repository Artifacts",
+      "title": "Repo Artifacts Are Known And Classified",
       "type": "capability",
       "file": "docs/specs/capabilities/inventory-classify-artifacts.html",
       "canonicalSection": "capability-intent",
@@ -103,8 +238,26 @@
       "confidence": "high"
     },
     {
+      "specId": "foundation.learn-agent-capabilities-over-time.capability",
+      "title": "Agent Capability Changes Stay Known",
+      "type": "capability",
+      "file": "docs/specs/capabilities/learn-agent-capabilities-over-time.html",
+      "canonicalSection": "capability-intent",
+      "status": "draft",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.make-outstanding-work-repeatable.capability",
+      "title": "Make Outstanding Work Repeatable",
+      "type": "capability",
+      "file": "docs/specs/capabilities/make-outstanding-work-repeatable.html",
+      "canonicalSection": "capability-intent",
+      "status": "active",
+      "confidence": "high"
+    },
+    {
       "specId": "foundation.map-capabilities-from-evidence.capability",
-      "title": "Map Capabilities From Evidence",
+      "title": "Evidence Becomes Capability Maps",
       "type": "capability",
       "file": "docs/specs/capabilities/map-capabilities-from-evidence.html",
       "canonicalSection": "capability-intent",
@@ -113,7 +266,7 @@
     },
     {
       "specId": "foundation.map-surfaces-functions.capability",
-      "title": "Map Surfaces and Functions",
+      "title": "Repo Surfaces Are Evidence Backed",
       "type": "capability",
       "file": "docs/specs/capabilities/map-surfaces-functions.html",
       "canonicalSection": "capability-intent",
@@ -121,8 +274,26 @@
       "confidence": "high"
     },
     {
+      "specId": "foundation.operate-systems-in-real-world.capability",
+      "title": "Operate Systems In The Real World",
+      "type": "capability",
+      "file": "docs/specs/capabilities/operate-systems-in-real-world.html",
+      "canonicalSection": "capability-intent",
+      "status": "draft",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.operating-lessons-improve-system.capability",
+      "title": "Operating Lessons Improve The System",
+      "type": "capability",
+      "file": "docs/specs/capabilities/operating-lessons-improve-system.html",
+      "canonicalSection": "capability-intent",
+      "status": "draft",
+      "confidence": "medium"
+    },
+    {
       "specId": "foundation.package-context-for-action.capability",
-      "title": "Package Context For Action",
+      "title": "Context Is Bounded For Action",
       "type": "capability",
       "file": "docs/specs/capabilities/package-context-for-action.html",
       "canonicalSection": "capability-intent",
@@ -130,10 +301,55 @@
       "confidence": "high"
     },
     {
+      "specId": "foundation.preserve-knowledge-context.capability",
+      "title": "Preserve Knowledge As Useful Context",
+      "type": "capability",
+      "file": "docs/specs/capabilities/preserve-knowledge-context.html",
+      "canonicalSection": "capability-intent",
+      "status": "active",
+      "confidence": "high"
+    },
+    {
       "specId": "foundation.render-inspectable-system-graph.capability",
-      "title": "Render the System as an Inspectable Graph",
+      "title": "System Graphs Are Inspectable",
       "type": "capability",
       "file": "docs/specs/capabilities/render-inspectable-system-graph.html",
+      "canonicalSection": "capability-intent",
+      "status": "active",
+      "confidence": "high"
+    },
+    {
+      "specId": "foundation.show-system-clearly.capability",
+      "title": "Show The System Clearly",
+      "type": "capability",
+      "file": "docs/specs/capabilities/show-system-clearly.html",
+      "canonicalSection": "capability-intent",
+      "status": "active",
+      "confidence": "high"
+    },
+    {
+      "specId": "foundation.system-health-visible.capability",
+      "title": "System Health Is Visible",
+      "type": "capability",
+      "file": "docs/specs/capabilities/system-health-visible.html",
+      "canonicalSection": "capability-intent",
+      "status": "draft",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.systems-ship-safely.capability",
+      "title": "Systems Can Ship Safely",
+      "type": "capability",
+      "file": "docs/specs/capabilities/systems-ship-safely.html",
+      "canonicalSection": "capability-intent",
+      "status": "draft",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.understand-intent-reality.capability",
+      "title": "Understand Intent And Reality",
+      "type": "capability",
+      "file": "docs/specs/capabilities/understand-intent-reality.html",
       "canonicalSection": "capability-intent",
       "status": "active",
       "confidence": "high"
@@ -193,6 +409,33 @@
       "confidence": "medium"
     },
     {
+      "specId": "foundation.agent-capability-scout.eval",
+      "title": "Agent Capability Scout Eval Spec",
+      "type": "eval",
+      "file": "docs/specs/foundation-agent-capability-scout-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "draft",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.agent-capability-scout.technical",
+      "title": "Agent Capability Scout Technical Spec",
+      "type": "technical",
+      "file": "docs/specs/foundation-agent-capability-scout-technical.html",
+      "canonicalSection": "required-depth",
+      "status": "draft",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.agent-capability-scout.job",
+      "title": "Agent Capability Scout",
+      "type": "job",
+      "file": "docs/specs/foundation-agent-capability-scout.html",
+      "canonicalSection": "job-intent",
+      "status": "draft",
+      "confidence": "medium"
+    },
+    {
       "specId": "foundation.agents-load-canary.eval",
       "title": "Foundation AGENTS Load Canary Test",
       "type": "eval",
@@ -234,8 +477,8 @@
       "type": "eval",
       "file": "docs/specs/foundation-backfill-author-specs-eval.html",
       "canonicalSection": "verification-contract",
-      "status": "draft",
-      "confidence": "medium"
+      "status": "active",
+      "confidence": "high"
     },
     {
       "specId": "foundation.backfill-author-specs.technical",
@@ -243,8 +486,8 @@
       "type": "technical",
       "file": "docs/specs/foundation-backfill-author-specs-technical.html",
       "canonicalSection": "required-depth",
-      "status": "draft",
-      "confidence": "medium"
+      "status": "active",
+      "confidence": "high"
     },
     {
       "specId": "foundation.backfill-author-specs.job",
@@ -252,8 +495,8 @@
       "type": "job",
       "file": "docs/specs/foundation-backfill-author-specs.html",
       "canonicalSection": "product-intent",
-      "status": "draft",
-      "confidence": "medium"
+      "status": "active",
+      "confidence": "high"
     },
     {
       "specId": "foundation.backfill-capability-map.eval",
@@ -378,7 +621,7 @@
       "type": "eval",
       "file": "docs/specs/foundation-backfill-process-action-map-eval.html",
       "canonicalSection": "verification-contract",
-      "status": "draft",
+      "status": "active",
       "confidence": "medium"
     },
     {
@@ -387,7 +630,7 @@
       "type": "technical",
       "file": "docs/specs/foundation-backfill-process-action-map-technical.html",
       "canonicalSection": "required-depth",
-      "status": "draft",
+      "status": "active",
       "confidence": "medium"
     },
     {
@@ -396,7 +639,7 @@
       "type": "job",
       "file": "docs/specs/foundation-backfill-process-action-map.html",
       "canonicalSection": "product-intent",
-      "status": "draft",
+      "status": "active",
       "confidence": "medium"
     },
     {
@@ -499,6 +742,24 @@
       "confidence": "medium"
     },
     {
+      "specId": "foundation.capability-map-remap.eval",
+      "title": "Foundation Capability Map Remap Eval",
+      "type": "eval",
+      "file": "docs/specs/foundation-capability-map-remap-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.capability-map-remap.job",
+      "title": "Foundation Capability Map Remap",
+      "type": "job",
+      "file": "docs/specs/foundation-capability-map-remap.html",
+      "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
       "specId": "foundation.html-docs-navigation.job",
       "title": "Foundation HTML Docs Navigation",
       "type": "job",
@@ -554,7 +815,7 @@
     },
     {
       "specId": "foundation.knowledge-data-layer.system",
-      "title": "Knowledge and Data Layer",
+      "title": "Knowledge Stays Useful As Context",
       "type": "capability",
       "file": "docs/specs/knowledge-and-data-layer.html",
       "canonicalSection": "product-intent",
@@ -573,11 +834,38 @@
     {
       "specId": "foundation.spec-process",
       "title": "Spec Maintenance Process",
-      "type": "capability",
+      "type": "job",
       "file": "docs/specs/process.html",
       "canonicalSection": "workflow-contract",
       "status": "active",
       "confidence": "high"
+    },
+    {
+      "specId": "foundation.spec-selection.eval",
+      "title": "Spec Selection Eval Spec",
+      "type": "eval",
+      "file": "docs/specs/spec-selection-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.spec-selection.technical",
+      "title": "Spec Selection Technical Spec",
+      "type": "technical",
+      "file": "docs/specs/spec-selection-technical.html",
+      "canonicalSection": "required-depth",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.spec-selection.job",
+      "title": "Spec Selection Job",
+      "type": "job",
+      "file": "docs/specs/spec-selection.html",
+      "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "medium"
     },
     {
       "specId": "foundation.spec-template.capability",
@@ -644,7 +932,7 @@
     },
     {
       "specId": "foundation.visible-business-graph.system",
-      "title": "Visible Business Graph",
+      "title": "Business Graph Is Visible",
       "type": "capability",
       "file": "docs/specs/visible-business-graph.html",
       "canonicalSection": "system-intent",
@@ -692,6 +980,119 @@
       "sourceTitle": "Manage Notification Preferences - Software Job Spec Example"
     },
     {
+      "id": "actor:foundation.agent-capability-scout.job:owner",
+      "type": "actor",
+      "label": "Owner reviewing scout findings",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "human"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.job",
+      "file": "docs/specs/foundation-agent-capability-scout.html",
+      "sourceFile": "docs/specs/foundation-agent-capability-scout.html",
+      "sourceTitle": "Agent Capability Scout"
+    },
+    {
+      "id": "actor:foundation.author-capability-spec.job:primary",
+      "type": "actor",
+      "label": "Author Capability Spec Job actor",
+      "source": {
+        "specId": "foundation.author-capability-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.author-capability-spec.job"
+      },
+      "ownerSpecId": "foundation.author-capability-spec.job",
+      "file": "docs/specs/author-capability-spec.html",
+      "sourceFile": "docs/specs/author-capability-spec.html",
+      "sourceTitle": "Author Capability Spec Job"
+    },
+    {
+      "id": "actor:foundation.author-eval-spec.job:primary",
+      "type": "actor",
+      "label": "Author Eval Spec Job actor",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.author-eval-spec.job"
+      },
+      "ownerSpecId": "foundation.author-eval-spec.job",
+      "file": "docs/specs/author-eval-spec.html",
+      "sourceFile": "docs/specs/author-eval-spec.html",
+      "sourceTitle": "Author Eval Spec Job"
+    },
+    {
+      "id": "actor:foundation.author-job-spec.job:primary",
+      "type": "actor",
+      "label": "Author Job Spec Job actor",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.author-job-spec.job"
+      },
+      "ownerSpecId": "foundation.author-job-spec.job",
+      "file": "docs/specs/author-job-spec.html",
+      "sourceFile": "docs/specs/author-job-spec.html",
+      "sourceTitle": "Author Job Spec Job"
+    },
+    {
+      "id": "actor:foundation.author-system-spec.job:primary",
+      "type": "actor",
+      "label": "Author System Spec Job actor",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.author-system-spec.job"
+      },
+      "ownerSpecId": "foundation.author-system-spec.job",
+      "file": "docs/specs/author-system-spec.html",
+      "sourceFile": "docs/specs/author-system-spec.html",
+      "sourceTitle": "Author System Spec Job"
+    },
+    {
+      "id": "actor:foundation.author-technical-spec.job:primary",
+      "type": "actor",
+      "label": "Author Technical Spec Job actor",
+      "source": {
+        "specId": "foundation.author-technical-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.author-technical-spec.job"
+      },
+      "ownerSpecId": "foundation.author-technical-spec.job",
+      "file": "docs/specs/author-technical-spec.html",
+      "sourceFile": "docs/specs/author-technical-spec.html",
+      "sourceTitle": "Author Technical Spec Job"
+    },
+    {
       "id": "actor:foundation.backfill-artifact-inventory.job:primary",
       "type": "actor",
       "label": "Foundation Artifact Inventory actor",
@@ -718,8 +1119,8 @@
         "specId": "foundation.backfill-author-specs.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "actorKind": "role-or-system",
         "generatedFrom": "foundation.backfill-author-specs.job"
@@ -813,7 +1214,7 @@
         "specId": "foundation.backfill-process-action-map.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
+      "status": "active",
       "confidence": "medium",
       "attributes": {
         "actorKind": "role-or-system",
@@ -920,6 +1321,25 @@
       "sourceTitle": "Business Intake Fill Loop"
     },
     {
+      "id": "actor:foundation.capability-map-remap.job:primary",
+      "type": "actor",
+      "label": "Foundation Capability Map Remap actor",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "role-or-system",
+        "generatedFrom": "foundation.capability-map-remap.job"
+      },
+      "ownerSpecId": "foundation.capability-map-remap.job",
+      "file": "docs/specs/foundation-capability-map-remap.html",
+      "sourceFile": "docs/specs/foundation-capability-map-remap.html",
+      "sourceTitle": "Foundation Capability Map Remap"
+    },
+    {
       "id": "actor:foundation.html-docs-navigation.job:primary",
       "type": "actor",
       "label": "Foundation HTML Docs Navigation actor",
@@ -1013,6 +1433,96 @@
       "sourceTitle": "Manage Notification Preferences - Software Job Spec Example"
     },
     {
+      "id": "evidence:foundation.author-capability-spec.job:primary",
+      "type": "evidence",
+      "label": "Author Capability Spec Job evidence",
+      "source": {
+        "specId": "foundation.author-capability-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-capability-spec.job"
+      },
+      "ownerSpecId": "foundation.author-capability-spec.job",
+      "file": "docs/specs/author-capability-spec.html",
+      "sourceFile": "docs/specs/author-capability-spec.html",
+      "sourceTitle": "Author Capability Spec Job"
+    },
+    {
+      "id": "evidence:foundation.author-eval-spec.job:primary",
+      "type": "evidence",
+      "label": "Author Eval Spec Job evidence",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-eval-spec.job"
+      },
+      "ownerSpecId": "foundation.author-eval-spec.job",
+      "file": "docs/specs/author-eval-spec.html",
+      "sourceFile": "docs/specs/author-eval-spec.html",
+      "sourceTitle": "Author Eval Spec Job"
+    },
+    {
+      "id": "evidence:foundation.author-job-spec.job:primary",
+      "type": "evidence",
+      "label": "Author Job Spec Job evidence",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-job-spec.job"
+      },
+      "ownerSpecId": "foundation.author-job-spec.job",
+      "file": "docs/specs/author-job-spec.html",
+      "sourceFile": "docs/specs/author-job-spec.html",
+      "sourceTitle": "Author Job Spec Job"
+    },
+    {
+      "id": "evidence:foundation.author-system-spec.job:primary",
+      "type": "evidence",
+      "label": "Author System Spec Job evidence",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-system-spec.job"
+      },
+      "ownerSpecId": "foundation.author-system-spec.job",
+      "file": "docs/specs/author-system-spec.html",
+      "sourceFile": "docs/specs/author-system-spec.html",
+      "sourceTitle": "Author System Spec Job"
+    },
+    {
+      "id": "evidence:foundation.author-technical-spec.job:primary",
+      "type": "evidence",
+      "label": "Author Technical Spec Job evidence",
+      "source": {
+        "specId": "foundation.author-technical-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-technical-spec.job"
+      },
+      "ownerSpecId": "foundation.author-technical-spec.job",
+      "file": "docs/specs/author-technical-spec.html",
+      "sourceFile": "docs/specs/author-technical-spec.html",
+      "sourceTitle": "Author Technical Spec Job"
+    },
+    {
       "id": "evidence:foundation.backfill-artifact-inventory.job:primary",
       "type": "evidence",
       "label": "Foundation Artifact Inventory evidence",
@@ -1038,8 +1548,8 @@
         "specId": "foundation.backfill-author-specs.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "generatedFrom": "foundation.backfill-author-specs.job"
       },
@@ -1128,7 +1638,7 @@
         "specId": "foundation.backfill-process-action-map.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
+      "status": "active",
       "confidence": "medium",
       "attributes": {
         "generatedFrom": "foundation.backfill-process-action-map.job"
@@ -1211,6 +1721,24 @@
       "sourceTitle": "Foundation Backfill Evaluate System Coherence"
     },
     {
+      "id": "evidence:foundation.build-new-systems-from-clear-specs.capability:primary",
+      "type": "evidence",
+      "label": "Build New Systems From Clear Specs evidence",
+      "source": {
+        "specId": "foundation.build-new-systems-from-clear-specs.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "generatedFrom": "foundation.build-new-systems-from-clear-specs.capability"
+      },
+      "ownerSpecId": "foundation.build-new-systems-from-clear-specs.capability",
+      "file": "docs/specs/capabilities/build-new-systems-from-clear-specs.html",
+      "sourceFile": "docs/specs/capabilities/build-new-systems-from-clear-specs.html",
+      "sourceTitle": "Build New Systems From Clear Specs"
+    },
+    {
       "id": "evidence:foundation.business-intake-fill-loop.job:primary",
       "type": "evidence",
       "label": "Business intake source-backed evaluation",
@@ -1229,6 +1757,78 @@
       "sourceTitle": "Business Intake Fill Loop"
     },
     {
+      "id": "evidence:foundation.capability-map-remap.job:primary",
+      "type": "evidence",
+      "label": "Foundation Capability Map Remap evidence",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.capability-map-remap.job"
+      },
+      "ownerSpecId": "foundation.capability-map-remap.job",
+      "file": "docs/specs/foundation-capability-map-remap.html",
+      "sourceFile": "docs/specs/foundation-capability-map-remap.html",
+      "sourceTitle": "Foundation Capability Map Remap"
+    },
+    {
+      "id": "evidence:foundation.change-existing-systems-without-losing-intent.capability:primary",
+      "type": "evidence",
+      "label": "Change Existing Systems Without Losing Intent evidence",
+      "source": {
+        "specId": "foundation.change-existing-systems-without-losing-intent.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "generatedFrom": "foundation.change-existing-systems-without-losing-intent.capability"
+      },
+      "ownerSpecId": "foundation.change-existing-systems-without-losing-intent.capability",
+      "file": "docs/specs/capabilities/change-existing-systems-without-losing-intent.html",
+      "sourceFile": "docs/specs/capabilities/change-existing-systems-without-losing-intent.html",
+      "sourceTitle": "Change Existing Systems Without Losing Intent"
+    },
+    {
+      "id": "evidence:foundation.define-right-work.capability:primary",
+      "type": "evidence",
+      "label": "Define The Right Work evidence",
+      "source": {
+        "specId": "foundation.define-right-work.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "generatedFrom": "foundation.define-right-work.capability"
+      },
+      "ownerSpecId": "foundation.define-right-work.capability",
+      "file": "docs/specs/capabilities/define-right-work.html",
+      "sourceFile": "docs/specs/capabilities/define-right-work.html",
+      "sourceTitle": "Define The Right Work"
+    },
+    {
+      "id": "evidence:foundation.evaluate-learn-improve.capability:primary",
+      "type": "evidence",
+      "label": "Evaluate, Learn, And Improve evidence",
+      "source": {
+        "specId": "foundation.evaluate-learn-improve.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "generatedFrom": "foundation.evaluate-learn-improve.capability"
+      },
+      "ownerSpecId": "foundation.evaluate-learn-improve.capability",
+      "file": "docs/specs/capabilities/evaluate-learn-improve.html",
+      "sourceFile": "docs/specs/capabilities/evaluate-learn-improve.html",
+      "sourceTitle": "Evaluate, Learn, And Improve"
+    },
+    {
       "id": "evidence:foundation.html-docs-navigation.job:primary",
       "type": "evidence",
       "label": "Foundation HTML Docs Navigation evidence",
@@ -1245,6 +1845,96 @@
       "file": "docs/specs/foundation-html-docs-navigation.html",
       "sourceFile": "docs/specs/foundation-html-docs-navigation.html",
       "sourceTitle": "Foundation HTML Docs Navigation"
+    },
+    {
+      "id": "evidence:foundation.make-outstanding-work-repeatable.capability:primary",
+      "type": "evidence",
+      "label": "Make Outstanding Work Repeatable evidence",
+      "source": {
+        "specId": "foundation.make-outstanding-work-repeatable.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "generatedFrom": "foundation.make-outstanding-work-repeatable.capability"
+      },
+      "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability",
+      "file": "docs/specs/capabilities/make-outstanding-work-repeatable.html",
+      "sourceFile": "docs/specs/capabilities/make-outstanding-work-repeatable.html",
+      "sourceTitle": "Make Outstanding Work Repeatable"
+    },
+    {
+      "id": "evidence:foundation.operate-systems-in-real-world.capability:primary",
+      "type": "evidence",
+      "label": "Operate Systems In The Real World evidence",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.operate-systems-in-real-world.capability"
+      },
+      "ownerSpecId": "foundation.operate-systems-in-real-world.capability",
+      "file": "docs/specs/capabilities/operate-systems-in-real-world.html",
+      "sourceFile": "docs/specs/capabilities/operate-systems-in-real-world.html",
+      "sourceTitle": "Operate Systems In The Real World"
+    },
+    {
+      "id": "evidence:foundation.preserve-knowledge-context.capability:primary",
+      "type": "evidence",
+      "label": "Preserve Knowledge As Useful Context evidence",
+      "source": {
+        "specId": "foundation.preserve-knowledge-context.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "generatedFrom": "foundation.preserve-knowledge-context.capability"
+      },
+      "ownerSpecId": "foundation.preserve-knowledge-context.capability",
+      "file": "docs/specs/capabilities/preserve-knowledge-context.html",
+      "sourceFile": "docs/specs/capabilities/preserve-knowledge-context.html",
+      "sourceTitle": "Preserve Knowledge As Useful Context"
+    },
+    {
+      "id": "evidence:foundation.show-system-clearly.capability:primary",
+      "type": "evidence",
+      "label": "Show The System Clearly evidence",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "generatedFrom": "foundation.show-system-clearly.capability"
+      },
+      "ownerSpecId": "foundation.show-system-clearly.capability",
+      "file": "docs/specs/capabilities/show-system-clearly.html",
+      "sourceFile": "docs/specs/capabilities/show-system-clearly.html",
+      "sourceTitle": "Show The System Clearly"
+    },
+    {
+      "id": "evidence:foundation.understand-intent-reality.capability:primary",
+      "type": "evidence",
+      "label": "Understand Intent And Reality evidence",
+      "source": {
+        "specId": "foundation.understand-intent-reality.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "generatedFrom": "foundation.understand-intent-reality.capability"
+      },
+      "ownerSpecId": "foundation.understand-intent-reality.capability",
+      "file": "docs/specs/capabilities/understand-intent-reality.html",
+      "sourceFile": "docs/specs/capabilities/understand-intent-reality.html",
+      "sourceTitle": "Understand Intent And Reality"
     },
     {
       "id": "evidence:foundation.workspace-model.job:primary",
@@ -1283,6 +1973,78 @@
       "sourceTitle": "Fired Up Pizza Kitchen Queue - Job Spec Example"
     },
     {
+      "id": "gap:foundation.failure-recovery-ready.capability:job-gap",
+      "type": "gap",
+      "label": "Missing recovery jobs",
+      "source": {
+        "specId": "foundation.failure-recovery-ready.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "gap": "Incident, rollback, and recovery job specs are not yet authored."
+      },
+      "ownerSpecId": "foundation.failure-recovery-ready.capability",
+      "file": "docs/specs/capabilities/failure-recovery-ready.html",
+      "sourceFile": "docs/specs/capabilities/failure-recovery-ready.html",
+      "sourceTitle": "Failure Recovery Is Ready"
+    },
+    {
+      "id": "gap:foundation.operating-lessons-improve-system.capability:job-gap",
+      "type": "gap",
+      "label": "Missing operating-lessons jobs",
+      "source": {
+        "specId": "foundation.operating-lessons-improve-system.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "gap": "Operating-lessons job, technical, and eval specs are not yet authored."
+      },
+      "ownerSpecId": "foundation.operating-lessons-improve-system.capability",
+      "file": "docs/specs/capabilities/operating-lessons-improve-system.html",
+      "sourceFile": "docs/specs/capabilities/operating-lessons-improve-system.html",
+      "sourceTitle": "Operating Lessons Improve The System"
+    },
+    {
+      "id": "gap:foundation.system-health-visible.capability:job-gap",
+      "type": "gap",
+      "label": "Missing system-health jobs",
+      "source": {
+        "specId": "foundation.system-health-visible.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "gap": "Monitoring, health-signal, and drift-detection specs are not yet authored."
+      },
+      "ownerSpecId": "foundation.system-health-visible.capability",
+      "file": "docs/specs/capabilities/system-health-visible.html",
+      "sourceFile": "docs/specs/capabilities/system-health-visible.html",
+      "sourceTitle": "System Health Is Visible"
+    },
+    {
+      "id": "gap:foundation.systems-ship-safely.capability:job-gap",
+      "type": "gap",
+      "label": "Missing safe-shipping jobs",
+      "source": {
+        "specId": "foundation.systems-ship-safely.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "gap": "Deploy/release job, technical, and eval specs are not yet authored."
+      },
+      "ownerSpecId": "foundation.systems-ship-safely.capability",
+      "file": "docs/specs/capabilities/systems-ship-safely.html",
+      "sourceFile": "docs/specs/capabilities/systems-ship-safely.html",
+      "sourceTitle": "Systems Can Ship Safely"
+    },
+    {
       "id": "process:example.business.pay-employees.job:main",
       "type": "process",
       "label": "Pay Employees Accurately and On Time - Business Job Spec Example process",
@@ -1319,6 +2081,111 @@
       "sourceTitle": "Manage Notification Preferences - Software Job Spec Example"
     },
     {
+      "id": "process:foundation.agent-capability-scout.job:main",
+      "type": "process",
+      "label": "Agent Capability Scout loop",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "process"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "ownerSpecId": "foundation.agent-capability-scout.job",
+      "file": "docs/specs/foundation-agent-capability-scout.html",
+      "sourceFile": "docs/specs/foundation-agent-capability-scout.html",
+      "sourceTitle": "Agent Capability Scout"
+    },
+    {
+      "id": "process:foundation.author-capability-spec.job:main",
+      "type": "process",
+      "label": "Author Capability Spec Job process",
+      "source": {
+        "specId": "foundation.author-capability-spec.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-capability-spec.job"
+      },
+      "ownerSpecId": "foundation.author-capability-spec.job",
+      "file": "docs/specs/author-capability-spec.html",
+      "sourceFile": "docs/specs/author-capability-spec.html",
+      "sourceTitle": "Author Capability Spec Job"
+    },
+    {
+      "id": "process:foundation.author-eval-spec.job:main",
+      "type": "process",
+      "label": "Author Eval Spec Job process",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-eval-spec.job"
+      },
+      "ownerSpecId": "foundation.author-eval-spec.job",
+      "file": "docs/specs/author-eval-spec.html",
+      "sourceFile": "docs/specs/author-eval-spec.html",
+      "sourceTitle": "Author Eval Spec Job"
+    },
+    {
+      "id": "process:foundation.author-job-spec.job:main",
+      "type": "process",
+      "label": "Author Job Spec Job process",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-job-spec.job"
+      },
+      "ownerSpecId": "foundation.author-job-spec.job",
+      "file": "docs/specs/author-job-spec.html",
+      "sourceFile": "docs/specs/author-job-spec.html",
+      "sourceTitle": "Author Job Spec Job"
+    },
+    {
+      "id": "process:foundation.author-system-spec.job:main",
+      "type": "process",
+      "label": "Author System Spec Job process",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-system-spec.job"
+      },
+      "ownerSpecId": "foundation.author-system-spec.job",
+      "file": "docs/specs/author-system-spec.html",
+      "sourceFile": "docs/specs/author-system-spec.html",
+      "sourceTitle": "Author System Spec Job"
+    },
+    {
+      "id": "process:foundation.author-technical-spec.job:main",
+      "type": "process",
+      "label": "Author Technical Spec Job process",
+      "source": {
+        "specId": "foundation.author-technical-spec.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "generatedFrom": "foundation.author-technical-spec.job"
+      },
+      "ownerSpecId": "foundation.author-technical-spec.job",
+      "file": "docs/specs/author-technical-spec.html",
+      "sourceFile": "docs/specs/author-technical-spec.html",
+      "sourceTitle": "Author Technical Spec Job"
+    },
+    {
       "id": "process:foundation.backfill-artifact-inventory.job:main",
       "type": "process",
       "label": "Foundation Artifact Inventory process",
@@ -1344,8 +2211,8 @@
         "specId": "foundation.backfill-author-specs.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "generatedFrom": "foundation.backfill-author-specs.job"
       },
@@ -1434,7 +2301,7 @@
         "specId": "foundation.backfill-process-action-map.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
+      "status": "active",
       "confidence": "medium",
       "attributes": {
         "generatedFrom": "foundation.backfill-process-action-map.job"
@@ -1533,6 +2400,24 @@
       "file": "docs/specs/business-intake-fill-loop.html",
       "sourceFile": "docs/specs/business-intake-fill-loop.html",
       "sourceTitle": "Business Intake Fill Loop"
+    },
+    {
+      "id": "process:foundation.capability-map-remap.job:main",
+      "type": "process",
+      "label": "Foundation Capability Map Remap process",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.capability-map-remap.job"
+      },
+      "ownerSpecId": "foundation.capability-map-remap.job",
+      "file": "docs/specs/foundation-capability-map-remap.html",
+      "sourceFile": "docs/specs/foundation-capability-map-remap.html",
+      "sourceTitle": "Foundation Capability Map Remap"
     },
     {
       "id": "process:foundation.html-docs-navigation.job:main",
@@ -1637,6 +2522,78 @@
       "sourceTitle": "Manage Notification Preferences - Software Job Spec Example"
     },
     {
+      "id": "spec:foundation.agent-capability-scout.eval",
+      "type": "evaluation",
+      "label": "Agent Capability Scout Eval Spec",
+      "source": {
+        "specId": "foundation.agent-capability-scout.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "foundation",
+          "agents",
+          "capability-scout"
+        ]
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.eval",
+      "file": "docs/specs/foundation-agent-capability-scout-eval.html",
+      "sourceFile": "docs/specs/foundation-agent-capability-scout-eval.html",
+      "sourceTitle": "Agent Capability Scout Eval Spec"
+    },
+    {
+      "id": "spec:foundation.agent-capability-scout.job",
+      "type": "job",
+      "label": "Agent Capability Scout",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "job-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "foundation",
+          "agents",
+          "capability-scout"
+        ]
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.job",
+      "file": "docs/specs/foundation-agent-capability-scout.html",
+      "sourceFile": "docs/specs/foundation-agent-capability-scout.html",
+      "sourceTitle": "Agent Capability Scout"
+    },
+    {
+      "id": "spec:foundation.agent-capability-scout.technical",
+      "type": "technical-contract",
+      "label": "Agent Capability Scout Technical Spec",
+      "source": {
+        "specId": "foundation.agent-capability-scout.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "technical",
+          "foundation",
+          "agents",
+          "capability-scout"
+        ]
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.technical",
+      "file": "docs/specs/foundation-agent-capability-scout-technical.html",
+      "sourceFile": "docs/specs/foundation-agent-capability-scout-technical.html",
+      "sourceTitle": "Agent Capability Scout Technical Spec"
+    },
+    {
       "id": "spec:foundation.agents-load-canary.eval",
       "type": "evaluation",
       "label": "Foundation AGENTS Load Canary Test",
@@ -1661,9 +2618,54 @@
       "sourceTitle": "Foundation AGENTS Load Canary Test"
     },
     {
+      "id": "spec:foundation.author-capability-spec.eval",
+      "type": "evaluation",
+      "label": "Author Capability Spec Eval",
+      "source": {
+        "specId": "foundation.author-capability-spec.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "spec-authoring"
+        ]
+      },
+      "ownerSpecId": "foundation.author-capability-spec.eval",
+      "file": "docs/specs/author-capability-spec-eval.html",
+      "sourceFile": "docs/specs/author-capability-spec-eval.html",
+      "sourceTitle": "Author Capability Spec Eval"
+    },
+    {
+      "id": "spec:foundation.author-capability-spec.job",
+      "type": "job",
+      "label": "Author Capability Spec Job",
+      "source": {
+        "specId": "foundation.author-capability-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "spec-authoring",
+          "capability"
+        ]
+      },
+      "ownerSpecId": "foundation.author-capability-spec.job",
+      "file": "docs/specs/author-capability-spec.html",
+      "sourceFile": "docs/specs/author-capability-spec.html",
+      "sourceTitle": "Author Capability Spec Job"
+    },
+    {
       "id": "spec:foundation.author-durable-specs.capability",
       "type": "capability",
-      "label": "Author Durable Specs",
+      "label": "Specs Preserve Durable Intent",
       "source": {
         "specId": "foundation.author-durable-specs.capability",
         "sectionId": "capability-intent"
@@ -1681,7 +2683,186 @@
       "ownerSpecId": "foundation.author-durable-specs.capability",
       "file": "docs/specs/capabilities/author-durable-specs.html",
       "sourceFile": "docs/specs/capabilities/author-durable-specs.html",
-      "sourceTitle": "Author Durable Specs"
+      "sourceTitle": "Specs Preserve Durable Intent"
+    },
+    {
+      "id": "spec:foundation.author-eval-spec.eval",
+      "type": "evaluation",
+      "label": "Author Eval Spec Eval",
+      "source": {
+        "specId": "foundation.author-eval-spec.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "spec-authoring"
+        ]
+      },
+      "ownerSpecId": "foundation.author-eval-spec.eval",
+      "file": "docs/specs/author-eval-spec-eval.html",
+      "sourceFile": "docs/specs/author-eval-spec-eval.html",
+      "sourceTitle": "Author Eval Spec Eval"
+    },
+    {
+      "id": "spec:foundation.author-eval-spec.job",
+      "type": "job",
+      "label": "Author Eval Spec Job",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "spec-authoring",
+          "eval"
+        ]
+      },
+      "ownerSpecId": "foundation.author-eval-spec.job",
+      "file": "docs/specs/author-eval-spec.html",
+      "sourceFile": "docs/specs/author-eval-spec.html",
+      "sourceTitle": "Author Eval Spec Job"
+    },
+    {
+      "id": "spec:foundation.author-job-spec.eval",
+      "type": "evaluation",
+      "label": "Author Job Spec Eval",
+      "source": {
+        "specId": "foundation.author-job-spec.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "spec-authoring"
+        ]
+      },
+      "ownerSpecId": "foundation.author-job-spec.eval",
+      "file": "docs/specs/author-job-spec-eval.html",
+      "sourceFile": "docs/specs/author-job-spec-eval.html",
+      "sourceTitle": "Author Job Spec Eval"
+    },
+    {
+      "id": "spec:foundation.author-job-spec.job",
+      "type": "job",
+      "label": "Author Job Spec Job",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "spec-authoring"
+        ]
+      },
+      "ownerSpecId": "foundation.author-job-spec.job",
+      "file": "docs/specs/author-job-spec.html",
+      "sourceFile": "docs/specs/author-job-spec.html",
+      "sourceTitle": "Author Job Spec Job"
+    },
+    {
+      "id": "spec:foundation.author-system-spec.eval",
+      "type": "evaluation",
+      "label": "Author System Spec Eval",
+      "source": {
+        "specId": "foundation.author-system-spec.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "spec-authoring"
+        ]
+      },
+      "ownerSpecId": "foundation.author-system-spec.eval",
+      "file": "docs/specs/author-system-spec-eval.html",
+      "sourceFile": "docs/specs/author-system-spec-eval.html",
+      "sourceTitle": "Author System Spec Eval"
+    },
+    {
+      "id": "spec:foundation.author-system-spec.job",
+      "type": "job",
+      "label": "Author System Spec Job",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "spec-authoring",
+          "system"
+        ]
+      },
+      "ownerSpecId": "foundation.author-system-spec.job",
+      "file": "docs/specs/author-system-spec.html",
+      "sourceFile": "docs/specs/author-system-spec.html",
+      "sourceTitle": "Author System Spec Job"
+    },
+    {
+      "id": "spec:foundation.author-technical-spec.eval",
+      "type": "evaluation",
+      "label": "Author Technical Spec Eval",
+      "source": {
+        "specId": "foundation.author-technical-spec.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "spec-authoring"
+        ]
+      },
+      "ownerSpecId": "foundation.author-technical-spec.eval",
+      "file": "docs/specs/author-technical-spec-eval.html",
+      "sourceFile": "docs/specs/author-technical-spec-eval.html",
+      "sourceTitle": "Author Technical Spec Eval"
+    },
+    {
+      "id": "spec:foundation.author-technical-spec.job",
+      "type": "job",
+      "label": "Author Technical Spec Job",
+      "source": {
+        "specId": "foundation.author-technical-spec.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "low",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "spec-authoring",
+          "technical"
+        ]
+      },
+      "ownerSpecId": "foundation.author-technical-spec.job",
+      "file": "docs/specs/author-technical-spec.html",
+      "sourceFile": "docs/specs/author-technical-spec.html",
+      "sourceTitle": "Author Technical Spec Job"
     },
     {
       "id": "spec:foundation.backfill-artifact-inventory.eval",
@@ -1770,8 +2951,8 @@
         "specId": "foundation.backfill-author-specs.eval",
         "sectionId": "verification-contract"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "specType": "eval",
         "tags": [
@@ -1795,8 +2976,8 @@
         "specId": "foundation.backfill-author-specs.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "specType": "job",
         "tags": [
@@ -1820,8 +3001,8 @@
         "specId": "foundation.backfill-author-specs.technical",
         "sectionId": "required-depth"
       },
-      "status": "draft",
-      "confidence": "medium",
+      "status": "active",
+      "confidence": "high",
       "attributes": {
         "specType": "technical",
         "tags": [
@@ -2195,7 +3376,7 @@
         "specId": "foundation.backfill-process-action-map.eval",
         "sectionId": "verification-contract"
       },
-      "status": "draft",
+      "status": "active",
       "confidence": "medium",
       "attributes": {
         "specType": "eval",
@@ -2220,7 +3401,7 @@
         "specId": "foundation.backfill-process-action-map.job",
         "sectionId": "product-intent"
       },
-      "status": "draft",
+      "status": "active",
       "confidence": "medium",
       "attributes": {
         "specType": "job",
@@ -2245,7 +3426,7 @@
         "specId": "foundation.backfill-process-action-map.technical",
         "sectionId": "required-depth"
       },
-      "status": "draft",
+      "status": "active",
       "confidence": "medium",
       "attributes": {
         "specType": "technical",
@@ -2538,6 +3719,29 @@
       "sourceTitle": "Foundation Backfill Evaluate System Coherence Technical Spec"
     },
     {
+      "id": "spec:foundation.build-new-systems-from-clear-specs.capability",
+      "type": "capability",
+      "label": "Build New Systems From Clear Specs",
+      "source": {
+        "specId": "foundation.build-new-systems-from-clear-specs.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation"
+        ]
+      },
+      "ownerSpecId": "foundation.build-new-systems-from-clear-specs.capability",
+      "file": "docs/specs/capabilities/build-new-systems-from-clear-specs.html",
+      "sourceFile": "docs/specs/capabilities/build-new-systems-from-clear-specs.html",
+      "sourceTitle": "Build New Systems From Clear Specs"
+    },
+    {
       "id": "spec:foundation.business-intake-fill-loop.eval",
       "type": "evaluation",
       "label": "Business Intake Fill Loop Evaluation",
@@ -2607,9 +3811,55 @@
       "sourceTitle": "Business Intake Fill Loop Technical Spec"
     },
     {
+      "id": "spec:foundation.capability-map-remap.eval",
+      "type": "evaluation",
+      "label": "Foundation Capability Map Remap Eval",
+      "source": {
+        "specId": "foundation.capability-map-remap.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "capability",
+          "remap"
+        ]
+      },
+      "ownerSpecId": "foundation.capability-map-remap.eval",
+      "file": "docs/specs/foundation-capability-map-remap-eval.html",
+      "sourceFile": "docs/specs/foundation-capability-map-remap-eval.html",
+      "sourceTitle": "Foundation Capability Map Remap Eval"
+    },
+    {
+      "id": "spec:foundation.capability-map-remap.job",
+      "type": "job",
+      "label": "Foundation Capability Map Remap",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "capability",
+          "remap"
+        ]
+      },
+      "ownerSpecId": "foundation.capability-map-remap.job",
+      "file": "docs/specs/foundation-capability-map-remap.html",
+      "sourceFile": "docs/specs/foundation-capability-map-remap.html",
+      "sourceTitle": "Foundation Capability Map Remap"
+    },
+    {
       "id": "spec:foundation.capture-business-system-intent.capability",
       "type": "capability",
-      "label": "Capture Business and System Intent",
+      "label": "Business And System Intent Is Clear",
       "source": {
         "specId": "foundation.capture-business-system-intent.capability",
         "sectionId": "capability-intent"
@@ -2627,12 +3877,35 @@
       "ownerSpecId": "foundation.capture-business-system-intent.capability",
       "file": "docs/specs/capabilities/capture-business-system-intent.html",
       "sourceFile": "docs/specs/capabilities/capture-business-system-intent.html",
-      "sourceTitle": "Capture Business and System Intent"
+      "sourceTitle": "Business And System Intent Is Clear"
+    },
+    {
+      "id": "spec:foundation.change-existing-systems-without-losing-intent.capability",
+      "type": "capability",
+      "label": "Change Existing Systems Without Losing Intent",
+      "source": {
+        "specId": "foundation.change-existing-systems-without-losing-intent.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation"
+        ]
+      },
+      "ownerSpecId": "foundation.change-existing-systems-without-losing-intent.capability",
+      "file": "docs/specs/capabilities/change-existing-systems-without-losing-intent.html",
+      "sourceFile": "docs/specs/capabilities/change-existing-systems-without-losing-intent.html",
+      "sourceTitle": "Change Existing Systems Without Losing Intent"
     },
     {
       "id": "spec:foundation.compound-improvements-safely.capability",
       "type": "capability",
-      "label": "Compound Improvements Safely",
+      "label": "Improvements Compound Safely",
       "source": {
         "specId": "foundation.compound-improvements-safely.capability",
         "sectionId": "capability-intent"
@@ -2650,12 +3923,12 @@
       "ownerSpecId": "foundation.compound-improvements-safely.capability",
       "file": "docs/specs/capabilities/compound-improvements-safely.html",
       "sourceFile": "docs/specs/capabilities/compound-improvements-safely.html",
-      "sourceTitle": "Compound Improvements Safely"
+      "sourceTitle": "Improvements Compound Safely"
     },
     {
       "id": "spec:foundation.define-jobs-from-capabilities.capability",
       "type": "capability",
-      "label": "Define Jobs From Capabilities",
+      "label": "Capabilities Become Workable Jobs",
       "source": {
         "specId": "foundation.define-jobs-from-capabilities.capability",
         "sectionId": "capability-intent"
@@ -2673,12 +3946,58 @@
       "ownerSpecId": "foundation.define-jobs-from-capabilities.capability",
       "file": "docs/specs/capabilities/define-jobs-from-capabilities.html",
       "sourceFile": "docs/specs/capabilities/define-jobs-from-capabilities.html",
-      "sourceTitle": "Define Jobs From Capabilities"
+      "sourceTitle": "Capabilities Become Workable Jobs"
+    },
+    {
+      "id": "spec:foundation.define-right-work.capability",
+      "type": "capability",
+      "label": "Define The Right Work",
+      "source": {
+        "specId": "foundation.define-right-work.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation"
+        ]
+      },
+      "ownerSpecId": "foundation.define-right-work.capability",
+      "file": "docs/specs/capabilities/define-right-work.html",
+      "sourceFile": "docs/specs/capabilities/define-right-work.html",
+      "sourceTitle": "Define The Right Work"
+    },
+    {
+      "id": "spec:foundation.evaluate-learn-improve.capability",
+      "type": "capability",
+      "label": "Evaluate, Learn, And Improve",
+      "source": {
+        "specId": "foundation.evaluate-learn-improve.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation"
+        ]
+      },
+      "ownerSpecId": "foundation.evaluate-learn-improve.capability",
+      "file": "docs/specs/capabilities/evaluate-learn-improve.html",
+      "sourceFile": "docs/specs/capabilities/evaluate-learn-improve.html",
+      "sourceTitle": "Evaluate, Learn, And Improve"
     },
     {
       "id": "spec:foundation.evaluate-quality-completeness.capability",
       "type": "capability",
-      "label": "Evaluate Quality and Completeness",
+      "label": "Quality And Completeness Are Judged",
       "source": {
         "specId": "foundation.evaluate-quality-completeness.capability",
         "sectionId": "capability-intent"
@@ -2696,12 +4015,35 @@
       "ownerSpecId": "foundation.evaluate-quality-completeness.capability",
       "file": "docs/specs/capabilities/evaluate-quality-completeness.html",
       "sourceFile": "docs/specs/capabilities/evaluate-quality-completeness.html",
-      "sourceTitle": "Evaluate Quality and Completeness"
+      "sourceTitle": "Quality And Completeness Are Judged"
+    },
+    {
+      "id": "spec:foundation.failure-recovery-ready.capability",
+      "type": "capability",
+      "label": "Failure Recovery Is Ready",
+      "source": {
+        "specId": "foundation.failure-recovery-ready.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "operations"
+        ]
+      },
+      "ownerSpecId": "foundation.failure-recovery-ready.capability",
+      "file": "docs/specs/capabilities/failure-recovery-ready.html",
+      "sourceFile": "docs/specs/capabilities/failure-recovery-ready.html",
+      "sourceTitle": "Failure Recovery Is Ready"
     },
     {
       "id": "spec:foundation.generate-maintain-agent-skills.capability",
       "type": "capability",
-      "label": "Generate and Maintain Agent Skills",
+      "label": "Agent Skills Preserve Repeatable Work",
       "source": {
         "specId": "foundation.generate-maintain-agent-skills.capability",
         "sectionId": "capability-intent"
@@ -2719,7 +4061,7 @@
       "ownerSpecId": "foundation.generate-maintain-agent-skills.capability",
       "file": "docs/specs/capabilities/generate-maintain-agent-skills.html",
       "sourceFile": "docs/specs/capabilities/generate-maintain-agent-skills.html",
-      "sourceTitle": "Generate and Maintain Agent Skills"
+      "sourceTitle": "Agent Skills Preserve Repeatable Work"
     },
     {
       "id": "spec:foundation.html-docs-navigation.job",
@@ -2749,7 +4091,7 @@
     {
       "id": "spec:foundation.install-foundation-target-repos.capability",
       "type": "capability",
-      "label": "Install Foundation Into Target Repos",
+      "label": "Foundation Is Installable In Target Repos",
       "source": {
         "specId": "foundation.install-foundation-target-repos.capability",
         "sectionId": "capability-intent"
@@ -2767,12 +4109,12 @@
       "ownerSpecId": "foundation.install-foundation-target-repos.capability",
       "file": "docs/specs/capabilities/install-foundation-target-repos.html",
       "sourceFile": "docs/specs/capabilities/install-foundation-target-repos.html",
-      "sourceTitle": "Install Foundation Into Target Repos"
+      "sourceTitle": "Foundation Is Installable In Target Repos"
     },
     {
       "id": "spec:foundation.inventory-classify-artifacts.capability",
       "type": "capability",
-      "label": "Inventory and Classify Repository Artifacts",
+      "label": "Repo Artifacts Are Known And Classified",
       "source": {
         "specId": "foundation.inventory-classify-artifacts.capability",
         "sectionId": "capability-intent"
@@ -2790,12 +4132,12 @@
       "ownerSpecId": "foundation.inventory-classify-artifacts.capability",
       "file": "docs/specs/capabilities/inventory-classify-artifacts.html",
       "sourceFile": "docs/specs/capabilities/inventory-classify-artifacts.html",
-      "sourceTitle": "Inventory and Classify Repository Artifacts"
+      "sourceTitle": "Repo Artifacts Are Known And Classified"
     },
     {
       "id": "spec:foundation.knowledge-data-layer.system",
       "type": "capability",
-      "label": "Knowledge and Data Layer",
+      "label": "Knowledge Stays Useful As Context",
       "source": {
         "specId": "foundation.knowledge-data-layer.system",
         "sectionId": "product-intent"
@@ -2817,12 +4159,59 @@
       "ownerSpecId": "foundation.knowledge-data-layer.system",
       "file": "docs/specs/knowledge-and-data-layer.html",
       "sourceFile": "docs/specs/knowledge-and-data-layer.html",
-      "sourceTitle": "Knowledge and Data Layer"
+      "sourceTitle": "Knowledge Stays Useful As Context"
+    },
+    {
+      "id": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "type": "capability",
+      "label": "Agent Capability Changes Stay Known",
+      "source": {
+        "specId": "foundation.learn-agent-capabilities-over-time.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "agents",
+          "learning"
+        ]
+      },
+      "ownerSpecId": "foundation.learn-agent-capabilities-over-time.capability",
+      "file": "docs/specs/capabilities/learn-agent-capabilities-over-time.html",
+      "sourceFile": "docs/specs/capabilities/learn-agent-capabilities-over-time.html",
+      "sourceTitle": "Agent Capability Changes Stay Known"
+    },
+    {
+      "id": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "type": "capability",
+      "label": "Make Outstanding Work Repeatable",
+      "source": {
+        "specId": "foundation.make-outstanding-work-repeatable.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation"
+        ]
+      },
+      "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability",
+      "file": "docs/specs/capabilities/make-outstanding-work-repeatable.html",
+      "sourceFile": "docs/specs/capabilities/make-outstanding-work-repeatable.html",
+      "sourceTitle": "Make Outstanding Work Repeatable"
     },
     {
       "id": "spec:foundation.map-capabilities-from-evidence.capability",
       "type": "capability",
-      "label": "Map Capabilities From Evidence",
+      "label": "Evidence Becomes Capability Maps",
       "source": {
         "specId": "foundation.map-capabilities-from-evidence.capability",
         "sectionId": "capability-intent"
@@ -2840,12 +4229,12 @@
       "ownerSpecId": "foundation.map-capabilities-from-evidence.capability",
       "file": "docs/specs/capabilities/map-capabilities-from-evidence.html",
       "sourceFile": "docs/specs/capabilities/map-capabilities-from-evidence.html",
-      "sourceTitle": "Map Capabilities From Evidence"
+      "sourceTitle": "Evidence Becomes Capability Maps"
     },
     {
       "id": "spec:foundation.map-surfaces-functions.capability",
       "type": "capability",
-      "label": "Map Surfaces and Functions",
+      "label": "Repo Surfaces Are Evidence Backed",
       "source": {
         "specId": "foundation.map-surfaces-functions.capability",
         "sectionId": "capability-intent"
@@ -2863,7 +4252,54 @@
       "ownerSpecId": "foundation.map-surfaces-functions.capability",
       "file": "docs/specs/capabilities/map-surfaces-functions.html",
       "sourceFile": "docs/specs/capabilities/map-surfaces-functions.html",
-      "sourceTitle": "Map Surfaces and Functions"
+      "sourceTitle": "Repo Surfaces Are Evidence Backed"
+    },
+    {
+      "id": "spec:foundation.operate-systems-in-real-world.capability",
+      "type": "capability",
+      "label": "Operate Systems In The Real World",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation",
+          "operations"
+        ]
+      },
+      "ownerSpecId": "foundation.operate-systems-in-real-world.capability",
+      "file": "docs/specs/capabilities/operate-systems-in-real-world.html",
+      "sourceFile": "docs/specs/capabilities/operate-systems-in-real-world.html",
+      "sourceTitle": "Operate Systems In The Real World"
+    },
+    {
+      "id": "spec:foundation.operating-lessons-improve-system.capability",
+      "type": "capability",
+      "label": "Operating Lessons Improve The System",
+      "source": {
+        "specId": "foundation.operating-lessons-improve-system.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "operations"
+        ]
+      },
+      "ownerSpecId": "foundation.operating-lessons-improve-system.capability",
+      "file": "docs/specs/capabilities/operating-lessons-improve-system.html",
+      "sourceFile": "docs/specs/capabilities/operating-lessons-improve-system.html",
+      "sourceTitle": "Operating Lessons Improve The System"
     },
     {
       "id": "spec:foundation.operating-system.system",
@@ -2892,7 +4328,7 @@
     {
       "id": "spec:foundation.package-context-for-action.capability",
       "type": "capability",
-      "label": "Package Context For Action",
+      "label": "Context Is Bounded For Action",
       "source": {
         "specId": "foundation.package-context-for-action.capability",
         "sectionId": "capability-intent"
@@ -2910,12 +4346,35 @@
       "ownerSpecId": "foundation.package-context-for-action.capability",
       "file": "docs/specs/capabilities/package-context-for-action.html",
       "sourceFile": "docs/specs/capabilities/package-context-for-action.html",
-      "sourceTitle": "Package Context For Action"
+      "sourceTitle": "Context Is Bounded For Action"
+    },
+    {
+      "id": "spec:foundation.preserve-knowledge-context.capability",
+      "type": "capability",
+      "label": "Preserve Knowledge As Useful Context",
+      "source": {
+        "specId": "foundation.preserve-knowledge-context.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation"
+        ]
+      },
+      "ownerSpecId": "foundation.preserve-knowledge-context.capability",
+      "file": "docs/specs/capabilities/preserve-knowledge-context.html",
+      "sourceFile": "docs/specs/capabilities/preserve-knowledge-context.html",
+      "sourceTitle": "Preserve Knowledge As Useful Context"
     },
     {
       "id": "spec:foundation.render-inspectable-system-graph.capability",
       "type": "capability",
-      "label": "Render the System as an Inspectable Graph",
+      "label": "System Graphs Are Inspectable",
       "source": {
         "specId": "foundation.render-inspectable-system-graph.capability",
         "sectionId": "capability-intent"
@@ -2933,7 +4392,30 @@
       "ownerSpecId": "foundation.render-inspectable-system-graph.capability",
       "file": "docs/specs/capabilities/render-inspectable-system-graph.html",
       "sourceFile": "docs/specs/capabilities/render-inspectable-system-graph.html",
-      "sourceTitle": "Render the System as an Inspectable Graph"
+      "sourceTitle": "System Graphs Are Inspectable"
+    },
+    {
+      "id": "spec:foundation.show-system-clearly.capability",
+      "type": "capability",
+      "label": "Show The System Clearly",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation"
+        ]
+      },
+      "ownerSpecId": "foundation.show-system-clearly.capability",
+      "file": "docs/specs/capabilities/show-system-clearly.html",
+      "sourceFile": "docs/specs/capabilities/show-system-clearly.html",
+      "sourceTitle": "Show The System Clearly"
     },
     {
       "id": "spec:foundation.spec-linking",
@@ -2960,7 +4442,7 @@
     },
     {
       "id": "spec:foundation.spec-process",
-      "type": "capability",
+      "type": "job",
       "label": "Spec Maintenance Process",
       "source": {
         "specId": "foundation.spec-process",
@@ -2969,9 +4451,9 @@
       "status": "active",
       "confidence": "high",
       "attributes": {
-        "specType": "capability",
+        "specType": "job",
         "tags": [
-          "capability",
+          "job",
           "process",
           "spec-test-prompt-execute"
         ]
@@ -2980,6 +4462,74 @@
       "file": "docs/specs/process.html",
       "sourceFile": "docs/specs/process.html",
       "sourceTitle": "Spec Maintenance Process"
+    },
+    {
+      "id": "spec:foundation.spec-selection.eval",
+      "type": "evaluation",
+      "label": "Spec Selection Eval Spec",
+      "source": {
+        "specId": "foundation.spec-selection.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "spec-selection"
+        ]
+      },
+      "ownerSpecId": "foundation.spec-selection.eval",
+      "file": "docs/specs/spec-selection-eval.html",
+      "sourceFile": "docs/specs/spec-selection-eval.html",
+      "sourceTitle": "Spec Selection Eval Spec"
+    },
+    {
+      "id": "spec:foundation.spec-selection.job",
+      "type": "job",
+      "label": "Spec Selection Job",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "foundation",
+          "spec-selection",
+          "classification"
+        ]
+      },
+      "ownerSpecId": "foundation.spec-selection.job",
+      "file": "docs/specs/spec-selection.html",
+      "sourceFile": "docs/specs/spec-selection.html",
+      "sourceTitle": "Spec Selection Job"
+    },
+    {
+      "id": "spec:foundation.spec-selection.technical",
+      "type": "technical-contract",
+      "label": "Spec Selection Technical Spec",
+      "source": {
+        "specId": "foundation.spec-selection.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "technical",
+          "spec-selection"
+        ]
+      },
+      "ownerSpecId": "foundation.spec-selection.technical",
+      "file": "docs/specs/spec-selection-technical.html",
+      "sourceFile": "docs/specs/spec-selection-technical.html",
+      "sourceTitle": "Spec Selection Technical Spec"
     },
     {
       "id": "spec:foundation.spec-system",
@@ -3115,6 +4665,75 @@
       "sourceTitle": "Technical Spec Template"
     },
     {
+      "id": "spec:foundation.system-health-visible.capability",
+      "type": "capability",
+      "label": "System Health Is Visible",
+      "source": {
+        "specId": "foundation.system-health-visible.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "operations"
+        ]
+      },
+      "ownerSpecId": "foundation.system-health-visible.capability",
+      "file": "docs/specs/capabilities/system-health-visible.html",
+      "sourceFile": "docs/specs/capabilities/system-health-visible.html",
+      "sourceTitle": "System Health Is Visible"
+    },
+    {
+      "id": "spec:foundation.systems-ship-safely.capability",
+      "type": "capability",
+      "label": "Systems Can Ship Safely",
+      "source": {
+        "specId": "foundation.systems-ship-safely.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "operations"
+        ]
+      },
+      "ownerSpecId": "foundation.systems-ship-safely.capability",
+      "file": "docs/specs/capabilities/systems-ship-safely.html",
+      "sourceFile": "docs/specs/capabilities/systems-ship-safely.html",
+      "sourceTitle": "Systems Can Ship Safely"
+    },
+    {
+      "id": "spec:foundation.understand-intent-reality.capability",
+      "type": "capability",
+      "label": "Understand Intent And Reality",
+      "source": {
+        "specId": "foundation.understand-intent-reality.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "high",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation"
+        ]
+      },
+      "ownerSpecId": "foundation.understand-intent-reality.capability",
+      "file": "docs/specs/capabilities/understand-intent-reality.html",
+      "sourceFile": "docs/specs/capabilities/understand-intent-reality.html",
+      "sourceTitle": "Understand Intent And Reality"
+    },
+    {
       "id": "spec:foundation.visible-business-graph.eval",
       "type": "evaluation",
       "label": "Visible Business Graph Evaluation",
@@ -3140,7 +4759,7 @@
     {
       "id": "spec:foundation.visible-business-graph.system",
       "type": "capability",
-      "label": "Visible Business Graph",
+      "label": "Business Graph Is Visible",
       "source": {
         "specId": "foundation.visible-business-graph.system",
         "sectionId": "system-intent"
@@ -3162,7 +4781,7 @@
       "ownerSpecId": "foundation.visible-business-graph.system",
       "file": "docs/specs/visible-business-graph.html",
       "sourceFile": "docs/specs/visible-business-graph.html",
-      "sourceTitle": "Visible Business Graph"
+      "sourceTitle": "Business Graph Is Visible"
     },
     {
       "id": "spec:foundation.visible-business-graph.technical",
@@ -3483,6 +5102,128 @@
       "ownerSpecId": "example.software.notification-preferences.job"
     },
     {
+      "id": "edge:spec:foundation.agent-capability-scout.eval:depends-on:spec:foundation.agent-capability-scout.job",
+      "type": "evaluates",
+      "from": "spec:foundation.agent-capability-scout.eval",
+      "to": "spec:foundation.agent-capability-scout.job",
+      "source": {
+        "specId": "foundation.agent-capability-scout.eval",
+        "sectionId": "verification-contract"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.eval"
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.eval:depends-on:spec:foundation.agent-capability-scout.technical",
+      "type": "depends-on",
+      "from": "spec:foundation.agent-capability-scout.eval",
+      "to": "spec:foundation.agent-capability-scout.technical",
+      "source": {
+        "specId": "foundation.agent-capability-scout.eval",
+        "sectionId": "acceptance-mapping"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.eval"
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.eval:depends-on:spec:foundation.learn-agent-capabilities-over-time.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.agent-capability-scout.eval",
+      "to": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "source": {
+        "specId": "foundation.agent-capability-scout.eval",
+        "sectionId": "verification-contract"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.eval"
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:contains:spec:foundation.agent-capability-scout.eval",
+      "type": "contains",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "spec:foundation.agent-capability-scout.eval",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.job"
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:contains:spec:foundation.agent-capability-scout.technical",
+      "type": "contains",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "spec:foundation.agent-capability-scout.technical",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.job"
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:has-process:process:foundation.agent-capability-scout.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "process:foundation.agent-capability-scout.job:main",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.job"
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:performed-by:actor:foundation.agent-capability-scout.job:owner",
+      "type": "performed-by",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "actor:foundation.agent-capability-scout.job:owner",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.job"
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:supports:spec:foundation.compound-improvements-safely.capability",
+      "type": "supports",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "spec:foundation.compound-improvements-safely.capability",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "revision"
+      },
+      "label": "creates durable agent-system findings",
+      "ownerSpecId": "foundation.agent-capability-scout.job"
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.job:supports:spec:foundation.learn-agent-capabilities-over-time.capability",
+      "type": "supports",
+      "from": "spec:foundation.agent-capability-scout.job",
+      "to": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "source": {
+        "specId": "foundation.agent-capability-scout.job",
+        "sectionId": "capability-supported"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.job"
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.technical:depends-on:spec:foundation.agent-capability-scout.job",
+      "type": "depends-on",
+      "from": "spec:foundation.agent-capability-scout.technical",
+      "to": "spec:foundation.agent-capability-scout.job",
+      "source": {
+        "specId": "foundation.agent-capability-scout.technical",
+        "sectionId": "required-depth"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.technical"
+    },
+    {
+      "id": "edge:spec:foundation.agent-capability-scout.technical:supports:spec:foundation.agent-capability-scout.eval",
+      "type": "supports",
+      "from": "spec:foundation.agent-capability-scout.technical",
+      "to": "spec:foundation.agent-capability-scout.eval",
+      "source": {
+        "specId": "foundation.agent-capability-scout.technical",
+        "sectionId": "paths-and-coverage"
+      },
+      "ownerSpecId": "foundation.agent-capability-scout.technical"
+    },
+    {
       "id": "edge:spec:foundation.agents-load-canary.eval:depends-on:spec:foundation.workspace-model.job",
       "type": "evaluates",
       "from": "spec:foundation.agents-load-canary.eval",
@@ -3506,21 +5247,65 @@
       "ownerSpecId": "foundation.agents-load-canary.eval"
     },
     {
-      "id": "edge:spec:foundation.author-durable-specs.capability:contains:spec:foundation.spec-process",
-      "type": "contains",
-      "from": "spec:foundation.author-durable-specs.capability",
-      "to": "spec:foundation.spec-process",
+      "id": "edge:spec:foundation.author-capability-spec.eval:evaluates:spec:foundation.author-capability-spec.job",
+      "type": "evaluates",
+      "from": "spec:foundation.author-capability-spec.eval",
+      "to": "spec:foundation.author-capability-spec.job",
       "source": {
-        "specId": "foundation.author-durable-specs.capability",
-        "sectionId": "capability-intent"
+        "specId": "foundation.author-capability-spec.eval",
+        "sectionId": "verification-contract"
       },
-      "ownerSpecId": "foundation.author-durable-specs.capability"
+      "ownerSpecId": "foundation.author-capability-spec.eval"
     },
     {
-      "id": "edge:spec:foundation.author-durable-specs.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.author-capability-spec.job:evidenced-by:evidence:foundation.author-capability-spec.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.author-capability-spec.job",
+      "to": "evidence:foundation.author-capability-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-capability-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.author-capability-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-capability-spec.job:has-process:process:foundation.author-capability-spec.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.author-capability-spec.job",
+      "to": "process:foundation.author-capability-spec.job:main",
+      "source": {
+        "specId": "foundation.author-capability-spec.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.author-capability-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-capability-spec.job:performed-by:actor:foundation.author-capability-spec.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.author-capability-spec.job",
+      "to": "actor:foundation.author-capability-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-capability-spec.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.author-capability-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-capability-spec.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.author-capability-spec.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.author-capability-spec.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.author-capability-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:depends-on:spec:foundation.define-right-work.capability",
       "type": "depends-on",
       "from": "spec:foundation.author-durable-specs.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.define-right-work.capability",
       "source": {
         "specId": "foundation.author-durable-specs.capability",
         "sectionId": "capability-intent"
@@ -3550,6 +5335,61 @@
       "ownerSpecId": "foundation.author-durable-specs.capability"
     },
     {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.author-capability-spec.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.author-capability-spec.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.author-durable-specs.capability"
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.author-eval-spec.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.author-eval-spec.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.author-durable-specs.capability"
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.author-job-spec.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.author-job-spec.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.author-durable-specs.capability"
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.author-system-spec.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.author-system-spec.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.author-durable-specs.capability"
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.author-technical-spec.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.author-technical-spec.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.author-durable-specs.capability"
+    },
+    {
       "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.backfill-author-specs.job",
       "type": "realized-by",
       "from": "spec:foundation.author-durable-specs.capability",
@@ -3557,6 +5397,17 @@
       "source": {
         "specId": "foundation.author-durable-specs.capability",
         "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.author-durable-specs.capability"
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.capability-map-remap.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.capability-map-remap.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
       },
       "ownerSpecId": "foundation.author-durable-specs.capability"
     },
@@ -3572,6 +5423,28 @@
       "ownerSpecId": "foundation.author-durable-specs.capability"
     },
     {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.spec-process",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.spec-process",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.author-durable-specs.capability"
+    },
+    {
+      "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:foundation.spec-selection.job",
+      "type": "realized-by",
+      "from": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.spec-selection.job",
+      "source": {
+        "specId": "foundation.author-durable-specs.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.author-durable-specs.capability"
+    },
+    {
       "id": "edge:spec:foundation.author-durable-specs.capability:realized-by:spec:fup.kitchen-queue.job",
       "type": "realized-by",
       "from": "spec:foundation.author-durable-specs.capability",
@@ -3581,6 +5454,226 @@
         "sectionId": "capability-intent"
       },
       "ownerSpecId": "foundation.author-durable-specs.capability"
+    },
+    {
+      "id": "edge:spec:foundation.author-eval-spec.eval:evaluates:spec:foundation.author-eval-spec.job",
+      "type": "evaluates",
+      "from": "spec:foundation.author-eval-spec.eval",
+      "to": "spec:foundation.author-eval-spec.job",
+      "source": {
+        "specId": "foundation.author-eval-spec.eval",
+        "sectionId": "verification-contract"
+      },
+      "ownerSpecId": "foundation.author-eval-spec.eval"
+    },
+    {
+      "id": "edge:spec:foundation.author-eval-spec.job:evidenced-by:evidence:foundation.author-eval-spec.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.author-eval-spec.job",
+      "to": "evidence:foundation.author-eval-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.author-eval-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-eval-spec.job:has-process:process:foundation.author-eval-spec.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.author-eval-spec.job",
+      "to": "process:foundation.author-eval-spec.job:main",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.author-eval-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-eval-spec.job:performed-by:actor:foundation.author-eval-spec.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.author-eval-spec.job",
+      "to": "actor:foundation.author-eval-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.author-eval-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-eval-spec.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.author-eval-spec.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.author-eval-spec.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.author-eval-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-job-spec.eval:evaluates:spec:foundation.author-job-spec.job",
+      "type": "evaluates",
+      "from": "spec:foundation.author-job-spec.eval",
+      "to": "spec:foundation.author-job-spec.job",
+      "source": {
+        "specId": "foundation.author-job-spec.eval",
+        "sectionId": "verification-contract"
+      },
+      "ownerSpecId": "foundation.author-job-spec.eval"
+    },
+    {
+      "id": "edge:spec:foundation.author-job-spec.job:evidenced-by:evidence:foundation.author-job-spec.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.author-job-spec.job",
+      "to": "evidence:foundation.author-job-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.author-job-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-job-spec.job:has-process:process:foundation.author-job-spec.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.author-job-spec.job",
+      "to": "process:foundation.author-job-spec.job:main",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.author-job-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-job-spec.job:performed-by:actor:foundation.author-job-spec.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.author-job-spec.job",
+      "to": "actor:foundation.author-job-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.author-job-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-job-spec.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.author-job-spec.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.author-job-spec.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.author-job-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-system-spec.eval:evaluates:spec:foundation.author-system-spec.job",
+      "type": "evaluates",
+      "from": "spec:foundation.author-system-spec.eval",
+      "to": "spec:foundation.author-system-spec.job",
+      "source": {
+        "specId": "foundation.author-system-spec.eval",
+        "sectionId": "verification-contract"
+      },
+      "ownerSpecId": "foundation.author-system-spec.eval"
+    },
+    {
+      "id": "edge:spec:foundation.author-system-spec.job:evidenced-by:evidence:foundation.author-system-spec.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.author-system-spec.job",
+      "to": "evidence:foundation.author-system-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.author-system-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-system-spec.job:has-process:process:foundation.author-system-spec.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.author-system-spec.job",
+      "to": "process:foundation.author-system-spec.job:main",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.author-system-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-system-spec.job:performed-by:actor:foundation.author-system-spec.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.author-system-spec.job",
+      "to": "actor:foundation.author-system-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.author-system-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-system-spec.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.author-system-spec.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.author-system-spec.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.author-system-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-technical-spec.eval:evaluates:spec:foundation.author-technical-spec.job",
+      "type": "evaluates",
+      "from": "spec:foundation.author-technical-spec.eval",
+      "to": "spec:foundation.author-technical-spec.job",
+      "source": {
+        "specId": "foundation.author-technical-spec.eval",
+        "sectionId": "verification-contract"
+      },
+      "ownerSpecId": "foundation.author-technical-spec.eval"
+    },
+    {
+      "id": "edge:spec:foundation.author-technical-spec.job:evidenced-by:evidence:foundation.author-technical-spec.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.author-technical-spec.job",
+      "to": "evidence:foundation.author-technical-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-technical-spec.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.author-technical-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-technical-spec.job:has-process:process:foundation.author-technical-spec.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.author-technical-spec.job",
+      "to": "process:foundation.author-technical-spec.job:main",
+      "source": {
+        "specId": "foundation.author-technical-spec.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.author-technical-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-technical-spec.job:performed-by:actor:foundation.author-technical-spec.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.author-technical-spec.job",
+      "to": "actor:foundation.author-technical-spec.job:primary",
+      "source": {
+        "specId": "foundation.author-technical-spec.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.author-technical-spec.job"
+    },
+    {
+      "id": "edge:spec:foundation.author-technical-spec.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.author-technical-spec.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.author-technical-spec.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.author-technical-spec.job"
     },
     {
       "id": "edge:spec:foundation.backfill-artifact-inventory.eval:depends-on:spec:foundation.backfill-artifact-inventory.job",
@@ -5620,6 +7713,39 @@
       "ownerSpecId": "foundation.backfill-system-coherence-evaluation.technical"
     },
     {
+      "id": "edge:spec:foundation.build-new-systems-from-clear-specs.capability:contains:spec:foundation.install-foundation-target-repos.capability",
+      "type": "contains",
+      "from": "spec:foundation.build-new-systems-from-clear-specs.capability",
+      "to": "spec:foundation.install-foundation-target-repos.capability",
+      "source": {
+        "specId": "foundation.build-new-systems-from-clear-specs.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.build-new-systems-from-clear-specs.capability"
+    },
+    {
+      "id": "edge:spec:foundation.build-new-systems-from-clear-specs.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.build-new-systems-from-clear-specs.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.build-new-systems-from-clear-specs.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.build-new-systems-from-clear-specs.capability"
+    },
+    {
+      "id": "edge:spec:foundation.build-new-systems-from-clear-specs.capability:evidenced-by:evidence:foundation.build-new-systems-from-clear-specs.capability:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.build-new-systems-from-clear-specs.capability",
+      "to": "evidence:foundation.build-new-systems-from-clear-specs.capability:primary",
+      "source": {
+        "specId": "foundation.build-new-systems-from-clear-specs.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.build-new-systems-from-clear-specs.capability"
+    },
+    {
       "id": "edge:spec:foundation.business-intake-fill-loop.eval:depends-on:spec:foundation.business-intake-fill-loop.job",
       "type": "evaluates",
       "from": "spec:foundation.business-intake-fill-loop.eval",
@@ -5752,21 +7878,87 @@
       "ownerSpecId": "foundation.business-intake-fill-loop.technical"
     },
     {
-      "id": "edge:spec:foundation.capture-business-system-intent.capability:contains:spec:foundation.knowledge-data-layer.system",
-      "type": "contains",
-      "from": "spec:foundation.capture-business-system-intent.capability",
-      "to": "spec:foundation.knowledge-data-layer.system",
+      "id": "edge:spec:foundation.capability-map-remap.eval:evaluates:spec:foundation.capability-map-remap.job",
+      "type": "evaluates",
+      "from": "spec:foundation.capability-map-remap.eval",
+      "to": "spec:foundation.capability-map-remap.job",
       "source": {
-        "specId": "foundation.capture-business-system-intent.capability",
-        "sectionId": "capability-intent"
+        "specId": "foundation.capability-map-remap.eval",
+        "sectionId": "verification-contract"
       },
-      "ownerSpecId": "foundation.capture-business-system-intent.capability"
+      "ownerSpecId": "foundation.capability-map-remap.eval"
     },
     {
-      "id": "edge:spec:foundation.capture-business-system-intent.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.capability-map-remap.job:depends-on:spec:foundation.author-capability-spec.job",
+      "type": "depends-on",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "spec:foundation.author-capability-spec.job",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.capability-map-remap.job"
+    },
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:depends-on:spec:foundation.spec-selection.job",
+      "type": "depends-on",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "spec:foundation.spec-selection.job",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.capability-map-remap.job"
+    },
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:evidenced-by:evidence:foundation.capability-map-remap.job:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "evidence:foundation.capability-map-remap.job:primary",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.capability-map-remap.job"
+    },
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:has-process:process:foundation.capability-map-remap.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "process:foundation.capability-map-remap.job:main",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.capability-map-remap.job"
+    },
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:performed-by:actor:foundation.capability-map-remap.job:primary",
+      "type": "performed-by",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "actor:foundation.capability-map-remap.job:primary",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.capability-map-remap.job"
+    },
+    {
+      "id": "edge:spec:foundation.capability-map-remap.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.capability-map-remap.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.capability-map-remap.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.capability-map-remap.job"
+    },
+    {
+      "id": "edge:spec:foundation.capture-business-system-intent.capability:depends-on:spec:foundation.understand-intent-reality.capability",
       "type": "depends-on",
       "from": "spec:foundation.capture-business-system-intent.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.understand-intent-reality.capability",
       "source": {
         "specId": "foundation.capture-business-system-intent.capability",
         "sectionId": "capability-intent"
@@ -5785,10 +7977,54 @@
       "ownerSpecId": "foundation.capture-business-system-intent.capability"
     },
     {
-      "id": "edge:spec:foundation.compound-improvements-safely.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.change-existing-systems-without-losing-intent.capability:contains:spec:foundation.inventory-classify-artifacts.capability",
+      "type": "contains",
+      "from": "spec:foundation.change-existing-systems-without-losing-intent.capability",
+      "to": "spec:foundation.inventory-classify-artifacts.capability",
+      "source": {
+        "specId": "foundation.change-existing-systems-without-losing-intent.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.change-existing-systems-without-losing-intent.capability"
+    },
+    {
+      "id": "edge:spec:foundation.change-existing-systems-without-losing-intent.capability:contains:spec:foundation.map-surfaces-functions.capability",
+      "type": "contains",
+      "from": "spec:foundation.change-existing-systems-without-losing-intent.capability",
+      "to": "spec:foundation.map-surfaces-functions.capability",
+      "source": {
+        "specId": "foundation.change-existing-systems-without-losing-intent.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.change-existing-systems-without-losing-intent.capability"
+    },
+    {
+      "id": "edge:spec:foundation.change-existing-systems-without-losing-intent.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.change-existing-systems-without-losing-intent.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.change-existing-systems-without-losing-intent.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.change-existing-systems-without-losing-intent.capability"
+    },
+    {
+      "id": "edge:spec:foundation.change-existing-systems-without-losing-intent.capability:evidenced-by:evidence:foundation.change-existing-systems-without-losing-intent.capability:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.change-existing-systems-without-losing-intent.capability",
+      "to": "evidence:foundation.change-existing-systems-without-losing-intent.capability:primary",
+      "source": {
+        "specId": "foundation.change-existing-systems-without-losing-intent.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.change-existing-systems-without-losing-intent.capability"
+    },
+    {
+      "id": "edge:spec:foundation.compound-improvements-safely.capability:depends-on:spec:foundation.evaluate-learn-improve.capability",
       "type": "depends-on",
       "from": "spec:foundation.compound-improvements-safely.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.evaluate-learn-improve.capability",
       "source": {
         "specId": "foundation.compound-improvements-safely.capability",
         "sectionId": "capability-intent"
@@ -5818,10 +8054,10 @@
       "ownerSpecId": "foundation.compound-improvements-safely.capability"
     },
     {
-      "id": "edge:spec:foundation.define-jobs-from-capabilities.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.define-jobs-from-capabilities.capability:depends-on:spec:foundation.define-right-work.capability",
       "type": "depends-on",
       "from": "spec:foundation.define-jobs-from-capabilities.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.define-right-work.capability",
       "source": {
         "specId": "foundation.define-jobs-from-capabilities.capability",
         "sectionId": "capability-intent"
@@ -5851,10 +8087,120 @@
       "ownerSpecId": "foundation.define-jobs-from-capabilities.capability"
     },
     {
-      "id": "edge:spec:foundation.evaluate-quality-completeness.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.define-right-work.capability:contains:spec:foundation.author-durable-specs.capability",
+      "type": "contains",
+      "from": "spec:foundation.define-right-work.capability",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.define-right-work.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.define-right-work.capability"
+    },
+    {
+      "id": "edge:spec:foundation.define-right-work.capability:contains:spec:foundation.define-jobs-from-capabilities.capability",
+      "type": "contains",
+      "from": "spec:foundation.define-right-work.capability",
+      "to": "spec:foundation.define-jobs-from-capabilities.capability",
+      "source": {
+        "specId": "foundation.define-right-work.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.define-right-work.capability"
+    },
+    {
+      "id": "edge:spec:foundation.define-right-work.capability:contains:spec:foundation.map-capabilities-from-evidence.capability",
+      "type": "contains",
+      "from": "spec:foundation.define-right-work.capability",
+      "to": "spec:foundation.map-capabilities-from-evidence.capability",
+      "source": {
+        "specId": "foundation.define-right-work.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.define-right-work.capability"
+    },
+    {
+      "id": "edge:spec:foundation.define-right-work.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.define-right-work.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.define-right-work.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.define-right-work.capability"
+    },
+    {
+      "id": "edge:spec:foundation.define-right-work.capability:evidenced-by:evidence:foundation.define-right-work.capability:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.define-right-work.capability",
+      "to": "evidence:foundation.define-right-work.capability:primary",
+      "source": {
+        "specId": "foundation.define-right-work.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.define-right-work.capability"
+    },
+    {
+      "id": "edge:spec:foundation.evaluate-learn-improve.capability:contains:spec:foundation.compound-improvements-safely.capability",
+      "type": "contains",
+      "from": "spec:foundation.evaluate-learn-improve.capability",
+      "to": "spec:foundation.compound-improvements-safely.capability",
+      "source": {
+        "specId": "foundation.evaluate-learn-improve.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.evaluate-learn-improve.capability"
+    },
+    {
+      "id": "edge:spec:foundation.evaluate-learn-improve.capability:contains:spec:foundation.evaluate-quality-completeness.capability",
+      "type": "contains",
+      "from": "spec:foundation.evaluate-learn-improve.capability",
+      "to": "spec:foundation.evaluate-quality-completeness.capability",
+      "source": {
+        "specId": "foundation.evaluate-learn-improve.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.evaluate-learn-improve.capability"
+    },
+    {
+      "id": "edge:spec:foundation.evaluate-learn-improve.capability:contains:spec:foundation.learn-agent-capabilities-over-time.capability",
+      "type": "contains",
+      "from": "spec:foundation.evaluate-learn-improve.capability",
+      "to": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "source": {
+        "specId": "foundation.evaluate-learn-improve.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.evaluate-learn-improve.capability"
+    },
+    {
+      "id": "edge:spec:foundation.evaluate-learn-improve.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.evaluate-learn-improve.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.evaluate-learn-improve.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.evaluate-learn-improve.capability"
+    },
+    {
+      "id": "edge:spec:foundation.evaluate-learn-improve.capability:evidenced-by:evidence:foundation.evaluate-learn-improve.capability:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.evaluate-learn-improve.capability",
+      "to": "evidence:foundation.evaluate-learn-improve.capability:primary",
+      "source": {
+        "specId": "foundation.evaluate-learn-improve.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.evaluate-learn-improve.capability"
+    },
+    {
+      "id": "edge:spec:foundation.evaluate-quality-completeness.capability:depends-on:spec:foundation.evaluate-learn-improve.capability",
       "type": "depends-on",
       "from": "spec:foundation.evaluate-quality-completeness.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.evaluate-learn-improve.capability",
       "source": {
         "specId": "foundation.evaluate-quality-completeness.capability",
         "sectionId": "capability-intent"
@@ -5884,10 +8230,32 @@
       "ownerSpecId": "foundation.evaluate-quality-completeness.capability"
     },
     {
-      "id": "edge:spec:foundation.generate-maintain-agent-skills.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.failure-recovery-ready.capability:depends-on:spec:foundation.operate-systems-in-real-world.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.failure-recovery-ready.capability",
+      "to": "spec:foundation.operate-systems-in-real-world.capability",
+      "source": {
+        "specId": "foundation.failure-recovery-ready.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.failure-recovery-ready.capability"
+    },
+    {
+      "id": "edge:spec:foundation.failure-recovery-ready.capability:has-gap:gap:foundation.failure-recovery-ready.capability:job-gap",
+      "type": "has-gap",
+      "from": "spec:foundation.failure-recovery-ready.capability",
+      "to": "gap:foundation.failure-recovery-ready.capability:job-gap",
+      "source": {
+        "specId": "foundation.failure-recovery-ready.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.failure-recovery-ready.capability"
+    },
+    {
+      "id": "edge:spec:foundation.generate-maintain-agent-skills.capability:depends-on:spec:foundation.make-outstanding-work-repeatable.capability",
       "type": "depends-on",
       "from": "spec:foundation.generate-maintain-agent-skills.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
       "source": {
         "specId": "foundation.generate-maintain-agent-skills.capability",
         "sectionId": "capability-intent"
@@ -5998,10 +8366,10 @@
       "ownerSpecId": "foundation.html-docs-navigation.job"
     },
     {
-      "id": "edge:spec:foundation.install-foundation-target-repos.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.install-foundation-target-repos.capability:depends-on:spec:foundation.build-new-systems-from-clear-specs.capability",
       "type": "depends-on",
       "from": "spec:foundation.install-foundation-target-repos.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.build-new-systems-from-clear-specs.capability",
       "source": {
         "specId": "foundation.install-foundation-target-repos.capability",
         "sectionId": "capability-intent"
@@ -6020,10 +8388,10 @@
       "ownerSpecId": "foundation.install-foundation-target-repos.capability"
     },
     {
-      "id": "edge:spec:foundation.inventory-classify-artifacts.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.inventory-classify-artifacts.capability:depends-on:spec:foundation.change-existing-systems-without-losing-intent.capability",
       "type": "depends-on",
       "from": "spec:foundation.inventory-classify-artifacts.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.change-existing-systems-without-losing-intent.capability",
       "source": {
         "specId": "foundation.inventory-classify-artifacts.capability",
         "sectionId": "capability-intent"
@@ -6042,21 +8410,10 @@
       "ownerSpecId": "foundation.inventory-classify-artifacts.capability"
     },
     {
-      "id": "edge:spec:foundation.knowledge-data-layer.system:contains:spec:foundation.visible-business-graph.system",
-      "type": "contains",
-      "from": "spec:foundation.knowledge-data-layer.system",
-      "to": "spec:foundation.visible-business-graph.system",
-      "source": {
-        "specId": "foundation.knowledge-data-layer.system",
-        "sectionId": "product-intent"
-      },
-      "ownerSpecId": "foundation.knowledge-data-layer.system"
-    },
-    {
-      "id": "edge:spec:foundation.knowledge-data-layer.system:depends-on:spec:foundation.capture-business-system-intent.capability",
+      "id": "edge:spec:foundation.knowledge-data-layer.system:depends-on:spec:foundation.preserve-knowledge-context.capability",
       "type": "depends-on",
       "from": "spec:foundation.knowledge-data-layer.system",
-      "to": "spec:foundation.capture-business-system-intent.capability",
+      "to": "spec:foundation.preserve-knowledge-context.capability",
       "source": {
         "specId": "foundation.knowledge-data-layer.system",
         "sectionId": "product-intent"
@@ -6123,10 +8480,77 @@
       "ownerSpecId": "foundation.knowledge-data-layer.system"
     },
     {
-      "id": "edge:spec:foundation.map-capabilities-from-evidence.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.learn-agent-capabilities-over-time.capability:depends-on:spec:foundation.evaluate-learn-improve.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "to": "spec:foundation.evaluate-learn-improve.capability",
+      "source": {
+        "specId": "foundation.learn-agent-capabilities-over-time.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.learn-agent-capabilities-over-time.capability"
+    },
+    {
+      "id": "edge:spec:foundation.learn-agent-capabilities-over-time.capability:realized-by:spec:foundation.agent-capability-scout.job",
+      "type": "realized-by",
+      "from": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "to": "spec:foundation.agent-capability-scout.job",
+      "source": {
+        "specId": "foundation.learn-agent-capabilities-over-time.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.learn-agent-capabilities-over-time.capability"
+    },
+    {
+      "id": "edge:spec:foundation.learn-agent-capabilities-over-time.capability:supports:spec:foundation.compound-improvements-safely.capability",
+      "type": "supports",
+      "from": "spec:foundation.learn-agent-capabilities-over-time.capability",
+      "to": "spec:foundation.compound-improvements-safely.capability",
+      "source": {
+        "specId": "foundation.learn-agent-capabilities-over-time.capability",
+        "sectionId": "outcome-contract"
+      },
+      "label": "feeds durable agent-system findings",
+      "ownerSpecId": "foundation.learn-agent-capabilities-over-time.capability"
+    },
+    {
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:contains:spec:foundation.generate-maintain-agent-skills.capability",
+      "type": "contains",
+      "from": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "spec:foundation.generate-maintain-agent-skills.capability",
+      "source": {
+        "specId": "foundation.make-outstanding-work-repeatable.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
+    },
+    {
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.make-outstanding-work-repeatable.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
+    },
+    {
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:evidenced-by:evidence:foundation.make-outstanding-work-repeatable.capability:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "evidence:foundation.make-outstanding-work-repeatable.capability:primary",
+      "source": {
+        "specId": "foundation.make-outstanding-work-repeatable.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
+    },
+    {
+      "id": "edge:spec:foundation.map-capabilities-from-evidence.capability:depends-on:spec:foundation.define-right-work.capability",
       "type": "depends-on",
       "from": "spec:foundation.map-capabilities-from-evidence.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.define-right-work.capability",
       "source": {
         "specId": "foundation.map-capabilities-from-evidence.capability",
         "sectionId": "capability-intent"
@@ -6145,10 +8569,10 @@
       "ownerSpecId": "foundation.map-capabilities-from-evidence.capability"
     },
     {
-      "id": "edge:spec:foundation.map-surfaces-functions.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.map-surfaces-functions.capability:depends-on:spec:foundation.change-existing-systems-without-losing-intent.capability",
       "type": "depends-on",
       "from": "spec:foundation.map-surfaces-functions.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.change-existing-systems-without-losing-intent.capability",
       "source": {
         "specId": "foundation.map-surfaces-functions.capability",
         "sectionId": "capability-intent"
@@ -6167,142 +8591,197 @@
       "ownerSpecId": "foundation.map-surfaces-functions.capability"
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.author-durable-specs.capability",
+      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:contains:spec:foundation.failure-recovery-ready.capability",
+      "type": "contains",
+      "from": "spec:foundation.operate-systems-in-real-world.capability",
+      "to": "spec:foundation.failure-recovery-ready.capability",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.operate-systems-in-real-world.capability"
+    },
+    {
+      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:contains:spec:foundation.operating-lessons-improve-system.capability",
+      "type": "contains",
+      "from": "spec:foundation.operate-systems-in-real-world.capability",
+      "to": "spec:foundation.operating-lessons-improve-system.capability",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.operate-systems-in-real-world.capability"
+    },
+    {
+      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:contains:spec:foundation.system-health-visible.capability",
+      "type": "contains",
+      "from": "spec:foundation.operate-systems-in-real-world.capability",
+      "to": "spec:foundation.system-health-visible.capability",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.operate-systems-in-real-world.capability"
+    },
+    {
+      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:contains:spec:foundation.systems-ship-safely.capability",
+      "type": "contains",
+      "from": "spec:foundation.operate-systems-in-real-world.capability",
+      "to": "spec:foundation.systems-ship-safely.capability",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.operate-systems-in-real-world.capability"
+    },
+    {
+      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.operate-systems-in-real-world.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.operate-systems-in-real-world.capability"
+    },
+    {
+      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:evidenced-by:evidence:foundation.operate-systems-in-real-world.capability:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.operate-systems-in-real-world.capability",
+      "to": "evidence:foundation.operate-systems-in-real-world.capability:primary",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.operate-systems-in-real-world.capability"
+    },
+    {
+      "id": "edge:spec:foundation.operating-lessons-improve-system.capability:depends-on:spec:foundation.operate-systems-in-real-world.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.operating-lessons-improve-system.capability",
+      "to": "spec:foundation.operate-systems-in-real-world.capability",
+      "source": {
+        "specId": "foundation.operating-lessons-improve-system.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.operating-lessons-improve-system.capability"
+    },
+    {
+      "id": "edge:spec:foundation.operating-lessons-improve-system.capability:has-gap:gap:foundation.operating-lessons-improve-system.capability:job-gap",
+      "type": "has-gap",
+      "from": "spec:foundation.operating-lessons-improve-system.capability",
+      "to": "gap:foundation.operating-lessons-improve-system.capability:job-gap",
+      "source": {
+        "specId": "foundation.operating-lessons-improve-system.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.operating-lessons-improve-system.capability"
+    },
+    {
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.build-new-systems-from-clear-specs.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.author-durable-specs.capability",
+      "to": "spec:foundation.build-new-systems-from-clear-specs.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       },
       "ownerSpecId": "foundation.operating-system.system"
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.capture-business-system-intent.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.change-existing-systems-without-losing-intent.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.capture-business-system-intent.capability",
+      "to": "spec:foundation.change-existing-systems-without-losing-intent.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       },
       "ownerSpecId": "foundation.operating-system.system"
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.compound-improvements-safely.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.define-right-work.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.compound-improvements-safely.capability",
+      "to": "spec:foundation.define-right-work.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       },
       "ownerSpecId": "foundation.operating-system.system"
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.define-jobs-from-capabilities.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.evaluate-learn-improve.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.define-jobs-from-capabilities.capability",
+      "to": "spec:foundation.evaluate-learn-improve.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       },
       "ownerSpecId": "foundation.operating-system.system"
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.evaluate-quality-completeness.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.make-outstanding-work-repeatable.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.evaluate-quality-completeness.capability",
+      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       },
       "ownerSpecId": "foundation.operating-system.system"
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.generate-maintain-agent-skills.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.operate-systems-in-real-world.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.generate-maintain-agent-skills.capability",
+      "to": "spec:foundation.operate-systems-in-real-world.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       },
       "ownerSpecId": "foundation.operating-system.system"
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.install-foundation-target-repos.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.preserve-knowledge-context.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.install-foundation-target-repos.capability",
+      "to": "spec:foundation.preserve-knowledge-context.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       },
       "ownerSpecId": "foundation.operating-system.system"
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.inventory-classify-artifacts.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.show-system-clearly.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.inventory-classify-artifacts.capability",
+      "to": "spec:foundation.show-system-clearly.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       },
       "ownerSpecId": "foundation.operating-system.system"
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.map-capabilities-from-evidence.capability",
+      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.understand-intent-reality.capability",
       "type": "contains",
       "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.map-capabilities-from-evidence.capability",
+      "to": "spec:foundation.understand-intent-reality.capability",
       "source": {
         "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
+        "sectionId": "capability-map"
       },
       "ownerSpecId": "foundation.operating-system.system"
     },
     {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.map-surfaces-functions.capability",
-      "type": "contains",
-      "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.map-surfaces-functions.capability",
-      "source": {
-        "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
-      },
-      "ownerSpecId": "foundation.operating-system.system"
-    },
-    {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.package-context-for-action.capability",
-      "type": "contains",
-      "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.package-context-for-action.capability",
-      "source": {
-        "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
-      },
-      "ownerSpecId": "foundation.operating-system.system"
-    },
-    {
-      "id": "edge:spec:foundation.operating-system.system:contains:spec:foundation.render-inspectable-system-graph.capability",
-      "type": "contains",
-      "from": "spec:foundation.operating-system.system",
-      "to": "spec:foundation.render-inspectable-system-graph.capability",
-      "source": {
-        "specId": "foundation.operating-system.system",
-        "sectionId": "system-intent"
-      },
-      "ownerSpecId": "foundation.operating-system.system"
-    },
-    {
-      "id": "edge:spec:foundation.package-context-for-action.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.package-context-for-action.capability:depends-on:spec:foundation.preserve-knowledge-context.capability",
       "type": "depends-on",
       "from": "spec:foundation.package-context-for-action.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.preserve-knowledge-context.capability",
       "source": {
         "specId": "foundation.package-context-for-action.capability",
         "sectionId": "capability-intent"
@@ -6321,21 +8800,54 @@
       "ownerSpecId": "foundation.package-context-for-action.capability"
     },
     {
-      "id": "edge:spec:foundation.render-inspectable-system-graph.capability:contains:spec:foundation.visible-business-graph.system",
+      "id": "edge:spec:foundation.preserve-knowledge-context.capability:contains:spec:foundation.knowledge-data-layer.system",
       "type": "contains",
-      "from": "spec:foundation.render-inspectable-system-graph.capability",
-      "to": "spec:foundation.visible-business-graph.system",
+      "from": "spec:foundation.preserve-knowledge-context.capability",
+      "to": "spec:foundation.knowledge-data-layer.system",
       "source": {
-        "specId": "foundation.render-inspectable-system-graph.capability",
-        "sectionId": "capability-intent"
+        "specId": "foundation.preserve-knowledge-context.capability",
+        "sectionId": "jobs"
       },
-      "ownerSpecId": "foundation.render-inspectable-system-graph.capability"
+      "ownerSpecId": "foundation.preserve-knowledge-context.capability"
     },
     {
-      "id": "edge:spec:foundation.render-inspectable-system-graph.capability:depends-on:spec:foundation.operating-system.system",
+      "id": "edge:spec:foundation.preserve-knowledge-context.capability:contains:spec:foundation.package-context-for-action.capability",
+      "type": "contains",
+      "from": "spec:foundation.preserve-knowledge-context.capability",
+      "to": "spec:foundation.package-context-for-action.capability",
+      "source": {
+        "specId": "foundation.preserve-knowledge-context.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.preserve-knowledge-context.capability"
+    },
+    {
+      "id": "edge:spec:foundation.preserve-knowledge-context.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.preserve-knowledge-context.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.preserve-knowledge-context.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.preserve-knowledge-context.capability"
+    },
+    {
+      "id": "edge:spec:foundation.preserve-knowledge-context.capability:evidenced-by:evidence:foundation.preserve-knowledge-context.capability:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.preserve-knowledge-context.capability",
+      "to": "evidence:foundation.preserve-knowledge-context.capability:primary",
+      "source": {
+        "specId": "foundation.preserve-knowledge-context.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.preserve-knowledge-context.capability"
+    },
+    {
+      "id": "edge:spec:foundation.render-inspectable-system-graph.capability:depends-on:spec:foundation.show-system-clearly.capability",
       "type": "depends-on",
       "from": "spec:foundation.render-inspectable-system-graph.capability",
-      "to": "spec:foundation.operating-system.system",
+      "to": "spec:foundation.show-system-clearly.capability",
       "source": {
         "specId": "foundation.render-inspectable-system-graph.capability",
         "sectionId": "capability-intent"
@@ -6352,6 +8864,50 @@
         "sectionId": "capability-intent"
       },
       "ownerSpecId": "foundation.render-inspectable-system-graph.capability"
+    },
+    {
+      "id": "edge:spec:foundation.show-system-clearly.capability:contains:spec:foundation.render-inspectable-system-graph.capability",
+      "type": "contains",
+      "from": "spec:foundation.show-system-clearly.capability",
+      "to": "spec:foundation.render-inspectable-system-graph.capability",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.show-system-clearly.capability"
+    },
+    {
+      "id": "edge:spec:foundation.show-system-clearly.capability:contains:spec:foundation.visible-business-graph.system",
+      "type": "contains",
+      "from": "spec:foundation.show-system-clearly.capability",
+      "to": "spec:foundation.visible-business-graph.system",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.show-system-clearly.capability"
+    },
+    {
+      "id": "edge:spec:foundation.show-system-clearly.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.show-system-clearly.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.show-system-clearly.capability"
+    },
+    {
+      "id": "edge:spec:foundation.show-system-clearly.capability:evidenced-by:evidence:foundation.show-system-clearly.capability:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.show-system-clearly.capability",
+      "to": "evidence:foundation.show-system-clearly.capability:primary",
+      "source": {
+        "specId": "foundation.show-system-clearly.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.show-system-clearly.capability"
     },
     {
       "id": "edge:spec:foundation.spec-linking:depends-on:spec:foundation.spec-system",
@@ -6389,17 +8945,6 @@
       "ownerSpecId": "foundation.spec-linking"
     },
     {
-      "id": "edge:spec:foundation.spec-process:depends-on:spec:foundation.author-durable-specs.capability",
-      "type": "depends-on",
-      "from": "spec:foundation.spec-process",
-      "to": "spec:foundation.author-durable-specs.capability",
-      "source": {
-        "specId": "foundation.spec-process",
-        "sectionId": "overview"
-      },
-      "ownerSpecId": "foundation.spec-process"
-    },
-    {
       "id": "edge:spec:foundation.spec-process:depends-on:spec:foundation.spec-system",
       "type": "depends-on",
       "from": "spec:foundation.spec-process",
@@ -6416,6 +8961,17 @@
       "type": "realized-by",
       "from": "spec:foundation.spec-process",
       "to": "spec:foundation.backfill-author-specs.job",
+      "source": {
+        "specId": "foundation.spec-process",
+        "sectionId": "overview"
+      },
+      "ownerSpecId": "foundation.spec-process"
+    },
+    {
+      "id": "edge:spec:foundation.spec-process:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.spec-process",
+      "to": "spec:foundation.author-durable-specs.capability",
       "source": {
         "specId": "foundation.spec-process",
         "sectionId": "overview"
@@ -6445,6 +9001,83 @@
       },
       "label": "informs",
       "ownerSpecId": "foundation.spec-process"
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.eval:evaluates:spec:foundation.spec-selection.job",
+      "type": "evaluates",
+      "from": "spec:foundation.spec-selection.eval",
+      "to": "spec:foundation.spec-selection.job",
+      "source": {
+        "specId": "foundation.spec-selection.eval",
+        "sectionId": "verification-contract"
+      },
+      "ownerSpecId": "foundation.spec-selection.eval"
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.job:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.spec-selection.job",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "ownerSpecId": "foundation.spec-selection.job"
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.job:depends-on:spec:foundation.spec-process",
+      "type": "depends-on",
+      "from": "spec:foundation.spec-selection.job",
+      "to": "spec:foundation.spec-process",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "ownerSpecId": "foundation.spec-selection.job"
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.job:supports:spec:foundation.author-durable-specs.capability",
+      "type": "supports",
+      "from": "spec:foundation.spec-selection.job",
+      "to": "spec:foundation.author-durable-specs.capability",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "capability-supported"
+      },
+      "ownerSpecId": "foundation.spec-selection.job"
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.job:supports:spec:foundation.spec-selection.eval",
+      "type": "supports",
+      "from": "spec:foundation.spec-selection.job",
+      "to": "spec:foundation.spec-selection.eval",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.spec-selection.job"
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.job:supports:spec:foundation.spec-selection.technical",
+      "type": "supports",
+      "from": "spec:foundation.spec-selection.job",
+      "to": "spec:foundation.spec-selection.technical",
+      "source": {
+        "specId": "foundation.spec-selection.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "ownerSpecId": "foundation.spec-selection.job"
+    },
+    {
+      "id": "edge:spec:foundation.spec-selection.technical:depends-on:spec:foundation.spec-selection.job",
+      "type": "depends-on",
+      "from": "spec:foundation.spec-selection.technical",
+      "to": "spec:foundation.spec-selection.job",
+      "source": {
+        "specId": "foundation.spec-selection.technical",
+        "sectionId": "required-depth"
+      },
+      "ownerSpecId": "foundation.spec-selection.technical"
     },
     {
       "id": "edge:spec:foundation.spec-system:contains:spec:foundation.operating-system.system",
@@ -6769,6 +9402,83 @@
       "ownerSpecId": "foundation.spec-template.technical"
     },
     {
+      "id": "edge:spec:foundation.system-health-visible.capability:depends-on:spec:foundation.operate-systems-in-real-world.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.system-health-visible.capability",
+      "to": "spec:foundation.operate-systems-in-real-world.capability",
+      "source": {
+        "specId": "foundation.system-health-visible.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.system-health-visible.capability"
+    },
+    {
+      "id": "edge:spec:foundation.system-health-visible.capability:has-gap:gap:foundation.system-health-visible.capability:job-gap",
+      "type": "has-gap",
+      "from": "spec:foundation.system-health-visible.capability",
+      "to": "gap:foundation.system-health-visible.capability:job-gap",
+      "source": {
+        "specId": "foundation.system-health-visible.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.system-health-visible.capability"
+    },
+    {
+      "id": "edge:spec:foundation.systems-ship-safely.capability:depends-on:spec:foundation.operate-systems-in-real-world.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.systems-ship-safely.capability",
+      "to": "spec:foundation.operate-systems-in-real-world.capability",
+      "source": {
+        "specId": "foundation.systems-ship-safely.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.systems-ship-safely.capability"
+    },
+    {
+      "id": "edge:spec:foundation.systems-ship-safely.capability:has-gap:gap:foundation.systems-ship-safely.capability:job-gap",
+      "type": "has-gap",
+      "from": "spec:foundation.systems-ship-safely.capability",
+      "to": "gap:foundation.systems-ship-safely.capability:job-gap",
+      "source": {
+        "specId": "foundation.systems-ship-safely.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.systems-ship-safely.capability"
+    },
+    {
+      "id": "edge:spec:foundation.understand-intent-reality.capability:contains:spec:foundation.capture-business-system-intent.capability",
+      "type": "contains",
+      "from": "spec:foundation.understand-intent-reality.capability",
+      "to": "spec:foundation.capture-business-system-intent.capability",
+      "source": {
+        "specId": "foundation.understand-intent-reality.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.understand-intent-reality.capability"
+    },
+    {
+      "id": "edge:spec:foundation.understand-intent-reality.capability:depends-on:spec:foundation.operating-system.system",
+      "type": "depends-on",
+      "from": "spec:foundation.understand-intent-reality.capability",
+      "to": "spec:foundation.operating-system.system",
+      "source": {
+        "specId": "foundation.understand-intent-reality.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.understand-intent-reality.capability"
+    },
+    {
+      "id": "edge:spec:foundation.understand-intent-reality.capability:evidenced-by:evidence:foundation.understand-intent-reality.capability:primary",
+      "type": "evidenced-by",
+      "from": "spec:foundation.understand-intent-reality.capability",
+      "to": "evidence:foundation.understand-intent-reality.capability:primary",
+      "source": {
+        "specId": "foundation.understand-intent-reality.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.understand-intent-reality.capability"
+    },
+    {
       "id": "edge:spec:foundation.visible-business-graph.eval:depends-on:spec:foundation.visible-business-graph.system",
       "type": "evaluates",
       "from": "spec:foundation.visible-business-graph.eval",
@@ -6826,10 +9536,10 @@
       "ownerSpecId": "foundation.visible-business-graph.system"
     },
     {
-      "id": "edge:spec:foundation.visible-business-graph.system:depends-on:spec:foundation.render-inspectable-system-graph.capability",
+      "id": "edge:spec:foundation.visible-business-graph.system:depends-on:spec:foundation.show-system-clearly.capability",
       "type": "depends-on",
       "from": "spec:foundation.visible-business-graph.system",
-      "to": "spec:foundation.render-inspectable-system-graph.capability",
+      "to": "spec:foundation.show-system-clearly.capability",
       "source": {
         "specId": "foundation.visible-business-graph.system",
         "sectionId": "system-intent"
@@ -7238,9 +9948,9 @@
     }
   ],
   "summary": {
-    "specCount": 72,
-    "nodeCount": 123,
-    "edgeCount": 344,
+    "specCount": 104,
+    "nodeCount": 188,
+    "edgeCount": 443,
     "validation": {
       "pass": 1,
       "warn": 0,

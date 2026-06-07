@@ -9,8 +9,8 @@ Use inside `backfill-repo` before Author Specs for visible or operator-relevant 
 
 ## Inputs
 
-- Capability Map row
-- Context Pack rows and evidence paths for the slice
+- Capability Map child/sole row references for the slice, with parent context only as hierarchy
+- Context Pack rows, `capabilityRefs`, and evidence paths for the slice
 - current `process-action-map-YYYYMMDD-NN.jsonl` when continuing a run
 - current Context Pack check, eval, summary, and report handoff state
 - parent/top-level spec if present
@@ -39,7 +39,7 @@ Run this layer only after Context Pack handoff is complete for the active run.
 
 Use `npm run foundation:process-action-map:refresh -- --repo <target-repo> --run-id <run-id>` after Context Pack rows change.
 
-The row loop is strict: `--next` -> read exactly one Context Pack row -> extract exactly one Process / Action Map row -> fill that same pack ID or slice ID -> check -> eval that row -> revise that same row until outstanding -> continue. Exactly one Context Pack row is reviewed and marked at a time.
+The row loop is strict: `--next` -> read exactly one Context Pack row -> extract exactly one Process / Action Map row -> fill that same pack ID or slice ID -> check -> eval that row -> revise that same row until outstanding -> continue. Exactly one Context Pack row is reviewed and marked at a time. The row must preserve the upstream child/sole `capabilityRefs`; parent capability context may explain hierarchy but cannot replace the child/sole behavior.
 
 Do not automate around this loop. Do not write or run a Node, Python, shell, jq, xargs, or other driver that creates, fills, checks, evaluates, or revises more than the current `--next` row. Do not classify packs with regexes, path rules, generic kind maps, or reusable row templates. Helper commands may display the current row or current row evidence, but the Process / Action Map payload must be authored from the selected Context Pack row after reading its cited evidence. If the current row cannot be understood from its Context Pack evidence, mark that row with explicit blocker detail instead of inferring from nearby rows or broad repo patterns.
 
@@ -74,6 +74,6 @@ If one process contains multiple goals, roles, major states, permission models, 
 
 ## Done
 
-Done when each active Context Pack row has a `ready-for-specs` Process / Action Map row or explicit blocker detail, every non-pending row has a current outstanding row-level eval receipt, the checker and eval pass for the current Process / Action Map fingerprint, eval revision targets are zero, the report names `Author Specs` as next layer, and the rows are clear enough for Author Specs without reopening source files for core behavior.
+Done when each active Context Pack row has a `ready-for-specs` Process / Action Map row or explicit blocker detail, every row preserves child/sole `capabilityRefs`, every non-pending row has a current outstanding row-level eval receipt, the checker and eval pass for the current Process / Action Map fingerprint, eval revision targets are zero, the report names `Author Specs` as next layer, and the rows are clear enough for Author Specs without reopening source files for core behavior.
 
 A row is outstanding only when deterministic checks pass, row eval has no blocking findings, row eval has no warnings, no revision targets remain, no vague placeholders remain, uncertainty is resolved or named as a blocker/human decision, and Author Specs can proceed without rediscovering source for core behavior.

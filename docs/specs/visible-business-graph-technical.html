@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.visible-business-graph.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-06">
 <title>Visible Business Graph Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Visible Business Graph Technical Spec",
   "type": "technical",
   "status": "draft",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-06",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.visible-business-graph.system",
@@ -44,6 +44,7 @@
     { "path": "foundation/scripts/visible-business-graph-check.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/scripts/visible-business-graph-build.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/scripts/visible-business-graph-render.mjs", "kind": "workflow", "ownership": "direct" },
+    { "path": "foundation/scripts/visible-business-graph-generated-check.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/scripts/visible-business-graph-eval.mjs", "kind": "workflow", "ownership": "direct" },
     { "path": "foundation/scripts/visible-business-graph.test.mjs", "kind": "test", "ownership": "direct" }
   ],
@@ -62,7 +63,7 @@
         "foundation.visible-business-graph.technical#contracts",
         "foundation.visible-business-graph.technical#failure-modes"
       ],
-      "evidence": "Visible Business Graph tests cover parsing, validation failures, spec scaffolding, Foundation graph build/check, example graph render/eval, and renderer interaction contracts for top-down layout, inline capability/job expansion, actors-map expansion, and drag panning."
+      "evidence": "Visible Business Graph tests cover parsing, validation failures, spec scaffolding, Foundation graph build/check, example graph render/eval, and renderer interaction contracts for top-down layout, visible parent/child capability hierarchy, inline capability/job expansion, actors-map expansion, and drag panning."
     }
   ],
   "tags": ["technical", "visible-business", "graph"]
@@ -153,7 +154,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/visible-business-graph-technical.html</div>
     <h1>Visible Business Graph Technical Spec</h1>
     <p class="lede">The implementation must make graph compatibility enforceable across Foundation specs and renderable as local, derived HTML views.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-06-01</div><div><strong>Parent:</strong> foundation.visible-business-graph.system</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-06-06</div><div><strong>Parent:</strong> foundation.visible-business-graph.system</div></div>
     <p>This layer owns the graph metadata schema, validation rules, graph extraction, JSON build output, static canvas rendering, and graph eval plumbing. It must not make the canvas the source of truth; canonical meaning remains in HTML specs and source registry style metadata.</p>
   </section>
 
@@ -166,6 +167,7 @@
         <li>Validate graph metadata for schema, node types, edge types, node sources, edge sources, section resolution, duplicate IDs, dangling edges, orphan support specs, capability-to-job realization edges, and job-to-capability support edges.</li>
         <li>Build deterministic graph JSON from the validated metadata.</li>
         <li>Render a standalone local HTML canvas from graph JSON.</li>
+        <li>Check that committed Foundation graph and canvas outputs still match current spec extraction.</li>
         <li>Evaluate graph and canvas outputs against expected graph fixtures when a fixture exists.</li>
       </ol>
     </section>
@@ -181,8 +183,9 @@
           <tr><td>Capability/job mapping</td><td>A capability child job must be connected by a <code>realized-by</code> edge from the capability node to the job node. A job with an owning capability must expose a <code>supports</code> edge from the job node back to the capability node.</td><td>The capability map must be able to expand from outcomes into the jobs that make them real, and job inspection must preserve the owning capability.</td></tr>
           <tr><td>Authoring integration</td><td><code>spec:new</code> and templates scaffold graph metadata for all spec types.</td><td>New specs should be graph-compatible by default.</td></tr>
           <tr><td>Canvas output</td><td>Canvas HTML embeds graph data and local JS/CSS only.</td><td>The user can open the canvas on a laptop without a server.</td></tr>
-          <tr><td>Canvas layout</td><td>The default capability map lays nodes top-down, centers the system layer above one horizontal capability band, does not wrap capability cards into multiple rows, and keeps jobs and job context visible only after inline expansion. When the stage is wider than the visible canvas, the initial pan centers the stage inside the available viewport instead of pinning the far-left edge.</td><td>The first view should communicate business shape before exposing every job/process detail.</td></tr>
-          <tr><td>Canvas edge policy</td><td>The renderer must treat visual edges as selected-path affordances, not an exhaustive drawing of graph metadata. The default capability and actor overviews draw no global edges; expanded capabilities draw only local capability-to-job realization edges; expanded jobs draw only local job context edges; expanded actors draw only handled-job edges, oriented visually from actor to job.</td><td>The map must stay readable as an inspection surface while preserving complete metadata in the graph JSON and details panel.</td></tr>
+          <tr><td>Generated artifact freshness</td><td>Foundation's committed <code>foundation-graph.json</code> must match a fresh graph extraction from current specs, ignoring only generation time, and <code>foundation-canvas.html</code> must embed that same graph payload.</td><td>The browser canvas must never present an older capability map than the canonical specs.</td></tr>
+          <tr><td>Canvas layout</td><td>The default capability map lays nodes top-down: system or index nodes at the top, parent or sole capabilities in the next row, direct child capabilities one row below their parent, and jobs below only after a capability expands. When the stage is wider than the visible canvas, the initial pan centers the stage inside the available viewport instead of pinning the far-left edge.</td><td>The first view should communicate capability hierarchy before exposing every job/process detail.</td></tr>
+          <tr><td>Canvas edge policy</td><td>The renderer must treat visual edges as hierarchy and selected-path affordances, not an exhaustive drawing of graph metadata. The default capability map draws system-to-capability and parent-to-child capability hierarchy edges; expanded capabilities draw local capability-to-job realization edges; expanded jobs draw only local job context edges; expanded actors draw only handled-job edges, oriented visually from actor to job.</td><td>The map must make parent/child capability relationships visible while preserving complete metadata in the graph JSON and details panel.</td></tr>
           <tr><td>Canvas branch color</td><td>Expanded capabilities, their revealed jobs, and their local realization edges must share a deterministic accent color derived from the capability ID. Expanded job context may inherit the same accent so the selected branch remains visually coherent.</td><td>Color should reinforce hierarchy and selection without becoming canonical data.</td></tr>
           <tr><td>Canvas expansion</td><td>Capability cards expand jobs inline; job cards expand process, actor, tool, evidence, metric, and gap nodes inline; actor cards in the actors map expand handled jobs. Expandable cards update <code>aria-expanded</code>.</td><td>Expansion must be real interactive behavior, not a static marker in generated HTML or a hidden tab switch.</td></tr>
           <tr><td>Canvas tabs</td><td>The generated canvas exposes only <code>Capability map</code> and <code>Actors</code> tabs.</td><td>Secondary detail views should not fragment the core business exploration path.</td></tr>
@@ -201,9 +204,9 @@
           <tr><td>Dangling edge</td><td>Graph check fails and names the missing endpoint.</td><td>Check output.</td></tr>
           <tr><td>Unmapped capability job</td><td>Graph check fails when a capability names a child job without a <code>realized-by</code> graph edge, or a job names an owning capability without a <code>supports</code> graph edge.</td><td><code>foundation:visible-business-graph:test</code> and check output.</td></tr>
           <tr><td>Unresolved source section</td><td>Graph check fails before build/render.</td><td>Check output.</td></tr>
-          <tr><td>Stale graph JSON</td><td>Eval compares graph JSON against current repo extraction and fails.</td><td>Eval report.</td></tr>
+          <tr><td>Stale graph JSON or canvas</td><td>Generated artifact check compares graph JSON against current repo extraction, compares canvas-embedded graph against graph JSON, and fails with the exact rebuild commands.</td><td><code>foundation:visible-business-graph:generated-check</code> output.</td></tr>
           <tr><td>Canvas missing expected content</td><td>Eval fails with missing text or node IDs.</td><td>Eval report.</td></tr>
-          <tr><td>Canvas interaction regression</td><td>Renderer tests fail when the generated canvas loses centered top-down layout, one-row capability band behavior, centered initial pan inside narrow canvases, shared document-navigation collapse behavior, branch accent behavior, selected-path edge policy, inline capability expansion, inline job expansion, actors-map expansion, <code>aria-expanded</code> updates, or pointer drag panning.</td><td><code>foundation:visible-business-graph:test</code>.</td></tr>
+          <tr><td>Canvas interaction regression</td><td>Renderer tests fail when the generated canvas loses centered top-down layout, visible parent/child capability rows, default capability hierarchy edges, centered initial pan inside narrow canvases, shared document-navigation collapse behavior, branch accent behavior, selected-path edge policy, inline capability expansion, inline job expansion, actors-map expansion, <code>aria-expanded</code> updates, or pointer drag panning.</td><td><code>foundation:visible-business-graph:test</code>.</td></tr>
         </tbody>
       </table>
     </section>
@@ -215,6 +218,7 @@
         <li><code>foundation/scripts/visible-business-graph-check.mjs</code> - validation CLI.</li>
         <li><code>foundation/scripts/visible-business-graph-build.mjs</code> - deterministic JSON builder.</li>
         <li><code>foundation/scripts/visible-business-graph-render.mjs</code> - standalone HTML canvas renderer.</li>
+        <li><code>foundation/scripts/visible-business-graph-generated-check.mjs</code> - freshness check for committed Foundation graph and canvas artifacts.</li>
         <li><code>foundation/scripts/visible-business-graph-eval.mjs</code> - expected fixture and canvas evaluator.</li>
       </ul>
       <table class="status-table">

@@ -7,13 +7,13 @@
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="draft">
 <meta name="spec:last-updated" content="2026-06-06">
-<title>Knowledge and Data Layer</title>
+<title>Knowledge Stays Useful As Context</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.knowledge-data-layer.system",
-  "title": "Knowledge and Data Layer",
+  "title": "Knowledge Stays Useful As Context",
   "type": "capability",
   "status": "draft",
   "lastUpdated": "2026-06-06",
@@ -168,7 +168,7 @@
     {
       "id": "spec:foundation.knowledge-data-layer.system",
       "type": "capability",
-      "label": "Knowledge and Data Layer",
+      "label": "Knowledge Stays Useful As Context",
       "source": {
         "specId": "foundation.knowledge-data-layer.system",
         "sectionId": "product-intent"
@@ -444,8 +444,8 @@
 <main class="main">
   <section id="product-intent" data-spec-section="product-intent" data-section-type="product-intent" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/knowledge-and-data-layer.html</div>
-    <h1>Knowledge and Data Layer</h1>
-    <p class="lede">The Knowledge and Data Layer turns business intake, existing organizational sources, and operating data into durable substrate that people and agents can use to understand, improve, and evaluate a business system.</p>
+    <h1>Knowledge Stays Useful As Context</h1>
+    <p class="lede">The Knowledge Stays Useful As Context turns business intake, existing organizational sources, and operating data into durable substrate that people and agents can use to understand, improve, and evaluate a business system.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> draft</div>
       <div><strong>Updated:</strong> 2026-06-01</div>
@@ -454,7 +454,7 @@
     </div>
     <h3>Intent</h3>
     <p>This spec defines the first durable shape for an Orderly Systems knowledge and data layer. The layer should capture how a business works, connect that understanding to the organization's existing sources, collect operating data where useful, and produce context, evidence, and evaluation for business improvement work.</p>
-    <p>The system has two cooperating loops. The <strong>knowledge loop</strong> uses the combined <a href="../fundamentals/business-intake.html">business intake workspace</a> to ask business intake questions, read existing sources, mark answer status, and turn reviewed answers into canonical operating substrate. The <strong>data loop</strong> brings SaaS and existing business data into an Orderly-managed database so <strong>Reality answers</strong> can use current measurements instead of only interview memory or static documents. Evaluation then judges those answers against intent. The <a data-spec-link="foundation.visible-business-graph.system" href="./visible-business-graph.html">Visible Business Graph</a> spec defines how substrate can become an inspectable graph of capabilities, jobs, actors, processes, tools, evidence, and gaps.</p>
+    <p>The system has two cooperating loops. The <strong>knowledge loop</strong> uses the combined <a href="../fundamentals/business-intake.html">business intake workspace</a> to ask business intake questions, read existing sources, mark answer status, and turn reviewed answers into canonical operating substrate. The <strong>data loop</strong> brings SaaS and existing business data into an Orderly-managed database so <strong>Reality answers</strong> can use current measurements instead of only interview memory or static documents. Evaluation then judges those answers against intent. The <a data-spec-link="foundation.visible-business-graph.system" href="./visible-business-graph.html">Business Graph Is Visible</a> spec defines how substrate can become an inspectable graph of capabilities, jobs, actors, processes, tools, evidence, and gaps.</p>
     <h3>Out of scope</h3>
     <p>This draft does not choose a database, vector store, sync vendor, SaaS connector set, permission model, or UI. It defines the conceptual contract that those implementation decisions must satisfy later.</p>
   </section>
@@ -597,6 +597,7 @@
         <tbody>
           <tr><td>Actor</td><td>Orderly Systems operator, agent, or client stakeholder trying to understand or improve a business system.</td><td>Business Operating System and the business intake workspace.</td></tr>
           <tr><td>Intended outcome</td><td>A business can be understood well enough that an operator can name its capabilities, jobs, processes, actors, tools, context, evidence, and improvement opportunities from cited sources and current data.</td><td>System Philosophy vocabulary and user feedback.</td></tr>
+          <tr><td>Reliable outcome</td><td>Business and repo knowledge stays current, source-backed, connected to jobs, and retrievable as useful context for one work decision at a time.</td><td>Foundation capability remap and context substrate vocabulary.</td></tr>
           <tr><td>Domain objects</td><td>Source registry row, intake answer, operating database table, capability spec, job spec with process section, metric definition, decision rule, eval spec, context pack, and revision record.</td><td>This spec.</td></tr>
           <tr><td>Primary actions</td><td>Ask business intake questions in the HTML intake workspace, register sources, mark answer status, ingest selected data, classify source meaning, create substrate artifacts, build context packs, evaluate evidence, revise artifacts.</td><td>Business intake workspace and GBrain mechanics.</td></tr>
           <tr><td>Success signal</td><td>The system can answer a business question or recommend an improvement with citations, current data evidence where available, confidence, gaps, and the substrate artifact that should change next.</td><td>Manual acceptance until eval specs exist.</td></tr>
@@ -712,7 +713,7 @@
   </article>
 
   <hr>
-  <p class="footer-note">Knowledge and Data Layer - draft system spec</p>
+  <p class="footer-note">Knowledge Stays Useful As Context - draft system spec</p>
 </main>
 <script src="../site-map.js?v=20260602-nav-collapse"></script>
 <script src="../site-nav.js?v=20260602-nav-collapse"></script>

@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-job-slice-evaluation.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Evaluate Job Slices Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Evaluate Job Slices Technical Spec",
   "type": "technical",
   "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-job-slice-evaluation.job",
@@ -185,7 +185,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-job-slice-evaluation-technical.html</div>
     <h1>Foundation Backfill Evaluate Job Slices Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Evaluate Job Slices deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-job-slice-evaluation.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Parent:</strong> foundation.backfill-job-slice-evaluation.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -208,7 +208,7 @@
         <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
         <tr><td>Deterministic checker</td><td>validates every non-terminal queue slice has a latest evaluation row, acceptable slices meet thresholds, revision rows point to valid owner layers, and blocked rows name human decisions.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>uses strict semantic scoring to decide whether future agents could preserve the intended behavior without rereading the whole source slice.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Handoff gate</td><td>every queued slice is acceptable, blocked by a named human decision, parent-owned with precise reason, out of scope, or has an active revision target; checker passes; HTML summary exists; report names next layer as Evaluate System Coherence when all slices are terminal.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Handoff gate</td><td>every queued child/sole slice is acceptable, blocked by a named human decision, out of scope, or has an active revision target; checker passes; HTML summary exists; report names next layer as Evaluate System Coherence when all slices are terminal.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 

@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-process-action-map.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-03">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Process / Action Map Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Process / Action Map Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-06-03",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-process-action-map.job",
@@ -228,7 +228,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-process-action-map-technical.html</div>
     <h1>Foundation Backfill Process / Action Map Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Process / Action Map deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-03</div><div><strong>Parent:</strong> foundation.backfill-process-action-map.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Parent:</strong> foundation.backfill-process-action-map.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -236,7 +236,7 @@
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
-        <tr><td>Layer row</td><td>runId, processMapId, upstreamPackId, upstreamPackRef, upstreamSliceId, upstreamCapabilityIds, actor, role, trigger, intendedOutcome, domainObject, actions, stateModel, permissions, rules, visibleBehavior, edgeCases, recoveryPaths, evidenceRefs, graphHints, specTargets, explicitGaps, blockers, reviewFlags, status, confidence, createdAt, updatedAt</td><td>Every row has stable identity, traceable upstream evidence, and enough process/state detail for Author Specs.</td></tr>
+        <tr><td>Layer row</td><td>runId, processMapId, upstreamPackId, upstreamPackRef, upstreamSliceId, upstreamCapabilityIds, capabilityRefs, actor, role, trigger, intendedOutcome, domainObject, actions, stateModel, permissions, rules, visibleBehavior, edgeCases, recoveryPaths, evidenceRefs, graphHints, specTargets, explicitGaps, blockers, reviewFlags, status, confidence, createdAt, updatedAt</td><td>Every row has stable identity, traceable upstream child/sole capability refs, and enough process/state detail for Author Specs.</td></tr>
         <tr><td>Canonical artifact</td><td>process-action-map-YYYYMMDD-NN.jsonl, process-action-map-check-YYYYMMDD-NN.json, process-action-map-eval-YYYYMMDD-NN.jsonl</td><td>JSONL files own row/eval state; the check JSON records deterministic gate output for the exact artifact fingerprint.</td></tr>
         <tr><td>Derived artifact</td><td>process-action-map-summary-YYYYMMDD-NN.html, process-action-map-refresh-YYYYMMDD-NN.json, report Process / Action Map state, process/action tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
         <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, outstanding row receipt count, missing outstanding row receipt count, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts without guessing whether rows were actually reviewed.</td></tr>
@@ -252,7 +252,7 @@
         <tr><td>No driver synthesis</td><td>Agents must not create driver scripts, shell loops, generated payload files, regex classifiers, path-kind maps, or reusable templates that create, fill, check, evaluate, or revise more than the current <code>--next</code> row.</td><td>The unit of review is the selected Context Pack row, not a bulk generator that happens to submit one payload at a time.</td></tr>
         <tr><td>Deterministic checker</td><td>validates one current row per active Context Pack, valid enums, current upstream fingerprints, required ready-row fields, trace evidence, zero duplicate row IDs, and optional report-state drift. Row-targeted eval requires a current passing check artifact for the latest Process / Action Map fingerprint.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>supports row-targeted eval by pack ID, slice ID, or process row ID; a row receipt is outstanding only with score 100, no blocking findings, no warnings, no revision targets, current row fingerprint, resolved or named uncertainty, and enough behavior for Author Specs without reopening source for core behavior.</td><td>Correctness includes meaning, specificity, evidence quality, and downstream usability.</td></tr>
-        <tr><td>Handoff gate</td><td>all active Context Pack rows have ready-for-specs rows or explicit blocker detail; checker passes; eval receipt and HTML summary are current; every non-pending row has a current outstanding row eval receipt; eval has zero revision targets, zero blocking findings, and zero warnings; report names next layer as Author Specs.</td><td>Each layer is a reproducible outstanding unit before the next layer consumes it.</td></tr>
+        <tr><td>Handoff gate</td><td>all active Context Pack rows have ready-for-specs rows or explicit blocker detail; every process row preserves child/sole capability refs and rejects parent, <code>needs-split</code>, blocked, or non-queueable refs as active work; checker passes; eval receipt and HTML summary are current; every non-pending row has a current outstanding row eval receipt; eval has zero revision targets, zero blocking findings, and zero warnings; report names next layer as Author Specs.</td><td>Each layer is a reproducible outstanding unit before the next layer consumes it.</td></tr>
         <tr><td>Report self-check</td><td><code>foundation:process-action-map:report</code> writes or updates the report, validates the embedded Process / Action Map state, writes a current check artifact with the report path, rebuilds report state from that check, and rewrites the report.</td><td>The report/check ordering should not require manual bootstrap knowledge or leave stale report state after handoff recording.</td></tr>
       </tbody></table>
     </section>

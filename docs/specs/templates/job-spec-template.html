@@ -148,7 +148,7 @@
   <article class="doc-body">
     <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
       <h2>Capability supported</h2>
-      <p>Link the capability spec this job supports. If one job supports multiple capabilities, name the primary capability and explain why the job is not too broad.</p>
+      <p>Link the capability spec this job supports. If one job supports multiple capabilities, name the primary capability and explain why the job is not too broad. Do not create a job as a child capability; jobs use <code>supports</code> graph edges, while parent capabilities use <code>contains</code> edges for child capabilities.</p>
       <table class="status-table">
         <thead><tr><th>Capability</th><th>How this job supports it</th><th>Evidence or source</th></tr></thead>
         <tbody>

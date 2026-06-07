@@ -58,7 +58,7 @@ function main() {
     checks: [{ name: "capability-map-handoff", result: "passed" }],
     durationSeconds: 0,
     result: `${rows.length} pending queue slice row(s) created from Capability Map terminal rows.`,
-    nextAction: "Use the Define Spec Jobs fill loop: split needs-split capabilities into child slices, then run check and eval."
+    nextAction: "Use the Define Spec Jobs fill loop: queue only child/sole capabilities, then run check and eval."
   });
 
   console.log(renderResultsText("Define Spec Jobs init", [

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.failure-recovery-ready.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="draft">
+<meta name="spec:last-updated" content="2026-06-06">
+<title>Failure Recovery Is Ready</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.failure-recovery-ready.capability",
+  "title": "Failure Recovery Is Ready",
+  "type": "capability",
+  "status": "draft",
+  "lastUpdated": "2026-06-06",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.operate-systems-in-real-world.capability",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.operate-systems-in-real-world.capability",
+      "relationship": "parent",
+      "sections": [
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.capability-map-remap.job",
+      "relationship": "informs",
+      "sections": [
+        "proposed-handling"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/capabilities/failure-recovery-ready.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [],
+  "coverage": [
+    {
+      "id": "foundation.failure-recovery-ready.capability:job-gap",
+      "level": "manual",
+      "status": "gap",
+      "path": "foundation/docs/specs/capabilities/failure-recovery-ready.html",
+      "mapsTo": [
+        "foundation.failure-recovery-ready.capability#jobs",
+        "foundation.failure-recovery-ready.capability#evidence-and-evaluation"
+      ],
+      "evidence": "Foundation has not yet created the incident, rollback, and recovery job specs that would make this operating capability executable."
+    }
+  ],
+  "tags": [
+    "capability",
+    "foundation",
+    "operations"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.failure-recovery-ready.capability",
+  "nodes": [
+    {
+      "id": "spec:foundation.failure-recovery-ready.capability",
+      "type": "capability",
+      "label": "Failure Recovery Is Ready",
+      "source": {
+        "specId": "foundation.failure-recovery-ready.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "operations"
+        ]
+      }
+    },
+    {
+      "id": "gap:foundation.failure-recovery-ready.capability:job-gap",
+      "type": "gap",
+      "label": "Missing recovery jobs",
+      "source": {
+        "specId": "foundation.failure-recovery-ready.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "draft",
+      "confidence": "medium",
+      "attributes": {
+        "gap": "Incident, rollback, and recovery job specs are not yet authored."
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.failure-recovery-ready.capability:depends-on:spec:foundation.operate-systems-in-real-world.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.failure-recovery-ready.capability",
+      "to": "spec:foundation.operate-systems-in-real-world.capability",
+      "source": {
+        "specId": "foundation.failure-recovery-ready.capability",
+        "sectionId": "capability-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.failure-recovery-ready.capability:has-gap:gap:foundation.failure-recovery-ready.capability:job-gap",
+      "type": "has-gap",
+      "from": "spec:foundation.failure-recovery-ready.capability",
+      "to": "gap:foundation.failure-recovery-ready.capability:job-gap",
+      "source": {
+        "specId": "foundation.failure-recovery-ready.capability",
+        "sectionId": "evidence-and-evaluation"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Failure Recovery Is Ready</div>
+      <div class="sidebar-sub">child capability</div>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/capabilities/failure-recovery-ready.html</div>
+    <h1>Failure Recovery Is Ready</h1>
+    <p class="lede">Known failure modes have recovery paths, owners, evidence, user/operator communication, and revision targets before they are needed under pressure.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> draft</div>
+      <div><strong>Updated:</strong> 2026-06-06</div>
+      <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+      <h1>Capability intent</h1>
+      <p>Foundation should make recovery clear enough that humans and agents can respond to system failures without rediscovering ownership, state, rollback, communication, evidence, or revision rules during the incident.</p>
+    </section>
+
+    <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="contracts">
+      <h2>Outcome contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Beneficiary</td><td>Humans, agents, and software systems using shipped work.</td><td>Foundation operating system goal.</td></tr>
+          <tr><td>Reliable outcome</td><td>Known failure modes have recovery paths, owners, evidence, user/operator communication, and revision targets before they are needed under pressure.</td><td>Operations capability remap.</td></tr>
+          <tr><td>Capability altitude</td><td>Child capability under <code>foundation.operate-systems-in-real-world.capability</code>.</td><td>Spec Selection and remap rules.</td></tr>
+          <tr><td>Failure mode</td><td>Incidents rely on improvised action, stale context, unclear ownership, or missing rollback paths.</td><td>Operations gap review.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+      <h2>Jobs</h2>
+      <table class="status-table">
+        <thead><tr><th>Job or gap</th><th>Purpose</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Failure recovery job specs</td><td>Define incident triggers, recovery paths, rollback rules, operator communication, evidence, and post-recovery revision targets.</td><td>gap</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interfaces-and-sources" data-spec-section="interfaces-and-sources" data-section-type="interfaces">
+      <h2>Interfaces and sources</h2>
+      <ul>
+        <li><code>foundation.operate-systems-in-real-world.capability</code> owns the parent operating outcome.</li>
+        <li><code>foundation.capability-map-remap.job</code> records why this child exists before jobs are authored.</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Eval or check</th><th>Revision target</th></tr></thead>
+        <tbody>
+          <tr><td>Failure-recovery jobs remain a named gap.</td><td><code>foundation.failure-recovery-ready.capability:job-gap</code></td><td>Create job, technical, and eval specs for recovery.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Failure Recovery Is Ready - Foundation child capability spec</p>
+</main>
+<script src="../../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

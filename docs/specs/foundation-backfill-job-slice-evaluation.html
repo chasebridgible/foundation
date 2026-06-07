@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-job-slice-evaluation.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Evaluate Job Slices</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Evaluate Job Slices",
   "type": "job",
   "status": "draft",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.evaluate-quality-completeness.capability",
@@ -302,7 +302,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-job-slice-evaluation.html</div>
     <h1>Foundation Backfill Evaluate Job Slices</h1>
     <p class="lede">Evaluate Job Slices runs the hard loop for each slice: create, evaluate, revise, re-evaluate, mark acceptable, then continue. This layer answers: <strong>Can this slice be accepted, or exactly what must be revised?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Upstream:</strong> Author Specs</div><div><strong>Next:</strong> Evaluate System Coherence</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Upstream:</strong> Author Specs</div><div><strong>Next:</strong> Evaluate System Coherence</div></div>
     <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
@@ -348,7 +348,7 @@
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>every queued slice is acceptable, blocked by a named human decision, parent-owned with precise reason, out of scope, or has an active revision target; checker passes; HTML summary exists; report names next layer as Evaluate System Coherence when all slices are terminal.</p>
+      <p>every queued child/sole slice is acceptable, blocked by a named human decision, out of scope, or has an active revision target; checker passes; HTML summary exists; report names next layer as Evaluate System Coherence when all slices are terminal.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
         <li>All rows are in valid terminal or explicitly blocked states.</li>

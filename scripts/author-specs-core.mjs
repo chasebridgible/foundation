@@ -246,6 +246,7 @@ function createPendingAuthorSpecRow(processRow, processMapFingerprint = null, or
     upstreamPackId: processRow.upstreamPackId,
     upstreamSliceId: processRow.upstreamSliceId,
     upstreamCapabilityIds: normalizeStringList(processRow.upstreamCapabilityIds),
+    capabilityRefs: asObjectArray(processRow.capabilityRefs),
     processSummary: processSummary(processRow),
     specTargets,
     jobSpecId: specTargets.jobSpecId,
@@ -575,7 +576,7 @@ function validateAuthorSpecRowShape({ repoRoot, row, prefix, results, phase }) {
   if (!isNonEmptyString(row?.upstreamSliceId)) results.push(fail(`${prefix}:upstream-slice-id`, "Author Specs row requires upstreamSliceId"));
   if (!VALID_AUTHOR_SPEC_STATUSES.has(row?.status)) results.push(fail(`${prefix}:status`, "Author Specs status is outside enum", { status: row?.status }));
   if (!VALID_CONFIDENCE.has(row?.confidence)) results.push(fail(`${prefix}:confidence`, "Author Specs confidence is outside enum", { confidence: row?.confidence }));
-  for (const field of ["upstreamCapabilityIds", "evidenceRefs", "explicitGaps", "blockingQuestions", "blockingGaps", "humanDecisions", "reviewFlags"]) {
+  for (const field of ["upstreamCapabilityIds", "capabilityRefs", "evidenceRefs", "explicitGaps", "blockingQuestions", "blockingGaps", "humanDecisions", "reviewFlags"]) {
     if (!Array.isArray(row?.[field])) results.push(fail(`${prefix}:${field}`, `${field} must be an array`));
   }
   if (!row?.upstreamProcessRef || typeof row.upstreamProcessRef !== "object" || Array.isArray(row.upstreamProcessRef)) {
@@ -664,6 +665,12 @@ function validateAuthorSpecsRows({ repoRoot, processRows, authorRows, phase = "h
       }
       const missingCapabilities = normalizeStringList(processRow.upstreamCapabilityIds).filter(id => !normalizeStringList(row.upstreamCapabilityIds).includes(id));
       if (missingCapabilities.length > 0) results.push(fail(`${prefix}:upstream-capability-coverage`, "Author Specs row must carry every upstream capability ID from Process / Action Map", { missingCapabilities }));
+      const missingCapabilityRefs = asObjectArray(processRow.capabilityRefs)
+        .filter(ref => !asObjectArray(row.capabilityRefs).some(rowRef => rowRef.capabilityId === ref.capabilityId));
+      if (missingCapabilityRefs.length > 0) results.push(fail(`${prefix}:capability-ref-coverage`, "Author Specs row must carry child/sole capabilityRefs from Process / Action Map", { missingCapabilityRefs: missingCapabilityRefs.map(ref => ref.capabilityId) }));
+      const unqueueableRefs = asObjectArray(row.capabilityRefs)
+        .filter(ref => ref.capabilityAltitude === "parent" || ref.capabilityAltitude === "needs-split" || ref.capabilityAltitude === "blocked" || ref.queueEligible === false);
+      if (unqueueableRefs.length > 0) results.push(fail(`${prefix}:capability-ref-queue-eligible`, "Author Specs row cannot carry parent, needs-split, blocked, or non-queueEligible capability refs as active work", { unqueueableRefs: unqueueableRefs.map(ref => ref.capabilityId) }));
     }
     for (const [refIndex, ref] of asObjectArray(row.evidenceRefs).entries()) {
       const label = `${prefix}:evidence-refs:${refIndex + 1}`;
@@ -1622,10 +1629,11 @@ function buildAuthorSpecsPayload({ runId, repoRoot, authorRows }) {
     authorSpecs: authorRows.map(row => ({
       authorSpecId: row.authorSpecId,
       upstreamProcessMapId: row.upstreamProcessMapId,
-      upstreamPackId: row.upstreamPackId,
-      upstreamSliceId: row.upstreamSliceId,
-      upstreamCapabilityIds: row.upstreamCapabilityIds,
-      status: row.status,
+    upstreamPackId: row.upstreamPackId,
+    upstreamSliceId: row.upstreamSliceId,
+    upstreamCapabilityIds: row.upstreamCapabilityIds,
+    capabilityRefs: row.capabilityRefs || [],
+    status: row.status,
       confidence: row.confidence,
       jobSpecId: row.jobSpecId,
       technicalSpecId: row.technicalSpecId,

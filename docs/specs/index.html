@@ -323,7 +323,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-06-06",
+  "lastUpdated": "2026-06-07",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -1405,7 +1405,14 @@
           "ownership": "direct"
         }
       ],
-      "implementationPaths": [],
+      "implementationPaths": [
+        {
+          "path": "foundation/scripts/capability-language-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Deterministically rejects job-shaped child capability titles, artifact-only titles, and weak reliable-outcome rows."
+        }
+      ],
       "coverage": [
         {
           "id": "foundation.author-capability-spec.job:lane-eval",
@@ -1415,6 +1422,16 @@
           "mapsTo": [
             "foundation.author-capability-spec.job#evidence-and-evaluation"
           ]
+        },
+        {
+          "id": "foundation.author-capability-spec.job:language-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-language-check.mjs",
+          "mapsTo": [
+            "foundation.author-capability-spec.job#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-language:check"
         }
       ],
       "tags": [
@@ -2101,7 +2118,7 @@
     },
     {
       "id": "foundation.author-durable-specs.capability",
-      "title": "Author Durable Specs",
+      "title": "Specs Preserve Durable Intent",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/author-durable-specs.html",
@@ -2322,7 +2339,7 @@
     },
     {
       "id": "foundation.capture-business-system-intent.capability",
-      "title": "Capture Business and System Intent",
+      "title": "Business And System Intent Is Clear",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/capture-business-system-intent.html",
@@ -2488,7 +2505,7 @@
     },
     {
       "id": "foundation.compound-improvements-safely.capability",
-      "title": "Compound Improvements Safely",
+      "title": "Improvements Compound Safely",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/compound-improvements-safely.html",
@@ -2563,7 +2580,7 @@
     },
     {
       "id": "foundation.define-jobs-from-capabilities.capability",
-      "title": "Define Jobs From Capabilities",
+      "title": "Capabilities Become Workable Jobs",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/define-jobs-from-capabilities.html",
@@ -2838,7 +2855,7 @@
     },
     {
       "id": "foundation.evaluate-quality-completeness.capability",
-      "title": "Evaluate Quality and Completeness",
+      "title": "Quality And Completeness Are Judged",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/evaluate-quality-completeness.html",
@@ -2912,8 +2929,63 @@
       ]
     },
     {
+      "id": "foundation.failure-recovery-ready.capability",
+      "title": "Failure Recovery Is Ready",
+      "type": "capability",
+      "status": "draft",
+      "file": "foundation/docs/specs/capabilities/failure-recovery-ready.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.operate-systems-in-real-world.capability",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operate-systems-in-real-world.capability",
+          "relationship": "parent",
+          "sections": [
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/failure-recovery-ready.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "foundation.failure-recovery-ready.capability:job-gap",
+          "level": "manual",
+          "status": "gap",
+          "path": "foundation/docs/specs/capabilities/failure-recovery-ready.html",
+          "mapsTo": [
+            "foundation.failure-recovery-ready.capability#jobs",
+            "foundation.failure-recovery-ready.capability#evidence-and-evaluation"
+          ],
+          "evidence": "Foundation has not yet created the incident, rollback, and recovery job specs that would make this operating capability executable."
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "operations"
+      ]
+    },
+    {
       "id": "foundation.generate-maintain-agent-skills.capability",
-      "title": "Generate and Maintain Agent Skills",
+      "title": "Agent Skills Preserve Repeatable Work",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/generate-maintain-agent-skills.html",
@@ -2983,7 +3055,7 @@
     },
     {
       "id": "foundation.install-foundation-target-repos.capability",
-      "title": "Install Foundation Into Target Repos",
+      "title": "Foundation Is Installable In Target Repos",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/install-foundation-target-repos.html",
@@ -3063,7 +3135,7 @@
     },
     {
       "id": "foundation.inventory-classify-artifacts.capability",
-      "title": "Inventory and Classify Repository Artifacts",
+      "title": "Repo Artifacts Are Known And Classified",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/inventory-classify-artifacts.html",
@@ -3133,7 +3205,7 @@
     },
     {
       "id": "foundation.learn-agent-capabilities-over-time.capability",
-      "title": "Learn Agent Capabilities Over Time",
+      "title": "Agent Capability Changes Stay Known",
       "type": "capability",
       "status": "draft",
       "file": "foundation/docs/specs/capabilities/learn-agent-capabilities-over-time.html",
@@ -3282,7 +3354,7 @@
     },
     {
       "id": "foundation.map-capabilities-from-evidence.capability",
-      "title": "Map Capabilities From Evidence",
+      "title": "Evidence Becomes Capability Maps",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/map-capabilities-from-evidence.html",
@@ -3352,7 +3424,7 @@
     },
     {
       "id": "foundation.map-surfaces-functions.capability",
-      "title": "Map Surfaces and Functions",
+      "title": "Repo Surfaces Are Evidence Backed",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/map-surfaces-functions.html",
@@ -3431,13 +3503,50 @@
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.operating-system.system",
-      "children": [],
+      "children": [
+        "foundation.systems-ship-safely.capability",
+        "foundation.system-health-visible.capability",
+        "foundation.failure-recovery-ready.capability",
+        "foundation.operating-lessons-improve-system.capability"
+      ],
       "relatedSpecs": [
         {
           "id": "foundation.operating-system.system",
           "relationship": "parent",
           "sections": [
             "capability-map"
+          ]
+        },
+        {
+          "id": "foundation.systems-ship-safely.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.system-health-visible.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.failure-recovery-ready.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.operating-lessons-improve-system.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
           ]
         },
         {
@@ -3484,29 +3593,80 @@
             "foundation.operate-systems-in-real-world.capability#evidence-and-evaluation"
           ],
           "command": "npm run spec:check"
-        },
-        {
-          "id": "foundation.operate-systems-in-real-world.capability:child-capability-gap",
-          "level": "manual",
-          "status": "gap",
-          "path": "foundation/docs/specs/capabilities/operate-systems-in-real-world.html",
-          "mapsTo": [
-            "foundation.operate-systems-in-real-world.capability#jobs",
-            "foundation.operate-systems-in-real-world.capability#evidence-and-evaluation"
-          ],
-          "evidence": "Foundation does not yet have durable child capability specs for deployment, monitoring, incident recovery, or production operations."
         }
       ],
       "tags": [
         "capability",
         "parent-capability",
         "foundation",
-        "gap"
+        "operations"
+      ]
+    },
+    {
+      "id": "foundation.operating-lessons-improve-system.capability",
+      "title": "Operating Lessons Improve The System",
+      "type": "capability",
+      "status": "draft",
+      "file": "foundation/docs/specs/capabilities/operating-lessons-improve-system.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.operate-systems-in-real-world.capability",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operate-systems-in-real-world.capability",
+          "relationship": "parent",
+          "sections": [
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.evaluate-learn-improve.capability",
+          "relationship": "informs",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/operating-lessons-improve-system.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "foundation.operating-lessons-improve-system.capability:job-gap",
+          "level": "manual",
+          "status": "gap",
+          "path": "foundation/docs/specs/capabilities/operating-lessons-improve-system.html",
+          "mapsTo": [
+            "foundation.operating-lessons-improve-system.capability#jobs",
+            "foundation.operating-lessons-improve-system.capability#evidence-and-evaluation"
+          ],
+          "evidence": "Foundation has not yet created the operating-lessons job, technical, and eval specs that would make this operating capability executable."
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "operations"
       ]
     },
     {
       "id": "foundation.package-context-for-action.capability",
-      "title": "Package Context For Action",
+      "title": "Context Is Bounded For Action",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/package-context-for-action.html",
@@ -3667,7 +3827,7 @@
     },
     {
       "id": "foundation.render-inspectable-system-graph.capability",
-      "title": "Render the System as an Inspectable Graph",
+      "title": "System Graphs Are Inspectable",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/render-inspectable-system-graph.html",
@@ -3829,6 +3989,116 @@
         "capability",
         "parent-capability",
         "foundation"
+      ]
+    },
+    {
+      "id": "foundation.system-health-visible.capability",
+      "title": "System Health Is Visible",
+      "type": "capability",
+      "status": "draft",
+      "file": "foundation/docs/specs/capabilities/system-health-visible.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.operate-systems-in-real-world.capability",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operate-systems-in-real-world.capability",
+          "relationship": "parent",
+          "sections": [
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/system-health-visible.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "foundation.system-health-visible.capability:job-gap",
+          "level": "manual",
+          "status": "gap",
+          "path": "foundation/docs/specs/capabilities/system-health-visible.html",
+          "mapsTo": [
+            "foundation.system-health-visible.capability#jobs",
+            "foundation.system-health-visible.capability#evidence-and-evaluation"
+          ],
+          "evidence": "Foundation has not yet created the monitoring and health-signal jobs, technical contracts, and evals that would make this operating capability executable."
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "operations"
+      ]
+    },
+    {
+      "id": "foundation.systems-ship-safely.capability",
+      "title": "Systems Can Ship Safely",
+      "type": "capability",
+      "status": "draft",
+      "file": "foundation/docs/specs/capabilities/systems-ship-safely.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-06",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.operate-systems-in-real-world.capability",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.operate-systems-in-real-world.capability",
+          "relationship": "parent",
+          "sections": [
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.capability-map-remap.job",
+          "relationship": "informs",
+          "sections": [
+            "proposed-handling"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/systems-ship-safely.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [],
+      "coverage": [
+        {
+          "id": "foundation.systems-ship-safely.capability:job-gap",
+          "level": "manual",
+          "status": "gap",
+          "path": "foundation/docs/specs/capabilities/systems-ship-safely.html",
+          "mapsTo": [
+            "foundation.systems-ship-safely.capability#jobs",
+            "foundation.systems-ship-safely.capability#evidence-and-evaluation"
+          ],
+          "evidence": "Foundation has not yet created the deploy/release job, technical, and eval specs that would make this operating capability executable."
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "operations"
       ]
     },
     {
@@ -4790,7 +5060,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-author-specs-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-06-04",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.backfill-author-specs.job",
@@ -4882,7 +5152,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-author-specs-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-06-04",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.backfill-author-specs.job",
@@ -5191,7 +5461,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-map-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-capability-map.job",
@@ -5283,7 +5553,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-map-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-capability-map.job",
@@ -5405,7 +5675,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-capability-map.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.map-capabilities-from-evidence.capability",
@@ -5621,7 +5891,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-context-pack-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-context-pack.job",
@@ -6162,7 +6432,7 @@
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-job-slice-evaluation-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-job-slice-evaluation.job",
@@ -6248,7 +6518,7 @@
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-job-slice-evaluation-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-26",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-job-slice-evaluation.job",
@@ -6334,7 +6604,7 @@
       "status": "draft",
       "file": "foundation/docs/specs/foundation-backfill-job-slice-evaluation.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.evaluate-quality-completeness.capability",
@@ -6445,7 +6715,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-orchestration-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-specs.job",
@@ -6896,7 +7166,7 @@
           "mapsTo": [
             "foundation.backfill-orchestration.technical#failure-modes"
           ],
-          "evidence": "Run a large target repo backfill and verify the report marks complete after relevant capability rows are acceptable, parent-owned with a precise reason, blocked by a named human decision, or out of scope, and evidence surfaces map to capability rows."
+          "evidence": "Run a large target repo backfill and verify the report marks complete after relevant child/sole capability rows are acceptable, blocked by a named human decision, or out of scope, parent rows decompose into child rows, and evidence surfaces map to child/sole coverage or explicit blockers."
         },
         {
           "id": "FBO-5",
@@ -7061,7 +7331,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-process-action-map-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-06-03",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-process-action-map.job",
@@ -7482,7 +7752,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-spec-job-queue-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-spec-job-queue.job",
@@ -7586,7 +7856,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-spec-job-queue-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-05-29",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.backfill-spec-job-queue.job",
@@ -7698,7 +7968,7 @@
             "foundation.backfill-spec-job-queue.technical#checker-and-fill-loop",
             "foundation.backfill-spec-job-queue.technical#failure-modes"
           ],
-          "evidence": "Define Spec Jobs tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, needs-split child-slice coverage, eval scoring, refresh invalidation, and report drift."
+          "evidence": "Define Spec Jobs tests exercise the canonical commands, upstream handoff gate, JSONL parsing, stale upstream fingerprints, child/sole queue eligibility, eval scoring, refresh invalidation, and report drift."
         }
       ],
       "tags": [
@@ -7716,7 +7986,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-spec-job-queue.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.define-jobs-from-capabilities.capability",
@@ -7836,7 +8106,7 @@
             "foundation.backfill-spec-job-queue.job#artifacts-and-state",
             "foundation.backfill-spec-job-queue.job#handoff-gate"
           ],
-          "evidence": "Define Spec Jobs tests cover initialization from Capability Map handoff, Job / Spec Queue artifacts, needs-split child slice enforcement, eval receipts, refresh invalidation, and report handoff state."
+          "evidence": "Define Spec Jobs tests cover initialization from Capability Map handoff, Job / Spec Queue artifacts, queue-eligible child/sole capability enforcement, eval receipts, refresh invalidation, and report handoff state."
         }
       ],
       "tags": [
@@ -7854,7 +8124,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-specs.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-03",
+      "lastUpdated": "2026-06-07",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.compound-improvements-safely.capability",
@@ -9222,6 +9492,12 @@
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Enforces Foundation capability/job/skill ownership after remap."
+        },
+        {
+          "path": "foundation/scripts/capability-language-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Enforces outcome-shaped capability language after remap."
         }
       ],
       "coverage": [
@@ -9265,6 +9541,16 @@
             "foundation.capability-map-remap.job#evidence-and-evaluation"
           ],
           "command": "npm run foundation:capability-map-remap:check"
+        },
+        {
+          "id": "foundation.capability-map-remap.job:language-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/scripts/capability-language-check.mjs",
+          "mapsTo": [
+            "foundation.capability-map-remap.job#evidence-and-evaluation"
+          ],
+          "command": "npm run foundation:capability-language:check"
         }
       ],
       "tags": [
@@ -10256,7 +10542,7 @@
     },
     {
       "id": "foundation.knowledge-data-layer.system",
-      "title": "Knowledge and Data Layer",
+      "title": "Knowledge Stays Useful As Context",
       "type": "capability",
       "status": "draft",
       "file": "foundation/docs/specs/knowledge-and-data-layer.html",
@@ -10735,7 +11021,7 @@
       "status": "draft",
       "file": "foundation/docs/specs/visible-business-graph-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.visible-business-graph.system",
@@ -10794,6 +11080,12 @@
           "kind": "example",
           "ownership": "reference",
           "notes": "Generated Foundation graph canvas."
+        },
+        {
+          "path": "foundation/scripts/visible-business-graph-generated-check.mjs",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Freshness gate for committed Foundation graph and canvas artifacts."
         }
       ],
       "coverage": [
@@ -10806,7 +11098,7 @@
             "foundation.visible-business-graph.eval#verification-contract",
             "foundation.visible-business-graph.eval#acceptance-mapping"
           ],
-          "evidence": "Integration tests and CLI eval verify graph completeness, expected nodes/edges, source links, rendered canvas content, inline capability/job expansion, actors-map expansion, and generated canvas interaction contracts."
+          "evidence": "Integration tests and CLI eval verify graph completeness, expected nodes/edges, source links, rendered canvas content, visible parent/child capability hierarchy, inline capability/job expansion, actors-map expansion, and generated canvas interaction contracts."
         }
       ],
       "tags": [
@@ -10822,7 +11114,7 @@
       "status": "draft",
       "file": "foundation/docs/specs/visible-business-graph-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-06-06",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.visible-business-graph.system",
@@ -10882,6 +11174,11 @@
           "ownership": "direct"
         },
         {
+          "path": "foundation/scripts/visible-business-graph-generated-check.mjs",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
           "path": "foundation/scripts/visible-business-graph-eval.mjs",
           "kind": "workflow",
           "ownership": "direct"
@@ -10922,7 +11219,7 @@
             "foundation.visible-business-graph.technical#contracts",
             "foundation.visible-business-graph.technical#failure-modes"
           ],
-          "evidence": "Visible Business Graph tests cover parsing, validation failures, spec scaffolding, Foundation graph build/check, example graph render/eval, and renderer interaction contracts for top-down layout, inline capability/job expansion, actors-map expansion, and drag panning."
+          "evidence": "Visible Business Graph tests cover parsing, validation failures, spec scaffolding, Foundation graph build/check, example graph render/eval, and renderer interaction contracts for top-down layout, visible parent/child capability hierarchy, inline capability/job expansion, actors-map expansion, and drag panning."
         }
       ],
       "tags": [
@@ -10933,7 +11230,7 @@
     },
     {
       "id": "foundation.visible-business-graph.system",
-      "title": "Visible Business Graph",
+      "title": "Business Graph Is Visible",
       "type": "capability",
       "status": "draft",
       "file": "foundation/docs/specs/visible-business-graph.html",

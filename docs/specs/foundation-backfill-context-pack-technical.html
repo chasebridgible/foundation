@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-context-pack.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-29">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Context Pack Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Context Pack Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-05-29",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-context-pack.job",
@@ -229,7 +229,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-context-pack-technical.html</div>
     <h1>Foundation Backfill Context Pack Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Context Pack deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Parent:</strong> foundation.backfill-context-pack.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Parent:</strong> foundation.backfill-context-pack.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -237,7 +237,7 @@
     <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
       <h2>Data model</h2>
       <table class="status-table"><thead><tr><th>Object</th><th>Required fields</th><th>Invariant</th></tr></thead><tbody>
-        <tr><td>Layer row</td><td>runId, packId, upstreamSliceId, upstreamSliceRef, upstreamCapabilityIds, upstreamSurfaceIds, upstreamFileIds, status, confidence, evidenceRefs, excludedRefs, explicitGaps, sufficiencyRationale, tokenBudget, estimatedTokens, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity, traceable upstream evidence, exact source anchors, and a bounded context budget.</td></tr>
+        <tr><td>Layer row</td><td>runId, packId, upstreamSliceId, upstreamSliceRef, upstreamCapabilityIds, capabilityRefs, upstreamSurfaceIds, upstreamFileIds, status, confidence, evidenceRefs, excludedRefs, explicitGaps, sufficiencyRationale, tokenBudget, estimatedTokens, reviewFlags, createdAt, updatedAt</td><td>Every row has stable identity, traceable upstream child/sole capability refs, exact source anchors, and a bounded context budget.</td></tr>
         <tr><td>Canonical artifact</td><td>context-pack-YYYYMMDD-NN.jsonl, context-pack-eval-YYYYMMDD-NN.jsonl</td><td>JSONL files are append-friendly and machine-parseable; each line is one receipt or row.</td></tr>
         <tr><td>Derived artifact</td><td>context-pack-summary-YYYYMMDD-NN.html, slice evidence tables</td><td>Derived views can be regenerated and never replace canonical JSONL state.</td></tr>
         <tr><td>Report entry</td><td>artifact paths, row counts, pending counts, checker result, eval result, latest run-log sequence, next layer</td><td>A new agent can resume from report plus artifacts.</td></tr>
@@ -252,7 +252,7 @@
         <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
         <tr><td>Deterministic checker</td><td>validates each Context Pack references valid queue slices and upstream row IDs, all required evidence categories have entries or explicit gaps, file-like evidence has exact paths plus line ranges, snippets, or symbols, generic full-file evidence is rejected, and pack size stays within configured limits.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>samples packs against queue slices to judge whether necessary files or surfaces were omitted, irrelevant evidence is bloating context, specificity is weak, or the pack cannot support Process / Action Map and later Author Specs.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
-        <tr><td>Handoff gate</td><td>each active queued slice has a bounded Context Pack or explicit blocker; checker artifact passes for the current pack fingerprint; eval receipt and HTML summary exist for the current pack fingerprint; eval revision targets are zero; report names next layer as Process / Action Map.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
+        <tr><td>Handoff gate</td><td>each active queued child/sole slice has a bounded Context Pack or explicit blocker; every pack preserves queue capability refs and rejects parent, <code>needs-split</code>, blocked, or non-queueable refs as active work; checker artifact passes for the current pack fingerprint; eval receipt and HTML summary exist for the current pack fingerprint; eval revision targets are zero; report names next layer as Process / Action Map.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>
       </tbody></table>
     </section>
 

@@ -64,7 +64,14 @@
       "ownership": "direct"
     }
   ],
-  "implementationPaths": [],
+  "implementationPaths": [
+    {
+      "path": "foundation/scripts/capability-language-check.mjs",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Deterministically rejects job-shaped child capability titles, artifact-only titles, and weak reliable-outcome rows."
+    }
+  ],
   "coverage": [
     {
       "id": "foundation.author-capability-spec.job:lane-eval",
@@ -74,6 +81,16 @@
       "mapsTo": [
         "foundation.author-capability-spec.job#evidence-and-evaluation"
       ]
+    },
+    {
+      "id": "foundation.author-capability-spec.job:language-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/scripts/capability-language-check.mjs",
+      "mapsTo": [
+        "foundation.author-capability-spec.job#evidence-and-evaluation"
+      ],
+      "command": "npm run foundation:capability-language:check"
     }
   ],
   "tags": [
@@ -258,9 +275,9 @@
         <li>Run the readiness gate: ask only questions that materially change capability outcome, parent/child altitude, realizing jobs, evidence, or constraints; otherwise continue with labeled assumptions.</li>
         <li>Confirm the candidate passes the standing-ability test.</li>
         <li>For a parent capability, name one outcome family and its child outcome boundaries.</li>
-        <li>For a child capability, name the narrower reliable outcome, jobs, rules, evidence, evals, and parent relation.</li>
+        <li>For a child capability, name the narrower reliable outcome, jobs, rules, evidence, evals, and parent relation. Keep the visible title and graph label outcome-shaped even when the compatibility ID is older.</li>
         <li>Author or revise HTML prose, metadata, graph edges, jobs table, coverage, and visible links.</li>
-        <li>Run the capability-spec eval, revise blocking findings, then run registry, graph, and self-map checks.</li>
+        <li>Run the capability-spec eval and <code>npm run foundation:capability-language:check</code>, revise blocking findings, then run registry, graph, and self-map checks.</li>
       </ol>
     </section>
 
@@ -276,7 +293,7 @@
 
     <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
       <h2>Evidence and evaluation</h2>
-      <p>The authored capability spec is acceptable only when it names a reliable outcome, exposes parent/child links when needed, links jobs with <code>realized-by</code>, names evidence and evals, and rejects artifact or phase naming.</p>
+      <p>The authored capability spec is acceptable only when it names a reliable outcome, exposes parent/child links when needed, links jobs with <code>realized-by</code>, names evidence and evals, passes capability-language checking, and rejects artifact or phase naming.</p>
     </section>
 
     <section id="revision" data-spec-section="revision" data-section-type="maintenance">

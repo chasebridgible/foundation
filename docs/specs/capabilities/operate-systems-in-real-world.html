@@ -20,13 +20,50 @@
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.operating-system.system",
-  "children": [],
+  "children": [
+    "foundation.systems-ship-safely.capability",
+    "foundation.system-health-visible.capability",
+    "foundation.failure-recovery-ready.capability",
+    "foundation.operating-lessons-improve-system.capability"
+  ],
   "relatedSpecs": [
     {
       "id": "foundation.operating-system.system",
       "relationship": "parent",
       "sections": [
         "capability-map"
+      ]
+    },
+    {
+      "id": "foundation.systems-ship-safely.capability",
+      "relationship": "child",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.system-health-visible.capability",
+      "relationship": "child",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.failure-recovery-ready.capability",
+      "relationship": "child",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.operating-lessons-improve-system.capability",
+      "relationship": "child",
+      "sections": [
+        "capability-intent",
+        "jobs"
       ]
     },
     {
@@ -73,24 +110,13 @@
         "foundation.operate-systems-in-real-world.capability#evidence-and-evaluation"
       ],
       "command": "npm run spec:check"
-    },
-    {
-      "id": "foundation.operate-systems-in-real-world.capability:child-capability-gap",
-      "level": "manual",
-      "status": "gap",
-      "path": "foundation/docs/specs/capabilities/operate-systems-in-real-world.html",
-      "mapsTo": [
-        "foundation.operate-systems-in-real-world.capability#jobs",
-        "foundation.operate-systems-in-real-world.capability#evidence-and-evaluation"
-      ],
-      "evidence": "Foundation does not yet have durable child capability specs for deployment, monitoring, incident recovery, or production operations."
     }
   ],
   "tags": [
     "capability",
     "parent-capability",
     "foundation",
-    "gap"
+    "operations"
   ]
 }
 </script>
@@ -115,7 +141,7 @@
           "capability",
           "parent-capability",
           "foundation",
-          "gap"
+          "operations"
         ]
       }
     },
@@ -131,20 +157,6 @@
       "confidence": "medium",
       "attributes": {
         "generatedFrom": "foundation.operate-systems-in-real-world.capability"
-      }
-    },
-    {
-      "id": "gap:foundation.operate-systems-in-real-world.capability:operations",
-      "type": "gap",
-      "label": "Missing child capability specs",
-      "source": {
-        "specId": "foundation.operate-systems-in-real-world.capability",
-        "sectionId": "evidence-and-evaluation"
-      },
-      "status": "draft",
-      "confidence": "medium",
-      "attributes": {
-        "gap": "Foundation does not yet have durable child capability specs for deployment, monitoring, incident recovery, or production operations."
       }
     }
   ],
@@ -170,13 +182,43 @@
       }
     },
     {
-      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:has-gap:gap:foundation.operate-systems-in-real-world.capability:operations",
-      "type": "has-gap",
+      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:contains:spec:foundation.systems-ship-safely.capability",
+      "type": "contains",
       "from": "spec:foundation.operate-systems-in-real-world.capability",
-      "to": "gap:foundation.operate-systems-in-real-world.capability:operations",
+      "to": "spec:foundation.systems-ship-safely.capability",
       "source": {
         "specId": "foundation.operate-systems-in-real-world.capability",
-        "sectionId": "evidence-and-evaluation"
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:contains:spec:foundation.system-health-visible.capability",
+      "type": "contains",
+      "from": "spec:foundation.operate-systems-in-real-world.capability",
+      "to": "spec:foundation.system-health-visible.capability",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:contains:spec:foundation.failure-recovery-ready.capability",
+      "type": "contains",
+      "from": "spec:foundation.operate-systems-in-real-world.capability",
+      "to": "spec:foundation.failure-recovery-ready.capability",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.operate-systems-in-real-world.capability:contains:spec:foundation.operating-lessons-improve-system.capability",
+      "type": "contains",
+      "from": "spec:foundation.operate-systems-in-real-world.capability",
+      "to": "spec:foundation.operating-lessons-improve-system.capability",
+      "source": {
+        "specId": "foundation.operate-systems-in-real-world.capability",
+        "sectionId": "jobs"
       }
     }
   ]
@@ -229,7 +271,7 @@
           <tr><td>Beneficiary</td><td>Humans, agents, and software systems using Foundation.</td><td>Foundation operating system goal.</td></tr>
           <tr><td>Reliable outcome</td><td>Shipped systems can be deployed, monitored, recovered, and improved from operating evidence.</td><td>Capability remap plan.</td></tr>
           <tr><td>Capability altitude</td><td>Parent capability outcome family.</td><td><code>foundation.capability-map-remap.job</code></td></tr>
-          <tr><td>Child examples</td><td>Deploy safely; monitor behavior; detect failure, drift, and gaps; support recovery paths; feed operating lessons back into specs.</td><td>System capability workshop and remap table.</td></tr>
+          <tr><td>Child capabilities</td><td>Systems can ship safely; system health is visible; failure recovery is ready; operating lessons improve the system.</td><td>System capability workshop and remap table.</td></tr>
           <tr><td>Failure mode</td><td>Systems exist as build artifacts but are not reliably deployed, monitored, recovered, or improved from reality.</td><td>Remap eval failure model.</td></tr>
         </tbody>
       </table>
@@ -241,7 +283,10 @@
       <table class="status-table">
         <thead><tr><th>Child capability or gap</th><th>Purpose</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>Deployment, monitoring, recovery, and operating lessons child capabilities</td><td>Foundation does not yet have durable child capability specs for deployment, monitoring, incident recovery, or production operations.</td><td>gap</td></tr>
+          <tr><td><code>foundation.systems-ship-safely.capability</code></td><td>Systems can move from build-ready to live use with known checks, owners, environments, rollback paths, and review evidence.</td><td>draft child capability with scoped job gap</td></tr>
+          <tr><td><code>foundation.system-health-visible.capability</code></td><td>Humans and agents can see whether shipped systems are healthy, drifting, blocked, or failing before work depends on stale reality.</td><td>draft child capability with scoped job gap</td></tr>
+          <tr><td><code>foundation.failure-recovery-ready.capability</code></td><td>Known failure modes have recovery paths, owners, evidence, user/operator communication, and revision targets before they are needed under pressure.</td><td>draft child capability with scoped job gap</td></tr>
+          <tr><td><code>foundation.operating-lessons-improve-system.capability</code></td><td>Evidence from shipped-system operation becomes revisions to specs, jobs, evals, context, skills, and validators.</td><td>draft child capability with scoped job gap</td></tr>
         </tbody>
       </table>
     </section>
@@ -260,7 +305,7 @@
       <table class="status-table">
         <thead><tr><th>Evidence</th><th>Eval or check</th><th>Revision target</th></tr></thead>
         <tbody>
-          <tr><td>Foundation does not yet have durable child capability specs for deployment, monitoring, incident recovery, or production operations.</td><td><code>foundation.operate-systems-in-real-world.capability:child-capability-gap</code></td><td>Create child capability/job/eval specs for operations.</td></tr>
+          <tr><td>Operations child capabilities are graph-visible and carry scoped job gaps.</td><td><code>npm run foundation:capability-map-remap:check</code></td><td>Update child capability links, remap rows, or scoped job gaps.</td></tr>
           <tr><td>Spec registry, graph, and self-map resolve.</td><td><code>npm run spec:check</code></td><td>Update metadata, graph edges, or child spec links.</td></tr>
         </tbody>
       </table>

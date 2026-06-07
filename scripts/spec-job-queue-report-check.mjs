@@ -27,10 +27,19 @@ const VALID_CAPABILITY_STATUSES = new Set([
   "needs-evaluation",
   "needs-revision",
   "acceptable",
-  "parent-owned",
   "blocked-by-human",
   "out-of-scope"
 ]);
+
+const VALID_CAPABILITY_ALTITUDES = new Set([
+  "parent",
+  "child",
+  "sole",
+  "needs-split",
+  "blocked"
+]);
+
+const QUEUE_ELIGIBLE_CAPABILITY_ALTITUDES = new Set(["child", "sole"]);
 
 const VALID_OWNER_SKILLS = new Set([
   "backfill-context-pack",
@@ -179,12 +188,24 @@ function validateCapabilityMap(matrix) {
     ? pass("unique-capability-ids", "Capability IDs are unique")
     : fail("unique-capability-ids", "Capability IDs must be unique", { duplicates }));
 
+  const childParentIds = new Set(matrix.capabilities
+    .filter(capability => capability?.capabilityAltitude === "child" && isString(capability?.parentCapabilityId))
+    .map(capability => capability.parentCapabilityId));
+  const parentWithoutChildren = matrix.capabilities
+    .filter(capability => capability?.capabilityAltitude === "parent" && !childParentIds.has(capability.id))
+    .map(capability => capability.id)
+    .filter(isString);
+  results.push(parentWithoutChildren.length === 0
+    ? pass("parent-capabilities-have-children", "Parent capabilities decompose to child rows")
+    : fail("parent-capabilities-have-children", "Parent capabilities must decompose to child capability rows", { parentWithoutChildren }));
+
   for (const [index, capability] of matrix.capabilities.entries()) {
     const label = isString(capability?.id) ? capability.id : `capability-${index + 1}`;
     const prefix = `capability:${label}`;
 
     if (!isString(capability?.id)) results.push(fail(`${prefix}:id`, "Capability must have a non-empty id"));
     if (!isString(capability?.name)) results.push(fail(`${prefix}:name`, "Capability must have a non-empty name"));
+    if (!isString(capability?.capabilityTitle)) results.push(fail(`${prefix}:capability-title`, "Capability must have a non-empty capabilityTitle"));
     if (!isString(capability?.actor)) results.push(fail(`${prefix}:actor`, "Capability must have a non-empty actor"));
     if (!isString(capability?.intendedOutcome)) results.push(fail(`${prefix}:intended-outcome`, "Capability must have a non-empty intendedOutcome"));
     if (!isString(capability?.domainObject)) results.push(fail(`${prefix}:domain-object`, "Capability must have a non-empty domainObject"));
@@ -222,12 +243,47 @@ function validateCapabilityMap(matrix) {
       results.push(pass(`${prefix}:status`, `Capability status is ${capability.status}`));
     }
 
+    if (!VALID_CAPABILITY_ALTITUDES.has(capability?.capabilityAltitude)) {
+      results.push(fail(`${prefix}:capability-altitude`, "Capability altitude is not in the Foundation capability model enum", {
+        capabilityAltitude: capability?.capabilityAltitude,
+        validAltitudes: [...VALID_CAPABILITY_ALTITUDES]
+      }));
+    } else {
+      results.push(pass(`${prefix}:capability-altitude`, `Capability altitude is ${capability.capabilityAltitude}`));
+    }
+
+    if (typeof capability?.queueEligible !== "boolean") {
+      results.push(fail(`${prefix}:queue-eligible`, "Capability must include boolean queueEligible"));
+    }
+
+    if (capability?.queueEligible === true && !QUEUE_ELIGIBLE_CAPABILITY_ALTITUDES.has(capability?.capabilityAltitude)) {
+      results.push(fail(`${prefix}:queue-eligible-model`, "Only child or sole capability rows may be queueEligible", {
+        capabilityAltitude: capability?.capabilityAltitude
+      }));
+    }
+
+    if (QUEUE_ELIGIBLE_CAPABILITY_ALTITUDES.has(capability?.capabilityAltitude) && capability?.status === "ready-for-queue" && capability?.queueEligible !== true) {
+      results.push(fail(`${prefix}:queue-eligible-required`, "Ready child or sole capability rows must set queueEligible true"));
+    }
+
+    if (capability?.capabilityAltitude === "child" && !isString(capability?.parentCapabilityId)) {
+      results.push(fail(`${prefix}:parent-capability-id`, "Child capability rows must name parentCapabilityId"));
+    }
+
+    if (capability?.capabilityAltitude === "needs-split" && !isString(capability?.blockerOrSplitReason) && !isString(capability?.splitReason)) {
+      results.push(fail(`${prefix}:split-reason`, "needs-split capability rows must name blockerOrSplitReason or splitReason"));
+    }
+
+    if (capability?.capabilityAltitude === "blocked" && !isString(capability?.blockerOrSplitReason) && (!Array.isArray(capability?.blockingGaps) || capability.blockingGaps.length === 0) && (!Array.isArray(capability?.humanDecisions) || capability.humanDecisions.length === 0)) {
+      results.push(fail(`${prefix}:blocker-detail`, "blocked capability rows must name blockerOrSplitReason, blockingGaps, or humanDecisions"));
+    }
+
     if (capability?.splitNeeded !== undefined && typeof capability.splitNeeded !== "boolean") {
       results.push(fail(`${prefix}:split-needed`, "splitNeeded must be a boolean when present", { splitNeeded: capability?.splitNeeded }));
     }
 
     if (capability?.status === "acceptable") {
-      if (capability?.splitNeeded === true || capability?.status === "needs-split") {
+      if (capability?.splitNeeded === true || capability?.status === "needs-split" || capability?.capabilityAltitude === "needs-split") {
         results.push(fail(`${prefix}:acceptable-split`, "Acceptable capabilities cannot need split"));
       }
       if (!isString(jobSpec)) results.push(fail(`${prefix}:acceptable-job-spec`, "Acceptable capabilities must name a jobSpec"));
@@ -242,7 +298,7 @@ function validateCapabilityMap(matrix) {
   return results;
 }
 
-function validateQueue(queue, capabilityIds = null) {
+function validateQueue(queue, capabilityById = null) {
   const results = [];
 
   results.push(isString(queue.runId)
@@ -286,13 +342,36 @@ function validateQueue(queue, capabilityIds = null) {
 
     if (!isStringArray(slice?.upstreamCapabilityIds) || slice.upstreamCapabilityIds.length === 0) {
       results.push(fail(`${prefix}:capability-ids`, "Slice must list at least one upstreamCapabilityIds entry"));
-    } else if (capabilityIds) {
-      const unknown = slice.upstreamCapabilityIds.filter(id => !capabilityIds.has(id));
+    } else if (capabilityById) {
+      const unknown = slice.upstreamCapabilityIds.filter(id => !capabilityById.has(id));
       if (unknown.length > 0) {
         results.push(fail(`${prefix}:capability-refs`, "Slice upstreamCapabilityIds must refer to Capability Map rows", { unknown }));
       } else {
         results.push(pass(`${prefix}:capability-refs`, "Slice upstreamCapabilityIds refer to Capability Map rows"));
       }
+      const unqueueable = slice.upstreamCapabilityIds
+        .map(id => capabilityById.get(id))
+        .filter(Boolean)
+        .filter(capability => capability.queueEligible !== true || !QUEUE_ELIGIBLE_CAPABILITY_ALTITUDES.has(capability.capabilityAltitude));
+      if (unqueueable.length > 0) {
+        results.push(fail(`${prefix}:queue-eligible-capability-refs`, "Slices may only reference queue-eligible child/sole capability rows", {
+          unqueueable: unqueueable.map(capability => ({
+            id: capability.id,
+            capabilityAltitude: capability.capabilityAltitude,
+            queueEligible: capability.queueEligible
+          }))
+        }));
+      } else {
+        results.push(pass(`${prefix}:queue-eligible-capability-refs`, "Slice references only queue-eligible child/sole capability rows"));
+      }
+    }
+
+    if (!isString(slice?.capabilityAltitude)) {
+      results.push(fail(`${prefix}:capability-altitude`, "Slice must preserve capabilityAltitude"));
+    }
+
+    if (!Array.isArray(slice?.capabilityRefs) || slice.capabilityRefs.length === 0) {
+      results.push(fail(`${prefix}:capability-refs-array`, "Slice must preserve capabilityRefs from queue-eligible child/sole capability rows"));
     }
 
     if (!VALID_STATUSES.has(slice?.status)) {
@@ -372,7 +451,7 @@ function validateReport(reportPath) {
   const results = [];
 
   const matrixText = extractJsonScript(html, "backfill-capability-map");
-  let capabilityIds = null;
+  let capabilityById = null;
   if (!matrixText) {
     results.push(fail("capability-script", "Report must include <script type=\"application/json\" id=\"backfill-capability-map\">"));
   } else {
@@ -382,7 +461,9 @@ function validateReport(reportPath) {
       results.push(pass("capability-json", "Backfill Capability Map JSON parses"));
       results.push(...validateCapabilityMap(matrix));
       if (Array.isArray(matrix.capabilities)) {
-        capabilityIds = new Set(matrix.capabilities.map(capability => capability?.id).filter(isString));
+        capabilityById = new Map(matrix.capabilities
+          .filter(capability => isString(capability?.id))
+          .map(capability => [capability.id, capability]));
       }
     } catch (error) {
       results.push(fail("capability-json", "Backfill Capability Map JSON must parse", { error: error.message }));
@@ -407,7 +488,7 @@ function validateReport(reportPath) {
     ...results,
     pass("queue-script", "Report includes embedded Spec Job Queue"),
     pass("queue-json", "Backfill Spec Job Queue JSON parses"),
-    ...validateQueue(queue, capabilityIds)
+    ...validateQueue(queue, capabilityById)
   ];
 }
 

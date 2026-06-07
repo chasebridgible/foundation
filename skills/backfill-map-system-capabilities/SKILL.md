@@ -39,6 +39,18 @@ Capability Map rows are the handoff source for capability graph nodes and capabi
 
 For Foundation-owned changes, every new capability row must answer which Foundation capability is being improved and which job spec owns the repeatable work. Run `npm run foundation:self-map:check` after changing Foundation capability, job, or skill ownership.
 
+## Capability Boundary
+
+Capability names must read as reliable outcomes, not layer names, file groups, route names, queue rows, commands, or work phases. If a candidate starts as triggered work such as "map surfaces", "author specs", "deploy release", or "review rows", rewrite it as the durable outcome it makes possible or mark it `needs-split`/`blocked`. Parent capability rows organize broad outcome families only when narrower child rows carry the behavior, evidence, and job boundaries.
+
+Use the settled capability model:
+
+- `parent`: broad outcome family; useful graph structure, not authorable work.
+- `child`: specific reliable outcome under a parent; queueable when evidence-backed.
+- `sole`: specific reliable outcome that does not need a parent split; queueable when evidence-backed.
+- `needs-split`: too broad or mixed; must become parent + child rows or narrower sole rows before handoff.
+- `blocked`: evidence is insufficient or contradictory; requires blocker or human-decision detail and cannot queue.
+
 ## Required Loop
 
 1. Use `--next` to select a pending or failed surface target.
@@ -47,21 +59,24 @@ For Foundation-owned changes, every new capability row must answer which Foundat
 4. Immediately mark that reviewed group with inline `--capabilities-json`.
 5. Do not rely on generated capability files, all-file fill modes, or broad path/domain summaries. The fill command rejects those shortcuts.
 6. Run the batch checker often enough that missing formula fields, uncovered surfaces, stale upstream refs, and split issues are fixed before many more rows are marked.
-7. Repeat until every ready surface is owned by a `ready-for-queue` or `needs-split` capability row for the Job / Spec Queue.
+7. Repeat until every ready surface is covered by a queue-eligible `child` or `sole` row, or by an explicit `blocked` row with evidence. Parent rows do not cover behavior by themselves, and `needs-split` rows must be resolved before Job / Spec Queue.
 8. Run handoff check and eval once the layer is terminal.
 9. Revise every row named in eval `revisionTargets`; warnings are not handoff-ready.
 10. Rerun check and eval until `revisionTargets` is empty, run the visible business graph check when specs already exist, then record report state.
 
 ## Capability JSON Shape
 
-`--capabilities-json` is an array of row specs for the reviewed surface group. Common fields: `name`, `actor`, `intendedOutcome`, `domainObject`, `actions`, `states`, `rules`, `experience`, `backingContracts`, `failureAndRecovery`, `evidence`, `status`, `confidence`, and optional `upstreamSurfaceIds`.
+`--capabilities-json` is an array of row specs for the reviewed surface group. Common fields: `name`, `capabilityTitle`, `capabilityAltitude`, `parentCapabilityId`, `parentCapabilityName`, `queueEligible`, `notCapabilityReason`, `blockerOrSplitReason`, `actor`, `intendedOutcome`, `domainObject`, `actions`, `states`, `rules`, `experience`, `backingContracts`, `failureAndRecovery`, `evidence`, `status`, `confidence`, and optional `upstreamSurfaceIds`.
 
-Use `status: "ready-for-queue"` when the row is exact enough for a queue slice. Use `status: "needs-split"` with `splitReason` and `splitCriteria` when actors, outcomes, objects, state models, permission/rule models, backing contracts, recovery behavior, or verification targets differ.
+Use `status: "ready-for-queue"`, `capabilityAltitude: "child"` or `"sole"`, and `queueEligible: true` only when the row is exact enough for a queue slice. Use `capabilityAltitude: "parent"` with `queueEligible: false` for outcome families that decompose into child rows. Use `status: "needs-split"` with `splitReason` and `splitCriteria` when actors, outcomes, objects, state models, permission/rule models, backing contracts, recovery behavior, or verification targets differ and the split has not yet been completed.
 
 ```json
 [
   {
     "name": "Authenticated dashboard review",
+    "capabilityTitle": "Authenticated users can review current dashboard metrics with clear loading and error recovery",
+    "capabilityAltitude": "sole",
+    "queueEligible": true,
     "actor": "Authenticated workspace user",
     "intendedOutcome": "Review current dashboard metrics with clear loading and error states.",
     "domainObject": "Dashboard view",

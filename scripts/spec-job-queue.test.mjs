@@ -169,8 +169,16 @@ function prepareCapabilitySkeleton(repoRoot, runId = "20260529-01") {
 function prepareCapabilityMap(repoRoot, runId = "20260529-01") {
   prepareCapabilitySkeleton(repoRoot, runId);
   const rows = readJsonl(capabilityMapPathFor(repoRoot, runId)).rows;
-  const dashboardSurfaceIds = rows
-    .filter(row => row.surfaceRefs[0].path !== "package.json")
+  const dashboardRows = rows.filter(row => row.surfaceRefs[0].path !== "package.json");
+  const dashboardSurfaceIds = dashboardRows.map(row => row.upstreamSurfaceIds[0]);
+  const dashboardScreenSurfaceIds = dashboardRows
+    .filter(row => row.surfaceRefs[0].path.includes("web/app/dashboard"))
+    .map(row => row.upstreamSurfaceIds[0]);
+  const dashboardApiSurfaceIds = dashboardRows
+    .filter(row => row.surfaceRefs[0].path.includes("backend/src/routes"))
+    .map(row => row.upstreamSurfaceIds[0]);
+  const dashboardPersistenceSurfaceIds = dashboardRows
+    .filter(row => row.surfaceRefs[0].path.includes("database/migrations"))
     .map(row => row.upstreamSurfaceIds[0]);
   const packageSurfaceIds = rows
     .filter(row => row.surfaceRefs[0].path === "package.json")
@@ -180,7 +188,10 @@ function prepareCapabilityMap(repoRoot, runId = "20260529-01") {
     "--run-id", runId,
     "--surface-ids", dashboardSurfaceIds.join(","),
     "--capabilities-json", JSON.stringify([{
-      name: "Authenticated dashboard discovery capability",
+      capabilityId: "cap-dashboard-parent",
+      name: "Authenticated users can understand dashboard operations from current screen API and persistence evidence",
+      capabilityTitle: "Authenticated users can understand dashboard operations from current screen API and persistence evidence",
+      capabilityAltitude: "parent",
       actor: "Authenticated workspace reviewer",
       intendedOutcome: "Review dashboard screen data and persistence context for operational decisions.",
       domainObject: "Authenticated dashboard review workflow",
@@ -198,13 +209,68 @@ function prepareCapabilityMap(repoRoot, runId = "20260529-01") {
       backingContracts: ["Dashboard page screen", "GET /dashboard API", "dashboard_events table"],
       failureAndRecovery: ["API or persistence failure routes to bounded dashboard revision evidence"],
       evidence: dashboardSurfaceIds.map(surfaceId => `${surfaceId} reviewed and mapped to dashboard behavior`),
-      status: "needs-split",
-      splitNeeded: true,
-      splitReason: "Screen rendering, API payload, and persistence contracts need separate Context Pack slices before spec authoring.",
-      splitCriteria: [
-        "Screen rendering behavior is separated from API payload verification.",
-        "API payload verification is separated from database persistence contract coverage."
-      ],
+      status: "ready-for-queue",
+      queueEligible: false,
+      confidence: "high"
+    }, {
+      capabilityId: "cap-dashboard-screen-child",
+      name: "Authenticated reviewers can see dashboard screen states for operational review",
+      capabilityTitle: "Authenticated reviewers can see dashboard screen states for operational review",
+      capabilityAltitude: "child",
+      parentCapabilityId: "cap-dashboard-parent",
+      parentCapabilityName: "Authenticated users can understand dashboard operations from current screen API and persistence evidence",
+      upstreamSurfaceIds: dashboardScreenSurfaceIds,
+      actor: "Authenticated workspace reviewer",
+      intendedOutcome: "See dashboard screen loading loaded empty and error states during operational review.",
+      domainObject: "Dashboard screen state review",
+      actions: ["Open dashboard screen for store metrics", "Inspect dashboard loading loaded empty and error states"],
+      states: ["screen loading", "screen loaded", "screen empty", "screen error"],
+      rules: ["Dashboard screen data comes from authenticated application surfaces"],
+      experience: "The reviewer sees current dashboard values with bounded loading empty and error states.",
+      backingContracts: ["Dashboard page screen"],
+      failureAndRecovery: ["Screen rendering failure routes to visible dashboard revision evidence"],
+      evidence: dashboardScreenSurfaceIds.map(surfaceId => `${surfaceId} dashboard screen surface`),
+      status: "ready-for-queue",
+      confidence: "high"
+    }, {
+      capabilityId: "cap-dashboard-api-child",
+      name: "Authenticated reviewers can receive dashboard API store payloads for operational review",
+      capabilityTitle: "Authenticated reviewers can receive dashboard API store payloads for operational review",
+      capabilityAltitude: "child",
+      parentCapabilityId: "cap-dashboard-parent",
+      parentCapabilityName: "Authenticated users can understand dashboard operations from current screen API and persistence evidence",
+      upstreamSurfaceIds: dashboardApiSurfaceIds,
+      actor: "Authenticated workspace reviewer",
+      intendedOutcome: "Receive dashboard API store payloads that support operational review.",
+      domainObject: "Dashboard API store payload",
+      actions: ["Fetch dashboard API store payload", "Inspect dashboard API request response behavior"],
+      states: ["API request received", "API response ready", "API response failed"],
+      rules: ["Dashboard API payload data comes from authenticated API requests"],
+      experience: "The reviewer receives API-backed dashboard values or a bounded failure signal.",
+      backingContracts: ["GET /dashboard API"],
+      failureAndRecovery: ["API failure returns bounded dashboard revision evidence"],
+      evidence: dashboardApiSurfaceIds.map(surfaceId => `${surfaceId} dashboard API surface`),
+      status: "ready-for-queue",
+      confidence: "high"
+    }, {
+      capabilityId: "cap-dashboard-persistence-child",
+      name: "Backend services can preserve dashboard event records for operational review",
+      capabilityTitle: "Backend services can preserve dashboard event records for operational review",
+      capabilityAltitude: "child",
+      parentCapabilityId: "cap-dashboard-parent",
+      parentCapabilityName: "Authenticated users can understand dashboard operations from current screen API and persistence evidence",
+      upstreamSurfaceIds: dashboardPersistenceSurfaceIds,
+      actor: "Backend service",
+      intendedOutcome: "Preserve dashboard event records that support operational review.",
+      domainObject: "Dashboard event persistence records",
+      actions: ["Store dashboard event label records", "Expose persistence contract evidence for dashboard review"],
+      states: ["event persistence ready", "event persistence unavailable"],
+      rules: ["Database event rows back the dashboard context records"],
+      experience: "Operators can trace dashboard event context to persisted records.",
+      backingContracts: ["dashboard_events table"],
+      failureAndRecovery: ["Persistence failure routes to bounded dashboard revision evidence"],
+      evidence: dashboardPersistenceSurfaceIds.map(surfaceId => `${surfaceId} dashboard persistence surface`),
+      status: "ready-for-queue",
       confidence: "high"
     }])
   ], repoRoot);
@@ -214,6 +280,8 @@ function prepareCapabilityMap(repoRoot, runId = "20260529-01") {
     "--surface-ids", packageSurfaceIds.join(","),
     "--capabilities-json", JSON.stringify([{
       name: "Developer test command execution",
+      capabilityTitle: "Repository developers can run the project test suite from the package script",
+      capabilityAltitude: "sole",
       actor: "Repository developer",
       intendedOutcome: "Run the project test suite from the package script.",
       domainObject: "Repository package test script boundary",
@@ -243,6 +311,12 @@ function capabilityIdsByStatus(repoRoot, runId, status) {
     .map(row => row.capabilityId);
 }
 
+function queueEligibleCapabilityIds(repoRoot, runId) {
+  return readJsonl(capabilityMapPathFor(repoRoot, runId)).rows
+    .filter(row => row.queueEligible === true)
+    .map(row => row.capabilityId);
+}
+
 function readyPackageSlice(capabilityId) {
   return [{
     name: "Package test command evidence slice",
@@ -260,56 +334,69 @@ function readyPackageSlice(capabilityId) {
 }
 
 function dashboardSlices(capabilityId) {
-  return [
-    {
+  const variants = {
+    "cap-dashboard-screen-child": {
       name: "Dashboard screen Context Pack slice",
-      upstreamCapabilityIds: [capabilityId],
-      ownerSkill: "backfill-context-pack",
       scope: "Capture dashboard screen rendering states for evidence receipt",
       includedBehaviors: ["Dashboard screen loading loaded empty and error state evidence"],
       excludedBehaviors: ["API payload contract proof stays outside this screen slice"],
-      exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies dashboard screen rendering states.`,
-      nextAction: "Collect dashboard screen evidence and write the receipt row.",
-      verificationTargets: [`${capabilityId} dashboard screen rendering receipt`],
-      childSliceRationale: "Screen rendering is one child of the broader dashboard capability.",
-      status: "ready",
-      confidence: "high"
+      verification: "dashboard screen rendering states",
+      nextAction: "Collect dashboard screen evidence and write the receipt row."
     },
-    {
+    "cap-dashboard-api-child": {
       name: "Dashboard API Context Pack slice",
-      upstreamCapabilityIds: [capabilityId],
-      ownerSkill: "backfill-context-pack",
       scope: "Capture dashboard API payload behavior for evidence receipt",
       includedBehaviors: ["Dashboard API request response payload and failure evidence"],
       excludedBehaviors: ["Screen rendering proof stays outside this API slice"],
-      exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies dashboard API payload behavior.`,
-      nextAction: "Collect dashboard API evidence and write the receipt row.",
-      verificationTargets: [`${capabilityId} dashboard API payload receipt`],
-      childSliceRationale: "API payload behavior is one child of the broader dashboard capability.",
-      status: "ready",
-      confidence: "high"
+      verification: "dashboard API payload behavior",
+      nextAction: "Collect dashboard API evidence and write the receipt row."
+    },
+    "cap-dashboard-persistence-child": {
+      name: "Dashboard persistence Context Pack slice",
+      scope: "Capture dashboard persistence record behavior for evidence receipt",
+      includedBehaviors: ["Dashboard event persistence record creation and unavailable state evidence"],
+      excludedBehaviors: ["Screen rendering and API payload proof stay outside this persistence slice"],
+      verification: "dashboard persistence record behavior",
+      nextAction: "Collect dashboard persistence evidence and write the receipt row."
     }
-  ];
+  };
+  const variant = variants[capabilityId] || variants["cap-dashboard-screen-child"];
+  return [{
+    name: variant.name,
+    upstreamCapabilityIds: [capabilityId],
+    ownerSkill: "backfill-context-pack",
+    scope: variant.scope,
+    includedBehaviors: variant.includedBehaviors,
+    excludedBehaviors: variant.excludedBehaviors,
+    exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies ${variant.verification}.`,
+    nextAction: variant.nextAction,
+    verificationTargets: [`${capabilityId} ${variant.verification} receipt`],
+    status: "ready",
+    confidence: "high"
+  }];
 }
 
 function preparePassingSpecJobQueue(repoRoot, runId = "20260529-01", runLog = null) {
   prepareSpecJobQueueSkeleton(repoRoot, runId);
-  const readyIds = capabilityIdsByStatus(repoRoot, runId, "ready-for-queue");
-  const splitIds = capabilityIdsByStatus(repoRoot, runId, "needs-split");
+  const readyIds = queueEligibleCapabilityIds(repoRoot, runId);
+  const dashboardChildIds = readyIds.filter(id => id.includes("dashboard") && id !== "cap-dashboard-parent");
+  const packageIds = readyIds.filter(id => !id.includes("dashboard"));
   runNode(splitFillScript, [
     "--repo", repoRoot,
     "--run-id", runId,
-    "--capability-ids", readyIds.join(","),
-    "--slices-json", JSON.stringify(readyPackageSlice(readyIds[0])),
+    "--capability-ids", packageIds.join(","),
+    "--slices-json", JSON.stringify(readyPackageSlice(packageIds[0])),
     ...(runLog ? ["--run-log", runLog] : [])
   ], repoRoot);
-  runNode(splitFillScript, [
-    "--repo", repoRoot,
-    "--run-id", runId,
-    "--capability-ids", splitIds.join(","),
-    "--slices-json", JSON.stringify(dashboardSlices(splitIds[0])),
-    ...(runLog ? ["--run-log", runLog] : [])
-  ], repoRoot);
+  for (const childId of dashboardChildIds) {
+    runNode(splitFillScript, [
+      "--repo", repoRoot,
+      "--run-id", runId,
+      "--capability-ids", childId,
+      "--slices-json", JSON.stringify(dashboardSlices(childId)),
+      ...(runLog ? ["--run-log", runLog] : [])
+    ], repoRoot);
+  }
 }
 
 function hasFailure(results, id) {
@@ -323,9 +410,10 @@ test("init requires Capability Map eval with resolved revision targets and creat
   const output = runNode(splitInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   assert.match(output, /spec-job-queue-skeleton/);
   const rows = readJsonl(specJobQueuePathFor(repoRoot, runId)).rows;
-  assert.equal(rows.length, 2);
+  assert.equal(rows.length, 4);
   assert.equal(rows.every(row => row.status === "pending"), true);
   assert.equal(rows.every(row => row.upstreamCapabilityRefs[0].capabilityFingerprint.startsWith("sha256:")), true);
+  assert.equal(rows.every(row => row.capabilityAltitude === "child" || row.capabilityAltitude === "sole"), true);
 
   const receiptPath = capabilityEvalReceiptPathFor(repoRoot, runId);
   const receipts = readJsonl(receiptPath).rows;
@@ -349,7 +437,7 @@ test("init requires Capability Map eval with resolved revision targets and creat
   );
 });
 
-test("checker rejects pending handoff and requires needs-split child slices", () => {
+test("checker rejects pending handoff and refuses parent-only queue coverage", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   prepareSpecJobQueueSkeleton(repoRoot, runId);
@@ -359,22 +447,23 @@ test("checker rejects pending handoff and requires needs-split child slices", ()
   assert.equal(hasFailure(batch.results, "handoff-no-pending-slices"), false);
   assert.equal(batch.results.some(result => result.id === "batch-pending-slices-allowed" && result.status === "warn"), true);
 
-  const readyIds = capabilityIdsByStatus(repoRoot, runId, "ready-for-queue");
-  const splitIds = capabilityIdsByStatus(repoRoot, runId, "needs-split");
+  const readyIds = queueEligibleCapabilityIds(repoRoot, runId);
+  const packageIds = readyIds.filter(id => !id.includes("dashboard"));
+  const parentId = "cap-dashboard-parent";
   runNode(splitFillScript, [
     "--repo", repoRoot,
     "--run-id", runId,
-    "--capability-ids", readyIds.join(","),
-    "--slices-json", JSON.stringify(readyPackageSlice(readyIds[0]))
+    "--capability-ids", packageIds.join(","),
+    "--slices-json", JSON.stringify(readyPackageSlice(packageIds[0]))
   ], repoRoot);
   const queuePath = specJobQueuePathFor(repoRoot, runId);
   const rows = readJsonl(queuePath).rows;
-  const pendingSplit = rows.find(row => row.upstreamCapabilityIds.includes(splitIds[0]));
-  writeJsonl(queuePath, rows.map(row => row.sliceId === pendingSplit.sliceId
-    ? { ...row, status: "ready", ownerSkill: "backfill-context-pack", scope: "Capture dashboard parent behavior for evidence receipt", includedBehaviors: ["Dashboard screen API and persistence evidence together"], excludedBehaviors: ["No separate child slice evidence recorded"], exitCriterion: `Context Pack receipt cites ${splitIds[0]} and verifies dashboard parent behavior.`, nextAction: "Collect broad dashboard evidence and write one receipt.", verificationTargets: [`${splitIds[0]} broad dashboard receipt`] }
+  const pendingChild = rows.find(row => row.upstreamCapabilityIds.includes("cap-dashboard-screen-child"));
+  writeJsonl(queuePath, rows.map(row => row.sliceId === pendingChild.sliceId
+    ? { ...row, upstreamCapabilityIds: [parentId], upstreamCapabilityRefs: [{ ...row.upstreamCapabilityRefs[0], capabilityId: parentId, capabilityAltitude: "parent", queueEligible: false }], capabilityRefs: [{ capabilityId: parentId, name: "Dashboard parent", capabilityAltitude: "parent", queueEligible: false }], capabilityAltitude: "parent", status: "ready", ownerSkill: "backfill-context-pack", scope: "Capture dashboard parent behavior for evidence receipt", includedBehaviors: ["Dashboard screen API and persistence evidence together"], excludedBehaviors: ["No separate child slice evidence recorded"], exitCriterion: `Context Pack receipt cites ${parentId} and verifies dashboard parent behavior.`, nextAction: "Collect broad dashboard evidence and write one receipt.", verificationTargets: [`${parentId} broad dashboard receipt`] }
     : row));
   const results = validateSpecJobQueue({ repoRoot, runId }).results;
-  assert.equal(hasFailure(results, "spec-job-queue-needs-split-child-slices"), true);
+  assert.equal(hasFailure(results, "spec-job-queue-only-queue-eligible-capabilities"), true);
 });
 
 test("fill --next is read-only and fill rejects coarse shortcuts", () => {
@@ -389,11 +478,11 @@ test("fill --next is read-only and fill rejects coarse shortcuts", () => {
   assert.equal(typeof payload.target.sliceId, "string");
   assert.deepEqual(after, before);
 
-  const splitId = capabilityIdsByStatus(repoRoot, runId, "needs-split")[0];
+  const parentId = "cap-dashboard-parent";
   assert.throws(
-    () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", splitId, "--slices-json", JSON.stringify(dashboardSlices(splitId).slice(0, 1))], repoRoot),
+    () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", parentId, "--slices-json", JSON.stringify(dashboardSlices("cap-dashboard-screen-child"))], repoRoot),
     error => {
-      assert.match(`${error.stderr || ""}${error.message}`, /needs-split capabilities require at least two child slice specs/);
+      assert.match(`${error.stderr || ""}${error.message}`, /not queueEligible child\/sole work/);
       return true;
     }
   );
@@ -405,7 +494,7 @@ test("fill --next is read-only and fill rejects coarse shortcuts", () => {
     }
   );
   assert.throws(
-    () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", splitId, "--slices-file", "generated.json"], repoRoot),
+    () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", parentId, "--slices-file", "generated.json"], repoRoot),
     error => {
       assert.match(`${error.stderr || ""}${error.message}`, /does not accept --slices-file/);
       return true;
@@ -417,32 +506,32 @@ test("semantic alignment gate rejects unrelated child-slice taxonomy", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   prepareSpecJobQueueSkeleton(repoRoot, runId);
-  const splitId = capabilityIdsByStatus(repoRoot, runId, "needs-split")[0];
+  const childId = "cap-dashboard-screen-child";
   const unrelatedSlices = [
     {
       name: "OpenClaw SQL validation evidence slice",
-      upstreamCapabilityIds: [splitId],
+      upstreamCapabilityIds: [childId],
       ownerSkill: "backfill-context-pack",
       scope: "Capture OpenClaw SQL parser validation and generated query receipt evidence",
       includedBehaviors: ["OpenClaw SQL validation query parsing and database syntax evidence"],
       excludedBehaviors: ["Dashboard screen and API payload behavior stay outside this SQL slice"],
-      exitCriterion: `Context Pack receipt cites ${splitId} and verifies OpenClaw SQL validation.`,
+      exitCriterion: `Context Pack receipt cites ${childId} and verifies OpenClaw SQL validation.`,
       nextAction: "Collect OpenClaw SQL validation evidence and write the receipt row.",
-      verificationTargets: [`${splitId} OpenClaw SQL validation receipt`],
+      verificationTargets: [`${childId} OpenClaw SQL validation receipt`],
       childSliceRationale: "SQL validation is one child slice.",
       status: "ready",
       confidence: "high"
     },
     {
       name: "OpenClaw SQL migration evidence slice",
-      upstreamCapabilityIds: [splitId],
+      upstreamCapabilityIds: [childId],
       ownerSkill: "backfill-context-pack",
       scope: "Capture OpenClaw SQL migration execution and database schema receipt evidence",
       includedBehaviors: ["OpenClaw SQL migration execution and schema validation evidence"],
       excludedBehaviors: ["Dashboard screen and API payload behavior stay outside this migration slice"],
-      exitCriterion: `Context Pack receipt cites ${splitId} and verifies OpenClaw SQL migration behavior.`,
+      exitCriterion: `Context Pack receipt cites ${childId} and verifies OpenClaw SQL migration behavior.`,
       nextAction: "Collect OpenClaw SQL migration evidence and write the receipt row.",
-      verificationTargets: [`${splitId} OpenClaw SQL migration receipt`],
+      verificationTargets: [`${childId} OpenClaw SQL migration receipt`],
       childSliceRationale: "SQL migration is one child slice.",
       status: "ready",
       confidence: "high"
@@ -450,7 +539,7 @@ test("semantic alignment gate rejects unrelated child-slice taxonomy", () => {
   ];
 
   assert.throws(
-    () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", splitId, "--slices-json", JSON.stringify(unrelatedSlices)], repoRoot),
+    () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", childId, "--slices-json", JSON.stringify(unrelatedSlices)], repoRoot),
     error => {
       assert.match(`${error.stderr || ""}${error.message}`, /semantic alignment failed/);
       return true;
@@ -459,7 +548,7 @@ test("semantic alignment gate rejects unrelated child-slice taxonomy", () => {
 
   const queuePath = specJobQueuePathFor(repoRoot, runId);
   const rows = readJsonl(queuePath).rows;
-  const pendingSplit = rows.find(row => row.upstreamCapabilityIds.includes(splitId));
+  const pendingSplit = rows.find(row => row.upstreamCapabilityIds.includes(childId));
   writeJsonl(queuePath, [
     ...rows.filter(row => row.sliceId !== pendingSplit.sliceId),
     ...unrelatedSlices.map((slice, index) => ({
@@ -488,7 +577,7 @@ test("filled child slices pass check and eval writes canonical receipts", () => 
   assert.equal(receipts.errors.length, 0);
   assert.equal(receipts.rows[0].receiptType, "summary");
   assert.equal(typeof receipts.rows[0].queueFingerprint, "string");
-  assert.equal(receipts.rows[0].queueRowCount, 3);
+  assert.equal(receipts.rows[0].queueRowCount, 4);
   assert.equal(fs.existsSync(specJobQueueSummaryPathFor(repoRoot, runId)), true);
 });
 
@@ -575,7 +664,7 @@ test("report embeds Job / Spec Queue state and checker detects report drift", ()
   const checkOutput = runNode(splitCheckScript, ["--repo", repoRoot, "--run-id", runId, "--report", report.reportPath], repoRoot);
   assert.match(checkOutput, /spec-job-queue-report-state-current/);
   const reportPath = path.join(repoRoot, report.reportPath);
-  const drifted = fs.readFileSync(reportPath, "utf8").replace(`"readyCount": 3`, `"readyCount": 99`);
+  const drifted = fs.readFileSync(reportPath, "utf8").replace(`"readyCount": 4`, `"readyCount": 99`);
   fs.writeFileSync(reportPath, drifted, "utf8");
   const drift = validateSpecJobQueue({ repoRoot, runId, reportPath }).results;
   assert.equal(hasFailure(drift, "spec-job-queue-report-state-current"), true);

@@ -7,13 +7,13 @@
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="draft">
 <meta name="spec:last-updated" content="2026-06-06">
-<title>Learn Agent Capabilities Over Time</title>
+<title>Agent Capability Changes Stay Known</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
 <script type="application/json" id="spec-metadata">
 {
   "id": "foundation.learn-agent-capabilities-over-time.capability",
-  "title": "Learn Agent Capabilities Over Time",
+  "title": "Agent Capability Changes Stay Known",
   "type": "capability",
   "status": "draft",
   "lastUpdated": "2026-06-06",
@@ -85,7 +85,7 @@
     {
       "id": "spec:foundation.learn-agent-capabilities-over-time.capability",
       "type": "capability",
-      "label": "Learn Agent Capabilities Over Time",
+      "label": "Agent Capability Changes Stay Known",
       "source": {
         "specId": "foundation.learn-agent-capabilities-over-time.capability",
         "sectionId": "capability-intent"
@@ -161,7 +161,7 @@
 <main class="main">
   <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/capabilities/learn-agent-capabilities-over-time.html</div>
-    <h1>Learn Agent Capabilities Over Time</h1>
+    <h1>Agent Capability Changes Stay Known</h1>
     <p class="lede">Foundation needs a bounded way to notice meaningful changes in agent tooling, preserve those findings as durable JSON/JSONL substrate, promote durable lessons into principles-doc candidates, and notify the owner where review can happen.</p>
   </section>
 
@@ -172,7 +172,7 @@
         <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
         <tbody>
           <tr><td>Beneficiary</td><td>Repo owners and future agents that need current agent-tooling options without turning Foundation into an unbounded research feed.</td><td>User request on 2026-06-05 and Foundation operating loop.</td></tr>
-          <tr><td>Reliable outcome</td><td>A Codex automation wakes every other day at 5am, checks bounded agent-tooling sources, records observed changes with provenance in Foundation JSON/JSONL artifacts, grades each meaningful finding from 1 to 10 for agent-system interest, drafts a principles-doc patch when the finding is a durable principle candidate, and notifies the owner by GitHub comment with optional email fallback.</td><td><code>foundation.agent-capability-scout.job</code></td></tr>
+          <tr><td>Reliable outcome</td><td>Meaningful agent-tooling changes are observed, source-backed, graded for Foundation relevance, and turned into reviewed principle or experiment candidates when they can improve agent work.</td><td><code>foundation.agent-capability-scout.job</code></td></tr>
           <tr><td>Domain object</td><td>Source definitions, source snapshots, normalized finding records, principle candidates, principles-doc patch metadata, run logs, dated briefs, interest grades, eval receipts, merge receipts, and notification receipts stored in the Foundation repo.</td><td>Job, technical, and eval specs.</td></tr>
           <tr><td>Constraints</td><td>Scope is agent systems broadly; source allowlist is explicit; v1 may draft reviewed principles-doc changes but must not auto-merge principle edits without checks and a reviewable GitHub surface.</td><td>Agent Capability Scout technical and eval specs.</td></tr>
           <tr><td>Failure mode</td><td>The system either misses important capability changes, stores unverifiable summaries, chases novelty, edits principles without evidence, fails to merge durable memory, or notifies without enough context to review the finding or patch.</td><td>Eval acceptance conditions and merge receipt.</td></tr>
@@ -216,7 +216,7 @@
   </article>
 
   <hr>
-  <p class="footer-note">Learn Agent Capabilities Over Time - Foundation capability spec</p>
+  <p class="footer-note">Agent Capability Changes Stay Known - Foundation capability spec</p>
 </main>
 <script src="../../site-map.js?v=20260602-nav-collapse"></script>
 <script src="../../site-nav.js?v=20260602-nav-collapse"></script>

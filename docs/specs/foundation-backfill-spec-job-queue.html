@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-spec-job-queue.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Define Spec Jobs</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Define Spec Jobs",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.define-jobs-from-capabilities.capability",
@@ -136,7 +136,7 @@
         "foundation.backfill-spec-job-queue.job#artifacts-and-state",
         "foundation.backfill-spec-job-queue.job#handoff-gate"
       ],
-      "evidence": "Define Spec Jobs tests cover initialization from Capability Map handoff, Job / Spec Queue artifacts, needs-split child slice enforcement, eval receipts, refresh invalidation, and report handoff state."
+      "evidence": "Define Spec Jobs tests cover initialization from Capability Map handoff, Job / Spec Queue artifacts, queue-eligible child/sole capability enforcement, eval receipts, refresh invalidation, and report handoff state."
     }
   ],
   "tags": [
@@ -329,7 +329,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-spec-job-queue.html</div>
     <h1>Foundation Backfill Define Spec Jobs</h1>
     <p class="lede">Define Spec Jobs decides whether capability rows are too broad and creates the durable work queue that prevents agents from closing coarse slices prematurely. This layer answers: <strong>What exact slice should the agent work on next, and when is it complete?</strong></p>
-    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-05-29</div><div><strong>Upstream:</strong> Capability Map</div><div><strong>Next:</strong> Context Pack</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> active</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Upstream:</strong> Capability Map</div><div><strong>Next:</strong> Context Pack</div></div>
     <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
@@ -348,7 +348,7 @@
 <li><code>acceptable</code></li>
 <li><code>blocked</code></li>
 <li><code>out-of-scope</code></li></ul></td></tr>
-        <tr><td>Core row</td><td>queue slice with stable row ID, run ID, upstream row IDs, evidence links, status, confidence, review flags, checker result, and eval result.</td></tr>
+        <tr><td>Core row</td><td>queue slice with stable row ID, run ID, upstream child/sole capability IDs and refs, capability altitude, parent capability context, evidence links, status, confidence, review flags, checker result, and eval result.</td></tr>
       </tbody></table>
     </section>
 
@@ -356,9 +356,9 @@
       <h2>Small-loop journey</h2>
       <ol>
         <li><strong>Initialize:</strong> create the canonical Foundation Backfill Define Spec Jobs artifact from Capability Map handoff output.</li>
-        <li><strong>Semantic audit:</strong> before child slices can be accepted, verify terminal capability rows have usable identity anchors and needs-split rows have concrete splitCriteria anchors.</li>
-        <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
-        <li><strong>Fill:</strong> agent applies split criteria to capability rows, creates child slices where actors/outcomes/states/rules/contracts/recovery differ, writes exact exit criteria, owner spec targets, next action, and blocking questions.</li>
+        <li><strong>Semantic audit:</strong> before queue rows can be accepted, verify the upstream Capability Map has no unresolved <code>needs-split</code> rows, parent rows have child outcomes, and every queue source is a queue-eligible child or sole capability.</li>
+        <li><strong>Select batch:</strong> choose pending child/sole rows or slices using deterministic order plus risk priority.</li>
+        <li><strong>Fill:</strong> agent writes exact exit criteria, owner spec targets, next action, and blocking questions for one precise child/sole capability slice without hiding multiple behavior families in one row.</li>
         <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
         <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>
         <li><strong>Revise:</strong> route failed rows back to the fill loop with row IDs and findings.</li>
@@ -369,7 +369,7 @@
     <section id="checker-eval" data-spec-section="checker-eval" data-section-type="verification-contract">
       <h2>Checker and eval contract</h2>
       <table class="status-table"><thead><tr><th>Mechanism</th><th>Contract</th></tr></thead><tbody>
-        <tr><td>Checker</td><td>validates every terminal capability has queue coverage, every slice references valid and current capability IDs, needs-split capabilities have multiple child slices or an explicit blocker, terminal statuses require evidence, active slices carry exactly one current next action, child slices align to capability identity and splitCriteria rather than incidental source paths, and any existing eval receipt matches the current queue fingerprint.</td></tr>
+        <tr><td>Checker</td><td>validates every queue-eligible child/sole capability has queue coverage, every slice references valid and current child/sole capability IDs and refs, parent, <code>needs-split</code>, blocked, and non-queueable rows cannot enter the queue, terminal statuses require evidence, active slices carry exactly one current next action, child/sole slices align to capability identity rather than incidental source paths, and any existing eval receipt matches the current queue fingerprint.</td></tr>
         <tr><td>Eval receipt</td><td>samples slices against capability rows to judge whether the slice is small enough, aligned to the capability identity, matched to splitCriteria, exit criteria are objective, evidence is specific, and no hidden behavior is parked inside a parent summary. Warnings produce revision targets; report handoff is blocked until those targets are resolved.</td></tr>
         <tr><td>Sandia Oil calibration</td><td>The first real calibration target is Sandia Oil. Its output is not a gold benchmark unless a human-reviewed expected Artifact Inventory is created; it is used to catch obvious misses while context is tractable.</td></tr>
       </tbody></table>
@@ -377,7 +377,7 @@
 
     <section id="handoff-gate" data-spec-section="handoff-gate" data-section-type="handoff-gate">
       <h2>Handoff gate</h2>
-      <p>Job / Spec Queue is complete, no needs-split row lacks child slices, checker passes, eval receipt and HTML summary exist for the exact current queue artifact, and report names next layer as Context Pack.</p>
+      <p>Job / Spec Queue is complete, every queued slice references only queue-eligible child/sole capabilities, checker passes, eval receipt and HTML summary exist for the exact current queue artifact, and report names next layer as Context Pack.</p>
       <ul>
         <li>Canonical artifacts exist and share a run ID.</li>
         <li>All rows are in valid terminal or explicitly blocked states.</li>

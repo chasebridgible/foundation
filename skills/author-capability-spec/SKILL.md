@@ -18,10 +18,10 @@ Eval gate: `foundation.author-capability-spec.eval`.
 3. Run the readiness gate before authoring.
 4. Confirm the candidate is a standing ability or durable outcome, not triggered work.
 5. For a parent capability, name the broad outcome family and the child outcomes it makes coherent.
-6. For a child capability, name the narrower reliable outcome and the jobs, rules, evidence, and evals it can own.
+6. For a child capability, name the narrower reliable outcome and the jobs, rules, evidence, and evals it can own. Keep the visible title and graph label outcome-shaped even when the compatibility ID is older.
 7. Author or revise the HTML-native capability spec with explicit jobs and `realized-by` graph edges.
 8. Evaluate against `foundation.author-capability-spec.eval`; revise until no blocking finding remains.
-9. Run the registry, graph, and self-map checks required by `spec-workflow`.
+9. Run `npm run foundation:capability-language:check`, then the registry, graph, and self-map checks required by `spec-workflow`.
 
 ## Readiness Gate
 
@@ -32,4 +32,4 @@ Ask only questions that materially change the capability boundary. Limit to thre
 - What jobs make this capability real?
 - What evidence would show the capability is reliable?
 
-Reject artifact names, route names, phase names, process steps, queue rows, and verb phrases unless they can be rewritten as reliable outcomes.
+Reject artifact names, route names, phase names, process steps, queue rows, and verb phrases unless they can be rewritten as reliable outcomes. Parent capabilities decompose outcomes; they do not group departments, specs, phases, or layers.

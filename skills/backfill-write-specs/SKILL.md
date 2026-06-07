@@ -50,7 +50,7 @@ The target is complete only when its Author Specs row has:
 
 - Process / Action Map artifact and outstanding eval receipts.
 - Context Pack row referenced by the current target.
-- Capability IDs, surfaces, files, evidence refs, rules, states, edge cases, and recovery paths named by the current target.
+- Child/sole capability refs, parent capability context, surfaces, files, evidence refs, rules, states, edge cases, and recovery paths named by the current target.
 - Existing target specs only when they are directly referenced by the current target.
 
 ## Output
@@ -66,7 +66,7 @@ The target is complete only when its Author Specs row has:
 
 Do not treat "acceptable" as good enough. A target is outstanding only when deterministic checks pass for the current Author Specs fingerprint, row eval score is 100, no finding has warning or blocking severity, no revision targets remain, and the downstream Slice Evaluation agent can continue without rediscovering core behavior from source.
 
-The row eval compares the authored job/technical spec pair against the current Process / Action Map row. Outstanding requires preserving every material row item: actor or role, trigger, intended outcome, domain object, actions, states and transitions, permissions, rules, visible/operator behavior, edge cases, recovery paths, evidence refs, explicit gaps, blockers, and human decisions.
+The row eval compares the authored job/technical spec pair against the current Process / Action Map row. Outstanding requires preserving every material row item: child/sole capability identity, parent context when present, actor or role, trigger, intended outcome, domain object, actions, states and transitions, permissions, rules, visible/operator behavior, edge cases, recovery paths, evidence refs, explicit gaps, blockers, and human decisions.
 
 The pair must be spec-only rebuild ready. A future agent reading only the job spec, technical spec, and row trace must be able to answer what behavior must exist, what contracts are required, what current evidence supports it, what is flexible versus constrained, what failures and recovery paths matter, what verification would prove the row, and what remains uncertain.
 
@@ -88,7 +88,7 @@ The technical spec must separate required contracts, current implementation evid
 
 The technical spec's verification targets must be tied to the current row's behavior or evidence. Generic spec checks, structural checks, or suite names alone do not prove rebuild readiness.
 
-Both specs must include `spec-metadata`, `graph-metadata`, one canonical section, target-owned spec IDs, owned path metadata for the spec file, and visible traceability to the upstream Process / Action Map row or slice.
+Both specs must include `spec-metadata`, `graph-metadata`, one canonical section, target-owned spec IDs, owned path metadata for the spec file, and visible traceability to the upstream child/sole capability refs, Process / Action Map row, and slice.
 
 ## Handoff
 

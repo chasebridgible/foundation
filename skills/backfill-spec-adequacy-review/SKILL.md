@@ -13,9 +13,9 @@ Could a future build agent implement the intended behavior from the specs while 
 
 ## Check
 
-- capability rows have job spec sections, technical spec sections, evidence, verification targets, status
+- child/sole capability rows have job spec sections, technical spec sections, evidence, verification targets, status, and preserved `capabilityRefs`
 - no attached row remains `needs-split`
-- evidence surfaces are owned, parent-owned with reason, out of scope, or blocked by human decision
+- evidence surfaces are owned by child/sole capability rows, out of scope, or blocked by human decision; parent capability rows are hierarchy only
 - visible/operator entry points map to concrete process/action rows
 - job specs cover intent, actors, journeys, states, rules, edge cases, recovery, process, and evidence
 - visible behavior includes rendered HTML-native UX or a nonvisual explanation

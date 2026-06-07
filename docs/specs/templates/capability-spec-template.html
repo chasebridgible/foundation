@@ -135,7 +135,7 @@
       <div><strong>Updated:</strong> 2026-06-06</div>
     </div>
     <div class="callout info"><strong>Copy rule:</strong> when instantiating this template, replace metadata, visible placeholders, related spec IDs, owned paths, coverage entries, and domain language before using it to drive work.</div>
-    <div class="callout warning"><strong>Boundary rule:</strong> a capability spec names a reliable outcome or standing ability. Do not use this template for triggered work, artifact names, interfaces, workflow phases, queue rows, commands, or implementation details.</div>
+    <div class="callout warning"><strong>Boundary rule:</strong> a capability spec names a reliable outcome or standing ability. Do not use this template for triggered work, artifact names, interfaces, workflow phases, queue rows, commands, or implementation details. Child capability titles must be outcome-shaped; old implementation IDs may remain stable, but visible titles and graph labels must not be job or phase names.</div>
   </section>
 
   <article class="doc-body">
@@ -146,6 +146,7 @@
         <tbody>
           <tr><td>Actor or beneficiary</td><td>[person, agent, system, customer, operator]</td><td>[source]</td></tr>
           <tr><td>Reliable outcome</td><td>[what the system must be able to produce]</td><td>[source]</td></tr>
+          <tr><td>Visible title</td><td>[outcome-shaped title agents and humans will see in graphs]</td><td>[Spec Selection Result]</td></tr>
           <tr><td>Capability altitude</td><td>[parent capability outcome family / child capability narrower outcome]</td><td>[Spec Selection Result]</td></tr>
           <tr><td>Domain object</td><td>[job, order, user, customer, invoice, report, screen, data object]</td><td>[source]</td></tr>
           <tr><td>Constraints</td><td>[quality, timing, risk, compliance, cost, security, margin, reliability]</td><td>[source]</td></tr>
@@ -177,7 +178,7 @@
 
     <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
       <h2>Evidence and evaluation</h2>
-      <p>Name what reality must show and which eval spec judges it.</p>
+      <p>Name what reality must show and which eval spec judges it. Foundation capability specs must also pass <code>npm run foundation:capability-language:check</code> so job-shaped child titles, artifact-only titles, and weak reliable-outcome rows do not enter the graph.</p>
       <table class="status-table">
         <thead><tr><th>Evidence</th><th>Eval spec</th><th>Revision target</th></tr></thead>
         <tbody>
