@@ -303,7 +303,7 @@
     <h1>Foundation Backfill Evaluate Job Slices</h1>
     <p class="lede">Evaluate Job Slices runs the hard loop for each slice: create, evaluate, revise, re-evaluate, mark acceptable, then continue. This layer answers: <strong>Can this slice be accepted, or exactly what must be revised?</strong></p>
     <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Upstream:</strong> Author Specs</div><div><strong>Next:</strong> Evaluate System Coherence</div></div>
-    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, fills bounded batches, checks deterministic structure, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed rows, and records handoff state before the next layer begins.</p>
+    <p>This layer is a reproducible unit in the backfill substrate. It initializes from the previous layer, evaluates one authored slice at a time, writes canonical JSONL eval receipts, derives a readable HTML summary, revises failed slices through the smallest owning artifact, and records handoff state before the next layer begins.</p>
     <p>GBrain's source-of-record lesson applies directly: canonical append-friendly artifacts own state; readable HTML summaries and report tables are derived views. Later agents cite row IDs and evidence links instead of relying on inherited conversation memory.</p>
   </section>
 
@@ -328,7 +328,7 @@
       <h2>Small-loop journey</h2>
       <ol>
         <li><strong>Initialize:</strong> create the canonical Foundation Backfill Evaluate Job Slices artifact from Author Specs handoff output.</li>
-        <li><strong>Select batch:</strong> choose pending rows or slices using deterministic order plus risk priority.</li>
+        <li><strong>Select slice:</strong> choose exactly one authored slice that lacks an outstanding current eval receipt or has revision targets.</li>
         <li><strong>Fill:</strong> agent evaluates each drafted slice against capability rows, Context Packs, process/action rows, job/technical adequacy, rebuild-grade clarity, and verification mapping; failed categories produce revision targets with owner layer and exit criteria.</li>
         <li><strong>Check:</strong> run the deterministic checker and record result in the active report and run log.</li>
         <li><strong>Evaluate:</strong> write canonical JSONL eval receipts and a readable HTML summary.</li>

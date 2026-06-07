@@ -461,8 +461,14 @@ function parseCapabilityIds(value) {
 function markSpecJobQueueRowsForCapabilities({ capabilityRows, queueRows, capabilityIds, sliceSpecs }) {
   const selectedCapabilityIds = normalizeStringList(capabilityIds);
   if (selectedCapabilityIds.length === 0) throw new Error("Define Spec Jobs fill requires --capability-ids");
+  if (selectedCapabilityIds.length !== 1) {
+    throw new Error("Define Spec Jobs fill reviews exactly one child/sole capability at a time; pass exactly one --capability-ids value");
+  }
   if (!Array.isArray(sliceSpecs) || sliceSpecs.length === 0) {
     throw new Error("Define Spec Jobs fill requires at least one slice spec");
+  }
+  if (sliceSpecs.length !== 1) {
+    throw new Error("Define Spec Jobs fill writes exactly one authorable slice for the current child/sole capability; split broad work in Capability Map before queueing");
   }
 
   const capabilityById = new Map(capabilityRows.map(row => [row.capabilityId, row]));
@@ -472,6 +478,13 @@ function markSpecJobQueueRowsForCapabilities({ capabilityRows, queueRows, capabi
     if (!isQueueEligibleCapability(capability)) {
       throw new Error(`Capability is not queueEligible child/sole work for Define Spec Jobs: ${capabilityId}`);
     }
+  }
+  const currentTarget = nextSpecJobQueueTarget({ capabilityRows, queueRows });
+  if (!currentTarget) {
+    throw new Error("Define Spec Jobs fill has no current --next target; run handoff check/eval/report instead of filling another row");
+  }
+  if (!currentTarget.upstreamCapabilityIds.includes(selectedCapabilityIds[0])) {
+    throw new Error(`Define Spec Jobs fill must use the current --next capability target ${currentTarget.upstreamCapabilityIds.join(", ")}; received ${selectedCapabilityIds[0]}`);
   }
 
   const nextRows = sliceSpecs.map((spec, index) => createAgentMarkedSpecJobQueueRow(
@@ -537,7 +550,7 @@ function nextSpecJobQueueTarget({ capabilityRows, queueRows }) {
       if (leftRank !== rightRank) return leftRank - rightRank;
       return compareQueueRows(left, right);
     });
-  const target = candidates[0] || queueRows.filter(row => row.status === "ready").sort(compareQueueRows)[0] || null;
+  const target = candidates[0] || null;
   if (!target) return null;
   return {
     sliceId: target.sliceId,
@@ -943,7 +956,7 @@ function specJobQueueSemanticAlignmentFindings(row, capabilities) {
     }
 
     const identityMatches = tokenIntersection(rowTokens, capabilityTokens);
-    const minimumIdentityMatches = capability.status === "needs-split" ? 2 : 1;
+    const minimumIdentityMatches = Math.min(2, capabilityTokens.size);
     if (identityMatches.length < minimumIdentityMatches) {
       findings.push({
         category: "semanticAlignment",

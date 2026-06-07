@@ -1,6 +1,6 @@
 ---
 name: backfill-record-repo-files
-description: Fill or resume the Foundation Artifact Inventory layer for a target repo by reading the active report, manifest, artifact inventory, run log, and source files; mapping bounded pending batches; running deterministic checks; and producing eval receipts before handoff.
+description: Fill or resume the Foundation Artifact Inventory layer for a target repo by reading the active report, manifest, artifact inventory, run log, and exactly one source file at a time; mapping that file's row; running deterministic checks; and producing eval receipts before handoff.
 ---
 
 # Backfill: Record Repo Files
@@ -21,7 +21,8 @@ Read these before changing rows:
 ## Commands
 
 - Initialize: `npm run foundation:artifact-inventory:init -- --repo <repo> --run-id <run-id>`
-- Fill a bounded batch: `npm run foundation:artifact-inventory:fill -- --repo <repo> --run-id <run-id> --batch-size 25`
+- Get next file: `npm run foundation:artifact-inventory:fill -- --repo <repo> --run-id <run-id> --next`
+- Fill one file: `npm run foundation:artifact-inventory:fill -- --repo <repo> --run-id <run-id> --path <repo-relative-file>`
 - Check during a batch: `npm run foundation:artifact-inventory:check -- --repo <repo> --run-id <run-id> --phase batch`
 - Check handoff: `npm run foundation:artifact-inventory:check -- --repo <repo> --run-id <run-id> --phase handoff`
 - Evaluate: `npm run foundation:artifact-inventory:eval -- --repo <repo> --run-id <run-id>`
@@ -36,13 +37,13 @@ Artifact Inventory rows are upstream evidence for the Visible Business Graph. Wh
 ## Loop
 
 1. Read the current manifest and registry.
-2. Select the next pending batch in registry order unless the report names a higher-risk batch.
-3. Inspect the source files and immediately related files needed to understand the batch.
-4. Update only those rows to `mapped`.
+2. Use `--next` to select the next pending file.
+3. Read exactly that file and only the immediately related files needed to understand it.
+4. Fill exactly that file's Artifact Inventory row with `--path`.
 5. Keep uncertainty inside `reviewFlags`; do not create extra statuses.
-6. Run the batch checker.
+6. Run the batch checker after the current file, or often enough that structural failures are fixed before more files are marked.
 7. Repeat until no pending rows remain.
 8. Run handoff check, eval, and graph check when graph artifacts or specs exist.
 9. Record artifact paths, pending count, checker result, eval result, latest run-log sequence, and next layer in the target report.
 
-The deterministic fill command is a V1 assistant for creating a first-pass row. Eval findings or human review still route weak rows back through this loop.
+The deterministic fill command is a V1 assistant for creating a first-pass row after file review. Eval findings or human review still route weak rows back through this one-file loop. Do not use `--all`, `--batch-size`, generated inventory payloads, shell loops, path-only classifiers, or broad directory summaries to replace file review.

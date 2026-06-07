@@ -543,6 +543,13 @@ function markCapabilityRowsForSurfaces({ surfaceRows, capabilityRows, surfaceIds
   if (!Array.isArray(capabilitySpecs) || capabilitySpecs.length === 0) {
     throw new Error("Capability Map fill requires at least one capability spec");
   }
+  const currentTarget = nextCapabilityMapTarget({ surfaceRows, capabilityRows });
+  if (!currentTarget) {
+    throw new Error("Capability Map fill has no current --next target; run handoff check/eval/report instead of filling another row");
+  }
+  if (!selectedSurfaceIds.includes(currentTarget.surfaceId)) {
+    throw new Error(`Capability Map fill must include the current --next surface target ${currentTarget.surfaceId}; received ${selectedSurfaceIds.join(", ")}`);
+  }
 
   const surfaceById = new Map(surfaceRows.map(row => [row.surfaceId, row]));
   for (const surfaceId of selectedSurfaceIds) {

@@ -81,7 +81,11 @@ function runNode(script, args, cwd) {
 
 function prepareArtifactInventory(repoRoot, runId = "20260527-01") {
   runNode(fileInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
-  runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--all"], repoRoot);
+  for (;;) {
+    const next = JSON.parse(runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot));
+    if (!next.target) break;
+    runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--path", next.target.path], repoRoot);
+  }
   runNode(fileCheckScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   runNode(fileEvalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
 }

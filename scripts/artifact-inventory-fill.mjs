@@ -17,9 +17,10 @@ const scriptPath = fileURLToPath(import.meta.url);
 
 function usage() {
   return `Usage:
-  npm run foundation:artifact-inventory:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN [--batch-size 25|--all] [--out-dir path] [--run-log path]
+  npm run foundation:artifact-inventory:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --next [--out-dir path]
+  npm run foundation:artifact-inventory:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --path repo/relative/file [--out-dir path] [--run-log path]
 
-Maps pending inventory rows with deterministic V1 static evidence. This is a fill-loop helper, not a replacement for human/agent review when eval finds weak rows.`;
+Maps exactly one inventory row with deterministic V1 static evidence after the agent has reviewed that file. Use --next to choose the next pending file. --all and --batch-size are rejected.`;
 }
 
 function main() {
@@ -30,6 +31,9 @@ function main() {
   }
   if (!options.repo) throw new Error("Missing --repo");
   if (!options["run-id"]) throw new Error("Missing --run-id");
+  if (options.all || options["batch-size"]) {
+    throw new Error("Artifact Inventory fill reviews exactly one file at a time; --all and --batch-size are not allowed");
+  }
 
   const repoRoot = path.resolve(options.repo);
   const runId = options["run-id"];
@@ -40,11 +44,26 @@ function main() {
 
   const manifestByPath = new Map(manifest.files.map(file => [file.path, file]));
   const manifestPaths = new Set(manifest.files.map(file => file.path));
-  const batchSize = options.all ? Number.POSITIVE_INFINITY : Number(options["batch-size"] || 25);
-  const pendingRows = parsed.rows.filter(row => row.status === "pending").slice(0, batchSize);
-  const selected = new Set(pendingRows.map(row => row.path));
+  if (options.next) {
+    const target = parsed.rows.find(row => row.status === "pending") || null;
+    console.log(JSON.stringify({
+      schema: "foundation.backfill.artifact-inventory-next-target.v1",
+      runId,
+      target
+    }, null, 2));
+    return;
+  }
+
+  if (!options.path) {
+    throw new Error("Missing --path. Select one file with --next, read it, then fill that same file with --path.");
+  }
+
+  const selectedPath = String(options.path).split(path.sep).join("/");
+  if (!manifestByPath.has(selectedPath)) throw new Error(`Artifact Inventory fill path is not in manifest: ${selectedPath}`);
+  if (!parsed.rows.some(row => row.path === selectedPath)) throw new Error(`Artifact Inventory fill path is not in registry: ${selectedPath}`);
+
   const filledRows = parsed.rows.map(row => {
-    if (!selected.has(row.path)) return row;
+    if (row.path !== selectedPath) return row;
     return mapRegistryRow({ repoRoot, entry: manifestByPath.get(row.path), manifestPaths });
   });
 
@@ -54,7 +73,7 @@ function main() {
     slice: null,
     phase: "artifact-inventory",
     event: "checkpoint",
-    summary: `Mapped ${selected.size} Artifact Inventory row(s).`,
+    summary: `Mapped Artifact Inventory row for ${selectedPath}.`,
     artifactsRead: [path.relative(repoRoot, manifestPathFor(repoRoot, runId, outDir))],
     artifactsChanged: [path.relative(repoRoot, registryPathFor(repoRoot, runId, outDir))],
     commands: ["foundation:artifact-inventory:fill"],
@@ -63,7 +82,7 @@ function main() {
   });
 
   const remaining = filledRows.filter(row => row.status === "pending").length;
-  console.log(`Artifact Inventory fill\nMapped: ${selected.size}\nPending remaining: ${remaining}`);
+  console.log(`Artifact Inventory fill\nMapped: ${selectedPath}\nPending remaining: ${remaining}`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) {

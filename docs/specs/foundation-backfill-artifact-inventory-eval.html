@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-artifact-inventory.eval">
 <meta name="spec:type" content="eval">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-27">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Artifact Inventory Eval Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Artifact Inventory Eval Spec",
   "type": "eval",
   "status": "active",
-  "lastUpdated": "2026-05-27",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-artifact-inventory.job",
@@ -231,7 +231,7 @@
     <p class="lede">The test layer is the eval system for the Foundation Artifact Inventory: deterministic checks prove complete current coverage, graph checks prove links resolve, and quality evals prove rows are accurate enough to support agents during both backfill and steady-state build work.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-27</div>
+      <div><strong>Updated:</strong> 2026-06-07</div>
       <div><strong>Parent:</strong> foundation.backfill-artifact-inventory.job</div>
     </div>
     <p>If this evidence passes, a reviewer can trust that every repo-owned file has a current inventory row, sampled rows describe source files accurately enough for downstream surface/capability inference, and behavior-bearing rows connect to the intended specs, capabilities, and verification evidence once those artifacts exist.</p>
@@ -281,7 +281,8 @@
       <h2>Commands or evidence required</h2>
       <ul class="path-list">
         <li><code>npm run foundation:artifact-inventory:init -- --repo /path/to/repo --run-id YYYYMMDD-NN --mode backfill</code> - command that creates a manifest and skeleton Artifact Inventory. New aliases may call this command but should not duplicate its logic.</li>
-        <li><code>npm run foundation:artifact-inventory:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --batch-size 25</code> - deterministic V1 fill helper for bounded pending batches; agents still revise rows when eval finds weak evidence.</li>
+        <li><code>npm run foundation:artifact-inventory:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --next</code> - read-only target selection for the next pending file.</li>
+        <li><code>npm run foundation:artifact-inventory:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --path repo/relative/file</code> - deterministic V1 fill helper for exactly one reviewed file; agents still revise rows when eval finds weak evidence.</li>
         <li><code>npm run foundation:artifact-inventory:check -- --repo /path/to/repo --run-id YYYYMMDD-NN --mode bootstrap|strict --phase batch|handoff</code> - command that verifies deterministic invariants, freshness, graph links, and handoff gate conditions.</li>
         <li><code>npm run foundation:artifact-inventory:eval -- --repo /path/to/repo --run-id YYYYMMDD-NN</code> - command that writes canonical JSONL row-quality receipts and a derived HTML summary.</li>
         <li><code>npm run foundation:artifact-inventory:graph-check -- --repo /path/to/repo --run-id YYYYMMDD-NN --mode bootstrap|strict</code> - command that resolves spec section IDs, capability IDs, verification targets, and explicit test gaps.</li>

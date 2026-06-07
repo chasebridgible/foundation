@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-artifact-inventory.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-05-27">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Artifact Inventory Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Artifact Inventory Technical Spec",
   "type": "technical",
   "status": "active",
-  "lastUpdated": "2026-05-27",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-artifact-inventory.job",
@@ -238,10 +238,10 @@
   <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-artifact-inventory-technical.html</div>
     <h1>Foundation Artifact Inventory Technical Spec</h1>
-    <p class="lede">The Artifact Inventory is a deterministic-plus-agentic indexing subsystem: commands create complete file rows, agents fill semantic meaning in bounded batches, and graph checks connect files to specs, capabilities, and verification.</p>
+    <p class="lede">The Artifact Inventory is a deterministic-plus-agentic indexing subsystem: commands create complete file rows, agents fill semantic meaning for exactly one file at a time, and graph checks connect files to specs, capabilities, and verification.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-27</div>
+      <div><strong>Updated:</strong> 2026-06-07</div>
       <div><strong>Parent:</strong> foundation.backfill-artifact-inventory.job</div>
     </div>
     <p>This is a T5-level Foundation workflow because later backfill layers and steady-state build agents depend on its completeness. The implementation should prefer scripts for enumeration/checking, durable artifacts for graph state, and agent judgment for semantic row filling and quality evaluation.</p>
@@ -255,7 +255,7 @@
         <tbody>
           <tr><td>Manifest</td><td>Enumerate tracked and untracked non-ignored repo files, plus explicit include rules, into a complete canonical manifest JSON artifact.</td><td>required contract</td><td>Manifest coverage check.</td></tr>
           <tr><td>Inventory row</td><td>One current row exists for every manifest file.</td><td>required contract</td><td>Inventory coverage check.</td></tr>
-          <tr><td>Semantic fill</td><td>Agent maps file meaning in bounded batches and stores results on disk.</td><td>required contract</td><td>Resume and row quality eval.</td></tr>
+          <tr><td>Semantic fill</td><td>Agent maps file meaning for exactly one selected file at a time and stores that row on disk.</td><td>required contract</td><td>Resume and row quality eval.</td></tr>
           <tr><td>Complete classification</td><td>Files may be classified as supporting, generated, asset, stale, doc, config, or fixture, and each classification remains represented by an inventory row.</td><td>required contract</td><td>Status enum check.</td></tr>
           <tr><td>Canonical storage</td><td>Manifest is JSON, Artifact Inventory is JSONL, and eval output is canonical JSONL. HTML summaries, SQLite tables, dashboards, or other views are derived caches only.</td><td>required contract</td><td>Artifact shape check.</td></tr>
           <tr><td>Graph linkage</td><td>Rows can link files to spec section IDs, capability IDs, verification targets, and explicit gaps.</td><td>required contract</td><td>Graph-link check.</td></tr>
@@ -270,11 +270,10 @@
       <ol>
         <li><strong>Enumerate:</strong> generate <code>docs/specs/backfill/file-manifest-YYYYMMDD-NN.json</code> from repo-owned files. Default source is tracked files plus untracked non-ignored files. Git ignored files are outside the repo-owned set unless explicitly included.</li>
         <li><strong>Initialize:</strong> create <code>docs/specs/backfill/artifact-inventory-YYYYMMDD-NN.jsonl</code> with one row for every manifest file, mechanical fields populated, semantic fields empty, and status <code>pending</code>.</li>
-        <li><strong>Seed or fill:</strong> use the Artifact Inventory fill loop or deterministic V1 fill helper to update bounded pending batches. The helper is a first-pass mapping assistant and eval can still route weak rows back to the agent loop.</li>
-        <li><strong>Select batch:</strong> choose pending rows by deterministic order plus priority hints: entry points, routes, schemas, services, jobs, tests, docs, then support files.</li>
-        <li><strong>Inspect:</strong> read a bounded batch and any immediately related files needed to understand each row.</li>
-        <li><strong>Fill:</strong> update semantic fields, status, confidence, related paths, and review flags.</li>
-        <li><strong>Validate:</strong> run the Artifact Inventory checker after batch updates. Batch mode may report remaining pending rows; handoff mode requires zero pending rows.</li>
+        <li><strong>Select file:</strong> use <code>foundation:artifact-inventory:fill -- --next</code> to choose one pending file by deterministic order plus priority hints.</li>
+        <li><strong>Inspect:</strong> read exactly the selected file and only immediately related files needed to understand that row.</li>
+        <li><strong>Fill:</strong> use <code>foundation:artifact-inventory:fill -- --path &lt;file&gt;</code> to update semantic fields, status, confidence, related paths, and review flags for that same file.</li>
+        <li><strong>Validate:</strong> run the Artifact Inventory checker after the current file or often enough that structural failures are fixed before more files are marked. Batch phase may report remaining pending rows; handoff mode requires zero pending rows.</li>
         <li><strong>Evaluate:</strong> run an Artifact Inventory quality eval on deterministic risk-based samples before advancing to Surface / Function Map.</li>
         <li><strong>Calibrate:</strong> run Sandia Oil as the first tractable calibration repo before large-repo use and after schema or rubric changes. Compare to human-authored expected rows only after that fixture exists.</li>
         <li><strong>Link graph:</strong> after the spec and capability layers exist, attach behavior-bearing rows to capability IDs, spec section IDs, and verification targets or explicit gaps.</li>

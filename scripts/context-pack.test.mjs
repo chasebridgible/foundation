@@ -150,7 +150,11 @@ function surfaceSpecsForPath(filePath) {
 
 function prepareArtifactInventory(repoRoot, runId = "20260529-01") {
   runNode(fileInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
-  runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--all"], repoRoot);
+  for (;;) {
+    const next = JSON.parse(runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot));
+    if (!next.target) break;
+    runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--path", next.target.path], repoRoot);
+  }
   runNode(fileCheckScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   runNode(fileEvalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
 }
@@ -253,36 +257,25 @@ function readyPackageSlice(capabilityId) {
 }
 
 function dashboardSlices(capabilityId) {
-  return [
-    {
-      name: "Dashboard screen Context Pack slice",
-      upstreamCapabilityIds: [capabilityId],
-      ownerSkill: "backfill-context-pack",
-      scope: "Capture dashboard screen rendering states for evidence receipt",
-      includedBehaviors: ["Dashboard screen loading loaded empty and error state evidence"],
-      excludedBehaviors: ["API payload contract proof stays outside this screen slice"],
-      exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies dashboard screen rendering states.`,
-      nextAction: "Collect dashboard screen evidence and write the receipt row.",
-      verificationTargets: [`${capabilityId} dashboard screen rendering receipt`],
-      childSliceRationale: "Screen rendering is one child of the broader dashboard capability.",
-      status: "ready",
-      confidence: "high"
-    },
-    {
-      name: "Dashboard API Context Pack slice",
-      upstreamCapabilityIds: [capabilityId],
-      ownerSkill: "backfill-context-pack",
-      scope: "Capture dashboard API payload behavior for evidence receipt",
-      includedBehaviors: ["Dashboard API request response payload and failure evidence"],
-      excludedBehaviors: ["Screen rendering proof stays outside this API slice"],
-      exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies dashboard API payload behavior.`,
-      nextAction: "Collect dashboard API evidence and write the receipt row.",
-      verificationTargets: [`${capabilityId} dashboard API payload receipt`],
-      childSliceRationale: "API payload behavior is one child of the broader dashboard capability.",
-      status: "ready",
-      confidence: "high"
-    }
-  ];
+  return [{
+    name: "Dashboard screen API and persistence evidence slice",
+    upstreamCapabilityIds: [capabilityId],
+    ownerSkill: "backfill-context-pack",
+    scope: "Capture dashboard screen states, GET /dashboard API payload behavior, dashboard_events persistence context, and package test verification evidence for the single queue-eligible dashboard capability.",
+    includedBehaviors: [
+      "Dashboard screen loading loaded empty and error state evidence",
+      "GET /dashboard API payload and failure evidence",
+      "dashboard_events persistence contract evidence",
+      "Package test command verification boundary"
+    ],
+    excludedBehaviors: ["Package command-only capability behavior stays outside this dashboard slice"],
+    exitCriterion: `Context Pack receipt cites ${capabilityId} and verifies dashboard screen states, API payloads, persistence context, and test-command evidence.`,
+    nextAction: "Collect dashboard screen API persistence and verification evidence and write the receipt row.",
+    verificationTargets: [`${capabilityId} dashboard screen API persistence test evidence receipt`],
+    childSliceRationale: "The queue slice preserves the single queue-eligible dashboard capability boundary without splitting it downstream.",
+    status: "ready",
+    confidence: "high"
+  }];
 }
 
 function capabilityIdsByStatus(repoRoot, runId, status) {
@@ -295,20 +288,23 @@ function preparePassingSpecJobQueueHandoff(repoRoot, runId = "20260529-01") {
   prepareCapabilityMap(repoRoot, runId);
   runNode(splitInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   const capabilityRows = readJsonl(capabilityMapPathFor(repoRoot, runId)).rows;
-  const packageId = capabilityRows.find(row => row.name.toLowerCase().includes("project test suite"))?.capabilityId;
-  const dashboardId = capabilityRows.find(row => row.name.toLowerCase().includes("dashboard"))?.capabilityId;
-  runNode(splitFillScript, [
-    "--repo", repoRoot,
-    "--run-id", runId,
-    "--capability-ids", packageId,
-    "--slices-json", JSON.stringify(readyPackageSlice(packageId))
-  ], repoRoot);
-  runNode(splitFillScript, [
-    "--repo", repoRoot,
-    "--run-id", runId,
-    "--capability-ids", dashboardId,
-    "--slices-json", JSON.stringify(dashboardSlices(dashboardId))
-  ], repoRoot);
+  const sliceSpecsForCapability = capabilityId => {
+    const row = capabilityRows.find(candidate => candidate.capabilityId === capabilityId);
+    return row?.name.toLowerCase().includes("dashboard")
+      ? dashboardSlices(capabilityId)
+      : readyPackageSlice(capabilityId);
+  };
+  for (;;) {
+    const next = JSON.parse(runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot));
+    if (!next.target) break;
+    const capabilityId = next.target.upstreamCapabilityIds[0];
+    runNode(splitFillScript, [
+      "--repo", repoRoot,
+      "--run-id", runId,
+      "--capability-ids", capabilityId,
+      "--slices-json", JSON.stringify(sliceSpecsForCapability(capabilityId))
+    ], repoRoot);
+  }
   runNode(splitCheckScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   runNode(splitEvalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
 }
@@ -346,6 +342,72 @@ function packSpecForSlice(repoRoot, runId, slice) {
         reason: "Dashboard screen rendering belongs to a separate queued slice and should not expand this command pack."
       }],
       sufficiencyRationale: "The package command pack is sufficient because it ties the queued command slice to the exact package script line, the package command surface, and the upstream capability trace without loading dashboard runtime files.",
+      status: "ready-for-process-map",
+      confidence: "high"
+    };
+  }
+  if (lowerName.includes("screen") && lowerName.includes("api") && lowerName.includes("persistence")) {
+    const screenFileId = fileIdByPath(repoRoot, runId, "web/app/dashboard/page.tsx");
+    const screenSurfaceId = surfaceIdByPath(repoRoot, runId, "web/app/dashboard/page.tsx");
+    const apiFileId = fileIdByPath(repoRoot, runId, "backend/src/routes/dashboard.ts");
+    const apiSurfaceId = surfaceIdByPath(repoRoot, runId, "backend/src/routes/dashboard.ts");
+    const schemaFileId = fileIdByPath(repoRoot, runId, "database/migrations/001_dashboard.sql");
+    const schemaSurfaceId = surfaceIdByPath(repoRoot, runId, "database/migrations/001_dashboard.sql");
+    return {
+      upstreamSliceId: slice.sliceId,
+      upstreamSurfaceIds: [screenSurfaceId, apiSurfaceId, schemaSurfaceId, packageSurfaceId],
+      upstreamFileIds: [screenFileId, apiFileId, schemaFileId, packageFileId],
+      evidenceRefs: [
+        {
+          category: "file",
+          relationship: "screen-source",
+          path: "web/app/dashboard/page.tsx",
+          fileId: screenFileId,
+          surfaceId: screenSurfaceId,
+          lineRange: "L2-L4",
+          snippet: "export default function DashboardPage() { return <main>Dashboard</main>; }",
+          detail: "DashboardPage export and main element anchor the dashboard screen states named by this queued slice.",
+          questionAnswered: "Which source lines define the dashboard screen states?"
+        },
+        {
+          category: "file",
+          relationship: "api-source",
+          path: "backend/src/routes/dashboard.ts",
+          fileId: apiFileId,
+          surfaceId: apiSurfaceId,
+          lineRange: "L2-L4",
+          snippet: "fastify.get(\"/dashboard\", async () => ({ stores: [] }));",
+          detail: "Fastify GET dashboard route anchors the API payload behavior named by this queued slice.",
+          questionAnswered: "Which source line defines the dashboard API payload?"
+        },
+        {
+          category: "schema",
+          relationship: "persistence-context",
+          path: "database/migrations/001_dashboard.sql",
+          fileId: schemaFileId,
+          surfaceId: schemaSurfaceId,
+          lineRange: "L2-L5",
+          snippet: "CREATE TABLE dashboard_events",
+          detail: "Dashboard events table declaration anchors the persistence context named by this queued slice.",
+          questionAnswered: "Which schema object provides dashboard persistence context?"
+        },
+        {
+          category: "test",
+          relationship: "verification-command",
+          path: "package.json",
+          fileId: packageFileId,
+          surfaceId: packageSurfaceId,
+          lineRange: "L2-L5",
+          snippet: "\"test\": \"node --test\"",
+          detail: "Package script entry provides the concrete command boundary for checking this dashboard slice after spec authoring.",
+          questionAnswered: "Which command verifies dashboard behavior changes after spec authoring?"
+        }
+      ],
+      excludedRefs: [{
+        path: "package.json",
+        reason: "The package command-only capability behavior remains outside this dashboard pack; only the test command line is included as verification evidence."
+      }],
+      sufficiencyRationale: "The dashboard pack is sufficient because it includes the screen source, API route, persistence schema, test command boundary, and upstream capability trace needed for this single queued slice without expanding to unrelated repository files.",
       status: "ready-for-process-map",
       confidence: "high"
     };
@@ -446,8 +508,11 @@ function packSpecForSlice(repoRoot, runId, slice) {
 function preparePassingContextPack(repoRoot, runId = "20260529-01", runLog = null) {
   preparePassingSpecJobQueueHandoff(repoRoot, runId);
   runNode(evidenceInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
-  const slices = readJsonl(specJobQueuePathFor(repoRoot, runId)).rows;
-  for (const slice of slices) {
+  const sliceById = new Map(readJsonl(specJobQueuePathFor(repoRoot, runId)).rows.map(row => [row.sliceId, row]));
+  for (;;) {
+    const next = JSON.parse(runNode(evidenceFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot));
+    if (!next.target) break;
+    const slice = sliceById.get(next.target.upstreamSliceId);
     runNode(evidenceFillScript, [
       "--repo", repoRoot,
       "--run-id", runId,
@@ -469,7 +534,7 @@ test("init requires current Define Spec Jobs eval with resolved revision targets
   const output = runNode(evidenceInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   assert.match(output, /context-pack-skeleton/);
   const rows = readJsonl(contextPackPathFor(repoRoot, runId)).rows;
-  assert.equal(rows.length, 3);
+  assert.equal(rows.length, 2);
   assert.equal(rows.every(row => row.status === "pending"), true);
   assert.equal(rows.every(row => row.upstreamSliceRef.sliceFingerprint.startsWith("sha256:")), true);
   assert.equal(fs.existsSync(specJobQueueSummaryPathFor(repoRoot, runId)), true);
@@ -509,7 +574,10 @@ test("fill --next is read-only and fill rejects coarse shortcuts", () => {
   assert.equal(typeof payload.target.packId, "string");
   assert.deepEqual(after, before);
 
-  const sliceId = readJsonl(specJobQueuePathFor(repoRoot, runId)).rows[0].sliceId;
+  const queueRows = readJsonl(specJobQueuePathFor(repoRoot, runId)).rows;
+  const sliceId = payload.target.upstreamSliceId;
+  const currentSlice = queueRows.find(row => row.sliceId === sliceId);
+  const otherSlice = queueRows.find(row => row.sliceId !== sliceId);
   assert.throws(
     () => runNode(evidenceFillScript, ["--repo", repoRoot, "--run-id", runId, "--all"], repoRoot),
     error => {
@@ -521,6 +589,27 @@ test("fill --next is read-only and fill rejects coarse shortcuts", () => {
     () => runNode(evidenceFillScript, ["--repo", repoRoot, "--run-id", runId, "--slice-ids", sliceId, "--packs-file", "generated.json"], repoRoot),
     error => {
       assert.match(`${error.stderr || ""}${error.message}`, /does not accept --packs-file/);
+      return true;
+    }
+  );
+  assert.throws(
+    () => runNode(evidenceFillScript, ["--repo", repoRoot, "--run-id", runId, "--slice-ids", `${sliceId},${otherSlice.sliceId}`, "--packs-json", JSON.stringify([packSpecForSlice(repoRoot, runId, currentSlice)])], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /exactly one queued slice/);
+      return true;
+    }
+  );
+  assert.throws(
+    () => runNode(evidenceFillScript, ["--repo", repoRoot, "--run-id", runId, "--slice-ids", otherSlice.sliceId, "--packs-json", JSON.stringify([packSpecForSlice(repoRoot, runId, otherSlice)])], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /must use the current --next slice target/);
+      return true;
+    }
+  );
+  assert.throws(
+    () => runNode(evidenceFillScript, ["--repo", repoRoot, "--run-id", runId, "--slice-ids", sliceId, "--packs-json", JSON.stringify([packSpecForSlice(repoRoot, runId, currentSlice), { ...packSpecForSlice(repoRoot, runId, currentSlice), name: "Extra hidden pack" }])], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /exactly one Context Pack row/);
       return true;
     }
   );
@@ -541,7 +630,7 @@ test("filled packs pass check, eval writes receipts, and report drift is detecte
   assert.equal(receipts.errors.length, 0);
   assert.equal(receipts.rows[0].receiptType, "summary");
   assert.equal(typeof receipts.rows[0].packFingerprint, "string");
-  assert.equal(receipts.rows[0].packRowCount, 3);
+  assert.equal(receipts.rows[0].packRowCount, 2);
   assert.equal(fs.existsSync(contextPackSummaryPathFor(repoRoot, runId)), true);
 
   const reportOutput = runNode(evidenceReportScript, ["--repo", repoRoot, "--run-id", runId, "--run-log", runLog], repoRoot);
@@ -554,7 +643,7 @@ test("filled packs pass check, eval writes receipts, and report drift is detecte
   const checkWithReport = runNode(evidenceCheckScript, ["--repo", repoRoot, "--run-id", runId, "--report", report.reportPath], repoRoot);
   assert.match(checkWithReport, /context-pack-report-state-current/);
   const reportPath = path.join(repoRoot, report.reportPath);
-  const drifted = fs.readFileSync(reportPath, "utf8").replace(`"readyForProcessMapCount": 3`, `"readyForProcessMapCount": 99`);
+  const drifted = fs.readFileSync(reportPath, "utf8").replace(`"readyForProcessMapCount": 2`, `"readyForProcessMapCount": 99`);
   fs.writeFileSync(reportPath, drifted, "utf8");
   const drift = validateContextPack({ repoRoot, runId, reportPath }).results;
   assert.equal(hasFailure(drift, "context-pack-report-state-current"), true);

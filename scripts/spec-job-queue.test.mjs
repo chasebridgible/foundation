@@ -140,7 +140,11 @@ function surfaceSpecsForPath(filePath) {
 
 function prepareArtifactInventory(repoRoot, runId = "20260529-01") {
   runNode(fileInitScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
-  runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--all"], repoRoot);
+  for (;;) {
+    const next = JSON.parse(runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot));
+    if (!next.target) break;
+    runNode(fileFillScript, ["--repo", repoRoot, "--run-id", runId, "--path", next.target.path], repoRoot);
+  }
   runNode(fileCheckScript, ["--repo", repoRoot, "--run-id", runId], repoRoot);
   runNode(fileEvalScript, ["--repo", repoRoot, "--run-id", runId, "--sample", "all"], repoRoot);
 }
@@ -376,27 +380,29 @@ function dashboardSlices(capabilityId) {
   }];
 }
 
-function preparePassingSpecJobQueue(repoRoot, runId = "20260529-01", runLog = null) {
-  prepareSpecJobQueueSkeleton(repoRoot, runId);
-  const readyIds = queueEligibleCapabilityIds(repoRoot, runId);
-  const dashboardChildIds = readyIds.filter(id => id.includes("dashboard") && id !== "cap-dashboard-parent");
-  const packageIds = readyIds.filter(id => !id.includes("dashboard"));
+function slicesForCapability(capabilityId) {
+  return capabilityId.includes("dashboard")
+    ? dashboardSlices(capabilityId)
+    : readyPackageSlice(capabilityId);
+}
+
+function fillNextSpecJobQueueTarget(repoRoot, runId, runLog = null) {
+  const next = JSON.parse(runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot));
+  if (!next.target) return false;
+  const capabilityId = next.target.upstreamCapabilityIds[0];
   runNode(splitFillScript, [
     "--repo", repoRoot,
     "--run-id", runId,
-    "--capability-ids", packageIds.join(","),
-    "--slices-json", JSON.stringify(readyPackageSlice(packageIds[0])),
+    "--capability-ids", capabilityId,
+    "--slices-json", JSON.stringify(slicesForCapability(capabilityId)),
     ...(runLog ? ["--run-log", runLog] : [])
   ], repoRoot);
-  for (const childId of dashboardChildIds) {
-    runNode(splitFillScript, [
-      "--repo", repoRoot,
-      "--run-id", runId,
-      "--capability-ids", childId,
-      "--slices-json", JSON.stringify(dashboardSlices(childId)),
-      ...(runLog ? ["--run-log", runLog] : [])
-    ], repoRoot);
-  }
+  return true;
+}
+
+function preparePassingSpecJobQueue(repoRoot, runId = "20260529-01", runLog = null) {
+  prepareSpecJobQueueSkeleton(repoRoot, runId);
+  while (fillNextSpecJobQueueTarget(repoRoot, runId, runLog)) {}
 }
 
 function hasFailure(results, id) {
@@ -447,15 +453,8 @@ test("checker rejects pending handoff and refuses parent-only queue coverage", (
   assert.equal(hasFailure(batch.results, "handoff-no-pending-slices"), false);
   assert.equal(batch.results.some(result => result.id === "batch-pending-slices-allowed" && result.status === "warn"), true);
 
-  const readyIds = queueEligibleCapabilityIds(repoRoot, runId);
-  const packageIds = readyIds.filter(id => !id.includes("dashboard"));
   const parentId = "cap-dashboard-parent";
-  runNode(splitFillScript, [
-    "--repo", repoRoot,
-    "--run-id", runId,
-    "--capability-ids", packageIds.join(","),
-    "--slices-json", JSON.stringify(readyPackageSlice(packageIds[0]))
-  ], repoRoot);
+  fillNextSpecJobQueueTarget(repoRoot, runId);
   const queuePath = specJobQueuePathFor(repoRoot, runId);
   const rows = readJsonl(queuePath).rows;
   const pendingChild = rows.find(row => row.upstreamCapabilityIds.includes("cap-dashboard-screen-child"));
@@ -477,6 +476,30 @@ test("fill --next is read-only and fill rejects coarse shortcuts", () => {
   assert.equal(payload.schema, "foundation.backfill.spec-job-queue-next-target.v1");
   assert.equal(typeof payload.target.sliceId, "string");
   assert.deepEqual(after, before);
+
+  const currentCapabilityId = payload.target.upstreamCapabilityIds[0];
+  const otherCapabilityId = queueEligibleCapabilityIds(repoRoot, runId).find(id => id !== currentCapabilityId);
+  assert.throws(
+    () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", `${currentCapabilityId},${otherCapabilityId}`, "--slices-json", JSON.stringify(dashboardSlices(currentCapabilityId))], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /exactly one child\/sole capability/);
+      return true;
+    }
+  );
+  assert.throws(
+    () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", otherCapabilityId, "--slices-json", JSON.stringify(slicesForCapability(otherCapabilityId))], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /must use the current --next capability target/);
+      return true;
+    }
+  );
+  assert.throws(
+    () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", currentCapabilityId, "--slices-json", JSON.stringify([dashboardSlices(currentCapabilityId)[0], { ...dashboardSlices(currentCapabilityId)[0], name: "Extra hidden slice" }])], repoRoot),
+    error => {
+      assert.match(`${error.stderr || ""}${error.message}`, /exactly one authorable slice/);
+      return true;
+    }
+  );
 
   const parentId = "cap-dashboard-parent";
   assert.throws(
@@ -506,37 +529,22 @@ test("semantic alignment gate rejects unrelated child-slice taxonomy", () => {
   const repoRoot = makeRepo();
   const runId = "20260529-01";
   prepareSpecJobQueueSkeleton(repoRoot, runId);
-  const childId = "cap-dashboard-screen-child";
-  const unrelatedSlices = [
-    {
-      name: "OpenClaw SQL validation evidence slice",
-      upstreamCapabilityIds: [childId],
-      ownerSkill: "backfill-context-pack",
-      scope: "Capture OpenClaw SQL parser validation and generated query receipt evidence",
-      includedBehaviors: ["OpenClaw SQL validation query parsing and database syntax evidence"],
-      excludedBehaviors: ["Dashboard screen and API payload behavior stay outside this SQL slice"],
-      exitCriterion: `Context Pack receipt cites ${childId} and verifies OpenClaw SQL validation.`,
-      nextAction: "Collect OpenClaw SQL validation evidence and write the receipt row.",
-      verificationTargets: [`${childId} OpenClaw SQL validation receipt`],
-      childSliceRationale: "SQL validation is one child slice.",
-      status: "ready",
-      confidence: "high"
-    },
-    {
-      name: "OpenClaw SQL migration evidence slice",
-      upstreamCapabilityIds: [childId],
-      ownerSkill: "backfill-context-pack",
-      scope: "Capture OpenClaw SQL migration execution and database schema receipt evidence",
-      includedBehaviors: ["OpenClaw SQL migration execution and schema validation evidence"],
-      excludedBehaviors: ["Dashboard screen and API payload behavior stay outside this migration slice"],
-      exitCriterion: `Context Pack receipt cites ${childId} and verifies OpenClaw SQL migration behavior.`,
-      nextAction: "Collect OpenClaw SQL migration evidence and write the receipt row.",
-      verificationTargets: [`${childId} OpenClaw SQL migration receipt`],
-      childSliceRationale: "SQL migration is one child slice.",
-      status: "ready",
-      confidence: "high"
-    }
-  ];
+  const next = JSON.parse(runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--next"], repoRoot));
+  const childId = next.target.upstreamCapabilityIds[0];
+  const unrelatedSlices = [{
+    name: "Payroll reimbursement approval evidence slice",
+    upstreamCapabilityIds: [childId],
+    ownerSkill: "backfill-context-pack",
+    scope: "Capture payroll reimbursement manager approval and employee payment evidence",
+    includedBehaviors: ["Payroll reimbursement approval routing and payment issuance evidence"],
+    excludedBehaviors: ["Repository dashboard behavior stays outside this unrelated payroll slice"],
+    exitCriterion: `Context Pack receipt cites ${childId} and verifies payroll reimbursement approval.`,
+    nextAction: "Collect payroll reimbursement evidence and write the receipt row.",
+    verificationTargets: [`${childId} payroll reimbursement approval receipt`],
+    childSliceRationale: "Payroll reimbursement is unrelated to the selected repo capability.",
+    status: "ready",
+    confidence: "high"
+  }];
 
   assert.throws(
     () => runNode(splitFillScript, ["--repo", repoRoot, "--run-id", runId, "--capability-ids", childId, "--slices-json", JSON.stringify(unrelatedSlices)], repoRoot),

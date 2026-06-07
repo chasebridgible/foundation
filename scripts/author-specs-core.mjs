@@ -1293,16 +1293,22 @@ function scoreMaterialFidelity({ row, processRow, jobDoc, technicalDoc, findings
 
   const technicalRaw = `${technicalDoc.text}\n${technicalDoc.html}`.toLowerCase();
   const technicalNormalized = normalizeSearchText(technicalRaw);
-  const verificationAnchors = [
+  const behaviorVerificationAnchors = [
     processRow.trigger,
     processRow.intendedOutcome,
-    ...normalizeStringList(processRow.actions),
+    ...normalizeStringList(processRow.actions)
+  ];
+  const evidenceVerificationAnchors = [
     ...asObjectArray(processRow.evidenceRefs)
       .filter(ref => isNonEmptyString(ref.path) || isNonEmptyString(ref.snippet) || isNonEmptyString(ref.symbol))
       .flatMap(evidenceRefMaterialValues)
   ];
-  if (!/\b(verification|verify|test|check|prove|smoke)\b/i.test(technicalRaw) ||
-      !verificationAnchors.some(value => strictMaterialMatch({ normalizedHaystack: technicalNormalized, rawHaystack: technicalRaw, value }))) {
+  const hasVerificationLanguage = /\b(verification|verify|test|check|prove|smoke)\b/i.test(technicalRaw);
+  const hasBehaviorVerificationAnchor = behaviorVerificationAnchors
+    .some(value => strictMaterialMatch({ normalizedHaystack: technicalNormalized, rawHaystack: technicalRaw, value }));
+  const hasEvidenceVerificationAnchor = evidenceVerificationAnchors
+    .some(value => strictMaterialMatch({ normalizedHaystack: technicalNormalized, rawHaystack: technicalRaw, value }));
+  if (!hasVerificationLanguage || !hasBehaviorVerificationAnchor || !hasEvidenceVerificationAnchor) {
     pushMaterialFinding({
       findings,
       categoryScores,

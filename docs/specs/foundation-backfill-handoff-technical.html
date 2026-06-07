@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-handoff.technical">
 <meta name="spec:type" content="technical">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-05-26">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Backfill Handoff Technical Spec</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Backfill Handoff Technical Spec",
   "type": "technical",
   "status": "draft",
-  "lastUpdated": "2026-05-26",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.backfill-handoff.job",
@@ -185,7 +185,7 @@
     <div class="spec-eyebrow">foundation/docs/specs/foundation-backfill-handoff-technical.html</div>
     <h1>Foundation Backfill Handoff Technical Spec</h1>
     <p class="lede">This technical layer makes Foundation Backfill Handoff deterministic enough for scripts and structured enough for agent judgment.</p>
-    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-05-26</div><div><strong>Parent:</strong> foundation.backfill-handoff.job</div></div>
+    <div class="meta-row"><div><strong>Status:</strong> draft</div><div><strong>Updated:</strong> 2026-06-07</div><div><strong>Parent:</strong> foundation.backfill-handoff.job</div></div>
     <p>Implementation must preserve the source-of-record split: JSONL is canonical for layer rows and eval receipts, while HTML summaries are generated for human reading. Each command must be resumable from artifacts and must not rely on chat memory.</p>
   </section>
 
@@ -205,7 +205,7 @@
       <table class="status-table"><thead><tr><th>Contract</th><th>Rule</th><th>Reason</th></tr></thead><tbody>
         <tr><td>Upstream completeness</td><td>The layer starts only from a passing upstream handoff or an explicit blocker.</td><td>Later synthesis must not hide earlier discovery gaps.</td></tr>
         <tr><td>Canonical JSONL</td><td>Layer rows and eval receipts are JSONL; HTML summaries are derived.</td><td>Agents need durable machine state and users need readable review surfaces.</td></tr>
-        <tr><td>Bounded fill loop</td><td>Agents process rows or slices in small batches and run checks after each batch.</td><td>Long-running work survives context compaction and handoff.</td></tr>
+        <tr><td>Handoff gate loop</td><td>Agents produce one final run report from accepted graph state, fail handoff when parent-only, needs-split, blocked-without-decision, stale, or under-reviewed rows remain, and rerun handoff after revisions.</td><td>Long-running work survives context compaction and prevents final-report rationalization.</td></tr>
         <tr><td>Deterministic checker</td><td>validates every upstream layer has a terminal receipt, artifact paths resolve, run-log sequence is current, blockers are named, and report state does not claim completion with unresolved structural failures.</td><td>Structural drift should fail mechanically before semantic evaluation.</td></tr>
         <tr><td>Semantic eval</td><td>judges whether the handoff lets the user decide what to trust, what to review, what to implement next, and what remains uncertain without replaying the entire run.</td><td>Correctness includes meaning, specificity, and evidence quality.</td></tr>
         <tr><td>Handoff gate</td><td>final report is ready for human review; all layer receipts are linked; no hidden pending work remains outside explicit blockers or review questions.</td><td>Each layer is a reproducible correct unit before the next layer consumes it.</td></tr>

@@ -19,9 +19,9 @@ const scriptPath = fileURLToPath(import.meta.url);
 function usage() {
   return `Usage:
   npm run foundation:spec-job-queue:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --next [--out-dir path]
-  npm run foundation:spec-job-queue:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --capability-ids cap:a,cap:b --slices-json '[...]' [--run-log path]
+  npm run foundation:spec-job-queue:fill -- --repo /path/to/repo --run-id YYYYMMDD-NN --capability-ids cap:a --slices-json '[{...}]' [--run-log path]
 
-Creates reviewed queue slices from Capability Map rows. Generated slice files, --all, and --batch-size shortcuts are rejected.`;
+Creates one reviewed queue slice from the current --next child/sole Capability Map row. Generated slice files, multiple capability IDs, multi-slice payloads, --all, and --batch-size shortcuts are rejected.`;
 }
 
 function readSliceSpecs(options) {

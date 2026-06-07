@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.backfill-artifact-inventory.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-01">
+<meta name="spec:last-updated" content="2026-06-07">
 <title>Foundation Artifact Inventory</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,7 +16,7 @@
   "title": "Foundation Artifact Inventory",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-01",
+  "lastUpdated": "2026-06-07",
   "reviewCadence": "per-change",
   "confidence": "medium",
   "parent": "foundation.inventory-classify-artifacts.capability",
@@ -320,11 +320,11 @@
     <p class="lede">Foundation needs a durable map of every repo-owned file, what that file contributes, which capabilities it supports, which specs define its intent, and what verification protects it.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-05-27</div>
+      <div><strong>Updated:</strong> 2026-06-07</div>
       <div><strong>Parent:</strong> foundation.backfill-specs.job</div>
     </div>
     <h3>Intent</h3>
-    <p>The Artifact Inventory fill loop turns raw repository files into a complete, structured evidence index. The agent should not rely on memory to understand the repo. It should generate a file manifest, create an inventory row for every repo-owned file, inspect bounded batches, update rows, run checks, and resume from the Artifact Inventory until all files are mapped.</p>
+    <p>The Artifact Inventory fill loop turns raw repository files into a complete, structured evidence index. The agent should not rely on memory to understand the repo. It should generate a file manifest, create an inventory row for every repo-owned file, select exactly one pending file with <code>--next</code>, read that file, map that same row with <code>--path</code>, run checks, and resume from the Artifact Inventory until all files are mapped.</p>
     <p>The Artifact Inventory is a core Foundation substrate, not only a one-time backfill artifact. V1 includes both bootstrap backfill and steady-state changed-file refresh from the start. Backfill uses it as the bootstrap path when a target repo does not yet have inventory state. Normal build work uses it as the implementation index that keeps files, specs, capabilities, and verification targets connected as the repo changes.</p>
     <p>The target is rebuild-grade evidence: downstream agents should be able to ask which files implement a capability, which spec sections define intended behavior, which tests or evals protect the behavior, and which inventory rows are stale or low-confidence without rediscovering the whole repo.</p>
     <h3>Out of scope</h3>
@@ -340,7 +340,7 @@
           <tr><td>Actor</td><td>Foundation agent doing bootstrap backfill, normal build work, review, or maintenance in a target repo.</td><td>Backfill workflow and spec workflow.</td></tr>
           <tr><td>Intended outcome</td><td>Every repo-owned file has a current, structured inventory row that explains what it is, how it may contribute to system behavior, which specs/capabilities it relates to, and what verification evidence protects it.</td><td>This spec.</td></tr>
           <tr><td>Domain object</td><td>Artifact Inventory row.</td><td>Technical spec data model.</td></tr>
-          <tr><td>Actions</td><td>Generate manifest, create skeleton rows, inspect batches, map file meaning, update rows, validate coverage, evaluate quality.</td><td>Technical spec sequence.</td></tr>
+          <tr><td>Actions</td><td>Generate manifest, create skeleton rows, inspect one file at a time, map file meaning, update that row, validate coverage, evaluate quality.</td><td>Technical spec sequence.</td></tr>
           <tr><td>States</td><td><code>pending</code> and <code>mapped</code>.</td><td>States and rules.</td></tr>
           <tr><td>Repo-owned set</td><td>The manifest uses a deterministic file rule: tracked files plus untracked non-ignored files from the target repo, plus explicit include rules. Dependency installs, build outputs, caches, logs, and <code>.git/</code> are outside the set unless explicitly included.</td><td>Manifest rule.</td></tr>
           <tr><td>Rules</td><td>Every repo-owned file is mapped. Non-behavioral, generated, stale, asset, fixture, config, and doc files are classified through row fields.</td><td>Mapping rule.</td></tr>
@@ -371,7 +371,7 @@
         <thead><tr><th>User</th><th>Goal</th><th>Context</th><th>Success feeling</th></tr></thead>
         <tbody>
           <tr><td>Repo owner</td><td>Trust that the repo was actually inspected before specs were created.</td><td>The repo may be large, old, unevenly documented, and unfamiliar to the agent.</td><td>Every file is accounted for and important behavior is not hidden in missed files.</td></tr>
-          <tr><td>Backfill agent</td><td>Survive context limits while mapping the whole repo.</td><td>The context window rolls; long-running memory is unreliable.</td><td>The next pending batch is always visible from durable inventory state.</td></tr>
+          <tr><td>Backfill agent</td><td>Survive context limits while mapping the whole repo.</td><td>The context window rolls; long-running memory is unreliable.</td><td>The next pending file is always visible from durable inventory state.</td></tr>
           <tr><td>Future spec agent</td><td>Find evidence for surfaces and capabilities without rediscovering the repo.</td><td>It starts from the Artifact Inventory, not from a blank repo search.</td><td>Related files, behavior-bearing files, and suspicious files are easy to locate.</td></tr>
           <tr><td>Future build agent</td><td>Change code while preserving product intent.</td><td>It starts from changed files or a capability and follows registry links to specs and verification.</td><td>The agent knows what intent and tests are affected before editing.</td></tr>
         </tbody>
