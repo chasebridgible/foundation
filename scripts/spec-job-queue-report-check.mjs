@@ -27,6 +27,7 @@ const VALID_CAPABILITY_STATUSES = new Set([
   "needs-evaluation",
   "needs-revision",
   "acceptable",
+  "blocked",
   "blocked-by-human",
   "out-of-scope"
 ]);
