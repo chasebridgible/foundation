@@ -8,7 +8,7 @@
 - findings created: 1
 - top interest grade: 8
 - principle candidates: 1 rejected
-- merge state: `pr-open`
+- merge state: `merged`
 - notification state: `sent` via `github-app-pr-comment`
 
 ## Source Checkpoint
@@ -54,6 +54,13 @@ Reason: the lesson is durable, but it overlaps existing Agent Principles for dur
 - target: `github-app-pr-comment`
 - status: `sent`
 - URL: `https://github.com/chasebridgible/foundation/pull/61#issuecomment-4658676001`
+
+## Merge Receipt
+
+- PR: `https://github.com/chasebridgible/foundation/pull/61`
+- merge state: `merged`
+- merge commit: `fb9500afb6ddf15958b569352b0e5d97f1fba9b3`
+- mergedAt: `2026-06-09T10:11:01Z`
 
 ## Requested Owner Action
 
