@@ -61,4 +61,4 @@ No principles-doc patch was made.
 
 ## Merge And Notification State
 
-Initial state: pending push and PR creation. This run is routine scout state because no principles-doc patch was made; it can merge after required checks pass and successful owner notification is recorded.
+Merged state: PR 63 merged at `2026-06-11T10:59:14Z` after the required `Spec registry and metadata` check passed. The GitHub App notification was sent to PR 63, and this run is routine scout state with no principles-doc patch.
