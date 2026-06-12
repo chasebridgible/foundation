@@ -44,4 +44,6 @@ OpenAI News returned HTTP 403 for both direct curl retrieval and a browser-user-
 
 ## Merge And Notification State
 
-Initial artifact checkpoint is complete locally. Merge and notification receipts will be appended after PR creation and closeout.
+PR 65 is open at `https://github.com/chasebridgible/foundation/pull/65` with merge state `pr-open`.
+
+GitHub App notification was sent as `foundation-scout-notifier[bot]`: `https://github.com/chasebridgible/foundation/pull/65#issuecomment-4692273742`.
