@@ -44,6 +44,10 @@ OpenAI News returned HTTP 403 for both direct curl retrieval and a browser-user-
 
 ## Merge And Notification State
 
-PR 65 is open at `https://github.com/chasebridgible/foundation/pull/65` with merge state `pr-open`.
+PR 65 is open at `https://github.com/chasebridgible/foundation/pull/65` with merge state `blocked`.
 
 GitHub App notification was sent as `foundation-scout-notifier[bot]`: `https://github.com/chasebridgible/foundation/pull/65#issuecomment-4692273742`.
+
+Merge blocker: GitHub reported no workflow runs and no commit statuses for head `e2ad9eb9c569bc8839f590c174aa6e549fcf0ff5` after polling, and PR mergeability remained false. The PR was left open because the protected check gate did not pass.
+
+Blocker notification was sent as `foundation-scout-notifier[bot]`: `https://github.com/chasebridgible/foundation/pull/65#issuecomment-4692308989`.
