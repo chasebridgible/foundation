@@ -323,7 +323,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-06-07",
+  "lastUpdated": "2026-06-14",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -3277,12 +3277,13 @@
       "status": "active",
       "file": "foundation/docs/specs/capabilities/make-outstanding-work-repeatable.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-06",
+      "lastUpdated": "2026-06-14",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
       "children": [
-        "foundation.generate-maintain-agent-skills.capability"
+        "foundation.generate-maintain-agent-skills.capability",
+        "foundation.research-corpus-refresh.job"
       ],
       "relatedSpecs": [
         {
@@ -3298,6 +3299,14 @@
           "sections": [
             "capability-intent",
             "jobs"
+          ]
+        },
+        {
+          "id": "foundation.research-corpus-refresh.job",
+          "relationship": "child",
+          "sections": [
+            "job-intent",
+            "process"
           ]
         },
         {
@@ -8136,7 +8145,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-backfill-specs.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-07",
+      "lastUpdated": "2026-06-13",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.compound-improvements-safely.capability",
@@ -8306,6 +8315,28 @@
         },
         {
           "path": "foundation/skills/agentic-workflow-design/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct",
+          "notes": "Runs timer-gated long work with durable state, sparse exit-gate timer checks, bounded unit progress, and validated handoff."
+        },
+        {
+          "path": "foundation/skills/long-running-agent-worker/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct",
+          "notes": "Observes long-running agent behavior from durable evidence without taking over the worker task."
+        },
+        {
+          "path": "foundation/skills/watchful-agent-supervisor/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
         }
@@ -10700,6 +10731,261 @@
         "source-registry",
         "context-pack",
         "substrate"
+      ]
+    },
+    {
+      "id": "foundation.research-corpus-refresh.eval",
+      "title": "Research Corpus Refresh Eval",
+      "type": "eval",
+      "status": "active",
+      "file": "foundation/docs/specs/research-corpus-refresh-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-14",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.research-corpus-refresh.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.research-corpus-refresh.job",
+          "relationship": "parent",
+          "sections": [
+            "process",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.research-corpus-refresh.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "contracts",
+            "failure-modes"
+          ]
+        },
+        {
+          "id": "foundation.agent-capability-scout.eval",
+          "relationship": "informs",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/research-corpus-refresh-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.research-corpus-refresh.eval:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.research-corpus-refresh.eval#commands-and-evidence"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "eval",
+        "research",
+        "automation",
+        "workbook"
+      ]
+    },
+    {
+      "id": "foundation.research-corpus-refresh.technical",
+      "title": "Research Corpus Refresh Technical",
+      "type": "technical",
+      "status": "active",
+      "file": "foundation/docs/specs/research-corpus-refresh-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-06-14",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.research-corpus-refresh.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.research-corpus-refresh.job",
+          "relationship": "parent",
+          "sections": [
+            "process",
+            "context-tools-and-interfaces"
+          ]
+        },
+        {
+          "id": "foundation.research-corpus-refresh.eval",
+          "relationship": "sibling",
+          "sections": [
+            "acceptance-mapping",
+            "commands-and-evidence"
+          ]
+        },
+        {
+          "id": "foundation.agent-capability-scout.technical",
+          "relationship": "informs",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/research-corpus-refresh-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.research-corpus-refresh.technical:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.research-corpus-refresh.technical#paths-and-coverage"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "technical",
+        "research",
+        "automation",
+        "jsonl",
+        "workbook"
+      ]
+    },
+    {
+      "id": "foundation.research-corpus-refresh.job",
+      "title": "Research Corpus Refresh",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/research-corpus-refresh.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-14",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.make-outstanding-work-repeatable.capability",
+      "children": [
+        "foundation.research-corpus-refresh.technical",
+        "foundation.research-corpus-refresh.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.make-outstanding-work-repeatable.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.research-corpus-refresh.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "concurrency-and-timing"
+          ]
+        },
+        {
+          "id": "foundation.research-corpus-refresh.eval",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.agent-capability-scout.job",
+          "relationship": "informs",
+          "sections": [
+            "process",
+            "evidence-and-evaluation"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/research-corpus-refresh.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/research-corpus-refresh/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/foundation-agent-capability-scout.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Existing recurring research pattern used as the concrete model."
+        },
+        {
+          "path": "foundation/docs/specs/foundation-agent-capability-scout-technical.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Existing JSONL, branch, PR, and notification contract used as a reusable precedent."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.research-corpus-refresh.job:skill-validate",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+          "mapsTo": [
+            "foundation.research-corpus-refresh.job#process",
+            "foundation.research-corpus-refresh.job#evidence-and-evaluation"
+          ],
+          "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/research-corpus-refresh"
+        },
+        {
+          "id": "foundation.research-corpus-refresh.job:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.research-corpus-refresh.job#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "job",
+        "research",
+        "automation",
+        "agent-workflow"
       ]
     },
     {

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.research-corpus-refresh.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-14">
+<title>Research Corpus Refresh</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.research-corpus-refresh.job",
+  "title": "Research Corpus Refresh",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-14",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.make-outstanding-work-repeatable.capability",
+  "children": [
+    "foundation.research-corpus-refresh.technical",
+    "foundation.research-corpus-refresh.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.make-outstanding-work-repeatable.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.research-corpus-refresh.technical",
+      "relationship": "child",
+      "sections": [
+        "data-model",
+        "contracts",
+        "concurrency-and-timing"
+      ]
+    },
+    {
+      "id": "foundation.research-corpus-refresh.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.job",
+      "relationship": "informs",
+      "sections": [
+        "process",
+        "evidence-and-evaluation"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/research-corpus-refresh.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/research-corpus-refresh/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-agent-capability-scout.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Existing recurring research pattern used as the concrete model."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-agent-capability-scout-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Existing JSONL, branch, PR, and notification contract used as a reusable precedent."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.research-corpus-refresh.job:skill-validate",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+      "mapsTo": [
+        "foundation.research-corpus-refresh.job#process",
+        "foundation.research-corpus-refresh.job#evidence-and-evaluation"
+      ],
+      "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/research-corpus-refresh"
+    },
+    {
+      "id": "foundation.research-corpus-refresh.job:spec-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.research-corpus-refresh.job#evidence-and-evaluation"
+      ],
+      "command": "npm run spec:check"
+    }
+  ],
+  "tags": [
+    "job",
+    "research",
+    "automation",
+    "agent-workflow"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.research-corpus-refresh.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.research-corpus-refresh.job",
+      "type": "job",
+      "label": "Research Corpus Refresh",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "research",
+          "automation",
+          "agent-workflow"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.research-corpus-refresh.job:main",
+      "type": "process",
+      "label": "Research corpus refresh loop",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.research-corpus-refresh.job"
+      }
+    },
+    {
+      "id": "actor:foundation.research-corpus-refresh.job:agent",
+      "type": "actor",
+      "label": "Research refresh agent",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "agent-or-automation",
+        "generatedFrom": "foundation.research-corpus-refresh.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.research-corpus-refresh.job:handoff",
+      "type": "evidence",
+      "label": "Research refresh handoff evidence",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.research-corpus-refresh.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:supports:spec:foundation.make-outstanding-work-repeatable.capability",
+      "type": "supports",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:has-process:process:foundation.research-corpus-refresh.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "process:foundation.research-corpus-refresh.job:main",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:performed-by:actor:foundation.research-corpus-refresh.job:agent",
+      "type": "performed-by",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "actor:foundation.research-corpus-refresh.job:agent",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "job-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:evidenced-by:evidence:foundation.research-corpus-refresh.job:handoff",
+      "type": "evidenced-by",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "evidence:foundation.research-corpus-refresh.job:handoff",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:depends-on:spec:foundation.research-corpus-refresh.technical",
+      "type": "depends-on",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "spec:foundation.research-corpus-refresh.technical",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:supports:spec:foundation.research-corpus-refresh.eval",
+      "type": "supports",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "spec:foundation.research-corpus-refresh.eval",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">R</div>
+    <div>
+      <div class="sidebar-title">Research Refresh</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Job intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#operator-map"><span class="nav-num">06</span>Map</a>
+    <a class="nav-item" href="#bounded-work-units"><span class="nav-num">07</span>Units</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">08</span>Context</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">09</span>Evidence</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">10</span>Revision</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/research-corpus-refresh.html</div>
+    <h1>Research Corpus Refresh</h1>
+    <p class="lede">Recurring research work becomes reliable when every run has a bounded source universe, durable machine-readable records, a readable share artifact, validation, and a reviewed handoff.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-14</div>
+      <div><strong>Canonical section:</strong> <a href="#job-intent">#job-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+      <h1>Job intent</h1>
+      <p>The Research Corpus Refresh job turns one-time or scheduled research into a repeatable agent workflow. It exists for research domains where people need a human-readable artifact, future agents need structured state, and every change should remain source-backed and reviewable.</p>
+      <h3>Trigger</h3>
+      <p>The job starts when a user asks to refresh a research corpus, when a schedule fires, or when a downstream repo needs to promote ad hoc research into durable JSON/JSONL, workbook, brief, and review artifacts.</p>
+    </section>
+
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <table class="status-table">
+        <thead><tr><th>Capability</th><th>How this job supports it</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td><code>foundation.make-outstanding-work-repeatable.capability</code></td><td>Converts successful research behavior into bounded units, source-backed state, validators, and review handoffs that can run again.</td><td>Tribal research runs and Foundation scout pattern.</td></tr>
+          <tr><td><code>foundation.preserve-knowledge-context.capability</code></td><td>Preserves research findings as structured records and shareable artifacts instead of chat-only memory.</td><td>Machine-readable corpus plus human workbook.</td></tr>
+          <tr><td><code>foundation.show-system-clearly.capability</code></td><td>Makes source coverage, gaps, run status, workbook outputs, and review actions visible in HTML specs and briefs.</td><td>Spec graph, run brief, and workbook contracts.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling</h2>
+      <ul>
+        <li><strong>Current actor:</strong> human-directed Codex agents, often in project repos.</li>
+        <li><strong>Current path:</strong> project-specific systems such as the Foundation Agent Capability Scout and Tribal Conference Research use useful pieces of the pattern, but the generic workflow is not yet named as reusable Foundation substrate.</li>
+        <li><strong>Known gaps:</strong> ad hoc workbooks can live outside repos, agents can confuse dated events with ongoing routes, and scheduled refresh behavior is easy to re-prompt inconsistently.</li>
+      </ul>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <ul>
+        <li><strong>Proposed actor:</strong> a single research worker agent or scheduled Codex automation, with optional reviewer/evaluator agent only when the project spec calls for it.</li>
+        <li><strong>Proposed path:</strong> the project defines a source universe, corpus schema, workbook view, checker, and review-first publish path; the worker processes one bounded target at a time until the run reaches terminal coverage.</li>
+        <li><strong>Reason for change:</strong> strong research should not depend on remembered prompts, temporary files, or manual workbook cleanup.</li>
+        <li><strong>Decision state:</strong> accepted as the reusable Foundation pattern for Tribal research systems and future similar corpora.</li>
+      </ul>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <ol>
+        <li><strong>Define corpus:</strong> name the project repo, research goal, in-scope categories, out-of-scope categories, source families, schema, workbook views, and required checks.</li>
+        <li><strong>Start run:</strong> create or reuse a clean branch, generate a run ID, snapshot source registry state, and record trigger, deadline, cadence, and expected artifacts.</li>
+        <li><strong>Select one target:</strong> choose one source, region, facility, query group, or other bounded work unit from durable state.</li>
+        <li><strong>Research target:</strong> use source-backed public evidence, preserve exact URLs and search terms when search drove the discovery, and classify each candidate before adding it.</li>
+        <li><strong>Record state:</strong> merge findings, rejections, source statuses, coverage notes, and route or contact records into JSON/JSONL without relying on workbook formatting as source of truth.</li>
+        <li><strong>Export view:</strong> regenerate the human-readable workbook and dated brief from the canonical corpus, keeping internal next actions out of share-first sheets unless the project spec explicitly includes them.</li>
+        <li><strong>Check and revise:</strong> run deterministic validators, workbook readback, scope checks, source URL checks, dedupe checks, and project-specific evals; revise until no blocking findings remain.</li>
+        <li><strong>Publish for review:</strong> commit, push, open or update a PR, and notify the owner with changed rows, blockers, workbook path, run status, and requested action.</li>
+        <li><strong>Schedule next run:</strong> enable or update automation only when the project spec or operator-approved gate allows it, using review-first PR behavior by default.</li>
+      </ol>
+    </section>
+
+    <section id="operator-map" data-spec-section="operator-map" data-section-type="process-map">
+      <h2>Operator map</h2>
+      <table class="status-table">
+        <thead><tr><th>Step</th><th>Plain-language question</th><th>Durable artifact</th><th>Gate before moving on</th></tr></thead>
+        <tbody>
+          <tr><td>1. Scope</td><td>What counts, what stays out, and why does this research matter?</td><td>Project spec and source registry.</td><td>Scope and exclusions are explicit.</td></tr>
+          <tr><td>2. Target</td><td>What is the next smallest useful place to look?</td><td>Run manifest and next-target output.</td><td>Exactly one source, region, facility, or query family is selected.</td></tr>
+          <tr><td>3. Evidence</td><td>What did the source actually prove?</td><td>Finding, rejection, route, contact, or blocker record.</td><td>Record includes source URLs and search terms when search was used.</td></tr>
+          <tr><td>4. View</td><td>Can a human use the result without reading internal notes?</td><td>Workbook and dated brief.</td><td>Share sheets stay readable and internal routes stay separate.</td></tr>
+          <tr><td>5. Review</td><td>Can the owner trust, merge, or redirect this run?</td><td>Checks, branch, PR, notification receipt, or blocker.</td><td>Checker, workbook readback, and review-first handoff are complete.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="bounded-work-units" data-spec-section="bounded-work-units" data-section-type="work-units">
+      <h2>Bounded work units</h2>
+      <table class="status-table">
+        <thead><tr><th>Unit</th><th>Agent may interpret</th><th>Must record before moving on</th></tr></thead>
+        <tbody>
+          <tr><td>Source target</td><td>One URL, calendar page, PDF, source family query, facility, or region selected by <code>next</code>.</td><td>Coverage status, source URLs, search terms when used, findings, rejections, and blocker notes.</td></tr>
+          <tr><td>Finding</td><td>One candidate event, contact, route, or opportunity from the current target.</td><td>Scope classification, evidence URL, dedupe key, relevance/score, and share/internal placement.</td></tr>
+          <tr><td>Export</td><td>One regenerated workbook/brief from canonical state.</td><td>Workbook sheets, row counts, readback checks, brief path, and merge/report receipt.</td></tr>
+          <tr><td>Publish</td><td>One branch or PR handoff.</td><td>Checks, commit or blocker, PR or blocker, notification receipt or blocker, and requested owner action.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <table class="status-table">
+        <thead><tr><th>Layer</th><th>Required detail</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Context</td><td>Project AGENTS, project specs, skill, source registry, corpus schema, workbook view rules, and prior run briefs.</td><td>Project repo plus Foundation specs.</td></tr>
+          <tr><td>Tools</td><td>Project research commands such as init, next, record, check, report, test, and notification commands.</td><td><code>foundation.research-corpus-refresh.technical</code></td></tr>
+          <tr><td>Interfaces</td><td>JSON/JSONL corpus, workbook, dated brief, run logs, PR, and notification receipt.</td><td><code>foundation.research-corpus-refresh.technical#contracts</code></td></tr>
+          <tr><td>Actor candidates</td><td>Human operator, single agent worker, scheduled Codex automation, optional independent evaluator.</td><td>Workflow design contract.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Acceptance condition</th><th>Eval spec or gap</th></tr></thead>
+        <tbody>
+          <tr><td>Run manifest, source snapshots, records, rejections, coverage state, workbook, and brief.</td><td>A reviewer can tell what was searched, what changed, what was rejected, what remains blocked, and where the shareable artifact lives.</td><td><code>foundation.research-corpus-refresh.eval</code></td></tr>
+          <tr><td>Project checker and workbook readback pass.</td><td>The corpus and workbook agree, dedupe works, off-scope rows are excluded from share sheets, and URLs are inspectable.</td><td><code>foundation.research-corpus-refresh.eval</code></td></tr>
+          <tr><td>PR and notification receipt or explicit blocker.</td><td>The owner has a durable review path; direct-to-main is not assumed for scheduled runs.</td><td><code>foundation.research-corpus-refresh.eval</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <p>If a refresh run produces messy workbook rows, loses source coverage, misclassifies scope, or stops without durable handoff evidence, revise the smallest owning layer: project source registry, project schema, workbook exporter, checker, eval, skill, or this reusable Foundation job. Do not patch only the next prompt when the failure will recur.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Research Corpus Refresh - Foundation reusable job spec</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

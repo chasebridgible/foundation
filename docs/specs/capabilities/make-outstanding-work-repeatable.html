@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.make-outstanding-work-repeatable.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-06">
+<meta name="spec:last-updated" content="2026-06-14">
 <title>Make Outstanding Work Repeatable</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,12 +16,13 @@
   "title": "Make Outstanding Work Repeatable",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-06",
+  "lastUpdated": "2026-06-14",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.operating-system.system",
   "children": [
-    "foundation.generate-maintain-agent-skills.capability"
+    "foundation.generate-maintain-agent-skills.capability",
+    "foundation.research-corpus-refresh.job"
   ],
   "relatedSpecs": [
     {
@@ -37,6 +38,14 @@
       "sections": [
         "capability-intent",
         "jobs"
+      ]
+    },
+    {
+      "id": "foundation.research-corpus-refresh.job",
+      "relationship": "child",
+      "sections": [
+        "job-intent",
+        "process"
       ]
     },
     {
@@ -161,6 +170,16 @@
         "specId": "foundation.make-outstanding-work-repeatable.capability",
         "sectionId": "jobs"
       }
+    },
+    {
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:realized-by:spec:foundation.research-corpus-refresh.job",
+      "type": "realized-by",
+      "from": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "spec:foundation.research-corpus-refresh.job",
+      "source": {
+        "specId": "foundation.make-outstanding-work-repeatable.capability",
+        "sectionId": "jobs"
+      }
     }
   ]
 }
@@ -192,7 +211,7 @@
     <p class="lede">High-quality human, agent, and software work can be turned into bounded, repeatable, quality-gated loops.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-06</div>
+      <div><strong>Updated:</strong> 2026-06-14</div>
       <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
     </div>
   </section>
@@ -225,6 +244,7 @@
         <thead><tr><th>Child capability or gap</th><th>Purpose</th><th>Status</th></tr></thead>
         <tbody>
           <tr><td><code>foundation.generate-maintain-agent-skills.capability</code></td><td>Narrower reliable outcome under this parent family.</td><td>active or draft</td></tr>
+          <tr><td><code>foundation.research-corpus-refresh.job</code></td><td>Direct operating job for turning successful research behavior into source-backed corpora, workbook views, validators, and review-first scheduled runs.</td><td>active</td></tr>
         </tbody>
       </table>
     </section>

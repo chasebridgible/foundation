@@ -1,0 +1,4 @@
+interface:
+  display_name: "Long-Running Agent Worker"
+  short_description: "Run timer-gated durable agent work"
+  default_prompt: "Use $long-running-agent-worker to run this long task with durable state, sparse timer checks, and evidence-backed handoff."
