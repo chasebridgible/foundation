@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Corpus Refresh"
+  short_description: "Refresh research corpora with durable evidence"
+  default_prompt: "Use $research-corpus-refresh to run a bounded research refresh that updates JSON, workbook outputs, checks, and review handoff."

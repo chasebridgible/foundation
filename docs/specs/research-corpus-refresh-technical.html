@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.research-corpus-refresh.technical">
+<meta name="spec:type" content="technical">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-14">
+<title>Research Corpus Refresh Technical</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.research-corpus-refresh.technical",
+  "title": "Research Corpus Refresh Technical",
+  "type": "technical",
+  "status": "active",
+  "lastUpdated": "2026-06-14",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.research-corpus-refresh.job",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.research-corpus-refresh.job",
+      "relationship": "parent",
+      "sections": [
+        "process",
+        "context-tools-and-interfaces"
+      ]
+    },
+    {
+      "id": "foundation.research-corpus-refresh.eval",
+      "relationship": "sibling",
+      "sections": [
+        "acceptance-mapping",
+        "commands-and-evidence"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.technical",
+      "relationship": "informs",
+      "sections": [
+        "data-model",
+        "contracts"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/research-corpus-refresh-technical.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.research-corpus-refresh.technical:spec-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.research-corpus-refresh.technical#paths-and-coverage"
+      ],
+      "command": "npm run spec:check"
+    }
+  ],
+  "tags": [
+    "technical",
+    "research",
+    "automation",
+    "jsonl",
+    "workbook"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.research-corpus-refresh.technical",
+  "nodes": [
+    {
+      "id": "spec:foundation.research-corpus-refresh.technical",
+      "type": "technical-contract",
+      "label": "Research Corpus Refresh Technical",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "technical",
+          "research",
+          "automation",
+          "jsonl",
+          "workbook"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.technical:depends-on:spec:foundation.research-corpus-refresh.job",
+      "type": "depends-on",
+      "from": "spec:foundation.research-corpus-refresh.technical",
+      "to": "spec:foundation.research-corpus-refresh.job",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.technical",
+        "sectionId": "capability-contract"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.technical:supports:spec:foundation.research-corpus-refresh.eval",
+      "type": "supports",
+      "from": "spec:foundation.research-corpus-refresh.technical",
+      "to": "spec:foundation.research-corpus-refresh.eval",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.technical",
+        "sectionId": "paths-and-coverage"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">T</div>
+    <div>
+      <div class="sidebar-title">Research Refresh</div>
+      <div class="sidebar-sub">technical spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#required-depth"><span class="nav-num">01</span>Required depth</a>
+    <a class="nav-item" href="#capability-contract"><span class="nav-num">02</span>Capability contract</a>
+    <a class="nav-item" href="#internal-sequence"><span class="nav-num">03</span>Sequence</a>
+    <a class="nav-item" href="#data-model"><span class="nav-num">04</span>Data model</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">05</span>Contracts</a>
+    <a class="nav-item" href="#concurrency-and-timing"><span class="nav-num">06</span>Timing</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">07</span>Failures</a>
+    <a class="nav-item" href="#boundaries"><span class="nav-num">08</span>Boundaries</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">09</span>Coverage</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/research-corpus-refresh-technical.html</div>
+    <h1>Research Corpus Refresh Technical</h1>
+    <p class="lede">A research refresh implementation needs deterministic state transitions around agent judgment: source targets, findings, rejections, exports, checks, branch publication, and notifications.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-14</div>
+      <div><strong>Canonical section:</strong> <a href="#required-depth">#required-depth</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
+      <h1>Required depth</h1>
+      <p>This is a reusable technical contract for project-specific research systems. It does not prescribe one implementation language. It constrains the durable artifacts, command semantics, validation boundaries, workbook behavior, and scheduled publish path that make recurring research trustworthy.</p>
+      <h3>Non-goals</h3>
+      <p>This spec does not define a universal web crawler, a shared database, or a direct-to-main automation. Project repos keep their domain schema, source registry, and checkers.</p>
+    </section>
+
+    <section id="capability-contract" data-spec-section="capability-contract" data-section-type="contracts">
+      <h2>Capability contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Capability field</th><th>Technical contract</th><th>Classification</th><th>Verification target</th></tr></thead>
+        <tbody>
+          <tr><td>Bounded repeatability</td><td>Every run selects one target at a time from durable state and records terminal coverage for each required source family.</td><td>required contract</td><td>Coverage checker.</td></tr>
+          <tr><td>Knowledge preservation</td><td>Canonical JSON/JSONL records include source URLs, search terms when used, status, rejection reason, and merge/update receipt.</td><td>required contract</td><td>Corpus schema check.</td></tr>
+          <tr><td>Human readability</td><td>Workbook sheets are derived views with stable column rules; internal next actions can exist in internal sheets or briefs but not clutter share-first sheets.</td><td>required contract</td><td>Workbook readback check.</td></tr>
+          <tr><td>Review-first operations</td><td>Scheduled runs create branches, PRs, notifications, and explicit blockers instead of silently changing main.</td><td>required contract</td><td>Run receipt and notification receipt.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
+      <h2>Internal sequence</h2>
+      <ol>
+        <li><strong>Initialize:</strong> read project AGENTS, specs, source registry, current corpus, and workbook; create run manifest.</li>
+        <li><strong>Select:</strong> return the next bounded source target or work unit with enough context for one agent pass.</li>
+        <li><strong>Record:</strong> merge source-backed findings, rejections, route/contact records, coverage updates, and evidence references idempotently.</li>
+        <li><strong>Report:</strong> regenerate canonical JSON state if needed, workbook sheets, dated brief, source snapshot summary, and merge/notification templates.</li>
+        <li><strong>Check:</strong> validate schema, dedupe keys, source URLs, workbook readback, off-scope exclusions, terminal coverage, and project-specific acceptance rules.</li>
+        <li><strong>Publish:</strong> create or update a review PR, write merge and notification receipts, and leave explicit blockers when GitHub or checks are unavailable.</li>
+      </ol>
+    </section>
+
+    <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
+      <h2>Data model</h2>
+      <table class="status-table">
+        <thead><tr><th>Entity</th><th>Fields</th><th>Invariant</th><th>Spec/module</th></tr></thead>
+        <tbody>
+          <tr><td>Run manifest</td><td><code>runId, trigger, branch, startedAt, endedAt, status, timer, corpusVersion, workbookPath, briefPath</code></td><td>Every run ends as complete, blocked, failed, or needs review with artifact paths.</td><td>Project technical spec.</td></tr>
+          <tr><td>Source target</td><td><code>sourceId, family, region, url, queryTerms, scope, cadence, enabled, status</code></td><td>Required source families reach a terminal coverage status.</td><td>Project source registry.</td></tr>
+          <tr><td>Finding</td><td><code>id, sourceId, category, title, date, location, organizer, description, score, sourceUrls, contactHints</code></td><td>Findings cite at least one source URL and satisfy project scope.</td><td>Project corpus.</td></tr>
+          <tr><td>Contact or route</td><td><code>id, facilityId, systemId, nameOrRoute, role, phone, email, sourceUrls, connectionNotes, confidence</code></td><td>Contacts and buyer-access routes are linked to facilities, systems, or source families.</td><td>Project corpus.</td></tr>
+          <tr><td>Rejection</td><td><code>id, sourceId, candidateTitle, sourceUrls, reason, rejectedAt</code></td><td>Off-scope or duplicate candidates are inspectable and do not disappear from review context.</td><td>Project corpus.</td></tr>
+          <tr><td>Receipt</td><td><code>runId, branch, commit, prUrl, checks, notificationTarget, blocker</code></td><td>Publication state is durable even when publish or notify is blocked; rerunning report for the same run ID updates same-run report receipts instead of appending duplicates.</td><td>Project receipts.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
+      <h2>Contracts and integrations</h2>
+      <table class="status-table">
+        <thead><tr><th>Command</th><th>Required behavior</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code>*:research:init</code></td><td>Seed or update source universe and run manifest.</td><td>Must not erase existing corpus records.</td></tr>
+          <tr><td><code>*:research:next</code></td><td>Return one bounded source target or work unit.</td><td>Orientation is not proof of completion; checker owns completion.</td></tr>
+          <tr><td><code>*:research:record</code></td><td>Merge agent findings, rejections, and source statuses idempotently.</td><td>Must preserve source URLs and search terms.</td></tr>
+          <tr><td><code>*:research:check</code></td><td>Validate schema, scope, URLs, dedupe, coverage, workbook consistency, and row placement across share/internal sheets.</td><td>Must be the authoritative guardrail before handoff.</td></tr>
+          <tr><td><code>*:research:report</code></td><td>Regenerate workbook, JSON exports, briefs, and receipts from canonical state.</td><td>Workbook is derived, not source of truth.</td></tr>
+          <tr><td><code>*:research:test</code></td><td>Exercise no-change, duplicate, off-scope, blocked-source, and workbook-exclusion cases.</td><td>Can be project-specific.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="concurrency-and-timing" data-spec-section="concurrency-and-timing" data-section-type="concurrency">
+      <h2>Timing, concurrency, and ordering</h2>
+      <ul>
+        <li><strong>Single writer:</strong> one process writes the canonical corpus and workbook at a time. Parallel research workers can emit replayable inputs, but consolidation happens through one writer.</li>
+        <li><strong>Timer-gated runs:</strong> a timer is an exit gate, not a work strategy. The worker keeps doing substantive bounded work until it checks an expired timer at a natural exit point. Reports attach timer status only when the persisted timer belongs to the current run ID; stale timers stay in historical receipts, not current briefs.</li>
+        <li><strong>Scheduled cadence:</strong> monthly is the default for stable research corpora; project specs can select biweekly or ad hoc when source churn justifies it.</li>
+        <li><strong>Branch ordering:</strong> automation creates a dated branch before corpus writes and publishes a review PR after validation.</li>
+      </ul>
+    </section>
+
+    <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+      <h2>Failure modes</h2>
+      <table class="status-table">
+        <thead><tr><th>Failure</th><th>System behavior</th><th>Reviewer behavior</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Off-scope or internal-route records pollute share sheets.</td><td>Checker fails or routes row to internal monitor/route sheet instead of share sheet.</td><td>Revise classifier, workbook exporter, or workbook readback guard.</td><td>Rejected row, route-sheet row, or workbook readback failure.</td></tr>
+          <tr><td>Workbook is edited manually and diverges from JSON.</td><td>Report regenerates workbook from corpus; check flags mismatched expected rows.</td><td>Move intended changes into corpus records.</td><td>Workbook consistency check.</td></tr>
+          <tr><td>Source is blocked or not published yet.</td><td>Record terminal source status with reason and recheck cadence.</td><td>Do not invent findings; review blocker list.</td><td>Source snapshot or rejection.</td></tr>
+          <tr><td>Scheduled publish cannot notify owner.</td><td>Record explicit notification blocker and leave PR open.</td><td>Resolve GitHub App or fallback path.</td><td>Notification receipt.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="boundaries" data-spec-section="boundaries" data-section-type="boundaries">
+      <h2>Boundaries and abstraction level</h2>
+      <ul>
+        <li><strong>Owns:</strong> generic refresh loop, command expectations, artifact classes, workbook derivation rule, timing rule, and review-first automation contract.</li>
+        <li><strong>References:</strong> domain-specific source registries, schemas, scripts, workbook column choices, and notifications owned by project repos.</li>
+      </ul>
+    </section>
+
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Paths and coverage</h2>
+      <ul class="path-list">
+        <li><code>foundation/docs/specs/research-corpus-refresh.html</code> - parent job contract.</li>
+        <li><code>foundation/docs/specs/research-corpus-refresh-technical.html</code> - reusable technical contract.</li>
+        <li><code>foundation/docs/specs/research-corpus-refresh-eval.html</code> - evidence and acceptance contract.</li>
+        <li><code>foundation/skills/research-corpus-refresh/SKILL.md</code> - agent procedure for running or implementing project refresh systems.</li>
+      </ul>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Research Corpus Refresh Technical - reusable implementation contract</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.research-corpus-refresh.eval">
+<meta name="spec:type" content="eval">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-14">
+<title>Research Corpus Refresh Eval</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.research-corpus-refresh.eval",
+  "title": "Research Corpus Refresh Eval",
+  "type": "eval",
+  "status": "active",
+  "lastUpdated": "2026-06-14",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.research-corpus-refresh.job",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.research-corpus-refresh.job",
+      "relationship": "parent",
+      "sections": [
+        "process",
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "foundation.research-corpus-refresh.technical",
+      "relationship": "sibling",
+      "sections": [
+        "data-model",
+        "contracts",
+        "failure-modes"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.eval",
+      "relationship": "informs",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/research-corpus-refresh-eval.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.research-corpus-refresh.eval:spec-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.research-corpus-refresh.eval#commands-and-evidence"
+      ],
+      "command": "npm run spec:check"
+    }
+  ],
+  "tags": [
+    "eval",
+    "research",
+    "automation",
+    "workbook"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.research-corpus-refresh.eval",
+  "nodes": [
+    {
+      "id": "spec:foundation.research-corpus-refresh.eval",
+      "type": "evaluation",
+      "label": "Research Corpus Refresh Eval",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "research",
+          "automation",
+          "workbook"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.eval:depends-on:spec:foundation.research-corpus-refresh.job",
+      "type": "depends-on",
+      "from": "spec:foundation.research-corpus-refresh.eval",
+      "to": "spec:foundation.research-corpus-refresh.job",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.eval",
+        "sectionId": "verification-contract"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.eval:depends-on:spec:foundation.research-corpus-refresh.technical",
+      "type": "depends-on",
+      "from": "spec:foundation.research-corpus-refresh.eval",
+      "to": "spec:foundation.research-corpus-refresh.technical",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.eval",
+        "sectionId": "acceptance-mapping"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">E</div>
+    <div>
+      <div class="sidebar-title">Research Refresh</div>
+      <div class="sidebar-sub">eval spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#verification-contract"><span class="nav-num">01</span>Contract</a>
+    <a class="nav-item" href="#acceptance-mapping"><span class="nav-num">02</span>Acceptance</a>
+    <a class="nav-item" href="#coverage-plan"><span class="nav-num">03</span>Coverage</a>
+    <a class="nav-item" href="#commands-and-evidence"><span class="nav-num">04</span>Evidence</a>
+    <a class="nav-item" href="#risk-based-signal-choice"><span class="nav-num">05</span>Risk signal</a>
+    <a class="nav-item" href="#gaps-and-followups"><span class="nav-num">06</span>Gaps</a>
+    <a class="nav-item" href="#coevolution-rule"><span class="nav-num">07</span>Co-evolution</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/research-corpus-refresh-eval.html</div>
+    <h1>Research Corpus Refresh Eval</h1>
+    <p class="lede">A research refresh is acceptable only when it is source-backed, scoped, deduped, workbook-readable, branch-reviewable, and honest about gaps.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-14</div>
+      <div><strong>Canonical section:</strong> <a href="#verification-contract">#verification-contract</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="verification-contract" data-spec-section="verification-contract" data-section-type="verification-contract" data-spec-canonical="true">
+      <h1>Verification contract</h1>
+      <p>The reviewer must be able to trust both the corpus and the share artifact without reading chat history. The run passes only when official or source-backed evidence supports records, off-scope candidates are rejected or routed internally, workbook sheets communicate cleanly, and publication evidence names either the PR path or a blocker.</p>
+    </section>
+
+    <section id="acceptance-mapping" data-spec-section="acceptance-mapping" data-section-type="acceptance">
+      <h2>Acceptance conditions mapped to specs</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Condition</th><th>Maps to</th><th>Must prove</th></tr></thead>
+        <tbody>
+          <tr><td>AC-1</td><td>Source coverage is terminal or explicitly blocked for every required source family.</td><td><code>foundation.research-corpus-refresh.job#process</code></td><td>Coverage status includes found events, searched no result, blocked, not published yet, needs recheck, or project-approved equivalent.</td></tr>
+          <tr><td>AC-2</td><td>Every accepted finding has source evidence and belongs in the project scope.</td><td><code>foundation.research-corpus-refresh.technical#data-model</code></td><td>Checker rejects missing URLs, unsupported scope, duplicate IDs, and generic source snippets without durable URLs.</td></tr>
+          <tr><td>AC-3</td><td>Workbook share sheets are readable views, not raw internal logs.</td><td><code>foundation.research-corpus-refresh.technical#contracts</code></td><td>Workbook readback confirms expected sheets, simple columns, no internal next-action clutter in share-first sheets, and correct sheet placement for monitor, route, rejection, and share-facing rows.</td></tr>
+          <tr><td>AC-4</td><td>The run creates a reviewable handoff.</td><td><code>foundation.research-corpus-refresh.job#evidence-and-evaluation</code></td><td>Brief, commit or blocker, PR or blocker, checks, and notification receipt or blocker are recorded.</td></tr>
+          <tr><td>AC-5</td><td>Timer-gated runs do not idle, exit early, or reuse stale timer state.</td><td><code>foundation.research-corpus-refresh.technical#concurrency-and-timing</code></td><td>Final timer evidence shows expired true for the current run ID; earlier expired false checks caused more substantive work, not waiting, and stale timers from prior runs do not appear in current briefs.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coverage-plan" data-spec-section="coverage-plan" data-section-type="coverage">
+      <h2>Unit, integration, e2e, and manual coverage</h2>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Level</th><th>Path or evidence</th><th>Status</th><th>Why this level</th></tr></thead>
+        <tbody>
+          <tr><td>T-1</td><td>static</td><td><code>npm run spec:check</code></td><td>existing</td><td>Verifies Foundation metadata, graph, and self-map consistency for this reusable contract.</td></tr>
+          <tr><td>T-2</td><td>static</td><td><code>quick_validate.py skills/research-corpus-refresh</code></td><td>existing</td><td>Verifies the skill is structurally valid and discoverable.</td></tr>
+          <tr><td>T-3</td><td>project integration</td><td>Project <code>*:research:check</code>, <code>*:research:test</code>, and workbook readback.</td><td>project-owned</td><td>Only the project repo can prove its domain schema and workbook view are correct.</td></tr>
+          <tr><td>T-4</td><td>manual review</td><td>PR brief plus workbook inspection.</td><td>project-owned</td><td>Human judgment is needed for usefulness, not only structural validity.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="commands-and-evidence" data-spec-section="commands-and-evidence" data-section-type="evidence">
+      <h2>Commands or evidence required</h2>
+      <ul class="path-list">
+        <li><code>python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/research-corpus-refresh</code> - confirms the reusable skill is valid.</li>
+        <li><code>npm run spec:registry</code> - regenerates Foundation's spec registry after metadata changes.</li>
+        <li><code>npm run spec:check</code> - validates Foundation spec metadata, graph, capability language, generated graph, and self-map.</li>
+        <li>Project-specific <code>*:research:check</code> and <code>*:research:test</code> - prove corpus/workbook behavior in the target repo.</li>
+      </ul>
+    </section>
+
+    <section id="risk-based-signal-choice" data-spec-section="risk-based-signal-choice" data-section-type="risk">
+      <h2>Risk-based signal choice</h2>
+      <table class="status-table">
+        <thead><tr><th>Risk</th><th>Signal</th><th>Why not cheaper?</th><th>Why not broader?</th></tr></thead>
+        <tbody>
+          <tr><td>Workbook shape looks clean but hides wrong rows.</td><td>Workbook readback plus scope checker.</td><td>Visual inspection alone misses hidden or misrouted rows.</td><td>Full UI/e2e is unnecessary for generated XLSX artifacts.</td></tr>
+          <tr><td>Research appears complete but source families were skipped.</td><td>Coverage-state checker.</td><td>Agent summary is too easy to overstate.</td><td>Human review should inspect results, not reconstruct source enumeration.</td></tr>
+          <tr><td>Automation runs but owner never sees it.</td><td>PR and notification receipts.</td><td>Git push alone does not prove review visibility.</td><td>External email integration is not required when GitHub review-first flow works.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="gaps-and-followups" data-spec-section="gaps-and-followups" data-section-type="gaps">
+      <h2>Gaps and follow-ups</h2>
+      <table class="status-table">
+        <thead><tr><th>Gap</th><th>Risk</th><th>Follow-up trigger</th></tr></thead>
+        <tbody>
+          <tr><td>No generic Foundation checker currently validates arbitrary project corpora.</td><td>medium</td><td>Create one only after at least two project repos repeat the same schema/check pattern.</td></tr>
+          <tr><td>LLM-based usefulness evaluation is project-specific.</td><td>medium</td><td>Add a project eval when users reject structurally valid outputs as unhelpful or noisy.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="coevolution-rule" data-spec-section="coevolution-rule" data-section-type="maintenance">
+      <h2>Co-evolution rule</h2>
+      <div class="callout warning"><strong>Required:</strong> when a project changes its research workflow, update the project spec and checker. When Foundation changes this reusable pattern, update this job, technical spec, eval spec, and skill together.</div>
+      <p>If a future run fails because an agent followed the skill but produced unacceptable research, revise the skill and the target project's checker or eval rather than adding only a one-off instruction to the next prompt.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Research Corpus Refresh Eval - reusable verification contract</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

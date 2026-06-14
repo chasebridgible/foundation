@@ -1,6 +1,6 @@
 {
   "schema": "foundation.visible-business-graph.v1",
-  "generatedAt": "2026-06-06T23:44:21.643Z",
+  "generatedAt": "2026-06-14T04:26:41.644Z",
   "repoName": "foundation",
   "sources": [
     {
@@ -841,6 +841,33 @@
       "confidence": "high"
     },
     {
+      "specId": "foundation.research-corpus-refresh.eval",
+      "title": "Research Corpus Refresh Eval",
+      "type": "eval",
+      "file": "docs/specs/research-corpus-refresh-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.research-corpus-refresh.technical",
+      "title": "Research Corpus Refresh Technical",
+      "type": "technical",
+      "file": "docs/specs/research-corpus-refresh-technical.html",
+      "canonicalSection": "required-depth",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.research-corpus-refresh.job",
+      "title": "Research Corpus Refresh",
+      "type": "job",
+      "file": "docs/specs/research-corpus-refresh.html",
+      "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
       "specId": "foundation.spec-selection.eval",
       "title": "Spec Selection Eval Spec",
       "type": "eval",
@@ -1357,6 +1384,25 @@
       "file": "docs/specs/foundation-html-docs-navigation.html",
       "sourceFile": "docs/specs/foundation-html-docs-navigation.html",
       "sourceTitle": "Foundation HTML Docs Navigation"
+    },
+    {
+      "id": "actor:foundation.research-corpus-refresh.job:agent",
+      "type": "actor",
+      "label": "Research refresh agent",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "agent-or-automation",
+        "generatedFrom": "foundation.research-corpus-refresh.job"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.job",
+      "file": "docs/specs/research-corpus-refresh.html",
+      "sourceFile": "docs/specs/research-corpus-refresh.html",
+      "sourceTitle": "Research Corpus Refresh"
     },
     {
       "id": "actor:foundation.workspace-model.job:primary",
@@ -1901,6 +1947,24 @@
       "sourceTitle": "Preserve Knowledge As Useful Context"
     },
     {
+      "id": "evidence:foundation.research-corpus-refresh.job:handoff",
+      "type": "evidence",
+      "label": "Research refresh handoff evidence",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.research-corpus-refresh.job"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.job",
+      "file": "docs/specs/research-corpus-refresh.html",
+      "sourceFile": "docs/specs/research-corpus-refresh.html",
+      "sourceTitle": "Research Corpus Refresh"
+    },
+    {
       "id": "evidence:foundation.show-system-clearly.capability:primary",
       "type": "evidence",
       "label": "Show The System Clearly evidence",
@@ -2436,6 +2500,24 @@
       "file": "docs/specs/foundation-html-docs-navigation.html",
       "sourceFile": "docs/specs/foundation-html-docs-navigation.html",
       "sourceTitle": "Foundation HTML Docs Navigation"
+    },
+    {
+      "id": "process:foundation.research-corpus-refresh.job:main",
+      "type": "process",
+      "label": "Research corpus refresh loop",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.research-corpus-refresh.job"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.job",
+      "file": "docs/specs/research-corpus-refresh.html",
+      "sourceFile": "docs/specs/research-corpus-refresh.html",
+      "sourceTitle": "Research Corpus Refresh"
     },
     {
       "id": "process:foundation.workspace-model.job:main",
@@ -4393,6 +4475,79 @@
       "file": "docs/specs/capabilities/render-inspectable-system-graph.html",
       "sourceFile": "docs/specs/capabilities/render-inspectable-system-graph.html",
       "sourceTitle": "System Graphs Are Inspectable"
+    },
+    {
+      "id": "spec:foundation.research-corpus-refresh.eval",
+      "type": "evaluation",
+      "label": "Research Corpus Refresh Eval",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "research",
+          "automation",
+          "workbook"
+        ]
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.eval",
+      "file": "docs/specs/research-corpus-refresh-eval.html",
+      "sourceFile": "docs/specs/research-corpus-refresh-eval.html",
+      "sourceTitle": "Research Corpus Refresh Eval"
+    },
+    {
+      "id": "spec:foundation.research-corpus-refresh.job",
+      "type": "job",
+      "label": "Research Corpus Refresh",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "research",
+          "automation",
+          "agent-workflow"
+        ]
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.job",
+      "file": "docs/specs/research-corpus-refresh.html",
+      "sourceFile": "docs/specs/research-corpus-refresh.html",
+      "sourceTitle": "Research Corpus Refresh"
+    },
+    {
+      "id": "spec:foundation.research-corpus-refresh.technical",
+      "type": "technical-contract",
+      "label": "Research Corpus Refresh Technical",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "technical",
+          "research",
+          "automation",
+          "jsonl",
+          "workbook"
+        ]
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.technical",
+      "file": "docs/specs/research-corpus-refresh-technical.html",
+      "sourceFile": "docs/specs/research-corpus-refresh-technical.html",
+      "sourceTitle": "Research Corpus Refresh Technical"
     },
     {
       "id": "spec:foundation.show-system-clearly.capability",
@@ -8547,6 +8702,17 @@
       "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
     },
     {
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:realized-by:spec:foundation.research-corpus-refresh.job",
+      "type": "realized-by",
+      "from": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "spec:foundation.research-corpus-refresh.job",
+      "source": {
+        "specId": "foundation.make-outstanding-work-repeatable.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
+    },
+    {
       "id": "edge:spec:foundation.map-capabilities-from-evidence.capability:depends-on:spec:foundation.define-right-work.capability",
       "type": "depends-on",
       "from": "spec:foundation.map-capabilities-from-evidence.capability",
@@ -8864,6 +9030,116 @@
         "sectionId": "capability-intent"
       },
       "ownerSpecId": "foundation.render-inspectable-system-graph.capability"
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.eval:depends-on:spec:foundation.research-corpus-refresh.job",
+      "type": "depends-on",
+      "from": "spec:foundation.research-corpus-refresh.eval",
+      "to": "spec:foundation.research-corpus-refresh.job",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.eval",
+        "sectionId": "verification-contract"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.eval"
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.eval:depends-on:spec:foundation.research-corpus-refresh.technical",
+      "type": "depends-on",
+      "from": "spec:foundation.research-corpus-refresh.eval",
+      "to": "spec:foundation.research-corpus-refresh.technical",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.eval",
+        "sectionId": "acceptance-mapping"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.eval"
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:depends-on:spec:foundation.research-corpus-refresh.technical",
+      "type": "depends-on",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "spec:foundation.research-corpus-refresh.technical",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.job"
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:evidenced-by:evidence:foundation.research-corpus-refresh.job:handoff",
+      "type": "evidenced-by",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "evidence:foundation.research-corpus-refresh.job:handoff",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.job"
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:has-process:process:foundation.research-corpus-refresh.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "process:foundation.research-corpus-refresh.job:main",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.job"
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:performed-by:actor:foundation.research-corpus-refresh.job:agent",
+      "type": "performed-by",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "actor:foundation.research-corpus-refresh.job:agent",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.job"
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:supports:spec:foundation.make-outstanding-work-repeatable.capability",
+      "type": "supports",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "capability-supported"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.job"
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.job:supports:spec:foundation.research-corpus-refresh.eval",
+      "type": "supports",
+      "from": "spec:foundation.research-corpus-refresh.job",
+      "to": "spec:foundation.research-corpus-refresh.eval",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.job"
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.technical:depends-on:spec:foundation.research-corpus-refresh.job",
+      "type": "depends-on",
+      "from": "spec:foundation.research-corpus-refresh.technical",
+      "to": "spec:foundation.research-corpus-refresh.job",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.technical",
+        "sectionId": "capability-contract"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.technical"
+    },
+    {
+      "id": "edge:spec:foundation.research-corpus-refresh.technical:supports:spec:foundation.research-corpus-refresh.eval",
+      "type": "supports",
+      "from": "spec:foundation.research-corpus-refresh.technical",
+      "to": "spec:foundation.research-corpus-refresh.eval",
+      "source": {
+        "specId": "foundation.research-corpus-refresh.technical",
+        "sectionId": "paths-and-coverage"
+      },
+      "ownerSpecId": "foundation.research-corpus-refresh.technical"
     },
     {
       "id": "edge:spec:foundation.show-system-clearly.capability:contains:spec:foundation.render-inspectable-system-graph.capability",
@@ -9948,9 +10224,9 @@
     }
   ],
   "summary": {
-    "specCount": 104,
-    "nodeCount": 188,
-    "edgeCount": 443,
+    "specCount": 107,
+    "nodeCount": 194,
+    "edgeCount": 454,
     "validation": {
       "pass": 1,
       "warn": 0,
