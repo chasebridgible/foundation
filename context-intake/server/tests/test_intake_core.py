@@ -11,7 +11,7 @@ SERVER_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SERVER_DIR))
 
 from config import Settings
-from intake_core import ingest_omi_memory_payload, list_recent_intakes, regenerate_note, slugify
+from intake_core import ingest_omi_memory_payload, ingest_omi_webhook_request, list_recent_intakes, regenerate_note, slugify
 
 
 class IntakeCoreTest(unittest.TestCase):
@@ -108,6 +108,54 @@ class IntakeCoreTest(unittest.TestCase):
     def test_slugify_has_safe_fallback(self) -> None:
         self.assertEqual(slugify("Context Intake Planning!"), "context-intake-planning")
         self.assertEqual(slugify("!!!"), "untitled")
+
+    def test_webhook_request_generates_note_for_conversation_json(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            settings = self.settings(Path(tmp))
+            body = __import__("json").dumps(self.payload()).encode("utf-8")
+
+            result = ingest_omi_webhook_request(
+                settings,
+                event_type="conversation",
+                content_type="application/json",
+                body=body,
+                received_at=datetime(2026, 6, 15, 13, 5, tzinfo=UTC),
+            )
+
+            self.assertEqual(result["processing_status"], "note_generated")
+            self.assertTrue(Path(result["note_path"]).exists())
+
+    def test_webhook_request_stores_realtime_array_raw_only(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            settings = self.settings(Path(tmp))
+            body = b'[{"text":"hello","speaker":"SPEAKER_00","start":0,"end":1}]'
+
+            result = ingest_omi_webhook_request(
+                settings,
+                event_type="realtime-transcript",
+                content_type="application/json",
+                body=body,
+            )
+
+            self.assertEqual(result["processing_status"], "stored_raw")
+            self.assertTrue(Path(result["raw_payload_path"]).exists())
+            self.assertNotIn("note_path", result)
+
+    def test_webhook_request_stores_audio_bytes_raw_only(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            settings = self.settings(Path(tmp))
+
+            result = ingest_omi_webhook_request(
+                settings,
+                event_type="audio-bytes",
+                content_type="application/octet-stream",
+                body=b"\x00\x01\x02\x03",
+            )
+
+            self.assertEqual(result["processing_status"], "stored_raw")
+            raw_path = Path(result["raw_payload_path"])
+            self.assertTrue(raw_path.exists())
+            self.assertEqual(raw_path.suffix, ".bin")
 
 
 if __name__ == "__main__":

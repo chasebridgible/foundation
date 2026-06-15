@@ -105,7 +105,7 @@
 <main class="main">
   <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
     <div class="spec-eyebrow">Foundation · context intake</div>
-    <h1>Context Intake Technical Spec</h1>
+      <h1>Context Intake Technical Spec</h1>
     <p class="lede">Define the local FastAPI, SQLite, raw-payload, note artifact, and Omi webhook contracts for v1 context intake.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
@@ -123,7 +123,7 @@
       <table class="status-table">
         <thead><tr><th>Field</th><th>Technical contract</th><th>Classification</th><th>Verification</th></tr></thead>
         <tbody>
-          <tr><td>Outcome</td><td>One Omi memory webhook creates one local source row, conversation row, optional transcript rows, raw JSON file, and draft note.</td><td>required contract</td><td>Core unit tests and manual Omi webhook test.</td></tr>
+          <tr><td>Outcome</td><td>One conversation-like Omi webhook creates one local source row, conversation row, optional transcript rows, raw JSON file, and draft note. Non-conversation webhooks are stored raw and acknowledged.</td><td>required contract</td><td>Core unit tests and manual Omi webhook test.</td></tr>
           <tr><td>Privacy</td><td>Runtime data, raw JSON, SQLite, logs, and secrets are ignored by git.</td><td>required contract</td><td>Git ignore inspection and manual status check.</td></tr>
           <tr><td>Architecture</td><td>FastAPI accepts HTTP; SQLite is local source of truth; Markdown notes are review artifacts.</td><td>constraint</td><td>API docs and tests.</td></tr>
           <tr><td>Latitude</td><td>LaunchAgent details, tunnel hostname, and future summarization model may change without altering the v1 contracts.</td><td>latitude</td><td>Operator docs.</td></tr>
@@ -133,11 +133,11 @@
     <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
       <h2>Internal sequence</h2>
       <ol>
-        <li><strong>Trigger:</strong> Omi POSTs a Memory Creation payload to <code>/webhooks/omi/memory/{webhook_token}</code>.</li>
+        <li><strong>Trigger:</strong> Omi POSTs a webhook payload to <code>/webhooks/omi/{event_type}/{webhook_token}</code>.</li>
         <li><strong>Validate:</strong> the path token must match <code>CONTEXT_INTAKE_WEBHOOK_TOKEN</code>.</li>
         <li><strong>Persist raw:</strong> write canonical JSON under <code>context-intake/runtime/raw/YYYY/MM/DD/</code>.</li>
         <li><strong>Normalize:</strong> upsert source, conversation, transcript, and note artifact rows into SQLite.</li>
-        <li><strong>Draft note:</strong> write a deterministic Markdown note unless an existing note would be overwritten.</li>
+        <li><strong>Draft note:</strong> write a deterministic Markdown note for conversation-like JSON unless an existing note would be overwritten. For transcript arrays and audio bytes, store raw only.</li>
         <li><strong>Observe:</strong> return source id, conversation id, note path, and note creation status.</li>
       </ol>
     </section>
@@ -157,7 +157,7 @@
       <h2>Contracts and integrations</h2>
       <ul>
         <li><code>GET /health</code> returns path and token readiness.</li>
-        <li><code>POST /webhooks/omi/memory/{webhook_token}</code> accepts Omi memory webhook JSON and returns source id, conversation id, note path, and note creation status.</li>
+        <li><code>POST /webhooks/omi/{event_type}/{webhook_token}</code> accepts Omi webhook JSON or binary and returns raw event status. Conversation-like JSON also returns conversation id, note path, and note creation status.</li>
         <li><code>GET /admin/intakes?token=...</code> lists recent intakes for local administration.</li>
         <li><code>POST /admin/intakes/{conversation_id}/regenerate-note?token=...</code> rewrites a note from the latest raw payload.</li>
         <li><code>context-intake/bin/run-server.sh</code> starts the API from the repo venv and ignored local env file.</li>
@@ -171,6 +171,7 @@
         <tbody>
           <tr><td>Bad token</td><td>Return 401 and store nothing.</td><td>Check Omi URL and env value.</td><td>API behavior.</td></tr>
           <tr><td>Duplicate payload</td><td>Keep one source hash and do not overwrite edited notes.</td><td>Review existing note.</td><td>Unit test.</td></tr>
+          <tr><td>Real-time transcript or audio bytes</td><td>Store raw event and return OK without trying to make a note.</td><td>Use raw payload for future buffering/transcription work.</td><td>Unit test.</td></tr>
           <tr><td>Template change</td><td>Admin regenerate endpoint overwrites the note from raw payload.</td><td>Run regenerate after reviewing template diff.</td><td>Unit test.</td></tr>
           <tr><td>Payload shape drift</td><td>Store raw payload and use defaults for missing summary fields.</td><td>Inspect raw JSON and update normalizer.</td><td>Manual raw payload review.</td></tr>
         </tbody>

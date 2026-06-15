@@ -63,9 +63,91 @@ def init_db(connection: sqlite3.Connection) -> None:
           generated_at TEXT NOT NULL,
           FOREIGN KEY (conversation_id) REFERENCES conversations(id)
         );
+
+        CREATE TABLE IF NOT EXISTS intake_events (
+          id TEXT PRIMARY KEY,
+          event_type TEXT NOT NULL,
+          content_type TEXT,
+          received_at TEXT NOT NULL,
+          payload_hash TEXT NOT NULL UNIQUE,
+          raw_payload_path TEXT NOT NULL,
+          processing_status TEXT NOT NULL,
+          conversation_id TEXT
+        );
         """
     )
     connection.commit()
+
+
+def ingest_omi_webhook_request(
+    settings: Settings,
+    *,
+    event_type: str,
+    content_type: str,
+    body: bytes,
+    received_at: datetime | None = None,
+) -> dict[str, Any]:
+    received_at = received_at or datetime.now(UTC)
+    settings.db_path.parent.mkdir(parents=True, exist_ok=True)
+    settings.raw_dir.mkdir(parents=True, exist_ok=True)
+    settings.notes_dir.mkdir(parents=True, exist_ok=True)
+
+    payload_hash = hashlib.sha256(body).hexdigest()
+    parsed = parse_request_body(content_type, body)
+    raw_path = write_raw_event(settings.raw_dir, event_type, content_type, body, parsed, received_at, payload_hash)
+    processing_status = "stored_raw"
+    conversation_id = None
+    note_path = None
+    created_note = False
+
+    if isinstance(parsed, dict) and should_generate_note(parsed):
+        result = ingest_omi_memory_payload(
+            settings,
+            parsed,
+            received_at=received_at,
+            overwrite_note=False,
+            raw_path=raw_path,
+            payload_hash=payload_hash,
+        )
+        processing_status = "note_generated"
+        conversation_id = str(result["conversation_id"])
+        note_path = str(result["note_path"])
+        created_note = bool(result["created_note"])
+
+    with sqlite3.connect(settings.db_path) as connection:
+        init_db(connection)
+        connection.execute(
+            """
+            INSERT OR IGNORE INTO intake_events
+              (id, event_type, content_type, received_at, payload_hash, raw_payload_path,
+               processing_status, conversation_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                f"omi-event-{payload_hash[:16]}",
+                event_type,
+                content_type,
+                received_at.isoformat(),
+                payload_hash,
+                str(raw_path),
+                processing_status,
+                conversation_id,
+            ),
+        )
+        connection.commit()
+
+    response: dict[str, Any] = {
+        "event_id": f"omi-event-{payload_hash[:16]}",
+        "event_type": event_type,
+        "processing_status": processing_status,
+        "raw_payload_path": str(raw_path),
+    }
+    if conversation_id:
+        response["conversation_id"] = conversation_id
+    if note_path:
+        response["note_path"] = note_path
+        response["created_note"] = created_note
+    return response
 
 
 def ingest_omi_memory_payload(
@@ -74,14 +156,16 @@ def ingest_omi_memory_payload(
     *,
     received_at: datetime | None = None,
     overwrite_note: bool = False,
+    raw_path: Path | None = None,
+    payload_hash: str | None = None,
 ) -> dict[str, str | bool]:
     received_at = received_at or datetime.now(UTC)
     settings.db_path.parent.mkdir(parents=True, exist_ok=True)
     settings.raw_dir.mkdir(parents=True, exist_ok=True)
     settings.notes_dir.mkdir(parents=True, exist_ok=True)
 
-    payload_hash = stable_payload_hash(payload)
-    raw_path = write_raw_payload(settings.raw_dir, payload, received_at, payload_hash)
+    payload_hash = payload_hash or stable_payload_hash(payload)
+    raw_path = raw_path or write_raw_payload(settings.raw_dir, payload, received_at, payload_hash)
     normalized = normalize_omi_memory_payload(payload, received_at, payload_hash, raw_path)
     note_path = note_path_for(settings.notes_dir, normalized)
 
@@ -121,6 +205,51 @@ def stable_payload_hash(payload: dict[str, Any]) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
+def parse_request_body(content_type: str, body: bytes) -> Any:
+    if "application/json" not in content_type.lower():
+        return None
+    try:
+        return json.loads(body.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return None
+
+
+def should_generate_note(payload: dict[str, Any]) -> bool:
+    if isinstance(payload.get("summary_json"), dict):
+        return True
+    if isinstance(payload.get("structured"), dict):
+        return True
+    if isinstance(payload.get("transcript_segments"), list):
+        return True
+    return bool(payload.get("id") and (payload.get("title") or payload.get("overview")))
+
+
+def write_raw_event(
+    raw_dir: Path,
+    event_type: str,
+    content_type: str,
+    body: bytes,
+    parsed: Any,
+    received_at: datetime,
+    payload_hash: str,
+) -> Path:
+    suffix = ".bin"
+    if parsed is not None:
+        suffix = ".json"
+    safe_event_type = slugify(event_type)
+    day_dir = raw_dir / received_at.strftime("%Y") / received_at.strftime("%m") / received_at.strftime("%d") / safe_event_type
+    day_dir.mkdir(parents=True, exist_ok=True)
+    raw_path = day_dir / f"{received_at.strftime('%H%M%S')}--{payload_hash[:12]}{suffix}"
+    if raw_path.exists():
+        return raw_path
+    if parsed is not None:
+        raw_path.write_text(json.dumps(parsed, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+    else:
+        header = f"content-type: {content_type}\nsha256: {payload_hash}\n\n".encode("utf-8")
+        raw_path.write_bytes(header + body)
+    return raw_path
+
+
 def write_raw_payload(raw_dir: Path, payload: dict[str, Any], received_at: datetime, payload_hash: str) -> Path:
     day_dir = raw_dir / received_at.strftime("%Y") / received_at.strftime("%m") / received_at.strftime("%d")
     day_dir.mkdir(parents=True, exist_ok=True)
@@ -136,6 +265,9 @@ def normalize_omi_memory_payload(
     payload_hash: str,
     raw_path: Path,
 ) -> dict[str, Any]:
+    if isinstance(payload.get("summary_json"), dict):
+        payload = normalize_day_summary_payload(payload)
+
     structured = payload.get("structured") if isinstance(payload.get("structured"), dict) else {}
     omi_id = str(payload.get("id") or payload.get("conversation_id") or payload_hash[:12])
     title = text_or_default(structured.get("title") or payload.get("title"), "Untitled Omi conversation")
@@ -164,6 +296,29 @@ def normalize_omi_memory_payload(
         "segments": normalize_segments(transcript_segments),
         "action_items": structured.get("action_items") if isinstance(structured.get("action_items"), list) else [],
         "events": structured.get("events") if isinstance(structured.get("events"), list) else [],
+    }
+
+
+def normalize_day_summary_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    summary = payload["summary_json"]
+    summary_id = summary.get("id") or summary.get("date") or stable_payload_hash(payload)[:12]
+    title = summary.get("headline") or f"Omi day summary {summary.get('date', '')}".strip()
+    overview = summary.get("overview") or ""
+    action_items = summary.get("action_items") if isinstance(summary.get("action_items"), list) else []
+    return {
+        "id": f"day-summary-{summary_id}",
+        "uid": payload.get("uid"),
+        "created_at": payload.get("created_at") or summary.get("created_at"),
+        "started_at": summary.get("date"),
+        "finished_at": summary.get("date"),
+        "structured": {
+            "title": title,
+            "overview": overview,
+            "category": "day-summary",
+            "action_items": action_items,
+            "events": [],
+        },
+        "transcript_segments": [],
     }
 
 
