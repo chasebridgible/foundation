@@ -28,15 +28,15 @@
 | Design agent workflows, skills, queues, validators, evals, or handoffs | `skills/agentic-workflow-design/SKILL.md` |
 | Keep spec metadata, graph links, registry, checks, and code/spec/test changes aligned | `skills/spec-workflow/SKILL.md` |
 | Create job journey images | `skills/job-journey-images/SKILL.md` |
-| Run or implement durable research corpus refresh loops | `skills/research-corpus-refresh/SKILL.md` |
+| Run or implement durable research workflows | `skills/research/SKILL.md` |
 
 ## Long-Running Agent Skills
 
-Use these when a task is expected to run across long wall-clock time, context compaction, thread handoff, subagent supervision, recurring automation, or timer-gated research.
+Use these when a task is expected to run across long wall-clock time, context compaction, thread handoff, subagent supervision, recurring automation, or shift-clocked research.
 
 | Work | Skill |
 | --- | --- |
-| Run timed or long-duration agent work through bounded durable progress | `skills/long-running-agent-worker/SKILL.md` |
+| Run shift-clocked or long-duration agent work through bounded durable progress | `skills/long-running-agent-worker/SKILL.md` |
 | Observe, steer, and debrief a long-running worker without taking over its task | `skills/watchful-agent-supervisor/SKILL.md` |
 
 ## Backfill Skills

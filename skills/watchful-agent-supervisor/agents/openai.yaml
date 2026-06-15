@@ -1,4 +1,4 @@
 interface:
   display_name: "Watchful Agent Supervisor"
   short_description: "Observe long-running agents without distorting them"
-  default_prompt: "Use $watchful-agent-supervisor to monitor this long-running agent, verify durable progress, and produce a debrief."
+  default_prompt: "Use $watchful-agent-supervisor to monitor this long-running agent, verify durable progress and shift-clock behavior, and produce a debrief."

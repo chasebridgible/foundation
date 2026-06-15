@@ -22,7 +22,8 @@
   "parent": "foundation.operating-system.system",
   "children": [
     "foundation.generate-maintain-agent-skills.capability",
-    "foundation.research-corpus-refresh.job"
+    "foundation.shift-clock.capability",
+    "foundation.research.job"
   ],
   "relatedSpecs": [
     {
@@ -41,7 +42,16 @@
       ]
     },
     {
-      "id": "foundation.research-corpus-refresh.job",
+      "id": "foundation.shift-clock.capability",
+      "relationship": "child",
+      "sections": [
+        "capability-intent",
+        "outcome-contract",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.research.job",
       "relationship": "child",
       "sections": [
         "job-intent",
@@ -172,10 +182,20 @@
       }
     },
     {
-      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:realized-by:spec:foundation.research-corpus-refresh.job",
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:contains:spec:foundation.shift-clock.capability",
+      "type": "contains",
+      "from": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "spec:foundation.shift-clock.capability",
+      "source": {
+        "specId": "foundation.make-outstanding-work-repeatable.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:realized-by:spec:foundation.research.job",
       "type": "realized-by",
       "from": "spec:foundation.make-outstanding-work-repeatable.capability",
-      "to": "spec:foundation.research-corpus-refresh.job",
+      "to": "spec:foundation.research.job",
       "source": {
         "specId": "foundation.make-outstanding-work-repeatable.capability",
         "sectionId": "jobs"
@@ -244,7 +264,8 @@
         <thead><tr><th>Child capability or gap</th><th>Purpose</th><th>Status</th></tr></thead>
         <tbody>
           <tr><td><code>foundation.generate-maintain-agent-skills.capability</code></td><td>Narrower reliable outcome under this parent family.</td><td>active or draft</td></tr>
-          <tr><td><code>foundation.research-corpus-refresh.job</code></td><td>Direct operating job for turning successful research behavior into source-backed corpora, workbook views, validators, and review-first scheduled runs.</td><td>active</td></tr>
+          <tr><td><code>foundation.shift-clock.capability</code></td><td>Narrower reliable outcome for keeping long-running agents productively engaged through a current-run shift clock.</td><td>active</td></tr>
+          <tr><td><code>foundation.research.job</code></td><td>Direct operating job for turning successful research behavior into source-backed corpora, workbook views, validators, and review-first scheduled runs.</td><td>active</td></tr>
         </tbody>
       </table>
     </section>

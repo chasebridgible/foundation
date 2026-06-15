@@ -1,21 +1,23 @@
 ---
 name: watchful-agent-supervisor
-description: Observe, steer, and debrief a long-running Codex worker without taking over its task. Use when a user asks to monitor a separate thread, subagent, automation, timer-gated run, research pass, backfill, scout, or other long-running agent process and wants evidence about whether the agent followed the intended workflow.
+description: Observe, steer, and debrief a long-running Codex worker without taking over its task. Use when a user asks to monitor a separate thread, subagent, automation, shift-clocked run, research pass, backfill, scout, or other long-running agent process and wants evidence about whether the agent followed the intended workflow.
 ---
 
 # Watchful Agent Supervisor
 
-Owning capability: `foundation.generate-maintain-agent-skills.capability`.
-Owning job: `foundation.backfill-author-specs.job` until a dedicated skill-authoring job owns generic agent-run skills.
+Owning capability: `foundation.shift-clock.capability`.
+Owning job: `foundation.backfill-author-specs.job` for skill-file ownership; Shift Clock itself has no child job.
+Technical spec: `foundation.shift-clock.technical`.
+Eval spec: `foundation.shift-clock.eval`.
 
 ## Stable Principle
 
-Supervise behavior, not just output. A watcher should preserve the worker's autonomy while collecting enough evidence to judge whether the workflow, timer discipline, state durability, validation, and handoff actually worked.
+Supervise behavior, not just output. A watcher should preserve the worker's autonomy while collecting enough evidence to judge whether the workflow, shift-clock discipline, state durability, validation, and handoff actually worked.
 
 ## Start Contract
 
 1. Create or confirm a supervisor Codex Goal when the harness supports goals.
-2. Capture the worker identity: thread or agent ID, branch/worktree, run ID, model/settings if visible, timer start/deadline, and expected exit criteria.
+2. Capture the worker identity: thread or agent ID, branch/worktree, run ID, model/settings if visible, shift-clock start/deadline, and expected exit criteria.
 3. Identify the worker's durable state files, run logs, receipts, generated artifacts, and validation commands.
 4. Capture the final artifact contract: expected sheets, sections, row types, categories, columns, and which internal evidence must stay out of the user-facing deliverable.
 5. Define what success and failure look like before observing.
@@ -24,7 +26,7 @@ Supervise behavior, not just output. A watcher should preserve the worker's auto
 
 Use passive reads first. Prefer durable artifacts and thread summaries over interrupting the worker.
 
-- Early startup: check within a few minutes for goal creation, branch/worktree safety, run ID, timer start, and first useful unit.
+- Early startup: check within a few minutes for goal creation, branch/worktree safety, run ID, shift-clock start, and first useful unit.
 - Active work: check at coarse intervals, usually 15 to 30 minutes, unless the worker is blocked or high risk.
 - Final window: check after the deadline or completion signal for final validation, commit/push, and handoff.
 
@@ -33,10 +35,10 @@ Do not over-monitor. Frequent watcher reads can distort the experiment and waste
 ## Evidence To Collect
 
 - Worker status: active, completed, errored, crashed, queued, blocked, or idle.
-- Durable state: run records, timer receipts, source snapshots, merge receipts, reports, workbook or generated artifacts, and git status.
+- Durable state: run records, shift-clock receipts, source snapshots, merge receipts, reports, workbook or generated artifacts, and git status.
 - Progress shape: count of bounded units completed, new records, validations, report regenerations, and artifact changes.
 - Artifact shape: whether final deliverables preserve required sheets, tabs, categories, row-type separation, sort order, readable columns, and exclusions for internal notes or routes.
-- Timer behavior: current run ID, start time, deadline, check timestamps, expired values, gaps between checks, work evidence between checks, and whether any stale timer state leaked into current reports.
+- Shift-clock behavior: current run ID, start time, deadline, check timestamps, expired values, gaps between checks, work evidence between checks, and whether any stale clock state leaked into current reports.
 - Recovery behavior: whether the worker resumed from disk state after crash or compaction.
 - Final proof: validations, generated artifact checks, commit hash, pushed branch, PR or merge blocker, and goal completion.
 
@@ -45,8 +47,8 @@ Do not over-monitor. Frequent watcher reads can distort the experiment and waste
 Intervene only when the observation shows a real workflow failure or likely damage:
 
 - The worker edits `main` or a dirty shared tree when it should branch.
-- The worker starts waiting, sleeping, or holding until a timer expires.
-- Timer checks happen repeatedly without substantive work between them.
+- The worker starts waiting, sleeping, or holding until a shift clock expires.
+- Shift-clock checks happen repeatedly without substantive work between them.
 - The worker tries to exit on `expired:false`.
 - The worker invents findings, skips source evidence, or adds weak filler rows.
 - The worker pollutes a shareable artifact with internal evidence, route leads, monitor rows, coverage notes, or next actions that belong in a separate corpus or sheet.
@@ -56,7 +58,7 @@ Intervene only when the observation shows a real workflow failure or likely dama
 When steering, be concrete and narrow:
 
 - State the observed failure from artifacts or thread evidence.
-- Preserve run ID, branch, timer, and current state.
+- Preserve run ID, branch, shift clock, and current state.
 - Tell the worker the next bounded source family, audit, validation, or recovery step.
 - Do not restart unless state is corrupt or the owner asks.
 - Do not interrupt if queued guidance will be read naturally and the worker is still productive.
@@ -69,9 +71,9 @@ At the end, report:
 
 - worker thread/agent ID, branch/worktree, run ID, deadline, and final status;
 - what the worker accomplished in durable artifacts;
-- whether timer checks were sparse and separated by substantive work;
+- whether shift-clock checks were sparse and separated by substantive work;
 - whether any `expired:false` exits were blocked and followed by more work;
-- whether timer receipts and reports belonged to the current run rather than stale local state;
+- whether shift-clock receipts and reports belonged to the current run rather than stale local state;
 - whether the worker idled, slept, or watched the clock;
 - whether crash/compaction recovery worked from durable state;
 - whether final artifacts stayed within their row-type and sheet/section contract;
