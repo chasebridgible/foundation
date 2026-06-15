@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.context-intake.technical">
+<meta name="spec:type" content="technical">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-15">
+<title>Context Intake Technical Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.context-intake.technical",
+  "title": "Context Intake Technical Spec",
+  "type": "technical",
+  "status": "active",
+  "lastUpdated": "2026-06-15",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.context-intake.job",
+  "children": [],
+  "relatedSpecs": [
+    { "id": "foundation.context-intake.job", "relationship": "parent", "sections": ["job-intent", "process"] },
+    { "id": "foundation.context-intake.eval", "relationship": "sibling", "sections": ["acceptance-mapping", "coverage-plan"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/context-intake-technical.html", "kind": "doc", "ownership": "direct" },
+    { "path": "foundation/context-intake/server/app.py", "kind": "source", "ownership": "direct" },
+    { "path": "foundation/context-intake/server/config.py", "kind": "source", "ownership": "direct" },
+    { "path": "foundation/context-intake/server/intake_core.py", "kind": "source", "ownership": "direct" }
+  ],
+  "implementationPaths": [
+    { "path": "foundation/context-intake/server/requirements.txt", "kind": "config", "ownership": "reference" },
+    { "path": "foundation/context-intake/bin/run-server.sh", "kind": "workflow", "ownership": "reference" },
+    { "path": "foundation/context-intake/launchd/com.foundation.context-intake.plist", "kind": "config", "ownership": "reference" },
+    { "path": "foundation/context-intake/docs/api.md", "kind": "doc", "ownership": "reference" },
+    { "path": "foundation/context-intake/docs/cloudflare-tunnel.md", "kind": "doc", "ownership": "reference" },
+    { "path": "foundation/context-intake/docs/env.example", "kind": "config", "ownership": "reference" },
+    { "path": "foundation/.gitignore", "kind": "config", "ownership": "reference" }
+  ],
+  "coverage": [
+    {
+      "id": "CI-T1",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/context-intake/server/tests/test_intake_core.py",
+      "mapsTo": ["foundation.context-intake.technical#data-model", "foundation.context-intake.technical#contracts", "foundation.context-intake.technical#failure-modes"],
+      "command": "python3 -m unittest discover -s context-intake/server/tests"
+    }
+  ],
+  "tags": ["technical", "context-intake", "omi", "sqlite", "fastapi"]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.context-intake.technical",
+  "nodes": [
+    {
+      "id": "spec:foundation.context-intake.technical",
+      "type": "technical-contract",
+      "label": "Context Intake Technical Spec",
+      "source": { "specId": "foundation.context-intake.technical", "sectionId": "required-depth" },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": { "specType": "technical", "tags": ["technical", "context-intake", "omi", "sqlite", "fastapi"] }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.context-intake.technical:depends-on:spec:foundation.context-intake.job",
+      "type": "depends-on",
+      "from": "spec:foundation.context-intake.technical",
+      "to": "spec:foundation.context-intake.job",
+      "source": { "specId": "foundation.context-intake.technical", "sectionId": "required-depth" }
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.technical:supports:spec:foundation.context-intake.eval",
+      "type": "supports",
+      "from": "spec:foundation.context-intake.technical",
+      "to": "spec:foundation.context-intake.eval",
+      "source": { "specId": "foundation.context-intake.technical", "sectionId": "paths-and-coverage" },
+      "label": "sibling"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo"><div class="logo-mark">T</div><div><div class="sidebar-title">Context Intake</div><div class="sidebar-sub">technical</div></div></div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#required-depth"><span class="nav-num">01</span>Depth</a>
+    <a class="nav-item" href="#capability-contract"><span class="nav-num">02</span>Contract</a>
+    <a class="nav-item" href="#internal-sequence"><span class="nav-num">03</span>Sequence</a>
+    <a class="nav-item" href="#data-model"><span class="nav-num">04</span>Data</a>
+    <a class="nav-item" href="#contracts"><span class="nav-num">05</span>API</a>
+    <a class="nav-item" href="#failure-modes"><span class="nav-num">06</span>Failures</a>
+    <a class="nav-item" href="#paths-and-coverage"><span class="nav-num">07</span>Paths</a>
+  </div>
+</nav>
+<main class="main">
+  <section id="required-depth" data-spec-section="required-depth" data-section-type="decision-rule" data-spec-canonical="true">
+    <div class="spec-eyebrow">Foundation · context intake</div>
+    <h1>Context Intake Technical Spec</h1>
+    <p class="lede">Define the local FastAPI, SQLite, raw-payload, note artifact, and Omi webhook contracts for v1 context intake.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Parent:</strong> foundation.context-intake.job</div>
+      <div><strong>Updated:</strong> 2026-06-15</div>
+    </div>
+    <h3>Depth calibration</h3>
+    <p>This is deeper than a small script because it handles private conversation data, public HTTPS webhook exposure, local persistence, and repo artifact boundaries.</p>
+    <h3>Non-goals</h3>
+    <p>V1 does not run local Whisper, ingest raw audio bytes, promote notes into specs automatically, or expose a public admin UI.</p>
+  </section>
+  <article class="doc-body">
+    <section id="capability-contract" data-spec-section="capability-contract" data-section-type="contracts">
+      <h2>Capability contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Technical contract</th><th>Classification</th><th>Verification</th></tr></thead>
+        <tbody>
+          <tr><td>Outcome</td><td>One Omi memory webhook creates one local source row, conversation row, optional transcript rows, raw JSON file, and draft note.</td><td>required contract</td><td>Core unit tests and manual Omi webhook test.</td></tr>
+          <tr><td>Privacy</td><td>Runtime data, raw JSON, SQLite, logs, and secrets are ignored by git.</td><td>required contract</td><td>Git ignore inspection and manual status check.</td></tr>
+          <tr><td>Architecture</td><td>FastAPI accepts HTTP; SQLite is local source of truth; Markdown notes are review artifacts.</td><td>constraint</td><td>API docs and tests.</td></tr>
+          <tr><td>Latitude</td><td>LaunchAgent details, tunnel hostname, and future summarization model may change without altering the v1 contracts.</td><td>latitude</td><td>Operator docs.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="internal-sequence" data-spec-section="internal-sequence" data-section-type="sequence">
+      <h2>Internal sequence</h2>
+      <ol>
+        <li><strong>Trigger:</strong> Omi POSTs a Memory Creation payload to <code>/webhooks/omi/memory/{webhook_token}</code>.</li>
+        <li><strong>Validate:</strong> the path token must match <code>CONTEXT_INTAKE_WEBHOOK_TOKEN</code>.</li>
+        <li><strong>Persist raw:</strong> write canonical JSON under <code>context-intake/runtime/raw/YYYY/MM/DD/</code>.</li>
+        <li><strong>Normalize:</strong> upsert source, conversation, transcript, and note artifact rows into SQLite.</li>
+        <li><strong>Draft note:</strong> write a deterministic Markdown note unless an existing note would be overwritten.</li>
+        <li><strong>Observe:</strong> return source id, conversation id, note path, and note creation status.</li>
+      </ol>
+    </section>
+    <section id="data-model" data-spec-section="data-model" data-section-type="data-model">
+      <h2>Data model</h2>
+      <table class="status-table">
+        <thead><tr><th>Entity</th><th>Fields</th><th>Invariant</th><th>Module</th></tr></thead>
+        <tbody>
+          <tr><td>intake_sources</td><td>id, provider, uid, received_at, payload_hash, raw_payload_path</td><td>payload_hash is unique and raw path stays local.</td><td><code>intake_core.py</code></td></tr>
+          <tr><td>conversations</td><td>id, source_id, omi_id, timestamps, title, overview, folder, category, status</td><td>id is stable as <code>omi-&lt;omi_id&gt;</code>.</td><td><code>intake_core.py</code></td></tr>
+          <tr><td>transcript_segments</td><td>conversation_id, segment_index, speaker fields, timing, text</td><td>segments are replaced on re-ingest for the same conversation.</td><td><code>intake_core.py</code></td></tr>
+          <tr><td>note_artifacts</td><td>conversation_id, note_path, status, generated_at</td><td>draft notes are not overwritten unless regenerate is requested.</td><td><code>intake_core.py</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="contracts" data-spec-section="contracts" data-section-type="contracts">
+      <h2>Contracts and integrations</h2>
+      <ul>
+        <li><code>GET /health</code> returns path and token readiness.</li>
+        <li><code>POST /webhooks/omi/memory/{webhook_token}</code> accepts Omi memory webhook JSON and returns source id, conversation id, note path, and note creation status.</li>
+        <li><code>GET /admin/intakes?token=...</code> lists recent intakes for local administration.</li>
+        <li><code>POST /admin/intakes/{conversation_id}/regenerate-note?token=...</code> rewrites a note from the latest raw payload.</li>
+        <li><code>context-intake/bin/run-server.sh</code> starts the API from the repo venv and ignored local env file.</li>
+        <li><code>context-intake/launchd/com.foundation.context-intake.plist</code> keeps the local API running across user sessions.</li>
+      </ul>
+    </section>
+    <section id="failure-modes" data-spec-section="failure-modes" data-section-type="failure-modes">
+      <h2>Failure modes</h2>
+      <table class="status-table">
+        <thead><tr><th>Failure</th><th>System behavior</th><th>Operator behavior</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Bad token</td><td>Return 401 and store nothing.</td><td>Check Omi URL and env value.</td><td>API behavior.</td></tr>
+          <tr><td>Duplicate payload</td><td>Keep one source hash and do not overwrite edited notes.</td><td>Review existing note.</td><td>Unit test.</td></tr>
+          <tr><td>Template change</td><td>Admin regenerate endpoint overwrites the note from raw payload.</td><td>Run regenerate after reviewing template diff.</td><td>Unit test.</td></tr>
+          <tr><td>Payload shape drift</td><td>Store raw payload and use defaults for missing summary fields.</td><td>Inspect raw JSON and update normalizer.</td><td>Manual raw payload review.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="paths-and-coverage" data-spec-section="paths-and-coverage" data-section-type="links-coverage">
+      <h2>Related paths and coverage</h2>
+      <ul class="path-list">
+        <li data-implementation-path="context-intake/server/app.py"><code>context-intake/server/app.py</code> - FastAPI endpoints.</li>
+        <li data-implementation-path="context-intake/server/intake_core.py"><code>context-intake/server/intake_core.py</code> - SQLite, raw storage, normalization, and notes.</li>
+        <li data-implementation-path="context-intake/bin/run-server.sh"><code>context-intake/bin/run-server.sh</code> - launchd entry command.</li>
+        <li data-implementation-path="context-intake/launchd/com.foundation.context-intake.plist"><code>context-intake/launchd/com.foundation.context-intake.plist</code> - macOS keepalive config.</li>
+        <li data-implementation-path="context-intake/server/tests/test_intake_core.py"><code>context-intake/server/tests/test_intake_core.py</code> - core behavior tests.</li>
+      </ul>
+      <table class="status-table">
+        <thead><tr><th>ID</th><th>Risk</th><th>Coverage</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>CI-T1</td><td>private data and dedupe</td><td><code>python3 -m unittest discover -s context-intake/server/tests</code></td><td>existing</td></tr>
+          <tr><td>CI-T2</td><td>real Omi connectivity</td><td>Manual tunnel and Omi webhook test.</td><td>planned</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+  <hr>
+  <p class="footer-note">Context intake technical contract</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

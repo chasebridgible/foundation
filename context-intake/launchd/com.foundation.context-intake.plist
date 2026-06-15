@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.foundation.context-intake</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/chasebmini/Developer/repos/foundation/context-intake/bin/run-server.sh</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/chasebmini/Developer/repos/foundation</string>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/chasebmini/Developer/repos/foundation/context-intake/runtime/logs/launchd.out.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/chasebmini/Developer/repos/foundation/context-intake/runtime/logs/launchd.err.log</string>
+</dict>
+</plist>

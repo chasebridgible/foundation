@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.context-intake.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-15">
+<title>Context Intake Job Spec</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.context-intake.job",
+  "title": "Context Intake Job Spec",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-15",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.knowledge-data-layer.system",
+  "children": [
+    "foundation.context-intake.technical",
+    "foundation.context-intake.eval"
+  ],
+  "relatedSpecs": [
+    { "id": "foundation.knowledge-data-layer.system", "relationship": "parent", "sections": ["product-intent", "states-and-rules"] },
+    { "id": "foundation.business-intake-fill-loop.job", "relationship": "informs", "sections": ["job-intent", "process"] },
+    { "id": "foundation.context-intake.technical", "relationship": "child", "sections": ["contracts", "data-model", "failure-modes"] },
+    { "id": "foundation.context-intake.eval", "relationship": "child", "sections": ["verification-contract", "acceptance-mapping"] }
+  ],
+  "ownedPaths": [
+    { "path": "foundation/docs/specs/context-intake.html", "kind": "doc", "ownership": "direct" }
+  ],
+  "implementationPaths": [
+    { "path": "foundation/context-intake/README.md", "kind": "doc", "ownership": "reference" },
+    { "path": "foundation/context-intake/docs/operator-runbook.md", "kind": "doc", "ownership": "reference" },
+    { "path": "foundation/context-intake/notes/.gitkeep", "kind": "doc", "ownership": "reference" }
+  ],
+  "coverage": [
+    {
+      "id": "CI-J1",
+      "level": "unit",
+      "status": "existing",
+      "path": "foundation/context-intake/server/tests/test_intake_core.py",
+      "mapsTo": ["foundation.context-intake.job#process", "foundation.context-intake.job#evidence-and-evaluation"],
+      "command": "python3 -m unittest discover -s context-intake/server/tests"
+    }
+  ],
+  "tags": ["job", "context-intake", "omi", "knowledge-layer"]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.context-intake.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.context-intake.job",
+      "type": "job",
+      "label": "Context Intake Job Spec",
+      "source": { "specId": "foundation.context-intake.job", "sectionId": "job-intent" },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": { "specType": "job", "tags": ["job", "context-intake", "omi", "knowledge-layer"] }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.context-intake.job:supports:spec:foundation.knowledge-data-layer.system",
+      "type": "supports",
+      "from": "spec:foundation.context-intake.job",
+      "to": "spec:foundation.knowledge-data-layer.system",
+      "source": { "specId": "foundation.context-intake.job", "sectionId": "capability-supported" }
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.job:depends-on:spec:foundation.business-intake-fill-loop.job",
+      "type": "depends-on",
+      "from": "spec:foundation.context-intake.job",
+      "to": "spec:foundation.business-intake-fill-loop.job",
+      "source": { "specId": "foundation.context-intake.job", "sectionId": "process" },
+      "label": "informs"
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.job:realized-by:spec:foundation.context-intake.technical",
+      "type": "realized-by",
+      "from": "spec:foundation.context-intake.job",
+      "to": "spec:foundation.context-intake.technical",
+      "source": { "specId": "foundation.context-intake.job", "sectionId": "context-tools-and-interfaces" }
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.job:evidenced-by:spec:foundation.context-intake.eval",
+      "type": "evidenced-by",
+      "from": "spec:foundation.context-intake.job",
+      "to": "spec:foundation.context-intake.eval",
+      "source": { "specId": "foundation.context-intake.job", "sectionId": "evidence-and-evaluation" }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo"><div class="logo-mark">C</div><div><div class="sidebar-title">Context Intake</div><div class="sidebar-sub">job spec</div></div></div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">08</span>Revision</a>
+  </div>
+</nav>
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">Foundation · context intake</div>
+    <h1>Context Intake Job Spec</h1>
+    <p class="lede">Capture completed Omi conversations into local, source-backed Foundation intake records and draft review notes without committing raw private payloads.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-15</div>
+      <div><strong>Parent:</strong> foundation.knowledge-data-layer.system</div>
+    </div>
+    <h3>Intent</h3>
+    <p>This job makes conversation intake repeatable: Omi sends a processed memory payload, the Mac mini stores the source locally, and Foundation receives a draft note that can be reviewed before it becomes substrate.</p>
+    <h3>Trigger</h3>
+    <p>The job starts when Omi calls the configured Memory Creation webhook for a completed conversation.</p>
+  </section>
+  <article class="doc-body">
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <table class="status-table">
+        <thead><tr><th>Capability</th><th>How this job supports it</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td><code>foundation.knowledge-data-layer.system</code></td><td>Turns ambient conversation data into durable context candidates with local source evidence.</td><td>Omi webhook payloads, SQLite rows, and reviewed Markdown notes.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling</h2>
+      <ul>
+        <li><strong>Current actor:</strong> human operator and ad hoc agent conversations.</li>
+        <li><strong>Current path:</strong> conversation context may remain in chat history or manual notes.</li>
+        <li><strong>Known gaps:</strong> no stable source id, no local raw retention, no dedupe, no review note template, and no webhook intake path.</li>
+      </ul>
+    </section>
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <ul>
+        <li><strong>Proposed actor:</strong> Omi webhook, local FastAPI service, SQLite, note generator, and reviewing human or agent.</li>
+        <li><strong>Proposed path:</strong> accept authenticated memory webhook, persist raw and normalized records locally, generate a draft note, then review before committing.</li>
+        <li><strong>Decision state:</strong> accepted for v1.</li>
+      </ul>
+    </section>
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <ol>
+        <li><strong>Prepare:</strong> run the Mac mini service, Cloudflare Tunnel, SQLite runtime directory, and Omi memory webhook configuration.</li>
+        <li><strong>Validate:</strong> reject webhook calls with a missing or incorrect shared token.</li>
+        <li><strong>Record:</strong> write raw JSON to ignored local storage and normalize source, conversation, transcript, and note rows into SQLite.</li>
+        <li><strong>Draft:</strong> render a Markdown note with summary, action items, candidate signals, excerpts, and review checklist.</li>
+        <li><strong>Review:</strong> remove sensitive material, mark useful signals, and change note status to reviewed only when safe.</li>
+        <li><strong>Promote:</strong> use existing Foundation spec workflows for any reviewed note that should become durable capability, job, process, decision, or evidence substrate.</li>
+      </ol>
+    </section>
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <table class="status-table">
+        <thead><tr><th>Layer</th><th>Required detail</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Context</td><td>Omi processed memory payloads and Foundation review rules.</td><td><code>context-intake/docs/omi-setup.md</code>; <code>context-intake/docs/operator-runbook.md</code></td></tr>
+          <tr><td>Tools</td><td>Python FastAPI, SQLite, Cloudflare Tunnel, Omi Memory Creation webhook.</td><td><code>foundation.context-intake.technical</code></td></tr>
+          <tr><td>Interfaces</td><td>Webhook endpoint, admin endpoints, draft note artifacts, local runtime database.</td><td><code>context-intake/docs/api.md</code></td></tr>
+          <tr><td>Actor candidates</td><td>Software captures and drafts; a human or agent reviews and promotes.</td><td>Operator runbook and eval spec.</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Acceptance condition</th><th>Eval spec or gap</th></tr></thead>
+        <tbody>
+          <tr><td>Core tests and manual Omi webhook test</td><td>Payload creates raw local evidence, SQLite rows, and a draft note without committing raw data.</td><td><code>foundation.context-intake.eval</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <ul>
+        <li><strong>Revision target:</strong> job spec, technical spec, eval spec, note template, or operator runbook.</li>
+        <li><strong>Update trigger:</strong> Omi payload shape changes, private data leaks into notes, dedupe fails, or review notes are not useful for promotion.</li>
+        <li><strong>Promotion rule:</strong> reviewed notes become Foundation substrate only through existing spec-selection and authoring workflows.</li>
+      </ul>
+    </section>
+  </article>
+  <hr>
+  <p class="footer-note">Context intake · Omi conversation source to reviewed Foundation note</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

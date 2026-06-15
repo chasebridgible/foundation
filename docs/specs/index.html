@@ -323,7 +323,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-06-14",
+  "lastUpdated": "2026-06-15",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -4190,6 +4190,298 @@
         "capability",
         "parent-capability",
         "foundation"
+      ]
+    },
+    {
+      "id": "foundation.context-intake.eval",
+      "title": "Context Intake Eval Spec",
+      "type": "eval",
+      "status": "active",
+      "file": "foundation/docs/specs/context-intake-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-15",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.context-intake.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.context-intake.job",
+          "relationship": "parent",
+          "sections": [
+            "job-intent",
+            "process",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.context-intake.technical",
+          "relationship": "sibling",
+          "sections": [
+            "contracts",
+            "data-model",
+            "failure-modes"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/context-intake-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/context-intake/server/tests/test_intake_core.py",
+          "kind": "test",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/context-intake/server/intake_core.py",
+          "kind": "source",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/context-intake/docs/operator-runbook.md",
+          "kind": "doc",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "CI-A1",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/context-intake/server/tests/test_intake_core.py",
+          "mapsTo": [
+            "foundation.context-intake.eval#acceptance-mapping",
+            "foundation.context-intake.technical#data-model"
+          ],
+          "command": "python3 -m unittest discover -s context-intake/server/tests"
+        },
+        {
+          "id": "CI-A2",
+          "level": "manual",
+          "status": "planned",
+          "path": "foundation/context-intake/docs/omi-setup.md",
+          "mapsTo": [
+            "foundation.context-intake.eval#acceptance-mapping",
+            "foundation.context-intake.job#process"
+          ],
+          "evidence": "Send one real Omi Memory Creation webhook through Cloudflare Tunnel and confirm a draft note appears."
+        }
+      ],
+      "tags": [
+        "eval",
+        "context-intake",
+        "omi",
+        "privacy"
+      ]
+    },
+    {
+      "id": "foundation.context-intake.technical",
+      "title": "Context Intake Technical Spec",
+      "type": "technical",
+      "status": "active",
+      "file": "foundation/docs/specs/context-intake-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-06-15",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.context-intake.job",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.context-intake.job",
+          "relationship": "parent",
+          "sections": [
+            "job-intent",
+            "process"
+          ]
+        },
+        {
+          "id": "foundation.context-intake.eval",
+          "relationship": "sibling",
+          "sections": [
+            "acceptance-mapping",
+            "coverage-plan"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/context-intake-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/context-intake/server/app.py",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/context-intake/server/config.py",
+          "kind": "source",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/context-intake/server/intake_core.py",
+          "kind": "source",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/context-intake/server/requirements.txt",
+          "kind": "config",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/context-intake/bin/run-server.sh",
+          "kind": "workflow",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/context-intake/launchd/com.foundation.context-intake.plist",
+          "kind": "config",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/context-intake/docs/api.md",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/context-intake/docs/cloudflare-tunnel.md",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/context-intake/docs/env.example",
+          "kind": "config",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/.gitignore",
+          "kind": "config",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "CI-T1",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/context-intake/server/tests/test_intake_core.py",
+          "mapsTo": [
+            "foundation.context-intake.technical#data-model",
+            "foundation.context-intake.technical#contracts",
+            "foundation.context-intake.technical#failure-modes"
+          ],
+          "command": "python3 -m unittest discover -s context-intake/server/tests"
+        }
+      ],
+      "tags": [
+        "technical",
+        "context-intake",
+        "omi",
+        "sqlite",
+        "fastapi"
+      ]
+    },
+    {
+      "id": "foundation.context-intake.job",
+      "title": "Context Intake Job Spec",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/context-intake.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-15",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.knowledge-data-layer.system",
+      "children": [
+        "foundation.context-intake.technical",
+        "foundation.context-intake.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.knowledge-data-layer.system",
+          "relationship": "parent",
+          "sections": [
+            "product-intent",
+            "states-and-rules"
+          ]
+        },
+        {
+          "id": "foundation.business-intake-fill-loop.job",
+          "relationship": "informs",
+          "sections": [
+            "job-intent",
+            "process"
+          ]
+        },
+        {
+          "id": "foundation.context-intake.technical",
+          "relationship": "child",
+          "sections": [
+            "contracts",
+            "data-model",
+            "failure-modes"
+          ]
+        },
+        {
+          "id": "foundation.context-intake.eval",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/context-intake.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/context-intake/README.md",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/context-intake/docs/operator-runbook.md",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/context-intake/notes/.gitkeep",
+          "kind": "doc",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "CI-J1",
+          "level": "unit",
+          "status": "existing",
+          "path": "foundation/context-intake/server/tests/test_intake_core.py",
+          "mapsTo": [
+            "foundation.context-intake.job#process",
+            "foundation.context-intake.job#evidence-and-evaluation"
+          ],
+          "command": "python3 -m unittest discover -s context-intake/server/tests"
+        }
+      ],
+      "tags": [
+        "job",
+        "context-intake",
+        "omi",
+        "knowledge-layer"
       ]
     },
     {
@@ -10590,12 +10882,13 @@
       "status": "draft",
       "file": "foundation/docs/specs/knowledge-and-data-layer.html",
       "canonicalSection": "product-intent",
-      "lastUpdated": "2026-06-06",
+      "lastUpdated": "2026-06-15",
       "reviewCadence": "on-trigger",
       "confidence": "medium",
       "parent": "foundation.preserve-knowledge-context.capability",
       "children": [
-        "foundation.business-intake-fill-loop.job"
+        "foundation.business-intake-fill-loop.job",
+        "foundation.context-intake.job"
       ],
       "relatedSpecs": [
         {
@@ -10644,6 +10937,15 @@
         },
         {
           "id": "foundation.business-intake-fill-loop.job",
+          "relationship": "child",
+          "sections": [
+            "job-intent",
+            "process",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.context-intake.job",
           "relationship": "child",
           "sections": [
             "job-intent",

@@ -1,6 +1,6 @@
 {
   "schema": "foundation.visible-business-graph.v1",
-  "generatedAt": "2026-06-14T04:26:41.644Z",
+  "generatedAt": "2026-06-15T04:00:46.824Z",
   "repoName": "foundation",
   "sources": [
     {
@@ -353,6 +353,33 @@
       "canonicalSection": "capability-intent",
       "status": "active",
       "confidence": "high"
+    },
+    {
+      "specId": "foundation.context-intake.eval",
+      "title": "Context Intake Eval Spec",
+      "type": "eval",
+      "file": "docs/specs/context-intake-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.context-intake.technical",
+      "title": "Context Intake Technical Spec",
+      "type": "technical",
+      "file": "docs/specs/context-intake-technical.html",
+      "canonicalSection": "required-depth",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.context-intake.job",
+      "title": "Context Intake Job Spec",
+      "type": "job",
+      "file": "docs/specs/context-intake.html",
+      "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "medium"
     },
     {
       "specId": "foundation.backfill-golden-example",
@@ -4006,6 +4033,79 @@
       "file": "docs/specs/capabilities/compound-improvements-safely.html",
       "sourceFile": "docs/specs/capabilities/compound-improvements-safely.html",
       "sourceTitle": "Improvements Compound Safely"
+    },
+    {
+      "id": "spec:foundation.context-intake.eval",
+      "type": "evaluation",
+      "label": "Context Intake Eval Spec",
+      "source": {
+        "specId": "foundation.context-intake.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "context-intake",
+          "omi",
+          "privacy"
+        ]
+      },
+      "ownerSpecId": "foundation.context-intake.eval",
+      "file": "docs/specs/context-intake-eval.html",
+      "sourceFile": "docs/specs/context-intake-eval.html",
+      "sourceTitle": "Context Intake Eval Spec"
+    },
+    {
+      "id": "spec:foundation.context-intake.job",
+      "type": "job",
+      "label": "Context Intake Job Spec",
+      "source": {
+        "specId": "foundation.context-intake.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "context-intake",
+          "omi",
+          "knowledge-layer"
+        ]
+      },
+      "ownerSpecId": "foundation.context-intake.job",
+      "file": "docs/specs/context-intake.html",
+      "sourceFile": "docs/specs/context-intake.html",
+      "sourceTitle": "Context Intake Job Spec"
+    },
+    {
+      "id": "spec:foundation.context-intake.technical",
+      "type": "technical-contract",
+      "label": "Context Intake Technical Spec",
+      "source": {
+        "specId": "foundation.context-intake.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "technical",
+          "context-intake",
+          "omi",
+          "sqlite",
+          "fastapi"
+        ]
+      },
+      "ownerSpecId": "foundation.context-intake.technical",
+      "file": "docs/specs/context-intake-technical.html",
+      "sourceFile": "docs/specs/context-intake-technical.html",
+      "sourceTitle": "Context Intake Technical Spec"
     },
     {
       "id": "spec:foundation.define-jobs-from-capabilities.capability",
@@ -8209,6 +8309,96 @@
       "ownerSpecId": "foundation.compound-improvements-safely.capability"
     },
     {
+      "id": "edge:spec:foundation.context-intake.eval:evaluates:spec:foundation.context-intake.job",
+      "type": "evaluates",
+      "from": "spec:foundation.context-intake.eval",
+      "to": "spec:foundation.context-intake.job",
+      "source": {
+        "specId": "foundation.context-intake.eval",
+        "sectionId": "verification-contract"
+      },
+      "ownerSpecId": "foundation.context-intake.eval"
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.eval:evaluates:spec:foundation.context-intake.technical",
+      "type": "evaluates",
+      "from": "spec:foundation.context-intake.eval",
+      "to": "spec:foundation.context-intake.technical",
+      "source": {
+        "specId": "foundation.context-intake.eval",
+        "sectionId": "acceptance-mapping"
+      },
+      "ownerSpecId": "foundation.context-intake.eval"
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.job:depends-on:spec:foundation.business-intake-fill-loop.job",
+      "type": "depends-on",
+      "from": "spec:foundation.context-intake.job",
+      "to": "spec:foundation.business-intake-fill-loop.job",
+      "source": {
+        "specId": "foundation.context-intake.job",
+        "sectionId": "process"
+      },
+      "label": "informs",
+      "ownerSpecId": "foundation.context-intake.job"
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.job:evidenced-by:spec:foundation.context-intake.eval",
+      "type": "evidenced-by",
+      "from": "spec:foundation.context-intake.job",
+      "to": "spec:foundation.context-intake.eval",
+      "source": {
+        "specId": "foundation.context-intake.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.context-intake.job"
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.job:realized-by:spec:foundation.context-intake.technical",
+      "type": "realized-by",
+      "from": "spec:foundation.context-intake.job",
+      "to": "spec:foundation.context-intake.technical",
+      "source": {
+        "specId": "foundation.context-intake.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "ownerSpecId": "foundation.context-intake.job"
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.job:supports:spec:foundation.knowledge-data-layer.system",
+      "type": "supports",
+      "from": "spec:foundation.context-intake.job",
+      "to": "spec:foundation.knowledge-data-layer.system",
+      "source": {
+        "specId": "foundation.context-intake.job",
+        "sectionId": "capability-supported"
+      },
+      "ownerSpecId": "foundation.context-intake.job"
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.technical:depends-on:spec:foundation.context-intake.job",
+      "type": "depends-on",
+      "from": "spec:foundation.context-intake.technical",
+      "to": "spec:foundation.context-intake.job",
+      "source": {
+        "specId": "foundation.context-intake.technical",
+        "sectionId": "required-depth"
+      },
+      "ownerSpecId": "foundation.context-intake.technical"
+    },
+    {
+      "id": "edge:spec:foundation.context-intake.technical:supports:spec:foundation.context-intake.eval",
+      "type": "supports",
+      "from": "spec:foundation.context-intake.technical",
+      "to": "spec:foundation.context-intake.eval",
+      "source": {
+        "specId": "foundation.context-intake.technical",
+        "sectionId": "paths-and-coverage"
+      },
+      "label": "sibling",
+      "ownerSpecId": "foundation.context-intake.technical"
+    },
+    {
       "id": "edge:spec:foundation.define-jobs-from-capabilities.capability:depends-on:spec:foundation.define-right-work.capability",
       "type": "depends-on",
       "from": "spec:foundation.define-jobs-from-capabilities.capability",
@@ -8580,6 +8770,17 @@
       "type": "realized-by",
       "from": "spec:foundation.knowledge-data-layer.system",
       "to": "spec:foundation.business-intake-fill-loop.job",
+      "source": {
+        "specId": "foundation.knowledge-data-layer.system",
+        "sectionId": "product-intent"
+      },
+      "ownerSpecId": "foundation.knowledge-data-layer.system"
+    },
+    {
+      "id": "edge:spec:foundation.knowledge-data-layer.system:realized-by:spec:foundation.context-intake.job",
+      "type": "realized-by",
+      "from": "spec:foundation.knowledge-data-layer.system",
+      "to": "spec:foundation.context-intake.job",
       "source": {
         "specId": "foundation.knowledge-data-layer.system",
         "sectionId": "product-intent"
@@ -10224,9 +10425,9 @@
     }
   ],
   "summary": {
-    "specCount": 107,
-    "nodeCount": 194,
-    "edgeCount": 454,
+    "specCount": 110,
+    "nodeCount": 197,
+    "edgeCount": 463,
     "validation": {
       "pass": 1,
       "warn": 0,

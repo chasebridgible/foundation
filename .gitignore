@@ -1,1 +1,9 @@
 .DS_Store
+__pycache__/
+*.py[cod]
+.venv-context-intake/
+context-intake/.env
+context-intake/runtime/
+context-intake/**/*.sqlite
+context-intake/**/*.sqlite-*
+context-intake/**/*.log
