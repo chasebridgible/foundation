@@ -25,7 +25,7 @@ Edit `context-intake/.env` and replace both tokens with long random values.
 set -a
 source context-intake/.env
 set +a
-uvicorn app:app --app-dir context-intake/server --host 127.0.0.1 --port 8765
+uvicorn app:app --app-dir context-intake/server --host 127.0.0.1 --port 8765 --no-access-log
 ```
 
 Confirm:
@@ -41,7 +41,7 @@ For initial testing, keep two terminal sessions open:
 1. API server:
 
    ```bash
-   uvicorn app:app --app-dir context-intake/server --host 127.0.0.1 --port 8765
+   uvicorn app:app --app-dir context-intake/server --host 127.0.0.1 --port 8765 --no-access-log
    ```
 
 2. HTTPS tunnel. For weeks-long use, prefer Tailscale Funnel:

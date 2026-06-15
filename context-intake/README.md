@@ -20,7 +20,7 @@ and the database live under `runtime/` and are intentionally ignored by git.
 4. Start the API:
 
    ```bash
-   uvicorn app:app --app-dir context-intake/server --host 127.0.0.1 --port 8765
+   uvicorn app:app --app-dir context-intake/server --host 127.0.0.1 --port 8765 --no-access-log
    ```
 
 5. Expose it through Cloudflare Quick Tunnel. A custom domain is not required;
