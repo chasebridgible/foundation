@@ -61,4 +61,6 @@ No principles-doc patch was made.
 
 ## Merge And Notification State
 
-Initial local state: branch `codex/agent-capability-scout-20260615-01` contains the full write-through checkpoint. Merge and notification receipts will be appended after local checks, PR creation, required-check polling, and GitHub App notification.
+PR state: PR 68 is open at `https://github.com/chasebridgible/foundation/pull/68` on branch `codex/agent-capability-scout-20260615-01`. The branch was pushed with validated routine scout state and no principles-doc patch. The required `Spec registry and metadata` check was running when the PR receipt was recorded.
+
+Notification state: the GitHub App notification was sent to PR 68 as `foundation-scout-notifier[bot]` at `https://github.com/chasebridgible/foundation/pull/68#issuecomment-4704748000` and mentioned `@chasebridgible`.
