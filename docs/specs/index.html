@@ -3283,7 +3283,8 @@
       "parent": "foundation.operating-system.system",
       "children": [
         "foundation.generate-maintain-agent-skills.capability",
-        "foundation.research-corpus-refresh.job"
+        "foundation.shift-clock.capability",
+        "foundation.research.job"
       ],
       "relatedSpecs": [
         {
@@ -3302,7 +3303,16 @@
           ]
         },
         {
-          "id": "foundation.research-corpus-refresh.job",
+          "id": "foundation.shift-clock.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "outcome-contract",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.research.job",
           "relationship": "child",
           "sections": [
             "job-intent",
@@ -8614,7 +8624,7 @@
           "path": "foundation/skills/long-running-agent-worker/SKILL.md",
           "kind": "workflow",
           "ownership": "direct",
-          "notes": "Runs timer-gated long work with durable state, sparse exit-gate timer checks, bounded unit progress, and validated handoff."
+          "notes": "Runs shift-clocked long work with durable state, sparse exit-gate clock checks, bounded unit progress, and validated handoff."
         },
         {
           "path": "foundation/skills/long-running-agent-worker/agents/openai.yaml",
@@ -11036,20 +11046,20 @@
       ]
     },
     {
-      "id": "foundation.research-corpus-refresh.eval",
-      "title": "Research Corpus Refresh Eval",
+      "id": "foundation.research.eval",
+      "title": "Research Workflow Eval",
       "type": "eval",
       "status": "active",
-      "file": "foundation/docs/specs/research-corpus-refresh-eval.html",
+      "file": "foundation/docs/specs/research-eval.html",
       "canonicalSection": "verification-contract",
       "lastUpdated": "2026-06-14",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.research-corpus-refresh.job",
+      "parent": "foundation.research.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.research-corpus-refresh.job",
+          "id": "foundation.research.job",
           "relationship": "parent",
           "sections": [
             "process",
@@ -11057,7 +11067,7 @@
           ]
         },
         {
-          "id": "foundation.research-corpus-refresh.technical",
+          "id": "foundation.research.technical",
           "relationship": "sibling",
           "sections": [
             "data-model",
@@ -11072,30 +11082,38 @@
             "verification-contract",
             "acceptance-mapping"
           ]
+        },
+        {
+          "id": "foundation.shift-clock.eval",
+          "relationship": "informs",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
         }
       ],
       "ownedPaths": [
         {
-          "path": "foundation/docs/specs/research-corpus-refresh-eval.html",
+          "path": "foundation/docs/specs/research-eval.html",
           "kind": "doc",
           "ownership": "direct"
         }
       ],
       "implementationPaths": [
         {
-          "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+          "path": "foundation/skills/research/SKILL.md",
           "kind": "workflow",
           "ownership": "reference"
         }
       ],
       "coverage": [
         {
-          "id": "foundation.research-corpus-refresh.eval:spec-check",
+          "id": "foundation.research.eval:spec-check",
           "level": "static",
           "status": "existing",
           "path": "foundation/docs/specs/check-specs.mjs",
           "mapsTo": [
-            "foundation.research-corpus-refresh.eval#commands-and-evidence"
+            "foundation.research.eval#commands-and-evidence"
           ],
           "command": "npm run spec:check"
         }
@@ -11104,24 +11122,24 @@
         "eval",
         "research",
         "automation",
-        "workbook"
+        "access-surface"
       ]
     },
     {
-      "id": "foundation.research-corpus-refresh.technical",
-      "title": "Research Corpus Refresh Technical",
+      "id": "foundation.research.technical",
+      "title": "Research Workflow Technical",
       "type": "technical",
       "status": "active",
-      "file": "foundation/docs/specs/research-corpus-refresh-technical.html",
+      "file": "foundation/docs/specs/research-technical.html",
       "canonicalSection": "required-depth",
       "lastUpdated": "2026-06-14",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.research-corpus-refresh.job",
+      "parent": "foundation.research.job",
       "children": [],
       "relatedSpecs": [
         {
-          "id": "foundation.research-corpus-refresh.job",
+          "id": "foundation.research.job",
           "relationship": "parent",
           "sections": [
             "process",
@@ -11129,7 +11147,7 @@
           ]
         },
         {
-          "id": "foundation.research-corpus-refresh.eval",
+          "id": "foundation.research.eval",
           "relationship": "sibling",
           "sections": [
             "acceptance-mapping",
@@ -11143,30 +11161,39 @@
             "data-model",
             "contracts"
           ]
+        },
+        {
+          "id": "foundation.shift-clock.technical",
+          "relationship": "informs",
+          "sections": [
+            "data-model",
+            "concurrency-and-timing",
+            "failure-modes"
+          ]
         }
       ],
       "ownedPaths": [
         {
-          "path": "foundation/docs/specs/research-corpus-refresh-technical.html",
+          "path": "foundation/docs/specs/research-technical.html",
           "kind": "doc",
           "ownership": "direct"
         }
       ],
       "implementationPaths": [
         {
-          "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+          "path": "foundation/skills/research/SKILL.md",
           "kind": "workflow",
           "ownership": "reference"
         }
       ],
       "coverage": [
         {
-          "id": "foundation.research-corpus-refresh.technical:spec-check",
+          "id": "foundation.research.technical:spec-check",
           "level": "static",
           "status": "existing",
           "path": "foundation/docs/specs/check-specs.mjs",
           "mapsTo": [
-            "foundation.research-corpus-refresh.technical#paths-and-coverage"
+            "foundation.research.technical#paths-and-coverage"
           ],
           "command": "npm run spec:check"
         }
@@ -11175,24 +11202,24 @@
         "technical",
         "research",
         "automation",
-        "jsonl",
-        "workbook"
+        "storage",
+        "access-surface"
       ]
     },
     {
-      "id": "foundation.research-corpus-refresh.job",
-      "title": "Research Corpus Refresh",
+      "id": "foundation.research.job",
+      "title": "Research Workflow",
       "type": "job",
       "status": "active",
-      "file": "foundation/docs/specs/research-corpus-refresh.html",
+      "file": "foundation/docs/specs/research.html",
       "canonicalSection": "job-intent",
-      "lastUpdated": "2026-06-14",
+      "lastUpdated": "2026-06-15",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.make-outstanding-work-repeatable.capability",
       "children": [
-        "foundation.research-corpus-refresh.technical",
-        "foundation.research-corpus-refresh.eval"
+        "foundation.research.technical",
+        "foundation.research.eval"
       ],
       "relatedSpecs": [
         {
@@ -11204,7 +11231,7 @@
           ]
         },
         {
-          "id": "foundation.research-corpus-refresh.technical",
+          "id": "foundation.research.technical",
           "relationship": "child",
           "sections": [
             "data-model",
@@ -11213,11 +11240,20 @@
           ]
         },
         {
-          "id": "foundation.research-corpus-refresh.eval",
+          "id": "foundation.research.eval",
           "relationship": "child",
           "sections": [
             "verification-contract",
             "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.shift-clock.capability",
+          "relationship": "informs",
+          "sections": [
+            "capability-intent",
+            "operating-contract",
+            "scoreboard"
           ]
         },
         {
@@ -11231,17 +11267,17 @@
       ],
       "ownedPaths": [
         {
-          "path": "foundation/docs/specs/research-corpus-refresh.html",
+          "path": "foundation/docs/specs/research.html",
           "kind": "doc",
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+          "path": "foundation/skills/research/SKILL.md",
           "kind": "workflow",
           "ownership": "direct"
         },
         {
-          "path": "foundation/skills/research-corpus-refresh/agents/openai.yaml",
+          "path": "foundation/skills/research/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
         }
@@ -11262,23 +11298,23 @@
       ],
       "coverage": [
         {
-          "id": "foundation.research-corpus-refresh.job:skill-validate",
+          "id": "foundation.research.job:skill-validate",
           "level": "static",
           "status": "existing",
-          "path": "foundation/skills/research-corpus-refresh/SKILL.md",
+          "path": "foundation/skills/research/SKILL.md",
           "mapsTo": [
-            "foundation.research-corpus-refresh.job#process",
-            "foundation.research-corpus-refresh.job#evidence-and-evaluation"
+            "foundation.research.job#process",
+            "foundation.research.job#evidence-and-evaluation"
           ],
-          "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/research-corpus-refresh"
+          "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/research"
         },
         {
-          "id": "foundation.research-corpus-refresh.job:spec-check",
+          "id": "foundation.research.job:spec-check",
           "level": "static",
           "status": "existing",
           "path": "foundation/docs/specs/check-specs.mjs",
           "mapsTo": [
-            "foundation.research-corpus-refresh.job#evidence-and-evaluation"
+            "foundation.research.job#evidence-and-evaluation"
           ],
           "command": "npm run spec:check"
         }
@@ -11288,6 +11324,262 @@
         "research",
         "automation",
         "agent-workflow"
+      ]
+    },
+    {
+      "id": "foundation.shift-clock.eval",
+      "title": "Shift Clock Eval",
+      "type": "eval",
+      "status": "active",
+      "file": "foundation/docs/specs/shift-clock-eval.html",
+      "canonicalSection": "verification-contract",
+      "lastUpdated": "2026-06-14",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.shift-clock.capability",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.shift-clock.capability",
+          "relationship": "parent",
+          "sections": [
+            "operating-contract",
+            "scoreboard",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.shift-clock.technical",
+          "relationship": "sibling",
+          "sections": [
+            "data-model",
+            "concurrency-and-timing",
+            "failure-modes"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/shift-clock-eval.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.shift-clock.eval:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.shift-clock.eval#commands-and-evidence"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "eval",
+        "agent-workflow",
+        "long-running",
+        "shift-clock"
+      ]
+    },
+    {
+      "id": "foundation.shift-clock.technical",
+      "title": "Shift Clock Technical",
+      "type": "technical",
+      "status": "active",
+      "file": "foundation/docs/specs/shift-clock-technical.html",
+      "canonicalSection": "required-depth",
+      "lastUpdated": "2026-06-14",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.shift-clock.capability",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.shift-clock.capability",
+          "relationship": "parent",
+          "sections": [
+            "operating-contract",
+            "interfaces-and-sources"
+          ]
+        },
+        {
+          "id": "foundation.shift-clock.eval",
+          "relationship": "sibling",
+          "sections": [
+            "acceptance-mapping",
+            "commands-and-evidence"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/shift-clock-technical.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.shift-clock.technical:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.shift-clock.technical#paths-and-coverage"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "technical",
+        "agent-workflow",
+        "long-running",
+        "shift-clock"
+      ]
+    },
+    {
+      "id": "foundation.shift-clock.capability",
+      "title": "Shift Clock",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/shift-clock.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-14",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.make-outstanding-work-repeatable.capability",
+      "children": [
+        "foundation.shift-clock.technical",
+        "foundation.shift-clock.eval"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.make-outstanding-work-repeatable.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.shift-clock.technical",
+          "relationship": "child",
+          "sections": [
+            "data-model",
+            "contracts",
+            "concurrency-and-timing"
+          ]
+        },
+        {
+          "id": "foundation.shift-clock.eval",
+          "relationship": "child",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        },
+        {
+          "id": "foundation.research.job",
+          "relationship": "informs",
+          "sections": [
+            "process",
+            "evidence-and-evaluation"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/shift-clock.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/principles/agent-principles.html",
+          "kind": "doc",
+          "ownership": "reference",
+          "notes": "Shared agent doctrine for long-running action and shift-clock behavior."
+        },
+        {
+          "path": "foundation/skills/research/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Research workflow applies shift-clock rules to recurring source-backed runs."
+        },
+        {
+          "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Worker behavior that applies the shift-clock capability."
+        },
+        {
+          "path": "foundation/skills/long-running-agent-worker/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Supervisor behavior that evaluates the shift-clock capability during long runs."
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.shift-clock.capability:worker-skill-validate",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+          "mapsTo": [
+            "foundation.shift-clock.capability#operating-contract",
+            "foundation.shift-clock.capability#evidence-and-evaluation"
+          ],
+          "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/long-running-agent-worker"
+        },
+        {
+          "id": "foundation.shift-clock.capability:supervisor-skill-validate",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+          "mapsTo": [
+            "foundation.shift-clock.capability#evidence-and-evaluation"
+          ],
+          "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/watchful-agent-supervisor"
+        },
+        {
+          "id": "foundation.shift-clock.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.shift-clock.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "agent-workflow",
+        "long-running",
+        "shift-clock"
       ]
     },
     {

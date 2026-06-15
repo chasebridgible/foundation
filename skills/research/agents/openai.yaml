@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research"
+  short_description: "Run durable, source-backed research"
+  default_prompt: "Use $research to run a bounded research workflow that updates JSON, workbook outputs, checks, and review handoff."

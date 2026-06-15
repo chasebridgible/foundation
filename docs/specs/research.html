@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.research.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-15">
+<title>Research Workflow</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<style>
+  .research-process-map {
+    display: grid;
+    gap: 18px;
+    margin: 18px 0 30px;
+  }
+
+  .research-process-label {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .research-artifact-pipeline {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    position: relative;
+  }
+
+  .research-setup-questions {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    overflow: hidden;
+  }
+
+  .research-setup-question {
+    background: var(--bg-3);
+    display: grid;
+    gap: 8px;
+    min-height: 128px;
+    padding: 13px;
+  }
+
+  .research-setup-question-top {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+  }
+
+  .research-setup-number {
+    align-items: center;
+    background: rgba(79, 142, 255, 0.12);
+    border: 1px solid rgba(79, 142, 255, 0.3);
+    border-radius: 999px;
+    color: var(--primary);
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    height: 24px;
+    justify-content: center;
+    width: 24px;
+  }
+
+  .research-setup-question-title {
+    color: var(--fg);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .research-setup-question-copy {
+    color: var(--fg-3);
+    font-size: 12px;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .research-search-ladder {
+    background: var(--bg-2);
+    border: 1px solid rgba(79, 142, 255, 0.22);
+    border-radius: var(--radius-lg);
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: hidden;
+  }
+
+  .research-search-step {
+    background: var(--bg-3);
+    min-height: 138px;
+    padding: 13px;
+  }
+
+  .research-search-step-top {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .research-search-number {
+    align-items: center;
+    background: rgba(78, 201, 176, 0.12);
+    border: 1px solid rgba(78, 201, 176, 0.3);
+    border-radius: 999px;
+    color: var(--emerald);
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    height: 24px;
+    justify-content: center;
+    width: 24px;
+  }
+
+  .research-search-title {
+    color: var(--fg);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .research-search-copy {
+    color: var(--fg-3);
+    font-size: 12px;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .research-search-note {
+    background: rgba(79, 142, 255, 0.08);
+    border: 1px solid rgba(79, 142, 255, 0.22);
+    border-radius: var(--radius-lg);
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 8px;
+    padding: 12px 14px;
+  }
+
+  .research-artifact-pipeline::before {
+    background: linear-gradient(90deg, var(--amber), var(--primary), var(--emerald), #9aa6ff, var(--fg-3));
+    content: "";
+    height: 2px;
+    left: 9%;
+    position: absolute;
+    right: 9%;
+    top: 36px;
+  }
+
+  .research-artifact {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0)), var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: grid;
+    gap: 11px;
+    min-height: 184px;
+    overflow: hidden;
+    padding: 14px;
+    position: relative;
+  }
+
+  .research-artifact::before {
+    background: var(--artifact-accent, var(--border-2));
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 3px;
+    z-index: 1;
+  }
+
+  .research-artifact-head {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    min-width: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .research-artifact-icon {
+    align-items: center;
+    background: var(--artifact-tint, rgba(255, 255, 255, 0.04));
+    border: 1px solid var(--artifact-icon-border, var(--border-2));
+    border-radius: var(--radius);
+    color: var(--artifact-accent, var(--fg-2));
+    display: inline-flex;
+    flex: 0 0 auto;
+    height: 36px;
+    justify-content: center;
+    width: 36px;
+  }
+
+  .research-artifact-icon svg {
+    height: 19px;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+    width: 19px;
+  }
+
+  .research-artifact.sources { --artifact-accent: var(--primary); --artifact-icon-border: rgba(79, 142, 255, 0.36); --artifact-tint: rgba(79, 142, 255, 0.14); }
+  .research-artifact.run { --artifact-accent: var(--amber); --artifact-icon-border: rgba(212, 167, 44, 0.36); --artifact-tint: rgba(212, 167, 44, 0.14); }
+  .research-artifact.records { --artifact-accent: var(--emerald); --artifact-icon-border: rgba(78, 201, 176, 0.36); --artifact-tint: rgba(78, 201, 176, 0.14); }
+  .research-artifact.view { --artifact-accent: #9aa6ff; --artifact-icon-border: rgba(154, 166, 255, 0.36); --artifact-tint: rgba(154, 166, 255, 0.14); }
+  .research-artifact.review { --artifact-accent: var(--fg-2); --artifact-icon-border: rgba(161, 161, 161, 0.32); --artifact-tint: rgba(161, 161, 161, 0.12); }
+
+  .research-artifact-step {
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.3;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .research-artifact-title {
+    color: var(--fg);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .research-artifact-copy {
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
+  }
+
+  .research-artifact-chips {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 1px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .research-artifact-chip {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1;
+    padding: 5px 7px;
+  }
+
+  .research-loop-shell {
+    background: var(--bg-2);
+    border: 1px solid rgba(78, 201, 176, 0.24);
+    border-radius: var(--radius-lg);
+    display: grid;
+    gap: 1px;
+    grid-template-columns: minmax(190px, 0.72fr) minmax(0, 1.8fr);
+    overflow: hidden;
+  }
+
+  .research-loop-core {
+    background: var(--bg-3);
+    border-right: 1px solid var(--border);
+    display: grid;
+    min-height: 280px;
+    padding: 18px;
+    place-items: center;
+    text-align: center;
+  }
+
+  .research-loop-core-inner {
+    align-items: center;
+    border: 1px solid rgba(78, 201, 176, 0.35);
+    border-radius: 999px;
+    display: flex;
+    flex-direction: column;
+    height: 188px;
+    justify-content: center;
+    padding: 24px;
+    width: 188px;
+  }
+
+  .research-loop-core-label {
+    color: var(--emerald);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .research-loop-core-title {
+    color: var(--fg);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+
+  .research-loop-core-copy {
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .research-loop-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .research-loop-action {
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    min-height: 140px;
+    padding: 14px;
+  }
+
+  .research-loop-action:nth-child(2n + 1) { border-left: 0; }
+  .research-loop-action:nth-last-child(-n + 2) { border-bottom: 0; }
+
+  .research-loop-action-top {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 9px;
+  }
+
+  .research-loop-number {
+    align-items: center;
+    background: var(--emerald-dim);
+    border: 1px solid rgba(78, 201, 176, 0.28);
+    border-radius: 999px;
+    color: var(--emerald);
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    height: 24px;
+    justify-content: center;
+    width: 24px;
+  }
+
+  .research-loop-title {
+    color: var(--fg);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .research-loop-copy {
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .research-gates {
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: hidden;
+  }
+
+  .research-gate {
+    background: var(--bg-2);
+    padding: 13px;
+  }
+
+  .research-gate-title {
+    color: var(--fg);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .research-gate-copy {
+    color: var(--fg-3);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .research-continuity {
+    align-items: center;
+    background: var(--amber-dim);
+    border: 1px solid rgba(212, 167, 44, 0.28);
+    border-radius: var(--radius-lg);
+    display: grid;
+    gap: 10px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 13px 15px;
+  }
+
+  .research-continuity-title {
+    color: var(--amber);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .research-continuity-copy {
+    color: var(--fg-2);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .research-continuity-pill {
+    border: 1px solid rgba(212, 167, 44, 0.36);
+    border-radius: 999px;
+    color: var(--amber);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 6px 9px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 1100px) {
+    .research-artifact-pipeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .research-artifact-pipeline::before { display: none; }
+    .research-setup-questions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .research-search-ladder { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .research-loop-shell { grid-template-columns: 1fr; }
+    .research-loop-core { border-bottom: 1px solid var(--border); border-right: 0; min-height: auto; }
+    .research-gates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 720px) {
+    .research-artifact-pipeline,
+    .research-setup-questions,
+    .research-search-ladder,
+    .research-loop-grid,
+    .research-gates,
+    .research-continuity { grid-template-columns: 1fr; }
+    .research-loop-action,
+    .research-loop-action:nth-child(2n + 1),
+    .research-loop-action:nth-last-child(-n + 2) {
+      border-bottom: 1px solid var(--border);
+      border-left: 0;
+    }
+    .research-loop-action:last-child { border-bottom: 0; }
+    .research-continuity-pill { justify-self: start; white-space: normal; }
+  }
+</style>
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.research.job",
+  "title": "Research Workflow",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-15",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.make-outstanding-work-repeatable.capability",
+  "children": [
+    "foundation.research.technical",
+    "foundation.research.eval"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.make-outstanding-work-repeatable.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.research.technical",
+      "relationship": "child",
+      "sections": [
+        "data-model",
+        "contracts",
+        "concurrency-and-timing"
+      ]
+    },
+    {
+      "id": "foundation.research.eval",
+      "relationship": "child",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    },
+    {
+      "id": "foundation.shift-clock.capability",
+      "relationship": "informs",
+      "sections": [
+        "capability-intent",
+        "operating-contract",
+        "scoreboard"
+      ]
+    },
+    {
+      "id": "foundation.agent-capability-scout.job",
+      "relationship": "informs",
+      "sections": [
+        "process",
+        "evidence-and-evaluation"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/research.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/research/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/research/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/foundation-agent-capability-scout.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Existing recurring research pattern used as the concrete model."
+    },
+    {
+      "path": "foundation/docs/specs/foundation-agent-capability-scout-technical.html",
+      "kind": "doc",
+      "ownership": "reference",
+      "notes": "Existing JSONL, branch, PR, and notification contract used as a reusable precedent."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.research.job:skill-validate",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/research/SKILL.md",
+      "mapsTo": [
+        "foundation.research.job#process",
+        "foundation.research.job#evidence-and-evaluation"
+      ],
+      "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/research"
+    },
+    {
+      "id": "foundation.research.job:spec-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.research.job#evidence-and-evaluation"
+      ],
+      "command": "npm run spec:check"
+    }
+  ],
+  "tags": [
+    "job",
+    "research",
+    "automation",
+    "agent-workflow"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.research.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.research.job",
+      "type": "job",
+      "label": "Research Workflow",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "research",
+          "automation",
+          "agent-workflow"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.research.job:main",
+      "type": "process",
+      "label": "Research workflow loop",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.research.job"
+      }
+    },
+    {
+      "id": "actor:foundation.research.job:agent",
+      "type": "actor",
+      "label": "Research agent",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "agent-or-automation",
+        "generatedFrom": "foundation.research.job"
+      }
+    },
+    {
+      "id": "evidence:foundation.research.job:handoff",
+      "type": "evidence",
+      "label": "Research handoff evidence",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.research.job"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.research.job:supports:spec:foundation.make-outstanding-work-repeatable.capability",
+      "type": "supports",
+      "from": "spec:foundation.research.job",
+      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research.job:has-process:process:foundation.research.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.research.job",
+      "to": "process:foundation.research.job:main",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research.job:performed-by:actor:foundation.research.job:agent",
+      "type": "performed-by",
+      "from": "spec:foundation.research.job",
+      "to": "actor:foundation.research.job:agent",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "job-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research.job:evidenced-by:evidence:foundation.research.job:handoff",
+      "type": "evidenced-by",
+      "from": "spec:foundation.research.job",
+      "to": "evidence:foundation.research.job:handoff",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research.job:depends-on:spec:foundation.shift-clock.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.research.job",
+      "to": "spec:foundation.shift-clock.capability",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research.job:depends-on:spec:foundation.research.technical",
+      "type": "depends-on",
+      "from": "spec:foundation.research.job",
+      "to": "spec:foundation.research.technical",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.research.job:supports:spec:foundation.research.eval",
+      "type": "supports",
+      "from": "spec:foundation.research.job",
+      "to": "spec:foundation.research.eval",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">R</div>
+    <div>
+      <div class="sidebar-title">Research</div>
+      <div class="sidebar-sub">work guide</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Purpose</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Helps</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Now</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Better way</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#operator-map"><span class="nav-num">06</span>Map</a>
+    <a class="nav-item" href="#bounded-work-units"><span class="nav-num">07</span>Units</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">08</span>Needs</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">09</span>Proof</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">10</span>Fix</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/research.html</div>
+    <h1>Research Workflow</h1>
+    <p class="lede">A research agent works best when it knows what to search for, where to look, where to save what it finds, how to check its work, and how people will read the final result.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-15</div>
+      <div><strong>Main section:</strong> <a href="#job-intent">#job-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+      <h1>What this is for</h1>
+      <p>This job makes research repeatable. Instead of leaving facts in chat, the agent saves what it finds, checks the work, and shows the results in a view people can use.</p>
+      <h3>Trigger</h3>
+      <p>This starts when a person asks for research, when a schedule starts a run, or when old chat research needs to become saved project data.</p>
+    </section>
+
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>What this helps</h2>
+      <table class="status-table">
+        <thead><tr><th>What Foundation learns to do</th><th>How this helps</th><th>Where we learned it</th></tr></thead>
+        <tbody>
+          <tr><td><code>foundation.make-outstanding-work-repeatable.capability</code></td><td>Turns a good research run into small steps that can be run again.</td><td>Tribal research runs and Foundation scout pattern.</td></tr>
+          <tr><td><code>foundation.preserve-knowledge-context.capability</code></td><td>Saves facts in records and readable views instead of relying on chat memory.</td><td>Saved records plus readable views.</td></tr>
+          <tr><td><code>foundation.show-system-clearly.capability</code></td><td>Shows what was searched, what changed, what is missing, and what the owner should do next.</td><td>Map, run brief, and view rules.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>How this works now</h2>
+      <ul>
+        <li><strong>Who does it now:</strong> people ask Codex agents to do research, often inside project repos.</li>
+        <li><strong>How it happens now:</strong> some projects already use parts of this pattern, but the simple shared version was not written down clearly enough.</li>
+        <li><strong>What goes wrong:</strong> research can end up in chat, temporary files, messy spreadsheets, or confusing rows unless the process is explicit.</li>
+      </ul>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>A better way</h2>
+      <ul>
+        <li><strong>Who does it:</strong> one research agent does the work. A reviewer can help when the project needs one.</li>
+        <li><strong>Path:</strong> answer the setup questions, make a search plan, save each finding, check the work, publish it cleanly, and then show people the final view.</li>
+        <li><strong>Reason for change:</strong> good research should not depend on memory, temporary files, or manual spreadsheet cleanup.</li>
+        <li><strong>Decision:</strong> use this as the shared Foundation pattern for Tribal research systems and similar work.</li>
+      </ul>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <div class="research-process-map" aria-label="Research workflow process">
+        <div>
+          <div class="research-process-label">Questions to answer before the run</div>
+          <div class="research-setup-questions" aria-label="Research setup questions">
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">1</span>
+                <div class="research-setup-question-title">What are we trying to find?</div>
+              </div>
+              <p class="research-setup-question-copy">Say what counts as a good answer.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">2</span>
+                <div class="research-setup-question-title">Who will use it?</div>
+              </div>
+              <p class="research-setup-question-copy">Name who reads the result and what decision they need to make.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">3</span>
+                <div class="research-setup-question-title">Where should it look?</div>
+              </div>
+              <p class="research-setup-question-copy">List the websites, regions, source types, and search words to try.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">4</span>
+                <div class="research-setup-question-title">What should it skip?</div>
+              </div>
+              <p class="research-setup-question-copy">Name things that are off topic, duplicates, too weak, or only worth watching.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">5</span>
+                <div class="research-setup-question-title">What proof is enough?</div>
+              </div>
+              <p class="research-setup-question-copy">Decide which links, quotes, dates, or records prove a fact is real.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">6</span>
+                <div class="research-setup-question-title">What matters most?</div>
+              </div>
+              <p class="research-setup-question-copy">Say how to rank results so the best items rise to the top.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">7</span>
+                <div class="research-setup-question-title">How often should it work?</div>
+              </div>
+              <p class="research-setup-question-copy">Choose if this is one time, monthly, or on another schedule.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">8</span>
+                <div class="research-setup-question-title">When is it done?</div>
+              </div>
+              <p class="research-setup-question-copy">Say what must be checked before the agent can stop.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">9</span>
+                <div class="research-setup-question-title">What should it save?</div>
+              </div>
+              <p class="research-setup-question-copy">Say which facts, links, notes, checks, and final views must be kept.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">10</span>
+                <div class="research-setup-question-title">Who checks it?</div>
+              </div>
+              <p class="research-setup-question-copy">Name who reviews, publishes, gets notified, or accepts blockers.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="research-process-label">How the search should work</div>
+          <div class="research-search-ladder" aria-label="Search order">
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">1</span>
+                <div class="research-search-title">Start with the known list</div>
+              </div>
+              <p class="research-search-copy">Use the project source list first. These are the places we already trust or know matter.</p>
+            </div>
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">2</span>
+                <div class="research-search-title">Open one real source</div>
+              </div>
+              <p class="research-search-copy">Check one official page, calendar, directory, PDF, portal, or facility at a time.</p>
+            </div>
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">3</span>
+                <div class="research-search-title">Use web search for missing doors</div>
+              </div>
+              <p class="research-search-copy">Google-style search is a way to find leads. It is not proof by itself.</p>
+            </div>
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">4</span>
+                <div class="research-search-title">Use special places when needed</div>
+              </div>
+              <p class="research-search-copy">LinkedIn, event calendars, procurement portals, news pages, and association sites are useful for some jobs.</p>
+            </div>
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">5</span>
+                <div class="research-search-title">Use APIs or crawlers for scale</div>
+              </div>
+              <p class="research-search-copy">A tool like Firecrawl or an official API helps when many pages must be fetched the same way.</p>
+            </div>
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">6</span>
+                <div class="research-search-title">Save the outcome</div>
+              </div>
+              <p class="research-search-copy">Record found, rejected, no result, blocked, or needs recheck before moving to the next link.</p>
+            </div>
+          </div>
+          <div class="research-search-note">
+            The rule is simple: search tools help the agent find doors, but the saved answer should point to the best source page we can inspect. The agent should not skim a pile of links and summarize from memory. It should work one target at a time, save what happened, then choose the next target.
+          </div>
+        </div>
+        <div>
+          <div class="research-process-label">What the agent does during the run</div>
+          <div class="research-artifact-pipeline">
+            <div class="research-artifact run">
+              <div class="research-artifact-head">
+                <div class="research-artifact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M6 4v6"></path>
+                    <path d="M18 14v6"></path>
+                    <circle cx="6" cy="16" r="3"></circle>
+                    <circle cx="18" cy="8" r="3"></circle>
+                    <path d="M9 16h3a6 6 0 0 0 6-6"></path>
+                  </svg>
+                </div>
+                <div class="research-artifact-step">01 Start</div>
+              </div>
+              <div class="research-artifact-title">Start the run</div>
+              <div class="research-artifact-copy">Start on a clean branch, name the goal, make a run ID, set the deadline, and list what files should change.</div>
+              <div class="research-artifact-chips" aria-label="Run setup contents">
+                <span class="research-artifact-chip">branch</span>
+                <span class="research-artifact-chip">run ID</span>
+                <span class="research-artifact-chip">deadline</span>
+              </div>
+            </div>
+            <div class="research-artifact sources">
+              <div class="research-artifact-head">
+                <div class="research-artifact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <circle cx="11" cy="11" r="6"></circle>
+                    <path d="m16 16 4 4"></path>
+                    <path d="M8 11h6"></path>
+                  </svg>
+                </div>
+                <div class="research-artifact-step">02 Search plan</div>
+              </div>
+              <div class="research-artifact-title">Look in the right places</div>
+              <div class="research-artifact-copy">Use the plan to choose one source, region, search phrase, or group to check next.</div>
+              <div class="research-artifact-chips" aria-label="Search plan contents">
+                <span class="research-artifact-chip">sources</span>
+                <span class="research-artifact-chip">searches</span>
+                <span class="research-artifact-chip">schedule</span>
+              </div>
+            </div>
+            <div class="research-artifact records">
+              <div class="research-artifact-head">
+                <div class="research-artifact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <ellipse cx="12" cy="5" rx="7" ry="3"></ellipse>
+                    <path d="M5 5v7c0 1.7 3.1 3 7 3s7-1.3 7-3V5"></path>
+                    <path d="M5 12v7c0 1.7 3.1 3 7 3s7-1.3 7-3v-7"></path>
+                  </svg>
+                </div>
+                <div class="research-artifact-step">03 Save data</div>
+              </div>
+              <div class="research-artifact-title">Record what it finds</div>
+              <div class="research-artifact-copy">Save what was found, what was rejected, what was searched, which links prove it, and what still needs work.</div>
+              <div class="research-artifact-chips" aria-label="Storage contents">
+                <span class="research-artifact-chip">records</span>
+                <span class="research-artifact-chip">proof</span>
+                <span class="research-artifact-chip">notes</span>
+              </div>
+            </div>
+            <div class="research-artifact review">
+              <div class="research-artifact-head">
+                <div class="research-artifact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4 7h5l2 3h9v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"></path>
+                    <path d="m9 14 2 2 4-5"></path>
+                  </svg>
+                </div>
+                <div class="research-artifact-step">04 Clean publish</div>
+              </div>
+              <div class="research-artifact-title">Check it and publish</div>
+              <div class="research-artifact-copy">Review changed records and files, note blockers, open or merge the PR when allowed, and write cleanup notes.</div>
+              <div class="research-artifact-chips" aria-label="Merge and cleanup contents">
+                <span class="research-artifact-chip">checks</span>
+                <span class="research-artifact-chip">PR</span>
+                <span class="research-artifact-chip">merge</span>
+              </div>
+            </div>
+            <div class="research-artifact view">
+              <div class="research-artifact-head">
+                <div class="research-artifact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <rect x="4" y="5" width="16" height="14" rx="2"></rect>
+                    <path d="M4 10h16"></path>
+                    <path d="M9 5v14"></path>
+                    <path d="M14 10v9"></path>
+                  </svg>
+                </div>
+                <div class="research-artifact-step">05 Final view</div>
+              </div>
+              <div class="research-artifact-title">Show the results</div>
+              <div class="research-artifact-copy">Give people the final spreadsheet, dashboard, brief, or page after the saved data is clean.</div>
+              <div class="research-artifact-chips" aria-label="Access layer contents">
+                <span class="research-artifact-chip">dashboard</span>
+                <span class="research-artifact-chip">sheets</span>
+                <span class="research-artifact-chip">brief</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="research-process-label">The repeat loop</div>
+          <div class="research-loop-shell">
+            <div class="research-loop-core">
+              <div class="research-loop-core-inner">
+                <div class="research-loop-core-label">Repeat</div>
+                <div class="research-loop-core-title">One target at a time</div>
+                <div class="research-loop-core-copy">The agent keeps working until every required area is done or a real blocker is written down.</div>
+              </div>
+            </div>
+            <div class="research-loop-grid">
+              <div class="research-loop-action">
+                <div class="research-loop-action-top">
+                  <span class="research-loop-number">1</span>
+                  <div class="research-loop-title">Pick one target</div>
+                </div>
+                <p class="research-loop-copy">Choose one website, region, facility, search group, or other small task.</p>
+              </div>
+              <div class="research-loop-action">
+                <div class="research-loop-action-top">
+                  <span class="research-loop-number">2</span>
+                  <div class="research-loop-title">Find proof</div>
+                </div>
+                <p class="research-loop-copy">Use public sources, keep exact links, and save the search words that found useful results.</p>
+              </div>
+              <div class="research-loop-action">
+                <div class="research-loop-action-top">
+                  <span class="research-loop-number">3</span>
+                  <div class="research-loop-title">Save the decision</div>
+                </div>
+                <p class="research-loop-copy">Mark each item as accepted, rejected, duplicate, blocked, or worth watching.</p>
+              </div>
+              <div class="research-loop-action">
+                <div class="research-loop-action-top">
+                  <span class="research-loop-number">4</span>
+                  <div class="research-loop-title">Check and fix</div>
+                </div>
+                <p class="research-loop-copy">Run the checks, fix bad rows, and only then publish or show the final view.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="research-process-label">What must be true before it is done</div>
+          <div class="research-gates">
+            <div class="research-gate">
+              <div class="research-gate-title">Scope is clear</div>
+              <div class="research-gate-copy">The agent knows what counts, what does not count, and which places must be checked.</div>
+            </div>
+            <div class="research-gate">
+              <div class="research-gate-title">Proof is saved</div>
+              <div class="research-gate-copy">Every accepted item has a link people can inspect, plus search words when search found it.</div>
+            </div>
+            <div class="research-gate">
+              <div class="research-gate-title">Publish path is clean</div>
+              <div class="research-gate-copy">Changed files, checks, PR or merge notes, blockers, and cleanup notes are complete.</div>
+            </div>
+            <div class="research-gate">
+              <div class="research-gate-title">The view is readable</div>
+              <div class="research-gate-copy">The final view is easy to read, and internal notes stay out of the front page.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="research-continuity">
+          <div>
+            <div class="research-continuity-title">Schedule only after review</div>
+            <div class="research-continuity-copy">Do not turn this into an automatic recurring job until the project rules or owner say it is ready. Review-first PRs are the default.</div>
+          </div>
+          <div class="research-continuity-pill">next run starts from saved data</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="operator-map" data-spec-section="operator-map" data-section-type="process-map">
+      <h2>Simple map</h2>
+      <table class="status-table">
+        <thead><tr><th>Step</th><th>Question</th><th>Where it is written down</th><th>Ready when</th></tr></thead>
+        <tbody>
+          <tr><td>1. Configure</td><td>What are we trying to find, who will use it, where should the agent look, and when is it done?</td><td>Project spec, search plan, source list, storage rules, ranking rules, review rules, and view rules.</td><td>The goal, user, schedule, proof rules, search words, record types, exclusions, ranking, and reviewer are clear.</td></tr>
+          <tr><td>2. Search</td><td>What one place should the agent check next?</td><td>Run note and next-target output.</td><td>One website, region, facility, or search group is chosen.</td></tr>
+          <tr><td>3. Record</td><td>What did the agent find, reject, or still need to check?</td><td>Saved notes for findings, rejections, routes, contacts, checked areas, and blockers.</td><td>Each saved note has source links and saved search words when search was used.</td></tr>
+          <tr><td>4. Merge</td><td>What changed, and is it clean enough to publish?</td><td>Checks, branch, PR, merge note, cleanup note, message, or blocker.</td><td>The checks pass, changed rows are reviewed, and publish proof exists.</td></tr>
+          <tr><td>5. Access</td><td>How will people read or use the results?</td><td>Dashboard, spreadsheet, brief, page, or other final view.</td><td>The front view is easy to read, and internal notes stay separate.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="bounded-work-units" data-spec-section="bounded-work-units" data-section-type="work-units">
+      <h2>Small chunks of work</h2>
+      <table class="status-table">
+        <thead><tr><th>Chunk</th><th>What the agent may handle</th><th>What must be saved</th></tr></thead>
+        <tbody>
+          <tr><td>Source target</td><td>One URL, calendar page, PDF, source group, facility, or region selected by <code>next</code>.</td><td>Status, source links, search words, findings, rejections, and blocker notes.</td></tr>
+          <tr><td>Finding</td><td>One possible event, contact, route, or opportunity from the current target.</td><td>Whether it counts, proof link, duplicate key, score, and where it should appear.</td></tr>
+          <tr><td>Merge and cleanup</td><td>One branch, PR, merge, or cleanup pass.</td><td>Checks, changed rows, saved code change or blocker, PR or blocker, merge note, message note, and cleanup notes.</td></tr>
+          <tr><td>Final view</td><td>One final spreadsheet, dashboard, brief, page, or other view after publishing is clean.</td><td>Links, row counts, view checks, brief path, and access note.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>What the agent needs</h2>
+      <table class="status-table">
+        <thead><tr><th>Need</th><th>Plain meaning</th><th>Where it comes from</th></tr></thead>
+        <tbody>
+          <tr><td>Instructions</td><td>The project rules, skill, search list, save rules, view rules, and earlier run notes.</td><td>Project repo plus Foundation docs.</td></tr>
+          <tr><td>Commands</td><td>Ways to start, choose the next target, save results, check work, make reports, test, and send a message.</td><td>Research technical rules.</td></tr>
+          <tr><td>Outputs</td><td>Saved data, final view, dated brief, run logs, PR, and message note.</td><td>Research technical rules.</td></tr>
+          <tr><td>Workers</td><td>A person, one agent, a scheduled automation, or an optional reviewer.</td><td>Workflow design contract.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="github-publish-example" data-spec-section="github-publish-example" data-section-type="operations-example">
+      <h2>One GitHub setup that works</h2>
+      <p>This is an example, not the only possible setup. It works well when the research lives in a repo and the owner wants saved data, readable files, checks, and a review trail.</p>
+      <div class="research-process-map" aria-label="GitHub publish setup example">
+        <div>
+          <div class="research-process-label">What the bot does</div>
+          <div class="research-search-ladder" aria-label="GitHub automation steps">
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">1</span>
+                <div class="research-search-title">Start clean</div>
+              </div>
+              <p class="research-search-copy">Run in a clean checkout or worktree, make a dated <code>codex/</code> branch, and write down the run ID.</p>
+            </div>
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">2</span>
+                <div class="research-search-title">Save real changes</div>
+              </div>
+              <p class="research-search-copy">Update the saved records, logs, readable view, dated brief, and receipts. Do not only change the spreadsheet by hand.</p>
+            </div>
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">3</span>
+                <div class="research-search-title">Open a PR</div>
+              </div>
+              <p class="research-search-copy">Push the branch and open or update a pull request so GitHub can show what changed.</p>
+            </div>
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">4</span>
+                <div class="research-search-title">Wait for checks</div>
+              </div>
+              <p class="research-search-copy">Run project checks locally and wait for GitHub checks before calling the run clean.</p>
+            </div>
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">5</span>
+                <div class="research-search-title">Merge only safe runs</div>
+              </div>
+              <p class="research-search-copy">Merge routine data, workbook, and brief changes only when the project allows it and checks pass.</p>
+            </div>
+            <div class="research-search-step">
+              <div class="research-search-step-top">
+                <span class="research-search-number">6</span>
+                <div class="research-search-title">Tell the owner</div>
+              </div>
+              <p class="research-search-copy">Comment on the PR or send the configured message with changed rows, blockers, final links, and the requested action.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="research-process-label">What to set up in GitHub</div>
+          <div class="research-setup-questions" aria-label="GitHub setup checklist">
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">1</span>
+                <div class="research-setup-question-title">Protect main</div>
+              </div>
+              <p class="research-setup-question-copy">Require a pull request and the project checks before changes can land.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">2</span>
+                <div class="research-setup-question-title">Give the bot access</div>
+              </div>
+              <p class="research-setup-question-copy">Use a GitHub App or token that can push branches, open PRs, comment, read checks, and merge when allowed.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">3</span>
+                <div class="research-setup-question-title">Add the checks</div>
+              </div>
+              <p class="research-setup-question-copy">Run the project research checker, tests, workbook readback, and spec checks when specs changed.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">4</span>
+                <div class="research-setup-question-title">Choose merge rules</div>
+              </div>
+              <p class="research-setup-question-copy">Let routine research data merge after checks, but keep scope, skill, and spec changes open for owner review.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">5</span>
+                <div class="research-setup-question-title">Choose messages</div>
+              </div>
+              <p class="research-setup-question-copy">Decide where the owner gets notified: PR comment, issue comment, GitHub mention, email bridge, or another receipt.</p>
+            </div>
+            <div class="research-setup-question">
+              <div class="research-setup-question-top">
+                <span class="research-setup-number">6</span>
+                <div class="research-setup-question-title">Record blockers</div>
+              </div>
+              <p class="research-setup-question-copy">If checks, auth, merge rules, or notifications fail, save the exact blocker instead of pretending the run finished.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>How we know it worked</h2>
+      <table class="status-table">
+        <thead><tr><th>Proof</th><th>What it must show</th><th>Checked by</th></tr></thead>
+        <tbody>
+          <tr><td>Run note, source snapshots, saved records, rejections, checked-area status, final view, and brief.</td><td>A reviewer can tell what was searched, what changed, what was rejected, what is blocked, and where the final view is.</td><td>Research checker.</td></tr>
+          <tr><td>Project checks and final-view check pass.</td><td>The saved data and final view match, duplicates are handled, wrong rows stay out, and links can be inspected.</td><td>Research checker.</td></tr>
+          <tr><td>PR, merge note, message note, or clear blocker.</td><td>The owner has a real publish path. Scheduled runs do not assume direct-to-main changes.</td><td>Research checker.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>When to fix the system</h2>
+      <p>If a run makes a messy view, skips sources, labels things wrong, or stops without proof, fix the smallest part that caused it: the source list, save rules, file maker, checker, grading rule, skill, or this shared job. Do not just patch the next prompt if the same mistake will happen again.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Research Workflow - simple guide for repeatable research</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

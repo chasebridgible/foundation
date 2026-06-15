@@ -1,6 +1,6 @@
 {
   "schema": "foundation.visible-business-graph.v1",
-  "generatedAt": "2026-06-15T04:00:46.824Z",
+  "generatedAt": "2026-06-15T16:30:18.044Z",
   "repoName": "foundation",
   "sources": [
     {
@@ -868,29 +868,56 @@
       "confidence": "high"
     },
     {
-      "specId": "foundation.research-corpus-refresh.eval",
-      "title": "Research Corpus Refresh Eval",
+      "specId": "foundation.research.eval",
+      "title": "Research Workflow Eval",
       "type": "eval",
-      "file": "docs/specs/research-corpus-refresh-eval.html",
+      "file": "docs/specs/research-eval.html",
       "canonicalSection": "verification-contract",
       "status": "active",
       "confidence": "medium"
     },
     {
-      "specId": "foundation.research-corpus-refresh.technical",
-      "title": "Research Corpus Refresh Technical",
+      "specId": "foundation.research.technical",
+      "title": "Research Workflow Technical",
       "type": "technical",
-      "file": "docs/specs/research-corpus-refresh-technical.html",
+      "file": "docs/specs/research-technical.html",
       "canonicalSection": "required-depth",
       "status": "active",
       "confidence": "medium"
     },
     {
-      "specId": "foundation.research-corpus-refresh.job",
-      "title": "Research Corpus Refresh",
+      "specId": "foundation.research.job",
+      "title": "Research Workflow",
       "type": "job",
-      "file": "docs/specs/research-corpus-refresh.html",
+      "file": "docs/specs/research.html",
       "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.shift-clock.eval",
+      "title": "Shift Clock Eval",
+      "type": "eval",
+      "file": "docs/specs/shift-clock-eval.html",
+      "canonicalSection": "verification-contract",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.shift-clock.technical",
+      "title": "Shift Clock Technical",
+      "type": "technical",
+      "file": "docs/specs/shift-clock-technical.html",
+      "canonicalSection": "required-depth",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.shift-clock.capability",
+      "title": "Shift Clock",
+      "type": "capability",
+      "file": "docs/specs/shift-clock.html",
+      "canonicalSection": "capability-intent",
       "status": "active",
       "confidence": "medium"
     },
@@ -1413,23 +1440,42 @@
       "sourceTitle": "Foundation HTML Docs Navigation"
     },
     {
-      "id": "actor:foundation.research-corpus-refresh.job:agent",
+      "id": "actor:foundation.research.job:agent",
       "type": "actor",
-      "label": "Research refresh agent",
+      "label": "Research agent",
       "source": {
-        "specId": "foundation.research-corpus-refresh.job",
+        "specId": "foundation.research.job",
         "sectionId": "job-intent"
       },
       "status": "active",
       "confidence": "medium",
       "attributes": {
         "actorKind": "agent-or-automation",
-        "generatedFrom": "foundation.research-corpus-refresh.job"
+        "generatedFrom": "foundation.research.job"
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.job",
-      "file": "docs/specs/research-corpus-refresh.html",
-      "sourceFile": "docs/specs/research-corpus-refresh.html",
-      "sourceTitle": "Research Corpus Refresh"
+      "ownerSpecId": "foundation.research.job",
+      "file": "docs/specs/research.html",
+      "sourceFile": "docs/specs/research.html",
+      "sourceTitle": "Research Workflow"
+    },
+    {
+      "id": "actor:foundation.shift-clock.capability:worker-supervisor",
+      "type": "actor",
+      "label": "Worker and supervisor agents",
+      "source": {
+        "specId": "foundation.shift-clock.capability",
+        "sectionId": "interfaces-and-sources"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "agent",
+        "generatedFrom": "foundation.shift-clock.capability"
+      },
+      "ownerSpecId": "foundation.shift-clock.capability",
+      "file": "docs/specs/shift-clock.html",
+      "sourceFile": "docs/specs/shift-clock.html",
+      "sourceTitle": "Shift Clock"
     },
     {
       "id": "actor:foundation.workspace-model.job:primary",
@@ -1974,22 +2020,40 @@
       "sourceTitle": "Preserve Knowledge As Useful Context"
     },
     {
-      "id": "evidence:foundation.research-corpus-refresh.job:handoff",
+      "id": "evidence:foundation.research.job:handoff",
       "type": "evidence",
-      "label": "Research refresh handoff evidence",
+      "label": "Research handoff evidence",
       "source": {
-        "specId": "foundation.research-corpus-refresh.job",
+        "specId": "foundation.research.job",
         "sectionId": "evidence-and-evaluation"
       },
       "status": "active",
       "confidence": "medium",
       "attributes": {
-        "generatedFrom": "foundation.research-corpus-refresh.job"
+        "generatedFrom": "foundation.research.job"
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.job",
-      "file": "docs/specs/research-corpus-refresh.html",
-      "sourceFile": "docs/specs/research-corpus-refresh.html",
-      "sourceTitle": "Research Corpus Refresh"
+      "ownerSpecId": "foundation.research.job",
+      "file": "docs/specs/research.html",
+      "sourceFile": "docs/specs/research.html",
+      "sourceTitle": "Research Workflow"
+    },
+    {
+      "id": "evidence:foundation.shift-clock.capability:receipts",
+      "type": "evidence",
+      "label": "Shift clock evidence",
+      "source": {
+        "specId": "foundation.shift-clock.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.shift-clock.capability"
+      },
+      "ownerSpecId": "foundation.shift-clock.capability",
+      "file": "docs/specs/shift-clock.html",
+      "sourceFile": "docs/specs/shift-clock.html",
+      "sourceTitle": "Shift Clock"
     },
     {
       "id": "evidence:foundation.show-system-clearly.capability:primary",
@@ -2529,22 +2593,40 @@
       "sourceTitle": "Foundation HTML Docs Navigation"
     },
     {
-      "id": "process:foundation.research-corpus-refresh.job:main",
+      "id": "process:foundation.research.job:main",
       "type": "process",
-      "label": "Research corpus refresh loop",
+      "label": "Research workflow loop",
       "source": {
-        "specId": "foundation.research-corpus-refresh.job",
+        "specId": "foundation.research.job",
         "sectionId": "process"
       },
       "status": "active",
       "confidence": "medium",
       "attributes": {
-        "generatedFrom": "foundation.research-corpus-refresh.job"
+        "generatedFrom": "foundation.research.job"
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.job",
-      "file": "docs/specs/research-corpus-refresh.html",
-      "sourceFile": "docs/specs/research-corpus-refresh.html",
-      "sourceTitle": "Research Corpus Refresh"
+      "ownerSpecId": "foundation.research.job",
+      "file": "docs/specs/research.html",
+      "sourceFile": "docs/specs/research.html",
+      "sourceTitle": "Research Workflow"
+    },
+    {
+      "id": "process:foundation.shift-clock.capability:main",
+      "type": "process",
+      "label": "Shift clock operating contract",
+      "source": {
+        "specId": "foundation.shift-clock.capability",
+        "sectionId": "operating-contract"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "generatedFrom": "foundation.shift-clock.capability"
+      },
+      "ownerSpecId": "foundation.shift-clock.capability",
+      "file": "docs/specs/shift-clock.html",
+      "sourceFile": "docs/specs/shift-clock.html",
+      "sourceTitle": "Shift Clock"
     },
     {
       "id": "process:foundation.workspace-model.job:main",
@@ -4577,11 +4659,11 @@
       "sourceTitle": "System Graphs Are Inspectable"
     },
     {
-      "id": "spec:foundation.research-corpus-refresh.eval",
+      "id": "spec:foundation.research.eval",
       "type": "evaluation",
-      "label": "Research Corpus Refresh Eval",
+      "label": "Research Workflow Eval",
       "source": {
-        "specId": "foundation.research-corpus-refresh.eval",
+        "specId": "foundation.research.eval",
         "sectionId": "verification-contract"
       },
       "status": "active",
@@ -4592,20 +4674,20 @@
           "eval",
           "research",
           "automation",
-          "workbook"
+          "access-surface"
         ]
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.eval",
-      "file": "docs/specs/research-corpus-refresh-eval.html",
-      "sourceFile": "docs/specs/research-corpus-refresh-eval.html",
-      "sourceTitle": "Research Corpus Refresh Eval"
+      "ownerSpecId": "foundation.research.eval",
+      "file": "docs/specs/research-eval.html",
+      "sourceFile": "docs/specs/research-eval.html",
+      "sourceTitle": "Research Workflow Eval"
     },
     {
-      "id": "spec:foundation.research-corpus-refresh.job",
+      "id": "spec:foundation.research.job",
       "type": "job",
-      "label": "Research Corpus Refresh",
+      "label": "Research Workflow",
       "source": {
-        "specId": "foundation.research-corpus-refresh.job",
+        "specId": "foundation.research.job",
         "sectionId": "job-intent"
       },
       "status": "active",
@@ -4619,17 +4701,17 @@
           "agent-workflow"
         ]
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.job",
-      "file": "docs/specs/research-corpus-refresh.html",
-      "sourceFile": "docs/specs/research-corpus-refresh.html",
-      "sourceTitle": "Research Corpus Refresh"
+      "ownerSpecId": "foundation.research.job",
+      "file": "docs/specs/research.html",
+      "sourceFile": "docs/specs/research.html",
+      "sourceTitle": "Research Workflow"
     },
     {
-      "id": "spec:foundation.research-corpus-refresh.technical",
+      "id": "spec:foundation.research.technical",
       "type": "technical-contract",
-      "label": "Research Corpus Refresh Technical",
+      "label": "Research Workflow Technical",
       "source": {
-        "specId": "foundation.research-corpus-refresh.technical",
+        "specId": "foundation.research.technical",
         "sectionId": "required-depth"
       },
       "status": "active",
@@ -4640,14 +4722,86 @@
           "technical",
           "research",
           "automation",
-          "jsonl",
-          "workbook"
+          "storage",
+          "access-surface"
         ]
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.technical",
-      "file": "docs/specs/research-corpus-refresh-technical.html",
-      "sourceFile": "docs/specs/research-corpus-refresh-technical.html",
-      "sourceTitle": "Research Corpus Refresh Technical"
+      "ownerSpecId": "foundation.research.technical",
+      "file": "docs/specs/research-technical.html",
+      "sourceFile": "docs/specs/research-technical.html",
+      "sourceTitle": "Research Workflow Technical"
+    },
+    {
+      "id": "spec:foundation.shift-clock.capability",
+      "type": "capability",
+      "label": "Shift Clock",
+      "source": {
+        "specId": "foundation.shift-clock.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "agent-workflow",
+          "long-running",
+          "shift-clock"
+        ]
+      },
+      "ownerSpecId": "foundation.shift-clock.capability",
+      "file": "docs/specs/shift-clock.html",
+      "sourceFile": "docs/specs/shift-clock.html",
+      "sourceTitle": "Shift Clock"
+    },
+    {
+      "id": "spec:foundation.shift-clock.eval",
+      "type": "evaluation",
+      "label": "Shift Clock Eval",
+      "source": {
+        "specId": "foundation.shift-clock.eval",
+        "sectionId": "verification-contract"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "eval",
+        "tags": [
+          "eval",
+          "agent-workflow",
+          "long-running",
+          "shift-clock"
+        ]
+      },
+      "ownerSpecId": "foundation.shift-clock.eval",
+      "file": "docs/specs/shift-clock-eval.html",
+      "sourceFile": "docs/specs/shift-clock-eval.html",
+      "sourceTitle": "Shift Clock Eval"
+    },
+    {
+      "id": "spec:foundation.shift-clock.technical",
+      "type": "technical-contract",
+      "label": "Shift Clock Technical",
+      "source": {
+        "specId": "foundation.shift-clock.technical",
+        "sectionId": "required-depth"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "technical",
+        "tags": [
+          "technical",
+          "agent-workflow",
+          "long-running",
+          "shift-clock"
+        ]
+      },
+      "ownerSpecId": "foundation.shift-clock.technical",
+      "file": "docs/specs/shift-clock-technical.html",
+      "sourceFile": "docs/specs/shift-clock-technical.html",
+      "sourceTitle": "Shift Clock Technical"
     },
     {
       "id": "spec:foundation.show-system-clearly.capability",
@@ -8881,6 +9035,17 @@
       "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
     },
     {
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:contains:spec:foundation.shift-clock.capability",
+      "type": "contains",
+      "from": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "spec:foundation.shift-clock.capability",
+      "source": {
+        "specId": "foundation.make-outstanding-work-repeatable.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
+    },
+    {
       "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:depends-on:spec:foundation.operating-system.system",
       "type": "depends-on",
       "from": "spec:foundation.make-outstanding-work-repeatable.capability",
@@ -8903,10 +9068,10 @@
       "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
     },
     {
-      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:realized-by:spec:foundation.research-corpus-refresh.job",
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:realized-by:spec:foundation.research.job",
       "type": "realized-by",
       "from": "spec:foundation.make-outstanding-work-repeatable.capability",
-      "to": "spec:foundation.research-corpus-refresh.job",
+      "to": "spec:foundation.research.job",
       "source": {
         "specId": "foundation.make-outstanding-work-repeatable.capability",
         "sectionId": "jobs"
@@ -9233,114 +9398,235 @@
       "ownerSpecId": "foundation.render-inspectable-system-graph.capability"
     },
     {
-      "id": "edge:spec:foundation.research-corpus-refresh.eval:depends-on:spec:foundation.research-corpus-refresh.job",
+      "id": "edge:spec:foundation.research.eval:depends-on:spec:foundation.research.job",
       "type": "depends-on",
-      "from": "spec:foundation.research-corpus-refresh.eval",
-      "to": "spec:foundation.research-corpus-refresh.job",
+      "from": "spec:foundation.research.eval",
+      "to": "spec:foundation.research.job",
       "source": {
-        "specId": "foundation.research-corpus-refresh.eval",
+        "specId": "foundation.research.eval",
         "sectionId": "verification-contract"
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.eval"
+      "ownerSpecId": "foundation.research.eval"
     },
     {
-      "id": "edge:spec:foundation.research-corpus-refresh.eval:depends-on:spec:foundation.research-corpus-refresh.technical",
+      "id": "edge:spec:foundation.research.eval:depends-on:spec:foundation.research.technical",
       "type": "depends-on",
-      "from": "spec:foundation.research-corpus-refresh.eval",
-      "to": "spec:foundation.research-corpus-refresh.technical",
+      "from": "spec:foundation.research.eval",
+      "to": "spec:foundation.research.technical",
       "source": {
-        "specId": "foundation.research-corpus-refresh.eval",
+        "specId": "foundation.research.eval",
         "sectionId": "acceptance-mapping"
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.eval"
+      "ownerSpecId": "foundation.research.eval"
     },
     {
-      "id": "edge:spec:foundation.research-corpus-refresh.job:depends-on:spec:foundation.research-corpus-refresh.technical",
+      "id": "edge:spec:foundation.research.job:depends-on:spec:foundation.research.technical",
       "type": "depends-on",
-      "from": "spec:foundation.research-corpus-refresh.job",
-      "to": "spec:foundation.research-corpus-refresh.technical",
+      "from": "spec:foundation.research.job",
+      "to": "spec:foundation.research.technical",
       "source": {
-        "specId": "foundation.research-corpus-refresh.job",
+        "specId": "foundation.research.job",
         "sectionId": "context-tools-and-interfaces"
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.job"
+      "ownerSpecId": "foundation.research.job"
     },
     {
-      "id": "edge:spec:foundation.research-corpus-refresh.job:evidenced-by:evidence:foundation.research-corpus-refresh.job:handoff",
-      "type": "evidenced-by",
-      "from": "spec:foundation.research-corpus-refresh.job",
-      "to": "evidence:foundation.research-corpus-refresh.job:handoff",
+      "id": "edge:spec:foundation.research.job:depends-on:spec:foundation.shift-clock.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.research.job",
+      "to": "spec:foundation.shift-clock.capability",
       "source": {
-        "specId": "foundation.research-corpus-refresh.job",
-        "sectionId": "evidence-and-evaluation"
-      },
-      "ownerSpecId": "foundation.research-corpus-refresh.job"
-    },
-    {
-      "id": "edge:spec:foundation.research-corpus-refresh.job:has-process:process:foundation.research-corpus-refresh.job:main",
-      "type": "has-process",
-      "from": "spec:foundation.research-corpus-refresh.job",
-      "to": "process:foundation.research-corpus-refresh.job:main",
-      "source": {
-        "specId": "foundation.research-corpus-refresh.job",
+        "specId": "foundation.research.job",
         "sectionId": "process"
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.job"
+      "ownerSpecId": "foundation.research.job"
     },
     {
-      "id": "edge:spec:foundation.research-corpus-refresh.job:performed-by:actor:foundation.research-corpus-refresh.job:agent",
-      "type": "performed-by",
-      "from": "spec:foundation.research-corpus-refresh.job",
-      "to": "actor:foundation.research-corpus-refresh.job:agent",
+      "id": "edge:spec:foundation.research.job:evidenced-by:evidence:foundation.research.job:handoff",
+      "type": "evidenced-by",
+      "from": "spec:foundation.research.job",
+      "to": "evidence:foundation.research.job:handoff",
       "source": {
-        "specId": "foundation.research-corpus-refresh.job",
-        "sectionId": "job-intent"
-      },
-      "ownerSpecId": "foundation.research-corpus-refresh.job"
-    },
-    {
-      "id": "edge:spec:foundation.research-corpus-refresh.job:supports:spec:foundation.make-outstanding-work-repeatable.capability",
-      "type": "supports",
-      "from": "spec:foundation.research-corpus-refresh.job",
-      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
-      "source": {
-        "specId": "foundation.research-corpus-refresh.job",
-        "sectionId": "capability-supported"
-      },
-      "ownerSpecId": "foundation.research-corpus-refresh.job"
-    },
-    {
-      "id": "edge:spec:foundation.research-corpus-refresh.job:supports:spec:foundation.research-corpus-refresh.eval",
-      "type": "supports",
-      "from": "spec:foundation.research-corpus-refresh.job",
-      "to": "spec:foundation.research-corpus-refresh.eval",
-      "source": {
-        "specId": "foundation.research-corpus-refresh.job",
+        "specId": "foundation.research.job",
         "sectionId": "evidence-and-evaluation"
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.job"
+      "ownerSpecId": "foundation.research.job"
     },
     {
-      "id": "edge:spec:foundation.research-corpus-refresh.technical:depends-on:spec:foundation.research-corpus-refresh.job",
-      "type": "depends-on",
-      "from": "spec:foundation.research-corpus-refresh.technical",
-      "to": "spec:foundation.research-corpus-refresh.job",
+      "id": "edge:spec:foundation.research.job:has-process:process:foundation.research.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.research.job",
+      "to": "process:foundation.research.job:main",
       "source": {
-        "specId": "foundation.research-corpus-refresh.technical",
+        "specId": "foundation.research.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.research.job"
+    },
+    {
+      "id": "edge:spec:foundation.research.job:performed-by:actor:foundation.research.job:agent",
+      "type": "performed-by",
+      "from": "spec:foundation.research.job",
+      "to": "actor:foundation.research.job:agent",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "job-intent"
+      },
+      "ownerSpecId": "foundation.research.job"
+    },
+    {
+      "id": "edge:spec:foundation.research.job:supports:spec:foundation.make-outstanding-work-repeatable.capability",
+      "type": "supports",
+      "from": "spec:foundation.research.job",
+      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "capability-supported"
+      },
+      "ownerSpecId": "foundation.research.job"
+    },
+    {
+      "id": "edge:spec:foundation.research.job:supports:spec:foundation.research.eval",
+      "type": "supports",
+      "from": "spec:foundation.research.job",
+      "to": "spec:foundation.research.eval",
+      "source": {
+        "specId": "foundation.research.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.research.job"
+    },
+    {
+      "id": "edge:spec:foundation.research.technical:depends-on:spec:foundation.research.job",
+      "type": "depends-on",
+      "from": "spec:foundation.research.technical",
+      "to": "spec:foundation.research.job",
+      "source": {
+        "specId": "foundation.research.technical",
         "sectionId": "capability-contract"
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.technical"
+      "ownerSpecId": "foundation.research.technical"
     },
     {
-      "id": "edge:spec:foundation.research-corpus-refresh.technical:supports:spec:foundation.research-corpus-refresh.eval",
+      "id": "edge:spec:foundation.research.technical:supports:spec:foundation.research.eval",
       "type": "supports",
-      "from": "spec:foundation.research-corpus-refresh.technical",
-      "to": "spec:foundation.research-corpus-refresh.eval",
+      "from": "spec:foundation.research.technical",
+      "to": "spec:foundation.research.eval",
       "source": {
-        "specId": "foundation.research-corpus-refresh.technical",
+        "specId": "foundation.research.technical",
         "sectionId": "paths-and-coverage"
       },
-      "ownerSpecId": "foundation.research-corpus-refresh.technical"
+      "ownerSpecId": "foundation.research.technical"
+    },
+    {
+      "id": "edge:spec:foundation.shift-clock.capability:depends-on:spec:foundation.make-outstanding-work-repeatable.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.shift-clock.capability",
+      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "source": {
+        "specId": "foundation.shift-clock.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.shift-clock.capability"
+    },
+    {
+      "id": "edge:spec:foundation.shift-clock.capability:depends-on:spec:foundation.shift-clock.technical",
+      "type": "depends-on",
+      "from": "spec:foundation.shift-clock.capability",
+      "to": "spec:foundation.shift-clock.technical",
+      "source": {
+        "specId": "foundation.shift-clock.capability",
+        "sectionId": "interfaces-and-sources"
+      },
+      "ownerSpecId": "foundation.shift-clock.capability"
+    },
+    {
+      "id": "edge:spec:foundation.shift-clock.capability:evidenced-by:evidence:foundation.shift-clock.capability:receipts",
+      "type": "evidenced-by",
+      "from": "spec:foundation.shift-clock.capability",
+      "to": "evidence:foundation.shift-clock.capability:receipts",
+      "source": {
+        "specId": "foundation.shift-clock.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.shift-clock.capability"
+    },
+    {
+      "id": "edge:spec:foundation.shift-clock.capability:has-process:process:foundation.shift-clock.capability:main",
+      "type": "has-process",
+      "from": "spec:foundation.shift-clock.capability",
+      "to": "process:foundation.shift-clock.capability:main",
+      "source": {
+        "specId": "foundation.shift-clock.capability",
+        "sectionId": "operating-contract"
+      },
+      "ownerSpecId": "foundation.shift-clock.capability"
+    },
+    {
+      "id": "edge:spec:foundation.shift-clock.capability:performed-by:actor:foundation.shift-clock.capability:worker-supervisor",
+      "type": "performed-by",
+      "from": "spec:foundation.shift-clock.capability",
+      "to": "actor:foundation.shift-clock.capability:worker-supervisor",
+      "source": {
+        "specId": "foundation.shift-clock.capability",
+        "sectionId": "interfaces-and-sources"
+      },
+      "ownerSpecId": "foundation.shift-clock.capability"
+    },
+    {
+      "id": "edge:spec:foundation.shift-clock.capability:supports:spec:foundation.shift-clock.eval",
+      "type": "supports",
+      "from": "spec:foundation.shift-clock.capability",
+      "to": "spec:foundation.shift-clock.eval",
+      "source": {
+        "specId": "foundation.shift-clock.capability",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.shift-clock.capability"
+    },
+    {
+      "id": "edge:spec:foundation.shift-clock.eval:depends-on:spec:foundation.shift-clock.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.shift-clock.eval",
+      "to": "spec:foundation.shift-clock.capability",
+      "source": {
+        "specId": "foundation.shift-clock.eval",
+        "sectionId": "verification-contract"
+      },
+      "ownerSpecId": "foundation.shift-clock.eval"
+    },
+    {
+      "id": "edge:spec:foundation.shift-clock.eval:depends-on:spec:foundation.shift-clock.technical",
+      "type": "depends-on",
+      "from": "spec:foundation.shift-clock.eval",
+      "to": "spec:foundation.shift-clock.technical",
+      "source": {
+        "specId": "foundation.shift-clock.eval",
+        "sectionId": "acceptance-mapping"
+      },
+      "ownerSpecId": "foundation.shift-clock.eval"
+    },
+    {
+      "id": "edge:spec:foundation.shift-clock.technical:depends-on:spec:foundation.shift-clock.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.shift-clock.technical",
+      "to": "spec:foundation.shift-clock.capability",
+      "source": {
+        "specId": "foundation.shift-clock.technical",
+        "sectionId": "capability-contract"
+      },
+      "ownerSpecId": "foundation.shift-clock.technical"
+    },
+    {
+      "id": "edge:spec:foundation.shift-clock.technical:supports:spec:foundation.shift-clock.eval",
+      "type": "supports",
+      "from": "spec:foundation.shift-clock.technical",
+      "to": "spec:foundation.shift-clock.eval",
+      "source": {
+        "specId": "foundation.shift-clock.technical",
+        "sectionId": "paths-and-coverage"
+      },
+      "ownerSpecId": "foundation.shift-clock.technical"
     },
     {
       "id": "edge:spec:foundation.show-system-clearly.capability:contains:spec:foundation.render-inspectable-system-graph.capability",
@@ -10425,9 +10711,9 @@
     }
   ],
   "summary": {
-    "specCount": 110,
-    "nodeCount": 197,
-    "edgeCount": 463,
+    "specCount": 113,
+    "nodeCount": 203,
+    "edgeCount": 475,
     "validation": {
       "pass": 1,
       "warn": 0,
