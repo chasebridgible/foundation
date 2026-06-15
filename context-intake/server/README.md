@@ -5,7 +5,7 @@ FastAPI service for local Omi memory webhook intake.
 Run:
 
 ```bash
-uvicorn app:app --app-dir context-intake/server --host 127.0.0.1 --port 8765
+uvicorn app:app --app-dir context-intake/server --host 127.0.0.1 --port 8765 --no-access-log
 ```
 
 Run core tests without FastAPI installed:
