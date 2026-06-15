@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.knowledge-data-layer.system">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="draft">
-<meta name="spec:last-updated" content="2026-06-06">
+<meta name="spec:last-updated" content="2026-06-15">
 <title>Knowledge Stays Useful As Context</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,12 +16,13 @@
   "title": "Knowledge Stays Useful As Context",
   "type": "capability",
   "status": "draft",
-  "lastUpdated": "2026-06-06",
+  "lastUpdated": "2026-06-15",
   "reviewCadence": "on-trigger",
   "confidence": "medium",
   "parent": "foundation.preserve-knowledge-context.capability",
   "children": [
-    "foundation.business-intake-fill-loop.job"
+    "foundation.business-intake-fill-loop.job",
+    "foundation.context-intake.job"
   ],
   "relatedSpecs": [
     {
@@ -70,6 +71,15 @@
     },
     {
       "id": "foundation.business-intake-fill-loop.job",
+      "relationship": "child",
+      "sections": [
+        "job-intent",
+        "process",
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "foundation.context-intake.job",
       "relationship": "child",
       "sections": [
         "job-intent",
@@ -205,6 +215,16 @@
       "type": "realized-by",
       "from": "spec:foundation.knowledge-data-layer.system",
       "to": "spec:foundation.business-intake-fill-loop.job",
+      "source": {
+        "specId": "foundation.knowledge-data-layer.system",
+        "sectionId": "product-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.knowledge-data-layer.system:realized-by:spec:foundation.context-intake.job",
+      "type": "realized-by",
+      "from": "spec:foundation.knowledge-data-layer.system",
+      "to": "spec:foundation.context-intake.job",
       "source": {
         "specId": "foundation.knowledge-data-layer.system",
         "sectionId": "product-intent"
