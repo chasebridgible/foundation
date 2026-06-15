@@ -61,6 +61,6 @@ No principles-doc patch was made.
 
 ## Merge And Notification State
 
-PR state: PR 68 is open at `https://github.com/chasebridgible/foundation/pull/68` on branch `codex/agent-capability-scout-20260615-01`. The branch was pushed with validated routine scout state and no principles-doc patch. The required `Spec registry and metadata` check was running when the PR receipt was recorded.
+Merged state: PR 68 merged at `2026-06-15T05:09:51Z` after the required `Spec registry and metadata` check passed. The merged run is routine scout state with no principles-doc patch.
 
 Notification state: the GitHub App notification was sent to PR 68 as `foundation-scout-notifier[bot]` at `https://github.com/chasebridgible/foundation/pull/68#issuecomment-4704748000` and mentioned `@chasebridgible`.
