@@ -22,3 +22,6 @@
 - If a webhook was duplicated, the payload hash and Omi id prevent duplicate
   normalized rows.
 - If a payload cannot be normalized, keep the raw file and inspect the API logs.
+- Real-time transcript and audio bytes webhooks are raw-only in v1. They are
+  retained for later processing but do not create notes unless a future version
+  adds session buffering or local transcription.

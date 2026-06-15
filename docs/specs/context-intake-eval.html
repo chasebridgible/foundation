@@ -117,10 +117,11 @@
       <table class="status-table">
         <thead><tr><th>ID</th><th>Condition</th><th>Maps to</th><th>Must prove</th></tr></thead>
         <tbody>
-          <tr><td>AC-1</td><td>A valid Omi payload creates raw local JSON, SQLite source/conversation/segment rows, and a draft note.</td><td><code>foundation.context-intake.job#process</code></td><td>Unit test creates all artifacts in a temporary workspace.</td></tr>
+          <tr><td>AC-1</td><td>A valid conversation-like Omi payload creates raw local JSON, SQLite source/conversation/segment rows, and a draft note.</td><td><code>foundation.context-intake.job#process</code></td><td>Unit test creates all artifacts in a temporary workspace.</td></tr>
           <tr><td>AC-2</td><td>Duplicate payloads do not duplicate records or overwrite reviewed local edits.</td><td><code>foundation.context-intake.technical#failure-modes</code></td><td>Unit test preserves edited note on duplicate ingest.</td></tr>
           <tr><td>AC-3</td><td>Regeneration can intentionally rewrite a note from retained raw payload.</td><td><code>foundation.context-intake.technical#contracts</code></td><td>Unit test calls regenerate and verifies updated note content.</td></tr>
           <tr><td>AC-4</td><td>Raw runtime data and secrets are ignored by git.</td><td><code>foundation.context-intake.technical#capability-contract</code></td><td>Manual git status and ignore inspection before handoff.</td></tr>
+          <tr><td>AC-5</td><td>Real-time transcript arrays and audio byte payloads are stored raw and acknowledged without note generation.</td><td><code>foundation.context-intake.technical#failure-modes</code></td><td>Unit tests cover JSON array and octet-stream payloads.</td></tr>
         </tbody>
       </table>
     </section>

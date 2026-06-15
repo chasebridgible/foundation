@@ -128,7 +128,7 @@
     <h3>Intent</h3>
     <p>This job makes conversation intake repeatable: Omi sends a processed memory payload, the Mac mini stores the source locally, and Foundation receives a draft note that can be reviewed before it becomes substrate.</p>
     <h3>Trigger</h3>
-    <p>The job starts when Omi calls the configured Memory Creation webhook for a completed conversation.</p>
+    <p>The job starts when Omi calls the configured Conversation events webhook for a completed conversation. Other Omi webhook slots may call the same endpoint and are retained raw unless they carry conversation-style JSON.</p>
   </section>
   <article class="doc-body">
     <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
@@ -159,7 +159,7 @@
     <section id="process" data-spec-section="process" data-section-type="process-contract">
       <h2>Process</h2>
       <ol>
-        <li><strong>Prepare:</strong> run the Mac mini service, Cloudflare Tunnel, SQLite runtime directory, and Omi memory webhook configuration.</li>
+        <li><strong>Prepare:</strong> run the Mac mini service, Tailscale Funnel, SQLite runtime directory, and Omi webhook configuration.</li>
         <li><strong>Validate:</strong> reject webhook calls with a missing or incorrect shared token.</li>
         <li><strong>Record:</strong> write raw JSON to ignored local storage and normalize source, conversation, transcript, and note rows into SQLite.</li>
         <li><strong>Draft:</strong> render a Markdown note with summary, action items, candidate signals, excerpts, and review checklist.</li>
@@ -172,7 +172,7 @@
       <table class="status-table">
         <thead><tr><th>Layer</th><th>Required detail</th><th>Source</th></tr></thead>
         <tbody>
-          <tr><td>Context</td><td>Omi processed memory payloads and Foundation review rules.</td><td><code>context-intake/docs/omi-setup.md</code>; <code>context-intake/docs/operator-runbook.md</code></td></tr>
+          <tr><td>Context</td><td>Omi conversation event, transcript, audio byte, and day summary payloads plus Foundation review rules.</td><td><code>context-intake/docs/omi-setup.md</code>; <code>context-intake/docs/operator-runbook.md</code></td></tr>
           <tr><td>Tools</td><td>Python FastAPI, SQLite, Cloudflare Tunnel, Omi Memory Creation webhook.</td><td><code>foundation.context-intake.technical</code></td></tr>
           <tr><td>Interfaces</td><td>Webhook endpoint, admin endpoints, draft note artifacts, local runtime database.</td><td><code>context-intake/docs/api.md</code></td></tr>
           <tr><td>Actor candidates</td><td>Software captures and drafts; a human or agent reviews and promotes.</td><td>Operator runbook and eval spec.</td></tr>

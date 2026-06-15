@@ -3,10 +3,10 @@ from __future__ import annotations
 import sqlite3
 from typing import Any
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 
 from config import load_settings
-from intake_core import ingest_omi_memory_payload, list_recent_intakes, regenerate_note
+from intake_core import ingest_omi_webhook_request, list_recent_intakes, regenerate_note
 
 app = FastAPI(title="Foundation Context Intake", version="0.1.0")
 
@@ -32,20 +32,16 @@ def health() -> dict[str, Any]:
     }
 
 
-@app.post("/webhooks/omi/memory/{webhook_token}")
-def receive_omi_memory(webhook_token: str, payload: dict[str, Any]) -> dict[str, Any]:
+@app.post("/webhooks/omi/{event_type}/{webhook_token}")
+async def receive_omi_webhook(event_type: str, webhook_token: str, request: Request) -> dict[str, Any]:
     settings = load_settings()
     if not settings.webhook_token or webhook_token != settings.webhook_token:
         raise HTTPException(status_code=401, detail="Invalid webhook token")
 
-    result = ingest_omi_memory_payload(settings, payload)
-    return {
-        "ok": True,
-        "source_id": result["source_id"],
-        "conversation_id": result["conversation_id"],
-        "note_path": result["note_path"],
-        "created_note": result["created_note"],
-    }
+    body = await request.body()
+    content_type = request.headers.get("content-type", "")
+    result = ingest_omi_webhook_request(settings, event_type=event_type, content_type=content_type, body=body)
+    return {"ok": True, **result}
 
 
 @app.get("/admin/intakes")

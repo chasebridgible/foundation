@@ -1,8 +1,9 @@
 # Omi Setup
 
-V1 uses Omi's Memory Creation webhook. This waits until Omi has processed a
-conversation and created the memory payload, which is better for grouped notes
-than segment-by-segment real-time transcript delivery.
+V1 should use Omi's **Conversation events** webhook as the primary note-producing
+trigger. If the app also offers real-time transcript, audio bytes, and day
+summary webhooks, they can point at the same URL. The server will acknowledge
+and store them raw; conversation-style JSON and day summaries can create notes.
 
 ## Configure
 
@@ -30,6 +31,14 @@ than segment-by-segment real-time transcript delivery.
    ```text
    https://<public-tunnel-url>/webhooks/omi/memory/<CONTEXT_INTAKE_WEBHOOK_TOKEN>
    ```
+
+   If the Omi app asks for specific webhook slots instead of "Memory Creation",
+   paste the same URL into:
+
+   - Conversation events
+   - Real-time transcript
+   - Audio bytes
+   - Day summary
 
 5. Trigger a memory webhook from an existing Omi memory or complete a short test
    conversation.

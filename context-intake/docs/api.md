@@ -12,14 +12,19 @@ Cloudflare Tunnel should expose the same service over HTTPS for Omi.
 
 Returns service status and whether required paths/tokens are configured.
 
-## `POST /webhooks/omi/memory/{webhook_token}`
+## `POST /webhooks/omi/{event_type}/{webhook_token}`
 
-Primary Omi webhook endpoint. The token must match
-`CONTEXT_INTAKE_WEBHOOK_TOKEN`.
+Primary Omi webhook endpoint. The token must match `CONTEXT_INTAKE_WEBHOOK_TOKEN`.
 
-Request body is the Omi memory creation webhook payload. The service stores the
-raw JSON under `runtime/raw/`, normalizes the conversation fields into SQLite,
-and creates a draft note under `context-intake/notes/`.
+Use this one endpoint for Omi's webhook slots:
+
+- Conversation events: note-producing when payload includes conversation-style fields.
+- Real-time transcript: stored raw in v1, acknowledged without note generation.
+- Audio bytes: stored raw binary in v1, acknowledged without note generation.
+- Day summary: note-producing when payload includes `summary_json`.
+
+The service stores raw payloads under `runtime/raw/`. Conversation-like JSON is
+also normalized into SQLite and creates a draft note under `context-intake/notes/`.
 
 ## `GET /admin/intakes?token=<admin_token>`
 
