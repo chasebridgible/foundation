@@ -1,7 +1,7 @@
 # Agent Capability Scout brief - 2026-06-17
 
 Run ID: `2026-06-17-agent-scout-01`
-Status: complete, pending PR closeout
+Status: complete, PR open for owner review
 Source registry version: `2026-06-05`
 Branch: `codex/agent-capability-scout-20260617-01`
 
@@ -51,5 +51,6 @@ Branch: `codex/agent-capability-scout-20260617-01`
 
 ## Publish state
 
-Merge state: `pr-open` until the protected GitHub flow completes or owner review decides the principles-doc patch.
-Notification state: pending until PR exists and GitHub App comment is sent or a blocker is recorded.
+PR: https://github.com/chasebridgible/foundation/pull/74
+Merge state: `pr-open`; left open because this run proposes a shared AI evals principles-doc patch.
+Notification state: sent by GitHub App comment at https://github.com/chasebridgible/foundation/pull/74#issuecomment-4731603929.
