@@ -60,6 +60,6 @@ No principles-doc patch was made.
 
 ## Merge And Notification State
 
-Merge state: pending publish. This run is routine scout state with no principles-doc patch, so it can merge once the protected GitHub flow completes and required checks pass.
+Merge state: PR 75 is open at `https://github.com/chasebridgible/foundation/pull/75`. This run is routine scout state with no principles-doc patch, so it can merge once the required GitHub checks pass.
 
-Notification state: pending PR creation and GitHub App notification.
+Notification state: the GitHub App notification was sent to PR 75 as `automated-worker-notifications[bot]` at `https://github.com/chasebridgible/foundation/pull/75#issuecomment-4752707588` and mentioned `@chasebridgible`.
