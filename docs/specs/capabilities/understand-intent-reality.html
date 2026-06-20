@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.understand-intent-reality.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-06">
+<meta name="spec:last-updated" content="2026-06-20">
 <title>Understand Intent And Reality</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,12 +16,13 @@
   "title": "Understand Intent And Reality",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-06",
+  "lastUpdated": "2026-06-20",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.operating-system.system",
   "children": [
-    "foundation.capture-business-system-intent.capability"
+    "foundation.capture-business-system-intent.capability",
+    "foundation.desired-information-can-be-found-and-recorded.capability"
   ],
   "relatedSpecs": [
     {
@@ -33,6 +34,14 @@
     },
     {
       "id": "foundation.capture-business-system-intent.capability",
+      "relationship": "child",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.desired-information-can-be-found-and-recorded.capability",
       "relationship": "child",
       "sections": [
         "capability-intent",
@@ -161,6 +170,16 @@
         "specId": "foundation.understand-intent-reality.capability",
         "sectionId": "jobs"
       }
+    },
+    {
+      "id": "edge:spec:foundation.understand-intent-reality.capability:contains:spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "type": "contains",
+      "from": "spec:foundation.understand-intent-reality.capability",
+      "to": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "source": {
+        "specId": "foundation.understand-intent-reality.capability",
+        "sectionId": "jobs"
+      }
     }
   ]
 }
@@ -192,7 +211,7 @@
     <p class="lede">Humans and agents can know what should happen, what is currently true, what is uncertain, and what question should be asked next.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-06</div>
+      <div><strong>Updated:</strong> 2026-06-20</div>
       <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
     </div>
   </section>
@@ -212,7 +231,7 @@
           <tr><td>Beneficiary</td><td>Humans, agents, and software systems using Foundation.</td><td>Foundation operating system goal.</td></tr>
           <tr><td>Reliable outcome</td><td>Humans and agents can know what should happen, what is currently true, what is uncertain, and what question should be asked next.</td><td>Capability remap plan.</td></tr>
           <tr><td>Capability altitude</td><td>Parent capability outcome family.</td><td><code>foundation.capability-map-remap.job</code></td></tr>
-          <tr><td>Child examples</td><td>Extract intent; understand a business; understand an existing repo; tell facts apart from guesses; name uncertainty; ask the next right question.</td><td>System capability workshop and remap table.</td></tr>
+          <tr><td>Child examples</td><td>Extract intent; find desired information; understand a business; understand an existing repo; tell facts apart from guesses; name uncertainty; ask the next right question.</td><td>System capability workshop and remap table.</td></tr>
           <tr><td>Failure mode</td><td>Work starts from vague intent, stale assumptions, or unverified reality.</td><td>Remap eval failure model.</td></tr>
         </tbody>
       </table>
@@ -225,6 +244,7 @@
         <thead><tr><th>Child capability or gap</th><th>Purpose</th><th>Status</th></tr></thead>
         <tbody>
           <tr><td><code>foundation.capture-business-system-intent.capability</code></td><td>Narrower reliable outcome under this parent family.</td><td>active or draft</td></tr>
+          <tr><td><code>foundation.desired-information-can-be-found-and-recorded.capability</code></td><td>Desired information can be found, evidenced, recorded, and shown for future use.</td><td>active</td></tr>
         </tbody>
       </table>
     </section>

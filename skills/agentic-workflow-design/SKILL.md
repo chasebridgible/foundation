@@ -31,9 +31,21 @@ Do not use this skill for ordinary code changes, one-off bug fixes, copy edits, 
 3. Choose the atomic unit of progress.
 4. Define the exact loop: select next unit, read bounded context, produce one artifact update, check, evaluate, revise to outstanding, record handoff, continue.
 5. Define outstanding for this workflow in observable terms.
-6. Decide what is enforced by AGENTS, the skill, specs, commands, validators, tests, and report state.
-7. Add tests or checks that fail when agents can close coarse, stale, unreviewed, or under-evaluated work.
-8. Update the owning job, technical, and eval specs before or alongside skill and validator changes.
+6. Decide whether the workflow needs bounded phase clocks, a shift clock, or no clock at all.
+7. Decide what is enforced by AGENTS, the skill, specs, commands, validators, tests, and report state.
+8. Add tests or checks that fail when agents can close coarse, stale, unreviewed, or under-evaluated work.
+9. Update the owning job, technical, and eval specs before or alongside skill and validator changes.
+
+## Long-Running Work
+
+When designing long-running workflows, make the time contract explicit:
+
+- Use a phase clock when a skill should allocate a bounded part of the run to one activity, such as 60 minutes of source collection followed by 15 minutes of review.
+- Use a shift clock when the task commits the agent to a work shift and the clock is an exit gate with current-run evidence.
+- Define what useful work means during each clocked segment before the segment starts.
+- Name the durable evidence each segment must leave: records, source statuses, validations, receipts, reports, or handoff notes.
+- Give the agent adjacent useful work for the moment when the obvious queue is exhausted.
+- Define the handoff criteria so the next actor can see what was attempted, what changed, what passed, what remains, and where to continue.
 
 ## Atomicity Fit
 
@@ -70,7 +82,7 @@ Revise the durable contracts, not only the local prompt.
 - Technical spec: artifacts, schemas, commands, validators, freshness, failure modes.
 - Eval spec: outstanding criteria, row/unit receipts, revision target semantics, anti-shortcut cases.
 - Skill: exact agent procedure, context boundary, exit criteria.
-- AGENTS.md: short routing rule or invariant only when broadly applicable.
+- AGENTS.md: short routing rule, work ethic reminder, or shift-clock invariant only when broadly applicable.
 - Tests/validators: proof that shortcuts, stale state, and under-reviewed work fail.
 
 ## Handoff
@@ -81,6 +93,7 @@ Report:
 - atomic unit chosen and why;
 - loop definition;
 - outstanding gate;
+- phase clock or shift clock expectations, when used;
 - enforcement locations changed;
 - tests or checks added;
 - remaining workflow risks or calibration needs.

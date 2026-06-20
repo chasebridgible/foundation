@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.long-running-agent-worker.job">
+<meta name="spec:type" content="job">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-20">
+<title>Long-Running Agent Worker</title>
+<link rel="stylesheet" href="./spec-system.css">
+<link rel="spec-registry" href="./index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.long-running-agent-worker.job",
+  "title": "Long-Running Agent Worker",
+  "type": "job",
+  "status": "active",
+  "lastUpdated": "2026-06-20",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.long-running-agent-work.capability",
+  "children": [],
+  "relatedSpecs": [
+    {
+      "id": "foundation.long-running-agent-work.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent",
+        "outcome-contract"
+      ]
+    },
+    {
+      "id": "foundation.shift-clock.capability",
+      "relationship": "depends-on",
+      "sections": [
+        "operating-contract",
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "foundation.shift-clock.technical",
+      "relationship": "depends-on",
+      "sections": [
+        "data-model",
+        "contracts"
+      ]
+    },
+    {
+      "id": "foundation.shift-clock.eval",
+      "relationship": "depends-on",
+      "sections": [
+        "verification-contract",
+        "acceptance-mapping"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/long-running-agent-worker.html",
+      "kind": "doc",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/long-running-agent-worker/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+      "kind": "workflow",
+      "ownership": "direct"
+    },
+    {
+      "path": "foundation/skills/watchful-agent-supervisor/agents/openai.yaml",
+      "kind": "config",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/AGENTS.md",
+      "kind": "config",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/docs/principles/agent-principles.html",
+      "kind": "doc",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/docs/specs/shift-clock.html",
+      "kind": "doc",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.long-running-agent-worker.job:worker-skill-validate",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+      "mapsTo": [
+        "foundation.long-running-agent-worker.job#process",
+        "foundation.long-running-agent-worker.job#evidence-and-evaluation"
+      ],
+      "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/long-running-agent-worker"
+    },
+    {
+      "id": "foundation.long-running-agent-worker.job:supervisor-skill-validate",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+      "mapsTo": [
+        "foundation.long-running-agent-worker.job#evidence-and-evaluation"
+      ],
+      "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/watchful-agent-supervisor"
+    },
+    {
+      "id": "foundation.long-running-agent-worker.job:spec-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.long-running-agent-worker.job#evidence-and-evaluation"
+      ],
+      "command": "npm run spec:check"
+    }
+  ],
+  "tags": [
+    "job",
+    "foundation",
+    "agents",
+    "long-running"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.long-running-agent-worker.job",
+  "nodes": [
+    {
+      "id": "spec:foundation.long-running-agent-worker.job",
+      "type": "job",
+      "label": "Long-Running Agent Worker",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "foundation",
+          "agents",
+          "long-running"
+        ]
+      }
+    },
+    {
+      "id": "process:foundation.long-running-agent-worker.job:main",
+      "type": "process",
+      "label": "Long-running worker loop",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
+      "id": "actor:foundation.long-running-agent-worker.job:agent",
+      "type": "actor",
+      "label": "Long-running worker or supervisor agent",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "agent"
+      }
+    },
+    {
+      "id": "evidence:foundation.long-running-agent-worker.job:handoff",
+      "type": "evidence",
+      "label": "Long-running handoff evidence",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "medium"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.long-running-agent-worker.job:supports:spec:foundation.long-running-agent-work.capability",
+      "type": "supports",
+      "from": "spec:foundation.long-running-agent-worker.job",
+      "to": "spec:foundation.long-running-agent-work.capability",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "capability-supported"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-worker.job:has-process:process:foundation.long-running-agent-worker.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.long-running-agent-worker.job",
+      "to": "process:foundation.long-running-agent-worker.job:main",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "process"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-worker.job:performed-by:actor:foundation.long-running-agent-worker.job:agent",
+      "type": "performed-by",
+      "from": "spec:foundation.long-running-agent-worker.job",
+      "to": "actor:foundation.long-running-agent-worker.job:agent",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "context-tools-and-interfaces"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-worker.job:evidenced-by:evidence:foundation.long-running-agent-worker.job:handoff",
+      "type": "evidenced-by",
+      "from": "spec:foundation.long-running-agent-worker.job",
+      "to": "evidence:foundation.long-running-agent-worker.job:handoff",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "evidence-and-evaluation"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-worker.job:depends-on:spec:foundation.shift-clock.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.long-running-agent-worker.job",
+      "to": "spec:foundation.shift-clock.capability",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "process"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">J</div>
+    <div>
+      <div class="sidebar-title">Long-Running Agent Worker</div>
+      <div class="sidebar-sub">job spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#job-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#capability-supported"><span class="nav-num">02</span>Capability</a>
+    <a class="nav-item" href="#current-handling"><span class="nav-num">03</span>Current</a>
+    <a class="nav-item" href="#proposed-handling"><span class="nav-num">04</span>Proposed</a>
+    <a class="nav-item" href="#process"><span class="nav-num">05</span>Process</a>
+    <a class="nav-item" href="#context-tools-and-interfaces"><span class="nav-num">06</span>Context</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">07</span>Evidence</a>
+    <a class="nav-item" href="#revision"><span class="nav-num">08</span>Revision</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="job-intent" data-spec-section="job-intent" data-section-type="job-intent" data-spec-canonical="true">
+    <div class="spec-eyebrow">foundation/docs/specs/long-running-agent-worker.html</div>
+    <h1>Long-Running Agent Worker</h1>
+    <p class="lede">This job gives agents a durable way to work for a long time: define the goal, preserve state, choose one bounded unit, produce evidence, check quality, and hand off clearly when the exit criteria are met.</p>
+    <h3>Intent</h3>
+    <p>Make long-duration agent labor reliable enough that another actor can inspect progress, resume the work, and judge whether the run honored its standard of completion.</p>
+    <h3>Trigger</h3>
+    <p>A user request, scheduled automation, subagent assignment, backfill, research pass, scout run, or other task expected to span long wall-clock time, context compaction, restart, or handoff.</p>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-supported" data-spec-section="capability-supported" data-section-type="capability-link">
+      <h2>Capability supported</h2>
+      <table class="status-table">
+        <thead><tr><th>Capability</th><th>How this job supports it</th><th>Evidence</th></tr></thead>
+        <tbody>
+          <tr><td><code>foundation.long-running-agent-work.capability</code></td><td>Provides the broad worker and supervisor procedures for sustained bounded work, durable state, validation, and handoff.</td><td>Worker skill, supervisor skill, handoff evidence, and domain checks.</td></tr>
+          <tr><td><code>foundation.shift-clock.capability</code></td><td>Applies the shift-clock primitive when a task includes committed work time.</td><td>Clock receipts, work-between-checks evidence, and final handoff.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="current-handling" data-spec-section="current-handling" data-section-type="current-state">
+      <h2>Current handling</h2>
+      <ul>
+        <li><strong>Current actors:</strong> Codex workers, subagents, scheduled automations, and watchful supervisors.</li>
+        <li><strong>Current path:</strong> long-running behavior has been spread across Research, Backfill, Shift Clock, and supervisor instructions.</li>
+        <li><strong>Need:</strong> the broad long-running worker contract should own the worker and supervisor skills, while domain jobs own their source schemas, validators, and final artifacts.</li>
+      </ul>
+    </section>
+
+    <section id="proposed-handling" data-spec-section="proposed-handling" data-section-type="proposed-state">
+      <h2>Proposed handling</h2>
+      <ul>
+        <li><strong>Worker path:</strong> load the governing rules, create or confirm the goal, set run state, work one bounded unit at a time, record evidence, validate material changes, and hand off from durable state.</li>
+        <li><strong>Supervisor path:</strong> observe durable state and thread evidence, steer only when needed, and debrief behavior against the workflow contract.</li>
+        <li><strong>Shift-clock path:</strong> when a clock is used, treat it as committed work time and an exit gate with sparse checks tied to real progress.</li>
+      </ul>
+    </section>
+
+    <section id="process" data-spec-section="process" data-section-type="process-contract">
+      <h2>Process</h2>
+      <ol>
+        <li><strong>Define the run:</strong> name the goal, standard of completion, run ID, branch or worktree, expected artifacts, validators, and handoff location.</li>
+        <li><strong>Load bounded context:</strong> read the local rules, owning skill, active spec, run state, queue, and only the source material needed for the next unit.</li>
+        <li><strong>Choose one unit:</strong> select one source, row, file, queue item, route, test failure, quality audit, or search family.</li>
+        <li><strong>Produce durable progress:</strong> write one accepted finding, rejection, no-result record, source status, code/spec patch, validation receipt, or handoff update.</li>
+        <li><strong>Check and revise:</strong> run the cheapest relevant check after material changes and revise the current unit until it meets the job standard or has a named blocker.</li>
+        <li><strong>Continue or close:</strong> select the next useful unit until the exit criteria are met, the shift clock permits closure, or a concrete blocker is recorded.</li>
+        <li><strong>Hand off:</strong> report run ID, branch, changed artifacts, validations, blockers, clock state when present, unresolved risks, and the exact continuation point.</li>
+      </ol>
+    </section>
+
+    <section id="context-tools-and-interfaces" data-spec-section="context-tools-and-interfaces" data-section-type="context">
+      <h2>Context, tools, and interfaces</h2>
+      <table class="status-table">
+        <thead><tr><th>Layer</th><th>Required detail</th><th>Owner</th></tr></thead>
+        <tbody>
+          <tr><td>Goal</td><td>Work definition and standard of completion before the loop starts.</td><td>User, harness, or worker.</td></tr>
+          <tr><td>Run state</td><td>Run ID, branch/worktree, queue, latest receipts, current blockers, and handoff location.</td><td>Worker job and domain job.</td></tr>
+          <tr><td>Clock</td><td>Phase clocks or shift clocks when the skill or task allocates committed time.</td><td>Shift Clock spec and domain implementation.</td></tr>
+          <tr><td>Validation</td><td>Domain checks, quick skill validation, spec checks, generated artifact readbacks, and reviewer evidence.</td><td>Owning domain job.</td></tr>
+          <tr><td>Handoff</td><td>Final status that another actor can trust without chat memory.</td><td>Worker and supervisor skills.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Acceptance condition</th><th>Revision target</th></tr></thead>
+        <tbody>
+          <tr><td>Run record and handoff name the goal, standard, state, artifacts, validations, blockers, and continuation point.</td><td>A future actor can resume from durable state without relying on chat memory.</td><td>Worker skill, handoff template, or domain job.</td></tr>
+          <tr><td>Each work unit has bounded context, durable output, and relevant check/eval evidence.</td><td>Progress is reviewable and cannot hide behind a broad final claim.</td><td>Domain validator, worker loop, or unit definition.</td></tr>
+          <tr><td>Supervisor debrief records behavior against state durability, clock use, validation, artifact boundaries, and handoff quality.</td><td>Long-running behavior can improve across runs.</td><td>Supervisor skill, eval spec, or AGENTS rule.</td></tr>
+          <tr><td>Skill validation, spec registry, spec check, capability-language check, and self-map check pass after ownership changes.</td><td>Foundation can route future agents to the correct capability and job.</td><td>Spec metadata, graph metadata, or owned paths.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="revision" data-spec-section="revision" data-section-type="maintenance">
+      <h2>Revision</h2>
+      <p>When a long-running run loses state, damages artifact boundaries, skips checks, hands off vaguely, or shows a better pattern, revise the smallest durable owner: AGENTS rule, worker skill, supervisor skill, shift-clock primitive, domain job spec, validator, or eval.</p>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Long-Running Agent Worker - Foundation job spec</p>
+</main>
+<script src="../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

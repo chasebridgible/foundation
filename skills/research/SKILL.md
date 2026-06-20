@@ -7,7 +7,7 @@ description: Run or implement repeatable research workflows that collect source-
 
 Use this skill when a project needs recurring or one-time research to become durable, reviewable, and repeatable.
 
-Owning capability: `foundation.make-outstanding-work-repeatable.capability`.
+Owning capability: `foundation.desired-information-can-be-found-and-recorded.capability`.
 Owning job: `foundation.research.job`.
 Technical spec: `foundation.research.technical`.
 Eval spec: `foundation.research.eval`.
@@ -64,12 +64,11 @@ When building or revising a project research system, ensure the project defines:
 When a run has a shift clock:
 
 - Start and persist the shift clock at the beginning of the run.
-- Treat the shift clock as an exit gate only.
-- Do not sleep, idle, or poll the clock as the main activity.
-- Check the shift clock only at natural handoff points, after a substantive work batch, or when the agent believes it is ready to exit.
-- If the shift clock is not expired, continue useful work by selecting new targets, expanding search terms, checking sources, improving records, validating exports, or tightening specs.
-- Final handoff must include shift-clock start, deadline, final expired result, check count, and evidence that earlier non-expired checks triggered more work.
-- Reports and briefs must only attach shift-clock status for the current run ID. Historical clock receipts remain evidence, but stale receipts must not appear as if they governed the current run.
+- Treat committed clock time as useful work time and the clock check as an exit gate.
+- Check the shift clock at natural handoff points, after a substantive work batch, or when the agent believes it is ready to exit.
+- When the shift clock is still open, continue useful work by selecting new targets, expanding search terms, checking sources, improving records, validating exports, or tightening specs.
+- Final handoff must include shift-clock start, deadline, final expired result, check count, and evidence that earlier open-clock checks led to more work.
+- Reports and briefs attach shift-clock status only for the current run ID. Historical clock receipts remain evidence for prior runs.
 - Legacy project commands or files may still be named `timer`; their specs should describe the behavior as a shift clock until those interfaces are renamed.
 
 ## Access Surface Rules

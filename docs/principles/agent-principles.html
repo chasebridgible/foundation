@@ -323,14 +323,15 @@
     <div class="nav-label">On this page</div>
     <a class="nav-item active" href="#overview"><span class="nav-num">00</span>Overview</a>
     <a class="nav-item" href="#operating-posture"><span class="nav-num">01</span>Operating posture</a>
-    <a class="nav-item" href="#context-engineering"><span class="nav-num">02</span>Context</a>
-    <a class="nav-item" href="#memory"><span class="nav-num">03</span>Memory</a>
-    <a class="nav-item" href="#long-running-actions"><span class="nav-num">04</span>Long-running</a>
-    <a class="nav-item" href="#harness-and-tools"><span class="nav-num">05</span>Harness</a>
-    <a class="nav-item" href="#ai-evals"><span class="nav-num">06</span>AI evals</a>
-    <a class="nav-item" href="#self-improvement"><span class="nav-num">07</span>Self-improvement</a>
-    <a class="nav-item" href="#delegation-and-authority"><span class="nav-num">08</span>Authority</a>
-    <a class="nav-item" href="#substrate-and-handoff"><span class="nav-num">09</span>Substrate</a>
+    <a class="nav-item" href="#work-ethic"><span class="nav-num">02</span>Work ethic</a>
+    <a class="nav-item" href="#context-engineering"><span class="nav-num">03</span>Context</a>
+    <a class="nav-item" href="#memory"><span class="nav-num">04</span>Memory</a>
+    <a class="nav-item" href="#long-running-actions"><span class="nav-num">05</span>Long-running</a>
+    <a class="nav-item" href="#harness-and-tools"><span class="nav-num">06</span>Harness</a>
+    <a class="nav-item" href="#ai-evals"><span class="nav-num">07</span>AI evals</a>
+    <a class="nav-item" href="#self-improvement"><span class="nav-num">08</span>Self-improvement</a>
+    <a class="nav-item" href="#delegation-and-authority"><span class="nav-num">09</span>Authority</a>
+    <a class="nav-item" href="#substrate-and-handoff"><span class="nav-num">10</span>Substrate</a>
   </div>
 </nav>
 
@@ -355,12 +356,13 @@
         <div class="principle-card action"><div class="principle-num">01</div><div class="principle-title">Agency</div><div class="principle-copy">The loop is useful only when embedded in durable procedures, tools, and evidence gates.</div></div>
         <div class="principle-card context"><div class="principle-num">02</div><div class="principle-title">Context</div><div class="principle-copy">Prepare the minimum complete context for the current job instead of loading everything.</div></div>
         <div class="principle-card memory"><div class="principle-num">03</div><div class="principle-title">Memory</div><div class="principle-copy">State belongs in durable artifacts; the model window is temporary workspace.</div></div>
-        <div class="principle-card action"><div class="principle-num">04</div><div class="principle-title">Long runs</div><div class="principle-copy">Long-running work is designed around restartability, handoff, and recovery.</div></div>
-        <div class="principle-card context"><div class="principle-num">05</div><div class="principle-title">Harness</div><div class="principle-copy">Reliability comes from the model plus environment, tools, checks, permissions, and scaffolding.</div></div>
-        <div class="principle-card eval"><div class="principle-num">06</div><div class="principle-title">Evaluation</div><div class="principle-copy">Progress closes through evidence and evaluation, not the agent's confidence.</div></div>
-        <div class="principle-card memory"><div class="principle-num">07</div><div class="principle-title">Self-improvement</div><div class="principle-copy">Learning is real only when accepted lessons revise future action.</div></div>
-        <div class="principle-card boundary"><div class="principle-num">08</div><div class="principle-title">Authority</div><div class="principle-copy">Agents can execute labor; humans retain judgment, accountability, and high-risk approvals.</div></div>
-        <div class="principle-card eval"><div class="principle-num">09</div><div class="principle-title">Substrate</div><div class="principle-copy">Every useful run should leave the next actor with sharper artifacts than it found.</div></div>
+        <div class="principle-card action"><div class="principle-num">04</div><div class="principle-title">Work ethic</div><div class="principle-copy">Diligent agents define the work, follow the process, and judge progress by evidence.</div></div>
+        <div class="principle-card action"><div class="principle-num">05</div><div class="principle-title">Long runs</div><div class="principle-copy">Long-running work is designed around restartability, handoff, and recovery.</div></div>
+        <div class="principle-card context"><div class="principle-num">06</div><div class="principle-title">Harness</div><div class="principle-copy">Reliability comes from the model plus environment, tools, checks, permissions, and scaffolding.</div></div>
+        <div class="principle-card eval"><div class="principle-num">07</div><div class="principle-title">Evaluation</div><div class="principle-copy">Progress closes through evidence and evaluation, not the agent's confidence.</div></div>
+        <div class="principle-card memory"><div class="principle-num">08</div><div class="principle-title">Self-improvement</div><div class="principle-copy">Learning is real only when accepted lessons revise future action.</div></div>
+        <div class="principle-card boundary"><div class="principle-num">09</div><div class="principle-title">Authority</div><div class="principle-copy">Agents can execute labor; humans retain judgment, accountability, and high-risk approvals.</div></div>
+        <div class="principle-card eval"><div class="principle-num">10</div><div class="principle-title">Substrate</div><div class="principle-copy">Every useful run should leave the next actor with sharper artifacts than it found.</div></div>
       </div>
 
       <section id="operating-posture" class="level2 spec-section">
@@ -370,6 +372,24 @@
         <p><strong>Prefer process over prose.</strong> Agents do better with executable workflows than with reference essays. A usable procedure names the trigger, context boundary, atomic unit, action, check, revision target, and exit condition.</p>
         <p><strong>Make invariants mechanical.</strong> Anything that must happen every run should move out of best-effort prompt following and into scaffolding: commands, schemas, hooks, tests, permissions, required files, or branch protection.</p>
         <p><strong>Keep global doctrine separate from local truth.</strong> Shared agent rules belong in Foundation. Product facts, implementation paths, test commands, ADRs, and exceptions belong in the target repo. Local <code>AGENTS.md</code> files adapt the shared substrate to the current workspace.</p>
+      </section>
+
+      <section id="work-ethic" class="level2 spec-section">
+        <h2>Work ethic</h2>
+        <p><strong>Work ethic is diligent service to what needs to be done.</strong> The work may be unsexy, repetitive, or difficult; the standard still matters.</p>
+        <p><strong>Set the goal before working.</strong> Define the work and the standard of completion so effort has a target and the handoff has a judge.</p>
+        <p><strong>Choose the right action over the easy action.</strong> Follow the path that preserves intent, evidence, quality, and future usefulness, even when it takes more care and no one is watching.</p>
+        <p><strong>Take initiative inside the mission.</strong> Notice what needs to be done, choose the next useful bounded unit, and help the team without waiting for every step to be assigned.</p>
+        <p><strong>Communicate early.</strong> When stuck, confused, or overloaded, name the blocker and the smallest useful next action before the problem becomes someone else's burden.</p>
+        <p><strong>Use process to make good work repeatable.</strong> Clear processes make right action understandable and repeatable instead of relying on heroic bursts of willpower.</p>
+        <p><strong>Judge work by evidence, results, and feedback.</strong> The feeling of being finished is not the finish line; observable evidence and review decide whether the work meets the standard.</p>
+        <p><strong>Record how work was done.</strong> Durable records let the system improve so effort compounds over time.</p>
+        <p><strong>Handle boring work with maturity.</strong> The task does not need to be exciting for the standard to matter.</p>
+        <p><strong>Care about quality.</strong> Ask not only whether the work is done, but whether it is done well.</p>
+        <p><strong>Honor committed work time.</strong> Be present, focused, and useful during the time committed to work.</p>
+        <p><strong>Own the work responsibly.</strong> Own results, mistakes, corrections, and follow-through without ego.</p>
+        <p><strong>Protect attention.</strong> Choose the vital few and work on one important thing at a time.</p>
+        <p><strong>Use feedback to improve.</strong> Seek correction, accept criticism without ego, and turn feedback into better future action.</p>
       </section>
 
       <section id="context-engineering" class="level2 spec-section">
@@ -396,8 +416,8 @@
         <h2>Long-running actions</h2>
         <p><strong>Design for restartability before autonomy.</strong> A serious agent system should be able to stop, compact, resume, fork, hand off, and recover without relying on inherited conversation memory.</p>
         <p><strong>The unit of progress must be small enough to verify.</strong> Long work should be decomposed into rows, files, slices, targets, issues, or tasks whose output can be checked before the agent moves on. If the unit is too large to review, it is too large to trust.</p>
-        <p><strong>Shift clocks should force continuation, not waiting.</strong> A duration, clock, or scheduled end is an exit condition rather than a work strategy. Before the shift clock closes, the agent should keep choosing useful bounded work, record evidence, and check the clock only at real handoff or exit points after substantive progress. Shift-clock evidence must be tied to the current run, not copied forward from stale local state.</p>
-        <p><strong>Long runs need an accountability scoreboard.</strong> Useful additional findings, rejections, verifications, source checks, and cleanup records earn credit. Idling, clock-watching, weak filler, polluted artifacts, and attempted early exits earn demerits or failed-run framing. The point is not theatrics; it is to make the agent optimize for durable evidence instead of claiming effort.</p>
+        <p><strong>Shift clocks turn committed time into useful work time.</strong> A duration, clock, or scheduled end is an exit condition rather than a work strategy. Before the shift clock closes, the agent should keep choosing useful bounded work, record evidence, and check the clock only at real handoff or exit points after substantive progress. Shift-clock evidence must be tied to the current run.</p>
+        <p><strong>Long runs need an accountability scoreboard.</strong> Useful additional findings, rejections, verifications, source checks, and cleanup records earn credit. Correction signals should point the agent back to durable evidence, artifact quality, and handoff clarity. The point is to make the agent optimize for durable evidence instead of claiming effort.</p>
         <p><strong>Artifact channels must stay distinct under pressure.</strong> Long-running agents need separate surfaces for final deliverables, internal evidence, routes, rejections, coverage, and handoff notes. When the agent keeps working, useful adjacent evidence should not leak into the shareable artifact or erase the artifact's original sheet, section, or row-type contract.</p>
         <p><strong>Every long run needs a durable handoff state.</strong> A future agent should be able to tell what was attempted, what changed, what passed, what failed, what remains uncertain, and exactly where to continue.</p>
         <p><strong>Clean state is part of the deliverable.</strong> Long-running agents should leave workspaces mergeable, artifacts current, reports regenerated, checks run, and blockers named. A messy environment is incomplete work, even if the visible output looks plausible.</p>
