@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="spec:id" content="foundation.desired-information-can-be-found-and-recorded.capability">
+<meta name="spec:type" content="capability">
+<meta name="spec:status" content="active">
+<meta name="spec:last-updated" content="2026-06-20">
+<title>Desired Information Can Be Found And Recorded</title>
+<link rel="stylesheet" href="../spec-system.css">
+<link rel="spec-registry" href="../index.html">
+<script type="application/json" id="spec-metadata">
+{
+  "id": "foundation.desired-information-can-be-found-and-recorded.capability",
+  "title": "Desired Information Can Be Found And Recorded",
+  "type": "capability",
+  "status": "active",
+  "lastUpdated": "2026-06-20",
+  "reviewCadence": "per-change",
+  "confidence": "medium",
+  "parent": "foundation.understand-intent-reality.capability",
+  "children": [
+    "foundation.research.job"
+  ],
+  "relatedSpecs": [
+    {
+      "id": "foundation.understand-intent-reality.capability",
+      "relationship": "parent",
+      "sections": [
+        "capability-intent",
+        "jobs"
+      ]
+    },
+    {
+      "id": "foundation.research.job",
+      "relationship": "child",
+      "sections": [
+        "job-intent",
+        "process",
+        "evidence-and-evaluation"
+      ]
+    },
+    {
+      "id": "foundation.preserve-knowledge-context.capability",
+      "relationship": "informs",
+      "sections": [
+        "capability-intent"
+      ]
+    },
+    {
+      "id": "foundation.show-system-clearly.capability",
+      "relationship": "informs",
+      "sections": [
+        "capability-intent"
+      ]
+    }
+  ],
+  "ownedPaths": [
+    {
+      "path": "foundation/docs/specs/capabilities/desired-information-can-be-found-and-recorded.html",
+      "kind": "doc",
+      "ownership": "direct"
+    }
+  ],
+  "implementationPaths": [
+    {
+      "path": "foundation/docs/specs/research.html",
+      "kind": "doc",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/docs/specs/research-technical.html",
+      "kind": "doc",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/docs/specs/research-eval.html",
+      "kind": "doc",
+      "ownership": "reference"
+    },
+    {
+      "path": "foundation/skills/research/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference"
+    }
+  ],
+  "coverage": [
+    {
+      "id": "foundation.desired-information-can-be-found-and-recorded.capability:research-skill-validate",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/skills/research/SKILL.md",
+      "mapsTo": [
+        "foundation.desired-information-can-be-found-and-recorded.capability#evidence-and-evaluation"
+      ],
+      "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/research"
+    },
+    {
+      "id": "foundation.desired-information-can-be-found-and-recorded.capability:spec-check",
+      "level": "static",
+      "status": "existing",
+      "path": "foundation/docs/specs/check-specs.mjs",
+      "mapsTo": [
+        "foundation.desired-information-can-be-found-and-recorded.capability#evidence-and-evaluation"
+      ],
+      "command": "npm run spec:check"
+    }
+  ],
+  "tags": [
+    "capability",
+    "foundation",
+    "research",
+    "information"
+  ]
+}
+</script>
+<script type="application/json" id="graph-metadata">
+{
+  "schema": "foundation.visible-business-graph.v1",
+  "ownerSpecId": "foundation.desired-information-can-be-found-and-recorded.capability",
+  "nodes": [
+    {
+      "id": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "type": "capability",
+      "label": "Desired Information Can Be Found And Recorded",
+      "source": {
+        "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "research",
+          "information"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:spec:foundation.desired-information-can-be-found-and-recorded.capability:depends-on:spec:foundation.understand-intent-reality.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "to": "spec:foundation.understand-intent-reality.capability",
+      "source": {
+        "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+        "sectionId": "capability-intent"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.desired-information-can-be-found-and-recorded.capability:realized-by:spec:foundation.research.job",
+      "type": "realized-by",
+      "from": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "to": "spec:foundation.research.job",
+      "source": {
+        "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+        "sectionId": "jobs"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.desired-information-can-be-found-and-recorded.capability:supports:spec:foundation.preserve-knowledge-context.capability",
+      "type": "supports",
+      "from": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "to": "spec:foundation.preserve-knowledge-context.capability",
+      "source": {
+        "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+        "sectionId": "outcome-contract"
+      }
+    },
+    {
+      "id": "edge:spec:foundation.desired-information-can-be-found-and-recorded.capability:supports:spec:foundation.show-system-clearly.capability",
+      "type": "supports",
+      "from": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "to": "spec:foundation.show-system-clearly.capability",
+      "source": {
+        "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+        "sectionId": "outcome-contract"
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">C</div>
+    <div>
+      <div class="sidebar-title">Desired Information</div>
+      <div class="sidebar-sub">capability spec</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Sections</div>
+    <a class="nav-item active" href="#capability-intent"><span class="nav-num">01</span>Intent</a>
+    <a class="nav-item" href="#outcome-contract"><span class="nav-num">02</span>Outcome</a>
+    <a class="nav-item" href="#jobs"><span class="nav-num">03</span>Jobs</a>
+    <a class="nav-item" href="#interfaces-and-sources"><span class="nav-num">04</span>Interfaces</a>
+    <a class="nav-item" href="#evidence-and-evaluation"><span class="nav-num">05</span>Evidence</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section id="overview" data-spec-section="overview" data-section-type="summary">
+    <div class="spec-eyebrow">foundation/docs/specs/capabilities/desired-information-can-be-found-and-recorded.html</div>
+    <h1>Desired Information Can Be Found And Recorded</h1>
+    <p class="lede">Desired information can be found and recorded with enough scope, source evidence, search history, and final status for another actor to trust and continue the work.</p>
+    <div class="meta-row">
+      <div><strong>Status:</strong> active</div>
+      <div><strong>Updated:</strong> 2026-06-20</div>
+      <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
+    </div>
+  </section>
+
+  <article class="doc-body">
+    <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
+      <h1>Capability intent</h1>
+      <p>Foundation should make research a reliable ability: desired information can be found, judged against scope, recorded with evidence, and shown in a useful form without depending on chat memory.</p>
+    </section>
+
+    <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="contracts">
+      <h2>Outcome contract</h2>
+      <table class="status-table">
+        <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
+        <tbody>
+          <tr><td>Beneficiary</td><td>Humans, agents, and project systems that need current, source-backed information for a decision or durable corpus.</td><td>Research job, technical, and eval specs.</td></tr>
+          <tr><td>Reliable outcome</td><td>Desired information can be found and recorded.</td><td><code>foundation.research.job</code></td></tr>
+          <tr><td>Capability altitude</td><td>Child capability under understanding intent and reality.</td><td>Spec Selection Result for the research refactor.</td></tr>
+          <tr><td>Domain objects</td><td>Search plan, source universe, search terms, source pages, findings, rejections, coverage statuses, evidence links, records, briefs, and access surfaces.</td><td><code>foundation.research.technical</code></td></tr>
+          <tr><td>Failure mode</td><td>The result looks plausible but does not show what was searched, what was missed, which sources prove it, or where the saved record lives.</td><td><code>foundation.research.eval</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
+      <h2>Jobs</h2>
+      <table class="status-table">
+        <thead><tr><th>Job</th><th>Purpose</th><th>Spec</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Research Workflow</td><td>Run or implement durable research that searches the right places, records findings and rejections, validates the corpus, and publishes readable access surfaces.</td><td><code>foundation.research.job</code></td><td>active</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interfaces-and-sources" data-spec-section="interfaces-and-sources" data-section-type="interfaces">
+      <h2>Interfaces and sources</h2>
+      <ul>
+        <li><code>foundation.research.job</code> defines the reusable work loop.</li>
+        <li><code>foundation.research.technical</code> defines source, storage, command, and access-surface contracts.</li>
+        <li><code>foundation.research.eval</code> defines acceptance evidence for source coverage, scope, dedupe, access readability, and publish state.</li>
+        <li><code>skills/research/SKILL.md</code> is the agent procedure for running or implementing this capability.</li>
+      </ul>
+    </section>
+
+    <section id="evidence-and-evaluation" data-spec-section="evidence-and-evaluation" data-section-type="verification-contract">
+      <h2>Evidence and evaluation</h2>
+      <table class="status-table">
+        <thead><tr><th>Evidence</th><th>Eval or check</th><th>Revision target</th></tr></thead>
+        <tbody>
+          <tr><td>Research runs preserve source URLs, search terms, accepted findings, useful rejections, terminal coverage states, and generated views.</td><td><code>foundation.research.eval</code></td><td>Revise research job, technical, eval, skill, project schema, or checker.</td></tr>
+          <tr><td>The Research skill remains valid and owned by its job spec.</td><td><code>quick_validate.py skills/research</code> and <code>npm run foundation:self-map:check</code></td><td>Revise skill metadata or job owned paths.</td></tr>
+          <tr><td>Capability language remains outcome-shaped and graph-visible.</td><td><code>npm run foundation:capability-language:check</code> and <code>npm run spec:check</code></td><td>Revise capability title, reliable outcome, parent, or graph links.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <hr>
+  <p class="footer-note">Desired Information Can Be Found And Recorded - Foundation capability spec</p>
+</main>
+<script src="../../site-map.js?v=20260602-nav-collapse"></script>
+<script src="../../site-nav.js?v=20260602-nav-collapse"></script>
+</body>
+</html>

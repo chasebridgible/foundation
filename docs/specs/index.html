@@ -323,7 +323,7 @@
 <script type="application/json" id="spec-registry">
 {
   "registryVersion": "1.0",
-  "lastUpdated": "2026-06-15",
+  "lastUpdated": "2026-06-20",
   "description": "Generated index from canonical spec-metadata embedded in HTML spec files. Paths are repo-relative with the repository name prefix.",
   "specs": [
     {
@@ -2754,6 +2754,111 @@
       ]
     },
     {
+      "id": "foundation.desired-information-can-be-found-and-recorded.capability",
+      "title": "Desired Information Can Be Found And Recorded",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/desired-information-can-be-found-and-recorded.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.understand-intent-reality.capability",
+      "children": [
+        "foundation.research.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.understand-intent-reality.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.research.job",
+          "relationship": "child",
+          "sections": [
+            "job-intent",
+            "process",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.preserve-knowledge-context.capability",
+          "relationship": "informs",
+          "sections": [
+            "capability-intent"
+          ]
+        },
+        {
+          "id": "foundation.show-system-clearly.capability",
+          "relationship": "informs",
+          "sections": [
+            "capability-intent"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/desired-information-can-be-found-and-recorded.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/docs/specs/research.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/research-technical.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/research-eval.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/skills/research/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.desired-information-can-be-found-and-recorded.capability:research-skill-validate",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/research/SKILL.md",
+          "mapsTo": [
+            "foundation.desired-information-can-be-found-and-recorded.capability#evidence-and-evaluation"
+          ],
+          "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/research"
+        },
+        {
+          "id": "foundation.desired-information-can-be-found-and-recorded.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.desired-information-can-be-found-and-recorded.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "foundation",
+        "research",
+        "information"
+      ]
+    },
+    {
       "id": "foundation.evaluate-learn-improve.capability",
       "title": "Evaluate, Learn, And Improve",
       "type": "capability",
@@ -3271,20 +3376,138 @@
       ]
     },
     {
+      "id": "foundation.long-running-agent-work.capability",
+      "title": "Long-Running Agent Work",
+      "type": "capability",
+      "status": "active",
+      "file": "foundation/docs/specs/capabilities/long-running-agent-work.html",
+      "canonicalSection": "capability-intent",
+      "lastUpdated": "2026-06-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.make-outstanding-work-repeatable.capability",
+      "children": [
+        "foundation.shift-clock.capability",
+        "foundation.long-running-agent-worker.job"
+      ],
+      "relatedSpecs": [
+        {
+          "id": "foundation.make-outstanding-work-repeatable.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.shift-clock.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "operating-contract"
+          ]
+        },
+        {
+          "id": "foundation.long-running-agent-worker.job",
+          "relationship": "child",
+          "sections": [
+            "job-intent",
+            "process",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.research.job",
+          "relationship": "informs",
+          "sections": [
+            "process",
+            "evidence-and-evaluation"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/capabilities/long-running-agent-work.html",
+          "kind": "doc",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/AGENTS.md",
+          "kind": "config",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/principles/agent-principles.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.long-running-agent-work.capability:worker-skill-validate",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+          "mapsTo": [
+            "foundation.long-running-agent-work.capability#evidence-and-evaluation"
+          ],
+          "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/long-running-agent-worker"
+        },
+        {
+          "id": "foundation.long-running-agent-work.capability:supervisor-skill-validate",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+          "mapsTo": [
+            "foundation.long-running-agent-work.capability#evidence-and-evaluation"
+          ],
+          "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/watchful-agent-supervisor"
+        },
+        {
+          "id": "foundation.long-running-agent-work.capability:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.long-running-agent-work.capability#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "capability",
+        "parent-capability",
+        "foundation",
+        "agents",
+        "long-running"
+      ]
+    },
+    {
       "id": "foundation.make-outstanding-work-repeatable.capability",
       "title": "Make Outstanding Work Repeatable",
       "type": "capability",
       "status": "active",
       "file": "foundation/docs/specs/capabilities/make-outstanding-work-repeatable.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-14",
+      "lastUpdated": "2026-06-20",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
       "children": [
         "foundation.generate-maintain-agent-skills.capability",
-        "foundation.shift-clock.capability",
-        "foundation.research.job"
+        "foundation.long-running-agent-work.capability"
       ],
       "relatedSpecs": [
         {
@@ -3303,20 +3526,12 @@
           ]
         },
         {
-          "id": "foundation.shift-clock.capability",
+          "id": "foundation.long-running-agent-work.capability",
           "relationship": "child",
           "sections": [
             "capability-intent",
             "outcome-contract",
             "jobs"
-          ]
-        },
-        {
-          "id": "foundation.research.job",
-          "relationship": "child",
-          "sections": [
-            "job-intent",
-            "process"
           ]
         },
         {
@@ -4127,12 +4342,13 @@
       "status": "active",
       "file": "foundation/docs/specs/capabilities/understand-intent-reality.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-06",
+      "lastUpdated": "2026-06-20",
       "reviewCadence": "per-change",
       "confidence": "high",
       "parent": "foundation.operating-system.system",
       "children": [
-        "foundation.capture-business-system-intent.capability"
+        "foundation.capture-business-system-intent.capability",
+        "foundation.desired-information-can-be-found-and-recorded.capability"
       ],
       "relatedSpecs": [
         {
@@ -4144,6 +4360,14 @@
         },
         {
           "id": "foundation.capture-business-system-intent.capability",
+          "relationship": "child",
+          "sections": [
+            "capability-intent",
+            "jobs"
+          ]
+        },
+        {
+          "id": "foundation.desired-information-can-be-found-and-recorded.capability",
           "relationship": "child",
           "sections": [
             "capability-intent",
@@ -8619,28 +8843,6 @@
           "path": "foundation/skills/agentic-workflow-design/agents/openai.yaml",
           "kind": "config",
           "ownership": "direct"
-        },
-        {
-          "path": "foundation/skills/long-running-agent-worker/SKILL.md",
-          "kind": "workflow",
-          "ownership": "direct",
-          "notes": "Runs shift-clocked long work with durable state, sparse exit-gate clock checks, bounded unit progress, and validated handoff."
-        },
-        {
-          "path": "foundation/skills/long-running-agent-worker/agents/openai.yaml",
-          "kind": "config",
-          "ownership": "direct"
-        },
-        {
-          "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
-          "kind": "workflow",
-          "ownership": "direct",
-          "notes": "Observes long-running agent behavior from durable evidence without taking over the worker task."
-        },
-        {
-          "path": "foundation/skills/watchful-agent-supervisor/agents/openai.yaml",
-          "kind": "config",
-          "ownership": "direct"
         }
       ],
       "implementationPaths": [
@@ -8667,6 +8869,18 @@
           "kind": "workflow",
           "ownership": "reference",
           "notes": "Connects target repos before backfill begins."
+        },
+        {
+          "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Owned by foundation.long-running-agent-worker.job; useful during long backfill runs."
+        },
+        {
+          "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+          "kind": "workflow",
+          "ownership": "reference",
+          "notes": "Owned by foundation.long-running-agent-worker.job; useful when supervising long backfill runs."
         },
         {
           "path": "foundation/docs/specs/templates/job-spec-template.html",
@@ -9765,7 +9979,7 @@
       "status": "active",
       "file": "foundation/docs/specs/foundation-capability-map-remap.html",
       "canonicalSection": "job-intent",
-      "lastUpdated": "2026-06-06",
+      "lastUpdated": "2026-06-20",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.author-durable-specs.capability",
@@ -11046,6 +11260,136 @@
       ]
     },
     {
+      "id": "foundation.long-running-agent-worker.job",
+      "title": "Long-Running Agent Worker",
+      "type": "job",
+      "status": "active",
+      "file": "foundation/docs/specs/long-running-agent-worker.html",
+      "canonicalSection": "job-intent",
+      "lastUpdated": "2026-06-20",
+      "reviewCadence": "per-change",
+      "confidence": "medium",
+      "parent": "foundation.long-running-agent-work.capability",
+      "children": [],
+      "relatedSpecs": [
+        {
+          "id": "foundation.long-running-agent-work.capability",
+          "relationship": "parent",
+          "sections": [
+            "capability-intent",
+            "outcome-contract"
+          ]
+        },
+        {
+          "id": "foundation.shift-clock.capability",
+          "relationship": "depends-on",
+          "sections": [
+            "operating-contract",
+            "evidence-and-evaluation"
+          ]
+        },
+        {
+          "id": "foundation.shift-clock.technical",
+          "relationship": "depends-on",
+          "sections": [
+            "data-model",
+            "contracts"
+          ]
+        },
+        {
+          "id": "foundation.shift-clock.eval",
+          "relationship": "depends-on",
+          "sections": [
+            "verification-contract",
+            "acceptance-mapping"
+          ]
+        }
+      ],
+      "ownedPaths": [
+        {
+          "path": "foundation/docs/specs/long-running-agent-worker.html",
+          "kind": "doc",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/long-running-agent-worker/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+          "kind": "workflow",
+          "ownership": "direct"
+        },
+        {
+          "path": "foundation/skills/watchful-agent-supervisor/agents/openai.yaml",
+          "kind": "config",
+          "ownership": "direct"
+        }
+      ],
+      "implementationPaths": [
+        {
+          "path": "foundation/AGENTS.md",
+          "kind": "config",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/principles/agent-principles.html",
+          "kind": "doc",
+          "ownership": "reference"
+        },
+        {
+          "path": "foundation/docs/specs/shift-clock.html",
+          "kind": "doc",
+          "ownership": "reference"
+        }
+      ],
+      "coverage": [
+        {
+          "id": "foundation.long-running-agent-worker.job:worker-skill-validate",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+          "mapsTo": [
+            "foundation.long-running-agent-worker.job#process",
+            "foundation.long-running-agent-worker.job#evidence-and-evaluation"
+          ],
+          "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/long-running-agent-worker"
+        },
+        {
+          "id": "foundation.long-running-agent-worker.job:supervisor-skill-validate",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+          "mapsTo": [
+            "foundation.long-running-agent-worker.job#evidence-and-evaluation"
+          ],
+          "command": "python3 /Users/ChaseBartlett/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/watchful-agent-supervisor"
+        },
+        {
+          "id": "foundation.long-running-agent-worker.job:spec-check",
+          "level": "static",
+          "status": "existing",
+          "path": "foundation/docs/specs/check-specs.mjs",
+          "mapsTo": [
+            "foundation.long-running-agent-worker.job#evidence-and-evaluation"
+          ],
+          "command": "npm run spec:check"
+        }
+      ],
+      "tags": [
+        "job",
+        "foundation",
+        "agents",
+        "long-running"
+      ]
+    },
+    {
       "id": "foundation.research.eval",
       "title": "Research Workflow Eval",
       "type": "eval",
@@ -11213,17 +11557,17 @@
       "status": "active",
       "file": "foundation/docs/specs/research.html",
       "canonicalSection": "job-intent",
-      "lastUpdated": "2026-06-15",
+      "lastUpdated": "2026-06-20",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.make-outstanding-work-repeatable.capability",
+      "parent": "foundation.desired-information-can-be-found-and-recorded.capability",
       "children": [
         "foundation.research.technical",
         "foundation.research.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.make-outstanding-work-repeatable.capability",
+          "id": "foundation.desired-information-can-be-found-and-recorded.capability",
           "relationship": "parent",
           "sections": [
             "capability-intent",
@@ -11333,7 +11677,7 @@
       "status": "active",
       "file": "foundation/docs/specs/shift-clock-eval.html",
       "canonicalSection": "verification-contract",
-      "lastUpdated": "2026-06-14",
+      "lastUpdated": "2026-06-20",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.shift-clock.capability",
@@ -11398,7 +11742,7 @@
       "status": "active",
       "file": "foundation/docs/specs/shift-clock-technical.html",
       "canonicalSection": "required-depth",
-      "lastUpdated": "2026-06-14",
+      "lastUpdated": "2026-06-20",
       "reviewCadence": "per-change",
       "confidence": "medium",
       "parent": "foundation.shift-clock.capability",
@@ -11461,17 +11805,17 @@
       "status": "active",
       "file": "foundation/docs/specs/shift-clock.html",
       "canonicalSection": "capability-intent",
-      "lastUpdated": "2026-06-14",
+      "lastUpdated": "2026-06-20",
       "reviewCadence": "per-change",
       "confidence": "medium",
-      "parent": "foundation.make-outstanding-work-repeatable.capability",
+      "parent": "foundation.long-running-agent-work.capability",
       "children": [
         "foundation.shift-clock.technical",
         "foundation.shift-clock.eval"
       ],
       "relatedSpecs": [
         {
-          "id": "foundation.make-outstanding-work-repeatable.capability",
+          "id": "foundation.long-running-agent-work.capability",
           "relationship": "parent",
           "sections": [
             "capability-intent",

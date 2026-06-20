@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.research.job">
 <meta name="spec:type" content="job">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-15">
+<meta name="spec:last-updated" content="2026-06-20">
 <title>Research Workflow</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -469,17 +469,17 @@
   "title": "Research Workflow",
   "type": "job",
   "status": "active",
-  "lastUpdated": "2026-06-15",
+  "lastUpdated": "2026-06-20",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.make-outstanding-work-repeatable.capability",
+  "parent": "foundation.desired-information-can-be-found-and-recorded.capability",
   "children": [
     "foundation.research.technical",
     "foundation.research.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.make-outstanding-work-repeatable.capability",
+      "id": "foundation.desired-information-can-be-found-and-recorded.capability",
       "relationship": "parent",
       "sections": [
         "capability-intent",
@@ -654,10 +654,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.research.job:supports:spec:foundation.make-outstanding-work-repeatable.capability",
+      "id": "edge:spec:foundation.research.job:supports:spec:foundation.desired-information-can-be-found-and-recorded.capability",
       "type": "supports",
       "from": "spec:foundation.research.job",
-      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
       "source": {
         "specId": "foundation.research.job",
         "sectionId": "capability-supported"
@@ -758,7 +758,7 @@
     <p class="lede">A research agent works best when it knows what to search for, where to look, where to save what it finds, how to check its work, and how people will read the final result.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-15</div>
+      <div><strong>Updated:</strong> 2026-06-20</div>
       <div><strong>Main section:</strong> <a href="#job-intent">#job-intent</a></div>
     </div>
   </section>
@@ -776,7 +776,7 @@
       <table class="status-table">
         <thead><tr><th>What Foundation learns to do</th><th>How this helps</th><th>Where we learned it</th></tr></thead>
         <tbody>
-          <tr><td><code>foundation.make-outstanding-work-repeatable.capability</code></td><td>Turns a good research run into small steps that can be run again.</td><td>Tribal research runs and Foundation scout pattern.</td></tr>
+          <tr><td><code>foundation.desired-information-can-be-found-and-recorded.capability</code></td><td>Makes the desired information, search path, source evidence, and final decision durable.</td><td>Tribal research runs and Foundation scout pattern.</td></tr>
           <tr><td><code>foundation.preserve-knowledge-context.capability</code></td><td>Saves facts in records and readable views instead of relying on chat memory.</td><td>Saved records plus readable views.</td></tr>
           <tr><td><code>foundation.show-system-clearly.capability</code></td><td>Shows what was searched, what changed, what is missing, and what the owner should do next.</td><td>Map, run brief, and view rules.</td></tr>
         </tbody>

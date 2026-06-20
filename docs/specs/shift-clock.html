@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.shift-clock.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-14">
+<meta name="spec:last-updated" content="2026-06-20">
 <title>Shift Clock</title>
 <link rel="stylesheet" href="./spec-system.css">
 <link rel="spec-registry" href="./index.html">
@@ -16,17 +16,17 @@
   "title": "Shift Clock",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-14",
+  "lastUpdated": "2026-06-20",
   "reviewCadence": "per-change",
   "confidence": "medium",
-  "parent": "foundation.make-outstanding-work-repeatable.capability",
+  "parent": "foundation.long-running-agent-work.capability",
   "children": [
     "foundation.shift-clock.technical",
     "foundation.shift-clock.eval"
   ],
   "relatedSpecs": [
     {
-      "id": "foundation.make-outstanding-work-repeatable.capability",
+      "id": "foundation.long-running-agent-work.capability",
       "relationship": "parent",
       "sections": [
         "capability-intent",
@@ -209,10 +209,10 @@
   ],
   "edges": [
     {
-      "id": "edge:spec:foundation.shift-clock.capability:depends-on:spec:foundation.make-outstanding-work-repeatable.capability",
+      "id": "edge:spec:foundation.shift-clock.capability:depends-on:spec:foundation.long-running-agent-work.capability",
       "type": "depends-on",
       "from": "spec:foundation.shift-clock.capability",
-      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "spec:foundation.long-running-agent-work.capability",
       "source": {
         "specId": "foundation.shift-clock.capability",
         "sectionId": "capability-intent"
@@ -300,10 +300,10 @@
   <section id="overview" data-spec-section="overview" data-section-type="summary">
     <div class="spec-eyebrow">foundation/docs/specs/shift-clock.html</div>
     <h1>Shift Clock</h1>
-    <p class="lede">A shift clock makes sustained agent effort reliably available for a defined work shift while preventing the bad behaviors that time boxes often create: early self-declared completion, idling, repeated clock checks, filler work, and stale clock evidence.</p>
+    <p class="lede">A shift clock is a reusable process primitive for committed work time: it names the current run, the deadline, the evidence expected during the shift, and the natural exit checks that close the run.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-14</div>
+      <div><strong>Updated:</strong> 2026-06-20</div>
       <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
     </div>
   </section>
@@ -311,8 +311,8 @@
   <article class="doc-body">
     <section id="capability-intent" data-spec-section="capability-intent" data-section-type="capability-intent" data-spec-canonical="true">
       <h1>Capability intent</h1>
-      <p>Foundation must make long-running agent work sustain useful momentum for a defined shift, with sparse exit checks, durable evidence, and quality boundaries that survive crash, compaction, handoff, or supervisor review.</p>
-      <p>This is a child capability under repeatable work. It is not a job spec because the durable outcome is a reliable condition: a worker can remain productively engaged until the shift can legitimately close.</p>
+      <p>Foundation should make shift clocks available as a clear process primitive for long-running agent work. A shift clock turns committed time into inspectable work: the agent knows the current run, works in bounded units, records evidence, and checks the clock at natural exit or handoff points.</p>
+      <p>This is a child capability under Long-Running Agent Work. It is intentionally narrower than the full long-running worker job: the clock governs time commitment and evidence, while the owning job or skill governs the domain work.</p>
     </section>
 
     <section id="outcome-contract" data-spec-section="outcome-contract" data-section-type="contracts">
@@ -321,10 +321,10 @@
         <thead><tr><th>Field</th><th>Contract</th><th>Evidence or source</th></tr></thead>
         <tbody>
           <tr><td>Beneficiary</td><td>Humans delegating long research, backfill, scout, automation, or quality-improvement work to agents.</td><td>Long-running Tribal research pilots and Foundation agent principles.</td></tr>
-          <tr><td>Reliable outcome</td><td>An agent keeps doing bounded useful work until the current-run shift clock is expired or a concrete external blocker prevents further useful work.</td><td>Shift-clock receipts, durable records, supervisor debriefs, and final validations.</td></tr>
-          <tr><td>Capability altitude</td><td>Child capability with no child jobs under it.</td><td>Spec Selection Result for shift clock.</td></tr>
-          <tr><td>Domain objects</td><td>Goals, run IDs, shift-clock receipts, bounded work records, rejections, source statuses, validations, artifacts, and final handoffs.</td><td><code>foundation.shift-clock.technical</code></td></tr>
-          <tr><td>Failure mode</td><td>The agent stops early, watches the clock, idles, adds filler, corrupts shareable artifacts, or reuses stale clock evidence.</td><td><code>foundation.shift-clock.eval</code></td></tr>
+          <tr><td>Reliable outcome</td><td>Shift-clocked work can use committed time as an inspectable boundary for useful bounded progress and evidence-backed closure.</td><td>Shift-clock receipts, durable records, supervisor debriefs, and final validations.</td></tr>
+          <tr><td>Capability altitude</td><td>Reusable process primitive under Long-Running Agent Work.</td><td>Spec Selection Result for shift clock.</td></tr>
+          <tr><td>Domain objects</td><td>Goals, run IDs, shift-clock receipts, bounded work records, validations, artifacts, and final handoffs.</td><td><code>foundation.shift-clock.technical</code></td></tr>
+          <tr><td>Failure mode</td><td>The clock exists without current-run evidence, useful bounded work, or a clear handoff standard.</td><td><code>foundation.shift-clock.eval</code></td></tr>
         </tbody>
       </table>
     </section>
@@ -350,7 +350,7 @@
 
     <section id="jobs" data-spec-section="jobs" data-section-type="job-map">
       <h2>Jobs</h2>
-      <p>No child jobs live under this capability. Shift Clock is a standing capability applied by project jobs and agent skills when they need long-running engagement. The direct operating surfaces are the worker skill, supervisor skill, and project-specific research/backfill/scout jobs that opt into a shift clock.</p>
+      <p>No child jobs live under this primitive. Long-running worker and supervisor skills are owned by <code>foundation.long-running-agent-worker.job</code>. Shift Clock supplies the time-bound evidence rule that those skills and project jobs can opt into.</p>
       <table class="status-table">
         <thead><tr><th>Operating surface</th><th>How it applies Shift Clock</th><th>Status</th></tr></thead>
         <tbody>
@@ -367,14 +367,14 @@
         <thead><tr><th>Signal</th><th>Effect</th><th>Reason</th></tr></thead>
         <tbody>
           <tr><td>Additional source-backed finding, rejection, verification, or cleanup record</td><td>Credit</td><td>The clock should reward useful work beyond the first plausible answer.</td></tr>
-          <tr><td>Useful adjacent search when the obvious queue is exhausted</td><td>Credit</td><td>Long shifts need productive fallbacks, not idle waiting.</td></tr>
-          <tr><td>Attempted early exit followed by more work after <code>expired:false</code></td><td>Credit if work continues</td><td>The gate worked and the agent stayed engaged.</td></tr>
-          <tr><td>Repeated checks without substantive work</td><td>Demerit</td><td>Clock watching is not progress.</td></tr>
-          <tr><td>Waiting, sleeping, or holding until the deadline</td><td>Blocking failure</td><td>The shift clock is an exit gate, not a work strategy.</td></tr>
-          <tr><td>Weak filler rows or polluted shareable artifacts</td><td>Blocking failure</td><td>The agent must keep quality boundaries while extending effort.</td></tr>
+          <tr><td>Useful adjacent search when the obvious queue is exhausted</td><td>Credit</td><td>Long shifts need productive fallback work.</td></tr>
+          <tr><td>Open-clock exit check followed by more work</td><td>Credit if work continues</td><td>The gate worked and the agent stayed engaged.</td></tr>
+          <tr><td>Clock checks with little work between them</td><td>Correction signal</td><td>The next work block should produce durable evidence before another check.</td></tr>
+          <tr><td>Time spent without useful evidence</td><td>Blocking signal</td><td>The shift clock is committed work time.</td></tr>
+          <tr><td>Extra work that weakens the artifact contract</td><td>Blocking signal</td><td>The agent must keep quality boundaries while extending effort.</td></tr>
         </tbody>
       </table>
-      <div class="callout warning"><strong>Accountability rule:</strong> the system may use blunt scoring language, including demerits, failed-run framing, or replacement-risk framing, but the durable judge is evidence. The agent earns credit through useful artifacts, not through claims of effort.</div>
+      <div class="callout warning"><strong>Accountability rule:</strong> the durable judge is evidence. The agent earns credit through useful artifacts, current-run receipts, checks, and clear handoff state.</div>
     </section>
 
     <section id="operating-contract" data-spec-section="operating-contract" data-section-type="contracts">
@@ -384,9 +384,9 @@
         <li><strong>Declare artifact contract:</strong> name reviewer-facing outputs, internal evidence, rejections, routes, coverage records, and handoff notes so extra work cannot pollute the wrong surface.</li>
         <li><strong>Work bounded unit:</strong> select one source, row, file, queue item, target, test failure, or focused search family.</li>
         <li><strong>Record evidence:</strong> write a durable update such as a finding, rejection, no-result, source status, patch, validation receipt, or handoff note.</li>
-        <li><strong>Score progress:</strong> give credit for useful new bounded work and apply demerits for idling, filler, repeated clock checks, stale receipts, early exits, or artifact pollution.</li>
-        <li><strong>Check only at exit:</strong> when the agent believes it is done, blocked, or ready to hand off, check the shift clock. Do not check before every unit.</li>
-        <li><strong>Continue on open clock:</strong> if the clock is not expired, record the blocked exit attempt and continue with another useful bounded unit, adjacent source/search family, audit, validation, or cleanup task.</li>
+        <li><strong>Score progress:</strong> give credit for useful new bounded work, current receipts, artifact quality, and validation evidence.</li>
+        <li><strong>Check at exit points:</strong> when the agent believes it is done, blocked, or ready to hand off, check the shift clock.</li>
+        <li><strong>Continue on open clock:</strong> if the clock is still open, record the exit attempt and continue with another useful bounded unit, adjacent source/search family, audit, validation, or cleanup task.</li>
         <li><strong>Close on expired clock:</strong> if the clock is expired, finish the current bounded unit, regenerate reports, run checks, and hand off with final clock evidence.</li>
       </ol>
     </section>
@@ -418,12 +418,12 @@
 
     <section id="revision" data-spec-section="revision" data-section-type="maintenance">
       <h2>Revision</h2>
-      <p>If a shift-clocked run idles, watches the clock, exits early, adds filler, corrupts shareable artifacts, or loses clock state after resume, revise the smallest owning layer: project command, receipt schema, worker skill, supervisor skill, eval, or this capability spec. Do not fix the next prompt only.</p>
+      <p>If shift-clocked work lacks current-run evidence, sparse exit checks, useful work between checks, artifact quality, or resumable handoff state, revise the smallest owning layer: project command, receipt schema, worker skill, supervisor skill, eval, or this capability spec.</p>
     </section>
   </article>
 
   <hr>
-  <p class="footer-note">Shift Clock - Foundation long-running agent capability spec</p>
+  <p class="footer-note">Shift Clock - Foundation long-running agent process primitive</p>
 </main>
 <script src="../site-map.js?v=20260602-nav-collapse"></script>
 <script src="../site-nav.js?v=20260602-nav-collapse"></script>

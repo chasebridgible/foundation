@@ -6,7 +6,7 @@
 <meta name="spec:id" content="foundation.make-outstanding-work-repeatable.capability">
 <meta name="spec:type" content="capability">
 <meta name="spec:status" content="active">
-<meta name="spec:last-updated" content="2026-06-14">
+<meta name="spec:last-updated" content="2026-06-20">
 <title>Make Outstanding Work Repeatable</title>
 <link rel="stylesheet" href="../spec-system.css">
 <link rel="spec-registry" href="../index.html">
@@ -16,14 +16,13 @@
   "title": "Make Outstanding Work Repeatable",
   "type": "capability",
   "status": "active",
-  "lastUpdated": "2026-06-14",
+  "lastUpdated": "2026-06-20",
   "reviewCadence": "per-change",
   "confidence": "high",
   "parent": "foundation.operating-system.system",
   "children": [
     "foundation.generate-maintain-agent-skills.capability",
-    "foundation.shift-clock.capability",
-    "foundation.research.job"
+    "foundation.long-running-agent-work.capability"
   ],
   "relatedSpecs": [
     {
@@ -42,20 +41,12 @@
       ]
     },
     {
-      "id": "foundation.shift-clock.capability",
+      "id": "foundation.long-running-agent-work.capability",
       "relationship": "child",
       "sections": [
         "capability-intent",
         "outcome-contract",
         "jobs"
-      ]
-    },
-    {
-      "id": "foundation.research.job",
-      "relationship": "child",
-      "sections": [
-        "job-intent",
-        "process"
       ]
     },
     {
@@ -182,20 +173,10 @@
       }
     },
     {
-      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:contains:spec:foundation.shift-clock.capability",
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:contains:spec:foundation.long-running-agent-work.capability",
       "type": "contains",
       "from": "spec:foundation.make-outstanding-work-repeatable.capability",
-      "to": "spec:foundation.shift-clock.capability",
-      "source": {
-        "specId": "foundation.make-outstanding-work-repeatable.capability",
-        "sectionId": "jobs"
-      }
-    },
-    {
-      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:realized-by:spec:foundation.research.job",
-      "type": "realized-by",
-      "from": "spec:foundation.make-outstanding-work-repeatable.capability",
-      "to": "spec:foundation.research.job",
+      "to": "spec:foundation.long-running-agent-work.capability",
       "source": {
         "specId": "foundation.make-outstanding-work-repeatable.capability",
         "sectionId": "jobs"
@@ -231,7 +212,7 @@
     <p class="lede">High-quality human, agent, and software work can be turned into bounded, repeatable, quality-gated loops.</p>
     <div class="meta-row">
       <div><strong>Status:</strong> active</div>
-      <div><strong>Updated:</strong> 2026-06-14</div>
+      <div><strong>Updated:</strong> 2026-06-20</div>
       <div><strong>Canonical section:</strong> <a href="#capability-intent">#capability-intent</a></div>
     </div>
   </section>
@@ -251,7 +232,7 @@
           <tr><td>Beneficiary</td><td>Humans, agents, and software systems using Foundation.</td><td>Foundation operating system goal.</td></tr>
           <tr><td>Reliable outcome</td><td>High-quality human, agent, and software work can be turned into bounded, repeatable, quality-gated loops.</td><td>Capability remap plan.</td></tr>
           <tr><td>Capability altitude</td><td>Parent capability outcome family.</td><td><code>foundation.capability-map-remap.job</code></td></tr>
-          <tr><td>Child examples</td><td>Turn good workflows into skills; give agents one clear next step; bound context; add checks, evals, revision loops, and handoff state.</td><td>System capability workshop and remap table.</td></tr>
+          <tr><td>Child examples</td><td>Turn good workflows into skills; give agents one clear next step; support long-running work; bound context; add checks, evals, revision loops, and handoff state.</td><td>System capability workshop and remap table.</td></tr>
           <tr><td>Failure mode</td><td>Agents improvise, lose context, close coarse work, or produce inconsistent output across runs.</td><td>Remap eval failure model.</td></tr>
         </tbody>
       </table>
@@ -264,8 +245,7 @@
         <thead><tr><th>Child capability or gap</th><th>Purpose</th><th>Status</th></tr></thead>
         <tbody>
           <tr><td><code>foundation.generate-maintain-agent-skills.capability</code></td><td>Narrower reliable outcome under this parent family.</td><td>active or draft</td></tr>
-          <tr><td><code>foundation.shift-clock.capability</code></td><td>Narrower reliable outcome for keeping long-running agents productively engaged through a current-run shift clock.</td><td>active</td></tr>
-          <tr><td><code>foundation.research.job</code></td><td>Direct operating job for turning successful research behavior into source-backed corpora, workbook views, validators, and review-first scheduled runs.</td><td>active</td></tr>
+          <tr><td><code>foundation.long-running-agent-work.capability</code></td><td>Broad reliable outcome for long-duration agent work with bounded progress, durable state, checks, clocks, and handoff.</td><td>active</td></tr>
         </tbody>
       </table>
     </section>

@@ -188,28 +188,6 @@
       "path": "foundation/skills/agentic-workflow-design/agents/openai.yaml",
       "kind": "config",
       "ownership": "direct"
-    },
-    {
-      "path": "foundation/skills/long-running-agent-worker/SKILL.md",
-      "kind": "workflow",
-      "ownership": "direct",
-      "notes": "Runs shift-clocked long work with durable state, sparse exit-gate clock checks, bounded unit progress, and validated handoff."
-    },
-    {
-      "path": "foundation/skills/long-running-agent-worker/agents/openai.yaml",
-      "kind": "config",
-      "ownership": "direct"
-    },
-    {
-      "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
-      "kind": "workflow",
-      "ownership": "direct",
-      "notes": "Observes long-running agent behavior from durable evidence without taking over the worker task."
-    },
-    {
-      "path": "foundation/skills/watchful-agent-supervisor/agents/openai.yaml",
-      "kind": "config",
-      "ownership": "direct"
     }
   ],
   "implementationPaths": [
@@ -236,6 +214,18 @@
       "kind": "workflow",
       "ownership": "reference",
       "notes": "Connects target repos before backfill begins."
+    },
+    {
+      "path": "foundation/skills/long-running-agent-worker/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Owned by foundation.long-running-agent-worker.job; useful during long backfill runs."
+    },
+    {
+      "path": "foundation/skills/watchful-agent-supervisor/SKILL.md",
+      "kind": "workflow",
+      "ownership": "reference",
+      "notes": "Owned by foundation.long-running-agent-worker.job; useful when supervising long backfill runs."
     },
     {
       "path": "foundation/docs/specs/templates/job-spec-template.html",
@@ -1137,16 +1127,14 @@
         <li data-implementation-path="foundation/skills/backfill-repo/agents/openai.yaml"><code>foundation/skills/backfill-repo/agents/openai.yaml</code> - UI metadata for the skill.</li>
         <li data-implementation-path="foundation/skills/agentic-workflow-design/SKILL.md"><code>foundation/skills/agentic-workflow-design/SKILL.md</code> - revises agent workflows so they are repeatable, context-safe, and quality-gated.</li>
         <li data-implementation-path="foundation/skills/agentic-workflow-design/agents/openai.yaml"><code>foundation/skills/agentic-workflow-design/agents/openai.yaml</code> - UI metadata for the skill.</li>
-        <li data-implementation-path="foundation/skills/long-running-agent-worker/SKILL.md"><code>foundation/skills/long-running-agent-worker/SKILL.md</code> - runs shift-clocked long work through bounded units, durable state, sparse clock checks, and validated handoff.</li>
-        <li data-implementation-path="foundation/skills/long-running-agent-worker/agents/openai.yaml"><code>foundation/skills/long-running-agent-worker/agents/openai.yaml</code> - UI metadata for the skill.</li>
-        <li data-implementation-path="foundation/skills/watchful-agent-supervisor/SKILL.md"><code>foundation/skills/watchful-agent-supervisor/SKILL.md</code> - observes long-running workers from durable evidence without taking over the task.</li>
-        <li data-implementation-path="foundation/skills/watchful-agent-supervisor/agents/openai.yaml"><code>foundation/skills/watchful-agent-supervisor/agents/openai.yaml</code> - UI metadata for the skill.</li>
       </ul>
       <h3>Implementation references</h3>
       <ul class="path-list">
         <li><code>foundation/AGENTS.md</code> - shared routing line for Backfill Specs.</li>
         <li><code>foundation/templates/target-repo-AGENTS.md</code> - target adapter field for current backfill status.</li>
         <li><code>foundation/skills/install-foundation-substrate/SKILL.md</code> - setup workflow before backfill starts.</li>
+        <li><code>foundation/skills/long-running-agent-worker/SKILL.md</code> - referenced for long backfill runs; owned by <code>foundation.long-running-agent-worker.job</code>.</li>
+        <li><code>foundation/skills/watchful-agent-supervisor/SKILL.md</code> - referenced for long backfill supervision; owned by <code>foundation.long-running-agent-worker.job</code>.</li>
         <li><code>foundation/docs/specs/foundation-backfill-orchestration-technical.html</code> - technical contract for the orchestrated skill chain.</li>
         <li><code>foundation/docs/specs/foundation-backfill-quality-evaluation.html</code> - evaluation process and quality gate.</li>
         <li><code>foundation/docs/specs/foundation-backfill-artifact-inventory.html</code> - draft artifact-inventory layer for repo discovery.</li>

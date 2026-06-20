@@ -9,8 +9,10 @@
 - After Spec Selection, use the selected type-specific authoring skill. Authoring skills do not choose their own spec type.
 - Capability specs must be outcome-shaped. Child capability titles and graph labels cannot be job, artifact, layer, route, command, queue, or phase names; run `npm run foundation:capability-language:check` after capability-map, capability-spec, or capability-template changes.
 - Use the most specific skill that applies. Layer skills beat broad workflow skills.
-- Layer skills own their exact loops, shortcut bans, outstanding gates, checks, evals, revision gates, and handoff gates.
+- Layer skills own their exact loops, quality boundaries, outstanding gates, checks, evals, revision gates, and handoff gates.
 - Backfill follows the bounded meaning unit rule: deterministic tools enumerate, route, validate, and persist; agents interpret exactly one bounded meaning unit at a time; evals prevent advancement until that unit is outstanding.
+- Always choose the right path over the easy one: define the goal and completion standard, follow the governing process, and judge progress by evidence, results, and feedback.
+- When work has a shift clock, honor it as committed work time: stay present, choose useful bounded work, preserve current-run evidence, and check the clock at natural handoff or exit points.
 - Use `docs/principles/ai-evals-principles.html` before judge/eval changes, and `docs/principles/sw-design-principles.html` before UI, rendered UX, accessibility, or visual-verification work.
 - If spec metadata changes, run `npm run spec:registry`, then `npm run spec:check`; if Foundation capability/job/skill ownership changes, run `npm run foundation:self-map:check`.
 - Protected `main` requires branch -> PR -> required checks pass -> merge.

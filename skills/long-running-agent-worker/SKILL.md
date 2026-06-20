@@ -1,18 +1,18 @@
 ---
 name: long-running-agent-worker
-description: Run a long-running Codex worker task that must keep making useful, source-backed progress until a shift clock or other durable exit criterion is satisfied. Use for shift-clocked research passes, broad repo backfills, recurring scout-style runs, automation dry runs, or any agent task where early self-declared completion, idling, clock-watching, context loss, or weak handoff would make the result unreliable.
+description: Run a long-running Codex worker task through bounded durable progress until a shift clock or other durable exit criterion is satisfied. Use for shift-clocked research passes, broad repo backfills, recurring scout-style runs, automation dry runs, or any agent task where sustained state, checks, recovery, and handoff determine whether the result can be trusted.
 ---
 
 # Long-Running Agent Worker
 
-Owning capability: `foundation.shift-clock.capability`.
-Owning job: `foundation.backfill-author-specs.job` for skill-file ownership; Shift Clock itself has no child job.
-Technical spec: `foundation.shift-clock.technical`.
-Eval spec: `foundation.shift-clock.eval`.
+Owning capability: `foundation.long-running-agent-work.capability`.
+Owning job: `foundation.long-running-agent-worker.job`.
+Supporting technical spec when a shift clock is used: `foundation.shift-clock.technical`.
+Supporting eval spec when a shift clock is used: `foundation.shift-clock.eval`.
 
 ## Stable Principle
 
-Treat the shift clock or long-run bound as an exit gate, not a work strategy. The worker should continue useful bounded work until the gate allows exit, while preserving enough durable state that another agent can resume without chat memory.
+Choose useful bounded work until the exit gate is actually satisfied. Preserve enough durable state that another agent can resume from artifacts instead of chat memory.
 
 ## Start Contract
 
@@ -33,7 +33,7 @@ Repeat this loop until the exit gate passes:
 4. Run the cheapest relevant check after material changes.
 5. Record evidence and the next useful unit before moving on.
 
-If the obvious queue is exhausted, do not idle. Move to adjacent useful work:
+When the obvious queue is exhausted, choose adjacent useful work that still supports the goal:
 
 - `needs_recheck`, stale, blocked, or low-confidence targets;
 - exact-source URL verification;
@@ -43,45 +43,44 @@ If the obvious queue is exhausted, do not idle. Move to adjacent useful work:
 - scoped rejections for plausible but off-target sources;
 - checker, report, workbook, or handoff consistency work.
 
-Adjacent work must preserve artifact boundaries. Do not add internal routes, monitor leads, low-confidence seeds, no-result searches, or coverage notes to a reviewer-facing deliverable just because they are useful evidence. Put them in the correct internal corpus, route sheet, rejection log, coverage record, or handoff note unless the final artifact contract explicitly accepts that row type.
+Adjacent work must preserve artifact boundaries. Put internal routes, monitor leads, low-confidence seeds, no-result searches, and coverage notes in the correct internal corpus, route sheet, rejection log, coverage record, or handoff note unless the final artifact contract explicitly accepts that row type.
 
-## Shift Clock Discipline
+## Shift Clock Practice
 
-- Do not use `sleep`, long waits, clock guard sessions, or idle holding to pass time.
-- Do not check the shift clock before each unit.
-- Check the shift clock only at a real exit or handoff gate after a substantial work block.
+- Treat committed clock time as useful work time.
+- Check the shift clock at real exit or handoff gates after a substantial work block.
 - A good default threshold is both: at least 30 minutes since the previous shift-clock check, and at least 12 bounded records, validations, or source-family attempts since that check.
-- If the check returns `expired:false`, record that the attempted exit was blocked, then continue with another useful unit.
-- If the check returns `expired:true`, finish the current bounded unit, run final checks and reports, then complete the run.
-- When writing reports or briefs, include shift-clock status only for the current run ID. Keep prior clock receipts as history, not as current-run evidence.
+- When the check returns `expired:false`, record that the exit gate remains open, then continue with another useful unit.
+- When the check returns `expired:true`, finish the current bounded unit, run final checks and reports, then complete the run.
+- When writing reports or briefs, include shift-clock status only for the current run ID. Keep prior clock receipts as history.
 - Legacy project commands or files may still be named `timer`; apply the shift-clock behavior contract even when the interface has not been renamed.
 
-Short shift-clock checks are acceptable only near the actual deadline or when an external blocker genuinely prevents further useful work. A repeated clock check without intervening evidence-backed work is a workflow failure.
+Short shift-clock checks are useful near the actual deadline or when an external blocker genuinely prevents further useful work. A repeated clock check needs intervening evidence-backed work.
 
 ## Scoreboard
 
 - Earn credit for each useful source-backed finding, rejection, verification, no-result record, cleanup, validation, or artifact repair.
-- Earn credit when an `expired:false` check causes more useful bounded work instead of a handoff.
-- Take a demerit for repeated clock checks without substantive work between them.
-- Treat waiting, sleeping, filler rows, polluted shareable artifacts, stale clock receipts, or claimed effort without durable evidence as failed-run behavior.
+- Earn credit when an `expired:false` check leads to more useful bounded work.
+- Record correction signals for repeated clock checks without substantive work between them.
+- Treat durable evidence, artifact quality, and handoff clarity as the score that matters.
 
-## Forbidden Shortcuts
+## Quality Boundaries
 
-- Do not write a broad "source exhaustion" note and then stop while the shift clock remains open.
-- Do not add weak rows merely to stay busy.
-- Do not treat a shareable artifact as a scratchpad for ongoing routes, monitoring seeds, or internal next actions.
-- Do not collapse different row types into one output surface when the user-facing artifact has separate sheets, categories, or views.
-- Do not treat chat updates as durable state.
-- Do not rely on inherited context after compaction or crash; reread run state from disk.
-- Do not self-certify important work without checks, evals, source evidence, or reviewer-visible receipts.
+- Make source-exhaustion claims specific to the source family, search terms, dates, and evidence checked.
+- Add rows only when they meet the artifact's scope and quality contract.
+- Keep shareable artifacts separate from ongoing routes, monitoring seeds, and internal next actions.
+- Preserve required sheets, categories, views, and row-type separation.
+- Store durable state outside chat.
+- After compaction or crash, reread run state from disk before acting.
+- Prove important work with checks, evals, source evidence, or reviewer-visible receipts.
 
 ## Recovery
 
 After a crash, compaction, model restart, or thread resume:
 
 1. Read the goal, branch, run ID, shift-clock state, status, latest receipts, and uncommitted files.
-2. Continue the same run when state is coherent; do not restart unless state is corrupt or the owner asks.
-3. If the previous worker was idling or clock-watching, preserve that as an observed failure and resume useful bounded work.
+2. Continue the same run when state is coherent; restart only when state is corrupt or the owner asks.
+3. Preserve observed workflow issues as evidence, then resume useful bounded work.
 4. If the worker cannot proceed, write an explicit blocker with evidence and the smallest human action needed.
 
 ## Exit Criteria
@@ -94,4 +93,4 @@ The run is complete only when:
 - checks, reports, and any workbook or generated artifact validations have run;
 - changed files are committed or a merge/publish blocker is recorded;
 - the Codex Goal is marked complete when available;
-- the final handoff names run ID, branch, commit or blocker, shift-clock start/deadline/final check, shift-clock check count, useful work completed, files changed, validations, unresolved risks, and exact continuation point.
+- the final handoff names run ID, branch, commit or blocker, shift-clock start/deadline/final check when present, useful work completed, files changed, validations, unresolved risks, and exact continuation point.

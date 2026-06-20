@@ -1,6 +1,6 @@
 {
   "schema": "foundation.visible-business-graph.v1",
-  "generatedAt": "2026-06-15T16:30:18.044Z",
+  "generatedAt": "2026-06-20T21:17:32.000Z",
   "repoName": "foundation",
   "sources": [
     {
@@ -184,6 +184,15 @@
       "confidence": "high"
     },
     {
+      "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+      "title": "Desired Information Can Be Found And Recorded",
+      "type": "capability",
+      "file": "docs/specs/capabilities/desired-information-can-be-found-and-recorded.html",
+      "canonicalSection": "capability-intent",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
       "specId": "foundation.evaluate-learn-improve.capability",
       "title": "Evaluate, Learn, And Improve",
       "type": "capability",
@@ -244,6 +253,15 @@
       "file": "docs/specs/capabilities/learn-agent-capabilities-over-time.html",
       "canonicalSection": "capability-intent",
       "status": "draft",
+      "confidence": "medium"
+    },
+    {
+      "specId": "foundation.long-running-agent-work.capability",
+      "title": "Long-Running Agent Work",
+      "type": "capability",
+      "file": "docs/specs/capabilities/long-running-agent-work.html",
+      "canonicalSection": "capability-intent",
+      "status": "active",
       "confidence": "medium"
     },
     {
@@ -859,6 +877,15 @@
       "confidence": "high"
     },
     {
+      "specId": "foundation.long-running-agent-worker.job",
+      "title": "Long-Running Agent Worker",
+      "type": "job",
+      "file": "docs/specs/long-running-agent-worker.html",
+      "canonicalSection": "job-intent",
+      "status": "active",
+      "confidence": "medium"
+    },
+    {
       "specId": "foundation.spec-process",
       "title": "Spec Maintenance Process",
       "type": "job",
@@ -1440,6 +1467,24 @@
       "sourceTitle": "Foundation HTML Docs Navigation"
     },
     {
+      "id": "actor:foundation.long-running-agent-worker.job:agent",
+      "type": "actor",
+      "label": "Long-running worker or supervisor agent",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "actorKind": "agent"
+      },
+      "ownerSpecId": "foundation.long-running-agent-worker.job",
+      "file": "docs/specs/long-running-agent-worker.html",
+      "sourceFile": "docs/specs/long-running-agent-worker.html",
+      "sourceTitle": "Long-Running Agent Worker"
+    },
+    {
       "id": "actor:foundation.research.job:agent",
       "type": "actor",
       "label": "Research agent",
@@ -1964,6 +2009,21 @@
       "file": "docs/specs/foundation-html-docs-navigation.html",
       "sourceFile": "docs/specs/foundation-html-docs-navigation.html",
       "sourceTitle": "Foundation HTML Docs Navigation"
+    },
+    {
+      "id": "evidence:foundation.long-running-agent-worker.job:handoff",
+      "type": "evidence",
+      "label": "Long-running handoff evidence",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "ownerSpecId": "foundation.long-running-agent-worker.job",
+      "file": "docs/specs/long-running-agent-worker.html",
+      "sourceFile": "docs/specs/long-running-agent-worker.html",
+      "sourceTitle": "Long-Running Agent Worker"
     },
     {
       "id": "evidence:foundation.make-outstanding-work-repeatable.capability:primary",
@@ -2591,6 +2651,21 @@
       "file": "docs/specs/foundation-html-docs-navigation.html",
       "sourceFile": "docs/specs/foundation-html-docs-navigation.html",
       "sourceTitle": "Foundation HTML Docs Navigation"
+    },
+    {
+      "id": "process:foundation.long-running-agent-worker.job:main",
+      "type": "process",
+      "label": "Long-running worker loop",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "process"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "ownerSpecId": "foundation.long-running-agent-worker.job",
+      "file": "docs/specs/long-running-agent-worker.html",
+      "sourceFile": "docs/specs/long-running-agent-worker.html",
+      "sourceTitle": "Long-Running Agent Worker"
     },
     {
       "id": "process:foundation.research.job:main",
@@ -4236,6 +4311,30 @@
       "sourceTitle": "Define The Right Work"
     },
     {
+      "id": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "type": "capability",
+      "label": "Desired Information Can Be Found And Recorded",
+      "source": {
+        "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "foundation",
+          "research",
+          "information"
+        ]
+      },
+      "ownerSpecId": "foundation.desired-information-can-be-found-and-recorded.capability",
+      "file": "docs/specs/capabilities/desired-information-can-be-found-and-recorded.html",
+      "sourceFile": "docs/specs/capabilities/desired-information-can-be-found-and-recorded.html",
+      "sourceTitle": "Desired Information Can Be Found And Recorded"
+    },
+    {
       "id": "spec:foundation.evaluate-learn-improve.capability",
       "type": "capability",
       "label": "Evaluate, Learn, And Improve",
@@ -4448,6 +4547,55 @@
       "file": "docs/specs/capabilities/learn-agent-capabilities-over-time.html",
       "sourceFile": "docs/specs/capabilities/learn-agent-capabilities-over-time.html",
       "sourceTitle": "Agent Capability Changes Stay Known"
+    },
+    {
+      "id": "spec:foundation.long-running-agent-work.capability",
+      "type": "capability",
+      "label": "Long-Running Agent Work",
+      "source": {
+        "specId": "foundation.long-running-agent-work.capability",
+        "sectionId": "capability-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "capability",
+        "tags": [
+          "capability",
+          "parent-capability",
+          "foundation",
+          "agents",
+          "long-running"
+        ]
+      },
+      "ownerSpecId": "foundation.long-running-agent-work.capability",
+      "file": "docs/specs/capabilities/long-running-agent-work.html",
+      "sourceFile": "docs/specs/capabilities/long-running-agent-work.html",
+      "sourceTitle": "Long-Running Agent Work"
+    },
+    {
+      "id": "spec:foundation.long-running-agent-worker.job",
+      "type": "job",
+      "label": "Long-Running Agent Worker",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "job-intent"
+      },
+      "status": "active",
+      "confidence": "medium",
+      "attributes": {
+        "specType": "job",
+        "tags": [
+          "job",
+          "foundation",
+          "agents",
+          "long-running"
+        ]
+      },
+      "ownerSpecId": "foundation.long-running-agent-worker.job",
+      "file": "docs/specs/long-running-agent-worker.html",
+      "sourceFile": "docs/specs/long-running-agent-worker.html",
+      "sourceTitle": "Long-Running Agent Worker"
     },
     {
       "id": "spec:foundation.make-outstanding-work-repeatable.capability",
@@ -8641,6 +8789,50 @@
       "ownerSpecId": "foundation.define-right-work.capability"
     },
     {
+      "id": "edge:spec:foundation.desired-information-can-be-found-and-recorded.capability:depends-on:spec:foundation.understand-intent-reality.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "to": "spec:foundation.understand-intent-reality.capability",
+      "source": {
+        "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.desired-information-can-be-found-and-recorded.capability"
+    },
+    {
+      "id": "edge:spec:foundation.desired-information-can-be-found-and-recorded.capability:realized-by:spec:foundation.research.job",
+      "type": "realized-by",
+      "from": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "to": "spec:foundation.research.job",
+      "source": {
+        "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.desired-information-can-be-found-and-recorded.capability"
+    },
+    {
+      "id": "edge:spec:foundation.desired-information-can-be-found-and-recorded.capability:supports:spec:foundation.preserve-knowledge-context.capability",
+      "type": "supports",
+      "from": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "to": "spec:foundation.preserve-knowledge-context.capability",
+      "source": {
+        "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+        "sectionId": "outcome-contract"
+      },
+      "ownerSpecId": "foundation.desired-information-can-be-found-and-recorded.capability"
+    },
+    {
+      "id": "edge:spec:foundation.desired-information-can-be-found-and-recorded.capability:supports:spec:foundation.show-system-clearly.capability",
+      "type": "supports",
+      "from": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "to": "spec:foundation.show-system-clearly.capability",
+      "source": {
+        "specId": "foundation.desired-information-can-be-found-and-recorded.capability",
+        "sectionId": "outcome-contract"
+      },
+      "ownerSpecId": "foundation.desired-information-can-be-found-and-recorded.capability"
+    },
+    {
       "id": "edge:spec:foundation.evaluate-learn-improve.capability:contains:spec:foundation.compound-improvements-safely.capability",
       "type": "contains",
       "from": "spec:foundation.evaluate-learn-improve.capability",
@@ -9024,6 +9216,94 @@
       "ownerSpecId": "foundation.learn-agent-capabilities-over-time.capability"
     },
     {
+      "id": "edge:spec:foundation.long-running-agent-work.capability:contains:spec:foundation.shift-clock.capability",
+      "type": "contains",
+      "from": "spec:foundation.long-running-agent-work.capability",
+      "to": "spec:foundation.shift-clock.capability",
+      "source": {
+        "specId": "foundation.long-running-agent-work.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.long-running-agent-work.capability"
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-work.capability:depends-on:spec:foundation.make-outstanding-work-repeatable.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.long-running-agent-work.capability",
+      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "source": {
+        "specId": "foundation.long-running-agent-work.capability",
+        "sectionId": "capability-intent"
+      },
+      "ownerSpecId": "foundation.long-running-agent-work.capability"
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-work.capability:realized-by:spec:foundation.long-running-agent-worker.job",
+      "type": "realized-by",
+      "from": "spec:foundation.long-running-agent-work.capability",
+      "to": "spec:foundation.long-running-agent-worker.job",
+      "source": {
+        "specId": "foundation.long-running-agent-work.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.long-running-agent-work.capability"
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-worker.job:depends-on:spec:foundation.shift-clock.capability",
+      "type": "depends-on",
+      "from": "spec:foundation.long-running-agent-worker.job",
+      "to": "spec:foundation.shift-clock.capability",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.long-running-agent-worker.job"
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-worker.job:evidenced-by:evidence:foundation.long-running-agent-worker.job:handoff",
+      "type": "evidenced-by",
+      "from": "spec:foundation.long-running-agent-worker.job",
+      "to": "evidence:foundation.long-running-agent-worker.job:handoff",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "evidence-and-evaluation"
+      },
+      "ownerSpecId": "foundation.long-running-agent-worker.job"
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-worker.job:has-process:process:foundation.long-running-agent-worker.job:main",
+      "type": "has-process",
+      "from": "spec:foundation.long-running-agent-worker.job",
+      "to": "process:foundation.long-running-agent-worker.job:main",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "process"
+      },
+      "ownerSpecId": "foundation.long-running-agent-worker.job"
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-worker.job:performed-by:actor:foundation.long-running-agent-worker.job:agent",
+      "type": "performed-by",
+      "from": "spec:foundation.long-running-agent-worker.job",
+      "to": "actor:foundation.long-running-agent-worker.job:agent",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "context-tools-and-interfaces"
+      },
+      "ownerSpecId": "foundation.long-running-agent-worker.job"
+    },
+    {
+      "id": "edge:spec:foundation.long-running-agent-worker.job:supports:spec:foundation.long-running-agent-work.capability",
+      "type": "supports",
+      "from": "spec:foundation.long-running-agent-worker.job",
+      "to": "spec:foundation.long-running-agent-work.capability",
+      "source": {
+        "specId": "foundation.long-running-agent-worker.job",
+        "sectionId": "capability-supported"
+      },
+      "ownerSpecId": "foundation.long-running-agent-worker.job"
+    },
+    {
       "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:contains:spec:foundation.generate-maintain-agent-skills.capability",
       "type": "contains",
       "from": "spec:foundation.make-outstanding-work-repeatable.capability",
@@ -9035,10 +9315,10 @@
       "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
     },
     {
-      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:contains:spec:foundation.shift-clock.capability",
+      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:contains:spec:foundation.long-running-agent-work.capability",
       "type": "contains",
       "from": "spec:foundation.make-outstanding-work-repeatable.capability",
-      "to": "spec:foundation.shift-clock.capability",
+      "to": "spec:foundation.long-running-agent-work.capability",
       "source": {
         "specId": "foundation.make-outstanding-work-repeatable.capability",
         "sectionId": "jobs"
@@ -9064,17 +9344,6 @@
       "source": {
         "specId": "foundation.make-outstanding-work-repeatable.capability",
         "sectionId": "evidence-and-evaluation"
-      },
-      "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
-    },
-    {
-      "id": "edge:spec:foundation.make-outstanding-work-repeatable.capability:realized-by:spec:foundation.research.job",
-      "type": "realized-by",
-      "from": "spec:foundation.make-outstanding-work-repeatable.capability",
-      "to": "spec:foundation.research.job",
-      "source": {
-        "specId": "foundation.make-outstanding-work-repeatable.capability",
-        "sectionId": "jobs"
       },
       "ownerSpecId": "foundation.make-outstanding-work-repeatable.capability"
     },
@@ -9475,10 +9744,10 @@
       "ownerSpecId": "foundation.research.job"
     },
     {
-      "id": "edge:spec:foundation.research.job:supports:spec:foundation.make-outstanding-work-repeatable.capability",
+      "id": "edge:spec:foundation.research.job:supports:spec:foundation.desired-information-can-be-found-and-recorded.capability",
       "type": "supports",
       "from": "spec:foundation.research.job",
-      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
       "source": {
         "specId": "foundation.research.job",
         "sectionId": "capability-supported"
@@ -9519,10 +9788,10 @@
       "ownerSpecId": "foundation.research.technical"
     },
     {
-      "id": "edge:spec:foundation.shift-clock.capability:depends-on:spec:foundation.make-outstanding-work-repeatable.capability",
+      "id": "edge:spec:foundation.shift-clock.capability:depends-on:spec:foundation.long-running-agent-work.capability",
       "type": "depends-on",
       "from": "spec:foundation.shift-clock.capability",
-      "to": "spec:foundation.make-outstanding-work-repeatable.capability",
+      "to": "spec:foundation.long-running-agent-work.capability",
       "source": {
         "specId": "foundation.shift-clock.capability",
         "sectionId": "capability-intent"
@@ -10220,6 +10489,17 @@
       "ownerSpecId": "foundation.understand-intent-reality.capability"
     },
     {
+      "id": "edge:spec:foundation.understand-intent-reality.capability:contains:spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "type": "contains",
+      "from": "spec:foundation.understand-intent-reality.capability",
+      "to": "spec:foundation.desired-information-can-be-found-and-recorded.capability",
+      "source": {
+        "specId": "foundation.understand-intent-reality.capability",
+        "sectionId": "jobs"
+      },
+      "ownerSpecId": "foundation.understand-intent-reality.capability"
+    },
+    {
       "id": "edge:spec:foundation.understand-intent-reality.capability:depends-on:spec:foundation.operating-system.system",
       "type": "depends-on",
       "from": "spec:foundation.understand-intent-reality.capability",
@@ -10711,9 +10991,9 @@
     }
   ],
   "summary": {
-    "specCount": 113,
-    "nodeCount": 203,
-    "edgeCount": 475,
+    "specCount": 116,
+    "nodeCount": 209,
+    "edgeCount": 487,
     "validation": {
       "pass": 1,
       "warn": 0,

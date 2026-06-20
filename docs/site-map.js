@@ -7,7 +7,7 @@ window.SubstrateSiteMap = {
       "sourcePath": "docs"
     }
   ],
-  "fileCount": 117,
+  "fileCount": 133,
   "items": [
     {
       "type": "folder",
@@ -193,7 +193,7 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "author-durable-specs.html",
-              "title": "Author Durable Specs",
+              "title": "Specs Preserve Durable Intent",
               "path": "specs/capabilities/author-durable-specs.html",
               "sourcePath": "docs/specs/capabilities/author-durable-specs.html",
               "rootPath": "docs",
@@ -211,7 +211,7 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "capture-business-system-intent.html",
-              "title": "Capture Business and System Intent",
+              "title": "Business And System Intent Is Clear",
               "path": "specs/capabilities/capture-business-system-intent.html",
               "sourcePath": "docs/specs/capabilities/capture-business-system-intent.html",
               "rootPath": "docs",
@@ -229,7 +229,7 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "compound-improvements-safely.html",
-              "title": "Compound Improvements Safely",
+              "title": "Improvements Compound Safely",
               "path": "specs/capabilities/compound-improvements-safely.html",
               "sourcePath": "docs/specs/capabilities/compound-improvements-safely.html",
               "rootPath": "docs",
@@ -238,7 +238,7 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "define-jobs-from-capabilities.html",
-              "title": "Define Jobs From Capabilities",
+              "title": "Capabilities Become Workable Jobs",
               "path": "specs/capabilities/define-jobs-from-capabilities.html",
               "sourcePath": "docs/specs/capabilities/define-jobs-from-capabilities.html",
               "rootPath": "docs",
@@ -255,6 +255,15 @@ window.SubstrateSiteMap = {
             },
             {
               "type": "file",
+              "name": "desired-information-can-be-found-and-recorded.html",
+              "title": "Desired Information Can Be Found And Recorded",
+              "path": "specs/capabilities/desired-information-can-be-found-and-recorded.html",
+              "sourcePath": "docs/specs/capabilities/desired-information-can-be-found-and-recorded.html",
+              "rootPath": "docs",
+              "specId": "foundation.desired-information-can-be-found-and-recorded.capability"
+            },
+            {
+              "type": "file",
               "name": "evaluate-learn-improve.html",
               "title": "Evaluate, Learn, And Improve",
               "path": "specs/capabilities/evaluate-learn-improve.html",
@@ -265,7 +274,7 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "evaluate-quality-completeness.html",
-              "title": "Evaluate Quality and Completeness",
+              "title": "Quality And Completeness Are Judged",
               "path": "specs/capabilities/evaluate-quality-completeness.html",
               "sourcePath": "docs/specs/capabilities/evaluate-quality-completeness.html",
               "rootPath": "docs",
@@ -273,8 +282,17 @@ window.SubstrateSiteMap = {
             },
             {
               "type": "file",
+              "name": "failure-recovery-ready.html",
+              "title": "Failure Recovery Is Ready",
+              "path": "specs/capabilities/failure-recovery-ready.html",
+              "sourcePath": "docs/specs/capabilities/failure-recovery-ready.html",
+              "rootPath": "docs",
+              "specId": "foundation.failure-recovery-ready.capability"
+            },
+            {
+              "type": "file",
               "name": "generate-maintain-agent-skills.html",
-              "title": "Generate and Maintain Agent Skills",
+              "title": "Agent Skills Preserve Repeatable Work",
               "path": "specs/capabilities/generate-maintain-agent-skills.html",
               "sourcePath": "docs/specs/capabilities/generate-maintain-agent-skills.html",
               "rootPath": "docs",
@@ -283,7 +301,7 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "install-foundation-target-repos.html",
-              "title": "Install Foundation Into Target Repos",
+              "title": "Foundation Is Installable In Target Repos",
               "path": "specs/capabilities/install-foundation-target-repos.html",
               "sourcePath": "docs/specs/capabilities/install-foundation-target-repos.html",
               "rootPath": "docs",
@@ -292,7 +310,7 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "inventory-classify-artifacts.html",
-              "title": "Inventory and Classify Repository Artifacts",
+              "title": "Repo Artifacts Are Known And Classified",
               "path": "specs/capabilities/inventory-classify-artifacts.html",
               "sourcePath": "docs/specs/capabilities/inventory-classify-artifacts.html",
               "rootPath": "docs",
@@ -301,11 +319,20 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "learn-agent-capabilities-over-time.html",
-              "title": "Learn Agent Capabilities Over Time",
+              "title": "Agent Capability Changes Stay Known",
               "path": "specs/capabilities/learn-agent-capabilities-over-time.html",
               "sourcePath": "docs/specs/capabilities/learn-agent-capabilities-over-time.html",
               "rootPath": "docs",
               "specId": "foundation.learn-agent-capabilities-over-time.capability"
+            },
+            {
+              "type": "file",
+              "name": "long-running-agent-work.html",
+              "title": "Long-Running Agent Work",
+              "path": "specs/capabilities/long-running-agent-work.html",
+              "sourcePath": "docs/specs/capabilities/long-running-agent-work.html",
+              "rootPath": "docs",
+              "specId": "foundation.long-running-agent-work.capability"
             },
             {
               "type": "file",
@@ -319,7 +346,7 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "map-capabilities-from-evidence.html",
-              "title": "Map Capabilities From Evidence",
+              "title": "Evidence Becomes Capability Maps",
               "path": "specs/capabilities/map-capabilities-from-evidence.html",
               "sourcePath": "docs/specs/capabilities/map-capabilities-from-evidence.html",
               "rootPath": "docs",
@@ -328,7 +355,7 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "map-surfaces-functions.html",
-              "title": "Map Surfaces and Functions",
+              "title": "Repo Surfaces Are Evidence Backed",
               "path": "specs/capabilities/map-surfaces-functions.html",
               "sourcePath": "docs/specs/capabilities/map-surfaces-functions.html",
               "rootPath": "docs",
@@ -345,8 +372,17 @@ window.SubstrateSiteMap = {
             },
             {
               "type": "file",
+              "name": "operating-lessons-improve-system.html",
+              "title": "Operating Lessons Improve The System",
+              "path": "specs/capabilities/operating-lessons-improve-system.html",
+              "sourcePath": "docs/specs/capabilities/operating-lessons-improve-system.html",
+              "rootPath": "docs",
+              "specId": "foundation.operating-lessons-improve-system.capability"
+            },
+            {
+              "type": "file",
               "name": "package-context-for-action.html",
-              "title": "Package Context For Action",
+              "title": "Context Is Bounded For Action",
               "path": "specs/capabilities/package-context-for-action.html",
               "sourcePath": "docs/specs/capabilities/package-context-for-action.html",
               "rootPath": "docs",
@@ -364,7 +400,7 @@ window.SubstrateSiteMap = {
             {
               "type": "file",
               "name": "render-inspectable-system-graph.html",
-              "title": "Render the System as an Inspectable Graph",
+              "title": "System Graphs Are Inspectable",
               "path": "specs/capabilities/render-inspectable-system-graph.html",
               "sourcePath": "docs/specs/capabilities/render-inspectable-system-graph.html",
               "rootPath": "docs",
@@ -378,6 +414,24 @@ window.SubstrateSiteMap = {
               "sourcePath": "docs/specs/capabilities/show-system-clearly.html",
               "rootPath": "docs",
               "specId": "foundation.show-system-clearly.capability"
+            },
+            {
+              "type": "file",
+              "name": "system-health-visible.html",
+              "title": "System Health Is Visible",
+              "path": "specs/capabilities/system-health-visible.html",
+              "sourcePath": "docs/specs/capabilities/system-health-visible.html",
+              "rootPath": "docs",
+              "specId": "foundation.system-health-visible.capability"
+            },
+            {
+              "type": "file",
+              "name": "systems-ship-safely.html",
+              "title": "Systems Can Ship Safely",
+              "path": "specs/capabilities/systems-ship-safely.html",
+              "sourcePath": "docs/specs/capabilities/systems-ship-safely.html",
+              "rootPath": "docs",
+              "specId": "foundation.systems-ship-safely.capability"
             },
             {
               "type": "file",
@@ -621,6 +675,33 @@ window.SubstrateSiteMap = {
           "sourcePath": "docs/specs/business-intake-fill-loop.html",
           "rootPath": "docs",
           "specId": "foundation.business-intake-fill-loop.job"
+        },
+        {
+          "type": "file",
+          "name": "context-intake-eval.html",
+          "title": "Context Intake Eval Spec",
+          "path": "specs/context-intake-eval.html",
+          "sourcePath": "docs/specs/context-intake-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.context-intake.eval"
+        },
+        {
+          "type": "file",
+          "name": "context-intake-technical.html",
+          "title": "Context Intake Technical Spec",
+          "path": "specs/context-intake-technical.html",
+          "sourcePath": "docs/specs/context-intake-technical.html",
+          "rootPath": "docs",
+          "specId": "foundation.context-intake.technical"
+        },
+        {
+          "type": "file",
+          "name": "context-intake.html",
+          "title": "Context Intake Job Spec",
+          "path": "specs/context-intake.html",
+          "sourcePath": "docs/specs/context-intake.html",
+          "rootPath": "docs",
+          "specId": "foundation.context-intake.job"
         },
         {
           "type": "file",
@@ -1021,7 +1102,7 @@ window.SubstrateSiteMap = {
         {
           "type": "file",
           "name": "knowledge-and-data-layer.html",
-          "title": "Knowledge and Data Layer",
+          "title": "Knowledge Stays Useful As Context",
           "path": "specs/knowledge-and-data-layer.html",
           "sourcePath": "docs/specs/knowledge-and-data-layer.html",
           "rootPath": "docs",
@@ -1038,12 +1119,75 @@ window.SubstrateSiteMap = {
         },
         {
           "type": "file",
+          "name": "long-running-agent-worker.html",
+          "title": "Long-Running Agent Worker",
+          "path": "specs/long-running-agent-worker.html",
+          "sourcePath": "docs/specs/long-running-agent-worker.html",
+          "rootPath": "docs",
+          "specId": "foundation.long-running-agent-worker.job"
+        },
+        {
+          "type": "file",
           "name": "process.html",
           "title": "Spec Maintenance Process",
           "path": "specs/process.html",
           "sourcePath": "docs/specs/process.html",
           "rootPath": "docs",
           "specId": "foundation.spec-process"
+        },
+        {
+          "type": "file",
+          "name": "research-eval.html",
+          "title": "Research Workflow Eval",
+          "path": "specs/research-eval.html",
+          "sourcePath": "docs/specs/research-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.research.eval"
+        },
+        {
+          "type": "file",
+          "name": "research-technical.html",
+          "title": "Research Workflow Technical",
+          "path": "specs/research-technical.html",
+          "sourcePath": "docs/specs/research-technical.html",
+          "rootPath": "docs",
+          "specId": "foundation.research.technical"
+        },
+        {
+          "type": "file",
+          "name": "research.html",
+          "title": "Research Workflow",
+          "path": "specs/research.html",
+          "sourcePath": "docs/specs/research.html",
+          "rootPath": "docs",
+          "specId": "foundation.research.job"
+        },
+        {
+          "type": "file",
+          "name": "shift-clock-eval.html",
+          "title": "Shift Clock Eval",
+          "path": "specs/shift-clock-eval.html",
+          "sourcePath": "docs/specs/shift-clock-eval.html",
+          "rootPath": "docs",
+          "specId": "foundation.shift-clock.eval"
+        },
+        {
+          "type": "file",
+          "name": "shift-clock-technical.html",
+          "title": "Shift Clock Technical",
+          "path": "specs/shift-clock-technical.html",
+          "sourcePath": "docs/specs/shift-clock-technical.html",
+          "rootPath": "docs",
+          "specId": "foundation.shift-clock.technical"
+        },
+        {
+          "type": "file",
+          "name": "shift-clock.html",
+          "title": "Shift Clock",
+          "path": "specs/shift-clock.html",
+          "sourcePath": "docs/specs/shift-clock.html",
+          "rootPath": "docs",
+          "specId": "foundation.shift-clock.capability"
         },
         {
           "type": "file",
@@ -1093,7 +1237,7 @@ window.SubstrateSiteMap = {
         {
           "type": "file",
           "name": "visible-business-graph.html",
-          "title": "Visible Business Graph",
+          "title": "Business Graph Is Visible",
           "path": "specs/visible-business-graph.html",
           "sourcePath": "docs/specs/visible-business-graph.html",
           "rootPath": "docs",
