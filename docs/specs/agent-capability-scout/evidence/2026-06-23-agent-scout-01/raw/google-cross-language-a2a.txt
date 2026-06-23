@@ -1,0 +1,1053 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+        <meta charset="utf-8" />
+        
+        <title>
+            
+            Build Cross-Language Multi-Agent Team with Google’s Agent Development Kit and A2A
+            
+            
+            - Google Developers Blog
+            
+        </title>
+        <meta property="og:title" content="Build Cross-Language Multi-Agent Team with Google’s Agent Development Kit and A2A- Google Developers Blog" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+	<meta name="description" content="How a Python agent and a Go agent collaborate on contract compliance using the Agent2Agent protocolY..." />
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta content="Google for Developers Blog - News about Web, Mobile, AI and Cloud" property="twitter:title"/>
+  <meta property="og:title" content="Build Cross-Language Multi-Agent Team with Google’s Agent Development Kit and A2A" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Google for Developers Blog",
+      "item": "https://developers.googleblog.com/"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Build Cross-Language Multi-Agent Team with Google’s Agent Development Kit and A2A",
+      "item": "https://developers.googleblog.com/en/build-cross-language-multi-agent-team-with-google-agent-development-kit-and-a2a/"
+    }]
+  }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Build Cross-Language Multi-Agent Team with Google’s Agent Development Kit and A2A",
+      "description": "",
+      "image": "https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/banner.2e16d0ba.fill-800x400.jpg",
+      "datePublished": "2026-06-22",
+      "author": [
+        
+        
+          { "@type": "Person", "name": "Shubham Saboo", "url": "/en/search/?author=Shubham+Saboo" },
+        
+          { "@type": "Person", "name": "Eric Dong", "url": "/en/search/?author=Eric+Dong" }
+        
+        
+      ]
+    }
+  </script>
+  
+  <meta content="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/banner.2e16d0ba.fill-1200x600.jpg" property="og:image"/>
+  
+
+
+        
+        
+
+        <!-- Google Tag Manager -->
+        <script type="text/javascript" nonce="H1ny92Wx4Fv4ZcOX6h4Htg==" src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/js/analytics.js"></script>
+        <!-- End Google Tag Manager -->
+
+        
+        <link href="//www.gstatic.com/glue/v27_1/glue.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/css/dgc_blog.css">
+        <link rel="icon" href="https://storage.googleapis.com/gweb-developer-goog-blog-assets/meta/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="https://storage.googleapis.com/gweb-developer-goog-blog-assets/meta/apple-touch-icon.png">
+
+        
+				<link rel="preconnect" href="https://fonts.googleapis.com">
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+				<link rel="preload" href="https://fonts.googleapis.com/css2?family=Product+Sans&family=Google+Sans+Display:ital@0;1&family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Google+Sans+Text:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" as="style">
+				<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Product+Sans&family=Google+Sans+Display:ital@0;1&family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Google+Sans+Text:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&amp;family=Google+Sans+Flex:opsz,wght@6..144,1..1000&amp;display=swap" rel="stylesheet" data-page-link="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap">
+
+        
+        <link href="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.css" rel="stylesheet">
+
+        
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/css/blog_detail.css"
+  />
+  <link type="text/css" href="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/css/prism.css" rel="stylesheet" />
+
+    </head>
+
+    <body id="main-content" class="glue-body ">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WVTLDSL "
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        
+
+				
+        
+
+<!-- HTML -->
+<header class="dgc-header">
+  <div class="dgc-header-inner">
+    <button class="hamburger" aria-haspopup="true" aria-expanded="false" aria-label="Open Menu">
+      <svg role="presentation" aria-hidden="true" class="glue-icon">
+        <use href="/glue-icon/#menu"></use>
+      </svg>
+    </button>
+    <div class="product-name-wrapper">
+      <a href="https://developers.google.com/" class="site-logo-link" data-label="Site logo">
+        <img src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/images/g-dev.svg" class="site-logo" alt="Google for Developers">
+      </a>
+    </div>
+    <div class="desktop-nav-wrapper">
+      <div class="upper-tabs-wrapper">
+        <div class="upper-tabs">
+          <nav class="tabs" aria-label="Upper Tabs">
+            <div class="tab">
+              <a
+                href="//developers.google.com/community"
+                class="top-nav-title">
+                Community/Events
+              </a>
+            </div>
+            <div class="tab">
+              <a
+                href="//developers.google.com/solutions/catalog"
+                class="top-nav-title">
+                Learn
+              </a>
+            </div>
+            <div class="tab">
+              <a
+                href="//developers.googleblog.com"
+                class="top-nav-title">
+                Blog
+              </a>
+            </div>
+            <div class="tab">
+              <a
+                href="https://www.youtube.com/user/GoogleDevelopers"
+                class="top-nav-title">
+                YouTube
+              </a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dgc-header-search">
+    <div class="search-wrapper glue-page">
+      <div class="glue-grid">
+        <form id="search-form"  action="/en/search/" method="get" class="search-content glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-9-md glue-grid__col--span-7-lg">
+          <div class="search-input-wrapper">
+            <svg role="presentation" aria-hidden="true" class="glue-icon search-icon">
+              <use href="/glue-icon/#search"></use>
+            </svg>
+            <input
+              type="text"
+              name="query"
+              
+              placeholder="Search all articles..."
+              aria-label="Search"
+              class="search-input-field"
+            />
+          </div>
+          <button class="glue-button glue-button--high-emphasis">
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" top-level-nav>
+  <nav class="nav-content" aria-label="Side menu">
+    <div class="mobile-header">
+      <button class="nav-close-btn nav-btn" aria-label="Close navigation">
+        <svg role="presentation" aria-hidden="true" class="glue-icon">
+          <use href="/glue-icon/#close"></use>
+        </svg>
+      </button>
+      <button class="nav-back-btn nav-btn hidden" aria-label="Back to Menu">
+        <svg role="presentation" aria-hidden="true" class="glue-icon">
+          <use href="/glue-icon/#arrow-back"></use>
+        </svg>
+      </button>
+      <div class="product-name-wrapper">
+        <a href="https://developers.google.com/" class="site-logo-link" data-label="Site logo">
+          <img src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/images/g-dev.svg" class="site-logo" alt="Google for Developers">
+        </a>
+      </div>
+    </div>
+    <div class="nav-wrapper">
+      <div class="mobile-nav-top">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="//developers.google.com/community" class="nav-title" data-label="Tab: Community/Events">
+              <span class="nav-text" tooltip="">
+                Community/Events
+             </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="//developers.google.com/solutions/catalog" class="nav-title" data-label="Tab: Learn">
+              <span class="nav-text" tooltip="">
+                Learn
+             </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="//developers.googleblog.com" class="nav-title" data-label="Tab: Blog">
+              <span class="nav-text" tooltip="">
+                Blog
+             </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://www.youtube.com/user/GoogleDevelopers" class="nav-title" data-label="Tab: YouTube">
+              <span class="nav-text" tooltip="">
+                YouTube
+             </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="backdrop"></div>
+
+        
+  <div class="blog-detail-container">
+
+    
+      <section class="tags-container glue-page glue-spacer-5-top">
+        <div class="glue-eyebrow"></div>
+      </section>
+    
+
+    <section class="heading-container glue-page  glue-spacer-1-top">
+      <h1 class="glue-headline glue-headline--headline-1">Build Cross-Language Multi-Agent Team with Google’s Agent Development Kit and A2A</h1>
+    </section>
+
+    <section class="summary-container glue-page glue-spacer-4-top">
+      <div class="date-time">
+        <div class="published-date glue-font-weight-medium">JUNE 22, 2026</div>
+      </div>
+    </section>
+
+    <section class="glue-page glue-grid glue-spacer-1-top">
+
+      <section class="author-container glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-10-md">
+      
+        
+          <div class="author-obj">
+            <a class="glue-font-weight-medium" href="/en/search/?author=Shubham+Saboo">Shubham Saboo</a>
+            
+              <span class="glue-font-weight-medium role">Senior AI Product Manager</span>
+            
+            
+          </div>
+        
+          <div class="author-obj">
+            <a class="glue-font-weight-medium" href="/en/search/?author=Eric+Dong">Eric Dong</a>
+            
+              <span class="glue-font-weight-medium role">Developer Relations Engineer</span>
+            
+            
+          </div>
+        
+
+      
+      </section>
+      <section class="social-container glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-2-md">
+        <button id="social-button" class="glue-button glue-button--low-emphasis glue-button--icon" aria-haspopup="true" aria-expanded="false">
+          <svg role="presentation" aria-hidden="true" class="glue-icon">
+            <use href="/glue-icon/#share"></use>
+          </svg>
+          <span>Share</span>
+        </button>
+        <ul id="social-menu" class="glue-elevation-level-1" role="menu" aria-labelledby="social-button">
+          <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={url}"
+                title="Share on Facebook" target="_blank" rel="noopener">
+              <svg role="presentation" aria-hidden="true"
+                  class="glue-icon glue-icon--social glue-icon--32px">
+                <use href="/glue-icon/#post-facebook"></use>
+              </svg>
+              <span>Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/intent/tweet?text={url}"
+                title="Share on Twitter" target="_blank" rel="noopener">
+              <svg role="presentation" aria-hidden="true"
+                  class="glue-icon glue-icon--social glue-icon--32px">
+                <use href="/glue-icon/#twitter-x"></use>
+              </svg>
+              <span>Twitter</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/shareArticle?url={url}&amp;mini=true" title="Share on LinkedIn" target="_blank" rel="noopener">
+              <svg role="presentation" aria-hidden="true"
+                  class="glue-icon glue-icon--social glue-icon--32px">
+                <use href="/glue-icon/#post-linkedin"></use>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:name@example.com?subject=Check%20out%20this%20site&body=Check%20out%20{url}" title="Send via Email">
+              <svg role="presentation" aria-hidden="true"
+                  class="glue-icon glue-icon--social glue-icon--32px">
+                <use href="/glue-icon/#email"></use>
+              </svg>
+              <span>Mail</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" title="Get shareable link" data-link="" data-copy-text="Copy Link" data-copied-text="Copied!">
+              <svg role="presentation" aria-hidden="true"
+                  class="glue-icon glue-icon--social glue-icon--32px">
+                <use href="/glue-icon/#link"></use>
+              </svg>
+              <span></span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    
+    <section class="blocks-container glue-page glue-spacer-3-top">
+      <div class="block">
+          
+
+<img
+    class="banner-image"
+    src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/banner.original.jpg"
+    alt="banner"
+/>  <div class="inner-block-content rich-content">
+    <h2 data-block-key="2poif" id=""><b>How a Python agent and a Go agent collaborate on contract compliance using the Agent2Agent protocol</b></h2><p data-block-key="4g716">Your contract compliance pipeline has a problem. The data science team wrote a brilliant extraction agent in Python. It uses Gemini to parse legal contracts and pull out every key term. The security engineering team built a blazing-fast compliance validator in Go, using all deterministic logic and no LLM. Both work perfectly in isolation. But now you need them to work together, as a single coordinated pipeline, and neither team is willing to rewrite their service in another language.</p><p data-block-key="fdfam">This is the reality of production AI systems: different teams, different languages, different deployment targets. The question isn&#x27;t whether you&#x27;ll face this; it&#x27;s how you&#x27;ll solve it.</p><p data-block-key="3mc5n">In this post, we&#x27;ll build a <b>Contract Compliance Multi-Agent Pipeline</b> where a Python agent extracts contract terms using Gemini and a Go agent validates them against corporate policy. The two services are connected by the <b>Agent2Agent (A2A)</b> protocol and orchestrated by <b>Google&#x27;s</b> <a href="https://adk.dev/"><b>Agent Development Kit (ADK)</b></a>.</p><p data-block-key="b78bi">Along the way, you&#x27;ll learn three architectural patterns that separate production multi-agent systems from single-language demos:</p><p data-block-key="4v9v"></p><ul><li data-block-key="1houk"><b>Cross-language agent collaboration</b> using the A2A protocol so teams can build agents in the best language for the job without rewriting code.</li><li data-block-key="32a82"><b>ADK&#x27;s RemoteA2aAgent abstraction</b> that turns any remote A2A-compliant service into a local sub-agent with a few lines of code</li><li data-block-key="7jr3c"><b>Multi-agent pipeline orchestration</b> where specialized agents with narrow responsibilities replace monolithic prompts that try to do everything<br/><br/></li></ul><p data-block-key="b9da9">The complete source code is available on <a href="https://github.com/GoogleCloudPlatform/generative-ai/tree/main/agents/adk/contract-compliance-pipeline">GitHub</a>.</p>
+</div>   
+
+
+    
+    <div class="inner-block-content">
+        <div class="image-wrapper">
+            
+                <img
+                    class="regular-image"
+                    src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/diagram_1_2.original.png"
+                    alt="diagram_1 (2)"
+                />
+            
+            
+        </div>
+    </div>
+  <div class="inner-block-content rich-content">
+    <h2 data-block-key="b36qg" id="when-one-agent-isn&#x27;t-enough"><b>When one agent isn&#x27;t enough</b></h2><p data-block-key="a87dt">Most AI projects start the same way: one big agent, one massive prompt, every tool crammed into a single context window. It works for demos. It falls apart in production for three key reasons:</p><p data-block-key="1kih4"></p><ul><li data-block-key="13l2"><b>Context degradation:</b> As tools multiply beyond 10-15, the model starts missing instructions, calling wrong tools, or hallucinating parameters. Each additional tool dilutes the model&#x27;s attention across a wider surface area. A contract extraction agent that also handles translation, summarization, and email drafting will eventually get confused about which tool to call when.</li><li data-block-key="9184v"><b>Blast radius</b>: One unhandled exception in a minor feature crashes the entire agent turn. A rate limit on a translation API shouldn&#x27;t bring down your entire workflow. But in a monolithic agent, every failure is a total failure.</li><li data-block-key="7es4q"><b>Untestable</b>: You can&#x27;t cleanly unit test a system with 50 entangled responsibilities. When every prompt change potentially affects every downstream behavior, evaluating regressions becomes guesswork.</li></ul><p data-block-key="5c9qg"></p><p data-block-key="dagnh">The fix is the same pattern that transformed backend engineering a decade ago: decompose the monolith into specialized microservices. Each agent gets one job, a focused prompt, and a minimal toolset.</p>
+</div>   
+
+
+    
+    <div class="inner-block-content">
+        <div class="image-wrapper">
+            
+                <img
+                    class="regular-image"
+                    src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/table.original.jpg"
+                    alt="table"
+                />
+            
+            
+        </div>
+    </div>
+  <div class="inner-block-content rich-content">
+    <h2 data-block-key="fb6y6" id="the-a2a-protocol:-how-agents-discover-and-talk-to-each-other"><b>The A2A protocol: how agents discover and talk to each other</b></h2><p data-block-key="a05pb">The Agent-to-Agent (A2A) protocol is an open standard that enables agents built in any language or framework to interoperate. Think of it as the HTTP of the agent world: a shared contract that lets any two agents communicate regardless of how they&#x27;re built internally.</p><p data-block-key="4l62">A2A solves three fundamental problems:</p><p data-block-key="cfhsa"></p><ul><li data-block-key="fdmm"><b>Discovery:</b> Agents advertise their capabilities through Agent Cards, JSON metadata served at /.well-known/agent.json. Similar to OpenAPI specs for REST APIs, the card declares the agent&#x27;s name, URL, version, skills, and supported input/output formats. A calling agent fetches the card first to understand what the remote agent can do.</li><li data-block-key="2fokh"><b>Communication:</b> All data exchange happens over JSON-RPC 2.0, routed through a single endpoint. The core method for agent communication is message/send (used by our implementation to submit contract data and receive results synchronously), alongside other protocol methods like tasks/send and tasks/get for task submission and retrieval. Data travels inside typed Message Parts: TextParts for natural language and DataParts for structured JSON.</li><li data-block-key="a1hk2"><b>Task lifecycle:</b> Every interaction is wrapped in a Task that transitions through well-defined states: submitted, working, completed, or failed. This state machine means agents can handle both synchronous workflows (check this contract now) and asynchronous ones (verify this document over 48 hours) with the same protocol.</li></ul><p data-block-key="lsbv"></p><p data-block-key="1b2br">The beauty of this approach is that neither agent needs to know anything about the other&#x27;s implementation. The Python agent doesn&#x27;t import Go packages. The Go agent doesn&#x27;t run Python code. They just speak a shared protocol over HTTP.</p>
+</div>   
+
+
+    
+    <div class="inner-block-content">
+        <div class="image-wrapper">
+            
+                <img
+                    class="regular-image"
+                    src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/image_6.original.png"
+                    alt="image (6)"
+                />
+            
+            
+        </div>
+    </div>
+  <div class="inner-block-content rich-content">
+    <h3 data-block-key="p62pm" id="what-an-agent-card-actually-looks-like"><b>What an Agent Card Actually looks like</b></h3><p data-block-key="f0817">Here is the Agent Card the Go compliance service exposes at ‘/.well-known/agent.json’:</p>
+</div>  <div class="inner-block-content code-block line-numbers">
+    <pre><code class="language-go">// go-compliance-agent/internal/agentcard/card.go
+func GetCard() AgentCard {
+	agentURL := os.Getenv(&quot;AGENT_URL&quot;)
+	if agentURL == &quot;&quot; {
+		agentURL = &quot;http://localhost:8888&quot;
+	}
+
+	return AgentCard{
+		Name:        &quot;Security Compliance Validator&quot;,
+		Description: &quot;Go-based validation engine that checks vendor contracts against corporate compliance policy rules.&quot;,
+		Version:     &quot;1.0.0&quot;,
+		SupportedInterfaces: []AgentInterface{
+			{
+				URL:             agentURL,
+				ProtocolBinding: &quot;JSONRPC&quot;,
+				ProtocolVersion: &quot;1.0&quot;,
+			},
+		},
+		Capabilities: Capabilities{
+			ExtendedAgentCard: false,
+		},
+		DefaultInputModes:  []string{&quot;application/json&quot;},
+		DefaultOutputModes: []string{&quot;application/json&quot;},
+		Skills: []Skill{
+			{
+				ID:          &quot;contract_compliance_check&quot;,
+				Name:        &quot;Contract Compliance Check&quot;,
+				Description: &quot;Validates extracted contract fields against corporate policy rules.&quot;,
+				Tags:        []string{&quot;compliance&quot;, &quot;contract&quot;, &quot;validation&quot;},
+				Examples: []string{
+					&quot;Check this contract for compliance violations&quot;,
+					&quot;Validate vendor agreement terms against policy&quot;,
+				},
+			},
+		},
+	}
+}</code></pre>
+    <div class="language-block glue-font-weight-medium">
+        Go
+    </div>
+    <div class="copy-code-block">
+        <span class="hidden">Copied</span>
+        <button class="copy-clipboard">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#202124"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
+        </button>
+    </div>
+    <div class="dark-mode-block">
+        <button class="dark-mode-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#202124"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/></svg>
+        </button>
+    </div>
+    
+</div>  <div class="inner-block-content rich-content">
+    <p data-block-key="6120h">The URL is read from an environment variable so the same code works locally (‘localhost:8888’) and in containers (‘go-compliance-agent:8888’). The Skills array means a single agent can advertise multiple capabilities.</p><h2 data-block-key="gxon2" id="code-implementation-walkthrough"><b>Code Implementation Walkthrough</b></h2><p data-block-key="94qpf">Here is how easily this cross-language team is assembled using the ADK in Python and a standard HTTP server in Go.</p><h3 data-block-key="54vmj" id="shared-state:-the-data-bus-between-agents"><b>Shared state: the data bus between agents</b></h3><p data-block-key="e5mi0">Before diving into individual agents, it&#x27;s important to understand how they communicate. ADK&#x27;s ToolContext.state provides a shared dictionary that all sub-agents in a pipeline read and write to. Rather than passing data between agents through function arguments or return values, agents communicate through a shared session state.</p><p data-block-key="6povo">Each step in our compliance pipeline maps to a specific checkpoint:</p>
+</div>  <div class="inner-block-content code-block line-numbers">
+    <pre><code class="language-python">class ComplianceStep(str, Enum):
+    INGESTED = &quot;INGESTED&quot;                     # Contract uploaded, awaiting extraction
+    EXTRACTED = &quot;EXTRACTED&quot;                    # Fields parsed by Gemini
+    COMPLIANCE_PENDING = &quot;COMPLIANCE_PENDING&quot;  # Sent to Go agent, awaiting result
+    COMPLIANCE_COMPLETE = &quot;COMPLIANCE_COMPLETE&quot;# Go agent returned verdict
+    MANUAL_REVIEW = &quot;MANUAL_REVIEW&quot;           # Timeout or error, routed to human
+    REVIEW_READY = &quot;REVIEW_READY&quot;             # Report generated, violations found
+    APPROVED = &quot;APPROVED&quot;                      # All checks passed</code></pre>
+    <div class="language-block glue-font-weight-medium">
+        Python
+    </div>
+    <div class="copy-code-block">
+        <span class="hidden">Copied</span>
+        <button class="copy-clipboard">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#202124"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
+        </button>
+    </div>
+    <div class="dark-mode-block">
+        <button class="dark-mode-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#202124"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/></svg>
+        </button>
+    </div>
+    
+</div>  <div class="inner-block-content rich-content">
+    <p data-block-key="6120h">The MANUAL_REVIEW state is worth highlighting. If the Go compliance agent is unreachable for reasons like server crash, network timeout, container not started - the pipeline doesn&#x27;t just fail. It transitions to MANUAL_REVIEW, routing the case to a human legal reviewer. This fail-safe pattern is essential for production systems where downstream services may be intermittently unavailable.</p><h3 data-block-key="5hlym" id="1.-full-multi-agent-pipeline:-wrapping-the-go-agent-in-python"><b>1. Full Multi-Agent Pipeline: Wrapping the Go Agent in Python</b></h3><p data-block-key="3dh4m">Using the ADK, you can define a <b>remote A2A-compliant</b> agent locally using `RemoteA2aAgent`. The SDK automatically handles the Agent Card handshake, parameter serialization, and JSON-RPC network requests behind the scenes.</p>
+</div>  <div class="inner-block-content code-block line-numbers">
+    <pre><code class="language-python"># python-extraction-agent/app/agent.py
+from google.adk.agents import Agent, SequentialAgent
+from google.adk.agents.remote_a2a_agent import RemoteA2aAgent
+from google.adk.models import Gemini
+
+
+# Sub-Agent 1: Ingests &amp; extracts details using LLM reasoning
+extractor_agent = Agent(
+   name=&quot;extractor_agent&quot;,
+   model=Gemini(model=&quot;gemini-3.5-flash&quot;),
+   instruction=&quot;You are a Legal Data Extraction Agent. Extract contract fields: value, contractor, dates, insurance...&quot;,
+   tools=[read_contract_text, save_extracted_fields, classify_risk_level]
+)
+
+# Sub-Agent 2: Go A2A Compliance Service wrapped as a local agent
+compliance_agent = RemoteA2aAgent(
+   name=&quot;compliance_agent&quot;,
+   agent_card=GO_AGENT_CARD_URL,
+   description=&quot;Validates extracted contract fields against corporate policies.&quot;
+)
+
+# Sub-Agent 3: Generates the final audit summary report
+report_agent = Agent(
+   name=&quot;report_agent&quot;,
+   model=Gemini(model=&quot;gemini-3.5-flash&quot;),
+   instruction=&quot;Generate the final compliance report and Markdown summary.&quot;,
+   tools=[generate_summary_report]
+)
+
+# Coordinator: Chains them together sequentially
+root_agent = SequentialAgent(
+   name=&quot;contract_compliance_coordinator&quot;,
+    description=&quot;Orchestrates contract parsing, A2A compliance validation, and final reporting in sequence.&quot;,
+   sub_agents=[extractor_agent, compliance_agent, report_agent],
+)</code></pre>
+    <div class="language-block glue-font-weight-medium">
+        Python
+    </div>
+    <div class="copy-code-block">
+        <span class="hidden">Copied</span>
+        <button class="copy-clipboard">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#202124"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
+        </button>
+    </div>
+    <div class="dark-mode-block">
+        <button class="dark-mode-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#202124"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/></svg>
+        </button>
+    </div>
+    
+</div>  <div class="inner-block-content rich-content">
+    <h3 data-block-key="46xfv" id="2.-the-go-compliance-endpoint"><b>2. The Go Compliance Endpoint</b></h3><p data-block-key="dtfdf">On the Go side, the compliance agent is a standard HTTP server that implements the A2A protocol. It exposes an Agent Card for discovery and a single JSON-RPC endpoint that accepts message/send requests, runs deterministic policy checks against the extracted contract fields, and returns a pass/fail verdict. No AI frameworks or SDKs needed — just the Go standard library.</p><p data-block-key="b8cab">Here&#x27;s the simplified flow (the <a href="https://github.com/GoogleCloudPlatform/generative-ai/tree/main/agents/adk/contract-compliance-pipeline/go-compliance-agent">full implementation</a> is in the repository):</p>
+</div>  <div class="inner-block-content code-block line-numbers">
+    <pre><code class="language-go">// Simplified pseudo-code — see GitHub repository for full implementation
+
+
+func HandleJSONRPC(w http.ResponseWriter, r *http.Request) {
+    var req JSONRPCRequest
+    json.NewDecoder(r.Body).Decode(&amp;req)
+
+    // Extract contract details from the A2A message
+    var details compliance.ContractDetails
+    extractContractFromMessage(req.Params, &amp;details)
+
+    // Run deterministic policy checks
+    result := compliance.CheckCompliance(details, policy)
+
+    // Return verdict as a JSON-RPC response
+    writeJSONRPCResult(w, req.ID, result)
+}</code></pre>
+    <div class="language-block glue-font-weight-medium">
+        Go
+    </div>
+    <div class="copy-code-block">
+        <span class="hidden">Copied</span>
+        <button class="copy-clipboard">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#202124"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
+        </button>
+    </div>
+    <div class="dark-mode-block">
+        <button class="dark-mode-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#202124"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"/></svg>
+        </button>
+    </div>
+    
+</div>  <div class="inner-block-content rich-content">
+    <h2 data-block-key="0ia91" id="open-source-app:-contract-compliance-engine"><b>Open source App: Contract Compliance Engine</b></h2><p data-block-key="b7mbb">The complete pipeline ships as an open source application you can deploy and extend. The <a href="https://github.com/GoogleCloudPlatform/generative-ai/tree/main/agents/adk/contract-compliance-pipeline">repository</a> includes a full-featured operations cockpit served by the FastAPI service.</p><p data-block-key="73p96"></p><ul><li data-block-key="596cp"><b>Three-panel operations cockpit:</b> The left panel lets operators select or upload contracts. The center panel shows live results: compliance certificates for passing contracts and violation reports for failures. The right panel is a developer console with policy controls, network simulation, and a real-time view of the data flowing between the two agents.</li><li data-block-key="5qjg5"><b>Network fault simulation:</b> A toggle lets you switch the Go agent between Normal, Delayed, and Crashed states. Setting it to Crashed shows the fail-safe in action: the Python agent detects the outage, halts the pipeline, and routes the contract for manual human review instead of silently failing.</li><li data-block-key="9unp"><b>Live agent handoff inspector:</b> The right panel displays the exact request sent from Python to Go and the response coming back, so you can see the structured contract data crossing the language boundary in real time.</li></ul>
+</div>   
+
+
+    
+    <div class="inner-block-content">
+        <div class="image-wrapper">
+            
+                <img
+                    class="regular-image"
+                    src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/application_interface.original.png"
+                    alt="application_interface"
+                />
+            
+            
+        </div>
+    </div>
+  <div class="inner-block-content rich-content">
+    <h2 data-block-key="8u7fo" id="benefits-of-the-adk-and-a2a-approach"><b>Benefits of the ADK and A2A Approach</b></h2><p data-block-key="dneaa"></p><ol><li data-block-key="blgog"><b>Freedom of Technology</b>: Your data science team can write complex cognitive agents in Python, and your systems team can write high-performance, secure compliance validators in Go, Rust, or C++.</li><li data-block-key="4ch14"><b>Simplified Integration</b>: The Python orchestrator communicates with the Go agent as if it were a local class. You do not have to write custom HTTP clients or handle manual JSON-RPC payload wrapping.</li><li data-block-key="9plmc"><b>Resilience</b>: Because the agents are decoupled, you can configure granular timeouts and retry logic. If the Go validator is down, the Python agent saves the current state checkpoint and waits for manual approval.</li><li data-block-key="3jspp"><b>Isolated Auditing</b>: The Go compliance validator is completely deterministic. For audit purposes, you can pass the same inputs and verify they produce identical policy verdicts, bypassing LLM non-determinism.</li></ol><p data-block-key="57lh0"></p><h2 data-block-key="s44ud" id="conclusion"><b>Conclusion</b></h2><p data-block-key="2ntod">Multi-agent orchestration isn&#x27;t just about chaining prompts; it&#x27;s about building robust, cross-language distributed systems.</p><p data-block-key="b49bp">By bridging Python&#x27;s AI ecosystem and Go&#x27;s runtime reliability using Google ADK and the open A2A protocol, you get the best of both worlds: cognitive reasoning where there is ambiguity, and deterministic enforcement where there is policy.</p><p data-block-key="93v3h">Ready to run this yourself?</p><ul><li data-block-key="6bs46">Clone the <a href="https://github.com/GoogleCloudPlatform/generative-ai/tree/main/agents/adk/contract-compliance-pipeline">contract-compliance-engine</a> and run the live demo locally</li><li data-block-key="bipmp">Explore the <a href="https://adk.dev/">ADK documentation</a> for session management, multi-agent patterns, and evaluation frameworks</li><li data-block-key="684mk">Explore the <a href="https://a2a-protocol.org/latest/">Agent2Agent Protocol</a> documentation for more details.</li></ul>
+</div> 
+      </div>
+    </section>
+    
+
+    <section class="navigation-container glue-page glue-spacer-6-top">
+      <div class="posted-in-section">
+        <div class="posted-in-section__heading">
+          <span class="glue-caption">
+            posted in:
+          </span>
+        </div>
+        <div class="posted-in-section__tags">
+          <ul>
+              
+                  <li>
+                      <a href="/en/search/?technology_categories=AI" class="glue-caption">AI</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?technology_categories=Cloud" class="glue-caption">Cloud</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?content_type_categories=Announcements" class="glue-caption">Announcements</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?content_type_categories=Best+Practices" class="glue-caption">Best Practices</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?content_type_categories=Learn" class="glue-caption">Learn</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?content_type_categories=Explore" class="glue-caption">Explore</a>
+                  </li>
+              
+              
+                  <li>
+                      <a href="/en/search/?tag=Python" class="glue-caption">Python</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?tag=ADK" class="glue-caption">ADK</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?tag=Influence" class="glue-caption">Influence</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?tag=open-source" class="glue-caption">open-source</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?tag=AI Agents" class="glue-caption">AI Agents</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?tag=Go" class="glue-caption">Go</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?tag=Typescript" class="glue-caption">Typescript</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?tag=java" class="glue-caption">java</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?tag=Multi-agents" class="glue-caption">Multi-agents</a>
+                  </li>
+              
+          </ul>
+      </div>
+      </div>
+      <div class="buttons-section">
+        <div class="buttons-section__left">
+          <a href="/en/unlocking-the-power-of-the-tpu-stack-introducing-our-new-developer-hub/" class="glue-button--icon glue-elevation-level-1 " aria-label="Previous">
+            <svg role="presentation" aria-hidden="true" class="glue-icon">
+              <use href="/glue-icon/#chevron-left"></use>
+            </svg>
+          </a>
+          <span class="caption ">Previous</span>
+        </div>
+        <div class="buttons-section__right">
+          <span class="caption ">Next</span>
+          <a href="/en/a2ui-and-mcp-apps/" class="glue-button--icon glue-elevation-level-1 "  aria-label="Next">
+            <svg role="presentation" aria-hidden="true" class="glue-icon">
+              <use href="/glue-icon/#chevron-right"></use>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="related-posts-container glue-page glue-spacer-6-top glue-spacer-3-bottom">
+      <span class="glue-headline glue-headline--headline-3">Related Posts</span>
+      <div class="related-posts-container__carousel glue-page glue-spacer-5-top">
+        <div class="glue-carousel glue-carousel--cards glue-carousel-related-posts" aria-label="Related Posts">
+          <!-- Previous -->
+          <button class="glue-carousel__button glue-carousel__button--prev"
+              aria-label="Go to the previous slide">
+            <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--32px">
+              <use href="/glue-icon/#chevron-left"></use>
+            </svg>
+          </button>
+          <!-- Next -->
+          <button class="glue-carousel__button glue-carousel__button--next"
+              aria-label="Go to the next slide">
+            <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--32px">
+              <use href="/glue-icon/#chevron-right"></use>
+            </svg>
+          </button>
+          <!-- List -->
+          <div class="glue-carousel__viewport">
+            <div class="glue-carousel__list">
+              
+                <a class="glue-card glue-carousel__item" href="/en/announcing-the-agentic-resource-discovery-specification/">
+                  <div aria-label="Announcing the Agentic Resource Discovery specification" class="glue-card__inner">
+                    <picture class="glue-card__asset">
+                      <img alt="Announcing the Agentic Resource Discovery specification" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Gemini_Generated_Image_gzxwoagzxwo.2e16d0ba.fill-800x400.jpg">
+                    </picture>
+                    <div class="glue-card__content">
+                      <div class="glue-card__tags glue-spacer-2-top">
+                        
+                            
+                            
+                            <span class="glue-label">AI</span>
+                            
+                            
+                            <span class="glue-label">Announcements</span>
+                            
+                            <span class="glue-label">Learn</span>
+                            
+                        
+                      </div>
+                      <p class="glue-headline glue-headline--headline-5">Announcing the Agentic Resource Discovery specification</p>
+                      <div class="glue-card__cta-custom glue-spacer-3-top">
+                        <span class="glue-cta">JUNE 17, 2026</span>
+                        <svg aria-hidden="true" class="glue-icon glue-icon--24px" role="presentation">
+                          <use href="/glue-icon/#arrow-forward"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              
+                <a class="glue-card glue-carousel__item" href="/en/how-a2a-is-building-a-world-of-collaborative-agents/">
+                  <div aria-label="How A2A is Building a World of Collaborative Agents" class="glue-card__inner">
+                    <picture class="glue-card__asset">
+                      <img alt="How A2A is Building a World of Collaborative Agents" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/image2.original_6xqVyTd.2e16d0ba.fill-800x400.jpg">
+                    </picture>
+                    <div class="glue-card__content">
+                      <div class="glue-card__tags glue-spacer-2-top">
+                        
+                            
+                            
+                            <span class="glue-label">AI</span>
+                            
+                            <span class="glue-label">Cloud</span>
+                            
+                            
+                            <span class="glue-label">Case Studies</span>
+                            
+                            <span class="glue-label">Announcements</span>
+                            
+                        
+                      </div>
+                      <p class="glue-headline glue-headline--headline-5">How A2A is Building a World of Collaborative Agents</p>
+                      <div class="glue-card__cta-custom glue-spacer-3-top">
+                        <span class="glue-cta">JUNE 18, 2026</span>
+                        <svg aria-hidden="true" class="glue-icon glue-icon--24px" role="presentation">
+                          <use href="/glue-icon/#arrow-forward"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              
+                <a class="glue-card glue-carousel__item" href="/en/measuring-what-matters-with-jules/">
+                  <div aria-label="Measuring What Matters with Jules" class="glue-card__inner">
+                    <picture class="glue-card__asset">
+                      <img alt="Measuring What Matters with Jules" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Measuring_What_Matters_with_Jules_.2e16d0ba.fill-800x400.png">
+                    </picture>
+                    <div class="glue-card__content">
+                      <div class="glue-card__tags glue-spacer-2-top">
+                        
+                            
+                            
+                            <span class="glue-label">Web</span>
+                            
+                            <span class="glue-label">AI</span>
+                            
+                            
+                            <span class="glue-label">Case Studies</span>
+                            
+                            <span class="glue-label">Learn</span>
+                            
+                        
+                      </div>
+                      <p class="glue-headline glue-headline--headline-5">Measuring What Matters with Jules</p>
+                      <div class="glue-card__cta-custom glue-spacer-3-top">
+                        <span class="glue-cta">JUNE 22, 2026</span>
+                        <svg aria-hidden="true" class="glue-icon glue-icon--24px" role="presentation">
+                          <use href="/glue-icon/#arrow-forward"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              
+            </div>
+          </div>
+          <!-- Navigation dots -->
+          <div class="glue-carousel__navigation" aria-label="Choose a page"
+               data-glue-carousel-navigation-label="Selected tab $glue_carousel_page_number$ of $glue_carousel_page_total$">
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </div>
+
+
+				
+				
+
+<div class="footer-linkboxes__wrapper">
+  <nav class="footer-linkboxes" aria-label="Footer links">
+    <ul class="footer-linkboxes__list">
+      <li class="footer-linkbox">
+        <span class="footer-linkbox-heading">
+          Connect
+        </span>
+        <ul class="footer-linkbox-list">
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//googledevelopers.blogspot.com" class="footer-linkbox-list__link">
+                Blog
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/3FReQXN" class="footer-linkbox-list__link">
+                Bluesky
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/googlefordevs" class="footer-linkbox-list__link">
+                Instagram
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/gdevs-li" class="footer-linkbox-list__link">
+                LinkedIn
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/gdevs-tw" class="footer-linkbox-list__link">
+                X (Twitter)
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/developers" class="footer-linkbox-list__link">
+                YouTube
+              </a>
+            </li>
+          
+        </ul>
+      </li>
+      <li class="footer-linkbox">
+        <span class="footer-linkbox-heading">
+          Programs
+        </span>
+        <ul class="footer-linkbox-list">
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/program" class="footer-linkbox-list__link">
+                Google Developer Program
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/gdg" class="footer-linkbox-list__link">
+                Google Developer Groups
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/experts" class="footer-linkbox-list__link">
+                Google Developer Experts
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/accelerators" class="footer-linkbox-list__link">
+                Accelerators
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//www.womentechmakers.com" class="footer-linkbox-list__link">
+                Women Techmakers
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/nvidia" class="footer-linkbox-list__link">
+                Google Cloud &amp; NVIDIA
+              </a>
+            </li>
+          
+        </ul>
+      </li>
+      <li class="footer-linkbox">
+        <span class="footer-linkbox-heading">
+          Developer consoles
+        </span>
+        <ul class="footer-linkbox-list">
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.developers.google.com" class="footer-linkbox-list__link">
+                Google API Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.cloud.google.com" class="footer-linkbox-list__link">
+                Google Cloud Platform Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//play.google.com/apps/publish" class="footer-linkbox-list__link">
+                Google Play Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.firebase.google.com" class="footer-linkbox-list__link">
+                Firebase Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.actions.google.com" class="footer-linkbox-list__link">
+                Actions on Google Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//cast.google.com/publish" class="footer-linkbox-list__link">
+                Cast SDK Developer Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//chrome.google.com/webstore/developer/dashboard" class="footer-linkbox-list__link">
+                Chrome Web Store Dashboard
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.home.google.com/" class="footer-linkbox-list__link">
+                Google Home Developer Console
+              </a>
+            </li>
+          
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="footer-utility__wrapper">
+  <div>
+    <nav class="footer-sites" aria-label="Other Google Developers websites">
+      <a href="https://developers.google.com/" class="site-logo-link" data-label="Site logo">
+        <img src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/images/g-dev.svg" class="site-logo" alt="Google for Developers">
+      </a>
+      <ul class="footer-sites-list">
+        <li class="footer-sites-item">
+          <a href="//developer.android.com" class="footer-sites-link">
+            Android
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//developer.chrome.com/home" class="footer-sites-link">
+            Chrome
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//firebase.google.com" class="footer-sites-link">
+            Firebase
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//cloud.google.com" class="footer-sites-link">
+            Google Cloud Platform
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//developers.google.com/products" class="footer-sites-link">
+            All products
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <button aria-hidden="true" class="glue-cookie-notification-bar-control footer-sites-link">
+            Manage cookies
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <nav class="footer-utility-links">
+      <ul class="footer-utility-list">
+        <li class="footer-utility-item">
+          <a href="//developers.google.com/terms/site-terms" class="footer-utility-link">
+            Terms
+          </a>
+        </li>
+        <li class="footer-utility-item">
+          <a href="//policies.google.com/privacy" class="footer-utility-link">
+            Privacy
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+        
+				
+
+        
+        <script nonce="H1ny92Wx4Fv4ZcOX6h4Htg==" src="https://www.youtube.com/player_api"></script>
+        <script nonce="H1ny92Wx4Fv4ZcOX6h4Htg==" src="//www.gstatic.com/glue/v27_1/glue.min.js"></script>
+        <script nonce="H1ny92Wx4Fv4ZcOX6h4Htg==" type="text/javascript" src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/js/dgc_blog.js"></script>
+
+        <script nonce="H1ny92Wx4Fv4ZcOX6h4Htg==" src="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.js"
+            data-glue-cookie-notification-bar-category="2A"
+            data-glue-cookie-notification-bar-site-id="developers.googleblog.com"></script>
+
+        
+  <script src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/js/blog_detail.js" nonce="H1ny92Wx4Fv4ZcOX6h4Htg=="></script>
+  <script src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/js/prism.js" nonce="H1ny92Wx4Fv4ZcOX6h4Htg=="></script>
+
+    </body>
+</html>
