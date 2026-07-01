@@ -40,5 +40,6 @@ No principles-doc patch was made.
 ## Publish and notification state
 
 - Merge state before publish: `pr-open`
-- Notification state before publish: pending GitHub App PR comment after PR creation.
+- PR: https://github.com/chasebridgible/foundation/pull/84
+- Notification state: GitHub App PR comment sent at https://github.com/chasebridgible/foundation/pull/84#issuecomment-4858452899
 - Requested owner action: routine review; no principles-doc patch was made.
