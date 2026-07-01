@@ -41,5 +41,6 @@ No principles-doc patch was made.
 
 - Merge state before publish: `pr-open`
 - PR: https://github.com/chasebridgible/foundation/pull/84
+- Merge state after publish: `merged` at `2026-07-01T17:39:55Z`
 - Notification state: GitHub App PR comment sent at https://github.com/chasebridgible/foundation/pull/84#issuecomment-4858452899
 - Requested owner action: routine review; no principles-doc patch was made.
