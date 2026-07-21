@@ -1,7 +1,7 @@
 # Agent Capability Scout brief - 2026-07-19
 
 Run ID: `2026-07-19-agent-scout-01`
-Status: blocked on GitHub check availability
+Status: complete after delayed GitHub check recovery
 Branch: `codex/agent-capability-scout-20260719-01`
 Source registry version: `2026-06-05`
 
@@ -34,8 +34,8 @@ No principles-doc patch was made.
 
 ## Publish and notification state
 
-- Merge state: `blocked`
+- Merge state: `merged`
 - PR: https://github.com/chasebridgible/foundation/pull/92
 - Notification state: GitHub App PR comment sent: https://github.com/chasebridgible/foundation/pull/92#issuecomment-5017900359
-- Blocker: required `Spec registry and metadata` GitHub check stayed queued for several minutes, then a final Actions status read returned HTTP 503.
-- Requested owner action: wait for GitHub Actions availability; merge only after the required check passes. No principles-doc patch was made.
+- Recovery: the required `Spec registry and metadata` GitHub check later passed, and PR 92 was merged at `2026-07-21T05:04:54Z`.
+- Requested owner action: none for this recovered run. No principles-doc patch was made.
