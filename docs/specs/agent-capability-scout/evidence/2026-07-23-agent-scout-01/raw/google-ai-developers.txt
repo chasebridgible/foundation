@@ -1,0 +1,1588 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+        <meta charset="utf-8" />
+        
+        <title>
+             Search 
+            
+            - Google Developers Blog
+            
+        </title>
+        <meta property="og:title" content="- Google Developers Blog" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        
+        
+
+        
+        
+
+        <!-- Google Tag Manager -->
+        <script type="text/javascript" nonce="e1Om8tWNZ2Q0vfCt5LF8qg==" src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/js/analytics.js"></script>
+        <!-- End Google Tag Manager -->
+
+        
+        <link href="//www.gstatic.com/glue/v27_1/glue.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/css/dgc_blog.css">
+        <link rel="icon" href="https://storage.googleapis.com/gweb-developer-goog-blog-assets/meta/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="https://storage.googleapis.com/gweb-developer-goog-blog-assets/meta/apple-touch-icon.png">
+
+        
+				<link rel="preconnect" href="https://fonts.googleapis.com">
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+				<link rel="preload" href="https://fonts.googleapis.com/css2?family=Product+Sans&family=Google+Sans+Display:ital@0;1&family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Google+Sans+Text:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" as="style">
+				<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Product+Sans&family=Google+Sans+Display:ital@0;1&family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Google+Sans+Text:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&amp;family=Google+Sans+Flex:opsz,wght@6..144,1..1000&amp;display=swap" rel="stylesheet" data-page-link="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap">
+
+        
+        <link href="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.css" rel="stylesheet">
+
+        
+<link rel="stylesheet" href="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/css/search.css"/>
+
+    </head>
+
+    <body id="main-content" class="glue-body template-searchresults">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WVTLDSL "
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        
+
+				
+        
+
+<!-- HTML -->
+<header class="dgc-header">
+  <div class="dgc-header-inner">
+    <button class="hamburger" aria-haspopup="true" aria-expanded="false" aria-label="Open Menu">
+      <svg role="presentation" aria-hidden="true" class="glue-icon">
+        <use href="/glue-icon/#menu"></use>
+      </svg>
+    </button>
+    <div class="product-name-wrapper">
+      <a href="https://developers.google.com/" class="site-logo-link" data-label="Site logo">
+        <img src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/images/g-dev.svg" class="site-logo" alt="Google for Developers">
+      </a>
+    </div>
+    <div class="desktop-nav-wrapper">
+      <div class="upper-tabs-wrapper">
+        <div class="upper-tabs">
+          <nav class="tabs" aria-label="Upper Tabs">
+            <div class="tab">
+              <a
+                href="//developers.google.com/community"
+                class="top-nav-title">
+                Community/Events
+              </a>
+            </div>
+            <div class="tab">
+              <a
+                href="//developers.google.com/solutions/catalog"
+                class="top-nav-title">
+                Learn
+              </a>
+            </div>
+            <div class="tab">
+              <a
+                href="//developers.googleblog.com"
+                class="top-nav-title">
+                Blog
+              </a>
+            </div>
+            <div class="tab">
+              <a
+                href="https://www.youtube.com/user/GoogleDevelopers"
+                class="top-nav-title">
+                YouTube
+              </a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dgc-header-search">
+    <div class="search-wrapper glue-page">
+      <div class="glue-grid">
+        <form id="search-form"  action="/en/search/" method="get" class="search-content glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-9-md glue-grid__col--span-7-lg">
+          <div class="search-input-wrapper">
+            <svg role="presentation" aria-hidden="true" class="glue-icon search-icon">
+              <use href="/glue-icon/#search"></use>
+            </svg>
+            <input
+              type="text"
+              name="query"
+              
+              placeholder="Search all articles..."
+              aria-label="Search"
+              class="search-input-field"
+            />
+          </div>
+          <button class="glue-button glue-button--high-emphasis">
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" top-level-nav>
+  <nav class="nav-content" aria-label="Side menu">
+    <div class="mobile-header">
+      <button class="nav-close-btn nav-btn" aria-label="Close navigation">
+        <svg role="presentation" aria-hidden="true" class="glue-icon">
+          <use href="/glue-icon/#close"></use>
+        </svg>
+      </button>
+      <button class="nav-back-btn nav-btn hidden" aria-label="Back to Menu">
+        <svg role="presentation" aria-hidden="true" class="glue-icon">
+          <use href="/glue-icon/#arrow-back"></use>
+        </svg>
+      </button>
+      <div class="product-name-wrapper">
+        <a href="https://developers.google.com/" class="site-logo-link" data-label="Site logo">
+          <img src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/images/g-dev.svg" class="site-logo" alt="Google for Developers">
+        </a>
+      </div>
+    </div>
+    <div class="nav-wrapper">
+      <div class="mobile-nav-top">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="//developers.google.com/community" class="nav-title" data-label="Tab: Community/Events">
+              <span class="nav-text" tooltip="">
+                Community/Events
+             </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="//developers.google.com/solutions/catalog" class="nav-title" data-label="Tab: Learn">
+              <span class="nav-text" tooltip="">
+                Learn
+             </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="//developers.googleblog.com" class="nav-title" data-label="Tab: Blog">
+              <span class="nav-text" tooltip="">
+                Blog
+             </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://www.youtube.com/user/GoogleDevelopers" class="nav-title" data-label="Tab: YouTube">
+              <span class="nav-text" tooltip="">
+                YouTube
+             </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="backdrop"></div>
+
+        
+    <div class="search-page glue-page glue-spacer-5-top glue-spacer-3-bottom">
+        
+
+<header class="search-header">
+  
+  <h2 class="glue-headline glue-headline--headline-3">Search  </h2>
+  
+  <p class="total-results glue-headline glue-headline--headline-6">371  results</p>
+</header>
+
+<div class="seperator"></div>
+        
+
+<div class="search-clear">
+    <a class="glue-button glue-button--low-emphasis clear-button" href="/en/search/">Clear filters</a>
+</div>
+<div class="search-results">
+    
+    
+
+<div class="sidebar">
+    <div class="sidebar__filter-header">
+        <p class="glue-eyebrow">Filter by</p>
+        <div class="seperator"></div>
+    </div>
+    
+    <div class="sidebar__filter-section">
+        <h4 class="sidebar__section-title">Content Type</h4>
+        
+        <a class="sidebar__select-all" href="/en/search/?technology_categories=AI&amp;content_type_categories=Announcements%2CBeginner%2CBest+Practices%2CBusiness+and+Leadership%2CCase+Studies%2CCode+Health%2CCommunity%2CDocumentation%2CEvents%2CExplore%2CHard%2CHow-To+Guides%2CIndustry+Trends%2CIntermediate%2CLearn%2CPerformance%2CProblem-Solving%2CProject+Management%2FAgile%2CQ%26A%2CRelease+Notes%2CSolutions%2CTesting%2CTotT%2CTutorials">Select all</a>
+        <ul>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_announcements" name="content_type_tag_announcements" value="Announcements">
+                </div>
+                <label for="content_type_tag_announcements">Announcements</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_beginner" name="content_type_tag_beginner" value="Beginner">
+                </div>
+                <label for="content_type_tag_beginner">Beginner</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_best-practices" name="content_type_tag_best-practices" value="Best Practices">
+                </div>
+                <label for="content_type_tag_best-practices">Best Practices</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_business-and-leadership" name="content_type_tag_business-and-leadership" value="Business and Leadership">
+                </div>
+                <label for="content_type_tag_business-and-leadership">Business and Leadership</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_case-studies" name="content_type_tag_case-studies" value="Case Studies">
+                </div>
+                <label for="content_type_tag_case-studies">Case Studies</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_code-health" name="content_type_tag_code-health" value="Code Health">
+                </div>
+                <label for="content_type_tag_code-health">Code Health</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_community" name="content_type_tag_community" value="Community">
+                </div>
+                <label for="content_type_tag_community">Community</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_documentation" name="content_type_tag_documentation" value="Documentation">
+                </div>
+                <label for="content_type_tag_documentation">Documentation</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_events" name="content_type_tag_events" value="Events">
+                </div>
+                <label for="content_type_tag_events">Events</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_explore" name="content_type_tag_explore" value="Explore">
+                </div>
+                <label for="content_type_tag_explore">Explore</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_hard" name="content_type_tag_hard" value="Hard">
+                </div>
+                <label for="content_type_tag_hard">Hard</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_how-to-guides" name="content_type_tag_how-to-guides" value="How-To Guides">
+                </div>
+                <label for="content_type_tag_how-to-guides">How-To Guides</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_industry-trends" name="content_type_tag_industry-trends" value="Industry Trends">
+                </div>
+                <label for="content_type_tag_industry-trends">Industry Trends</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_intermediate" name="content_type_tag_intermediate" value="Intermediate">
+                </div>
+                <label for="content_type_tag_intermediate">Intermediate</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_learn" name="content_type_tag_learn" value="Learn">
+                </div>
+                <label for="content_type_tag_learn">Learn</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_performance" name="content_type_tag_performance" value="Performance">
+                </div>
+                <label for="content_type_tag_performance">Performance</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_problem-solving" name="content_type_tag_problem-solving" value="Problem-Solving">
+                </div>
+                <label for="content_type_tag_problem-solving">Problem-Solving</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_project-managementagile" name="content_type_tag_project-managementagile" value="Project Management/Agile">
+                </div>
+                <label for="content_type_tag_project-managementagile">Project Management/Agile</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_qa" name="content_type_tag_qa" value="Q&amp;A">
+                </div>
+                <label for="content_type_tag_qa">Q&amp;A</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_release-notes" name="content_type_tag_release-notes" value="Release Notes">
+                </div>
+                <label for="content_type_tag_release-notes">Release Notes</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_solutions" name="content_type_tag_solutions" value="Solutions">
+                </div>
+                <label for="content_type_tag_solutions">Solutions</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_testing" name="content_type_tag_testing" value="Testing">
+                </div>
+                <label for="content_type_tag_testing">Testing</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_tott" name="content_type_tag_tott" value="TotT">
+                </div>
+                <label for="content_type_tag_tott">TotT</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_tutorials" name="content_type_tag_tutorials" value="Tutorials">
+                </div>
+                <label for="content_type_tag_tutorials">Tutorials</label>
+            </li>
+        
+        </ul>
+    </div>
+    
+    
+    <div class="sidebar__filter-section">
+        <h4 class="sidebar__section-title">Product</h4>
+        <a class="sidebar__select-all" href="/en/search/?technology_categories=AI&amp;product_categories=Ads%2CAI+Edge%2CAndroid%2CAngular%2CAR%2CAssistant%2CAuto%2CChecks%2CChrome+OS%2CChrome+Web%2CCloud%2CDeepMind%2CDesign%2CEngineering%2CFirebase%2CFlutter%2CGemini%2CGemma%2CGeo%2CGo%2CGoogle+AI+Studio%2CGoogle+Labs%2CGoogle+Pay%2CIDX%2CKaggle%2CKeras%2CMatter%2CPay%2CPlay%2CSearch%2CSmart+Home%2CTensorFlow%2CTV%2CWallet%2CWear+OS%2CWorkspace">Select all</a>
+        <ul>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_ads" name="product_tag_ads" value="Ads">
+                    </div>
+                    <label for="product_tag_ads">Ads</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_ai-edge" name="product_tag_ai-edge" value="AI Edge">
+                    </div>
+                    <label for="product_tag_ai-edge">AI Edge</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_android" name="product_tag_android" value="Android">
+                    </div>
+                    <label for="product_tag_android">Android</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_angular" name="product_tag_angular" value="Angular">
+                    </div>
+                    <label for="product_tag_angular">Angular</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_ar" name="product_tag_ar" value="AR">
+                    </div>
+                    <label for="product_tag_ar">AR</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_assistant" name="product_tag_assistant" value="Assistant">
+                    </div>
+                    <label for="product_tag_assistant">Assistant</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_auto" name="product_tag_auto" value="Auto">
+                    </div>
+                    <label for="product_tag_auto">Auto</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_checks" name="product_tag_checks" value="Checks">
+                    </div>
+                    <label for="product_tag_checks">Checks</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_chrome-os" name="product_tag_chrome-os" value="Chrome OS">
+                    </div>
+                    <label for="product_tag_chrome-os">Chrome OS</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_chrome-web" name="product_tag_chrome-web" value="Chrome Web">
+                    </div>
+                    <label for="product_tag_chrome-web">Chrome Web</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_cloud" name="product_tag_cloud" value="Cloud">
+                    </div>
+                    <label for="product_tag_cloud">Cloud</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_deepmind" name="product_tag_deepmind" value="DeepMind">
+                    </div>
+                    <label for="product_tag_deepmind">DeepMind</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_design" name="product_tag_design" value="Design">
+                    </div>
+                    <label for="product_tag_design">Design</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_engineering" name="product_tag_engineering" value="Engineering">
+                    </div>
+                    <label for="product_tag_engineering">Engineering</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_firebase" name="product_tag_firebase" value="Firebase">
+                    </div>
+                    <label for="product_tag_firebase">Firebase</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_flutter" name="product_tag_flutter" value="Flutter">
+                    </div>
+                    <label for="product_tag_flutter">Flutter</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_gemini" name="product_tag_gemini" value="Gemini">
+                    </div>
+                    <label for="product_tag_gemini">Gemini</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_gemma" name="product_tag_gemma" value="Gemma">
+                    </div>
+                    <label for="product_tag_gemma">Gemma</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_geo" name="product_tag_geo" value="Geo">
+                    </div>
+                    <label for="product_tag_geo">Geo</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_go" name="product_tag_go" value="Go">
+                    </div>
+                    <label for="product_tag_go">Go</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_google-ai-studio" name="product_tag_google-ai-studio" value="Google AI Studio">
+                    </div>
+                    <label for="product_tag_google-ai-studio">Google AI Studio</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_google-labs" name="product_tag_google-labs" value="Google Labs">
+                    </div>
+                    <label for="product_tag_google-labs">Google Labs</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_google-pay" name="product_tag_google-pay" value="Google Pay">
+                    </div>
+                    <label for="product_tag_google-pay">Google Pay</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_idx" name="product_tag_idx" value="IDX">
+                    </div>
+                    <label for="product_tag_idx">IDX</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_kaggle" name="product_tag_kaggle" value="Kaggle">
+                    </div>
+                    <label for="product_tag_kaggle">Kaggle</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_keras" name="product_tag_keras" value="Keras">
+                    </div>
+                    <label for="product_tag_keras">Keras</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_matter" name="product_tag_matter" value="Matter">
+                    </div>
+                    <label for="product_tag_matter">Matter</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_pay" name="product_tag_pay" value="Pay">
+                    </div>
+                    <label for="product_tag_pay">Pay</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_play" name="product_tag_play" value="Play">
+                    </div>
+                    <label for="product_tag_play">Play</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_search" name="product_tag_search" value="Search">
+                    </div>
+                    <label for="product_tag_search">Search</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_smart-home" name="product_tag_smart-home" value="Smart Home">
+                    </div>
+                    <label for="product_tag_smart-home">Smart Home</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_tensorflow" name="product_tag_tensorflow" value="TensorFlow">
+                    </div>
+                    <label for="product_tag_tensorflow">TensorFlow</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_tv" name="product_tag_tv" value="TV">
+                    </div>
+                    <label for="product_tag_tv">TV</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_wallet" name="product_tag_wallet" value="Wallet">
+                    </div>
+                    <label for="product_tag_wallet">Wallet</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_wear-os" name="product_tag_wear-os" value="Wear OS">
+                    </div>
+                    <label for="product_tag_wear-os">Wear OS</label>
+                </li>
+            
+                <li>
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_workspace" name="product_tag_workspace" value="Workspace">
+                    </div>
+                    <label for="product_tag_workspace">Workspace</label>
+                </li>
+            
+        </ul>
+    </div>
+    
+    
+    <div class="sidebar__filter-section">
+        <h4 class="sidebar__section-title">Technology</h4>
+        <a class="sidebar__select-all" href="/en/search/?technology_categories=AI%2CCloud%2CMobile%2CWeb">Select all</a>
+        <ul>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-technology"  id="technology_tag_ai" name="technology_tag_ai" value="AI">
+                </div>
+                <label for="technology_tag_ai">AI</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-technology"  id="technology_tag_cloud" name="technology_tag_cloud" value="Cloud">
+                </div>
+                <label for="technology_tag_cloud">Cloud</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-technology"  id="technology_tag_mobile" name="technology_tag_mobile" value="Mobile">
+                </div>
+                <label for="technology_tag_mobile">Mobile</label>
+            </li>
+        
+            <li>
+                <div class="glue-checkbox filter-checkbox">
+                    <input type="checkbox" class="filter-checkbox filter-technology"  id="technology_tag_web" name="technology_tag_web" value="Web">
+                </div>
+                <label for="technology_tag_web">Web</label>
+            </li>
+        
+        </ul>
+    </div>
+    
+</div>
+    <div class="search-results__results-wrapper">
+        
+            <ul>
+                
+                
+<li class="search-result">
+    <div class="search-result__wrapper">
+        <div>
+            <p class="search-result__eyebrow">JULY 20, 2026 / AI</p>
+            <h3 class="search-result__title glue-headline glue-headline--headline-4"><a href="/en/run-ray-on-tpu-part-1-the-foundations/">Run Ray on TPU, Part 1: The foundations</a></h3>
+            <p class="search-result__summary">Ray 2.55 introduces official, first-class support for Google Cloud TPUs, enabling developers to run distributed Python workloads on Google&#x27;s accelerators using the familiar Ray task-and-actor APIs. To handle the strict networking requirement of keeping multi-host TPU &quot;slices&quot; together over their Inter-Chip Interconnect (ICI), the KubeRay Operator on GKE automatically provisions and labels the underlying hardware layout. Ray Core utilizes these labels via its slice_placement_group() primitive to atomically reserve complete slices, allowing developers to deploy jobs through KubeRay, Ray Train, or Ray Serve simply by declaring a hardware topology (like &quot;4x4&quot;) without writing custom placement code.</p>
+        </div>
+        <img class="search-result__featured-img" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/header.2e16d0ba.fill-800x400_pp6EXuC.png" alt="header" />
+    </div>
+</li>
+
+                
+                
+<li class="search-result">
+    <div class="search-result__wrapper">
+        <div>
+            <p class="search-result__eyebrow">JULY 16, 2026 / AI</p>
+            <h3 class="search-result__title glue-headline glue-headline--headline-4"><a href="/en/expanding-choice-in-gemini-enterprise-agent-platform-introducing-grounding-with-parallel-web-search/">Expanding Choice in Gemini Enterprise Agent Platform: Introducing Grounding with Parallel Web Search</a></h3>
+            <p class="search-result__summary">Google Cloud has partnered with Parallel Web Systems to natively integrate Parallel&#x27;s search infrastructure as a web grounding provider on the Gemini Enterprise Agent Platform. This integration enables developers to anchor their AI agents in verifiable, real-time web results, significantly improving factual accuracy for complex enterprise workflows. Additionally, the partnership offers expanded architectural flexibility, allowing users to programmatically extract, permanently cache, and process web data alongside other large language models.</p>
+        </div>
+        <img class="search-result__featured-img" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/blog_post_banner_proposal.2e16d0ba.fill-800x400.jpg" alt="blog post banner proposal" />
+    </div>
+</li>
+
+                
+                
+<li class="search-result">
+    <div class="search-result__wrapper">
+        <div>
+            <p class="search-result__eyebrow">JULY 16, 2026 / AI</p>
+            <h3 class="search-result__title glue-headline glue-headline--headline-4"><a href="/en/building-scalable-ai-agents-with-modular-prompt-transpilation/">Building scalable AI agents with modular prompt transpilation</a></h3>
+            <p class="search-result__summary">To resolve the scaling bottlenecks and runtime errors caused by monolithic system prompts, engineering teams should treat prompts as build artifacts by modularizing instructions into reusable templates. By running these modular &quot;skill files&quot; through a transpiler, developers can enforce static validation, catch missing dependencies at build time, and integrate prompt generation directly into their CI/CD pipelines. This deterministic approach prevents code drift and ultimately establishes a safe framework where agents can propose updates to their own logic via standard pull requests.</p>
+        </div>
+        <img class="search-result__featured-img" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Ai-1-banner.2e16d0ba.fill-800x400.png" alt="Agent Development Kit: Making it easy to build multi-agent applications" />
+    </div>
+</li>
+
+                
+                
+<li class="search-result">
+    <div class="search-result__wrapper">
+        <div>
+            <p class="search-result__eyebrow">JULY 16, 2026 / AI</p>
+            <h3 class="search-result__title glue-headline glue-headline--headline-4"><a href="/en/evolving-spec-driven-development-conductor-now-supports-antigravity/">Evolving Spec-Driven Development: Conductor Now Supports Antigravity</a></h3>
+            <p class="search-result__summary">Conductor has evolved from a Gemini CLI extension into a portable plugin, bringing conversational Spec-Driven Development (SDD) to ecosystems like Antigravity CLI and Claude. Rather than relying on strict command sequences, developers can now chat naturally with their AI assistant while it dynamically manages persistent markdown artifacts (like spec.md and plan.md) in the background. This update eliminates workflow friction while ensuring your repository remains a version-controlled, single source of truth for your project&#x27;s architecture and state across different AI tools.</p>
+        </div>
+        <img class="search-result__featured-img" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/adk-gemini-cli-agent-building-bann.2e16d0ba.fill-800x400.png" alt="ADK + Gemini CLI: Supercharge Your Agent Building Vibe" />
+    </div>
+</li>
+
+                
+                
+<li class="search-result">
+    <div class="search-result__wrapper">
+        <div>
+            <p class="search-result__eyebrow">JULY 9, 2026 / Web</p>
+            <h3 class="search-result__title glue-headline glue-headline--headline-4"><a href="/en/litertjs-googles-high-performance-web-ai-inference/">LiteRT.js, Google&#x27;s high performance Web AI Inference</a></h3>
+            <p class="search-result__summary">We&#x27;re excited to introduce LiteRT.js, the newest member of the LiteRT family! LiteRT.js is our powerful solution for running machine learning models directly in the browser, extending Google&#x27;s cross-platform edge AI runtime to the web. Built for JavaScript developers, LiteRT.js delivers state-of-the-art ML model inference performance on WebGPU and upcoming WebNN, with a fallback to WebAssembly for CPU. This post provides a quick tour of LiteRT.js and gives web developers everything they need to get started.</p>
+        </div>
+        <img class="search-result__featured-img" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/banner3.2e16d0ba.fill-800x400.png" alt="banner3" />
+    </div>
+</li>
+
+                
+                
+<li class="search-result">
+    <div class="search-result__wrapper">
+        <div>
+            <p class="search-result__eyebrow">JULY 8, 2026 / Mobile</p>
+            <h3 class="search-result__title glue-headline glue-headline--headline-4"><a href="/en/bridging-the-domain-gap-ai-race-coach-built-with-antigravity-and-gemini/">Bridging the Domain Gap: AI Race Coach built with Antigravity and Gemini</a></h3>
+            <p class="search-result__summary">On May 23, 2026, fresh off the stage at Google I/O, our Google Developer Experts (GDEs) converged on...</p>
+        </div>
+        <img class="search-result__featured-img" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/GGBM3681_1.2e16d0ba.fill-800x400.jpg" alt="GGBM3681 (1)" />
+    </div>
+</li>
+
+                
+                
+<li class="search-result">
+    <div class="search-result__wrapper">
+        <div>
+            <p class="search-result__eyebrow">JULY 6, 2026 / AI</p>
+            <h3 class="search-result__title glue-headline glue-headline--headline-4"><a href="/en/we-terminated-a-tpu-mid-training-and-it-recovered-in-seconds-introduction-to-elastic-training-with-maxtext/">We terminated a TPU mid-training and it recovered in seconds:  Introduction to elastic training with MaxText</a></h3>
+            <p class="search-result__summary">Distributed AI training is notoriously fragile because losing a single machine typically crashes the entire multi-node job, forcing a time-consuming, full-workload infrastructure restart. To address this, Google’s JAX ecosystem utilizes elastic training via Pathways, which converts a hardware failure into a catchable Python exception so the running process can survive. When an unplanned failure occurs, the system automatically replaces only the broken worker, restores the last viable checkpoint from Cloud Storage, and resumes training in place—minimizing total downtime to under two minutes without ever restarting the main controller process.</p>
+        </div>
+        <img class="search-result__featured-img" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Cloud-1-banner.2e16d0ba.fill-800x400.png" alt="Gemini_Generated_Image_b07hglb07hglb07h" />
+    </div>
+</li>
+
+                
+                
+<li class="search-result">
+    <div class="search-result__wrapper">
+        <div>
+            <p class="search-result__eyebrow">JULY 1, 2026 / AI</p>
+            <h3 class="search-result__title glue-headline glue-headline--headline-4"><a href="/en/why-we-built-adk-20/">Why we built ADK 2.0</a></h3>
+            <p class="search-result__summary">Answering the questions of &quot;why we built ADK 2.0&quot;.  This explains the rationale, some of the features, and why a developer should consider upgrading.  This will be published the day after ADK go 2.0 launches.</p>
+        </div>
+        <img class="search-result__featured-img" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/gfd-why-adk2-banner.2e16d0ba.fill-800x400.png" alt="gfd-why-adk2-banner" />
+    </div>
+</li>
+
+                
+                
+<li class="search-result">
+    <div class="search-result__wrapper">
+        <div>
+            <p class="search-result__eyebrow">JULY 1, 2026 / AI</p>
+            <h3 class="search-result__title glue-headline glue-headline--headline-4"><a href="/en/ml-development-in-vs-code-with-google-cloud-power-workbench-extension-now-available/">ML Development in VS Code with Google Cloud Power: Workbench Extension Now Available</a></h3>
+            <p class="search-result__summary">The Google Cloud Workbench Notebooks extension for VS Code has officially launched, allowing developers to connect their local IDE to scalable, cloud-based Jupyter environments. This integration streamlines the machine learning lifecycle by eliminating context switching and providing direct access to high-performance Google Cloud infrastructure. To support transparency and community-driven innovation, the newly released extension is fully open-sourced and available on GitHub and the VS Code Marketplace.</p>
+        </div>
+        <img class="search-result__featured-img" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/VS_code_blogpost_banner.2e16d0ba.fill-800x400.jpg" alt="VS_code_blogpost_banner" />
+    </div>
+</li>
+
+                
+                
+<li class="search-result">
+    <div class="search-result__wrapper">
+        <div>
+            <p class="search-result__eyebrow">JULY 1, 2026 / AI</p>
+            <h3 class="search-result__title glue-headline glue-headline--headline-4"><a href="/en/build-agentic-full-stack-apps-with-genkit/">Build agentic full-stack apps with Genkit</a></h3>
+            <p class="search-result__summary">The open-source Genkit framework has introduced the Agents API, a full-stack tool designed to simplify the complex plumbing of conversational AI by packaging message history, tool loops, and streaming into a single interface. The API supports flexible, server- or client-managed state persistence—allowing for advanced workflows like history branching, long-running detached tasks, and multi-agent coordination—while seamlessly connecting backends to frontends via a unified wire protocol. Currently available in preview for TypeScript and Go, it also integrates with the Genkit Developer UI to allow developers to easily test, debug, and inspect agent snapshots without writing client code.</p>
+        </div>
+        <img class="search-result__featured-img" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Ai-1-banner.2e16d0ba.fill-800x400.png" alt="Agent Development Kit: Making it easy to build multi-agent applications" />
+    </div>
+</li>
+
+                
+            </ul>
+        
+    
+        
+        
+
+<div class="nav-buttons">
+    <div class="nav-buttons__left">
+      <a href="None" class="glue-button--icon glue-elevation-level-1 disabled" aria-label="Previous">
+        <svg role="presentation" aria-hidden="true" class="glue-icon">
+          <use href="/glue-icon/#chevron-left"></use>
+        </svg>
+      </a>
+      <span class="caption disabled">Previous</span>
+    </div>
+    <div class="nav-buttons__right">
+      <span class="caption ">Next</span>
+      <a href="/en/search/?technology_categories=AI&amp;page=2" class="glue-button--icon glue-elevation-level-1 " aria-label="Next">
+        <svg role="presentation" aria-hidden="true" class="glue-icon">
+          <use href="/glue-icon/#chevron-right"></use>
+        </svg>
+      </a>
+    </div>
+  </div>
+    </div>
+
+</div>
+
+    </div>
+    
+
+<div class="fab-wrapper">
+    <button id="filter-burger" class="fab" aria-label="Open blog post filters" aria-expanded="false">
+        <svg
+            role="presentation"
+            aria-hidden="true"
+            class="glue-icon glue-icon--24px"
+          >
+            <use href="/glue-icon/#menu"></use>
+          </svg>
+        <span aria-hidden="true" class="text">Filter</span>
+    </button>
+</div>
+    
+<div class="mobile-drawer filter-drawer">
+    <div class="nav-wrapper filter-wrapper">
+    <div>
+        <a class="glue-button glue-button--low-emphasis clear-button" href="/en/search/">Clear filters</a>
+    </div>
+        
+        <div class="filter-drawer__section">
+            <h4 class="title">Content Type</h4>
+            
+            <a class="select-all" href="/en/search/?technology_categories=AI&amp;content_type_categories=Announcements%2CBeginner%2CBest+Practices%2CBusiness+and+Leadership%2CCase+Studies%2CCode+Health%2CCommunity%2CDocumentation%2CEvents%2CExplore%2CHard%2CHow-To+Guides%2CIndustry+Trends%2CIntermediate%2CLearn%2CPerformance%2CProblem-Solving%2CProject+Management%2FAgile%2CQ%26A%2CRelease+Notes%2CSolutions%2CTesting%2CTotT%2CTutorials">Select all</a>
+            <ul class="items">
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_announcements" name="content_type_tag_announcements" value="Announcements">
+                    </div>
+                    <label for="content_type_tag_announcements">Announcements</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_beginner" name="content_type_tag_beginner" value="Beginner">
+                    </div>
+                    <label for="content_type_tag_beginner">Beginner</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_best-practices" name="content_type_tag_best-practices" value="Best Practices">
+                    </div>
+                    <label for="content_type_tag_best-practices">Best Practices</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_business-and-leadership" name="content_type_tag_business-and-leadership" value="Business and Leadership">
+                    </div>
+                    <label for="content_type_tag_business-and-leadership">Business and Leadership</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_case-studies" name="content_type_tag_case-studies" value="Case Studies">
+                    </div>
+                    <label for="content_type_tag_case-studies">Case Studies</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_code-health" name="content_type_tag_code-health" value="Code Health">
+                    </div>
+                    <label for="content_type_tag_code-health">Code Health</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_community" name="content_type_tag_community" value="Community">
+                    </div>
+                    <label for="content_type_tag_community">Community</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_documentation" name="content_type_tag_documentation" value="Documentation">
+                    </div>
+                    <label for="content_type_tag_documentation">Documentation</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_events" name="content_type_tag_events" value="Events">
+                    </div>
+                    <label for="content_type_tag_events">Events</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_explore" name="content_type_tag_explore" value="Explore">
+                    </div>
+                    <label for="content_type_tag_explore">Explore</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_hard" name="content_type_tag_hard" value="Hard">
+                    </div>
+                    <label for="content_type_tag_hard">Hard</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_how-to-guides" name="content_type_tag_how-to-guides" value="How-To Guides">
+                    </div>
+                    <label for="content_type_tag_how-to-guides">How-To Guides</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_industry-trends" name="content_type_tag_industry-trends" value="Industry Trends">
+                    </div>
+                    <label for="content_type_tag_industry-trends">Industry Trends</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_intermediate" name="content_type_tag_intermediate" value="Intermediate">
+                    </div>
+                    <label for="content_type_tag_intermediate">Intermediate</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_learn" name="content_type_tag_learn" value="Learn">
+                    </div>
+                    <label for="content_type_tag_learn">Learn</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_performance" name="content_type_tag_performance" value="Performance">
+                    </div>
+                    <label for="content_type_tag_performance">Performance</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_problem-solving" name="content_type_tag_problem-solving" value="Problem-Solving">
+                    </div>
+                    <label for="content_type_tag_problem-solving">Problem-Solving</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_project-managementagile" name="content_type_tag_project-managementagile" value="Project Management/Agile">
+                    </div>
+                    <label for="content_type_tag_project-managementagile">Project Management/Agile</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_qa" name="content_type_tag_qa" value="Q&amp;A">
+                    </div>
+                    <label for="content_type_tag_qa">Q&amp;A</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_release-notes" name="content_type_tag_release-notes" value="Release Notes">
+                    </div>
+                    <label for="content_type_tag_release-notes">Release Notes</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_solutions" name="content_type_tag_solutions" value="Solutions">
+                    </div>
+                    <label for="content_type_tag_solutions">Solutions</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_testing" name="content_type_tag_testing" value="Testing">
+                    </div>
+                    <label for="content_type_tag_testing">Testing</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_tott" name="content_type_tag_tott" value="TotT">
+                    </div>
+                    <label for="content_type_tag_tott">TotT</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-content-type"  id="content_type_tag_tutorials" name="content_type_tag_tutorials" value="Tutorials">
+                    </div>
+                    <label for="content_type_tag_tutorials">Tutorials</label>
+                </li>
+            
+            </ul>
+        </div>
+        
+        
+        <div class="filter-drawer__section">
+            <h4 class="title">Product</h4>
+            <a class="select-all" href="/en/search/?technology_categories=AI&amp;product_categories=Ads%2CAI+Edge%2CAndroid%2CAngular%2CAR%2CAssistant%2CAuto%2CChecks%2CChrome+OS%2CChrome+Web%2CCloud%2CDeepMind%2CDesign%2CEngineering%2CFirebase%2CFlutter%2CGemini%2CGemma%2CGeo%2CGo%2CGoogle+AI+Studio%2CGoogle+Labs%2CGoogle+Pay%2CIDX%2CKaggle%2CKeras%2CMatter%2CPay%2CPlay%2CSearch%2CSmart+Home%2CTensorFlow%2CTV%2CWallet%2CWear+OS%2CWorkspace">Select all</a>
+            <ul class="items">
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_ads" name="product_tag_ads" value="Ads">
+                        </div>
+                        <label for="product_tag_ads">Ads</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_ai-edge" name="product_tag_ai-edge" value="AI Edge">
+                        </div>
+                        <label for="product_tag_ai-edge">AI Edge</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_android" name="product_tag_android" value="Android">
+                        </div>
+                        <label for="product_tag_android">Android</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_angular" name="product_tag_angular" value="Angular">
+                        </div>
+                        <label for="product_tag_angular">Angular</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_ar" name="product_tag_ar" value="AR">
+                        </div>
+                        <label for="product_tag_ar">AR</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_assistant" name="product_tag_assistant" value="Assistant">
+                        </div>
+                        <label for="product_tag_assistant">Assistant</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_auto" name="product_tag_auto" value="Auto">
+                        </div>
+                        <label for="product_tag_auto">Auto</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_checks" name="product_tag_checks" value="Checks">
+                        </div>
+                        <label for="product_tag_checks">Checks</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_chrome-os" name="product_tag_chrome-os" value="Chrome OS">
+                        </div>
+                        <label for="product_tag_chrome-os">Chrome OS</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_chrome-web" name="product_tag_chrome-web" value="Chrome Web">
+                        </div>
+                        <label for="product_tag_chrome-web">Chrome Web</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_cloud" name="product_tag_cloud" value="Cloud">
+                        </div>
+                        <label for="product_tag_cloud">Cloud</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_deepmind" name="product_tag_deepmind" value="DeepMind">
+                        </div>
+                        <label for="product_tag_deepmind">DeepMind</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_design" name="product_tag_design" value="Design">
+                        </div>
+                        <label for="product_tag_design">Design</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_engineering" name="product_tag_engineering" value="Engineering">
+                        </div>
+                        <label for="product_tag_engineering">Engineering</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_firebase" name="product_tag_firebase" value="Firebase">
+                        </div>
+                        <label for="product_tag_firebase">Firebase</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_flutter" name="product_tag_flutter" value="Flutter">
+                        </div>
+                        <label for="product_tag_flutter">Flutter</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_gemini" name="product_tag_gemini" value="Gemini">
+                        </div>
+                        <label for="product_tag_gemini">Gemini</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_gemma" name="product_tag_gemma" value="Gemma">
+                        </div>
+                        <label for="product_tag_gemma">Gemma</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_geo" name="product_tag_geo" value="Geo">
+                        </div>
+                        <label for="product_tag_geo">Geo</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_go" name="product_tag_go" value="Go">
+                        </div>
+                        <label for="product_tag_go">Go</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_google-ai-studio" name="product_tag_google-ai-studio" value="Google AI Studio">
+                        </div>
+                        <label for="product_tag_google-ai-studio">Google AI Studio</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_google-labs" name="product_tag_google-labs" value="Google Labs">
+                        </div>
+                        <label for="product_tag_google-labs">Google Labs</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_google-pay" name="product_tag_google-pay" value="Google Pay">
+                        </div>
+                        <label for="product_tag_google-pay">Google Pay</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_idx" name="product_tag_idx" value="IDX">
+                        </div>
+                        <label for="product_tag_idx">IDX</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_kaggle" name="product_tag_kaggle" value="Kaggle">
+                        </div>
+                        <label for="product_tag_kaggle">Kaggle</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_keras" name="product_tag_keras" value="Keras">
+                        </div>
+                        <label for="product_tag_keras">Keras</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_matter" name="product_tag_matter" value="Matter">
+                        </div>
+                        <label for="product_tag_matter">Matter</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_pay" name="product_tag_pay" value="Pay">
+                        </div>
+                        <label for="product_tag_pay">Pay</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_play" name="product_tag_play" value="Play">
+                        </div>
+                        <label for="product_tag_play">Play</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_search" name="product_tag_search" value="Search">
+                        </div>
+                        <label for="product_tag_search">Search</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_smart-home" name="product_tag_smart-home" value="Smart Home">
+                        </div>
+                        <label for="product_tag_smart-home">Smart Home</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_tensorflow" name="product_tag_tensorflow" value="TensorFlow">
+                        </div>
+                        <label for="product_tag_tensorflow">TensorFlow</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_tv" name="product_tag_tv" value="TV">
+                        </div>
+                        <label for="product_tag_tv">TV</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_wallet" name="product_tag_wallet" value="Wallet">
+                        </div>
+                        <label for="product_tag_wallet">Wallet</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_wear-os" name="product_tag_wear-os" value="Wear OS">
+                        </div>
+                        <label for="product_tag_wear-os">Wear OS</label>
+                    </li>
+                
+                    <li class="filter-item">
+                        <div class="glue-checkbox filter-checkbox">
+                            <input type="checkbox" class="filter-checkbox filter-product" id="product_tag_workspace" name="product_tag_workspace" value="Workspace">
+                        </div>
+                        <label for="product_tag_workspace">Workspace</label>
+                    </li>
+                
+            </ul>
+        </div>
+        
+        
+        <div class="filter-drawer__section">
+            <h4 class="title">Technology</h4>
+            <a class="select-all" href="/en/search/?technology_categories=AI%2CCloud%2CMobile%2CWeb">Select all</a>
+            <ul class="items">
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-technology"  id="technology_tag_ai" name="technology_tag_ai" value="AI">
+                    </div>
+                    <label for="technology_tag_ai">AI</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-technology"  id="technology_tag_cloud" name="technology_tag_cloud" value="Cloud">
+                    </div>
+                    <label for="technology_tag_cloud">Cloud</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-technology"  id="technology_tag_mobile" name="technology_tag_mobile" value="Mobile">
+                    </div>
+                    <label for="technology_tag_mobile">Mobile</label>
+                </li>
+            
+                <li class="filter-item">
+                    <div class="glue-checkbox filter-checkbox">
+                        <input type="checkbox" class="filter-checkbox filter-technology"  id="technology_tag_web" name="technology_tag_web" value="Web">
+                    </div>
+                    <label for="technology_tag_web">Web</label>
+                </li>
+            
+            </ul>
+        </div>
+        
+    </div>
+</div>
+
+<div class="backdrop filter-backdrop"></div>
+
+
+				
+				
+
+<div class="footer-linkboxes__wrapper">
+  <nav class="footer-linkboxes" aria-label="Footer links">
+    <ul class="footer-linkboxes__list">
+      <li class="footer-linkbox">
+        <span class="footer-linkbox-heading">
+          Connect
+        </span>
+        <ul class="footer-linkbox-list">
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//googledevelopers.blogspot.com" class="footer-linkbox-list__link">
+                Blog
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/3FReQXN" class="footer-linkbox-list__link">
+                Bluesky
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/googlefordevs" class="footer-linkbox-list__link">
+                Instagram
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/gdevs-li" class="footer-linkbox-list__link">
+                LinkedIn
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/gdevs-tw" class="footer-linkbox-list__link">
+                X (Twitter)
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/developers" class="footer-linkbox-list__link">
+                YouTube
+              </a>
+            </li>
+          
+        </ul>
+      </li>
+      <li class="footer-linkbox">
+        <span class="footer-linkbox-heading">
+          Programs
+        </span>
+        <ul class="footer-linkbox-list">
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/program" class="footer-linkbox-list__link">
+                Google Developer Program
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/gdg" class="footer-linkbox-list__link">
+                Google Developer Groups
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/experts" class="footer-linkbox-list__link">
+                Google Developer Experts
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/accelerators" class="footer-linkbox-list__link">
+                Accelerators
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//www.womentechmakers.com" class="footer-linkbox-list__link">
+                Women Techmakers
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/nvidia" class="footer-linkbox-list__link">
+                Google Cloud &amp; NVIDIA
+              </a>
+            </li>
+          
+        </ul>
+      </li>
+      <li class="footer-linkbox">
+        <span class="footer-linkbox-heading">
+          Developer consoles
+        </span>
+        <ul class="footer-linkbox-list">
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.developers.google.com" class="footer-linkbox-list__link">
+                Google API Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.cloud.google.com" class="footer-linkbox-list__link">
+                Google Cloud Platform Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//play.google.com/apps/publish" class="footer-linkbox-list__link">
+                Google Play Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.firebase.google.com" class="footer-linkbox-list__link">
+                Firebase Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.actions.google.com" class="footer-linkbox-list__link">
+                Actions on Google Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//cast.google.com/publish" class="footer-linkbox-list__link">
+                Cast SDK Developer Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//chrome.google.com/webstore/developer/dashboard" class="footer-linkbox-list__link">
+                Chrome Web Store Dashboard
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.home.google.com/" class="footer-linkbox-list__link">
+                Google Home Developer Console
+              </a>
+            </li>
+          
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="footer-utility__wrapper">
+  <div>
+    <nav class="footer-sites" aria-label="Other Google Developers websites">
+      <a href="https://developers.google.com/" class="site-logo-link" data-label="Site logo">
+        <img src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/images/g-dev.svg" class="site-logo" alt="Google for Developers">
+      </a>
+      <ul class="footer-sites-list">
+        <li class="footer-sites-item">
+          <a href="//developer.android.com" class="footer-sites-link">
+            Android
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//developer.chrome.com/home" class="footer-sites-link">
+            Chrome
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//firebase.google.com" class="footer-sites-link">
+            Firebase
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//cloud.google.com" class="footer-sites-link">
+            Google Cloud Platform
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//developers.google.com/products" class="footer-sites-link">
+            All products
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <button aria-hidden="true" class="glue-cookie-notification-bar-control footer-sites-link">
+            Manage cookies
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <nav class="footer-utility-links">
+      <ul class="footer-utility-list">
+        <li class="footer-utility-item">
+          <a href="//developers.google.com/terms/site-terms" class="footer-utility-link">
+            Terms
+          </a>
+        </li>
+        <li class="footer-utility-item">
+          <a href="//policies.google.com/privacy" class="footer-utility-link">
+            Privacy
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+        
+				
+
+        
+        <script nonce="e1Om8tWNZ2Q0vfCt5LF8qg==" src="https://www.youtube.com/player_api"></script>
+        <script nonce="e1Om8tWNZ2Q0vfCt5LF8qg==" src="//www.gstatic.com/glue/v27_1/glue.min.js"></script>
+        <script nonce="e1Om8tWNZ2Q0vfCt5LF8qg==" type="text/javascript" src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/js/dgc_blog.js"></script>
+
+        <script nonce="e1Om8tWNZ2Q0vfCt5LF8qg==" src="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.js"
+            data-glue-cookie-notification-bar-category="2A"
+            data-glue-cookie-notification-bar-site-id="developers.googleblog.com"></script>
+
+        
+<script src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260519-162827/js/search.js" nonce="e1Om8tWNZ2Q0vfCt5LF8qg=="></script>
+
+    </body>
+</html>
