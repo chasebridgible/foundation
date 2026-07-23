@@ -1,7 +1,7 @@
 # Agent Capability Scout brief - 2026-07-23
 
 Run ID: `2026-07-23-agent-scout-01`
-Status: complete, PR open
+Status: complete and merged
 Branch: `codex/agent-capability-scout-20260723-02`
 Source registry version: `2026-06-05`
 
@@ -37,7 +37,8 @@ No principles-doc patch was made.
 
 ## Publish and notification state
 
-- Merge state: PR open.
+- Merge state: `merged`
 - PR: https://github.com/chasebridgible/foundation/pull/95
 - Notification state: GitHub App PR comment sent: https://github.com/chasebridgible/foundation/pull/95#issuecomment-5061016014
-- Requested owner action: none yet. This run is routine scout state with no principles-doc patch and can merge when required checks pass.
+- Closeout: PR 95 passed `Spec registry and metadata` and merged at `2026-07-23T16:47:03Z`.
+- Requested owner action: none. This run was routine scout state with no principles-doc patch.
