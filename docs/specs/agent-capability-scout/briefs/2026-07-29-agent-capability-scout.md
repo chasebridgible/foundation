@@ -1,7 +1,7 @@
 # Agent Capability Scout brief - 2026-07-29
 
 Run ID: `2026-07-29-agent-scout-01`
-Status: complete, PR pending
+Status: complete, PR open
 Branch: `codex/agent-capability-scout-20260729-01`
 Source registry version: `2026-06-05`
 
@@ -43,6 +43,6 @@ No principles-doc patch was made. Existing Agent Principles and AI Evals Princip
 ## Publish and notification state
 
 - Merge state: `pr-open`
-- PR: pending.
+- PR: https://github.com/chasebridgible/foundation/pull/101
 - Notification state: pending GitHub App PR comment after PR creation.
-- Requested owner action: review routine scout state after PR opens; no principles-doc judgment is required.
+- Requested owner action: @chasebridgible review routine scout state when convenient; no principles-doc judgment is required.
