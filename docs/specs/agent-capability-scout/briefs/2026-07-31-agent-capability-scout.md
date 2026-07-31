@@ -1,7 +1,7 @@
 # Agent Capability Scout brief - 2026-07-31
 
 Run ID: `2026-07-31-agent-scout-01`
-Status: complete, PR open
+Status: complete and merged
 Branch: `codex/agent-capability-scout-20260731-01`
 Source registry version: `2026-06-05`
 
@@ -43,7 +43,8 @@ No principles-doc patch was made. Existing AI Evals Principles and Agent Princip
 
 ## Publish and notification state
 
-- Merge state: `pr-open`
+- Merge state: `merged`
 - PR: https://github.com/chasebridgible/foundation/pull/103
 - Notification state: GitHub App PR comment sent: https://github.com/chasebridgible/foundation/pull/103#issuecomment-5143944353
+- Closeout: PR 103 passed `Spec registry and metadata` and merged at `2026-07-31T14:27:39Z`.
 - Requested owner action: @chasebridgible review routine scout state when convenient after the PR is opened; no principles-doc judgment is required.
