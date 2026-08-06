@@ -46,5 +46,5 @@ No principles-doc patch was made. Existing Agent Principles and AI Evals Princip
 
 - Merge state: `pr-open`
 - PR: https://github.com/chasebridgible/foundation/pull/105
-- Notification state: pending GitHub App PR comment after PR creation.
+- Notification state: GitHub App PR comment sent: https://github.com/chasebridgible/foundation/pull/105#issuecomment-5200626157
 - Requested owner action: @chasebridgible review routine scout state after the PR is opened; no principles-doc judgment is required.
