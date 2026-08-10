@@ -33,6 +33,6 @@ None. No finding crossed the standalone-additive principle gate, and no principl
 ## Publish and notification state
 
 - Merge state: `pr-open`
-- PR: pending
-- Notification state: pending GitHub App PR comment after PR creation.
+- PR: https://github.com/chasebridgible/foundation/pull/109
+- Notification state: GitHub App PR comment sent: https://github.com/chasebridgible/foundation/pull/109#issuecomment-5236112657
 - Requested owner action: none expected if checks pass. This run is routine scout state with no findings and no principles-doc patch.
