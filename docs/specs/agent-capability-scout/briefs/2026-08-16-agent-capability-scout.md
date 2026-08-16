@@ -37,6 +37,6 @@ One candidate was evaluated and rejected as non-additive. No principles-doc patc
 ## Publish and notification state
 
 - Merge state: `pr-open`
-- PR: pending
-- Notification state: pending PR creation
+- PR: https://github.com/chasebridgible/foundation/pull/115
+- Notification state: GitHub App PR comment sent: https://github.com/chasebridgible/foundation/pull/115#issuecomment-5305837473
 - Requested owner action: none expected if checks pass. This run is routine scout state and can merge after required checks because no principles-doc patch was made.
