@@ -1,7 +1,7 @@
 # Agent Capability Scout brief - 2026-08-22
 
 Run ID: `2026-08-22-agent-scout-01`
-Status: complete; PR open pending publish
+Status: complete; merged
 Branch: `codex/agent-capability-scout-20260822-01`
 Source registry version: `2026-06-05`
 
@@ -36,7 +36,7 @@ One candidate was evaluated and rejected as non-additive. No principles-doc patc
 
 ## Publish and notification state
 
-- Merge state: `pr-open`
+- Merge state: `merged`
 - PR: https://github.com/chasebridgible/foundation/pull/121
 - Notification state: GitHub App PR comment sent: https://github.com/chasebridgible/foundation/pull/121#issuecomment-5378169405
 - Requested owner action: none expected if required checks pass. This run is routine scout state and no principles-doc patch was made.
