@@ -43,6 +43,6 @@ Existing Agent Principles already cover human authority, bounded verifiable unit
 
 ## Publish and notification state
 
-- Merge state at checkpoint: PR pending.
-- Notification state at checkpoint: pending PR creation.
-- Requested owner action: @chasebridgible review routine scout state when convenient; no principles-doc judgment is required.
+- Merge state: PR 123 merged at `2026-08-24T05:08:58Z` after the required `Spec registry and metadata` check passed.
+- Notification state: GitHub App notification sent at `https://github.com/chasebridgible/foundation/pull/123#issuecomment-5390974061`.
+- Requested owner action: @chasebridgible no action required; this was routine scout state with no principles-doc patch.
