@@ -50,5 +50,5 @@ Existing Agent Principles and AI Evals Principles already cover these as whole-h
 ## Publish and notification state
 
 - Merge state: blocked. PR 125 is open at `https://github.com/chasebridgible/foundation/pull/125`, but merge escalation was rejected because GitHub reported no PR checks, so the required-checks-passed condition could not be proven inside the automation.
-- Notification state: GitHub App notification sent at `https://github.com/chasebridgible/foundation/pull/125#issuecomment-5428716881`.
+- Notification state: GitHub App notification sent at `https://github.com/chasebridgible/foundation/pull/125#issuecomment-5428716881`; blocker follow-up sent at `https://github.com/chasebridgible/foundation/pull/125#issuecomment-5428777184`.
 - Requested owner action: @chasebridgible merge PR 125 manually or rerun checks so the automation can prove the required-checks condition.
