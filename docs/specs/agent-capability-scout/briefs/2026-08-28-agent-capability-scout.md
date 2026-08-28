@@ -42,6 +42,6 @@ Existing Agent Principles and AI Evals Principles already cover these as whole-h
 ## Publish and notification state
 
 - Prior run recovery: PR 125 for `2026-08-26-agent-scout-01` had recovered its required `Spec registry and metadata` check and was merged before this checkpoint at `2026-08-28T05:03:03Z`.
-- Merge state: pending publish. This run is ready for branch push, PR creation, required checks, and merge if checks pass.
-- Notification state: pending GitHub App PR comment after PR creation.
-- Requested owner action: @chasebridgible review the PR after the automation posts the GitHub App notification; no principles-doc patch needs owner judgment.
+- Merge state: PR open at `https://github.com/chasebridgible/foundation/pull/126`; merge after the required `Spec registry and metadata` check passes.
+- Notification state: pending GitHub App PR comment.
+- Requested owner action: @chasebridgible review PR 126 after the required check completes; no principles-doc patch needs owner judgment.
