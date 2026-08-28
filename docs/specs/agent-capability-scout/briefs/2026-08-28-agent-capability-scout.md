@@ -43,5 +43,5 @@ Existing Agent Principles and AI Evals Principles already cover these as whole-h
 
 - Prior run recovery: PR 125 for `2026-08-26-agent-scout-01` had recovered its required `Spec registry and metadata` check and was merged before this checkpoint at `2026-08-28T05:03:03Z`.
 - Merge state: PR open at `https://github.com/chasebridgible/foundation/pull/126`; merge after the required `Spec registry and metadata` check passes.
-- Notification state: pending GitHub App PR comment.
+- Notification state: GitHub App notification sent at `https://github.com/chasebridgible/foundation/pull/126#issuecomment-5448698021`.
 - Requested owner action: @chasebridgible review PR 126 after the required check completes; no principles-doc patch needs owner judgment.
