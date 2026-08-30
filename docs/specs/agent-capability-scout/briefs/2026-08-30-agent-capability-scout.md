@@ -40,6 +40,6 @@ Existing Agent Principles and AI Evals Principles already cover this as whole-ha
 ## Publish and notification state
 
 - PR: https://github.com/chasebridgible/foundation/pull/128
-- Merge state: PR open; waiting for required `Spec registry and metadata` check before merge.
+- Merge state: PR 128 passed the required `Spec registry and metadata` check and merged at `2026-08-30T05:07:32Z`.
 - Notification state: GitHub App notification sent at https://github.com/chasebridgible/foundation/pull/128#issuecomment-5466838399.
-- Requested owner action: @chasebridgible review PR 128 after the required check completes; no principles-doc patch needs owner judgment.
+- Requested owner action: @chasebridgible no merge action needed; no principles-doc patch needs owner judgment.
