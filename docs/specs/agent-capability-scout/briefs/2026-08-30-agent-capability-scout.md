@@ -39,6 +39,7 @@ Existing Agent Principles and AI Evals Principles already cover this as whole-ha
 
 ## Publish and notification state
 
-- Merge state: PR pending.
-- Notification state: GitHub App notification pending PR creation.
-- Requested owner action: @chasebridgible review the scout PR after the required check completes; no principles-doc patch needs owner judgment.
+- PR: https://github.com/chasebridgible/foundation/pull/128
+- Merge state: PR open; waiting for required `Spec registry and metadata` check before merge.
+- Notification state: GitHub App notification pending.
+- Requested owner action: @chasebridgible review PR 128 after the required check completes; no principles-doc patch needs owner judgment.
