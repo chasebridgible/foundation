@@ -41,7 +41,7 @@ Existing Agent Principles and AI Evals Principles already cover these as whole-a
 
 ## Publish and notification state
 
-- PR: pending.
-- Merge state: pending PR creation and required checks.
-- Notification state: pending GitHub App PR comment after PR creation.
+- PR: https://github.com/chasebridgible/foundation/pull/134
+- Merge state: PR 134 passed the required `Spec registry and metadata` check and merged at `2026-09-07T16:17:59Z`.
+- Notification state: GitHub App notification sent at https://github.com/chasebridgible/foundation/pull/134#issuecomment-5573308160.
 - Requested owner action: @chasebridgible no action needed unless required checks fail or you want to review the rejected principle-candidate decisions.
