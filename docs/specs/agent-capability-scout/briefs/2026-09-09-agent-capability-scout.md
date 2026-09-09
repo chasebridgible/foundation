@@ -4,7 +4,7 @@
 - Started at: `2026-09-09T05:03:32Z`
 - Source registry version: `2026-06-05`
 - Branch: `codex/agent-capability-scout-20260909-01`
-- Status: complete
+- Status: blocked
 
 ## Sources checked
 
@@ -39,7 +39,7 @@ Existing Agent Principles and AI Evals Principles already cover this as whole-ag
 
 ## Publish and notification state
 
-- PR: pending.
-- Merge state: branch checkpoint pending local validation, push, PR checks, and merge.
-- Notification state: pending PR creation.
-- Requested owner action: @chasebridgible no action needed unless required checks fail or you want to review the rejected principle-candidate decision.
+- PR: blocked before creation.
+- Merge state: branch `codex/agent-capability-scout-20260909-01` was pushed to `origin`, but GitHub PR creation was blocked by the approval reviewer. No required-check result or merge state is available.
+- Notification state: blocked. The GitHub App PR-comment notifier requires a PR number, and no PR was created.
+- Requested owner action: @chasebridgible create a PR manually from `origin/codex/agent-capability-scout-20260909-01`, or explicitly approve PR creation for this automation run.
