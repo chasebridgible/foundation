@@ -4,7 +4,7 @@
 - Started at: `2026-09-23T05:03:26Z`
 - Source registry version: `2026-06-05`
 - Branch: `codex/agent-capability-scout-20260923-01`
-- Status: complete pending publish
+- Status: complete and merged
 
 ## Sources checked
 
@@ -46,7 +46,7 @@ Existing Agent Principles and AI Evals Principles already cover these through wh
 
 ## Publish and notification state
 
-- PR: pending.
-- Merge state: pending publish through the protected Foundation flow.
-- Notification state: pending GitHub App PR comment after a PR exists.
-- Requested owner action: review the PR after required checks pass, with attention to the 10/10 OpenAI caching, OpenAI third-party-assessment, and Anthropic Opus 5.5 findings plus the rejected principle-candidate rationale.
+- PR: https://github.com/chasebridgible/foundation/pull/144
+- Merge state: merged at `2026-09-23T05:08:43Z` after the required `Spec registry and metadata` check passed.
+- Notification state: GitHub App PR comment sent at https://github.com/chasebridgible/foundation/pull/144#issuecomment-5789411332.
+- Requested owner action: review the merged scout brief if desired, with attention to the 10/10 OpenAI caching, OpenAI third-party-assessment, and Anthropic Opus 5.5 findings plus the rejected principle-candidate rationale.
