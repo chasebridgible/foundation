@@ -1,0 +1,1526 @@
+[
+  {
+    "county_name": "Anderson",
+    "county_fips": "48001",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Andrews",
+    "county_fips": "48003",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Angelina",
+    "county_fips": "48005",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Aransas",
+    "county_fips": "48007",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Archer",
+    "county_fips": "48009",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Armstrong",
+    "county_fips": "48011",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Atascosa",
+    "county_fips": "48013",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Austin",
+    "county_fips": "48015",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Bailey",
+    "county_fips": "48017",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Bandera",
+    "county_fips": "48019",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Bastrop",
+    "county_fips": "48021",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Baylor",
+    "county_fips": "48023",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Bee",
+    "county_fips": "48025",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Bell",
+    "county_fips": "48027",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Bexar",
+    "county_fips": "48029",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Blanco",
+    "county_fips": "48031",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Borden",
+    "county_fips": "48033",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Bosque",
+    "county_fips": "48035",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Bowie",
+    "county_fips": "48037",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Brazoria",
+    "county_fips": "48039",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Brazos",
+    "county_fips": "48041",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Brewster",
+    "county_fips": "48043",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Briscoe",
+    "county_fips": "48045",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Brooks",
+    "county_fips": "48047",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Brown",
+    "county_fips": "48049",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Burleson",
+    "county_fips": "48051",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Burnet",
+    "county_fips": "48053",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Caldwell",
+    "county_fips": "48055",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Calhoun",
+    "county_fips": "48057",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Callahan",
+    "county_fips": "48059",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Cameron",
+    "county_fips": "48061",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Camp",
+    "county_fips": "48063",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Carson",
+    "county_fips": "48065",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Cass",
+    "county_fips": "48067",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Castro",
+    "county_fips": "48069",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Chambers",
+    "county_fips": "48071",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Cherokee",
+    "county_fips": "48073",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Childress",
+    "county_fips": "48075",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Clay",
+    "county_fips": "48077",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Cochran",
+    "county_fips": "48079",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Coke",
+    "county_fips": "48081",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Coleman",
+    "county_fips": "48083",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Collin",
+    "county_fips": "48085",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Collingsworth",
+    "county_fips": "48087",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Colorado",
+    "county_fips": "48089",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Comal",
+    "county_fips": "48091",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Comanche",
+    "county_fips": "48093",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Concho",
+    "county_fips": "48095",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Cooke",
+    "county_fips": "48097",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Coryell",
+    "county_fips": "48099",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Cottle",
+    "county_fips": "48101",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Crane",
+    "county_fips": "48103",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Crockett",
+    "county_fips": "48105",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Crosby",
+    "county_fips": "48107",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Culberson",
+    "county_fips": "48109",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Dallam",
+    "county_fips": "48111",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Dallas",
+    "county_fips": "48113",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Dawson",
+    "county_fips": "48115",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Deaf Smith",
+    "county_fips": "48117",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Delta",
+    "county_fips": "48119",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Denton",
+    "county_fips": "48121",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "DeWitt",
+    "county_fips": "48123",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Dickens",
+    "county_fips": "48125",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Dimmit",
+    "county_fips": "48127",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Donley",
+    "county_fips": "48129",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Duval",
+    "county_fips": "48131",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Eastland",
+    "county_fips": "48133",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Ector",
+    "county_fips": "48135",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Edwards",
+    "county_fips": "48137",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Ellis",
+    "county_fips": "48139",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "El Paso",
+    "county_fips": "48141",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Erath",
+    "county_fips": "48143",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Falls",
+    "county_fips": "48145",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Fannin",
+    "county_fips": "48147",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Fayette",
+    "county_fips": "48149",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Fisher",
+    "county_fips": "48151",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Floyd",
+    "county_fips": "48153",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Foard",
+    "county_fips": "48155",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Fort Bend",
+    "county_fips": "48157",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Franklin",
+    "county_fips": "48159",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Freestone",
+    "county_fips": "48161",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Frio",
+    "county_fips": "48163",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Gaines",
+    "county_fips": "48165",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Galveston",
+    "county_fips": "48167",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Garza",
+    "county_fips": "48169",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Gillespie",
+    "county_fips": "48171",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Glasscock",
+    "county_fips": "48173",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Goliad",
+    "county_fips": "48175",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Gonzales",
+    "county_fips": "48177",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Gray",
+    "county_fips": "48179",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Grayson",
+    "county_fips": "48181",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Gregg",
+    "county_fips": "48183",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Grimes",
+    "county_fips": "48185",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Guadalupe",
+    "county_fips": "48187",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hale",
+    "county_fips": "48189",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hall",
+    "county_fips": "48191",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hamilton",
+    "county_fips": "48193",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hansford",
+    "county_fips": "48195",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hardeman",
+    "county_fips": "48197",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hardin",
+    "county_fips": "48199",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Harris",
+    "county_fips": "48201",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Harrison",
+    "county_fips": "48203",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hartley",
+    "county_fips": "48205",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Haskell",
+    "county_fips": "48207",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hays",
+    "county_fips": "48209",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hemphill",
+    "county_fips": "48211",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Henderson",
+    "county_fips": "48213",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hidalgo",
+    "county_fips": "48215",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hill",
+    "county_fips": "48217",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hockley",
+    "county_fips": "48219",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hood",
+    "county_fips": "48221",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hopkins",
+    "county_fips": "48223",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Houston",
+    "county_fips": "48225",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Howard",
+    "county_fips": "48227",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hudspeth",
+    "county_fips": "48229",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hunt",
+    "county_fips": "48231",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Hutchinson",
+    "county_fips": "48233",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Irion",
+    "county_fips": "48235",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Jack",
+    "county_fips": "48237",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Jackson",
+    "county_fips": "48239",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Jasper",
+    "county_fips": "48241",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Jeff Davis",
+    "county_fips": "48243",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Jefferson",
+    "county_fips": "48245",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Jim Hogg",
+    "county_fips": "48247",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Jim Wells",
+    "county_fips": "48249",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Johnson",
+    "county_fips": "48251",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Jones",
+    "county_fips": "48253",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Karnes",
+    "county_fips": "48255",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Kaufman",
+    "county_fips": "48257",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Kendall",
+    "county_fips": "48259",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Kenedy",
+    "county_fips": "48261",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Kent",
+    "county_fips": "48263",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Kerr",
+    "county_fips": "48265",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Kimble",
+    "county_fips": "48267",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "King",
+    "county_fips": "48269",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Kinney",
+    "county_fips": "48271",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Kleberg",
+    "county_fips": "48273",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Knox",
+    "county_fips": "48275",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Lamar",
+    "county_fips": "48277",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Lamb",
+    "county_fips": "48279",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Lampasas",
+    "county_fips": "48281",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "La Salle",
+    "county_fips": "48283",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Lavaca",
+    "county_fips": "48285",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Lee",
+    "county_fips": "48287",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Leon",
+    "county_fips": "48289",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Liberty",
+    "county_fips": "48291",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Limestone",
+    "county_fips": "48293",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Lipscomb",
+    "county_fips": "48295",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Live Oak",
+    "county_fips": "48297",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Llano",
+    "county_fips": "48299",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Loving",
+    "county_fips": "48301",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Lubbock",
+    "county_fips": "48303",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Lynn",
+    "county_fips": "48305",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "McCulloch",
+    "county_fips": "48307",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "McLennan",
+    "county_fips": "48309",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "McMullen",
+    "county_fips": "48311",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Madison",
+    "county_fips": "48313",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Marion",
+    "county_fips": "48315",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Martin",
+    "county_fips": "48317",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Mason",
+    "county_fips": "48319",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Matagorda",
+    "county_fips": "48321",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Maverick",
+    "county_fips": "48323",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Medina",
+    "county_fips": "48325",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Menard",
+    "county_fips": "48327",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Midland",
+    "county_fips": "48329",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Milam",
+    "county_fips": "48331",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Mills",
+    "county_fips": "48333",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Mitchell",
+    "county_fips": "48335",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Montague",
+    "county_fips": "48337",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Montgomery",
+    "county_fips": "48339",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Moore",
+    "county_fips": "48341",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Morris",
+    "county_fips": "48343",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Motley",
+    "county_fips": "48345",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Nacogdoches",
+    "county_fips": "48347",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Navarro",
+    "county_fips": "48349",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Newton",
+    "county_fips": "48351",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Nolan",
+    "county_fips": "48353",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Nueces",
+    "county_fips": "48355",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Ochiltree",
+    "county_fips": "48357",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Oldham",
+    "county_fips": "48359",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Orange",
+    "county_fips": "48361",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Palo Pinto",
+    "county_fips": "48363",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Panola",
+    "county_fips": "48365",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Parker",
+    "county_fips": "48367",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Parmer",
+    "county_fips": "48369",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Pecos",
+    "county_fips": "48371",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Polk",
+    "county_fips": "48373",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Potter",
+    "county_fips": "48375",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Presidio",
+    "county_fips": "48377",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Rains",
+    "county_fips": "48379",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Randall",
+    "county_fips": "48381",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Reagan",
+    "county_fips": "48383",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Real",
+    "county_fips": "48385",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Red River",
+    "county_fips": "48387",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Reeves",
+    "county_fips": "48389",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Refugio",
+    "county_fips": "48391",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Roberts",
+    "county_fips": "48393",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Robertson",
+    "county_fips": "48395",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Rockwall",
+    "county_fips": "48397",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Runnels",
+    "county_fips": "48399",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Rusk",
+    "county_fips": "48401",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Sabine",
+    "county_fips": "48403",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "San Augustine",
+    "county_fips": "48405",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "San Jacinto",
+    "county_fips": "48407",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "San Patricio",
+    "county_fips": "48409",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "San Saba",
+    "county_fips": "48411",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Schleicher",
+    "county_fips": "48413",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Scurry",
+    "county_fips": "48415",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Shackelford",
+    "county_fips": "48417",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Shelby",
+    "county_fips": "48419",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Sherman",
+    "county_fips": "48421",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Smith",
+    "county_fips": "48423",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Somervell",
+    "county_fips": "48425",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Starr",
+    "county_fips": "48427",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Stephens",
+    "county_fips": "48429",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Sterling",
+    "county_fips": "48431",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Stonewall",
+    "county_fips": "48433",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Sutton",
+    "county_fips": "48435",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Swisher",
+    "county_fips": "48437",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Tarrant",
+    "county_fips": "48439",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Taylor",
+    "county_fips": "48441",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Terrell",
+    "county_fips": "48443",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Terry",
+    "county_fips": "48445",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Throckmorton",
+    "county_fips": "48447",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Titus",
+    "county_fips": "48449",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Tom Green",
+    "county_fips": "48451",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Travis",
+    "county_fips": "48453",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Trinity",
+    "county_fips": "48455",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Tyler",
+    "county_fips": "48457",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Upshur",
+    "county_fips": "48459",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Upton",
+    "county_fips": "48461",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Uvalde",
+    "county_fips": "48463",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Val Verde",
+    "county_fips": "48465",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Van Zandt",
+    "county_fips": "48467",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Victoria",
+    "county_fips": "48469",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Walker",
+    "county_fips": "48471",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Waller",
+    "county_fips": "48473",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Ward",
+    "county_fips": "48475",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Washington",
+    "county_fips": "48477",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Webb",
+    "county_fips": "48479",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Wharton",
+    "county_fips": "48481",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Wheeler",
+    "county_fips": "48483",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Wichita",
+    "county_fips": "48485",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Wilbarger",
+    "county_fips": "48487",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Willacy",
+    "county_fips": "48489",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Williamson",
+    "county_fips": "48491",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Wilson",
+    "county_fips": "48493",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Winkler",
+    "county_fips": "48495",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Wise",
+    "county_fips": "48497",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Wood",
+    "county_fips": "48499",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Yoakum",
+    "county_fips": "48501",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Young",
+    "county_fips": "48503",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Zapata",
+    "county_fips": "48505",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  },
+  {
+    "county_name": "Zavala",
+    "county_fips": "48507",
+    "state_fips": "48",
+    "reference_evidence": "evidence/reference/census-counties-2022-20m.geojson"
+  }
+]

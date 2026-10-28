@@ -1,0 +1,610 @@
+{
+  "request": {
+    "query": "hydrant",
+    "repository_name": "mikeab7/planyr",
+    "topn": 20
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B898.md",
+          "path": "ledger/backlog/done/B898.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B898.md",
+          "display_title": "ledger/backlog/done/B898.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "### B898 — Map Layers panel redesign: decision-first grouping + function-first naming + consolidated Water & sewer / Electric / Fire hydrants `[Site Planner / GIS]` (feature) #site-planner #gis #ui  *(owner brief 2026-07-18, chat \"redesign the map LAYERS panel\" — the panel was organized by data PROVIDER (a \"Harris County · City of Houston\" group sat above generic groups even in Waller/Katy), water/sewer scattered across 3 groups, fire hydrants ×3 and electric ×3 by source, provider names leaking into labels. Minted **B898** via `npm run next-id -- --against-main` (fresh main folded in — see B899 for why the FIRST mint attempt collided).)*\n`[x]` **IMPLEMENTED + unit + headless-verified this session.** Reorganized `lib/layers.js` (+ the flattened `AHJ_LAYERS`/`JURISDICTIONS`/`EVIDENCE`/`STATEWIDE` configs) into a data-driven registry: every layer now carries a `group` + `order` field, and `LAYER_GROUP_ORDER`/`LAYER_GROUP_LABEL` define the canonical decision-first sequence — **1) Base & terrain · 2) Flood & drainage · 3) Utilities serving the site · 4) Environmental & hazards · 5) Access & infrastructure · 6) Jurisdictions & authority** (deal-killer first, reference last) — replacing the old provider-ordered groups (Basemap → per-county Harris group → Jurisdictions → Utility evidence → mislabeled \"Environmental & hazards\" catch-all). `LayerPanel.jsx` is now purely data-driven off these fields (`groupEntries`/`groupRows`) instead of hard-coding which JS object renders where.\n- Verify: sandbox",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    135,
+                    142
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    444,
+                    451
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "- **No provider-specific top-level group:** `JURISDICTION_LAYERS.harris.layers` is now empty (its 4 layers moved into `AHJ_LAYERS`) — the old \"Harris County · City of Houston\" heading that used to sit ABOVE the generic groups no longer renders for any county. The existing single-layer county fold (Fort Bend contours → Basemap) and the ≥2-layer-county-gets-its-own-group mechanism are untouched (currently dead for every county, kept for a future county that publishes several layers of its own).\n- **Named rules:** LOUD-FAILURE (the fire-hydrant de-dup gap is called out explicitly, not silently dropped), DEDUPE-FIRST, MODULE-SCOPE-COMPONENTS (all new render logic — `mergeGroupRow` — defined at module scope inside `LayerPanel`, matching the existing `compositeRow`/`row` pattern, no new inner-component).\n- **Verified (sandbox/headless):** full unit suite green (**4560 tests**, incl. 21 new `test/layerConsolidation.test.js` cases pinning the acceptance criteria — group order, one Water & sewer/Electric/Fire-hydrants layer each, no provider-named labels survive, every merge member keeps its fetch — plus new `buildGroupSlots`/`mergeSlotAnyOn`/`mergeSlotOpacity`/`mergeGroupInfoSections` pure-helper tests in `test/layerPanelInfo.test.js`); lint 0 errors; build green; `test/layerPanelV2Guards.test.js` (the B760–B762 anti-drift guards) still green unchanged. **Headless Playwright** (`ui-audit/layerpanel-verify.mjs` against a live `vite` dev server, real Chromium): 50/50 checks PASS, including new B898 assertions (all six decision-first group headers present in order; no \"Harris County · City of Houston\" heading; ONE \"Water & sewer\" row whose ⓘ lists the CCN/MUD/City-of-Houston provenance; ONE \"Electric\" row; \"Fire hydrants\" present once; old provider-named rows gone) plus every pre-existing B760–B764 assertion (merged City/ETJ toggle, Fort Bend fold, ISD ⓘ, jurisdiction badges) — screenshot-confirmed visually. `gis-verify/jurisdictions-overlay-verify.mjs` (a live-GIS-only manual script, not run in this sandbox) updated to match the new \"Water & sewer\"/\"Jurisdictions & authority\" labels.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    547,
+                    554
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    1029,
+                    1036
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    1751,
+                    1758
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/verification/done/V331.md",
+          "path": "ledger/verification/done/V331.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/verification/done/V331.md",
+          "display_title": "ledger/verification/done/V331.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "### V331 — B36(e): evidence layers cancel a slow fetch on toggle-off and never render a stale response into a detached group ✅ **LIVE APP (planyr.io) — Site Planner map, zoomed in ≥14 (OSM) / ≥16 (Mapillary)** (Leaflet needs a DOM — the node-only test env can't drive the layer lifecycle)  *(V331; B36(e); branch `claude/next-backlog-item-2lots0`; `Cadence: once`)* — CONFIRMED PASS 2026-07-21\n- **✅ CONFIRMED PASS 2026-07-21 (owner, live on planyr.io, signed in, Goose Creek — Site Planner map, zoomed to enable the evidence layers):** toggled ON \"Electric (lines, substations & poles)\" under Utilities Serving The Site; using the network inspector, caught THREE in-flight (\"pending\") requests at the moment of toggle-off (overpass-api.de/interpreter POST, planyr.io/api/mapillary/map_features GET, mycity2.houstontx.gov Public_safety MapServer GET), then toggled the layer OFF while those were still pending. Afterward: NO stray electric-line / substation / hydrant / Mapillary markers appeared anywhere, and the Layers checkbox cleanly reverted to unchecked with no lingering \"loaded\" state. **Caveat noted:** the literal \"(canceled)\" network-status string was not captured for those specific requests (the map's constant aerial-tile traffic rotated them out of the tool's request buffer before re-query), but the behavioral spec — in-flight fetch confirmed pending, then zero stale rendered output — is directly satisfied.\n- **Verified here (sandbox, 2026-07-15):** static reasoning — the post-`await` `if (!map) return` guard in both `overpassLayer`/`mapillaryLayer` bails before painting/reporting once `onRemove` nulls `map`; the Mapillary `AbortController` is aborted in `onRemove` and its `AbortError` is swallowed silently. lint 0 · 3989 tests (no regression) · build green. The layers import Leaflet (`window is not defined` in the node test env), so the lifecycle can't be unit-tested here.\n- **Pending live steps:** on the Site Planner map, zoom in until the OSM power/hydrant evidence layer starts loading, then toggle it OFF while the request is still in flight → no markers appear afterward and the Layers-panel status does NOT flip to \"loaded\" for the off layer; repeat for the Mapillary layer (zoom ≥16) and confirm in the browser network panel that the in-flight Mapillary request shows **(canceled)** on toggle-off. Then re-enable each layer and confirm it loads normally for the current view.\n- On pass: this entry → VERIFICATION-DONE (B36(e) already shipped to BACKLOG-DONE; parent B36 stays open for a/d).",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    978,
+                    985
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    2008,
+                    2015
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/verification/checklist/V77.md",
+          "path": "ledger/verification/checklist/V77.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/verification/checklist/V77.md",
+          "display_title": "ledger/verification/checklist/V77.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "- **Added** 2026-06-21 · **Cadence** once (acceptance) · **Last checked** 2026-06-25 ◑ (Cowork, signed-in) · **Next check** — the LIVE network-capture confirm below, on planyr.io Production (the owner has already set the `MAPILLARY_TOKEN` secret).\n- **◑ 2026-06-25 (Cowork, signed-in on planyr.io):** the street-imagery feature is PRESENT in the planner Layers as **Evidence tools** (Infer water main from hydrants, Route electric/water service, Trace overhead electric). The actual Mapillary same-origin-proxy round-trip + the no-token-leak network capture was NOT driven (needs tool-activate + zoom ≥16; the renderer froze under combined map+GIS load this session). The LIVE network confirm below stays ⏳.\n- **Why a live check is needed:** the proxy is a Cloudflare **Pages Function** — it runs ONLY in the Cloudflare runtime, not under `vite preview`/the sandbox. So the \"imagery actually renders\" half can only be confirmed on the deployed site. Everything client-side IS self-verified (below).",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    415,
+                    422
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "- **✅ Self-verified headless 2026-06-21** (`gis-verify/mapillary-proxy-verify.mjs`): toggling **\"Poles & hydrants from street imagery\"** with **no pasted token** → the layer loads (no token gate; reads \"Works automatically\"), fires its request to the **same-origin `/api/mapillary/map_features`**, with **0 token leaks** (`access_token`/`MLY` in **no** request URL), **no** direct `graph.mapillary.com` call, graceful degrade where the proxy isn't present (preview), **0 JS errors**. Bundle grep: **0 `MLY|` token literals + 0 `VITE_MAPILLARY_TOKEN` in `dist/`**. Plus **10 unit tests** (`test/mapillaryProxy.test.js`: allow-list, Origin check, limit-clamp, and the client default carrying no token).\n- **⏳ LIVE confirm (on planyr.io, logged-out is fine):** open the map → **Layers → Poles & hydrants from street imagery** ON → zoom to **≥ 16** over a covered urban area (e.g. downtown Houston). **Expect:** pole/hydrant dots paint; in DevTools → Network, the only Mapillary traffic is to **`/api/mapillary/…`** (same-origin) and the **`MLY|…` token appears nowhere** in the page source, the JS bundle, or any request URL. Also confirm a per-branch **preview** URL (which has no secret) degrades gracefully — the layer just shows \"not available\", no error. (If the owner later adds `MAPILLARY_TOKEN` to the Cloudflare **Preview** env, previews will show it too.) This closes **B308**.\n- **`Blocker: live-deploy`** (triage pass, 2026-09-09, NEW-1/B1385248 — the remaining step needs the actual deployed backend (Cloud Run / a Cloudflare Pages Function) this sandbox's `vite preview` can't run; still genuinely owed, kept open).",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    107,
+                    114
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    802,
+                    809
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    927,
+                    934
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B308.md",
+          "path": "ledger/backlog/done/B308.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B308.md",
+          "display_title": "ledger/backlog/done/B308.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "### B308 — Server-side Mapillary token proxy so the street-level layer works for all users `[Site Planner / functions]` (feature)  *(coworker-chat \"NEW-1\" 2026-06-20; first filed B303 then renumbered **B308** — concurrent `main` landed a Doc Review batch on B303–B307, so both can't share the number)*\n`[x]` **Built + shipped 2026-06-21 (branch `claude/busy-allen-ofgy9l`).** The \"Poles & hydrants from street imagery\" layer now works for **every visitor with no per-user token**, and the Mapillary access token never reaches the public bundle or any client request URL — it lives only as an encrypted Cloudflare Pages Secret the owner set (`MAPILLARY_TOKEN`, Production). Resolves the audit's *token-in-bundle* + *token-in-URL* LOW findings; honours the KEY DECISION \"Mapillary token is a secret.\"\n- **Pages Function** `functions/api/mapillary/[[path]].js` reads the token from the runtime binding `context.env.MAPILLARY_TOKEN` (NOT `import.meta.env`/a `VITE_*` var) and forwards to the Graph API. **Guardrails** (pure helpers in `functions/api/mapillary/_proxy.js`, unit-tested): allow-list ONLY `map_features` + fields `id,object_value,geometry`; **Origin check** (same-origin / `*.planyr.io` / `*.planyr.pages.dev`, foreign Origin → 403); bbox/limit validation; short edge-cache (`max-age=300`) to cut quota. **Dormant-graceful:** no token (e.g. a Preview deploy, which doesn't have the secret) → 503 + empty `data`, the client shows \"not available here\", never a hard error.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    395,
+                    402
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "- **Verified:** lint 0 · **722 tests** (10 new, `test/mapillaryProxy.test.js`: allow-list, Origin, limit-clamp, and the client default carrying no token) · build green; **0 `MLY|` token literals + 0 `VITE_MAPILLARY_TOKEN` in `dist/`**. Headless on the built app (`gis-verify/mapillary-proxy-verify.mjs`): toggling the layer with no token → it loads via **same-origin `/api/mapillary/map_features`**, **0 token leaks** in any request URL, **no** direct `graph.mapillary.com` call, graceful degrade in preview, **0 JS errors**.\n- **⏳ LIVE confirm (the one piece the sandbox can't do — a Pages Function needs the Cloudflare runtime):** on planyr.io Production after the next deploy, zoom ≥ 16 over a covered area → pole/hydrant dots render via `/api/mapillary/…`, token nowhere in page source/bundle/URLs. Logged in VERIFICATION. (The owner already set the secret, so this is just the deploy + a coworker eyeball.)\n> **Dedup:** net-new; builds on B285/B286 (Mapillary rename + gating). The cleanup half (drop the dead `VITE_MAPILLARY_TOKEN` read) stays as **B309** `[~]`, held until this is confirmed live.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    729,
+                    736
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B2436066.md",
+          "path": "ledger/backlog/done/B2436066.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B2436066.md",
+          "display_title": "ledger/backlog/done/B2436066.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "### B2436066 — Houston-only flood rows listed on a Chambers County site (planner) but not on the finder at a Chambers point: each source is scoped to the area it actually serves `[Site Planner / layers · Map finder]` (bug) #site-planner #gis #floodplain  *(owner, 2026-10-21: on Grand Port / Concept A (Chambers County, City of Baytown ETJ, plan group smqfy2r7pdec) the planner's Flood & Drainage lists Channels & ROW, Watersheds & BFE, Drainage Easements (HCFCD / BKDD data), Storm Sewer (City of Houston Public Works) and Master Plan Floodplains — none of whose sources serve Chambers County or Baytown — while the map finder centred on Mont Belvieu (also Chambers) listed only FEMA Flood Zones + Streams, Canals & Ditches. Follow-up to B2391216 (×2). DEDUPE-FIRST: B1091 / B1091(×2/×3) (flood-row relevance by county) is the mechanism that failed open here — this item replaces its input with a location rule, it does not re-open them.)*\n**THE REAL DIFFERENCE (measured, so it is not rediscovered).** The brief's inference was right in kind and incomplete. (1) The planner scopes the district rows by `floodCounty`, computed in `LayerPanel` as: the site IDENTIFY county if it names exactly ONE, else **`null` when it names more than one** (a Baytown site straddles Harris and Chambers), else `siteCounty` (`restored?.county`, null until the identify/heal lands). **A null county fails OPEN** — `floodRowRelevance` / `districtReaches` / `areaCounties` all return \"relevant\" for an unknown county — so every Houston source is listed. The finder reasons over `countyForView`, which returns a real county for ANY point (polygon, else bbox, else nearest centre) and is never null; so it hid them. Pinned in `test/layerServiceAreas.test.js` (\"the planner's null county no longer lets the Houston rows through\"). (2) `REGION_ZONES.houston` was a 65-mile circle round downtown Houston that contains Chambers, Galveston and Brazoria, and its comment claimed HCFCD / BKDD / City of Houston data reach them — false. The circle is what the nine Houston-area rows used as their location rule, so it could not have saved a null-county planner. **Not reproduced on a throwaway:** a fresh located plan at Grand Port on the OLD production build (c574b64) healed its county to Chambers and listed the correct two rows on both surfaces; the owner's plan carries the multi-county / unresolved state. (Disposition per STANDING RULE #2: the fix removes the dependency on that input rather than relying on a repro.)\nShipped — **the location rule no longer reads any county the host identified.** Each source declares the real boundary it serves; both hosts and the map's draw filter ask the SAME pure function (`layerPanelModel.layerAvailableHere` → `inRegion` → `serviceAreas.areaContains`) with the SAME inputs (plan origin / finder view centre + state): `hcfcd_row` → **`harris`** (Harris County, from the same bundled county polygons `countyForView` uses — one definition of \"Harris\"); `coh_storm`, `coh_ww`, `coh_water`, `coh_hydrants` → **`houston`** = the **City of Houston limits ∪ its ETJ** (TxGIO City_Boundaries full-purpose + H-GAC `HGAC_City_ETJ_Boundaries` CITY='HOUSTON'; the real boundary WAS available, so the \"Harris County\" fallback was not used); `bkdd_drainage`, `bkdd_easements`, `bkdd_dmp` → **`bkdd`** (the Brookshire–Katy Drainage District boundary, Waller County GIS layer 54). The growth-fault row keeps a circle, renamed `houston_metro` — it is a metro-scale USGS study extent, which is what a circle is honest about. Data: `lib/serviceAreaData.js`, GENERATED by `scripts/build-service-areas.mjs` (committed; re-run to refresh), loaded by dynamic import (own chunk, nothing on the boot path) via `lib/serviceAreas.js` + `lib/useServiceAreas.js`. **Fails open** on: no location, geometry not loaded yet / failed to load (loud `console.error`), unknown area name (a unit test fails the build on a typo). The simplified boundaries are approximate (≈0.4 km), so a point counts as inside when ANY of five probes (the point and four ≈0.3 mi offsets) is — an approximation can only err toward SHOWING a layer. A layer left ON where its source does not serve is kept in saved state and simply not drawn (unchanged rule).\n**Consequences owners should know:** downtown Houston no longer lists the three BKDD rows (it is outside that district — it used to list them because Harris is one of BKDD's counties); a Harris site outside Houston's limits+ETJ (Baytown's Harris side) lists HCFCD Channels & ROW but not the City of Houston Storm Sewer / Water & Sewer / Fire-hydrant sources; a Fort Bend site lists none of the Houston-area rows (Sugar Land used to list the BKDD ones).\nAdjacent cases, each asserted (unit `layerServiceAreas`, ui-audit `verify-imagery-layers-panel`, and on the real app by `verify-layers-areas-live`): Harris inside Houston (Channels & ROW + Storm Sewer show) · Harris outside Houston (HCFCD shows, Storm Sewer does not) · inside BKDD (the three BKDD rows show, nothing else) · Fort Bend · Chambers (Grand Port AND Mont Belvieu — exactly FEMA + Streams) · Galveston · and the planner and the finder list the SAME rows at the same point, with NO county identified. Unknown location still fails open.\nGuards (red proven): repo-root `test/layerServiceAreas.test.js` (17; 9 go red if the regions are reverted); ui-audit `verify-imagery-layers-panel` (planner and finder at six points, harness now models the planner's real null county; 33 checks red on bd89cc8); e2e `layers-card-divider-gap` (Grand Port rows on both surfaces); live ui-audit `verify-layers-areas-live` (six throwaway LOCATED plans on the test account + the finder at the same coordinates). **Before the fix, on production c574b64:** Houston downtown listed the BKDD rows, Baytown (Harris side) and Sugar Land listed BKDD + Storm Sewer (3 of the 6 live arms red).\nExisting specs updated for the legitimately changed list: `layers-panel-scroll-and-state` / `layers-panel-legibility` assumed Flood & Drainage is the longest group at a Baytown site (7 rows) — it is now 3, so they ask for the longest group (`longestGroup`, `e2e/lib/layersPanel.js`) and use a shorter viewport for the overflow arm.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    3039,
+                    3046
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    4609,
+                    4616
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/MAP.md",
+          "path": "MAP.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/MAP.md",
+          "display_title": "MAP.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "  - _exports_: `BELOW_INVERT_TOL_FT`, `compareEstimates`, `DISAGREE_THRESHOLD_FT`, `IMPLAUSIBLE_DEPTH_FT`, `impliedDepthFt`, `MATERIAL_ABS_FLOOR`, `MATERIAL_REL`, `sanityCheckEstimate`, `SENSITIVITY_DELTA_FT`, `sensitivityBand`\n- **`src/workspaces/site-planner/lib/evidenceLayers.js`** — View-driven Leaflet utility-evidence overlays (OSM Overpass power/hydrants + Mapillary detections) with SWR cache and per-layer status\n  - _exports_: `fetchOverpass`, `mapillaryLayer`, `mapillaryToken`, `overpassLayer`, `setMapillaryToken`, `subscribeMapillaryToken`",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    356,
+                    363
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "  - _exports_: `COMPS_TOGGLE_CLEARANCE_PX`, `LEAFLET_CONTROL_Z`, `MAP_CHROME_Z`, `MAP_OVERLAY_BAR_H_PX`, `MAP_OVERLAY_CHIP_H_PX`, `MAP_OVERLAY_TOP_PX`, `panelMaxHeight`, `SCALE_BAR_CLEARANCE_PX`, `ZOOM_CONTROL_CLEARANCE_PX`\n- **`src/workspaces/site-planner/lib/mapillaryClient.js`** — Leaflet-free Mapillary request shaping: builds bbox map_features URL (same-origin token-injecting proxy, or direct Graph API with a user token) and filters to pole/hydrant detections\n  - _exports_: `mapillaryRequestUrl`, `MLY_FIELDS`, `MLY_LIMIT`, `MLY_PROXY_PATH`, `pickDetections`",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    451,
+                    458
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/evidenceLayers.js",
+          "path": "src/workspaces/site-planner/lib/evidenceLayers.js",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/evidenceLayers.js",
+          "display_title": "src/workspaces/site-planner/lib/evidenceLayers.js",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": " *    differently.\n *  - Mapillary: crowdsourced pole / fire-hydrant object detections (needs a free\n *    token — read from env or localStorage, never committed).",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    61,
+                    68
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "const OVERPASS_URL = \"https://overpass-api.de/api/interpreter\";\nconst MIN_ZOOM = OSM_MIN_ZOOM;       // OSM power/hydrant data is dense — don't fetch zoomed out\nconst MLY_MIN_ZOOM = MAPILLARY_MIN_ZOOM; // Mapillary bbox must be < 0.01° — high zoom only",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    114,
+                    121
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/mapillaryClient.js",
+          "path": "src/workspaces/site-planner/lib/mapillaryClient.js",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/mapillaryClient.js",
+          "display_title": "src/workspaces/site-planner/lib/mapillaryClient.js",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "    : `${MLY_PROXY_PATH}?${q}`;\n}\n\n/* Keep only pole / fire-hydrant detections from a Graph `data` array. Pure. */\nexport function pickDetections(data) {\n  return (data || []).filter((d) => /pole|fire.?hydrant/i.test((d && d.object_value) || \"\"));\n}",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    60,
+                    67
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    202,
+                    209
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B742371.md",
+          "path": "ledger/backlog/done/B742371.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B742371.md",
+          "display_title": "ledger/backlog/done/B742371.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "- Verify: sandbox — pure client-side rendering logic; self-verified live in this session's headless run (the color of both a refusal toast and a completed-action toast was read via `getComputedStyle`, not assumed).\n- **CONFIRMED IN CODE FIRST, per the owner's own caveat.** The one bottom-center toast pill every `flashWarn(...)` call renders through (`SitePlanner.jsx`, near `toastPill`) picks its background from the message TEXT: `overlapWarn.startsWith(\"⚠\") ? \"#7f1d1d\" (red) : \"#15803d\" (green, default)`. A call site that refuses a requested action but doesn't happen to prepend `⚠` therefore renders in the SAME green as a genuine success toast, or as the \"● Scaled · county GIS\" affirmative status chip the owner compared it to (a different component, `rgba(22,101,52,0.92)` — visually the same family of green, confirming the READING even though it's a separate element). This is exactly the shape B742368's own old refusal was in before this item's fix.\n- **A SECOND, independent bug in the color rule itself, found while confirming the first.** `.startsWith(\"⚠\")` misses any message that EMBEDS a warning mid-string rather than leading with it — e.g. `\"All 3 deeds placed.${bad.length ? \" ⚠ Verify: …\" : \"\"}\"` — which never starts with `⚠` even when it does carry one, so it also rendered green. Changed to `.includes(\"⚠\")`, which catches both without touching any call site's wording.\n- **THE AUDIT — every one of the 130+ `flashWarn(...)` call sites in `SitePlanner.jsx` was read and classified as a genuine blocking refusal/failure (needs `⚠`), a completed action (correctly green, left alone), or a neutral in-flight mode prompt (\"Click the far side of the ditch.\", left alone — not this report's shape).** ~24 of the clearest, highest-traffic refusals now carry the `⚠` prefix: both `place.mode === \"refuse\"` (LOUD-FAILURE) sites, the reshape self-intersection revert (B742369), footprint dock-wall-corner guards, \"Couldn't delete/copy/duplicate/re-render/reach the hydrant source/sample 3DEP/form a shape/build that easement\" failures, \"No parcel/county-parcel/building/bearings…\" and \"Select a pond/plotted deed boundary first\" preconditions, \"That's already gone\", \"That drawing is locked\", \"This tab is read-only\", pond-sizing refusals including the one that already says \"refusing\" outright, and the lock-toggle failure messages. **What was deliberately left green:** every message reporting a COMPLETED action even with a caveat (e.g. \"Aligned…\", \"Pasted…\", \"Rotated the deed… ⚠ the fit is loose\" — the embedded `⚠` there now correctly reddens it via the `.includes` fix, without touching its wording), and neutral step-by-step mode instructions during an armed multi-click flow (those aren't refusals and aren't this report's shape).\n- **What was NOT touched, named rather than left silent.** A further ~80–100 lower-traffic `flashWarn` sites were read and judged either already-correct (a completed action) or genuinely borderline (\"Already at the front/back\", \"Nothing to reorder…\" — a no-op status rather than a stopped user action) and were left as-is rather than mechanically prefixed; a full char-by-char relabeling of every remaining site was judged disproportionate to this report's shape (a green refusal reading as success) versus the size of the file, and is not filed as a separate item since nothing here rises to a blocking, misleading-as-success defect on the scale of what was fixed.\n- **LIVE VERIFICATION, this session (`ui-audit/verify-b872-round2.mjs`).** B742368's now-completed \"Cleared 4 corner bump-outs… entered reshape mode\" toast reads `rgb(21,128,61)` (the success green — correct, it's a completed action, not a refusal) and B742369's mid-drag `\"⚠ Reshape held…\"` toast reads `rgb(127,29,29)` (the error color) — the two are now visually distinguishable exactly as the report asked, read via `getComputedStyle` on the real rendered pill, not assumed from source.\n- **TESTS.** No pure library changed (this is component-local rendering + message-string edits); full unit suite unaffected (12500/12503 passing, 2 pre-existing unrelated shallow-clone failures — see B742369). Lint 0 new errors. Build green.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    2015,
+                    2022
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/verify/B1205.md",
+          "path": "ledger/backlog/verify/B1205.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/verify/B1205.md",
+          "display_title": "ledger/backlog/verify/B1205.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "- Origin: filed 2026-07-30 from chat (owner block, provisional NEW-1)\n- **THE LOAD-BEARING RULE: filled AREA layers draw UNDER the site elements; LINE/stroke layers draw OVER them.** A contour crossing a building is a hairline and reads fine; a floodplain fill over a building buries it. That one distinction answers the complaint with no control at all — he sees his contours through his buildings, and his buildings never vanish under a blue wash. Neither Google Maps nor Apple Maps lets a user reorder layers; both use a fixed semantic hierarchy and expose opacity, which is exactly what shipped.\n- **The model, in one place: `src/workspaces/site-planner/lib/mapStack.js`.** Bottom → top: basemap/aerial → GIS AREA layers → references → parcel → setback band → site elements → references explicitly promoted above the plan (B1198) → GIS LINE layers → labels and chips → manipulation handles. Every renderer names a tier from this file; nothing anywhere picks a z-index of its own.\n- **Roles are DECLARED, never inferred at render time.** Every one of the 36 registered GIS sources carries an explicit `role: \"area\" | \"line\" | \"point\"` (points ride the over-the-plan band with the lines — burying a well or a hydrant under a pad defeats the point of turning it on). A source that publishes BOTH splits into its two roles via `roleLayers`: **FEMA** now paints its zone POLYGONS (sublayer 28) under the plan and its hazard BOUNDARIES (27) over it; **BKDD Drainage Information** splits sub-watersheds (116) from streams / BFE lines / outfalls (108, 121, 112, 2); **BKDD Master Plan** splits the study floodplains + proposed detention from the conveyance + proposed channel improvements. One panel row, one opacity, one status dot, two export requests.\n- **The mechanism, and why it was not just a z-index.** Leaflet keeps every pane inside its own `_mapPane`, which carries the pan transform and therefore its own stacking context — so NO z-index on a pane can lift it above the planner SVG. The line-role pane is hosted OUTSIDE the map, in a sibling box above the SVG, with the two transforms that position it mirrored in the SAME statement as the original (VIEWPORT-STABLE): the wrap's live gesture transform and Leaflet's own map-pane translate. The host is `pointer-events: none`, so it can neither block a click nor steal a handle.\n- **PDF-PARITY.** The sheet composites the same two bands: `under` at the backdrop anchor as before, `over` appended after the drawn plan and before the sheet furniture. Both raster and vector emitters take the band as an argument, so screen order and sheet order cannot drift.\n- **NO new mode, NO keyboard shortcut, NO per-layer z-order UI** — asserted by a guard that fails if the Layers panel ever renders one.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    1235,
+                    1242
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/scripts/build-service-areas.mjs",
+          "path": "scripts/build-service-areas.mjs",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/scripts/build-service-areas.mjs",
+          "display_title": "scripts/build-service-areas.mjs",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": " *   harris   Harris County, from the SAME bundled county polygons the finder's `countyForView` resolves a point with\n *            (public/geo/county-polygons.json) — so \"which county\" cannot differ between the two surfaces.\n *   houston  City of Houston limits (TxGIO City_Boundaries, full-purpose) ∪ Houston's ETJ (H-GAC HGAC_City_ETJ_Boundaries,\n *            CITY='HOUSTON'). The City of Houston water / sewer / storm / hydrant data is served for this area.\n *   bkdd     Brookshire–Katy Drainage District boundary (Waller County GIS, Brookshire_Katy_Drainage_District1 layer 54).\n *\n * The server-side simplification (maxAllowableOffset ≈ 0.4 km) is why `serviceAreas.areaContains` probes a small ring of points",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    429,
+                    436
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/.env.example",
+          "path": ".env.example",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/.env.example",
+          "display_title": ".env.example",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "VITE_SUPABASE_URL=https://YOUR-PROJECT-REF.supabase.co\nVITE_SUPABASE_ANON_KEY=YOUR-ANON-PUBLIC-KEY\n\n# Mapillary street-level pole/hydrant detections (B308) — SERVER-SIDE ONLY, never commit.\n# Set as an encrypted Secret named MAPILLARY_TOKEN in Cloudflare Pages → project \"planyr\"\n# → Production (add it to Preview too if you want per-branch preview URLs to show the\n# layer). The /api/mapillary proxy reads it from the Pages Functions runtime",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    130,
+                    137
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layerZoomGate.js",
+          "path": "src/workspaces/site-planner/lib/layerZoomGate.js",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layerZoomGate.js",
+          "display_title": "src/workspaces/site-planner/lib/layerZoomGate.js",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": " * imports them from here so there is ONE number per gate, not two that can drift. */\nexport const OSM_MIN_ZOOM = 14;        // OSM power/hydrant data is dense — don't fetch zoomed out\nexport const SOIL_BEDROCK_MIN_ZOOM = 13; // SSURGO map units are dense (hundreds per sq mi in town) — the WFS answer is capped, so do not fetch zoomed out",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    138,
+                    145
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "/* A panel ROW is not always one layer: \"City limits & ETJ\" drives two, and the consolidated\n * utility rows (Water & sewer / Electric / Fire hydrants) drive several — with DIFFERENT\n * gates. A row is dormant only when every ON member is, and the level it offers to zoom to is",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    142,
+                    149
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layers.js",
+          "path": "src/workspaces/site-planner/lib/layers.js",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layers.js",
+          "display_title": "src/workspaces/site-planner/lib/layers.js",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "    label: \"Fire Hydrants\",\n    note: \"Best-available hydrant locations from every source that reaches this area. Overlapping points from different sources are shown as each source reports them — not yet merged into one marker (follow-up: NEW-2, needs coh_hydrants converted from a raster export to a queryable vector layer before points can be compared).\",\n  },",
+              "matches": [
+                {
+                  "text": "Hydrant",
+                  "indices": [
+                    17,
+                    24
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    54,
+                    61
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    258,
+                    265
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "    source: \"Mapillary\", opacity: 0.55,\n    note: \"Pole & fire-hydrant detections from crowdsourced street-level photos. Loads at zoom ≥ 16.\",\n    // NEW-1 stacking role (lib/mapStack.js): Street-imagery detections — point symbols.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    63,
+                    70
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/mapStack.js",
+          "path": "src/workspaces/site-planner/lib/mapStack.js",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/mapStack.js",
+          "display_title": "src/workspaces/site-planner/lib/mapStack.js",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": " *\n *   area  — drawn as a filled polygon. Buries what it covers → UNDER site elements.\n *   line  — drawn as a stroke. A hairline over a building reads fine → OVER them.\n *   point — a marker/symbol. Reads like a line, and burying a well or a hydrant under a\n *           pad defeats the point of turning it on → OVER, with the lines.\n *\n * THE ROLE SPLIT: a source that publishes BOTH (an ArcGIS service whose sublayers are watershed",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    254,
+                    261
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layerPanelModel.js",
+          "path": "src/workspaces/site-planner/lib/layerPanelModel.js",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layerPanelModel.js",
+          "display_title": "src/workspaces/site-planner/lib/layerPanelModel.js",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "/* DECLARED region scopes. A registry row names the region(s) its source can serve with `regions: [...]`; two kinds of name:\n *   · a CIRCLE in this table — only `houston_metro`, the USGS growth-fault STUDY extent (a metro-scale study, not an agency's area);\n *   · a real BOUNDARY in lib/serviceAreas.js (built into serviceAreaData.js): `harris` (HCFCD's channels), `houston` (the City of\n *     Houston limits + ETJ — its water / sewer / storm / hydrant data), `bkdd` (the Brookshire–Katy Drainage District).\n * Declared, never inferred from coverage (owner 2026-10-11) — coverage is a live, view-dependent guess, a region is a standing fact\n * about the source. (The old 65-mile \"houston\" circle claimed HCFCD / BKDD / City of Houston data reached Chambers, Galveston and\n * Brazoria; none of those sources serves them — B2436066.) */",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    454,
+                    461
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B285.md",
+          "path": "ledger/backlog/done/B285.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B285.md",
+          "display_title": "ledger/backlog/done/B285.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "### B285 — Rename \"Street-level detections (Mapillary)\" to plain language `[Site Planner / GIS]` (task)  *(arrived as \"NEW-3\" 2026-06-20; minted **B285**)*\n`[x]` **Done 2026-06-20 (branch `claude/busy-allen-ofgy9l`).** The layer is renamed **\"Poles & hydrants from street imagery\"** with the sublabel **\"Detected in crowdsourced street-level photos. Needs a free access token.\"**; the **\"Mapillary\"** brand (which the owner didn't recognize) is **demoted to a small `Source: Mapillary` attribution note** (`EVIDENCE.mapillary` in `layers.js`; LayerPanel renders the new `sublabel` + `source`). **Verified live** (V71): the new name + sublabel + source render and the old \"Street-level detections\" name is gone.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    253,
+                    260
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B696.md",
+          "path": "ledger/backlog/done/B696.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B696.md",
+          "display_title": "ledger/backlog/done/B696.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "`[x]` **SHIPPED 2026-07-07 (Verify: sandbox — pure panel-layout + token work; headless-verified on the built dist, contrast CI green). lint 0 new · unit suite + build green.** One visual pass over `LayerPanel.jsx` + `lib/layers.js` (+ the `SitePlanner.jsx` popup wrapper):\n- **(1) Rename:** the STATEWIDE group header \"Map layers\" → **\"Environmental & hazards\"** (FEMA, NWI wetlands, RRC wells/pipelines).\n- **(2) Elevation out of Utility evidence (AUDIT-FIRST: the brief's \"possibly defined in both dicts\" was wrong — defined ONCE, in EVIDENCE):** moved to a new one-row `TERRAIN` dict rendered inside the **Basemap group** (terrain shading belongs with the base imagery). Same id (`elevation`) → every saved toggle state survives; the B603 rasterFunction guard rides along untouched; nothing else referenced `EVIDENCE.elevation` (the siteModel `elevation` field is cross-sections data, unrelated).\n- **(3) Utility evidence ordered by asset:** electric block (OSM power, HIFLD transmission) then fire block (OSM hydrants, COH hydrants, street-imagery detections).\n- **(4) Group order, most site-specific first:** **Basemap (B693) → current-county group (`jur.label`) → Jurisdictions → Utility evidence → Environmental & hazards** — headless-asserted on the finder.\n- **(5) Boilerplate hoisted:** ONE screening-disclaimer line per group (Jurisdictions keeps its has-jurisdiction wording; Utility evidence + Environmental & hazards + the county group each gained one); row notes trimmed to row-specific facts (the MUD row keeps its district/tax-statement specificity, the road row its zoom gate).\n- **(6) Relevance demoted below the groups** (it's a meta-filter over the list, not the panel's lead) — B284 semantics untouched.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    1022,
+                    1029
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    1036,
+                    1043
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B286.md",
+          "path": "ledger/backlog/done/B286.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B286.md",
+          "display_title": "ledger/backlog/done/B286.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "### B286 — Mapillary layer was inert — gated clearly as \"needs setup\" + excluded from the default set `[Site Planner / GIS]` (bug)  *(arrived as \"NEW-4\" 2026-06-20; minted **B286**)*\n`[x]` **Done 2026-06-20 (branch `claude/busy-allen-ofgy9l`).** The layer fired zero requests + showed a red \"failed\"-style \"Add a Mapillary token\" message as shipped — it never worked. **Chose option (b): keep it, but gate it honestly** (not (a) bake a token — that violates the secrets rule and ships a shared rate-limited key; not (c) remove — its detections can be richer/fresher than OSM later, and the owner can have it gone with one word). A new **`needsSetup` flag** marks it as **not part of the default working set** (the relevance picker sorts a tokenless instance to the bottom as \"Needs setup\"), and the no-token state now reads **\"Not configured — add a free access token to enable this layer\"** via a distinct **`unconfigured`** status (a gray \"needs setup\" dot, **not** the alarming red \"failed\") in `syncOverlayLayers` + `evidenceLayers.mapillaryLayer` — and **no error toast** fires. **Note:** poles already come from OSM and hydrants from OSM + City-of-Houston, so this layer is redundant-but-optional today; say the word and it's removed entirely. **Verified live** (V71): toggling it (no token) reads \"Not configured\", no red failure.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    1140,
+                    1147
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B760.md",
+          "path": "ledger/backlog/done/B760.md",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B760.md",
+          "display_title": "ledger/backlog/done/B760.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "### B760 — Layers panel de-text: per-row ⓘ, kill group disclaimers, plain-English renames `[Site Planner]` (task) #site-planner #ui  *(owner review 2026-07-11 as \"NEW-1\"; §A1–A3. Shipped PR1 same session.)*\n`[x]` **DONE — moved ALL persistent explanatory text (source lines, \"as of\"/vintage lines, row notes, and the four group disclaimer paragraphs) behind a per-row ⓘ info popover, so with the panel open + all layers off every row is exactly ONE line (checkbox + label + ⓘ + status dot) and there are zero paragraphs. One muted footer \"Screening data — verify before relying on it.\" replaces the four disclaimers.**\n- Verify: sandbox — 10 unit tests (`test/layerPanelInfo.test.js` over the pure `lib/layerPanelInfo.js`), a 28-check headless render of the real panel in Chromium (`ui-audit/layerpanel-verify.mjs`), + config guards (`test/layerPanelV2Guards.test.js`). Full suite 3429 green, `eslint` clean, build green.\n- Origin: filed 2026-07-11 from chat (owner NEW-1).\n- **A1** — new module-scope `components/RowInfo.jsx` built on `AnchoredMenu` (portal → never clipped by the Layers card's `overflow:hidden`; Esc + click-away reused). Real `<button>` ⓘ with `aria-label`/`aria-describedby`; opens on hover (pointer) + toggle on click/tap. ⓘ content = source + `layerVintage()` + `formatAge()` refreshed-age + the row note/caveats, assembled by the pure `rowInfoSections()` (`lib/layerPanelInfo.js`). KEPT inline (signal, not boilerplate): status dot + failed/empty/needs-setup reason, the \"No data in this area\" out-of-coverage caption, the dim reason, the road-authority legend, the corridor-width editor.\n- **A2 renames** (`lib/layers.js`, ids unchanged — B285/B696 discipline): \"Ground relief (low = blue, high = red)\" → \"Elevation shading\"; \"Drainage direction (screening)\" → \"Water flow direction\"; \"MUD / water districts (TCEQ, statewide)\" → \"MUD / water districts\". Kept \"Contour lines (1 ft)\" + \"Poles & hydrants from street imagery\".\n- **A3** — deleted the four `groupNote` paragraphs (the `groupNote` style is gone). The has-jurisdiction sentence survives ONLY in the ⓘ of `jur_mud` (`infoCaveat`) + the merged limits/ETJ row (and the unchanged click-identify popovers).",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    1951,
+                    1958
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "isError": false
+  },
+  "at": "2026-10-28T14:54:47.323Z"
+}
+

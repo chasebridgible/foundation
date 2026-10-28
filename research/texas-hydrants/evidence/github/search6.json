@@ -1,0 +1,92 @@
+{
+  "request": {
+    "query": "hydrants",
+    "repository_name": "ni5arga/sightline",
+    "topn": 5
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/README.md",
+          "path": "README.md",
+          "display_url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/README.md",
+          "display_title": "README.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "| `rescue_station` | - | Rescue stations |\n| `coast_guard` | - | Coast guard stations |\n| `emergency_phone` | - | Emergency phones |\n| `fire_hydrant` | - | Fire hydrants |\n| `lifeguard` | - | Lifeguard stations |\n| `surveillance_camera` | `cctv` | Surveillance cameras |\n",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    161,
+                    169
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/lib/search-index.ts",
+          "path": "lib/search-index.ts",
+          "display_url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/lib/search-index.ts",
+          "display_title": "lib/search-index.ts",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "  { keyword: \"rescue stations\", label: \"Rescue Stations\" },\n  { keyword: \"coast guard\", label: \"Coast Guard Stations\" },\n  { keyword: \"lifeguard stations\", label: \"Lifeguard Stations\" },\n  { keyword: \"fire hydrants\", label: \"Fire Hydrants\" },\n  { keyword: \"emergency phones\", label: \"Emergency Phones\" },\n  { keyword: \"universities\", label: \"Universities\" },\n  { keyword: \"schools\", label: \"Schools\" },",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    206,
+                    214
+                  ]
+                },
+                {
+                  "text": "Hydrants",
+                  "indices": [
+                    230,
+                    238
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/lib/parser.ts",
+          "path": "lib/parser.ts",
+          "display_url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/lib/parser.ts",
+          "display_title": "lib/parser.ts",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "  { pattern: /\\bambulance\\s*(?:station|depot|base)s?\\b/i, type: 'ambulance_station' },\n  { pattern: /\\brescue\\s*(?:station|team|base)s?\\b/i, type: 'rescue_station' },\n  { pattern: /\\blifeguard\\s*(?:station|tower|post)s?\\b/i, type: 'lifeguard' },\n  { pattern: /\\bfire\\s*hydrants?\\b/i, type: 'fire_hydrant' },\n  { pattern: /\\b(?:emergency|sos)\\s*(?:phone|call\\s*box)s?\\b/i, type: 'emergency_phone' },\n  { pattern: /\\bcoast\\s*guards?\\s*(?:station|base)?\\b/i, type: 'coast_guard' },\n  // Transportation - Aviation",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    269,
+                    277
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "isError": false
+  },
+  "at": "2026-10-28T14:55:13.640Z"
+}
+
