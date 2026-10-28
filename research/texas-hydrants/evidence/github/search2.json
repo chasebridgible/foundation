@@ -1,0 +1,368 @@
+{
+  "request": {
+    "query": "Austin hydrants coordinates",
+    "topn": 10
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "url": "https://github.com/bojieli/ai-agent-book/blob/dbc046eb896ac4e39aa19c7774c8bf49583b89a6/cursor-chats/20251002_213234_根据论文内容，修正文中对_V-IRL_的描述：.md",
+          "path": "cursor-chats/20251002_213234_根据论文内容，修正文中对_V-IRL_的描述：.md",
+          "display_url": "https://github.com/bojieli/ai-agent-book/blob/dbc046eb896ac4e39aa19c7774c8bf49583b89a6/cursor-chats/20251002_213234_根据论文内容，修正文中对_V-IRL_的描述：.md",
+          "display_title": "cursor-chats/20251002_213234_根据论文内容，修正文中对_V-IRL_的描述：.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "analyzes the collected data at different levels of detail. As\ndepicted in Fig. 3, the coarsest level shows general distributions of trash bins, hydrants, and benches in the park. Imani\ncan also zoom in to specific regions, where lighter colors",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    144,
+                    152
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "Environment components are responsible for grounding agents in the world around them: providing a navigable\nrepresentation of real cities (see Sec. 3.1). Geographic coordinates serve as the link between the world and our virtual\nrepresentation of it. Leveraging the Google Maps Platform",
+              "matches": [
+                {
+                  "text": "coordinates",
+                  "indices": [
+                    165,
+                    176
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/swarmapytorch/book_DeepLearning_in_PyTorch_Source/blob/d68a3d6112e8d93e961a1dc42a354741684f7598/12_Transformer/dict.en",
+          "path": "12_Transformer/dict.en",
+          "display_url": "https://github.com/swarmapytorch/book_DeepLearning_in_PyTorch_Source/blob/d68a3d6112e8d93e961a1dc42a354741684f7598/12_Transformer/dict.en",
+          "display_title": "12_Transformer/dict.en",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "atr@@ 14\ncoordinates 14\nRobotics 14",
+              "matches": [
+                {
+                  "text": "coordinates",
+                  "indices": [
+                    9,
+                    20
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "Pla@@ 10\nhydrants 10\nfifty 10",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    9,
+                    17
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/ronghanghu/n2nmn/blob/ccbca1c623f3e208e7cde8d57b00e32dfb7c3c14/exp_vqa/data/vocabulary_vqa.txt",
+          "path": "exp_vqa/data/vocabulary_vqa.txt",
+          "display_url": "https://github.com/ronghanghu/n2nmn/blob/ccbca1c623f3e208e7cde8d57b00e32dfb7c3c14/exp_vqa/data/vocabulary_vqa.txt",
+          "display_title": "exp_vqa/data/vocabulary_vqa.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "coordinated\ncoordinates\ncoordinating",
+              "matches": [
+                {
+                  "text": "coordinates",
+                  "indices": [
+                    12,
+                    23
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "hydrant\nhydrants\nhydrate",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    8,
+                    16
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/llSourcell/How_to_make_a_language_translator/blob/74842b38e59b310160b7c65e9d8eb06d64b63c98/data/vocab30000.en",
+          "path": "data/vocab30000.en",
+          "display_url": "https://github.com/llSourcell/How_to_make_a_language_translator/blob/74842b38e59b310160b7c65e9d8eb06d64b63c98/data/vocab30000.en",
+          "display_title": "data/vocab30000.en",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "serendipity\ncoordinates\ncafes",
+              "matches": [
+                {
+                  "text": "coordinates",
+                  "indices": [
+                    12,
+                    23
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "Classic\nhydrants\nMcChrystal",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    8,
+                    16
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/HarshTrivedi/nmn-pytorch/blob/facbe9dd6e832645102df36c12cc6dd4b3aa0477/preprocessed_data/vocabulary_vqa.txt",
+          "path": "preprocessed_data/vocabulary_vqa.txt",
+          "display_url": "https://github.com/HarshTrivedi/nmn-pytorch/blob/facbe9dd6e832645102df36c12cc6dd4b3aa0477/preprocessed_data/vocabulary_vqa.txt",
+          "display_title": "preprocessed_data/vocabulary_vqa.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "coordinated\ncoordinates\ncoordinating",
+              "matches": [
+                {
+                  "text": "coordinates",
+                  "indices": [
+                    12,
+                    23
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "hydrant\nhydrants\nhydrate",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    8,
+                    16
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/sahitya0000/Relation-Classification/blob/8eebbf2727013aaaa5ecd18b1f4732bd848e1e1c/data/words_dataset.txt",
+          "path": "data/words_dataset.txt",
+          "display_url": "https://github.com/sahitya0000/Relation-Classification/blob/8eebbf2727013aaaa5ecd18b1f4732bd848e1e1c/data/words_dataset.txt",
+          "display_title": "data/words_dataset.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "Auschwitz\r\nAustin\r\nAustralia\r",
+              "matches": [
+                {
+                  "text": "Austin",
+                  "indices": [
+                    11,
+                    17
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "coopers\r\ncoordinates\r\ncoordinating\r",
+              "matches": [
+                {
+                  "text": "coordinates",
+                  "indices": [
+                    9,
+                    20
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/opencleveland/drocer/blob/c6ab98de586fc3a8cef5048e937a6769e48d6b31/2012/2012-02-08.txt",
+          "path": "2012/2012-02-08.txt",
+          "display_url": "https://github.com/opencleveland/drocer/blob/c6ab98de586fc3a8cef5048e937a6769e48d6b31/2012/2012-02-08.txt",
+          "display_title": "2012/2012-02-08.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "repair or replace water mains, fire\nhydrants, valves, service connections and appurtenances-Area D,\nincluding concrete repair, and tree",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    36,
+                    44
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "and grounds. Supervises preparation of\nmaintenance contracts. Coordinates\nmarking operations for landslide pavements. Coordinates maintenance operations with operations performed by",
+              "matches": [
+                {
+                  "text": "Coordinates",
+                  "indices": [
+                    62,
+                    73
+                  ]
+                },
+                {
+                  "text": "Coordinates",
+                  "indices": [
+                    118,
+                    129
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/opencleveland/drocer/blob/c6ab98de586fc3a8cef5048e937a6769e48d6b31/2009/2009-10-28.txt",
+          "path": "2009/2009-10-28.txt",
+          "display_url": "https://github.com/opencleveland/drocer/blob/c6ab98de586fc3a8cef5048e937a6769e48d6b31/2009/2009-10-28.txt",
+          "display_title": "2009/2009-10-28.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "Church.\nRes. No. 1584-09—Willie Austin.\nFIRST READING EMERGENCY",
+              "matches": [
+                {
+                  "text": "Austin",
+                  "indices": [
+                    34,
+                    40
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "materials needed to repair or replace\nwater mains, fire hydrants, service\nconnections,",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    56,
+                    64
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/opencleveland/drocer/blob/c6ab98de586fc3a8cef5048e937a6769e48d6b31/2014/2014-01-15.txt",
+          "path": "2014/2014-01-15.txt",
+          "display_url": "https://github.com/opencleveland/drocer/blob/c6ab98de586fc3a8cef5048e937a6769e48d6b31/2014/2014-01-15.txt",
+          "display_title": "2014/2014-01-15.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "aquatics program for the assigned\nfacility(s). Coordinates aquatics programming with the person in charge\nof the recreation center to which",
+              "matches": [
+                {
+                  "text": "Coordinates",
+                  "indices": [
+                    47,
+                    58
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "Fire\nHydrants, Water Main Appurtenances, Service Connections and\nUnderground Enclosures, for the",
+              "matches": [
+                {
+                  "text": "Hydrants",
+                  "indices": [
+                    5,
+                    13
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/smartschat/cort/blob/2349f0308a4115acb89d442fe945533bdb3b70e2/cort/resources/plural.list",
+          "path": "cort/resources/plural.list",
+          "display_url": "https://github.com/smartschat/cort/blob/2349f0308a4115acb89d442fe945533bdb3b70e2/cort/resources/plural.list",
+          "display_title": "cort/resources/plural.list",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "coopers\ncoordinates\ncoordinators",
+              "matches": [
+                {
+                  "text": "coordinates",
+                  "indices": [
+                    8,
+                    19
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "hydrangeas\nhydrants\nhydrocarbons",
+              "matches": [
+                {
+                  "text": "hydrants",
+                  "indices": [
+                    11,
+                    19
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "isError": false
+  },
+  "at": "2026-10-28T14:54:20.485Z"
+}
+

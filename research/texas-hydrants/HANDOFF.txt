@@ -1,0 +1,114 @@
+TEXAS HYDRANT RESEARCH — BLOCKED, NOT COMPLETE
+
+Run: tx-hydrants-20261028
+Branch: codex/texas-hydrant-inventory-20261028
+Repository: /workspace/foundation
+Entry view: research/texas-hydrants/reports/index.html
+Goal and acceptance: research/texas-hydrants/contract.html
+
+Current evidence
+---------------
+254 county identity slots and 1,524 planned county/source-family tasks exist.
+Zero county assessments are complete. Zero tasks are complete. Zero hydrant
+coordinate responses have been retrieved. Zero sources are usable. No county
+has a no-source or complete-inventory finding. Research remains incomplete.
+
+Official Census Bureau CitySDK GitHub data supplies the county name/FIPS roster
+and generalized 2022 boundaries. Original responses, pinned commits, licenses
+and hashes are in evidence/reference; reference/provenance.json explains
+currentness and datum limitations. Boundaries are for statewide display only.
+
+Six bounded GitHub queries produced 53 hits, dispositioned in
+incoming/github-leads.json. Four code/document files were fetched. Their
+contents are lead evidence only. Search caps preclude exhaustion claims.
+Three unresolved leads were saved: Houston Public_safety MapServer layer 9,
+OpenStreetMap/Overpass observations, and Mapillary detections. Only Houston is
+a specific candidate inventory endpoint in data/sources.json. The other two
+remain discovery leads, not verified datasets. Publisher attribution is based
+on third-party code, not publisher verification. Search-hit consolidation is
+not a claim that separate inventories share lineage.
+
+Blocking dependency
+-------------------
+The managed environment's enforced network allowlist excludes ArcGIS, Census
+web endpoints, Texas GIS and the discovered Houston service. Four direct
+attempts returned 'Tunnel connection failed: 403 Forbidden'. See
+evidence/network/*.request.json and
+evidence/github/houston-metadata.request.json. These are environment failures,
+not publisher refusals or evidence of absent data. Empty .response.txt files
+record that no HTTP origin body was received; they are never coordinate proof.
+The user has been asked to enable public internet research for the environment.
+No access controls were bypassed. No requests, emails or paid actions were sent.
+
+Next bounded action
+-------------------
+1. Restore public web/GIS access using the environment's configuration workflow.
+2. Retry the exact ArcGIS/Census/Texas catalog requests saved in evidence/network.
+   Save new attempts as new evidence files/IDs; preserve these original failures.
+3. Verify the concrete Houston candidate first:
+   https://mycity2.houstontx.gov/pubgis02/rest/services/HoustonMap/Public_safety/MapServer/9?f=json
+   Confirm official layer identity, point geometry, query capability, CRS,
+   publisher scope, update information and terms. Only then request coordinates.
+   Prepared, UNEXECUTED sample request:
+   https://mycity2.houstontx.gov/pubgis02/rest/services/HoustonMap/Public_safety/MapServer/9/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&resultRecordCount=5&f=geojson
+   This URL is a plan, not retrieval evidence. Adapt supported format and limits
+   from actual metadata; inspect errors and exceededTransferLimit.
+4. Start county discovery at 48001-county_gis (Anderson County), enumerate local
+   publishers and complete all six families under contract.html. Investigate
+   named utilities and municipalities rather than relying on generic searches.
+5. For each real finding preserve request, raw response, timestamp, SHA256,
+   normalized coordinates if needed and geographic checks. Register every lead
+   disposition, unresolved blocker and exact acquisition next action.
+
+Commands (from /workspace/foundation)
+------------------------------------
+python research/texas-hydrants/reference/rebuild.py
+python research/texas-hydrants/scripts/inventory.py init
+python research/texas-hydrants/scripts/inventory.py next
+python research/texas-hydrants/scripts/inventory.py next --county 48201
+python research/texas-hydrants/scripts/validate.py
+python -m unittest discover -s research/texas-hydrants/scripts -p 'test_*.py'
+python research/texas-hydrants/scripts/inventory.py report
+python research/texas-hydrants/scripts/inventory.py check-reports
+python research/texas-hydrants/scripts/validate.py --acceptance
+
+init creates missing collections only; it does not erase existing work.
+reference/rebuild.py recreates the display references from saved original data;
+it does not make a live current-boundary verification claim.
+next selects a task; it does not run or complete a search.
+Integrity success means valid unfinished state, not statewide acceptance.
+The acceptance command must currently exit nonzero; do not weaken its gate.
+Report readback checks that generated views exactly match canonical records.
+
+Updates use a single writer and a retained replayable JSON bundle:
+python research/texas-hydrants/scripts/inventory.py record /path/to/bundle.json
+Bundle keys: counties, discovery, searches, sources, leads, gaps, evidence.
+Each value is a list of complete records, replaced/upserted by stable ID.
+The evidence collection updates evidence/index.json. Save referenced evidence
+files first. validate.py is the authoritative field/status/reference checker.
+record validates a temporary candidate corpus before publishing changes.
+Concurrent writers are unsupported. If interrupted between collection writes,
+rerun check and replay the same bundle; do not assume the partial write passed.
+run.json and review.json are explicit run/auditor records, not finding bundles.
+
+Independent review and publication
+----------------------------------
+The independent reviewer audits blocked-state integrity and all concrete leads.
+There are no eligible complete-coverage, usable-source or no-source claims to
+sample. A partial audit cannot accept statewide research. Review evidence and
+corrections belong in reviews/ and data/review.json.
+Tests use synthetic fixtures only; none are research evidence.
+Current check receipts are in reviews/checks.json when generated.
+Publication/PR state is in data/run.json and reviews/publication.json when
+available. Keep the branch/PR open for review; do not merge scope or validation
+policy changes automatically. The user's completion rule remains unmet even
+after this preparatory branch is committed or published.
+
+Scope and limitations
+---------------------
+The county map is research status, not inventory territory. No coverage
+percentage or nearest-hydrant answer is justified by this run. A future
+distance result must say nearest observed hydrant until source completeness
+and cross-boundary omissions are established. Every county gap has a next
+action; the detailed utility/provider acquisition backlog still depends on
+live discovery. FIPS order is a reproducible work order, not a needs ranking.

@@ -1,0 +1,21 @@
+{
+  "request": {
+    "query": "hydrants Texas",
+    "per_page": 10
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "archive_filter_applied": null,
+      "repositories": []
+    },
+    "isError": false
+  },
+  "at": "2026-10-28T14:54:26.240Z"
+}
+

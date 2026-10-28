@@ -1,0 +1,25 @@
+{
+  "county_count": 254,
+  "unique_fips_count": 254,
+  "expected_fips_set": "48001 through 48507, odd county codes only",
+  "expected_fips_set_matches": true,
+  "mirror_names_and_fips_match": true,
+  "boundary_geometry_types": [
+    "Polygon"
+  ],
+  "observed_boundary_bbox_lon_lat": [
+    -106.63588,
+    25.840117,
+    -93.530936,
+    36.500439
+  ],
+  "coordinate_count": 3257,
+  "all_coordinates_finite_and_in_broad_texas_bounds": true,
+  "boundary_validity_limit": "Structural/range validation only; no topology or survey validation. Never establishes hydrant completeness.",
+  "source_sha256": "d1a7603b637616234f8c78e44bbf80b3558a461866418f014594ffba21395e5b",
+  "derived_files": {
+    "reference/counties.json": "ee010ad2f880a2624d132d018c38ed62fe13cf1cb3f533147e4df0a5b4708a5d",
+    "reference/counties.csv": "0b8a57642279dee4975a3ec8e67c718a8d7f633e9bb3ed590fcb560ed607a041",
+    "reference/texas-counties.geojson": "e3619cf9a44f29af523b5f73e837d9e5f4b2e94988b294ee8de1c9d1421ac5e0"
+  }
+}

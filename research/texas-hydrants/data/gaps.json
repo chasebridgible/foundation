@@ -1,0 +1,2840 @@
+[
+  {
+    "gap_id": "gap-network",
+    "county_fips": null,
+    "priority": 0,
+    "reason": "Public ArcGIS, Census and Texas GIS requests returned proxy tunnel 403 errors.",
+    "next_action": "Enable public web research in the managed environment network configuration, then rerun the three saved requests and start the county discovery queue. A failed request must not become a no-result search.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "network-census",
+      "network-texas-gis"
+    ]
+  },
+  {
+    "gap_id": "gap-48001",
+    "county_fips": "48001",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48001-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Anderson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48003",
+    "county_fips": "48003",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48003-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Andrews County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48005",
+    "county_fips": "48005",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48005-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Angelina County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48007",
+    "county_fips": "48007",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48007-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Aransas County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48009",
+    "county_fips": "48009",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48009-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Archer County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48011",
+    "county_fips": "48011",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48011-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Armstrong County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48013",
+    "county_fips": "48013",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48013-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Atascosa County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48015",
+    "county_fips": "48015",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48015-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Austin County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48017",
+    "county_fips": "48017",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48017-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Bailey County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48019",
+    "county_fips": "48019",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48019-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Bandera County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48021",
+    "county_fips": "48021",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48021-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Bastrop County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48023",
+    "county_fips": "48023",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48023-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Baylor County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48025",
+    "county_fips": "48025",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48025-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Bee County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48027",
+    "county_fips": "48027",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48027-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Bell County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48029",
+    "county_fips": "48029",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48029-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Bexar County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48031",
+    "county_fips": "48031",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48031-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Blanco County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48033",
+    "county_fips": "48033",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48033-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Borden County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48035",
+    "county_fips": "48035",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48035-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Bosque County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48037",
+    "county_fips": "48037",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48037-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Bowie County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48039",
+    "county_fips": "48039",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48039-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Brazoria County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48041",
+    "county_fips": "48041",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48041-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Brazos County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48043",
+    "county_fips": "48043",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48043-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Brewster County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48045",
+    "county_fips": "48045",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48045-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Briscoe County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48047",
+    "county_fips": "48047",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48047-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Brooks County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48049",
+    "county_fips": "48049",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48049-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Brown County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48051",
+    "county_fips": "48051",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48051-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Burleson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48053",
+    "county_fips": "48053",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48053-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Burnet County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48055",
+    "county_fips": "48055",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48055-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Caldwell County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48057",
+    "county_fips": "48057",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48057-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Calhoun County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48059",
+    "county_fips": "48059",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48059-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Callahan County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48061",
+    "county_fips": "48061",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48061-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Cameron County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48063",
+    "county_fips": "48063",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48063-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Camp County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48065",
+    "county_fips": "48065",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48065-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Carson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48067",
+    "county_fips": "48067",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48067-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Cass County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48069",
+    "county_fips": "48069",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48069-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Castro County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48071",
+    "county_fips": "48071",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48071-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Chambers County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48073",
+    "county_fips": "48073",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48073-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Cherokee County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48075",
+    "county_fips": "48075",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48075-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Childress County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48077",
+    "county_fips": "48077",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48077-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Clay County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48079",
+    "county_fips": "48079",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48079-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Cochran County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48081",
+    "county_fips": "48081",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48081-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Coke County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48083",
+    "county_fips": "48083",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48083-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Coleman County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48085",
+    "county_fips": "48085",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48085-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Collin County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48087",
+    "county_fips": "48087",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48087-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Collingsworth County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48089",
+    "county_fips": "48089",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48089-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Colorado County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48091",
+    "county_fips": "48091",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48091-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Comal County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48093",
+    "county_fips": "48093",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48093-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Comanche County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48095",
+    "county_fips": "48095",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48095-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Concho County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48097",
+    "county_fips": "48097",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48097-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Cooke County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48099",
+    "county_fips": "48099",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48099-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Coryell County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48101",
+    "county_fips": "48101",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48101-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Cottle County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48103",
+    "county_fips": "48103",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48103-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Crane County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48105",
+    "county_fips": "48105",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48105-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Crockett County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48107",
+    "county_fips": "48107",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48107-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Crosby County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48109",
+    "county_fips": "48109",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48109-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Culberson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48111",
+    "county_fips": "48111",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48111-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Dallam County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48113",
+    "county_fips": "48113",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48113-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Dallas County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48115",
+    "county_fips": "48115",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48115-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Dawson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48117",
+    "county_fips": "48117",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48117-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Deaf Smith County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48119",
+    "county_fips": "48119",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48119-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Delta County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48121",
+    "county_fips": "48121",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48121-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Denton County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48123",
+    "county_fips": "48123",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48123-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for DeWitt County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48125",
+    "county_fips": "48125",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48125-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Dickens County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48127",
+    "county_fips": "48127",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48127-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Dimmit County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48129",
+    "county_fips": "48129",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48129-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Donley County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48131",
+    "county_fips": "48131",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48131-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Duval County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48133",
+    "county_fips": "48133",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48133-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Eastland County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48135",
+    "county_fips": "48135",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48135-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Ector County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48137",
+    "county_fips": "48137",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48137-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Edwards County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48139",
+    "county_fips": "48139",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48139-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Ellis County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48141",
+    "county_fips": "48141",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48141-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for El Paso County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48143",
+    "county_fips": "48143",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48143-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Erath County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48145",
+    "county_fips": "48145",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48145-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Falls County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48147",
+    "county_fips": "48147",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48147-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Fannin County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48149",
+    "county_fips": "48149",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48149-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Fayette County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48151",
+    "county_fips": "48151",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48151-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Fisher County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48153",
+    "county_fips": "48153",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48153-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Floyd County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48155",
+    "county_fips": "48155",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48155-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Foard County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48157",
+    "county_fips": "48157",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48157-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Fort Bend County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48159",
+    "county_fips": "48159",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48159-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Franklin County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48161",
+    "county_fips": "48161",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48161-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Freestone County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48163",
+    "county_fips": "48163",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48163-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Frio County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48165",
+    "county_fips": "48165",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48165-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Gaines County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48167",
+    "county_fips": "48167",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48167-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Galveston County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48169",
+    "county_fips": "48169",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48169-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Garza County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48171",
+    "county_fips": "48171",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48171-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Gillespie County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48173",
+    "county_fips": "48173",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48173-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Glasscock County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48175",
+    "county_fips": "48175",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48175-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Goliad County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48177",
+    "county_fips": "48177",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48177-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Gonzales County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48179",
+    "county_fips": "48179",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48179-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Gray County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48181",
+    "county_fips": "48181",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48181-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Grayson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48183",
+    "county_fips": "48183",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48183-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Gregg County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48185",
+    "county_fips": "48185",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48185-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Grimes County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48187",
+    "county_fips": "48187",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48187-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Guadalupe County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48189",
+    "county_fips": "48189",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48189-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hale County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48191",
+    "county_fips": "48191",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48191-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hall County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48193",
+    "county_fips": "48193",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48193-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hamilton County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48195",
+    "county_fips": "48195",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48195-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hansford County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48197",
+    "county_fips": "48197",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48197-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hardeman County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48199",
+    "county_fips": "48199",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48199-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hardin County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48201",
+    "county_fips": "48201",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48201-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Harris County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48203",
+    "county_fips": "48203",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48203-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Harrison County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48205",
+    "county_fips": "48205",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48205-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hartley County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48207",
+    "county_fips": "48207",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48207-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Haskell County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48209",
+    "county_fips": "48209",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48209-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hays County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48211",
+    "county_fips": "48211",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48211-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hemphill County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48213",
+    "county_fips": "48213",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48213-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Henderson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48215",
+    "county_fips": "48215",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48215-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hidalgo County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48217",
+    "county_fips": "48217",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48217-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hill County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48219",
+    "county_fips": "48219",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48219-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hockley County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48221",
+    "county_fips": "48221",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48221-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hood County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48223",
+    "county_fips": "48223",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48223-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hopkins County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48225",
+    "county_fips": "48225",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48225-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Houston County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48227",
+    "county_fips": "48227",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48227-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Howard County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48229",
+    "county_fips": "48229",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48229-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hudspeth County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48231",
+    "county_fips": "48231",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48231-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hunt County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48233",
+    "county_fips": "48233",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48233-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Hutchinson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48235",
+    "county_fips": "48235",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48235-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Irion County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48237",
+    "county_fips": "48237",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48237-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Jack County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48239",
+    "county_fips": "48239",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48239-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Jackson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48241",
+    "county_fips": "48241",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48241-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Jasper County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48243",
+    "county_fips": "48243",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48243-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Jeff Davis County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48245",
+    "county_fips": "48245",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48245-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Jefferson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48247",
+    "county_fips": "48247",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48247-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Jim Hogg County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48249",
+    "county_fips": "48249",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48249-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Jim Wells County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48251",
+    "county_fips": "48251",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48251-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Johnson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48253",
+    "county_fips": "48253",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48253-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Jones County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48255",
+    "county_fips": "48255",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48255-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Karnes County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48257",
+    "county_fips": "48257",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48257-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Kaufman County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48259",
+    "county_fips": "48259",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48259-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Kendall County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48261",
+    "county_fips": "48261",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48261-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Kenedy County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48263",
+    "county_fips": "48263",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48263-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Kent County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48265",
+    "county_fips": "48265",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48265-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Kerr County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48267",
+    "county_fips": "48267",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48267-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Kimble County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48269",
+    "county_fips": "48269",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48269-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for King County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48271",
+    "county_fips": "48271",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48271-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Kinney County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48273",
+    "county_fips": "48273",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48273-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Kleberg County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48275",
+    "county_fips": "48275",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48275-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Knox County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48277",
+    "county_fips": "48277",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48277-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Lamar County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48279",
+    "county_fips": "48279",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48279-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Lamb County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48281",
+    "county_fips": "48281",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48281-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Lampasas County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48283",
+    "county_fips": "48283",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48283-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for La Salle County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48285",
+    "county_fips": "48285",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48285-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Lavaca County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48287",
+    "county_fips": "48287",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48287-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Lee County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48289",
+    "county_fips": "48289",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48289-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Leon County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48291",
+    "county_fips": "48291",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48291-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Liberty County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48293",
+    "county_fips": "48293",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48293-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Limestone County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48295",
+    "county_fips": "48295",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48295-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Lipscomb County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48297",
+    "county_fips": "48297",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48297-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Live Oak County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48299",
+    "county_fips": "48299",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48299-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Llano County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48301",
+    "county_fips": "48301",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48301-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Loving County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48303",
+    "county_fips": "48303",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48303-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Lubbock County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48305",
+    "county_fips": "48305",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48305-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Lynn County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48307",
+    "county_fips": "48307",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48307-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for McCulloch County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48309",
+    "county_fips": "48309",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48309-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for McLennan County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48311",
+    "county_fips": "48311",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48311-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for McMullen County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48313",
+    "county_fips": "48313",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48313-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Madison County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48315",
+    "county_fips": "48315",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48315-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Marion County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48317",
+    "county_fips": "48317",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48317-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Martin County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48319",
+    "county_fips": "48319",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48319-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Mason County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48321",
+    "county_fips": "48321",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48321-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Matagorda County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48323",
+    "county_fips": "48323",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48323-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Maverick County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48325",
+    "county_fips": "48325",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48325-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Medina County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48327",
+    "county_fips": "48327",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48327-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Menard County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48329",
+    "county_fips": "48329",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48329-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Midland County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48331",
+    "county_fips": "48331",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48331-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Milam County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48333",
+    "county_fips": "48333",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48333-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Mills County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48335",
+    "county_fips": "48335",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48335-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Mitchell County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48337",
+    "county_fips": "48337",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48337-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Montague County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48339",
+    "county_fips": "48339",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48339-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Montgomery County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48341",
+    "county_fips": "48341",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48341-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Moore County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48343",
+    "county_fips": "48343",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48343-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Morris County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48345",
+    "county_fips": "48345",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48345-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Motley County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48347",
+    "county_fips": "48347",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48347-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Nacogdoches County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48349",
+    "county_fips": "48349",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48349-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Navarro County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48351",
+    "county_fips": "48351",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48351-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Newton County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48353",
+    "county_fips": "48353",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48353-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Nolan County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48355",
+    "county_fips": "48355",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48355-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Nueces County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48357",
+    "county_fips": "48357",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48357-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Ochiltree County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48359",
+    "county_fips": "48359",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48359-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Oldham County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48361",
+    "county_fips": "48361",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48361-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Orange County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48363",
+    "county_fips": "48363",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48363-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Palo Pinto County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48365",
+    "county_fips": "48365",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48365-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Panola County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48367",
+    "county_fips": "48367",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48367-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Parker County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48369",
+    "county_fips": "48369",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48369-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Parmer County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48371",
+    "county_fips": "48371",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48371-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Pecos County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48373",
+    "county_fips": "48373",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48373-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Polk County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48375",
+    "county_fips": "48375",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48375-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Potter County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48377",
+    "county_fips": "48377",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48377-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Presidio County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48379",
+    "county_fips": "48379",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48379-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Rains County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48381",
+    "county_fips": "48381",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48381-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Randall County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48383",
+    "county_fips": "48383",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48383-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Reagan County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48385",
+    "county_fips": "48385",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48385-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Real County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48387",
+    "county_fips": "48387",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48387-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Red River County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48389",
+    "county_fips": "48389",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48389-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Reeves County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48391",
+    "county_fips": "48391",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48391-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Refugio County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48393",
+    "county_fips": "48393",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48393-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Roberts County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48395",
+    "county_fips": "48395",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48395-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Robertson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48397",
+    "county_fips": "48397",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48397-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Rockwall County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48399",
+    "county_fips": "48399",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48399-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Runnels County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48401",
+    "county_fips": "48401",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48401-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Rusk County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48403",
+    "county_fips": "48403",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48403-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Sabine County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48405",
+    "county_fips": "48405",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48405-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for San Augustine County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48407",
+    "county_fips": "48407",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48407-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for San Jacinto County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48409",
+    "county_fips": "48409",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48409-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for San Patricio County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48411",
+    "county_fips": "48411",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48411-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for San Saba County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48413",
+    "county_fips": "48413",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48413-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Schleicher County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48415",
+    "county_fips": "48415",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48415-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Scurry County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48417",
+    "county_fips": "48417",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48417-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Shackelford County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48419",
+    "county_fips": "48419",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48419-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Shelby County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48421",
+    "county_fips": "48421",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48421-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Sherman County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48423",
+    "county_fips": "48423",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48423-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Smith County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48425",
+    "county_fips": "48425",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48425-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Somervell County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48427",
+    "county_fips": "48427",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48427-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Starr County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48429",
+    "county_fips": "48429",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48429-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Stephens County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48431",
+    "county_fips": "48431",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48431-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Sterling County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48433",
+    "county_fips": "48433",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48433-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Stonewall County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48435",
+    "county_fips": "48435",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48435-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Sutton County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48437",
+    "county_fips": "48437",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48437-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Swisher County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48439",
+    "county_fips": "48439",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48439-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Tarrant County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48441",
+    "county_fips": "48441",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48441-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Taylor County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48443",
+    "county_fips": "48443",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48443-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Terrell County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48445",
+    "county_fips": "48445",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48445-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Terry County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48447",
+    "county_fips": "48447",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48447-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Throckmorton County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48449",
+    "county_fips": "48449",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48449-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Titus County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48451",
+    "county_fips": "48451",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48451-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Tom Green County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48453",
+    "county_fips": "48453",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48453-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Travis County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48455",
+    "county_fips": "48455",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48455-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Trinity County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48457",
+    "county_fips": "48457",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48457-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Tyler County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48459",
+    "county_fips": "48459",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48459-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Upshur County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48461",
+    "county_fips": "48461",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48461-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Upton County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48463",
+    "county_fips": "48463",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48463-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Uvalde County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48465",
+    "county_fips": "48465",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48465-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Val Verde County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48467",
+    "county_fips": "48467",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48467-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Van Zandt County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48469",
+    "county_fips": "48469",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48469-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Victoria County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48471",
+    "county_fips": "48471",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48471-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Walker County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48473",
+    "county_fips": "48473",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48473-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Waller County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48475",
+    "county_fips": "48475",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48475-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Ward County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48477",
+    "county_fips": "48477",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48477-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Washington County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48479",
+    "county_fips": "48479",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48479-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Webb County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48481",
+    "county_fips": "48481",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48481-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Wharton County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48483",
+    "county_fips": "48483",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48483-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Wheeler County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48485",
+    "county_fips": "48485",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48485-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Wichita County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48487",
+    "county_fips": "48487",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48487-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Wilbarger County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48489",
+    "county_fips": "48489",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48489-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Willacy County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48491",
+    "county_fips": "48491",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48491-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Williamson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48493",
+    "county_fips": "48493",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48493-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Wilson County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48495",
+    "county_fips": "48495",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48495-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Winkler County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48497",
+    "county_fips": "48497",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48497-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Wise County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48499",
+    "county_fips": "48499",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48499-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Wood County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48501",
+    "county_fips": "48501",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48501-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Yoakum County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48503",
+    "county_fips": "48503",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48503-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Young County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48505",
+    "county_fips": "48505",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48505-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Zapata County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-48507",
+    "county_fips": "48507",
+    "priority": 2,
+    "reason": "County discovery has not been performed. Shared network restriction blocks required public-source research; no inference about hydrant existence or source availability.",
+    "next_action": "Restore access; start task 48507-county_gis using its saved query, then identify all relevant municipalities, water providers, fire authorities and regional inventories for Zavala County.",
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis"
+    ]
+  },
+  {
+    "gap_id": "gap-github-houston-public-safety-layer-9",
+    "county_fips": "48201",
+    "priority": 1,
+    "reason": "Proxy tunnel returns 403; source metadata and coordinates not retrieved.",
+    "next_action": "After network access is enabled, fetch layer 9 metadata with f=json, confirm geometryType esriGeometryPoint and hydrant identity, then query outSR=4326 with returnGeometry=true; save response and compare sample coordinates with Houston. Determine if layer supports query and bulk export; record official scope and terms.",
+    "evidence_ids": [
+      "github-source-3",
+      "houston-blocked"
+    ]
+  },
+  {
+    "gap_id": "gap-github-osm-hydrants",
+    "county_fips": null,
+    "priority": 3,
+    "reason": "No direct retrieval attempted; endpoint outside current allowlist. Primary API documentation, completeness and reuse terms remain unverified.",
+    "next_action": "Verify official Overpass documentation and OSM license, issue a bounded Texas hydrant query, save actual OSM IDs and coordinate response, document timeout/pagination alternatives and incomplete community coverage.",
+    "evidence_ids": [
+      "github-source-4"
+    ]
+  },
+  {
+    "gap_id": "gap-github-mapillary-hydrant-detections",
+    "county_fips": null,
+    "priority": 3,
+    "reason": "Only third-party app code inspected; no direct documented API, authentication entitlement or coordinate response verified.",
+    "next_action": "Determine whether detections meet inventory scope; verify direct API, entitlement, current data availability and terms. If retained, separate inferred detections from surveyed hydrant inventories and preserve positional uncertainty.",
+    "evidence_ids": [
+      "github-source-4"
+    ]
+  }
+]

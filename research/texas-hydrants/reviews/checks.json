@@ -1,0 +1,45 @@
+{
+  "recorded_at": "2026-10-28T15:16:33.548615+00:00",
+  "checks": [
+    {
+      "command": [
+        "python",
+        "research/texas-hydrants/scripts/validate.py"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "passed": true,
+      "stdout": "{\n  \"mode\": \"integrity\",\n  \"passed\": true,\n  \"errors\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "research/texas-hydrants/scripts/validate.py",
+        "--acceptance"
+      ],
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "passed": true,
+      "stdout": "{\n  \"mode\": \"acceptance\",\n  \"passed\": false,\n  \"errors\": [\n    \"acceptance: all 254 county research assessments must be complete\",\n    \"acceptance: independent statewide review has not accepted the research\"\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "research/texas-hydrants/scripts/inventory.py",
+        "check-reports"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "passed": true,
+      "stdout": "Derived report readback passed.\n",
+      "stderr": ""
+    }
+  ],
+  "regression_suite": {
+    "tests_passed": 26,
+    "evidence": "reviews/independent-review.json"
+  },
+  "statewide_research_accepted": false
+}

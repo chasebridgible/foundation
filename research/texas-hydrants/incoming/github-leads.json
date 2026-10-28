@@ -1,0 +1,622 @@
+{
+  "researched_at": "2026-10-28T14:57:21.327453+00:00",
+  "researcher": "github_leads",
+  "scope": "Bounded GitHub fallback source-family search, not county-level research; six queries with stated result limits plus four pinned file fetches.",
+  "usable_sources_found": 0,
+  "actual_hydrant_coordinate_responses_saved": 0,
+  "limitations": [
+    "No exhaustive repository or county search. Search result caps prevent source-exhaustion claims.",
+    "Pinned app code is evidence of a lead, not publisher confirmation or a coordinate response.",
+    "No-source findings cannot be inferred for any county.",
+    "Houston endpoint was directly attempted but blocked by environment proxy; this does not prove the source itself is restricted."
+  ],
+  "searches": [
+    {
+      "id": "github-search-1",
+      "tool": "github_search",
+      "request": {
+        "query": "Texas hydrant",
+        "topn": 10
+      },
+      "searched_at": "2026-10-28T14:54:14.505Z",
+      "result_count": 10,
+      "evidence_path": "evidence/github/search1.json",
+      "scope": "Returned first search page only; relevance screening, not exhaustive search or county assessment."
+    },
+    {
+      "id": "github-search-2",
+      "tool": "github_search",
+      "request": {
+        "query": "Austin hydrants coordinates",
+        "topn": 10
+      },
+      "searched_at": "2026-10-28T14:54:20.485Z",
+      "result_count": 10,
+      "evidence_path": "evidence/github/search2.json",
+      "scope": "Returned first search page only; relevance screening, not exhaustive search or county assessment."
+    },
+    {
+      "id": "github-search-3",
+      "tool": "github_search_repositories",
+      "request": {
+        "query": "hydrants Texas",
+        "per_page": 10
+      },
+      "searched_at": "2026-10-28T14:54:26.240Z",
+      "result_count": 0,
+      "evidence_path": "evidence/github/search3.json",
+      "scope": "Returned first search page only; relevance screening, not exhaustive search or county assessment."
+    },
+    {
+      "id": "github-search-4",
+      "tool": "github_search",
+      "request": {
+        "query": "hydrant geojson Texas",
+        "topn": 10
+      },
+      "searched_at": "2026-10-28T14:54:34.472Z",
+      "result_count": 10,
+      "evidence_path": "evidence/github/search4.json",
+      "scope": "Returned first search page only; relevance screening, not exhaustive search or county assessment."
+    },
+    {
+      "id": "github-search-5",
+      "tool": "github_search",
+      "request": {
+        "query": "hydrant",
+        "repository_name": "mikeab7/planyr",
+        "topn": 20
+      },
+      "searched_at": "2026-10-28T14:54:47.323Z",
+      "result_count": 20,
+      "evidence_path": "evidence/github/search5.json",
+      "scope": "Returned first search page only; relevance screening, not exhaustive search or county assessment."
+    },
+    {
+      "id": "github-search-6",
+      "tool": "github_search",
+      "request": {
+        "query": "hydrants",
+        "repository_name": "ni5arga/sightline",
+        "topn": 5
+      },
+      "searched_at": "2026-10-28T14:55:13.640Z",
+      "result_count": 3,
+      "evidence_path": "evidence/github/search6.json",
+      "scope": "Returned first search page only; relevance screening, not exhaustive search or county assessment."
+    }
+  ],
+  "result_dispositions": [
+    {
+      "search_id": "github-search-1",
+      "url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/README.md",
+      "disposition": "irrelevant",
+      "reason": "Application README/parser/search-index capability text, not a Texas hydrant coordinate inventory.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-1",
+      "url": "https://github.com/agarwalsarthak121/web_crawlers/blob/7dd097174c0577221b7eea89bd2dd57def4087d3/.facts.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-1",
+      "url": "https://github.com/KranthiGV/Pretrained-Show-and-Tell-model/blob/152ed6b7c797bba0404a92e86980ce61c34e562f/word_counts.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-1",
+      "url": "https://github.com/AmyBSOD/ToME-SX/blob/3320a032d581f0e61fc3f26af0e5290dc634d959/lib/file/silly.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-1",
+      "url": "https://github.com/PimpinPumpkin/Vela/blob/85eb69c946711df272b54d3f4305e72746ce1035/ROADMAP.md",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-1",
+      "url": "https://github.com/WongKinYiu/GeneralistYOLO/blob/c27abbe64f19d14ee5431dc27288ceabcba863aa/data/vocab.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-1",
+      "url": "https://github.com/petelomax/Phix/blob/a4fba6d9a51ae507d3a696d8b8d70984f353fb67/demo/unixdict.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-1",
+      "url": "https://github.com/weltliteratur/vossanto/blob/f0555b8defa34ffb5259d3237ff0c964f1d16359/first/README.md",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-1",
+      "url": "https://github.com/weltliteratur/vossanto/blob/f0555b8defa34ffb5259d3237ff0c964f1d16359/first/notes.org",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-1",
+      "url": "https://github.com/earnestt1234/seedir/blob/1bba069bc429b09cb4fc2498f9ab9b59524537a0/seedir/words.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-2",
+      "url": "https://github.com/bojieli/ai-agent-book/blob/dbc046eb896ac4e39aa19c7774c8bf49583b89a6/cursor-chats/20251002_213234_\u6839\u636e\u8bba\u6587\u5185\u5bb9\uff0c\u4fee\u6b63\u6587\u4e2d\u5bf9_V-IRL_\u7684\u63cf\u8ff0\uff1a.md",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-2",
+      "url": "https://github.com/swarmapytorch/book_DeepLearning_in_PyTorch_Source/blob/d68a3d6112e8d93e961a1dc42a354741684f7598/12_Transformer/dict.en",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-2",
+      "url": "https://github.com/ronghanghu/n2nmn/blob/ccbca1c623f3e208e7cde8d57b00e32dfb7c3c14/exp_vqa/data/vocabulary_vqa.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-2",
+      "url": "https://github.com/llSourcell/How_to_make_a_language_translator/blob/74842b38e59b310160b7c65e9d8eb06d64b63c98/data/vocab30000.en",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-2",
+      "url": "https://github.com/HarshTrivedi/nmn-pytorch/blob/facbe9dd6e832645102df36c12cc6dd4b3aa0477/preprocessed_data/vocabulary_vqa.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-2",
+      "url": "https://github.com/sahitya0000/Relation-Classification/blob/8eebbf2727013aaaa5ecd18b1f4732bd848e1e1c/data/words_dataset.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-2",
+      "url": "https://github.com/opencleveland/drocer/blob/c6ab98de586fc3a8cef5048e937a6769e48d6b31/2012/2012-02-08.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-2",
+      "url": "https://github.com/opencleveland/drocer/blob/c6ab98de586fc3a8cef5048e937a6769e48d6b31/2009/2009-10-28.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-2",
+      "url": "https://github.com/opencleveland/drocer/blob/c6ab98de586fc3a8cef5048e937a6769e48d6b31/2014/2014-01-15.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-2",
+      "url": "https://github.com/smartschat/cort/blob/2349f0308a4115acb89d442fe945533bdb3b70e2/cort/resources/plural.list",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-4",
+      "url": "https://github.com/AlbusSec/Penetration-List/blob/5191278f307c80b987be7bc6f6d6cf746c09a2bf/12_API_Vulnerabilities_Material/API_Fuzzing/api-endpoints-18",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-4",
+      "url": "https://github.com/DS4PS/ds4ps.github.io/blob/4bf741e6391a298575d5600afdbcd2549fdf7a72/data.md",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-4",
+      "url": "https://github.com/UKPLab/TWEAC-qa-agent-selection/blob/ed4f0cafa87aefd4820cca0d7f4881d2de99a9f0/data/stackexchange/train/opendata.stackexchange.com.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-4",
+      "url": "https://github.com/Baelfur/lsprings/blob/4c9adf555daa18ca1c7424b4584903fdbb67917b/README.md",
+      "disposition": "irrelevant",
+      "reason": "Full README inspected: groundwater use/aquifer project; hydrant mention is a generic 1,000 gpm comparison, not hydrant coordinates.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-4",
+      "url": "https://github.com/EugenAzxa/Drivee_Egor_Andrew_Project/blob/615752d30ecd9bce813a72abdcc2b8e7a1341fba/PRD.md",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-4",
+      "url": "https://github.com/Aviksaikat/WalkThroughs/blob/1e99e3a32dcca5ce589eb76300a7f9e9ee45f04d/nahamcon22/idk/keeber/flag4/wd.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-4",
+      "url": "https://github.com/0xelixer/Fuzzout/blob/a5d4937393bd943897551b9f85225a6c53fc6c6c/04.API/Intruder/api-endpoints-18",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-4",
+      "url": "https://github.com/CMUSTRUDEL/toxicity-detector/blob/53237db0afd088c488c8ef0fc5b88c8ac29cedbe/data/dates/2014-02-10_results.txt",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-4",
+      "url": "https://github.com/kirxkirx/local-weather-awareness/blob/1a76f8c97aa4d11adf3c3ec5588cbaad0a7f9555/DESIGN.md",
+      "disposition": "irrelevant",
+      "reason": "Returned excerpts are vocabulary, unrelated narrative, endpoints/word lists, or non-Texas data; no Texas hydrant inventory evidenced.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-4",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/scripts/build-service-areas.mjs",
+      "disposition": "duplicate",
+      "reason": "Saved build-service-areas source describes the application boundary assigned to Houston hydrant data. Repeated reference to the Houston lead only; it does not establish publisher service territory or inventory completeness.",
+      "canonical_lead_id": "github-houston-public-safety-layer-9",
+      "related_lead_ids": [
+        "github-houston-public-safety-layer-9"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B898.md",
+      "disposition": "irrelevant",
+      "reason": "Layer-panel redesign and grouping verification. Saved snippets do not identify a specific hydrant dataset or retrieval endpoint, so this UI change is irrelevant as inventory evidence.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [],
+      "duplicate_scope": null
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/verification/done/V331.md",
+      "disposition": "duplicate",
+      "reason": "Saved verification snippet names overpass-api.de, the app Mapillary map_features proxy, and the Houston Public_safety MapServer. These are repeated references to three separate unresolved leads, not one underlying inventory.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [
+        "github-houston-public-safety-layer-9",
+        "github-osm-hydrants",
+        "github-mapillary-hydrant-detections"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/verification/checklist/V77.md",
+      "disposition": "duplicate",
+      "reason": "Saved checklist concerns only the Mapillary map_features proxy and street-image detections. Houston is an example location, not a reference to the Houston municipal inventory.",
+      "canonical_lead_id": "github-mapillary-hydrant-detections",
+      "related_lead_ids": [
+        "github-mapillary-hydrant-detections"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B308.md",
+      "disposition": "duplicate",
+      "reason": "Saved change record describes the Mapillary token proxy and map_features API only. It repeats the Mapillary lead and says nothing about municipal inventory lineage.",
+      "canonical_lead_id": "github-mapillary-hydrant-detections",
+      "related_lead_ids": [
+        "github-mapillary-hydrant-detections"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B2436066.md",
+      "disposition": "duplicate",
+      "reason": "Saved change record names coh_hydrants and the application boundary assigned to Houston layers. Repeated Houston lead reference only; app assertions about territory are not publisher-confirmed coverage.",
+      "canonical_lead_id": "github-houston-public-safety-layer-9",
+      "related_lead_ids": [
+        "github-houston-public-safety-layer-9"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/MAP.md",
+      "disposition": "duplicate",
+      "reason": "Saved MAP.md snippets index evidenceLayers.js for OSM Overpass and Mapillary, and mapillaryClient.js for detections. They reference those two leads, with no Houston municipal dataset reference in the saved excerpts.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [
+        "github-osm-hydrants",
+        "github-mapillary-hydrant-detections"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/evidenceLayers.js",
+      "disposition": "duplicate",
+      "reason": "Saved full evidenceLayers.js implements OSM Overpass hydrant queries and Mapillary detections. These are two distinct repeated lead references; neither is the Houston municipal layer.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [
+        "github-osm-hydrants",
+        "github-mapillary-hydrant-detections"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/mapillaryClient.js",
+      "disposition": "duplicate",
+      "reason": "Saved mapillaryClient.js snippet filters Graph API data for pole/fire-hydrant detections. It repeats only the Mapillary lead.",
+      "canonical_lead_id": "github-mapillary-hydrant-detections",
+      "related_lead_ids": [
+        "github-mapillary-hydrant-detections"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B742371.md",
+      "disposition": "irrelevant",
+      "reason": "Saved change record concerns notification color and generic failure wording, including an unspecified hydrant-source failure. It identifies no dataset and is irrelevant as inventory evidence.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [],
+      "duplicate_scope": null
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/verify/B1205.md",
+      "disposition": "irrelevant",
+      "reason": "Saved change record concerns rendering order and generic point-symbol examples. The hydrant mention identifies no dataset or retrieval path.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [],
+      "duplicate_scope": null
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/scripts/build-service-areas.mjs",
+      "disposition": "duplicate",
+      "reason": "Saved build-service-areas source is the same file returned by search 4. It repeats the application reference to Houston hydrant data only, without proving publisher territory or coordinate availability.",
+      "canonical_lead_id": "github-houston-public-safety-layer-9",
+      "related_lead_ids": [
+        "github-houston-public-safety-layer-9"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/.env.example",
+      "disposition": "duplicate",
+      "reason": "Saved .env.example excerpt documents a Mapillary server-side token binding. It repeats only the Mapillary lead and establishes no entitlement for this research.",
+      "canonical_lead_id": "github-mapillary-hydrant-detections",
+      "related_lead_ids": [
+        "github-mapillary-hydrant-detections"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layerZoomGate.js",
+      "disposition": "duplicate",
+      "reason": "Saved layerZoomGate.js snippet explicitly names OSM power/hydrant data and its application zoom gate. Other grouped layers are unnamed here, so only the OSM lead is linked.",
+      "canonical_lead_id": "github-osm-hydrants",
+      "related_lead_ids": [
+        "github-osm-hydrants"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layers.js",
+      "disposition": "duplicate",
+      "reason": "Saved full layers.js separately configures OSM hydrants, Houston Public_safety MapServer layer 9, and Mapillary detections. The three references remain distinct; no coordinate retrieval or shared inventory lineage is demonstrated.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [
+        "github-houston-public-safety-layer-9",
+        "github-osm-hydrants",
+        "github-mapillary-hydrant-detections"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/mapStack.js",
+      "disposition": "irrelevant",
+      "reason": "Saved mapStack.js snippet is a generic explanation of rendering order for point symbols such as hydrants. No named hydrant source or endpoint appears.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [],
+      "duplicate_scope": null
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layerPanelModel.js",
+      "disposition": "duplicate",
+      "reason": "Saved layerPanelModel.js snippet describes the application region assigned to City of Houston hydrant data. It repeats the Houston lead only and is not publisher coverage evidence.",
+      "canonical_lead_id": "github-houston-public-safety-layer-9",
+      "related_lead_ids": [
+        "github-houston-public-safety-layer-9"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B285.md",
+      "disposition": "duplicate",
+      "reason": "Saved B285 snippet renames the Mapillary street-level detection layer and explicitly retains Mapillary attribution. It repeats the Mapillary lead only.",
+      "canonical_lead_id": "github-mapillary-hydrant-detections",
+      "related_lead_ids": [
+        "github-mapillary-hydrant-detections"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B696.md",
+      "disposition": "duplicate",
+      "reason": "Saved B696 snippet explicitly lists OSM hydrants and COH hydrants. The additional street-imagery phrase is unnamed in this excerpt; no third lead is inferred from that phrase.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [
+        "github-houston-public-safety-layer-9",
+        "github-osm-hydrants"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B286.md",
+      "disposition": "duplicate",
+      "reason": "Saved B286 snippet describes Mapillary setup and explicitly states hydrants also come from OSM and City-of-Houston. These are repeated references to three separate leads, not a duplicate-inventory finding.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [
+        "github-houston-public-safety-layer-9",
+        "github-osm-hydrants",
+        "github-mapillary-hydrant-detections"
+      ],
+      "duplicate_scope": "search_reference"
+    },
+    {
+      "search_id": "github-search-5",
+      "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/ledger/backlog/done/B760.md",
+      "disposition": "irrelevant",
+      "reason": "Saved B760 snippets concern panel text, labels, and info popovers. An unnamed street-imagery label supplies no dataset identity or retrieval evidence, so this UI change is irrelevant to the inventory.",
+      "canonical_lead_id": null,
+      "related_lead_ids": [],
+      "duplicate_scope": null
+    },
+    {
+      "search_id": "github-search-6",
+      "url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/README.md",
+      "disposition": "irrelevant",
+      "reason": "Application README/parser/search-index capability text, not a Texas hydrant coordinate inventory.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-6",
+      "url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/lib/search-index.ts",
+      "disposition": "irrelevant",
+      "reason": "Application README/parser/search-index capability text, not a Texas hydrant coordinate inventory.",
+      "canonical_lead_id": null
+    },
+    {
+      "search_id": "github-search-6",
+      "url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/lib/parser.ts",
+      "disposition": "irrelevant",
+      "reason": "Application README/parser/search-index capability text, not a Texas hydrant coordinate inventory.",
+      "canonical_lead_id": null
+    }
+  ],
+  "leads": [
+    {
+      "id": "github-houston-public-safety-layer-9",
+      "title": "Houston Public_safety MapServer layer 9",
+      "publisher_claim": "City of Houston Public Works, asserted by third-party application code; not publisher-verified",
+      "candidate_dataset_identifier": "HoustonMap/Public_safety/MapServer/9",
+      "direct_url": "https://mycity2.houstontx.gov/pubgis02/rest/services/HoustonMap/Public_safety/MapServer/9",
+      "disposition": "unresolved",
+      "blocker": "Proxy tunnel returns 403; source metadata and coordinates not retrieved.",
+      "evidence_paths": [
+        "evidence/github/lead3.source.txt",
+        "evidence/github/houston-metadata.request.json"
+      ],
+      "geographic_scope_claim": "Third-party application labels Houston and Harris County; publisher scope and actual county coverage unknown.",
+      "expected_county_fips": [
+        "48201"
+      ],
+      "expected_counties_are_leads_only": true,
+      "next_action": "After network access is enabled, fetch layer 9 metadata with f=json, confirm geometryType esriGeometryPoint and hydrant identity, then query outSR=4326 with returnGeometry=true; save response and compare sample coordinates with Houston. Determine if layer supports query and bulk export; record official scope and terms.",
+      "verification_date": "2026-10-28T14:57:21.327453+00:00",
+      "usable": false,
+      "license_status": "Unknown for underlying dataset; third-party code is only lead evidence."
+    },
+    {
+      "id": "github-osm-hydrants",
+      "title": "OpenStreetMap fire_hydrant observations via Overpass",
+      "publisher_claim": "OpenStreetMap community inventory, referenced in third-party app code; API and license not checked in this task",
+      "candidate_dataset_identifier": "OSM emergency=fire_hydrant",
+      "direct_url": "https://overpass-api.de/api/interpreter",
+      "disposition": "unresolved",
+      "blocker": "No direct retrieval attempted; endpoint outside current allowlist. Primary API documentation, completeness and reuse terms remain unverified.",
+      "evidence_paths": [
+        "evidence/github/lead4.source.txt"
+      ],
+      "geographic_scope_claim": "App uses viewport bounding boxes; Texas point availability not demonstrated.",
+      "expected_county_fips": [],
+      "next_action": "Verify official Overpass documentation and OSM license, issue a bounded Texas hydrant query, save actual OSM IDs and coordinate response, document timeout/pagination alternatives and incomplete community coverage.",
+      "verification_date": "2026-10-28T14:57:21.327453+00:00",
+      "usable": false,
+      "license_status": "Not verified from primary source during this run."
+    },
+    {
+      "id": "github-mapillary-hydrant-detections",
+      "title": "Mapillary hydrant detections",
+      "publisher_claim": "Mapillary street-image object detections, referenced in third-party app code",
+      "candidate_dataset_identifier": "map_features hydrant detections; exact current object class unverified",
+      "direct_url": null,
+      "disposition": "unresolved",
+      "blocker": "Only third-party app code inspected; no direct documented API, authentication entitlement or coordinate response verified.",
+      "evidence_paths": [
+        "evidence/github/lead3.source.txt",
+        "evidence/github/lead4.source.txt"
+      ],
+      "geographic_scope_claim": "Viewport-dependent street imagery; no Texas coverage claim verified.",
+      "expected_county_fips": [],
+      "next_action": "Determine whether detections meet inventory scope; verify direct API, entitlement, current data availability and terms. If retained, separate inferred detections from surveyed hydrant inventories and preserve positional uncertainty.",
+      "verification_date": "2026-10-28T14:57:21.327453+00:00",
+      "usable": false,
+      "license_status": "Unknown; do not reuse underlying detections without terms review."
+    }
+  ],
+  "disposition_correction": {
+    "corrected_at": "2026-10-28T15:09:58.669046+00:00",
+    "reason": "Independent review found that all planyr search hits had incorrectly been linked to the Houston lead. Each of the 21 hits was reassessed against its saved snippets and available full files.",
+    "scope": "Only result_dispositions for the 21 planyr hits changed. Search requests/results and the three unresolved leads are preserved. Duplicate means repeated search reference, never duplicate underlying inventory.",
+    "reviewed_records": 21,
+    "before": {
+      "duplicate": 21
+    },
+    "after": {
+      "duplicate": 16,
+      "irrelevant": 5
+    },
+    "single_lead_references": 10,
+    "multiple_lead_references": 6,
+    "irrelevant_ui_references": 5
+  }
+}

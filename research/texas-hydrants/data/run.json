@@ -1,0 +1,23 @@
+{
+  "run_id": "tx-hydrants-20261028",
+  "started_at": "2026-10-28T14:52:04.337505+00:00",
+  "branch": "codex/texas-hydrant-inventory-20261028",
+  "status": "blocked",
+  "goal": "Verify fire-hydrant coordinate data sources across all 254 Texas counties; research completion is independent of inventory completeness.",
+  "completion_rule": "All 254 county discovery assessments and evidence pass independent review. Blocked or unfinished searches do not satisfy completion.",
+  "process_owner": {
+    "capability": "foundation.desired-information-can-be-found-and-recorded.capability",
+    "job": "foundation.research.job"
+  },
+  "research_complete": false,
+  "blocker": "Managed environment denies public GIS/Census retrieval; statewide discovery cannot be performed. User asked to enable public internet access.",
+  "next_action": "Restore public GIS access; retrieve Houston layer metadata, then work county-family queue from 48001-county_gis.",
+  "reference_counties": 254,
+  "completed_county_assessments": 0,
+  "publication": {
+    "status": "local_branch",
+    "pr_url": null,
+    "merged": false,
+    "reason": "Review-first work in progress"
+  }
+}
