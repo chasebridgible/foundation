@@ -1,0 +1,29 @@
+[
+  {
+    "source_id": "houston-public-safety-9",
+    "publisher": "City of Houston Public Works, asserted by third-party application code; not publisher-verified",
+    "dataset_id": "HoustonMap/Public_safety/MapServer/9",
+    "url": "https://mycity2.houstontx.gov/pubgis02/rest/services/HoustonMap/Public_safety/MapServer/9",
+    "access_method": "Candidate ArcGIS REST MapServer query; not demonstrated",
+    "format": "Unknown; third-party code suggests ArcGIS JSON; metadata blocked",
+    "crs": "Unknown: no official layer metadata or coordinate response retrieved",
+    "geographic_scope": "Third-party application labels Houston and Harris County; publisher scope and actual county coverage unknown.",
+    "update_information": "Unknown: metadata retrieval blocked",
+    "reuse_terms": "Unknown for underlying dataset; third-party code is only lead evidence.",
+    "verified_at": "2026-10-28T14:57:21.327453+00:00",
+    "disposition": "unresolved",
+    "canonical_source_id": null,
+    "evidence_ids": [
+      "github-source-3",
+      "houston-blocked"
+    ],
+    "retrieval": null,
+    "inventory_completeness": "unknown",
+    "completeness_evidence_ids": [],
+    "claimed_coverage_boundary": null,
+    "known_omissions": [
+      "Entire inventory scope unverified; private systems and neighboring jurisdictions unassessed"
+    ],
+    "verification_scope": "Third-party lead and environment access failure only, not dataset verification"
+  }
+]

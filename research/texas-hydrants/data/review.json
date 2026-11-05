@@ -1,0 +1,13 @@
+{
+  "reviewer": "method_review independent Codex agent (/root/method_review)",
+  "status": "partial_audit_passed",
+  "audited_complete_source_ids": [],
+  "audited_complete_county_fips": [],
+  "audited_usable_source_ids": [],
+  "audited_no_source_county_fips": [],
+  "sampling_method": "No complete-coverage, usable or completed no-source claims exist. Review blocked-state integrity and all three unresolved leads; eligible acceptance samples are unavailable.",
+  "material_findings": [],
+  "evidence_ids": [
+    "independent-review"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "reference_id": "texas-counties-census-citysdk-2022-20m",
+  "role": "County research universe and assessment display boundaries; not a hydrant source",
+  "publisher": "U.S. Census Bureau",
+  "distribution": "Official uscensusbureau/citysdk repository hosted on GitHub",
+  "dataset_identifier": "cb_2022_us_county_20m",
+  "dataset_vintage": 2022,
+  "source_url": "https://raw.githubusercontent.com/uscensusbureau/citysdk/fc5d7880529fedcde181269fc5d518767221281e/v2/GeoJSON/20m/2022/county.json",
+  "repository_url": "https://github.com/uscensusbureau/citysdk",
+  "repository_commit": "fc5d7880529fedcde181269fc5d518767221281e",
+  "format": "GeoJSON FeatureCollection",
+  "coordinate_system": {
+    "coordinate_order": "longitude, latitude",
+    "units": "degrees",
+    "crs_member_present": false,
+    "datum_status": "GeoJSON longitude/latitude convention used for display; explicit source datum not supplied in saved GeoJSON and not independently verified. Do not use these simplified boundaries for precise property containment."
+  },
+  "geographic_scope": "2022 U.S. counties and county equivalents, filtered by STATEFP == 48; all 254 Texas county codes present",
+  "update_information": "2022 file vintage. Repository README states archived and no longer maintained. No assertion of 2026 boundary currency.",
+  "reuse_terms": "Repository MIT license saved as evidence/reference/census-citysdk-license.txt. License explicitly covers software and associated documentation; no separate dataset-specific terms in saved GeoJSON. Retain notice and verify any downstream data-specific requirements.",
+  "retrieved_at": "2026-10-28T14:53:32.219020+00:00",
+  "evidence": [
+    "evidence/reference/census-counties-2022-20m.geojson",
+    "evidence/reference/census-citysdk-readme.txt",
+    "evidence/reference/census-citysdk-license.txt",
+    "evidence/reference/census-requests.json"
+  ],
+  "derived_files": [
+    "reference/counties.json",
+    "reference/counties.csv",
+    "reference/texas-counties.geojson",
+    "reference/validation.json"
+  ],
+  "rebuild_command": "python research/texas-hydrants/reference/rebuild.py",
+  "cross_check": {
+    "source": "Plotly datasets repository",
+    "classification": "third-party mirror/sample dataset, not primary-source verification",
+    "repository_commit": "0c447c47b757ad74edecab31f0d72f849d2e67c2",
+    "result": "All 254 Texas county names and FIPS pairs agree exactly with Census CitySDK file. Not evidence of independent data lineage.",
+    "origin_uncertainty": "Exact upstream dataset/vintage not documented in saved Plotly README. Census-style attributes alone do not prove provenance.",
+    "reuse_terms": "MIT repository license saved; upstream dataset-specific terms not independently verified.",
+    "evidence": [
+      "evidence/reference/plotly-counties.geojson",
+      "evidence/reference/plotly-readme.txt",
+      "evidence/reference/plotly-license.txt",
+      "evidence/reference/requests.json"
+    ]
+  },
+  "limitations": [
+    "1:20,000,000 generalized boundaries are for a statewide display only, not survey, precise county assignment, service-area inference, or distance calculation.",
+    "County identity validation does not assess any hydrant sources or county research completion.",
+    "An empty or uncolored county means research/coverage status only; never means hydrants do not exist.",
+    "No area-based hydrant-coverage denominator may be derived from these boundaries without separately evidenced inventory coverage polygons."
+  ],
+  "next_action": "When authoritative Census web endpoints are accessible, cross-check county identities and download the current applicable boundary release; retain this version as the run reference."
+}

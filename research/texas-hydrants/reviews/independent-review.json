@@ -1,0 +1,217 @@
+{
+  "review_id": "tx-hydrants-20261028-independent-partial-audit",
+  "reviewer": "method_review independent Codex agent (/root/method_review)",
+  "reviewed_at": "2026-10-28T15:14:39.727374+00:00",
+  "status": "partial_audit_passed",
+  "statewide_research_accepted": false,
+  "completion_rule_satisfied": false,
+  "accepted_scope": "Integrity, evidence provenance and resumability of this explicitly incomplete, blocked research checkpoint. This is not acceptance of statewide discovery or hydrant coverage.",
+  "independence": "Reviewer did not produce the research corpus, source registry, reference transform or validator. Reviewer inspected files, ran checks and isolated adversarial mutations, and reported findings for the producers to repair. Reviewer writes only this audit receipt.",
+  "observed_state": {
+    "county_count": 254,
+    "completed_county_assessments": 0,
+    "county_research_statuses": {
+      "blocked": 254
+    },
+    "county_coverage_statuses": {
+      "not_assessed": 254
+    },
+    "discovery_tasks": 1524,
+    "completed_discovery_tasks": 0,
+    "task_statuses": {
+      "not_started": 1524
+    },
+    "usable_sources": 0,
+    "registered_sources": 1,
+    "unresolved_leads": 3,
+    "no_source_county_claims": 0,
+    "verified_inventory_county_claims": 0,
+    "verified_source_inventory_claims": 0
+  },
+  "coverage_claim_audit": {
+    "audited_complete_source_ids": [],
+    "audited_complete_county_fips": [],
+    "result": "All source and county records inspected mechanically; there are no complete-inventory claims to audit."
+  },
+  "usable_and_no_source_sampling": {
+    "audited_usable_source_ids": [],
+    "audited_no_source_county_fips": [],
+    "status": "unavailable_no_eligible_claims",
+    "method": "The full canonical corpus has zero usable sources and zero completed no-source findings. No representative acceptance sample can be selected. These empty sample sets do not satisfy statewide acceptance."
+  },
+  "county_slot_sample": {
+    "method": "Purposive reproducible sample of 16 county slots spanning first/last FIPS, Panhandle, West Texas, Rio Grande Valley, coast, East Texas, and major urban/rural settings. This checks unfinished-slot integrity only, not representative source availability. No random seed was used.",
+    "county_fips": [
+      "48001",
+      "48029",
+      "48043",
+      "48061",
+      "48109",
+      "48113",
+      "48141",
+      "48201",
+      "48203",
+      "48303",
+      "48355",
+      "48375",
+      "48453",
+      "48479",
+      "48491",
+      "48507"
+    ],
+    "assertions": [
+      "Name/FIPS matches the retained Census roster.",
+      "Each sampled county is blocked/not_assessed with six not_started family tasks.",
+      "Every sampled county has a linked actionable gap.",
+      "Harris links the unresolved Houston candidate without promoting it to usable or verified coverage."
+    ],
+    "result": "passed"
+  },
+  "evidence_inspected": [
+    {
+      "scope": "County reference",
+      "paths": [
+        "reference/provenance.json",
+        "reference/validation.json",
+        "reference/rebuild.py",
+        "evidence/reference/census-counties-2022-20m.geojson",
+        "evidence/reference/census-citysdk-readme.txt",
+        "evidence/reference/census-citysdk-license.txt"
+      ],
+      "result": "254 Texas Census GEOID/NAME pairs exactly match the derived roster. All254 boundary IDs match county IDs. The official repository URL is pinned; README explicitly says archived. The provenance correctly limits 2022 generalized boundaries to display and qualifies datum/license/currentness."
+    },
+    {
+      "scope": "Network failures",
+      "paths": [
+        "evidence/network/arcgis.request.json",
+        "evidence/network/census.request.json",
+        "evidence/network/texas_gis.request.json",
+        "evidence/github/houston-metadata.request.json",
+        "evidence/network/policy.json"
+      ],
+      "result": "All four attempts preserve proxy tunnel403 errors and zero-byte origin-response bodies. They establish this environment blocker, not a publisher refusal, missing source or coordinate retrieval."
+    },
+    {
+      "scope": "Houston candidate",
+      "paths": [
+        "evidence/github/lead3.source.txt",
+        "data/sources.json",
+        "data/leads.json"
+      ],
+      "locator": "lead3.source.txt lines531-539; raster/display qualification also lines115-117",
+      "result": "Third-party code explicitly supplies the Houston Public_safety MapServer and layer9 with City of Houston attribution. Registry correctly leaves publisher scope, queryability, format, CRS, terms, coordinates and completeness unverified."
+    },
+    {
+      "scope": "OSM and Mapillary leads",
+      "paths": [
+        "evidence/github/lead4.source.txt",
+        "evidence/github/lead3.source.txt",
+        "data/leads.json"
+      ],
+      "locator": "lead4.source.txt lines24,51-54,138-212; lead3.source.txt lines520-558",
+      "result": "Overpass hydrant query and Mapillary street-image detections are separately evidenced as unresolved leads. No live Texas points or entitlement are asserted."
+    },
+    {
+      "scope": "Search dispositions",
+      "paths": [
+        "incoming/github-leads.json",
+        "evidence/github/search1.json",
+        "evidence/github/search2.json",
+        "evidence/github/search3.json",
+        "evidence/github/search4.json",
+        "evidence/github/search5.json",
+        "evidence/github/search6.json"
+      ],
+      "result": "All53 URL multisets reconcile across six responses (10,10,0,10,20,3). Reviewed all21 planyr hit mappings against saved snippets after correction:16 repeated search references and5 irrelevant UI records. Corpus total37 irrelevant and16 duplicate search-reference hits. No shared-inventory lineage is asserted; each of the three canonical leads remains unresolved."
+    },
+    {
+      "scope": "Derived outputs",
+      "paths": [
+        "reports/index.html",
+        "reports/summary.json",
+        "reports/county-assessments.csv",
+        "reports/source-registry.csv",
+        "reports/acquisition-backlog.csv",
+        "reports/county-research-status.svg"
+      ],
+      "result": "Readback matches canonical data. SVG has254 county titles explicitly saying research blocked/inventory not_assessed. Report clearly says statewide research incomplete. Acceptance summary is derived from the explicit run flag and the strict acceptance gate, not an unconditional success/failure constant."
+    }
+  ],
+  "checks": [
+    {
+      "command": "python research/texas-hydrants/scripts/validate.py",
+      "exit_code": 0,
+      "result": "Integrity passes for unfinished state."
+    },
+    {
+      "command": "python -m unittest discover -s research/texas-hydrants/scripts -p 'test_*.py'",
+      "exit_code": 0,
+      "result": "26 regression tests passed; synthetic fixtures are not research evidence."
+    },
+    {
+      "command": "python research/texas-hydrants/scripts/inventory.py check-reports",
+      "exit_code": 0,
+      "result": "Derived report readback passed."
+    },
+    {
+      "command": "python research/texas-hydrants/scripts/validate.py --acceptance",
+      "exit_code": 1,
+      "result": "Expected rejection: all254 county assessments must be complete; independent statewide review has not accepted the research."
+    }
+  ],
+  "resolved_findings": [
+    {
+      "id": "R1",
+      "severity": "material",
+      "path": "incoming/github-leads.json",
+      "problem": "All21 application hits previously pointed to the Houston lead, including OSM/Mapillary-only references.",
+      "correction": "Each saved snippet was dispositioned individually with correct related_lead_ids; repeated references use duplicate_scope=search_reference, and multi-lead references have no single canonical lead.",
+      "verification": "Reviewer reread all21 corrected rows against saved snippets. Passed."
+    },
+    {
+      "id": "R2",
+      "severity": "material",
+      "path": "scripts/validate.py",
+      "problem": "Coordinated changes to a county name in both assessment and derived roster passed despite contradicting unchanged original Census evidence.",
+      "correction": "Validator now requires successful reference-census bytes and compares both derived names against raw Census GEOID/NAME pairs.",
+      "verification": "Reviewer repeated isolated mutation of48001 county/roster name to Invented County. Rejected with both reference and county saved-raw-Census mismatch errors; regression added."
+    },
+    {
+      "id": "R3",
+      "severity": "material",
+      "path": "scripts/validate.py",
+      "problem": "A no_result search backed by successful environment_policy plus blocked ArcGIS evidence passed the prior generic success test.",
+      "correction": "Successful search proof now requires response/search_response kind and matching search URL; completed enumeration requires nonblocked compatible reference/response evidence.",
+      "verification": "Reviewer repeated isolated policy-as-search mutation referencing network-policy and network-arcgis. Rejected for missing successful matching response evidence; regression added."
+    }
+  ],
+  "material_findings": [],
+  "limitations": [
+    "No live public GIS request was retried by this reviewer; the network blocker persists and this audit uses retained bytes.",
+    "A structural validator cannot judge publisher authority, completeness assertions, entity-enumeration adequacy or representative source sampling without independent semantic review.",
+    "This audit does not establish complete research for any county, any usable coordinate source, hydrant coverage, or a nearest-hydrant answer.",
+    "Publication, PR checks and merge are outside this audit receipt and must be recorded separately."
+  ],
+  "next_action": "Restore public web/GIS access, retry exact saved requests, verify Houston layer metadata and coordinates, then execute the bounded county discovery queue. Keep statewide acceptance rejected until the user criteria are met.",
+  "reviewed_file_sha256": {
+    "contract.html": "a1cd33bd39148f546d33814a2388b2ab9204f8d06782ed9abc049d21706306f2",
+    "HANDOFF.txt": "924399cfd233f92782db1bb561bb93aa510ebe3452eb85376ef8efa6a1d2805c",
+    "data/counties.json": "d8c7f824f764eb48896c0c8c744887f093d88937876c92e027bd273d693d8746",
+    "data/discovery.json": "f75a6aa8b3fb39c700f7d5f3b464c84a22a9da67ecb36e9e5d27fe0b5605a3a0",
+    "data/searches.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "data/sources.json": "4aefe54a9cd9bf81b9aba955927760f3604357fdec9e1816c638113b91d624c0",
+    "data/leads.json": "e16e26738c9ea381c12645a027d966dc18edc67c59935a005b31fa239830a321",
+    "data/gaps.json": "0c80e7c0a4b375ccdf82c91f36f5a8d9c69cf8ff9c4f3f475d35a0cd79711c2e",
+    "incoming/github-leads.json": "0a04865534fea3e97074ea183d7e0050f502032e3dc3c9f68e3191202b95df86",
+    "reference/counties.json": "ee010ad2f880a2624d132d018c38ed62fe13cf1cb3f533147e4df0a5b4708a5d",
+    "reference/provenance.json": "865cf355f998cbb8671f41b87ba3965ed103f4115789d3a4aee3fd6c17753839",
+    "reference/texas-counties.geojson": "e3619cf9a44f29af523b5f73e837d9e5f4b2e94988b294ee8de1c9d1421ac5e0",
+    "scripts/validate.py": "8ca3283759b243a52f2fc90ebb28babe8a82c8de743568f8014418444acee401",
+    "scripts/test_validate.py": "620c055d3eeda7275706ee8c63ea6a75c298087c697e8f916aa42f2e64c64d1d",
+    "scripts/inventory.py": "7da79f2d99e4ba8ebc31cf5aae7afe5720c51d06121e773134ec0fb02dccf866",
+    "reports/index.html": "123e554d8e00315be71dabafe1497c0ce711d73bcc1add2d0cbfcaf2559d7ff4",
+    "reports/summary.json": "7d55a0f482ee755e8191d72e583bdd149dd7e976fa3e224682b0c162e0659f5b",
+    "reference/rebuild.py": "535500e8ed164461ff855c91760338c683fe0ad3820842513be010e7c1f1a255",
+    "reference/validation.json": "ef7b75fb8d595b58a525937e843373773294c031582169830f198b6e4d3eb00e"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "counties": 254,
+  "research_assessments_complete": 0,
+  "county_research_completion_denominator": 254,
+  "usable_sources": 0,
+  "registered_sources": 1,
+  "verified_inventory_coverage_counties": 0,
+  "discovery_tasks": 1524,
+  "completed_discovery_tasks": 0,
+  "recorded_county_searches": 0,
+  "statewide_research_accepted": false,
+  "note": "County counts measure research status only. No area, population, property or hydrant coverage percentage is established."
+}

@@ -1,0 +1,140 @@
+{
+  "git_remote": "https://github.com/plotly/datasets.git",
+  "git_ref": "refs/heads/master",
+  "git_commit": "0c447c47b757ad74edecab31f0d72f849d2e67c2",
+  "git_resolution_command": "git ls-remote https://github.com/plotly/datasets.git refs/heads/master",
+  "requests": [
+    {
+      "id": "reference-geojson-counties-fips",
+      "request": {
+        "method": "GET",
+        "url": "https://raw.githubusercontent.com/plotly/datasets/0c447c47b757ad74edecab31f0d72f849d2e67c2/geojson-counties-fips.json",
+        "headers": {
+          "User-Agent": "Texas-hydrant-research-reference/1.0"
+        }
+      },
+      "retrieved_at": "2026-10-28T14:52:21.116551+00:00",
+      "http_status": 200,
+      "response_path": "evidence/reference/plotly-counties.geojson",
+      "sha256": "e540149b7525e71ee6b6cab6dea2a95205f11e0c3e7374d27a7c9c47ea96e8c0",
+      "bytes": 3216816,
+      "response_headers": {
+        "cache-control": "max-age=300",
+        "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+        "content-type": "text/plain; charset=utf-8",
+        "etag": "\"3dac023721f728cd87766a49d250ddee5a71ca2d8c1ea5391a553fc3fe8eb6a3\"",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "deny",
+        "x-xss-protection": "1; mode=block",
+        "x-github-request-id": "5B46:2FB957:893C41:A9E0EE:6AE20C24",
+        "x-github-edge-region": "iad",
+        "accept-ranges": "bytes",
+        "date": "Wed, 28 Oct 2026 14:52:21 GMT",
+        "via": "1.1 varnish",
+        "x-served-by": "cache-chi-klot8100159-CHI",
+        "x-cache": "MISS",
+        "x-cache-hits": "0",
+        "x-timer": "S1793199141.200685,VS0,VE334",
+        "vary": "Authorization,Accept-Encoding",
+        "access-control-allow-origin": "*",
+        "cross-origin-resource-policy": "cross-origin",
+        "x-fastly-request-id": "ed148e4036db84cf24a1bdc97daa9f553dbfe1e6",
+        "expires": "Wed, 28 Oct 2026 14:57:21 GMT",
+        "source-age": "0",
+        "content-length": "3216816",
+        "x-envoy-upstream-service-time": "389",
+        "server": "envoy",
+        "connection": "close"
+      }
+    },
+    {
+      "id": "reference-README",
+      "request": {
+        "method": "GET",
+        "url": "https://raw.githubusercontent.com/plotly/datasets/0c447c47b757ad74edecab31f0d72f849d2e67c2/README.md",
+        "headers": {
+          "User-Agent": "Texas-hydrant-research-reference/1.0"
+        }
+      },
+      "retrieved_at": "2026-10-28T14:52:21.641575+00:00",
+      "http_status": 200,
+      "response_path": "evidence/reference/plotly-readme.txt",
+      "sha256": "aaa4316a487391ecb7573f89d6cdb6c2e75063ca92a5f2c9c8c0b30e0fc1d222",
+      "bytes": 9237,
+      "response_headers": {
+        "cache-control": "max-age=300",
+        "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+        "content-type": "text/plain; charset=utf-8",
+        "etag": "\"e6c4a4ef77834683a4a1d1c619f06910ae35d4d3255608a340e486b29266121b\"",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "deny",
+        "x-xss-protection": "1; mode=block",
+        "x-github-request-id": "53F0:3DA1BE:866308:A70088:6AE20C24",
+        "x-github-edge-region": "iad",
+        "accept-ranges": "bytes",
+        "date": "Wed, 28 Oct 2026 14:52:21 GMT",
+        "via": "1.1 varnish",
+        "x-served-by": "cache-chi-klot8100115-CHI",
+        "x-cache": "MISS",
+        "x-cache-hits": "0",
+        "x-timer": "S1793199142.732849,VS0,VE184",
+        "vary": "Authorization,Accept-Encoding",
+        "access-control-allow-origin": "*",
+        "cross-origin-resource-policy": "cross-origin",
+        "x-fastly-request-id": "a19a9ace9a6d9f3b8f675ee3e0594430d0c69a56",
+        "expires": "Wed, 28 Oct 2026 14:57:21 GMT",
+        "source-age": "0",
+        "content-length": "9237",
+        "x-envoy-upstream-service-time": "249",
+        "server": "envoy",
+        "connection": "close"
+      }
+    },
+    {
+      "id": "reference-LICENSE",
+      "request": {
+        "method": "GET",
+        "url": "https://raw.githubusercontent.com/plotly/datasets/0c447c47b757ad74edecab31f0d72f849d2e67c2/LICENSE",
+        "headers": {
+          "User-Agent": "Texas-hydrant-research-reference/1.0"
+        }
+      },
+      "retrieved_at": "2026-10-28T14:52:21.925739+00:00",
+      "http_status": 200,
+      "response_path": "evidence/reference/plotly-license.txt",
+      "sha256": "842e29495d9d99eef9b6d5f2e442785cdd0ab39d81792b2c6302d17bb0cc6030",
+      "bytes": 1086,
+      "response_headers": {
+        "cache-control": "max-age=300",
+        "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+        "content-type": "text/plain; charset=utf-8",
+        "etag": "\"6c6f046260a79917fce728d9acba30bfd74b8034b3f97ad6f847cbac941accef\"",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "deny",
+        "x-xss-protection": "1; mode=block",
+        "x-github-request-id": "179A:70147:5171E4:741EFD:6AE20C24",
+        "x-github-edge-region": "iad",
+        "accept-ranges": "bytes",
+        "date": "Wed, 28 Oct 2026 14:52:22 GMT",
+        "via": "1.1 varnish",
+        "x-served-by": "cache-chi-klot8100143-CHI",
+        "x-cache": "MISS",
+        "x-cache-hits": "0",
+        "x-timer": "S1793199142.999029,VS0,VE143",
+        "vary": "Authorization,Accept-Encoding",
+        "access-control-allow-origin": "*",
+        "cross-origin-resource-policy": "cross-origin",
+        "x-fastly-request-id": "5bb6520693d938a954d049f50294c0e64c220a56",
+        "expires": "Wed, 28 Oct 2026 14:57:22 GMT",
+        "source-age": "0",
+        "content-length": "1086",
+        "x-envoy-upstream-service-time": "198",
+        "server": "envoy",
+        "connection": "close"
+      }
+    }
+  ]
+}

@@ -1,0 +1,356 @@
+{
+  "request": {
+    "query": "Texas hydrant",
+    "topn": 10
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/README.md",
+          "path": "README.md",
+          "display_url": "https://github.com/ni5arga/sightline/blob/1095b9275f830d43113a621a15b9f4a017d78665/README.md",
+          "display_title": "README.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "type:data_center operator:google\ntype:substation region:texas\ntype:airport country:france",
+              "matches": [
+                {
+                  "text": "texas",
+                  "indices": [
+                    56,
+                    61
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "| `emergency_phone` | - | Emergency phones |\n| `fire_hydrant` | - | Fire hydrants |\n| `lifeguard` | - | Lifeguard stations |",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    53,
+                    60
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    73,
+                    80
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/agarwalsarthak121/web_crawlers/blob/7dd097174c0577221b7eea89bd2dd57def4087d3/.facts.txt",
+          "path": ".facts.txt",
+          "display_url": "https://github.com/agarwalsarthak121/web_crawlers/blob/7dd097174c0577221b7eea89bd2dd57def4087d3/.facts.txt",
+          "display_title": ".facts.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "The Chicago river flows backwards, the flow reversal project was completed in 1900.\nThe patent for the fire hydrant was destroyed in a fire.\nPowerful earthquakes can make the Earth spin faster.",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    108,
+                    115
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "Interstate 90 is the longest U.S. Interstate Highway with over 3,000 miles from Seattle, WA to Boston, MA.\nDFW Airport in Texas is larger than the island of Manhattan.\nBenjamin Franklin invented flippers.",
+              "matches": [
+                {
+                  "text": "Texas",
+                  "indices": [
+                    122,
+                    127
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/KranthiGV/Pretrained-Show-and-Tell-model/blob/152ed6b7c797bba0404a92e86980ce61c34e562f/word_counts.txt",
+          "path": "word_counts.txt",
+          "display_url": "https://github.com/KranthiGV/Pretrained-Show-and-Tell-model/blob/152ed6b7c797bba0404a92e86980ce61c34e562f/word_counts.txt",
+          "display_title": "word_counts.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "disgusting 21\ntexas 21\npleasant 21",
+              "matches": [
+                {
+                  "text": "texas",
+                  "indices": [
+                    14,
+                    19
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "lesson 15\nfire-hydrant 15\ninclosure 15",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    15,
+                    22
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/AmyBSOD/ToME-SX/blob/3320a032d581f0e61fc3f26af0e5290dc634d959/lib/file/silly.txt",
+          "path": "lib/file/silly.txt",
+          "display_url": "https://github.com/AmyBSOD/ToME-SX/blob/3320a032d581f0e61fc3f26af0e5290dc634d959/lib/file/silly.txt",
+          "display_title": "lib/file/silly.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "Poodle\nFire Hydrant\nMulti-hued elephant",
+              "matches": [
+                {
+                  "text": "Hydrant",
+                  "indices": [
+                    12,
+                    19
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "Hillside strangler\nTexas chainsaw\nPampers commercial",
+              "matches": [
+                {
+                  "text": "Texas",
+                  "indices": [
+                    19,
+                    24
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/PimpinPumpkin/Vela/blob/85eb69c946711df272b54d3f4305e72746ce1035/ROADMAP.md",
+          "path": "ROADMAP.md",
+          "display_url": "https://github.com/PimpinPumpkin/Vela/blob/85eb69c946711df272b54d3f4305e72746ce1035/ROADMAP.md",
+          "display_title": "ROADMAP.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "  spread over several settings pages.\n- The four Texas parts need their place pack, places, basemap, road features and cells baked\n  before the routing manifest lists them, or their downloads pull the whole state's archives.",
+              "matches": [
+                {
+                  "text": "Texas",
+                  "indices": [
+                    49,
+                    54
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "  phones or head unit.\n- Street furniture on the map (#813): benches, bins, drinking water, toilets, shelters, hydrants\n  and the like at z17 and up. The tiles carry waste baskets, drinking water, toilets, shelters,",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    111,
+                    118
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/WongKinYiu/GeneralistYOLO/blob/c27abbe64f19d14ee5431dc27288ceabcba863aa/data/vocab.txt",
+          "path": "data/vocab.txt",
+          "display_url": "https://github.com/WongKinYiu/GeneralistYOLO/blob/c27abbe64f19d14ee5431dc27288ceabcba863aa/data/vocab.txt",
+          "display_title": "data/vocab.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "mirror\nhydrant\nairplane",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    7,
+                    14
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "surfaces\ntexas\nthermometer",
+              "matches": [
+                {
+                  "text": "texas",
+                  "indices": [
+                    9,
+                    14
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/petelomax/Phix/blob/a4fba6d9a51ae507d3a696d8b8d70984f353fb67/demo/unixdict.txt",
+          "path": "demo/unixdict.txt",
+          "display_url": "https://github.com/petelomax/Phix/blob/a4fba6d9a51ae507d3a696d8b8d70984f353fb67/demo/unixdict.txt",
+          "display_title": "demo/unixdict.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "hydrangea\r\nhydrant\r\nhydrate\r",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    11,
+                    18
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "texan\r\ntexas\r\ntext\r",
+              "matches": [
+                {
+                  "text": "texas",
+                  "indices": [
+                    7,
+                    12
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/weltliteratur/vossanto/blob/f0555b8defa34ffb5259d3237ff0c964f1d16359/first/README.md",
+          "path": "first/README.md",
+          "display_url": "https://github.com/weltliteratur/vossanto/blob/f0555b8defa34ffb5259d3237ff0c964f1d16359/first/README.md",
+          "display_title": "first/README.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "- *Louis R. Cappelli* has been called the *Donald Trump* of *Westchester* (2001/05/27/1296686)\n- *cartoon villain Dirty Dee* is the *Pigpen* of *macks* (2001/06/29/1305441)\n- *Dr. Alex*, the *Freud* of the *Cocktail Hour* (2001/07/08/1307710)\n- the *Dandelion Capital* of the *World* (also known as *Vineland, N.J.*) and the *Fire Hydrant Capital* of the *World* (*Albertville, Ala.*, of course) (2001/07/12/1308610)\n- *Crawford*, the *Deer Capital* of *Nebraska*, or *Llano*, the *Deer Capital* of *Texas* (2001/07/12/1308610)\n- *Rebecca Wisocky*, the *Sandra Bernhard* of *dance* (2001/07/17/1309968)\n- *Jennie*, the *Energizer Bunny* of *bile* (2001/08/05/1314596)",
+              "matches": [
+                {
+                  "text": "Hydrant",
+                  "indices": [
+                    331,
+                    338
+                  ]
+                },
+                {
+                  "text": "Texas",
+                  "indices": [
+                    500,
+                    505
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/weltliteratur/vossanto/blob/f0555b8defa34ffb5259d3237ff0c964f1d16359/first/notes.org",
+          "path": "first/notes.org",
+          "display_url": "https://github.com/weltliteratur/vossanto/blob/f0555b8defa34ffb5259d3237ff0c964f1d16359/first/notes.org",
+          "display_title": "first/notes.org",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "- Call her the *Princess* of *Patina*, the *Queen* of *Faux* (2000/07/30/1218802)\n- *Cynthia Cooper* is the *Michael Jordan*, the *Larry Bird*, the *Magic Johnson* of *this league* (2000/08/28/1226010)\n- *Harris* has been called the *Queen* of *Country Music*, the *Angel* of *This*, the *Sweetheart* of *That* (2000/09/03/1227433)\n- the *Dandelion Capital* of the *World* (also known as *Vineland, N.J.*) and the *Fire Hydrant Capital* of the *World* (*Albertville, Ala.*, of course) (2001/07/12/1308610)\n- *Crawford*, the *Deer Capital* of *Nebraska*, or *Llano*, the *Deer Capital* of *Texas* (2001/07/12/1308610)\n- *Pepe Sanseli* is considered nothing less than the *Signore* of the *Sideburn*, the *Maestro* of the *Mustache*, *Herr Hair* (2001/11/25/1345804)\n- *Terry Riley*, the *California Minimalist*; *Astor Piazzolla*, the *Argentine master* of the *nuevo tango*; and *John Zorn*, the *New York bender* of *genres* (2004/01/11/1549709)",
+              "matches": [
+                {
+                  "text": "Hydrant",
+                  "indices": [
+                    420,
+                    427
+                  ]
+                },
+                {
+                  "text": "Texas",
+                  "indices": [
+                    589,
+                    594
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/earnestt1234/seedir/blob/1bba069bc429b09cb4fc2498f9ab9b59524537a0/seedir/words.txt",
+          "path": "seedir/words.txt",
+          "display_url": "https://github.com/earnestt1234/seedir/blob/1bba069bc429b09cb4fc2498f9ab9b59524537a0/seedir/words.txt",
+          "display_title": "seedir/words.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "hydrangea\nhydrant\nhydrate",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    10,
+                    17
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "Texan\nTexas\ntext",
+              "matches": [
+                {
+                  "text": "Texas",
+                  "indices": [
+                    6,
+                    11
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "isError": false
+  },
+  "at": "2026-10-28T14:54:14.505Z"
+}
+
