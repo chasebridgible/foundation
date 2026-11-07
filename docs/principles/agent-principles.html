@@ -398,6 +398,7 @@
         <p><strong>Separate durable knowledge from executable context.</strong> Stored knowledge, run history, specs, logs, and memory are not the live operating context. The live context should be the smallest complete subset needed to act safely right now.</p>
         <p><strong>Keep the always-loaded layer short.</strong> The root instruction layer should route the agent to deeper material instead of containing it. Long references belong in specs, skills, reports, and artifacts that load only when needed.</p>
         <p><strong>Use progressive disclosure as a reliability primitive.</strong> Load the entry skill first, then only the source files, specs, examples, or scripts needed for the current step. This reduces context rot and keeps attention on the active unit of work.</p>
+        <p><strong>Treat ambient context as a behavioral control surface.</strong> Repository comments, TODOs, stale specs, and other indirect instruction-like artifacts can redirect an agent before it evaluates their relevance. Find and repair stale ambient context with evidence from current intent and history; do not let unverified cleanup notes silently expand an agent's assigned scope.</p>
         <p><strong>Favor recognition over recall.</strong> Agents should be able to find the right context by stable IDs, file paths, metadata, registries, links, and state artifacts. Do not rely on the model to remember where the important fact was mentioned.</p>
       </section>
 
