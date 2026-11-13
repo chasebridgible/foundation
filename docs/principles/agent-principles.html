@@ -432,6 +432,7 @@
         <p><strong>Separate roles when context or incentives conflict.</strong> Planners, workers, reviewers, judges, memory writers, and approval routers should not always be the same context. Role separation prevents tunnel vision and makes quality easier to inspect.</p>
         <p><strong>Use skills as workflow packages, not knowledge dumps.</strong> A skill should tell the agent when to use it, what to load, what loop to follow, what artifacts to update, what shortcuts are forbidden, and what checks prove completion.</p>
         <p><strong>Prefer deterministic scaffolding for high-risk boundaries.</strong> Permissions, destructive actions, production deploys, customer-facing sends, money movement, legal commitments, and durable memory writes need explicit gates. The harness should enforce the gate, not merely recommend it.</p>
+        <p><strong>Enforce high-risk controls at unavoidable execution points.</strong> Put intervention where every protected action must pass, re-check authority as work proceeds, and deny progress when the controller cannot decide. A control inside the mutable workload it governs is advisory, not dependable.</p>
       </section>
 
       <section id="ai-evals" class="level2 spec-section">
