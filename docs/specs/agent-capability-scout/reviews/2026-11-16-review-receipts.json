@@ -1,0 +1,83 @@
+{
+  "reviewedOn": "2026-11-16",
+  "consolidationPr": "https://github.com/chasebridgible/foundation/pull/192",
+  "formalApproval": {
+    "status": "blocked",
+    "reason": "GitHub 422: Review Can not approve your own pull request",
+    "attemptedPr": 65
+  },
+  "reviews": [
+    {
+      "pr": 47,
+      "reviewId": 5927008606,
+      "url": "https://github.com/chasebridgible/foundation/pull/47#pullrequestreview-5927008606",
+      "state": "COMMENTED",
+      "submittedAt": "2026-11-16T20:25:46Z",
+      "decision": "Research accepted for preservation; duplicate doctrine insertion rejected. Current main already contains the stronger review-throughput rule via #51. Consolidation #192 preserves this run and raw evidence, converts the historical brief to Markdown, and avoids both the duplicate paragraph and one-off HTML scanner changes."
+    },
+    {
+      "pr": 48,
+      "reviewId": 5927009311,
+      "url": "https://github.com/chasebridgible/foundation/pull/48#pullrequestreview-5927009311",
+      "state": "COMMENTED",
+      "submittedAt": "2026-11-16T20:25:50Z",
+      "decision": "Accepted with corrections in #192: feedback triage must distinguish defects, preferences, unsupported requests, ambiguity, and workflow noise; severity can justify action before recurrence. This PR and #47 reuse run ID 2026-06-05-agent-scout-01. The consolidation remaps this run to -02 with explicit provenance while preserving raw evidence bytes and original hashes."
+    },
+    {
+      "pr": 49,
+      "reviewId": 5927010034,
+      "url": "https://github.com/chasebridgible/foundation/pull/49#pullrequestreview-5927010034",
+      "state": "COMMENTED",
+      "submittedAt": "2026-11-16T20:25:53Z",
+      "decision": "Content review passed for archival research. The distinct run, five findings, evidence, and justified rejected candidate are preserved in #192. No additional doctrine paragraph is warranted."
+    },
+    {
+      "pr": 65,
+      "reviewId": 5927010914,
+      "url": "https://github.com/chasebridgible/foundation/pull/65#pullrequestreview-5927010914",
+      "state": "COMMENTED",
+      "submittedAt": "2026-11-16T20:25:57Z",
+      "decision": "Content review passed for archival research. This correctly preserves a no-new-findings checkpoint and an explicit blocked OpenAI fetch rather than inventing source changes. The records and evidence are incorporated in #192."
+    },
+    {
+      "pr": 66,
+      "reviewId": 5927011665,
+      "url": "https://github.com/chasebridgible/foundation/pull/66#pullrequestreview-5927011665",
+      "state": "COMMENTED",
+      "submittedAt": "2026-11-16T20:26:01Z",
+      "decision": "Content review passed for archival research. The access-governance finding, blocked-source outcome, and rejection of duplicate authority doctrine are preserved in #192."
+    },
+    {
+      "pr": 74,
+      "reviewId": 5927012398,
+      "url": "https://github.com/chasebridgible/foundation/pull/74#pullrequestreview-5927012398",
+      "state": "COMMENTED",
+      "submittedAt": "2026-11-16T20:26:04Z",
+      "decision": "Deployment-simulation guidance accepted in #192. Representative recent inputs and realistic tools/state/side effects are useful additions; the integrated wording explicitly retains targeted adversarial and rare high-consequence evaluation."
+    },
+    {
+      "pr": 179,
+      "reviewId": 5927013210,
+      "url": "https://github.com/chasebridgible/foundation/pull/179#pullrequestreview-5927013210",
+      "state": "COMMENTED",
+      "submittedAt": "2026-11-16T20:26:08Z",
+      "decision": "Accepted after narrowing in #192. The original blanket formulation covered every evaluation signal. The revised principle targets incentives for concealment: preserve independent behavioral evidence, retain necessary intervention controls and outcome checks, and test monitor evasion or disablement."
+    },
+    {
+      "pr": 184,
+      "reviewId": 5927013982,
+      "url": "https://github.com/chasebridgible/foundation/pull/184#pullrequestreview-5927013982",
+      "state": "COMMENTED",
+      "submittedAt": "2026-11-16T20:26:12Z",
+      "decision": "Accepted as an explicit clarification in #192. Ambient repository context can redirect behavior, but it does not expand the assigned mission; maintenance must remain evidence-backed and authorized. This reconciles overlap with the November 8 rejected candidate while preserving that historical decision. The unrelated rewrite of #182's receipt was omitted."
+    },
+    {
+      "pr": 189,
+      "reviewId": 5927014842,
+      "url": "https://github.com/chasebridgible/foundation/pull/189#pullrequestreview-5927014842",
+      "state": "COMMENTED",
+      "submittedAt": "2026-11-16T20:26:16Z",
+      "decision": "Unavoidable execution controls accepted in #192. The integrated wording requires controls the governed workload cannot modify or bypass, re-checks authority and revocation, and denies the protected action when authorization cannot be established. It permits independent safe work to continue."
+    }
+  ]
+}

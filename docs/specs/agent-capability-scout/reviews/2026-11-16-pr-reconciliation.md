@@ -12,6 +12,8 @@ The [complete PR inventory](./2026-11-16-pr-inventory.json) records every PR and
 
 The consolidated branch contains **73 runs, 206 findings, 165 principle candidates, and 292 source snapshots**. Its candidate dispositions are **eight accepted and 157 rejected**: three accepted principles already existed on main, and five are refined additions or clarifications in this proposal. These counts describe the reconciled records, not 165 changes to doctrine.
 
+The integration is published as [PR #192](https://github.com/chasebridgible/foundation/pull/192). [Review receipts](./2026-11-16-review-receipts.json) link the submitted content-review decisions on all nine original PRs.
+
 | Document | Current merged version | Reconciled proposal |
 | --- | --- | --- |
 | Agent Principles | [Main file](https://github.com/chasebridgible/foundation/blob/main/docs/principles/agent-principles.html) | [Proposed file](https://github.com/chasebridgible/foundation/blob/codex/agent-principles-reconciliation-20261116-01/docs/principles/agent-principles.html) |
@@ -126,7 +128,7 @@ Local validation passed after the initially unavailable environment recovered:
 - All 37 imported raw evidence files match their originating PR bytes; all 36 imported source-snapshot SHA-256 values match. The extra evidence file is a notification artifact, not a source snapshot.
 - Candidate/finding/source references, artifact paths, four-source coverage per imported run, unique identities, and preservation of existing main records passed independent checks.
 
-The spec tools derive repository identity from the checkout directory name. Validation ran from an isolated directory named `foundation`; the registry was not rewritten for a temporary worktree name. The final GitHub CI result is recorded on the consolidation PR.
+The spec tools derive repository identity from the checkout directory name. Validation ran from an isolated directory named `foundation`; the registry was not rewritten for a temporary worktree name. GitHub [CI run 43949555854](https://github.com/chasebridgible/foundation/actions/runs/43949555854) passed both spec and scout checks for integration commit `36ca11d6556856bc8a220e413e46a4a2792d9df0`. Subsequent commits record review/publication receipts; the latest CI result is on PR #192.
 
 The audit also found **eight pre-existing snapshot-hash mismatches** on main: all four sources for the June 19 run and all four for June 23. Their archived bytes match the original main blobs, so this consolidation did not introduce the discrepancy. Recorded and actual hashes are preserved in the [baseline integrity audit](./2026-11-16-baseline-hash-audit.json). Historical evidence and hash receipts remain unchanged; their integrity claim requires investigation, not silent rehashing. This does not affect the verified imports.
 
