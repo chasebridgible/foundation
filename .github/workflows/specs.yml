@@ -22,3 +22,6 @@ jobs:
 
       - name: Validate generated spec registry
         run: npm run spec:check
+
+      - name: Validate agent capability scout state
+        run: npm run foundation:agent-capability-scout:check

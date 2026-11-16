@@ -376,6 +376,16 @@
 	          <div class="principle-title">Reliability is distributional</div>
 	          <div class="principle-copy">One good run proves little. Evaluate repeated runs, representative cases, hard cases, known failures, uncertainty, variance, and risk tiers so reliability reflects how the system behaves across a distribution.</div>
 	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">21</div>
+	          <div class="principle-title">Deployment simulations preserve fidelity</div>
+	          <div class="principle-copy">Before releasing a more capable agent system, evaluate candidate behavior against representative recent traces or realistic prefixes, and simulate tools, state, and side effects closely enough that test awareness and environment mismatch do not dominate the result. Complement representative simulations with targeted adversarial cases and rare, high-consequence failures that routine traffic may not contain.</div>
+	        </div>
+	        <div class="principle-card">
+	          <div class="principle-num">22</div>
+	          <div class="principle-title">Monitoring should preserve evidence and resist concealment</div>
+	          <div class="principle-copy">When monitoring can shape learning or continuation, assess whether its feedback rewards hiding evidence rather than correcting behavior. Separate evidence-preserving monitoring from direct per-action optimization where possible, retain independent outcome checks and necessary intervention controls, and test whether the system can evade or disable the monitor.</div>
+	        </div>
       </div>
     </section>
 
