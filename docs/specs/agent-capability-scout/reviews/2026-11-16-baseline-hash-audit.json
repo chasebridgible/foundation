@@ -1,0 +1,82 @@
+{
+  "baselineCommit": "4fdea982a441a7c0a705df5007ca1d497cc81dd3",
+  "scope": "Verify recorded SHA256 values against repository evidence bytes; does not re-fetch external publications.",
+  "totalSnapshotsChecked": 292,
+  "importedSnapshotsChecked": 36,
+  "importedHashMismatches": 0,
+  "baselineHashMismatches": 8,
+  "mismatches": [
+    {
+      "runId": "2026-06-19-agent-scout-01",
+      "sourceId": "openai-news",
+      "evidencePath": "docs/specs/agent-capability-scout/evidence/2026-06-19-agent-scout-01/openai-news.md",
+      "recordedContentHash": "sha256:cb784123cd63fceb7f96658b81f665f536bf0fecf1cd270d3d9c4a8e08ea636b",
+      "actualContentHash": "sha256:f4f31079d7eb46240310f0881bca8807a7c642597c878464e65b93350189f468",
+      "presentInBaseline": true,
+      "evidenceUnchangedFromBaseline": true
+    },
+    {
+      "runId": "2026-06-19-agent-scout-01",
+      "sourceId": "anthropic-news",
+      "evidencePath": "docs/specs/agent-capability-scout/evidence/2026-06-19-agent-scout-01/anthropic-news.md",
+      "recordedContentHash": "sha256:3fa1cc1ae794d62854a22b4fc4c4954cc60f91fb72a55b5a5dc48993ee901fe0",
+      "actualContentHash": "sha256:87ff1f14ad14a1651dbec0c6266efb5c53326fa866e2a7f9bbb5ef3bbcfe2142",
+      "presentInBaseline": true,
+      "evidenceUnchangedFromBaseline": true
+    },
+    {
+      "runId": "2026-06-19-agent-scout-01",
+      "sourceId": "google-ai-developers",
+      "evidencePath": "docs/specs/agent-capability-scout/evidence/2026-06-19-agent-scout-01/google-ai-developers.md",
+      "recordedContentHash": "sha256:7ab5c8896ab85322b7d579d4249f748d6d8e3f7c96802f7e18b5b3e85ceb9415",
+      "actualContentHash": "sha256:3d96555d01f071f3f2458715f404104abafec9f66afbeac995e69bba31beb40c",
+      "presentInBaseline": true,
+      "evidenceUnchangedFromBaseline": true
+    },
+    {
+      "runId": "2026-06-19-agent-scout-01",
+      "sourceId": "addy-osmani-blog",
+      "evidencePath": "docs/specs/agent-capability-scout/evidence/2026-06-19-agent-scout-01/addy-osmani-blog.md",
+      "recordedContentHash": "sha256:364a7faa169b952967369f5a5f8d1a7d47da7abdcc274c85dd9ca59e1e831e56",
+      "actualContentHash": "sha256:a797f1914d3bb2c3140155671be2e434cfe13964ae7ccd1f3b787b9d162de425",
+      "presentInBaseline": true,
+      "evidenceUnchangedFromBaseline": true
+    },
+    {
+      "runId": "2026-06-23-agent-scout-01",
+      "sourceId": "openai-news",
+      "evidencePath": "docs/specs/agent-capability-scout/evidence/2026-06-23-agent-scout-01/openai-news.md",
+      "recordedContentHash": "sha256:fc5350bfbb9bb0fbe51cf2ccad4e9ec405da4cc77d4e41e4331b77578c7f02ab",
+      "actualContentHash": "sha256:e7347fdcca2d8bcf5ad6c1ae16e684fbd8abb6f82fa028fbeb96292621dd5316",
+      "presentInBaseline": true,
+      "evidenceUnchangedFromBaseline": true
+    },
+    {
+      "runId": "2026-06-23-agent-scout-01",
+      "sourceId": "anthropic-news",
+      "evidencePath": "docs/specs/agent-capability-scout/evidence/2026-06-23-agent-scout-01/anthropic-news.md",
+      "recordedContentHash": "sha256:ed3152ab3702820d1afa0f420d9b2e839f3f55fbcfa22ce064f69a2779aad39f",
+      "actualContentHash": "sha256:52a2b5d344ef0406aaf618adea8ee45da997a9f70fc90cbe82f583d14396d4a0",
+      "presentInBaseline": true,
+      "evidenceUnchangedFromBaseline": true
+    },
+    {
+      "runId": "2026-06-23-agent-scout-01",
+      "sourceId": "google-ai-developers",
+      "evidencePath": "docs/specs/agent-capability-scout/evidence/2026-06-23-agent-scout-01/google-ai-developers.md",
+      "recordedContentHash": "sha256:795f360e1a3adbb4917bd55b4c768c89f3704748bd8d77f6076ef81f286004ab",
+      "actualContentHash": "sha256:c2721ef885fec018f3eaa36adac6ba72bb4805ff194b516e68cfda4940e338a2",
+      "presentInBaseline": true,
+      "evidenceUnchangedFromBaseline": true
+    },
+    {
+      "runId": "2026-06-23-agent-scout-01",
+      "sourceId": "addy-osmani-blog",
+      "evidencePath": "docs/specs/agent-capability-scout/evidence/2026-06-23-agent-scout-01/addy-osmani-blog.md",
+      "recordedContentHash": "sha256:7d3b5e7912547066f9b203d5a600f518aab818009ad778eda1aae7213687f929",
+      "actualContentHash": "sha256:b9329791ae141bd6771af91fe5fd8d427c21109b6afc6009c5c3af62044a6e8f",
+      "presentInBaseline": true,
+      "evidenceUnchangedFromBaseline": true
+    }
+  ]
+}

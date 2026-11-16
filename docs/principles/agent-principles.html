@@ -398,6 +398,7 @@
         <p><strong>Separate durable knowledge from executable context.</strong> Stored knowledge, run history, specs, logs, and memory are not the live operating context. The live context should be the smallest complete subset needed to act safely right now.</p>
         <p><strong>Keep the always-loaded layer short.</strong> The root instruction layer should route the agent to deeper material instead of containing it. Long references belong in specs, skills, reports, and artifacts that load only when needed.</p>
         <p><strong>Use progressive disclosure as a reliability primitive.</strong> Load the entry skill first, then only the source files, specs, examples, or scripts needed for the current step. This reduces context rot and keeps attention on the active unit of work.</p>
+        <p><strong>Treat ambient context as a behavioral control surface.</strong> Repository comments, TODOs, specs, and other indirect instructions can redirect agent work. Check their relevance and freshness against current intent before acting; they do not independently expand the assignment. Repair stale instruction-like artifacts through evidence-backed, reviewable maintenance within the authorized scope.</p>
         <p><strong>Favor recognition over recall.</strong> Agents should be able to find the right context by stable IDs, file paths, metadata, registries, links, and state artifacts. Do not rely on the model to remember where the important fact was mentioned.</p>
       </section>
 
@@ -432,6 +433,7 @@
         <p><strong>Separate roles when context or incentives conflict.</strong> Planners, workers, reviewers, judges, memory writers, and approval routers should not always be the same context. Role separation prevents tunnel vision and makes quality easier to inspect.</p>
         <p><strong>Use skills as workflow packages, not knowledge dumps.</strong> A skill should tell the agent when to use it, what to load, what loop to follow, what artifacts to update, what shortcuts are forbidden, and what checks prove completion.</p>
         <p><strong>Prefer deterministic scaffolding for high-risk boundaries.</strong> Permissions, destructive actions, production deploys, customer-facing sends, money movement, legal commitments, and durable memory writes need explicit gates. The harness should enforce the gate, not merely recommend it.</p>
+        <p><strong>Enforce high-risk controls at unavoidable execution points.</strong> Every protected action must pass through a control that the governed workload cannot modify or bypass. Re-check authority as work proceeds, honor revocation, and deny the protected action when authorization cannot be established.</p>
       </section>
 
       <section id="ai-evals" class="level2 spec-section">
@@ -449,6 +451,7 @@
         <h2>Self-improvement</h2>
         <p><strong>Self-improvement is promotion through evidence.</strong> A system learns when a finding changes future action after review. It does not learn merely because an agent noticed something, summarized it, or stored it.</p>
         <p><strong>Watch broadly, adopt narrowly.</strong> A capability scout may monitor changing agent tools and practices, but adoption should require relevance, provenance, a grade or recommendation, and a human-readable reason.</p>
+        <p><strong>Classify feedback before assigning agent work.</strong> Triage production corrections, user edits, and review comments against the intended behavior before turning them into tasks. Distinguish defects, preferences, unsupported requests, ambiguous signals, and expected workflow noise; preserve the evidence and route each actionable item to its owning layer. Prioritize by severity and recurrence without waiting for a serious failure to repeat.</p>
         <p><strong>Do not let the agent silently rewrite its own operating rules.</strong> Changes to specs, skills, validators, memory schemas, source allowlists, or workflows should pass through durable artifacts, checks, and reviewable change flow.</p>
         <p><strong>Learning artifacts should be queryable.</strong> JSON/JSONL run records, source snapshots, findings, grades, decisions, eval receipts, and merge receipts are better operating memory than chat-only summaries.</p>
         <p><strong>Separate scouting from acting.</strong> Discovering a new capability is different from using it. The scout produces evidence and a triage signal; follow-up work should start only when the owner chooses to act.</p>
