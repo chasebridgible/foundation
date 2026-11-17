@@ -1,0 +1,4323 @@
+[
+  {
+    "county_fips": "48001",
+    "county_name": "Anderson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48001"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48003",
+    "county_name": "Andrews",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48003"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48005",
+    "county_name": "Angelina",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48005"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48007",
+    "county_name": "Aransas",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48007"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48009",
+    "county_name": "Archer",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48009"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48011",
+    "county_name": "Armstrong",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48011"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48013",
+    "county_name": "Atascosa",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48013"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48015",
+    "county_name": "Austin",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48015"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48017",
+    "county_name": "Bailey",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48017"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48019",
+    "county_name": "Bandera",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48019"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48021",
+    "county_name": "Bastrop",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48021"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48023",
+    "county_name": "Baylor",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48023"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48025",
+    "county_name": "Bee",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48025"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48027",
+    "county_name": "Bell",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48027"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48029",
+    "county_name": "Bexar",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48029"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48031",
+    "county_name": "Blanco",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48031"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48033",
+    "county_name": "Borden",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48033"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48035",
+    "county_name": "Bosque",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48035"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48037",
+    "county_name": "Bowie",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48037"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48039",
+    "county_name": "Brazoria",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48039"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48041",
+    "county_name": "Brazos",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48041"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48043",
+    "county_name": "Brewster",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48043"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48045",
+    "county_name": "Briscoe",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48045"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48047",
+    "county_name": "Brooks",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48047"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48049",
+    "county_name": "Brown",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48049"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48051",
+    "county_name": "Burleson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48051"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48053",
+    "county_name": "Burnet",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48053"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48055",
+    "county_name": "Caldwell",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48055"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48057",
+    "county_name": "Calhoun",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48057"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48059",
+    "county_name": "Callahan",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48059"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48061",
+    "county_name": "Cameron",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48061"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48063",
+    "county_name": "Camp",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48063"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48065",
+    "county_name": "Carson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48065"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48067",
+    "county_name": "Cass",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48067"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48069",
+    "county_name": "Castro",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48069"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48071",
+    "county_name": "Chambers",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48071"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48073",
+    "county_name": "Cherokee",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48073"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48075",
+    "county_name": "Childress",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48075"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48077",
+    "county_name": "Clay",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48077"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48079",
+    "county_name": "Cochran",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48079"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48081",
+    "county_name": "Coke",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48081"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48083",
+    "county_name": "Coleman",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48083"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48085",
+    "county_name": "Collin",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48085"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48087",
+    "county_name": "Collingsworth",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48087"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48089",
+    "county_name": "Colorado",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48089"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48091",
+    "county_name": "Comal",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48091"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48093",
+    "county_name": "Comanche",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48093"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48095",
+    "county_name": "Concho",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48095"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48097",
+    "county_name": "Cooke",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48097"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48099",
+    "county_name": "Coryell",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48099"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48101",
+    "county_name": "Cottle",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48101"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48103",
+    "county_name": "Crane",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48103"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48105",
+    "county_name": "Crockett",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48105"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48107",
+    "county_name": "Crosby",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48107"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48109",
+    "county_name": "Culberson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48109"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48111",
+    "county_name": "Dallam",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48111"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48113",
+    "county_name": "Dallas",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48113"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48115",
+    "county_name": "Dawson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48115"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48117",
+    "county_name": "Deaf Smith",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48117"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48119",
+    "county_name": "Delta",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48119"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48121",
+    "county_name": "Denton",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48121"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48123",
+    "county_name": "DeWitt",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48123"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48125",
+    "county_name": "Dickens",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48125"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48127",
+    "county_name": "Dimmit",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48127"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48129",
+    "county_name": "Donley",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48129"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48131",
+    "county_name": "Duval",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48131"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48133",
+    "county_name": "Eastland",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48133"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48135",
+    "county_name": "Ector",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48135"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48137",
+    "county_name": "Edwards",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48137"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48139",
+    "county_name": "Ellis",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48139"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48141",
+    "county_name": "El Paso",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48141"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48143",
+    "county_name": "Erath",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48143"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48145",
+    "county_name": "Falls",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48145"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48147",
+    "county_name": "Fannin",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48147"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48149",
+    "county_name": "Fayette",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48149"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48151",
+    "county_name": "Fisher",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48151"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48153",
+    "county_name": "Floyd",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48153"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48155",
+    "county_name": "Foard",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48155"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48157",
+    "county_name": "Fort Bend",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48157"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48159",
+    "county_name": "Franklin",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48159"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48161",
+    "county_name": "Freestone",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48161"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48163",
+    "county_name": "Frio",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48163"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48165",
+    "county_name": "Gaines",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48165"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48167",
+    "county_name": "Galveston",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48167"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48169",
+    "county_name": "Garza",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48169"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48171",
+    "county_name": "Gillespie",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48171"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48173",
+    "county_name": "Glasscock",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48173"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48175",
+    "county_name": "Goliad",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48175"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48177",
+    "county_name": "Gonzales",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48177"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48179",
+    "county_name": "Gray",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48179"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48181",
+    "county_name": "Grayson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48181"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48183",
+    "county_name": "Gregg",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48183"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48185",
+    "county_name": "Grimes",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48185"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48187",
+    "county_name": "Guadalupe",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48187"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48189",
+    "county_name": "Hale",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48189"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48191",
+    "county_name": "Hall",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48191"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48193",
+    "county_name": "Hamilton",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48193"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48195",
+    "county_name": "Hansford",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48195"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48197",
+    "county_name": "Hardeman",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48197"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48199",
+    "county_name": "Hardin",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48199"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48201",
+    "county_name": "Harris",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [
+      "houston-public-safety-9"
+    ],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48201",
+      "gap-github-houston-public-safety-layer-9"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48203",
+    "county_name": "Harrison",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48203"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48205",
+    "county_name": "Hartley",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48205"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48207",
+    "county_name": "Haskell",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48207"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48209",
+    "county_name": "Hays",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48209"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48211",
+    "county_name": "Hemphill",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48211"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48213",
+    "county_name": "Henderson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48213"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48215",
+    "county_name": "Hidalgo",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48215"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48217",
+    "county_name": "Hill",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48217"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48219",
+    "county_name": "Hockley",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48219"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48221",
+    "county_name": "Hood",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48221"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48223",
+    "county_name": "Hopkins",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48223"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48225",
+    "county_name": "Houston",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48225"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48227",
+    "county_name": "Howard",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48227"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48229",
+    "county_name": "Hudspeth",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48229"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48231",
+    "county_name": "Hunt",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48231"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48233",
+    "county_name": "Hutchinson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48233"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48235",
+    "county_name": "Irion",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48235"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48237",
+    "county_name": "Jack",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48237"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48239",
+    "county_name": "Jackson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48239"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48241",
+    "county_name": "Jasper",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48241"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48243",
+    "county_name": "Jeff Davis",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48243"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48245",
+    "county_name": "Jefferson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48245"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48247",
+    "county_name": "Jim Hogg",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48247"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48249",
+    "county_name": "Jim Wells",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48249"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48251",
+    "county_name": "Johnson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48251"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48253",
+    "county_name": "Jones",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48253"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48255",
+    "county_name": "Karnes",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48255"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48257",
+    "county_name": "Kaufman",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48257"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48259",
+    "county_name": "Kendall",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48259"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48261",
+    "county_name": "Kenedy",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48261"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48263",
+    "county_name": "Kent",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48263"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48265",
+    "county_name": "Kerr",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48265"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48267",
+    "county_name": "Kimble",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48267"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48269",
+    "county_name": "King",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48269"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48271",
+    "county_name": "Kinney",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48271"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48273",
+    "county_name": "Kleberg",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48273"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48275",
+    "county_name": "Knox",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48275"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48277",
+    "county_name": "Lamar",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48277"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48279",
+    "county_name": "Lamb",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48279"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48281",
+    "county_name": "Lampasas",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48281"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48283",
+    "county_name": "La Salle",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48283"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48285",
+    "county_name": "Lavaca",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48285"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48287",
+    "county_name": "Lee",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48287"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48289",
+    "county_name": "Leon",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48289"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48291",
+    "county_name": "Liberty",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48291"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48293",
+    "county_name": "Limestone",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48293"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48295",
+    "county_name": "Lipscomb",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48295"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48297",
+    "county_name": "Live Oak",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48297"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48299",
+    "county_name": "Llano",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48299"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48301",
+    "county_name": "Loving",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48301"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48303",
+    "county_name": "Lubbock",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48303"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48305",
+    "county_name": "Lynn",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48305"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48307",
+    "county_name": "McCulloch",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48307"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48309",
+    "county_name": "McLennan",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48309"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48311",
+    "county_name": "McMullen",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48311"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48313",
+    "county_name": "Madison",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48313"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48315",
+    "county_name": "Marion",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48315"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48317",
+    "county_name": "Martin",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48317"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48319",
+    "county_name": "Mason",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48319"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48321",
+    "county_name": "Matagorda",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48321"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48323",
+    "county_name": "Maverick",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48323"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48325",
+    "county_name": "Medina",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48325"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48327",
+    "county_name": "Menard",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48327"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48329",
+    "county_name": "Midland",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48329"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48331",
+    "county_name": "Milam",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48331"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48333",
+    "county_name": "Mills",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48333"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48335",
+    "county_name": "Mitchell",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48335"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48337",
+    "county_name": "Montague",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48337"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48339",
+    "county_name": "Montgomery",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48339"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48341",
+    "county_name": "Moore",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48341"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48343",
+    "county_name": "Morris",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48343"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48345",
+    "county_name": "Motley",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48345"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48347",
+    "county_name": "Nacogdoches",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48347"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48349",
+    "county_name": "Navarro",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48349"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48351",
+    "county_name": "Newton",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48351"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48353",
+    "county_name": "Nolan",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48353"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48355",
+    "county_name": "Nueces",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48355"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48357",
+    "county_name": "Ochiltree",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48357"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48359",
+    "county_name": "Oldham",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48359"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48361",
+    "county_name": "Orange",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48361"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48363",
+    "county_name": "Palo Pinto",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48363"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48365",
+    "county_name": "Panola",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48365"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48367",
+    "county_name": "Parker",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48367"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48369",
+    "county_name": "Parmer",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48369"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48371",
+    "county_name": "Pecos",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48371"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48373",
+    "county_name": "Polk",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48373"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48375",
+    "county_name": "Potter",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48375"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48377",
+    "county_name": "Presidio",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48377"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48379",
+    "county_name": "Rains",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48379"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48381",
+    "county_name": "Randall",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48381"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48383",
+    "county_name": "Reagan",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48383"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48385",
+    "county_name": "Real",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48385"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48387",
+    "county_name": "Red River",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48387"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48389",
+    "county_name": "Reeves",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48389"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48391",
+    "county_name": "Refugio",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48391"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48393",
+    "county_name": "Roberts",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48393"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48395",
+    "county_name": "Robertson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48395"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48397",
+    "county_name": "Rockwall",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48397"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48399",
+    "county_name": "Runnels",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48399"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48401",
+    "county_name": "Rusk",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48401"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48403",
+    "county_name": "Sabine",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48403"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48405",
+    "county_name": "San Augustine",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48405"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48407",
+    "county_name": "San Jacinto",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48407"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48409",
+    "county_name": "San Patricio",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48409"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48411",
+    "county_name": "San Saba",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48411"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48413",
+    "county_name": "Schleicher",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48413"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48415",
+    "county_name": "Scurry",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48415"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48417",
+    "county_name": "Shackelford",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48417"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48419",
+    "county_name": "Shelby",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48419"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48421",
+    "county_name": "Sherman",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48421"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48423",
+    "county_name": "Smith",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48423"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48425",
+    "county_name": "Somervell",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48425"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48427",
+    "county_name": "Starr",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48427"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48429",
+    "county_name": "Stephens",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48429"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48431",
+    "county_name": "Sterling",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48431"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48433",
+    "county_name": "Stonewall",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48433"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48435",
+    "county_name": "Sutton",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48435"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48437",
+    "county_name": "Swisher",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48437"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48439",
+    "county_name": "Tarrant",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48439"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48441",
+    "county_name": "Taylor",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48441"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48443",
+    "county_name": "Terrell",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48443"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48445",
+    "county_name": "Terry",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48445"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48447",
+    "county_name": "Throckmorton",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48447"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48449",
+    "county_name": "Titus",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48449"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48451",
+    "county_name": "Tom Green",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48451"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48453",
+    "county_name": "Travis",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48453"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48455",
+    "county_name": "Trinity",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48455"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48457",
+    "county_name": "Tyler",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48457"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48459",
+    "county_name": "Upshur",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48459"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48461",
+    "county_name": "Upton",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48461"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48463",
+    "county_name": "Uvalde",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48463"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48465",
+    "county_name": "Val Verde",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48465"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48467",
+    "county_name": "Van Zandt",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48467"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48469",
+    "county_name": "Victoria",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48469"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48471",
+    "county_name": "Walker",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48471"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48473",
+    "county_name": "Waller",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48473"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48475",
+    "county_name": "Ward",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48475"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48477",
+    "county_name": "Washington",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48477"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48479",
+    "county_name": "Webb",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48479"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48481",
+    "county_name": "Wharton",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48481"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48483",
+    "county_name": "Wheeler",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48483"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48485",
+    "county_name": "Wichita",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48485"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48487",
+    "county_name": "Wilbarger",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48487"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48489",
+    "county_name": "Willacy",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48489"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48491",
+    "county_name": "Williamson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48491"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48493",
+    "county_name": "Wilson",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48493"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48495",
+    "county_name": "Winkler",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48495"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48497",
+    "county_name": "Wise",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48497"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48499",
+    "county_name": "Wood",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48499"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48501",
+    "county_name": "Yoakum",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48501"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48503",
+    "county_name": "Young",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48503"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48505",
+    "county_name": "Zapata",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48505"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  },
+  {
+    "county_fips": "48507",
+    "county_name": "Zavala",
+    "research_status": "blocked",
+    "coverage_status": "not_assessed",
+    "source_ids": [],
+    "search_ids": [],
+    "gap_ids": [
+      "gap-48507"
+    ],
+    "evidence_ids": [
+      "network-policy",
+      "network-arcgis",
+      "reference-census"
+    ],
+    "assessment_date": null
+  }
+]

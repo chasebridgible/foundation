@@ -1,0 +1,45 @@
+[
+  {
+    "lead_id": "github-houston-public-safety-layer-9",
+    "county_fips": "48201",
+    "task_id": null,
+    "url": "https://mycity2.houstontx.gov/pubgis02/rest/services/HoustonMap/Public_safety/MapServer/9",
+    "title": "Houston Public_safety MapServer layer 9",
+    "disposition": "unresolved",
+    "source_id": "houston-public-safety-9",
+    "evidence_ids": [
+      "github-source-3",
+      "houston-blocked"
+    ],
+    "blocker": "Proxy tunnel returns 403; source metadata and coordinates not retrieved.",
+    "next_action": "After network access is enabled, fetch layer 9 metadata with f=json, confirm geometryType esriGeometryPoint and hydrant identity, then query outSR=4326 with returnGeometry=true; save response and compare sample coordinates with Houston. Determine if layer supports query and bulk export; record official scope and terms."
+  },
+  {
+    "lead_id": "github-osm-hydrants",
+    "county_fips": null,
+    "task_id": null,
+    "url": "https://overpass-api.de/api/interpreter",
+    "title": "OpenStreetMap fire_hydrant observations via Overpass",
+    "disposition": "unresolved",
+    "source_id": null,
+    "evidence_ids": [
+      "github-source-4"
+    ],
+    "blocker": "No direct retrieval attempted; endpoint outside current allowlist. Primary API documentation, completeness and reuse terms remain unverified.",
+    "next_action": "Verify official Overpass documentation and OSM license, issue a bounded Texas hydrant query, save actual OSM IDs and coordinate response, document timeout/pagination alternatives and incomplete community coverage."
+  },
+  {
+    "lead_id": "github-mapillary-hydrant-detections",
+    "county_fips": null,
+    "task_id": null,
+    "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/evidenceLayers.js",
+    "title": "Mapillary hydrant detections",
+    "disposition": "unresolved",
+    "source_id": null,
+    "evidence_ids": [
+      "github-source-4"
+    ],
+    "blocker": "Only third-party app code inspected; no direct documented API, authentication entitlement or coordinate response verified.",
+    "next_action": "Determine whether detections meet inventory scope; verify direct API, entitlement, current data availability and terms. If retained, separate inferred detections from surveyed hydrant inventories and preserve positional uncertainty."
+  }
+]

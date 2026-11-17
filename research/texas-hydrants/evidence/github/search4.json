@@ -1,0 +1,375 @@
+{
+  "request": {
+    "query": "hydrant geojson Texas",
+    "topn": 10
+  },
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "url": "https://github.com/AlbusSec/Penetration-List/blob/5191278f307c80b987be7bc6f6d6cf746c09a2bf/12_API_Vulnerabilities_Material/API_Fuzzing/api-endpoints-18",
+          "path": "12_API_Vulnerabilities_Material/API_Fuzzing/api-endpoints-18",
+          "display_url": "https://github.com/AlbusSec/Penetration-List/blob/5191278f307c80b987be7bc6f6d6cf746c09a2bf/12_API_Vulnerabilities_Material/API_Fuzzing/api-endpoints-18",
+          "display_title": "12_API_Vulnerabilities_Material/API_Fuzzing/api-endpoints-18",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "/api/cookie-policy\n/v1/projects/the-striker-texas/installations\n/rest/header",
+              "matches": [
+                {
+                  "text": "texas",
+                  "indices": [
+                    44,
+                    49
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "/api/account/GetTextByCultureAndPlatform2\n/api/hydrant/v1/events/homeland.viewedWidget/rFLgeYpqZ4KxoFkxTKvcFW\n/v1/attribution/session-id",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    47,
+                    54
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/DS4PS/ds4ps.github.io/blob/4bf741e6391a298575d5600afdbcd2549fdf7a72/data.md",
+          "path": "data.md",
+          "display_url": "https://github.com/DS4PS/ds4ps.github.io/blob/4bf741e6391a298575d5600afdbcd2549fdf7a72/data.md",
+          "display_title": "data.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "\n* I Quant NY [ [budget error](https://iquantny.tumblr.com/post/147446103684/open-data-reveals-791-million-error-in-newly) ] [ [metro fares](https://iquantny.tumblr.com/post/114470101209/i-quant-a-victory-mta-adds-new-button-for) ] [ [parking tickets](https://gizmodo.com/justice-the-fire-hydrant-that-earned-nyc-33-000-a-yea-1585633742) ] \n* Realizing the Promise of Big Data: IBM Center for Gov.  [ [link](http://www.businessofgovernment.org/sites/default/files/Realizing%20the%20Promise%20of%20Big%20Data_0.pdf) ] ",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    289,
+                    296
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "* <i class=\"far fa-check-circle\" style=\"color:lightgray\"></i> [IEEE Geoscience and Remote Sensing Society DASE Website](http://dase.grss-ieee.org)  \n* <i class=\"far fa-check-circle\" style=\"color:lightgray\"></i> [Geo Maps - High Quality GeoJSON maps programmatically generated](https://github.com/simonepri/geo-maps)  \n* <i class=\"far fa-check-circle\" style=\"color:lightgray\"></i> [Geo Spatial Data from ASU](http://geodacenter.asu.edu/datalist/)  ",
+              "matches": [
+                {
+                  "text": "GeoJSON",
+                  "indices": [
+                    236,
+                    243
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/UKPLab/TWEAC-qa-agent-selection/blob/ed4f0cafa87aefd4820cca0d7f4881d2de99a9f0/data/stackexchange/train/opendata.stackexchange.com.txt",
+          "path": "data/stackexchange/train/opendata.stackexchange.com.txt",
+          "display_url": "https://github.com/UKPLab/TWEAC-qa-agent-selection/blob/ed4f0cafa87aefd4820cca0d7f4881d2de99a9f0/data/stackexchange/train/opendata.stackexchange.com.txt",
+          "display_title": "data/stackexchange/train/opendata.stackexchange.com.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "Search in wikidata with specific Q code\nAll US cities in GEOJSON\nWhere can I find a data set on the federal student loan debt since at least 1965?",
+              "matches": [
+                {
+                  "text": "GEOJSON",
+                  "indices": [
+                    57,
+                    64
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "What are methods to create open text data from copyrighted texts?\nTexas Land System Grid data\nWorld population density",
+              "matches": [
+                {
+                  "text": "Texas",
+                  "indices": [
+                    66,
+                    71
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/Baelfur/lsprings/blob/4c9adf555daa18ca1c7424b4584903fdbb67917b/README.md",
+          "path": "README.md",
+          "display_url": "https://github.com/Baelfur/lsprings/blob/4c9adf555daa18ca1c7424b4584903fdbb67917b/README.md",
+          "display_title": "README.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "about 100 lines of stdlib struct unpacking, no converter and no extraction step. A `.shp`\nor `.geojson` path works too.\n",
+              "matches": [
+                {
+                  "text": "geojson",
+                  "indices": [
+                    95,
+                    102
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "| Liberty Hill | Trinity | Show Trinity **outcrop** |\n| Georgetown · Round Rock · Texas Crushed Stone | Edwards-BFZ | Show Edwards-BFZ **downdip** |\n| MM-North Quarry · Brushy Creek MUD | Edwards-BFZ | Show Edwards-BFZ **outcrop** |",
+              "matches": [
+                {
+                  "text": "Texas",
+                  "indices": [
+                    84,
+                    89
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/EugenAzxa/Drivee_Egor_Andrew_Project/blob/615752d30ecd9bce813a72abdcc2b8e7a1341fba/PRD.md",
+          "path": "PRD.md",
+          "display_url": "https://github.com/EugenAzxa/Drivee_Egor_Andrew_Project/blob/615752d30ecd9bce813a72abdcc2b8e7a1341fba/PRD.md",
+          "display_title": "PRD.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "- SunPass — Florida Toll Roads\n- TxTag — Texas Toll Roads\n",
+              "matches": [
+                {
+                  "text": "Texas",
+                  "indices": [
+                    45,
+                    50
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "- **Three toggleable layers:**\n  1. **Bike Lanes** — Protected (green), Regular (blue), Trails (purple) — data from Toronto Open Data cycling GeoJSON; hardcoded 14-route fallback\n  2. **Fire Hydrants** — Yellow dots with 3-metre clearance radius shown",
+              "matches": [
+                {
+                  "text": "GeoJSON",
+                  "indices": [
+                    146,
+                    153
+                  ]
+                },
+                {
+                  "text": "Hydrant",
+                  "indices": [
+                    195,
+                    202
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/Aviksaikat/WalkThroughs/blob/1e99e3a32dcca5ce589eb76300a7f9e9ee45f04d/nahamcon22/idk/keeber/flag4/wd.txt",
+          "path": "nahamcon22/idk/keeber/flag4/wd.txt",
+          "display_url": "https://github.com/Aviksaikat/WalkThroughs/blob/1e99e3a32dcca5ce589eb76300a7f9e9ee45f04d/nahamcon22/idk/keeber/flag4/wd.txt",
+          "display_title": "nahamcon22/idk/keeber/flag4/wd.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "misconceptions\ntexas\nfight",
+              "matches": [
+                {
+                  "text": "texas",
+                  "indices": [
+                    15,
+                    20
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "codeforamerica\nhydrant\nhydrants",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    15,
+                    22
+                  ]
+                },
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    23,
+                    30
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/0xelixer/Fuzzout/blob/a5d4937393bd943897551b9f85225a6c53fc6c6c/04.API/Intruder/api-endpoints-18",
+          "path": "04.API/Intruder/api-endpoints-18",
+          "display_url": "https://github.com/0xelixer/Fuzzout/blob/a5d4937393bd943897551b9f85225a6c53fc6c6c/04.API/Intruder/api-endpoints-18",
+          "display_title": "04.API/Intruder/api-endpoints-18",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "/api/cookie-policy\n/v1/projects/the-striker-texas/installations\n/rest/header",
+              "matches": [
+                {
+                  "text": "texas",
+                  "indices": [
+                    44,
+                    49
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "/api/account/GetTextByCultureAndPlatform2\n/api/hydrant/v1/events/homeland.viewedWidget/rFLgeYpqZ4KxoFkxTKvcFW\n/v1/attribution/session-id",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    47,
+                    54
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/CMUSTRUDEL/toxicity-detector/blob/53237db0afd088c488c8ef0fc5b88c8ac29cedbe/data/dates/2014-02-10_results.txt",
+          "path": "data/dates/2014-02-10_results.txt",
+          "display_url": "https://github.com/CMUSTRUDEL/toxicity-detector/blob/53237db0afd088c488c8ef0fc5b88c8ac29cedbe/data/dates/2014-02-10_results.txt",
+          "display_title": "data/dates/2014-02-10_results.txt",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "jeebus/jcw/4 0\ngeojson.io/mapbox/314 0\nbootstrap/ussher/6 0",
+              "matches": [
+                {
+                  "text": "geojson",
+                  "indices": [
+                    15,
+                    22
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "sbt-builds-for-ide/typesafehub/21 0\ntx_people/texas/7 0\nYampa/ivanperez-keera/1 0",
+              "matches": [
+                {
+                  "text": "texas",
+                  "indices": [
+                    46,
+                    51
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/kirxkirx/local-weather-awareness/blob/1a76f8c97aa4d11adf3c3ec5588cbaad0a7f9555/DESIGN.md",
+          "path": "DESIGN.md",
+          "display_url": "https://github.com/kirxkirx/local-weather-awareness/blob/1a76f8c97aa4d11adf3c3ec5588cbaad0a7f9555/DESIGN.md",
+          "display_title": "DESIGN.md",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": " title says \"... exist throughout the <X> area\": a condition for a whole NMDOT patrol area\n placed at one point, listed but never drawn), \"geometry\": GeoJSON\n LineString|MultiLineString|Point|MultiPoint (lon/lat rounded to 1e-6), \"bbox\": tuple,",
+              "matches": [
+                {
+                  "text": "GeoJSON",
+                  "indices": [
+                    150,
+                    157
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "work, fiestas, festivals and filming. `_BENIGN` phrases are neutralised first (wind\nturbine/farm, storm drain/water, crash attenuator/cushion/barrier, fire hydrant/station,\ndust control, \"reduce crashes\", crash rate, weather permitting, snow fence, Ice Caves).",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    156,
+                    163
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/scripts/build-service-areas.mjs",
+          "path": "scripts/build-service-areas.mjs",
+          "display_url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/scripts/build-service-areas.mjs",
+          "display_title": "scripts/build-service-areas.mjs",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": " *   houston  City of Houston limits (TxGIO City_Boundaries, full-purpose) ∪ Houston's ETJ (H-GAC HGAC_City_ETJ_Boundaries,\n *            CITY='HOUSTON'). The City of Houston water / sewer / storm / hydrant data is served for this area.\n *   bkdd     Brookshire–Katy Drainage District boundary (Waller County GIS, Brookshire_Katy_Drainage_District1 layer 54).",
+              "matches": [
+                {
+                  "text": "hydrant",
+                  "indices": [
+                    201,
+                    208
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "const q = async (url, params) => {\n  const u = new URL(url); for (const [k, v] of Object.entries({ f: \"geojson\", outSR: 4326, outFields: \"*\", ...params })) u.searchParams.set(k, v);\n  const r = await fetch(u); if (!r.ok) throw new Error(`${url} → ${r.status}`);",
+              "matches": [
+                {
+                  "text": "geojson",
+                  "indices": [
+                    103,
+                    110
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "isError": false
+  },
+  "at": "2026-10-28T14:54:34.472Z"
+}
+

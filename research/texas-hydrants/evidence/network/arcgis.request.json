@@ -1,0 +1,9 @@
+{
+  "url": "https://www.arcgis.com/sharing/rest/search?f=json&q=Texas%20hydrant&num=10",
+  "method": "GET",
+  "timeout_seconds": 20,
+  "attempted_at": "2026-10-28T14:52:04.337729+00:00",
+  "error": "<urlopen error Tunnel connection failed: 403 Forbidden>",
+  "response_path": "evidence/network/arcgis.response.txt",
+  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

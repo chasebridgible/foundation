@@ -1,0 +1,281 @@
+[
+  {
+    "evidence_id": "network-policy",
+    "kind": "environment_policy",
+    "path": "evidence/network/policy.json",
+    "sha256": "7de4f0209b82244184e30457e5bea68abd79a93251704f7224cbcca9aedee6f1",
+    "url": null,
+    "verified_at": "2026-10-28T14:52:04.337505+00:00",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "network-arcgis",
+    "kind": "request",
+    "path": "evidence/network/arcgis.request.json",
+    "sha256": "8ad2eda1402611af591f553f5b2e169d47a2b034656fa8d61b6a734f708f8f14",
+    "url": "https://www.arcgis.com/sharing/rest/search?f=json&q=Texas%20hydrant&num=10",
+    "verified_at": "2026-10-28T14:52:04.337729+00:00",
+    "outcome": "blocked"
+  },
+  {
+    "evidence_id": "network-arcgis-empty-response",
+    "kind": "no_http_response",
+    "path": "evidence/network/arcgis.response.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "url": "https://www.arcgis.com/sharing/rest/search?f=json&q=Texas%20hydrant&num=10",
+    "verified_at": "2026-10-28T14:52:04.337729+00:00",
+    "outcome": "blocked"
+  },
+  {
+    "evidence_id": "network-census",
+    "kind": "request",
+    "path": "evidence/network/census.request.json",
+    "sha256": "4de6585af75d61bf9b01b4a87e1a854fc539f1ac9bb23437feae08cfe0524f1a",
+    "url": "https://www2.census.gov/geo/docs/reference/codes2020/national_county2020.txt",
+    "verified_at": "2026-10-28T14:52:04.360942+00:00",
+    "outcome": "blocked"
+  },
+  {
+    "evidence_id": "network-census-empty-response",
+    "kind": "no_http_response",
+    "path": "evidence/network/census.response.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "url": "https://www2.census.gov/geo/docs/reference/codes2020/national_county2020.txt",
+    "verified_at": "2026-10-28T14:52:04.360942+00:00",
+    "outcome": "blocked"
+  },
+  {
+    "evidence_id": "network-texas-gis",
+    "kind": "request",
+    "path": "evidence/network/texas_gis.request.json",
+    "sha256": "af9bec89ea9a836d8ead7803fb1e57c7cf285643179b0f7201b9976b5a25d3a2",
+    "url": "https://data.tnris.org/",
+    "verified_at": "2026-10-28T14:52:04.367416+00:00",
+    "outcome": "blocked"
+  },
+  {
+    "evidence_id": "network-texas-gis-empty-response",
+    "kind": "no_http_response",
+    "path": "evidence/network/texas_gis.response.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "url": "https://data.tnris.org/",
+    "verified_at": "2026-10-28T14:52:04.367416+00:00",
+    "outcome": "blocked"
+  },
+  {
+    "evidence_id": "reference-census",
+    "kind": "reference",
+    "path": "evidence/reference/census-counties-2022-20m.geojson",
+    "sha256": "d1a7603b637616234f8c78e44bbf80b3558a461866418f014594ffba21395e5b",
+    "url": "https://raw.githubusercontent.com/uscensusbureau/citysdk/fc5d7880529fedcde181269fc5d518767221281e/v2/GeoJSON/20m/2022/county.json",
+    "verified_at": "2026-10-28T14:53:32.219020+00:00",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "reference-census-citysdk-readme",
+    "kind": "reference",
+    "path": "evidence/reference/census-citysdk-readme.txt",
+    "sha256": "1a81b7f964a838819551fd83ec844e344d9148683b29b634c2511e229dc68165",
+    "url": "https://raw.githubusercontent.com/uscensusbureau/citysdk/fc5d7880529fedcde181269fc5d518767221281e/README.md",
+    "verified_at": "2026-10-28T14:53:32.931979+00:00",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "reference-census-citysdk-license",
+    "kind": "reference",
+    "path": "evidence/reference/census-citysdk-license.txt",
+    "sha256": "7e256d70fe20b6b81b78bbb077da26c18a2fdc6877130de82e4515b5d697d510",
+    "url": "https://raw.githubusercontent.com/uscensusbureau/citysdk/fc5d7880529fedcde181269fc5d518767221281e/LICENSE",
+    "verified_at": "2026-10-28T14:53:33.278073+00:00",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "reference-plotly-counties",
+    "kind": "reference",
+    "path": "evidence/reference/plotly-counties.geojson",
+    "sha256": "e540149b7525e71ee6b6cab6dea2a95205f11e0c3e7374d27a7c9c47ea96e8c0",
+    "url": "https://raw.githubusercontent.com/plotly/datasets/0c447c47b757ad74edecab31f0d72f849d2e67c2/geojson-counties-fips.json",
+    "verified_at": "2026-10-28T14:52:21.116551+00:00",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "reference-plotly-readme",
+    "kind": "reference",
+    "path": "evidence/reference/plotly-readme.txt",
+    "sha256": "aaa4316a487391ecb7573f89d6cdb6c2e75063ca92a5f2c9c8c0b30e0fc1d222",
+    "url": "https://raw.githubusercontent.com/plotly/datasets/0c447c47b757ad74edecab31f0d72f849d2e67c2/README.md",
+    "verified_at": "2026-10-28T14:52:21.641575+00:00",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "reference-plotly-license",
+    "kind": "reference",
+    "path": "evidence/reference/plotly-license.txt",
+    "sha256": "842e29495d9d99eef9b6d5f2e442785cdd0ab39d81792b2c6302d17bb0cc6030",
+    "url": "https://raw.githubusercontent.com/plotly/datasets/0c447c47b757ad74edecab31f0d72f849d2e67c2/LICENSE",
+    "verified_at": "2026-10-28T14:52:21.925739+00:00",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-search-1",
+    "kind": "search_response",
+    "path": "evidence/github/search1.json",
+    "sha256": "66c8537634b5deb42a12df772120b072be0da66a3b7d3d124521959ad6c242f7",
+    "url": "https://github.com/search",
+    "verified_at": "2026-10-28T14:54:14.505Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-search-2",
+    "kind": "search_response",
+    "path": "evidence/github/search2.json",
+    "sha256": "a531740647a54a37855065c4f445c8f4f3c24ab389c8edc6f16ec721b5543d0a",
+    "url": "https://github.com/search",
+    "verified_at": "2026-10-28T14:54:20.485Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-search-3",
+    "kind": "search_response",
+    "path": "evidence/github/search3.json",
+    "sha256": "bce3ac83325af15a223f41b6fdc7c0acecd187306798680078244067b60dc186",
+    "url": "https://github.com/search",
+    "verified_at": "2026-10-28T14:54:26.240Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-search-4",
+    "kind": "search_response",
+    "path": "evidence/github/search4.json",
+    "sha256": "abc28b63ca1b795f3fcd3e9405cf51be5bfd968062aa317f735f32af1c120205",
+    "url": "https://github.com/search",
+    "verified_at": "2026-10-28T14:54:34.472Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-search-5",
+    "kind": "search_response",
+    "path": "evidence/github/search5.json",
+    "sha256": "196a4f74b51d69e94105c6141e9e4f8edc38f62333cd96a2b2b635ce7dba2554",
+    "url": "https://github.com/search",
+    "verified_at": "2026-10-28T14:54:47.323Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-search-6",
+    "kind": "search_response",
+    "path": "evidence/github/search6.json",
+    "sha256": "1fc95d6d0021cdb6ffa06a455c5da8f2600d6b757cfda0dc3111278a98a5bbac",
+    "url": "https://github.com/search",
+    "verified_at": "2026-10-28T14:55:13.640Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-file-1",
+    "kind": "response",
+    "path": "evidence/github/lead1.json",
+    "sha256": "d9978d7aded5bde8cbf78028003f70aeaebfd7225425c01b423d750ed1196358",
+    "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/scripts/build-service-areas.mjs",
+    "verified_at": "2026-10-28T14:54:41.662Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-source-1",
+    "kind": "source_code",
+    "path": "evidence/github/lead1.source.txt",
+    "sha256": "d429ab5b16a7a4ce4b274cdde85e7ccb5b7eea4fb5b3c37d542749d39f5cff03",
+    "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/scripts/build-service-areas.mjs",
+    "verified_at": "2026-10-28T14:54:41.662Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-file-2",
+    "kind": "response",
+    "path": "evidence/github/lead2.json",
+    "sha256": "9f4212e659c0d6fe66b9d7f257ec8a2527cc16946bbf5f63f79de6af208ce697",
+    "url": "https://github.com/Baelfur/lsprings/blob/4c9adf555daa18ca1c7424b4584903fdbb67917b/README.md",
+    "verified_at": "2026-10-28T14:54:42.425Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-source-2",
+    "kind": "source_code",
+    "path": "evidence/github/lead2.source.txt",
+    "sha256": "9e68494bfe775381f30a10ed7c17c2f3439081b29d88ad9e45d042f66ed4eaa4",
+    "url": "https://github.com/Baelfur/lsprings/blob/4c9adf555daa18ca1c7424b4584903fdbb67917b/README.md",
+    "verified_at": "2026-10-28T14:54:42.425Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-file-3",
+    "kind": "response",
+    "path": "evidence/github/lead3.json",
+    "sha256": "45d08420ee3ea96001b908088131b68da5fe3cb32f71a0fa32fd73aa873e8564",
+    "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layers.js",
+    "verified_at": "2026-10-28T14:54:59.897Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-source-3",
+    "kind": "source_code",
+    "path": "evidence/github/lead3.source.txt",
+    "sha256": "cca40a4f2b84fcdba59b0212795e744e22a8c4afe01cf3b93e6daae551236bf2",
+    "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/layers.js",
+    "verified_at": "2026-10-28T14:54:59.897Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-file-4",
+    "kind": "response",
+    "path": "evidence/github/lead4.json",
+    "sha256": "d3752c5aff4f9ae59e2e8192b9fe16e1e3b6dfc126f3cbe2f9de3f86d5113e56",
+    "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/evidenceLayers.js",
+    "verified_at": "2026-10-28T14:56:18.578Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-source-4",
+    "kind": "source_code",
+    "path": "evidence/github/lead4.source.txt",
+    "sha256": "ee2704b617671bc6bf439151e65c0f4f458f4c9715ae9f69d22dfcedbddeff7c",
+    "url": "https://github.com/mikeab7/planyr/blob/7beda29f82605601db8f919073f9a0c96f5526a6/src/workspaces/site-planner/lib/evidenceLayers.js",
+    "verified_at": "2026-10-28T14:56:18.578Z",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "houston-blocked",
+    "kind": "request",
+    "path": "evidence/github/houston-metadata.request.json",
+    "sha256": "55307c4f1556acbbe3c48ea68b585e7e26bfb750bcc9ea3a4891e7a766147414",
+    "url": "https://mycity2.houstontx.gov/pubgis02/rest/services/HoustonMap/Public_safety/MapServer/9?f=json",
+    "verified_at": "2026-10-28T14:55:59.614754+00:00",
+    "outcome": "blocked"
+  },
+  {
+    "evidence_id": "houston-empty-response",
+    "kind": "no_http_response",
+    "path": "evidence/github/houston-metadata.response.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "url": "https://mycity2.houstontx.gov/pubgis02/rest/services/HoustonMap/Public_safety/MapServer/9?f=json",
+    "verified_at": "2026-10-28T14:55:59.614754+00:00",
+    "outcome": "blocked"
+  },
+  {
+    "evidence_id": "independent-review",
+    "kind": "independent_review",
+    "path": "reviews/independent-review.json",
+    "sha256": "34b2664d490675ddbc9ecd1bbef73d4b7704201f534fb5412540fc51966bdac0",
+    "url": null,
+    "verified_at": "2026-10-28T15:14:39.727374+00:00",
+    "outcome": "success"
+  },
+  {
+    "evidence_id": "github-dispositions",
+    "kind": "assessment",
+    "path": "incoming/github-leads.json",
+    "sha256": "0a04865534fea3e97074ea183d7e0050f502032e3dc3c9f68e3191202b95df86",
+    "url": "https://github.com/search",
+    "verified_at": "2026-10-28T15:14:39.727374+00:00",
+    "outcome": "success"
+  }
+]

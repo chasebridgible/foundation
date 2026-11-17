@@ -1,0 +1,139 @@
+{
+  "git_remote": "https://github.com/uscensusbureau/citysdk.git",
+  "git_commit": "fc5d7880529fedcde181269fc5d518767221281e",
+  "git_resolution_command": "git clone --depth 1 --filter=blob:none --no-checkout https://github.com/uscensusbureau/citysdk.git /tmp/tx-hydrants-citysdk; git -C /tmp/tx-hydrants-citysdk rev-parse HEAD",
+  "requests": [
+    {
+      "id": "census-reference-county",
+      "request": {
+        "method": "GET",
+        "url": "https://raw.githubusercontent.com/uscensusbureau/citysdk/fc5d7880529fedcde181269fc5d518767221281e/v2/GeoJSON/20m/2022/county.json",
+        "headers": {
+          "User-Agent": "Texas-hydrant-research-reference/1.0"
+        }
+      },
+      "retrieved_at": "2026-10-28T14:53:32.219020+00:00",
+      "http_status": 200,
+      "response_path": "evidence/reference/census-counties-2022-20m.geojson",
+      "sha256": "d1a7603b637616234f8c78e44bbf80b3558a461866418f014594ffba21395e5b",
+      "bytes": 2651577,
+      "response_headers": {
+        "cache-control": "max-age=300",
+        "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+        "content-type": "text/plain; charset=utf-8",
+        "etag": "\"b7be0fc4fa60bc11f59bf1e72757342a4e87c448f2a6b18f3dde3b03d8e6c932\"",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "deny",
+        "x-xss-protection": "1; mode=block",
+        "x-github-request-id": "1206:2BF0BB:8C1901:ACBABE:6AE20C6C",
+        "x-github-edge-region": "iad",
+        "accept-ranges": "bytes",
+        "date": "Wed, 28 Oct 2026 14:53:32 GMT",
+        "via": "1.1 varnish",
+        "x-served-by": "cache-chi-klot8100084-CHI",
+        "x-cache": "MISS",
+        "x-cache-hits": "0",
+        "x-timer": "S1793199212.317935,VS0,VE544",
+        "vary": "Authorization,Accept-Encoding",
+        "access-control-allow-origin": "*",
+        "cross-origin-resource-policy": "cross-origin",
+        "x-fastly-request-id": "4bee4ecfdeddc75124b51d5a59b51cc52bc97b36",
+        "expires": "Wed, 28 Oct 2026 14:58:32 GMT",
+        "source-age": "0",
+        "content-length": "2651577",
+        "x-envoy-upstream-service-time": "601",
+        "server": "envoy",
+        "connection": "close"
+      }
+    },
+    {
+      "id": "census-reference-README",
+      "request": {
+        "method": "GET",
+        "url": "https://raw.githubusercontent.com/uscensusbureau/citysdk/fc5d7880529fedcde181269fc5d518767221281e/README.md",
+        "headers": {
+          "User-Agent": "Texas-hydrant-research-reference/1.0"
+        }
+      },
+      "retrieved_at": "2026-10-28T14:53:32.931979+00:00",
+      "http_status": 200,
+      "response_path": "evidence/reference/census-citysdk-readme.txt",
+      "sha256": "1a81b7f964a838819551fd83ec844e344d9148683b29b634c2511e229dc68165",
+      "bytes": 27292,
+      "response_headers": {
+        "cache-control": "max-age=300",
+        "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+        "content-type": "text/plain; charset=utf-8",
+        "etag": "\"65f0bdb4faa3a02e56f3d87d7292320ee893551608750db914be43baaaae8a40\"",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "deny",
+        "x-xss-protection": "1; mode=block",
+        "x-github-request-id": "31A4:15785A:8C13C2:ACB533:6AE20C6C",
+        "x-github-edge-region": "iad",
+        "accept-ranges": "bytes",
+        "date": "Wed, 28 Oct 2026 14:53:33 GMT",
+        "via": "1.1 varnish",
+        "x-served-by": "cache-chi-klot8100047-CHI",
+        "x-cache": "MISS",
+        "x-cache-hits": "0",
+        "x-timer": "S1793199213.063237,VS0,VE201",
+        "vary": "Authorization,Accept-Encoding",
+        "access-control-allow-origin": "*",
+        "cross-origin-resource-policy": "cross-origin",
+        "x-fastly-request-id": "8d351eb3290075f0202c79ca2f5261182b58e8e0",
+        "expires": "Wed, 28 Oct 2026 14:58:33 GMT",
+        "source-age": "0",
+        "content-length": "27292",
+        "x-envoy-upstream-service-time": "264",
+        "server": "envoy",
+        "connection": "close"
+      }
+    },
+    {
+      "id": "census-reference-LICENSE",
+      "request": {
+        "method": "GET",
+        "url": "https://raw.githubusercontent.com/uscensusbureau/citysdk/fc5d7880529fedcde181269fc5d518767221281e/LICENSE",
+        "headers": {
+          "User-Agent": "Texas-hydrant-research-reference/1.0"
+        }
+      },
+      "retrieved_at": "2026-10-28T14:53:33.278073+00:00",
+      "http_status": 200,
+      "response_path": "evidence/reference/census-citysdk-license.txt",
+      "sha256": "7e256d70fe20b6b81b78bbb077da26c18a2fdc6877130de82e4515b5d697d510",
+      "bytes": 1073,
+      "response_headers": {
+        "cache-control": "max-age=300",
+        "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+        "content-type": "text/plain; charset=utf-8",
+        "etag": "\"d87185104cbbadb0ef514168e33b49d96c40b6f9ebe13f73c567dfa5f9abae8f\"",
+        "strict-transport-security": "max-age=31536000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "deny",
+        "x-xss-protection": "1; mode=block",
+        "x-github-request-id": "E05C:2DC58D:884CA9:A8ECB2:6AE20C6C",
+        "x-github-edge-region": "iad",
+        "accept-ranges": "bytes",
+        "date": "Wed, 28 Oct 2026 14:53:33 GMT",
+        "via": "1.1 varnish",
+        "x-served-by": "cache-chi-klot8100060-CHI",
+        "x-cache": "MISS",
+        "x-cache-hits": "0",
+        "x-timer": "S1793199213.391027,VS0,VE187",
+        "vary": "Authorization,Accept-Encoding",
+        "access-control-allow-origin": "*",
+        "cross-origin-resource-policy": "cross-origin",
+        "x-fastly-request-id": "3f967bc8f254c616543aad687a00edee035455b4",
+        "expires": "Wed, 28 Oct 2026 14:58:33 GMT",
+        "source-age": "0",
+        "content-length": "1073",
+        "x-envoy-upstream-service-time": "273",
+        "server": "envoy",
+        "connection": "close"
+      }
+    }
+  ]
+}
