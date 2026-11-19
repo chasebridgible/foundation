@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Why hello, view-sourcerer! -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+
+
+
+
+
+
+
+
+<title>Addy Osmani&#39;s Blog — AI Engineering, Web Performance and Leadership</title>
+<meta name="title" content="Addy Osmani&#39;s Blog — AI Engineering, Web Performance and Leadership">
+<meta name="description" content="Practical writing on agentic engineering, AI-assisted development, web performance, software quality, and engineering leadership.">
+<meta name="author" content="Addy Osmani">
+<link rel="canonical" href="https://addyosmani.com/blog/">
+
+
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://addyosmani.com/blog/">
+<meta property="og:title" content="Addy Osmani&#39;s Blog — AI Engineering, Web Performance and Leadership">
+<meta property="og:description" content="Practical writing on agentic engineering, AI-assisted development, web performance, software quality, and engineering leadership.">
+<meta property="og:image" content="https://res.cloudinary.com/ddxwdqwkr/image/upload/w_1600,h_836,q_100/l_text:Karla_72_bold:Blog,co_rgb:ffe4e6,c_fit,w_1400,h_240/fl_layer_apply,g_south_west,x_100,y_180/l_text:Karla_48:addyosmani.com%2520%25C2%25B7%2520,co_rgb:ffe4e680,c_fit,w_1400/fl_layer_apply,g_south_west,x_100,y_100/l_twitter_name:addyosmani/c_thumb,g_face,r_max,w_380,h_380,q_100/fl_layer_apply,w_140,g_north_west,x_100,y_100/v1681336739/addy/grain-gradient.png">
+<meta property="og:site_name" content="AddyOsmani.com">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@addyosmani">
+<meta name="twitter:creator" content="@addyosmani">
+<meta name="twitter:url" content="https://addyosmani.com/blog/">
+<meta name="twitter:title" content="Addy Osmani&#39;s Blog — AI Engineering, Web Performance and Leadership">
+<meta name="twitter:description" content="Practical writing on agentic engineering, AI-assisted development, web performance, software quality, and engineering leadership.">
+<meta name="twitter:image" content="https://res.cloudinary.com/ddxwdqwkr/image/upload/w_1600,h_836,q_100/l_text:Karla_72_bold:Blog,co_rgb:ffe4e6,c_fit,w_1400,h_240/fl_layer_apply,g_south_west,x_100,y_180/l_text:Karla_48:addyosmani.com%2520%25C2%25B7%2520,co_rgb:ffe4e680,c_fit,w_1400/fl_layer_apply,g_south_west,x_100,y_100/l_twitter_name:addyosmani/c_thumb,g_face,r_max,w_380,h_380,q_100/fl_layer_apply,w_140,g_north_west,x_100,y_100/v1681336739/addy/grain-gradient.png">
+
+<link rel="alternate" type="application/rss+xml" title="AddyOsmani.com RSS Feed" href="https://addyosmani.com/rss.xml">
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "url": "https://addyosmani.com/blog/",
+  "name": "Blog",
+  "description": "Practical writing on agentic engineering, AI-assisted development, web performance, software quality, and engineering leadership.",
+  "author": { "@type": "Person", "@id": "https://addyosmani.com/bio/#person", "name": "Addy Osmani" }
+}
+</script>
+
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/images/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/images/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/images/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/images/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/images/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/images/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/images/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/images/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/assets/images/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffc40d">
+<meta name="msapplication-TileImage" content="/assets/images/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#eb298c">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <link rel="stylesheet" href="/assets/css/post-page.css">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+  
+  
+</head>
+<body>
+
+  <style>
+@media only screen and (max-width: 700px) {
+    .mobile-hidden {
+        display:none;
+    }
+}
+</style>
+<nav class="main-nav">
+    
+    <a href="/"> <span class="arrow"></span> Home </a>
+    
+
+    
+    
+    
+
+    <a class="mobile-hidden" href="https://github.com/addyosmani">GitHub </a>
+
+    <a class="mobile-hidden" href="/press">Press </a>
+
+    <a class="mobile-hidden" href="/bio">Biography </a>
+
+    <a class="mobile-hidden" href="/built">Built </a>
+
+    <!-- <a href="https://www.youtube.com/playlist?list=PLVUliVBcvz1lKS9-rcPFFXkwGOj_YX_-5">Talks</a> -->
+    <!-- <a rel="me" class="mobile-hidden" href="https://indieweb.social/@addyosmani">Mastodon</a> -->
+    <a rel="me" class="mobile-hidden" href="https://www.linkedin.com/in/addyosmani/">LinkedIn</a>
+
+    <a href="https://twitter.com/addyosmani">Twitter </a>
+
+    <!-- <a class="mobile-hidden" href="/feed.xml">Subscribe</a> -->
+    <a class="mobile-hidden" style="font-weight:bold;" href="https://addyo.substack.com">Newsletter</a>
+
+    <!-- <a target="_blank" href="https://teejungle.net/">Shop </a> -->
+
+    <a class="cta" href="/blog">Blog </a>
+
+</nav>
+
+  <section id="wrapper" class="home" style="max-width:100%;padding:20px 40px 100px 40px;">
+    <!-- Post Grid Layout -->
+<div class="post-grid">
+
+<section class="post-section">
+    <h1>Blog</h1>
+    <p>You can find my latest AI engineering articles on <a href="https://addyo.substack.com">Substack</a>, leadership on <a href="https://leaddev.com/community/addy-osmani">LeadDev</a>, or browse my <a href="/topics/">topic guides</a> and personal blog posts below.</p>
+</section>
+    
+<!-- Personal Blog Posts -->
+<section class="post-section">
+    <h2>Personal Blog</h2>
+    <div class="card-grid">
+        
+            <article class="card">
+                
+                <a href="/blog/brownfield-agentic-engineering/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/brownfield-agentic-engineering/11.webp" alt="Brownfield Agentic Engineering" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Sep 14 2026</time>
+                    <h3 class="card-title"><a href="/blog/brownfield-agentic-engineering/">Brownfield Agentic Engineering</a></h3>
+                    
+                    
+                    <p class="card-description">What it takes to run agents in a codebase older than the team</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/agentic-skill-decay/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/agentic-skill-decay/06.webp" alt="Agentic Skill Decay" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Aug 31 2026</time>
+                    <h3 class="card-title"><a href="/blog/agentic-skill-decay/">Agentic Skill Decay</a></h3>
+                    
+                    
+                    <p class="card-description">Agents can finish the task without teaching you anything. Building expertise now has to be deliberate.</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/audit-your-agent-files/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/audit-your-agent-files/08.webp" alt="Audit your Agent files" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Aug 27 2026</time>
+                    <h3 class="card-title"><a href="/blog/audit-your-agent-files/">Audit your Agent files</a></h3>
+                    
+                    
+                    <p class="card-description">A practical guide to auditing what your coding agent still needs.</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/human-judgment-doesnt-leave-the-software/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/human-judgment.jpg" alt="Human judgment doesn't leave the software factory. It relocates." loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Aug 21 2026</time>
+                    <h3 class="card-title"><a href="/blog/human-judgment-doesnt-leave-the-software/">Human judgment doesn't leave the software factory. It relocates.</a></h3>
+                    
+                    
+                    <p class="card-description">A field guide to building a software factory that still has an owner.</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/practical-loop-engineering/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/practical-loop-engineering.png" alt="Practical Loop Engineering" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Aug 14 2026</time>
+                    <h3 class="card-title"><a href="/blog/practical-loop-engineering/">Practical Loop Engineering</a></h3>
+                    
+                    
+                    <p class="card-description">Goals, loops, and the discipline of not delegating your judgment</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/agentic-code-quality/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/agentic-code-quality.png" alt="Agentic Code Quality" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Aug 08 2026</time>
+                    <h3 class="card-title"><a href="/blog/agentic-code-quality/">Agentic Code Quality</a></h3>
+                    
+                    
+                    <p class="card-description">Quality now depends on the constraints you set around your agents.</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/software-factories/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/software-factories.jpg" alt="Software Factories, Light and Dark" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Jul 20 2026</time>
+                    <h3 class="card-title"><a href="/blog/software-factories/">Software Factories, Light and Dark</a></h3>
+                    
+                    
+                    <p class="card-description">A software factory is harnessing loops at scale - the system that builds your software instead of you. You can run the loop with humans in it (light factory) or you can ignore t...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/own-the-outer-loop/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/outer-loop.jpg" alt="Own the Outer Loop" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Jul 15 2026</time>
+                    <h3 class="card-title"><a href="/blog/own-the-outer-loop/">Own the Outer Loop</a></h3>
+                    
+                    
+                    <p class="card-description">Engineers need to own the outer loop, the accountability for these systems. A written version of my AI Engineer World's Fair 2026 closing keynote: quality, verdict, and answerab...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/earning-judgment/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/earning-judgment.jpg" alt="Earning taste and judgment" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Jul 14 2026</time>
+                    <h3 class="card-title"><a href="/blog/earning-judgment/">Earning taste and judgment</a></h3>
+                    
+                    
+                    <p class="card-description">Taste used to be a byproduct of the reps. Agents took the reps. So if you're junior you now have to go get the taste and judgment on purpose. A builder's look at the weakening e...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/career-advice-age-of-agents/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/agent-career.jpg" alt="The Agent-Era Career" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Jul 06 2026</time>
+                    <h3 class="card-title"><a href="/blog/career-advice-age-of-agents/">The Agent-Era Career</a></h3>
+                    
+                    
+                    <p class="card-description">AI gets good at anything with an answer key. Your career is everything that doesn't have one.</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/agentic-autonomy-levels/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/autonomy-levels.jpg" alt="Agentic Autonomy Levels" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Jul 02 2026</time>
+                    <h3 class="card-title"><a href="/blog/agentic-autonomy-levels/">Agentic Autonomy Levels</a></h3>
+                    
+                    
+                    <p class="card-description">The action in agentic engineering has moved from prompting to operating. Autonomy isn't one ladder, it's two axes (agency and orchestration) and six levels you move between per ...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/new-sdlc-vibe-coding/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/newsdlc-harness-anatomy-meta.jpg" alt="The New Software Lifecycle" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Jun 16 2026</time>
+                    <h3 class="card-title"><a href="/blog/new-sdlc-vibe-coding/">The New Software Lifecycle</a></h3>
+                    
+                    
+                    <p class="card-description">I co-wrote a Google whitepaper about how AI is changing the software lifecycle. I'm not going to summarize the whole thing. Instead, here are the handful of ideas in it I think ...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/agentic-code-review/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/agentic-code-review.jpg" alt="Agentic Code Review" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Jun 15 2026</time>
+                    <h3 class="card-title"><a href="/blog/agentic-code-review/">Agentic Code Review</a></h3>
+                    
+                    
+                    <p class="card-description">Coding agents are extraordinarily good now, and getting better fast. The interesting consequence is that the hard part of engineering moved from writing code to deciding whether...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/loop-engineering/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/loop-engineering.jpg" alt="Loop Engineering" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Jun 07 2026</time>
+                    <h3 class="card-title"><a href="/blog/loop-engineering/">Loop Engineering</a></h3>
+                    
+                    
+                    <p class="card-description">You don't really need to be good at prompting anymore. The thing to get good at is the loop that does the prompting for you. It's five building blocks plus somewhere to keep not...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/intent-debt/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/intentdebt.jpg" alt="The Intent Debt" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Jun 05 2026</time>
+                    <h3 class="card-title"><a href="/blog/intent-debt/">The Intent Debt</a></h3>
+                    
+                    
+                    <p class="card-description">Technical debt lives in your code. Cognitive debt lives in your head. Intent debt lives in the artifacts you may have never wrote: the goals, constraints, and rationale for why ...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/orchestration-tax/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/orchestration-tax.jpg" alt="The Orchestration Tax" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">May 24 2026</time>
+                    <h3 class="card-title"><a href="/blog/orchestration-tax/">The Orchestration Tax</a></h3>
+                    
+                    
+                    <p class="card-description">Starting more agents is easy now. However, more agents running doesn't mean more of you available - your cognitive bandwidth doesn't parallelize. All the judgement to actually s...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/dont-outsource-learning/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/dont-outsource-learning.jpg" alt="Don't Outsource the Learning" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">May 16 2026</time>
+                    <h3 class="card-title"><a href="/blog/dont-outsource-learning/">Don't Outsource the Learning</a></h3>
+                    
+                    
+                    <p class="card-description">Right now, it's too easy to let AI write the code while you skip the learning. The bug gets fixed. Your mental model doesn't move. We are silently trading future capability for ...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/cognitive-surrender/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/cognitive-surrender.jpg" alt="Cognitive Surrender" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">May 05 2026</time>
+                    <h3 class="card-title"><a href="/blog/cognitive-surrender/">Cognitive Surrender</a></h3>
+                    
+                    
+                    <p class="card-description">Cognitive offloading is delegating to the AI and still owning the answer. Cognitive surrender is when the AI's output quietly becomes your output and there is nothing left to ch...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/agent-skills/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/addys-agent-skills.jpg" alt="Agent Skills" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">May 03 2026</time>
+                    <h3 class="card-title"><a href="/blog/agent-skills/">Agent Skills</a></h3>
+                    
+                    
+                    <p class="card-description">AI coding agents take the shortest path to done, which usually means skipping the specs, tests, and reviews that make software reliable at scale. Agent Skills encodes those seni...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/long-running-agents/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/long-running.jpg" alt="Long-running Agents" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Apr 28 2026</time>
+                    <h3 class="card-title"><a href="/blog/long-running-agents/">Long-running Agents</a></h3>
+                    
+                    
+                    <p class="card-description">A long-running agent can keep making progress over hours, days, or weeks. It can do this across many context windows and sandboxes, recover from failure, leave structured artifa...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/agent-harness-engineering/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/agent-harness.jpg" alt="Agent Harness Engineering" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Apr 19 2026</time>
+                    <h3 class="card-title"><a href="/blog/agent-harness-engineering/">Agent Harness Engineering</a></h3>
+                    
+                    
+                    <p class="card-description">A coding agent is the model plus everything you build around it: prompts, tools, context policies, hooks, sandboxes, feedback loops. Harness engineering is the discipline of tre...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/the-agent-stack-bet/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/the-agent-stack-bet/01.webp" alt="The Agent Stack Bet" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Apr 18 2026</time>
+                    <h3 class="card-title"><a href="/blog/the-agent-stack-bet/">The Agent Stack Bet</a></h3>
+                    
+                    
+                    <p class="card-description">The bet every serious developer needs to make on their agent stack</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/agentic-engine-optimization/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/aeo.jpg" alt="Agentic Engine Optimization (AEO)" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Apr 11 2026</time>
+                    <h3 class="card-title"><a href="/blog/agentic-engine-optimization/">Agentic Engine Optimization (AEO)</a></h3>
+                    
+                    
+                    <p class="card-description">AI coding agents consume documentation fundamentally differently from humans. If you're still optimizing only for human readers, you're leaving a growing share of your audience ...</p>
+                </div>
+            </article>
+        
+            <article class="card">
+                
+                <a href="/blog/cognitive-parallel-agents/">
+                    <div class="card-image">
+                        <img src="https://addyosmani.com/assets/images/parallel.jpg" alt="Your parallel Agent limit" loading="lazy" />
+                    </div>
+                </a>
+                
+                <div class="card-content">
+                    <time class="card-date">Apr 07 2026</time>
+                    <h3 class="card-title"><a href="/blog/cognitive-parallel-agents/">Your parallel Agent limit</a></h3>
+                    
+                    
+                    <p class="card-description">Running multiple agents in parallel is not just a question of throughput. It is a new kind of cognitive labor that requires managing multiple mental models, continuous judgment ...</p>
+                </div>
+            </article>
+        
+    </div>
+</section>
+
+
+    <nav id="post-nav">
+    
+    
+        <span class="next">
+            <a href="/blog/page2/">
+                Older Posts <span class="arrow">→</span>
+            </a>
+        </span>
+    
+</nav>
+
+
+
+    <!-- Substack Posts -->
+    <section class="post-section">
+        <h2>Substack</h2>
+        <div class="card-grid">
+            <article class="card">
+                <div class="card-image">
+                    <img src="https://substackcdn.com/image/fetch/w_400,h_264,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92e68469-3507-45d0-8655-6acf0ee6c9fb_2214x1350.jpeg" alt="Future-proofing your Software Engineering career" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://addyo.substack.com/p/future-proofing-your-software-engineering">Future-proofing your Software Engineering career</a></h3>
+                    <p class="card-description">Practical strategies for engineering careers in the future</p>
+                    <div class="card-meta">
+                        <span class="author">Addy Osmani</span>
+                        <span class="read-time">8 min read</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-image">
+                    <img src="https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0e49ab22-0fac-4959-afa6-b6e226056db4_6072x6072.jpeg" alt="The 70% problem" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://addyo.substack.com/p/the-70-problem-hard-truths-about">The 70% problem: Hard truths about AI-assisted coding</a></h3>
+                    <p class="card-description">A field guide and why we need to rethink our expectations</p>
+                    <div class="card-meta">
+                        <time>Dec 4</time>
+                        <span class="likes">❤️ 235</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-image">
+                    <img src="https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4d283126-d408-4ff8-89f6-f58875463ab0_6072x6072.jpeg" alt="User-centric engineering" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://addyo.substack.com/p/user-centric-engineering">User-centric engineering</a></h3>
+                    <p class="card-description">Engineering with user empathy is the foundation of great products</p>
+                    <div class="card-meta">
+                        <time>Nov 14</time>
+                        <span class="likes">❤️ 31</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-image">
+                    <img src="https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb81bb65e-89ee-426a-8e6b-fe263a1e8b7d_6072x6072.jpeg" alt="There is no right time" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://addyo.substack.com/p/there-is-no-right-time-just-time">There is no right time. Just time and what you do with it.</a></h3>
+                    <p class="card-description">How to thrive in imperfect conditions</p>
+                    <div class="card-meta">
+                        <time>Aug 22</time>
+                        <span class="likes">❤️ 74</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-image">
+                    <img src="https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F0d099969-2182-41e9-9a68-0c8ba4603a7a_6072x6072.jpeg" alt="Comparison is the thief of joy" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://addyo.substack.com/p/comparison-is-the-thief-of-joy">Comparison is the thief of joy</a></h3>
+                    <p class="card-description">Navigating comparison with mindfulness</p>
+                    <div class="card-meta">
+                        <time>Aug 14</time>
+                        <span class="likes">❤️ 46</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-image">
+                    <img src="https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fbf8b5750-c1fd-4549-a956-e59eb6980289_6072x6072.png" alt="Focus on what you can control" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://addyo.substack.com/p/focus-on-what-you-can-control">Focus on what you can control</a></h3>
+                    <p class="card-description">Actionable advice for empowerment</p>
+                    <div class="card-meta">
+                        <time>Jun 23</time>
+                        <span class="likes">❤️ 50</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-image">
+                    <img src="https://substackcdn.com/image/fetch/w_320,h_213,c_fill,f_auto,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5ce78670-de84-4adb-a854-4b3e84e32e2b_6072x6072.jpeg" alt="10 lessons from 12 years at Google" loading="lazy">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://addyo.substack.com/p/10-lessons-from-12-years-at-google">10 lessons from 12 years at Google</a></h3>
+                    <p class="card-description">My lessons learned along the way.</p>
+                    <div class="card-meta">
+                        <time>May 13</time>
+                        <span class="likes">❤️ 130</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- LeadDev Posts -->
+    <section class="post-section">
+        <h2>LeadDev</h2>
+        <div class="card-grid">
+            <article class="card">
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://leaddev.com/leadership/grow-your-influence-like-a-leader-not-a-boss">Grow your influence like a leader, not a boss</a></h3>
+                    <p class="card-description">Extending your influence past your immediate circle isn't as straightforward as you'd like to hope. But there are a few strategies you can employ to help.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://leaddev.com/technical-direction/how-build-effective-technical-strategy">How to build an effective technical strategy</a></h3>
+                    <p class="card-description">Building a tech strategy requires a lot of moving parts. Learn about what routes to take and whether decisions should be top-down.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://leaddev.com/career-development/how-keep-tech-trends-and-upskill-sustainably">How to keep up with tech trends and upskill sustainably</a></h3>
+                    <p class="card-description">With so many developments in the tech world it's difficult to keep up. Here are some strategies to stay on top of your upskilling.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://leaddev.com/career-development/navigating-competing-priorities-engineer">Navigating competing priorities as an engineer</a></h3>
+                    <p class="card-description">How can you prioritize when everyone's ask is an urgency and you don't have time to fit it all in?</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://leaddev.com/velocity/managing-chaos-context-switching">Managing the chaos of context switching</a></h3>
+                    <p class="card-description">It's time to examine the good, the bad, and the very ugly elements of context switching. Even better, we'll take a look at some strategies for managing it.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://leaddev.com/velocity/focus-outcomes-over-outputs">Focus on outcomes over outputs</a></h3>
+                    <p class="card-description">Software engineering teams should focus on outcomes over outputs to deliver the best user and business value.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-content">
+                    <h3 class="card-title"><a href="https://leaddev.com/career-development/what-makes-effective-software-engineer">What makes an effective software engineer?</a></h3>
+                    <p class="card-description">Being a good software engineer is not necessarily the same as being an effective one. Here, Google's Addy Osmani identifies the ten key traits of effective software engineers.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+
+
+
+    <!--end -->
+</div>
+
+
+<style>
+/* Modern Card Grid Layout */
+.post-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.post-section {
+    margin-bottom: 4rem;
+}
+
+.post-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+    border-bottom: 3px solid #0066cc;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-image {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+    overflow: hidden;
+}
+
+.card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-date {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    line-height: 1.4;
+}
+
+.card-title a {
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.card-title a:hover {
+    color: #0066cc;
+}
+
+.card-description {
+    font-size: 1rem;
+    color: #4a4a4a;
+    line-height: 1.6;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .post-grid {
+        padding: 1rem;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .post-section h2 {
+        font-size: 1.75rem;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background: #1a1a1a;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-title a {
+        color: #ffffff;
+    }
+
+    .card-description {
+        color: #b3b3b3;
+    }
+
+    .post-section h2 {
+        color: #ffffff;
+    }
+
+    .card-date, .card-meta {
+        color: #999;
+    }
+}
+</style>
+
+
+  </section>
+
+  <footer id="footer">
+    <p class="small" style="padding:20px 20px 0 20px; max-width:760px; margin:0 auto; color:#777; font-size:13px; line-height:1.5;">
+        <strong>Disclaimer:</strong> The views and opinions expressed on this site are my own.
+    </p>
+    <p class="small" style="padding:10px 20px 20px 20px; max-width:760px; margin:0 auto;">© Copyright 2026 Addy Osmani</p>
+</footer>
+
+
+  
+  <script src="/assets/js/lazysizes.min.js" async=""></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/assets/js/highlight.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-46754295-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <!--
+  Conversion / outbound-click tracking for GA4 (Measurement ID G-QLSQW43X99).
+  Purchases happen off-site (Amazon/O'Reilly/Leanpub etc.), so the trackable
+  proxy is the outbound click. We fire two custom GA4 events that you can mark
+  as Key events (conversions) in GA4 Admin > Key events:
+    - book_click        (intent to buy a book; outbound to a retailer / book link)
+    - newsletter_click  (intent to subscribe; outbound/click to Substack)
+  This piggybacks on the GA4 Google tag already loaded on the page, so it does
+  NOT add a second page_view. If gtag is somehow missing it lazy-loads it with
+  send_page_view:false as a safety net.
+-->
+<script>
+(function () {
+  var GA4_ID = 'G-QLSQW43X99';
+
+  function ensureGtag() {
+    if (typeof window.gtag === 'function') return; // tag already on the page
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
+    document.head.appendChild(s);
+    window.gtag('js', new Date());
+    window.gtag('config', GA4_ID, { send_page_view: false });
+  }
+
+  function track(name, params) {
+    try { ensureGtag(); window.gtag('event', name, params || {}); } catch (e) {}
+  }
+
+  function retailerForHost(host) {
+    host = (host || '').toLowerCase();
+    if (/(^|\.)(amazon\.|amzn\.)/.test(host)) return 'amazon';
+    if (/oreilly\.com$/.test(host) || /(^|\.)oreilly\.com/.test(host)) return 'oreilly';
+    if (/leanpub\.com/.test(host)) return 'leanpub';
+    if (/smashingmagazine\.com/.test(host)) return 'smashing';
+    if (/books\.apple\.com/.test(host)) return 'apple_books';
+    if (/play\.google\.com/.test(host)) return 'google_play';
+    if (/gumroad\.com/.test(host)) return 'gumroad';
+    return null;
+  }
+
+  function text(el) {
+    return (el && (el.textContent || '')).replace(/\s+/g, ' ').trim().slice(0, 100);
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var a = t.closest('a[href]');
+    if (!a) return;
+
+    var href = a.getAttribute('href') || '';
+    if (!/^https?:/i.test(href)) return; // ignore in-page anchors, mailto, javascript:
+
+    var url;
+    try { url = new URL(href, window.location.href); } catch (_) { return; }
+    var host = url.hostname;
+    var location = window.location.pathname;
+
+    // 1) Explicit CTA elements (data attributes win)
+    var bookEl = t.closest('[data-book]');
+    var newsEl = t.closest('[data-newsletter]');
+
+    // 2) Homepage / featured book grid
+    var inBookGrid = !!t.closest('.books-container');
+
+    var isBook = !!bookEl || inBookGrid || !!retailerForHost(host);
+    var isNewsletter = !!newsEl || /(^|\.)substack\.com$/.test(host) || /substack\.com/.test(host);
+
+    if (isBook) {
+      var figure = t.closest('figure.thumb');
+      var bookName =
+        (bookEl && bookEl.getAttribute('data-book')) ||
+        (figure && text(figure.querySelector('h2'))) ||
+        text(a) ||
+        'unknown';
+      var retailer =
+        (bookEl && bookEl.getAttribute('data-retailer')) ||
+        retailerForHost(host) ||
+        'redirect';
+      track('book_click', {
+        book: bookName,
+        retailer: retailer,
+        location: location,
+        link_domain: host,
+        link_url: url.href.slice(0, 300)
+      });
+      return;
+    }
+
+    if (isNewsletter) {
+      track('newsletter_click', {
+        location: location,
+        source: (newsEl && newsEl.getAttribute('data-newsletter')) || 'link',
+        link_domain: host,
+        link_url: url.href.slice(0, 300)
+      });
+      return;
+    }
+  }, true); // capture phase so it runs even if other handlers stopPropagation
+})();
+</script>
+
+</body>
+</html>
+
+
+<script async id="netlify-rum-container" src="/.netlify/scripts/rum" data-netlify-rum-site-id="11504f31-fa4b-420c-ae4e-a91a7af57aa8" data-netlify-deploy-branch="source" data-netlify-deploy-context="production" data-netlify-cwv-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaXRlX2lkIjoiMTE1MDRmMzEtZmE0Yi00MjBjLWFlNGUtYTkxYTdhZjU3YWE4IiwiYWNjb3VudF9pZCI6IjViOTI4OWUzMzgxM2YwMjg5NTdhZTYyZCIsImRlcGxveV9pZCI6IjZhYjAyZGY5NGRhZTEyNGI2M2FlMDg4ZCIsImlzcyI6Im5ldGxpZnkifQ.C0U5jIj6aKRb1MG_hoCVGIcmIIlNoETdng1BExkWasw"></script>
