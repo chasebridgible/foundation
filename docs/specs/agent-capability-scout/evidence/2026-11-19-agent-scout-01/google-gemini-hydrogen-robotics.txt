@@ -1,0 +1,906 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+        <meta charset="utf-8" />
+        
+        <title>
+            
+            Gemini 4 Hydrogen: a faster model for general purpose robotics
+            
+            
+            - Google Developers Blog
+            
+        </title>
+        <meta property="og:title" content="Gemini 4 Hydrogen: a faster model for general purpose robotics- Google Developers Blog" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+	<meta name="description" content="Discover Gemini 4 Hydrogen: a fast, cost-effective model for robotics featuring real-time spatial reasoning, agentic control, and seamless integration with the Antigravity Robotics plugin and MuJoCo simulation." />
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta content="Google for Developers Blog - News about Web, Mobile, AI and Cloud" property="twitter:title"/>
+  <meta property="og:title" content="Gemini 4 Hydrogen: a faster model for general purpose robotics" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Google for Developers Blog",
+      "item": "https://developers.googleblog.com/"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Gemini 4 Hydrogen: a faster model for general purpose robotics",
+      "item": "https://developers.googleblog.com/en/gemini-hydrogen-for-robotics/"
+    }]
+  }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Gemini 4 Hydrogen: a faster model for general purpose robotics",
+      "description": "Google&#x27;s Gemini 4 Hydrogen brings strong spatial and embodied reasoning capabilities to a fast, efficient model built specifically for robotics. To help developers put these capabilities to work, the new Robotics plugin for Google Antigravity transforms the platform into a comprehensive workbench supporting rapid hardware bring-up, MuJoCo simulation, and closed-loop control. Developers can leverage these tools to transition from an unboxed robot arm to a fully functional real-to-sim-to-real application in an afternoon using natural language prompts and day-one support in the google-genai SDKs.",
+      "image": "https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Robotics_Banner.2e16d0ba.fill-800x400.jpg",
+      "datePublished": "2026-11-17",
+      "author": [
+        
+        
+          { "@type": "Person", "name": "Alex Gruenstein", "url": "/en/search/?author=Alex+Gruenstein" },
+        
+          { "@type": "Person", "name": "Gabe Cohen", "url": "/en/search/?author=Gabe+Cohen" },
+        
+          { "@type": "Person", "name": "Gemini Robotics Team", "url": "/en/search/?author=Gemini+Robotics+Team" }
+        
+        
+      ]
+    }
+  </script>
+  
+  <meta content="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Robotics_Banner.2e16d0ba.fill-1200x600.jpg" property="og:image"/>
+  
+
+
+        
+        
+
+        <!-- Google Tag Manager -->
+        <script type="text/javascript" nonce="CMTNiqp9om2aZbovitj1Gg==" src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260817-205152/js/analytics.js"></script>
+        <!-- End Google Tag Manager -->
+
+        
+        <link href="//www.gstatic.com/glue/v27_1/glue.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260817-205152/css/dgc_blog.css">
+        <link rel="icon" href="https://storage.googleapis.com/gweb-developer-goog-blog-assets/meta/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="https://storage.googleapis.com/gweb-developer-goog-blog-assets/meta/apple-touch-icon.png">
+
+        
+				<link rel="preconnect" href="https://fonts.googleapis.com">
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+				<link rel="preload" href="https://fonts.googleapis.com/css2?family=Product+Sans&family=Google+Sans+Display:ital@0;1&family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Google+Sans+Text:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" as="style">
+				<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Product+Sans&family=Google+Sans+Display:ital@0;1&family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Google+Sans+Text:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&amp;family=Google+Sans+Flex:opsz,wght@6..144,1..1000&amp;display=swap" rel="stylesheet" data-page-link="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap">
+
+        
+        <link href="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.css" rel="stylesheet">
+
+        
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260817-205152/css/blog_detail.css"
+  />
+  <link type="text/css" href="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260817-205152/css/prism.css" rel="stylesheet" />
+
+    </head>
+
+    <body id="main-content" class="glue-body ">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WVTLDSL "
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        
+
+				
+        
+
+<!-- HTML -->
+<header class="dgc-header">
+  <div class="dgc-header-inner">
+    <button class="hamburger" aria-haspopup="true" aria-expanded="false" aria-label="Open Menu">
+      <svg role="presentation" aria-hidden="true" class="glue-icon">
+        <use href="/glue-icon/#menu"></use>
+      </svg>
+    </button>
+    <div class="product-name-wrapper">
+      <a href="https://developers.google.com/" class="site-logo-link" data-label="Site logo">
+        <img src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260817-205152/images/g-dev.svg" class="site-logo" alt="Google for Developers">
+      </a>
+    </div>
+    <div class="desktop-nav-wrapper">
+      <div class="upper-tabs-wrapper">
+        <div class="upper-tabs">
+          <nav class="tabs" aria-label="Upper Tabs">
+            <div class="tab">
+              <a
+                href="//developers.google.com/community"
+                class="top-nav-title">
+                Community/Events
+              </a>
+            </div>
+            <div class="tab">
+              <a
+                href="//developers.google.com/solutions/catalog"
+                class="top-nav-title">
+                Learn
+              </a>
+            </div>
+            <div class="tab">
+              <a
+                href="//developers.googleblog.com"
+                class="top-nav-title">
+                Blog
+              </a>
+            </div>
+            <div class="tab">
+              <a
+                href="https://www.youtube.com/user/GoogleDevelopers"
+                class="top-nav-title">
+                YouTube
+              </a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dgc-header-search">
+    <div class="search-wrapper glue-page">
+      <div class="glue-grid">
+        <form id="search-form"  action="/en/search/" method="get" class="search-content glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-9-md glue-grid__col--span-7-lg">
+          <div class="search-input-wrapper">
+            <svg role="presentation" aria-hidden="true" class="glue-icon search-icon">
+              <use href="/glue-icon/#search"></use>
+            </svg>
+            <input
+              type="text"
+              name="query"
+              
+              placeholder="Search all articles..."
+              aria-label="Search"
+              class="search-input-field"
+            />
+          </div>
+          <button class="glue-button glue-button--high-emphasis">
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" top-level-nav>
+  <nav class="nav-content" aria-label="Side menu">
+    <div class="mobile-header">
+      <button class="nav-close-btn nav-btn" aria-label="Close navigation">
+        <svg role="presentation" aria-hidden="true" class="glue-icon">
+          <use href="/glue-icon/#close"></use>
+        </svg>
+      </button>
+      <button class="nav-back-btn nav-btn hidden" aria-label="Back to Menu">
+        <svg role="presentation" aria-hidden="true" class="glue-icon">
+          <use href="/glue-icon/#arrow-back"></use>
+        </svg>
+      </button>
+      <div class="product-name-wrapper">
+        <a href="https://developers.google.com/" class="site-logo-link" data-label="Site logo">
+          <img src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260817-205152/images/g-dev.svg" class="site-logo" alt="Google for Developers">
+        </a>
+      </div>
+    </div>
+    <div class="nav-wrapper">
+      <div class="mobile-nav-top">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="//developers.google.com/community" class="nav-title" data-label="Tab: Community/Events">
+              <span class="nav-text" tooltip="">
+                Community/Events
+             </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="//developers.google.com/solutions/catalog" class="nav-title" data-label="Tab: Learn">
+              <span class="nav-text" tooltip="">
+                Learn
+             </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="//developers.googleblog.com" class="nav-title" data-label="Tab: Blog">
+              <span class="nav-text" tooltip="">
+                Blog
+             </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://www.youtube.com/user/GoogleDevelopers" class="nav-title" data-label="Tab: YouTube">
+              <span class="nav-text" tooltip="">
+                YouTube
+             </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div class="backdrop"></div>
+
+        
+  <div class="blog-detail-container">
+
+    
+      <section class="tags-container glue-page glue-spacer-5-top">
+        <div class="glue-eyebrow"></div>
+      </section>
+    
+
+    <section class="heading-container glue-page  glue-spacer-1-top">
+      <h1 class="glue-headline glue-headline--headline-1">Gemini 4 Hydrogen: a faster model for general purpose robotics</h1>
+    </section>
+
+    <section class="summary-container glue-page glue-spacer-4-top">
+      <div class="date-time">
+        <div class="published-date glue-font-weight-medium">NOV. 17, 2026</div>
+      </div>
+    </section>
+
+    <section class="glue-page glue-grid glue-spacer-1-top">
+
+      <section class="author-container glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-10-md">
+      
+        
+          <div class="author-obj">
+            <a class="glue-font-weight-medium" href="/en/search/?author=Alex+Gruenstein">Alex Gruenstein</a>
+            
+              <span class="glue-font-weight-medium role">Distinguished Software Engineer</span>
+            
+            
+          </div>
+        
+          <div class="author-obj">
+            <a class="glue-font-weight-medium" href="/en/search/?author=Gabe+Cohen">Gabe Cohen</a>
+            
+              <span class="glue-font-weight-medium role">Senior Director, PM, Robotics</span>
+            
+            
+          </div>
+        
+          <div class="author-obj">
+            <a class="glue-font-weight-medium" href="/en/search/?author=Gemini+Robotics+Team">Gemini Robotics Team</a>
+            
+            
+          </div>
+        
+
+      
+      </section>
+      <section class="social-container glue-grid__col glue-grid__col--span-4-sm glue-grid__col--span-2-md">
+        <button id="social-button" class="glue-button glue-button--low-emphasis glue-button--icon" aria-haspopup="true" aria-expanded="false">
+          <svg role="presentation" aria-hidden="true" class="glue-icon">
+            <use href="/glue-icon/#share"></use>
+          </svg>
+          <span>Share</span>
+        </button>
+        <ul id="social-menu" class="glue-elevation-level-1" role="menu" aria-labelledby="social-button">
+          <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={url}"
+                title="Share on Facebook" target="_blank" rel="noopener">
+              <svg role="presentation" aria-hidden="true"
+                  class="glue-icon glue-icon--social glue-icon--32px">
+                <use href="/glue-icon/#post-facebook"></use>
+              </svg>
+              <span>Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/intent/tweet?text={url}"
+                title="Share on Twitter" target="_blank" rel="noopener">
+              <svg role="presentation" aria-hidden="true"
+                  class="glue-icon glue-icon--social glue-icon--32px">
+                <use href="/glue-icon/#twitter-x"></use>
+              </svg>
+              <span>Twitter</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/shareArticle?url={url}&amp;mini=true" title="Share on LinkedIn" target="_blank" rel="noopener">
+              <svg role="presentation" aria-hidden="true"
+                  class="glue-icon glue-icon--social glue-icon--32px">
+                <use href="/glue-icon/#post-linkedin"></use>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:name@example.com?subject=Check%20out%20this%20site&body=Check%20out%20{url}" title="Send via Email">
+              <svg role="presentation" aria-hidden="true"
+                  class="glue-icon glue-icon--social glue-icon--32px">
+                <use href="/glue-icon/#email"></use>
+              </svg>
+              <span>Mail</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" title="Get shareable link" data-link="" data-copy-text="Copy Link" data-copied-text="Copied!">
+              <svg role="presentation" aria-hidden="true"
+                  class="glue-icon glue-icon--social glue-icon--32px">
+                <use href="/glue-icon/#link"></use>
+              </svg>
+              <span></span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    
+    <section class="blocks-container glue-page glue-spacer-3-top">
+      <div class="block">
+          
+
+<img
+    class="banner-image"
+    src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Robotics_Banner.original.jpg"
+    alt="Gemini-4-hydrogen-robotics__KW__header__16x9"
+/>  <div class="inner-block-content rich-content">
+    <p data-block-key="3ox7r">Over the past month, <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/">Gemini 4 Argon</a> and <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/">Gemini 4 Carbon</a> brought <a href="https://developers.googleblog.com/gemini-4-argon-for-robotics/">frontier physical reasoning to robotics</a>: understanding 3D scenes, reconstructing real environments in simulation, practicing tasks in sim before running them on hardware, and directly controlling robot arms from camera images. Last week, we introduced <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/"><b>Gemini 4 Hydrogen</b></a>, which brings strong spatial and embodied reasoning to a much faster model built for speed and efficiency.</p><p data-block-key="5o387">To help developers put Hydrogen to work, today we&#x27;re launching the <b>Robotics plugin on</b> <a href="https://antigravity.google/"><b>Google Antigravity</b></a>: a set of skills for hardware onboarding, simulation and robot control turning Antigravity into a one-stop robotics workbench. Together, they enable a developer to go from a robot in a box to one that can perform a working application in an afternoon. To install the plugin, open Antigravity, go to <i>Customizations</i> and search for Robotics on the <i>Build With Google</i> shelf.</p><h2 data-block-key="vxpr6" id="hydrogen-for-agentic-robotic-control">Hydrogen for agentic robotic control</h2><p data-block-key="cg7nk">Gemini 4 Argon and Carbon showed that a general model can drive a robot arm directly, and Gemini 4 Hydrogen preserves that ability. Give it a goal in plain language and a camera view, and it plans the task, writes and runs the control code, and keeps adjusting until the job is done. On the <a href="https://artificialanalysis.ai/articles/aa-robotics">Artificial Analysis Robotics 0.1 benchmark</a>, Gemini 4 Hydrogen controls a real 6-axis arm through eight everyday tabletop tasks, from pouring a drink to packing blocks into a box. <a href="https://x.com/ArtificialAnlys/status/2120995180891508833">Hydrogen scores 58</a>, similar to Argon at a lower cost per token.</p><h2 data-block-key="kbiwq" id="embodied-reasoning-in-a-fast-generalist">Embodied reasoning in a fast generalist</h2><p data-block-key="9b5s">Hydrogen brings the specialized skills of our Gemini Robotics ER 2 (Embodied Reasoning) models into the core Gemini 4 model series, and it beats them on nearly every axis. On the public <a href="https://github.com/embodiedreasoning/ERQA"><b>ERQA</b> benchmark</a>, Hydrogen outperforms Gemini Robotics ER 2 on spatial reasoning tasks such as multi-view correspondence and 3D trajectory reasoning. <b>For developers using</b> <a href="https://deepmind.google/models/gemini-robotics/embodied-reasoning/"><b>Gemini Robotics ER 2</b></a><b> today, we recommend trying out Gemini 4 Hydrogen for these workloads.</b></p>
+</div>   
+
+
+    
+    <div class="inner-block-content">
+        <div class="image-wrapper">
+            
+                <img
+                    class="regular-image"
+                    src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/benchmark_2.original.png"
+                    alt="benchmark (2)"
+                />
+            
+            
+        </div>
+    </div>
+  <div class="inner-block-content rich-content">
+    <h2 data-block-key="9qhep" id="antigravity-becomes-a-robotics-workbench">Antigravity becomes a robotics workbench</h2><p data-block-key="aivb7">A fast, capable model is only half the story. Building a robot application has always meant gluing together drivers, calibration scripts, simulators, perception code, and a UI, which requires robotics expertise and a lot of time. The new <b>Robotics plugin</b> for Google Antigravity packages that work into skills Gemini can use on your behalf:</p><p data-block-key="9maam"></p><ul><li data-block-key="asu5i"><b>Robot bring-up:</b> Installs drivers, discovers cameras, calibrates the arm, and verifies safe motion, starting from a USB cable.</li><li data-block-key="139l8"><b>MuJoCo in Antigravity:</b> Builds and previews simulated scenes and assets inside Antigravity, so you can try ideas in sim before touching hardware.</li><li data-block-key="incr"><b>Perception and control:</b> Uses Gemini’s spatial understanding to find objects, plan grasps, and control the robot in a closed loop.</li><li data-block-key="80q8h"><b>Application building:</b> Leverages Gemini’s coding skills to generate the controller, simulation, and complete a full Real-to-Sim-to-Real application development in a seamless, one-stop shop environment.</li></ul>
+</div>   
+
+<div class="inner-block-content video-block">
+    
+        <video  autoplay="" loop="" muted="" playsinline="" poster="https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/wagtailvideo-65vrc434_thumb.jpg">
+<source src='https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/so101_stack_unstack_loop.mp4' type='video/mp4'>
+<p>Sorry, your browser doesn't support playback for this video</p>
+
+</video>
+    
+    
+        
+            <div class="video-description">With the Antigravity Robotics plugin, it just takes one prompt to start rendering a MuJoCo scene</div>
+        
+    
+</div>  <div class="inner-block-content rich-content">
+    <p data-block-key="3ox7r">Here&#x27;s what that looks like end to end: set up a robot and build real applications.</p><h2 data-block-key="hekcr" id="1.-set-up:-from-usb-connection-to-a-moving-robot-in-minutes">1. Set up: from USB connection to a moving robot in minutes</h2><p data-block-key="fnpaf">Starting from an empty desk, a developer plugs an <a href="https://i2rt.com/collections/all">I2RT YAM arm</a> and an external depth camera into a laptop and asks Hydrogen in Antigravity to bring it up. The plugin&#x27;s Skills install the software, find the camera, calibrate the arm, and run test motions. <b>The arm is calibrated and ready for tasks in about 10 minutes.</b> A similar flow also brings up a low-cost <a href="https://huggingface.co/docs/lerobot/so101">SO-ARM101</a> arm and an industrial grade <a href="https://franka.de/franka-research-3">FR3</a> Duo from scratch to live waving.</p>
+</div>   
+
+<div class="inner-block-content video-block">
+    
+        <video  autoplay="" loop="" muted="" playsinline="" poster="https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/wagtailvideo-l0f6wpmy_thumb.jpg">
+<source src='https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/yam_onboarding.mp4' type='video/mp4'>
+<p>Sorry, your browser doesn't support playback for this video</p>
+
+</video>
+    
+    
+        
+            <div class="video-description">YAM onboarding (~10 min elapsed). From the USB connection to a calibrated arm ready for tasks.</div>
+        
+    
+</div>  <div class="inner-block-content rich-content">
+    <p data-block-key="3ox7r">Once the robot is live, you can use a simple prompt to create a basic task within just a few minutes:</p><p data-block-key="bs4a"></p><ul><li data-block-key="4sr5q">Use the arm to make some fun dance moves</li><li data-block-key="7pbod">Pick up a pen on the table</li><li data-block-key="do3ug">Stack snacks on top of each other</li></ul><h2 data-block-key="cevai" id="2.-create-high-quality-simulation-assets-and-&quot;vibe-sim&quot;">2. Create high quality simulation assets and “vibe sim”</h2><p data-block-key="2m47n">Once the robot is live, the next step is building a simulation you can trust. With the Robotics plugin, MuJoCo runs directly inside Antigravity with dedicated creation, auditing, and rendering skills. This allows you to build and preview high-quality simulated scenes and assets—whether described, imported from links/documents, or uploaded via workspace photos—right alongside your code. You can then &quot;vibe sim&quot; by adjusting shapes, positions, and physical properties through chat to verify reaching and grasping before deploying to physical hardware.</p>
+</div>   
+
+<div class="inner-block-content video-block">
+    
+        <video  autoplay="" loop="" muted="" playsinline="" poster="https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/wagtailvideo-5rircs9y_thumb.jpg">
+<source src='https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/pixel_buds_pro_2_turntable.mp4' type='video/mp4'>
+<p>Sorry, your browser doesn't support playback for this video</p>
+
+</video>
+    
+    
+        
+            <div class="video-description">Create an asset with just one prompt referencing a product information page.</div>
+        
+    
+</div>  <div class="inner-block-content rich-content">
+    <h2 data-block-key="70qvv" id="3.-build-an-application">3. Build an application</h2><p data-block-key="a909o">The workbench with Hydrogen and Robotics plugins lets you go from an idea to a repeatable working application in real world in a much shorter time, by iterating and validating it in simulation.</p><h3 data-block-key="6jmw9" id="snack-sorting-conveyor:-from-whiteboard-idea-to-a-working-sorter-in-an-hour"><b>Snack-sorting conveyor: from whiteboard idea to a working sorter in an hour</b></h3><p data-block-key="e8e6e">A developer starts with a whiteboard sketch: a conveyor belt carrying mixed snacks, with a robot arm picking and sorting them into bins. From one prompt of the task with images of a real scene, Hydrogen constructs an interactive MuJoCo simulation of the cell, testing and validating the grasping policy in sim across multiple runs. The developer then deploys the verified policy directly to the robot in the real world. When nuances emerge (such as tuning gripper closure force or refining sorting rules), the developer iterates in natural language, asking Hydrogen to adjust the controller to iterate. Within about an hour end-to-end, the arm reliably sorts snacks off the moving belt.</p>
+</div>   
+
+<div class="inner-block-content video-block">
+    
+        <video  autoplay="" loop="" muted="" playsinline="" poster="https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/wagtailvideo-9fl_s7rj_thumb.jpg">
+<source src='https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/cookie_sorting_story_v6.mp4' type='video/mp4'>
+<p>Sorry, your browser doesn't support playback for this video</p>
+
+</video>
+    
+    
+        
+            <div class="video-description">Conveyor snack sorting, real-to-sim-to-real. From a whiteboard brainstorm through a MuJoCo simulation to sorting on a live conveyor.</div>
+        
+    
+</div>  <div class="inner-block-content rich-content">
+    <h3 data-block-key="irpo3" id="soap-store:-a-storefront-that-fulfills-its-own-orders"><b>Soap store: a storefront that fulfills its own orders</b></h3><p data-block-key="6kprc">Hydrogen&#x27;s efficiency makes it practical to run a multi-step robot application all day. In this example, a developer uses Hydrogen to build a small web storefront for a soap shop, then connects it to two YAM Pro arms. When an order comes in, the arms set out a packing bin, pick the ordered mint and citrus bars, and pull a printed thank-you note from a printer.</p>
+</div>   
+
+<div class="inner-block-content video-block">
+    
+        <video  autoplay="" loop="" muted="" playsinline="" poster="https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/wagtailvideo-6vvhq5x1_thumb.jpg">
+<source src='https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/soap_store.mp4' type='video/mp4'>
+<p>Sorry, your browser doesn't support playback for this video</p>
+
+</video>
+    
+    
+        
+            <div class="video-description">Soap Store (1× dev / 5× fulfillment). From building the storefront with Hydrogen to dual-arm order packing.</div>
+        
+    
+</div>  <div class="inner-block-content rich-content">
+    <h3 data-block-key="p0j18" id="chess-playing-robot"><b>Chess playing robot</b></h3><p data-block-key="10d7f">With just a few prompts, the FR3 Duo simulates a chess board and then can play chess against itself or take on human opponents.</p>
+</div>   
+
+<div class="inner-block-content video-block">
+    
+        <video  autoplay="" loop="" muted="" playsinline="" poster="https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/wagtailvideo-_kn00x1o_thumb.jpg">
+<source src='https://storage.googleapis.com/gweb-developer-goog-blog-assets/original_videos/chess_blur_outro.mp4' type='video/mp4'>
+<p>Sorry, your browser doesn't support playback for this video</p>
+
+</video>
+    
+    
+        
+            <div class="video-description">From idea, to simulation, to playing chess.</div>
+        
+    
+</div>  <div class="inner-block-content rich-content">
+    <h2 data-block-key="wjwvy" id="making-robotics-accessible">Making robotics accessible</h2><p data-block-key="abuf9">Gemini 4 Argon pushes the ceiling of physical reasoning. Gemini 4 Hydrogen makes those capabilities fast and affordable enough to use every day, and the Antigravity Robotics plugin puts them in a workbench where anyone can go from a robot in a box to a working application. We can&#x27;t wait to see what you build.</p><p data-block-key="8harp">You can share your own creations and use cases on the plugin’s GitHub <a href="https://github.com/google-deepmind/robotics-antigravity-plugin/discussions">discussions page</a>. If you have any ideas, custom skills, or derived work you think would be helpful, please let us know—we’ll keep improving the plugins.</p><h2 data-block-key="8ni5z" id="getting-started">Getting started</h2><ul><li data-block-key="d0r1c"><b>Google Antigravity + Robotics plugin:</b> Select <b>Gemini 4 Hydrogen</b> (<code>gemini-4-hydrogen</code>) in <a href="https://antigravity.google/">Google Antigravity</a> and install the <b>Robotics plugin:</b> go to <i>Customizations</i> and search for Robotics on the <i>Build With Google</i> shelf. Then try a prompt: <i>&quot;Bring up my SO-101 arm and make it wave.&quot;</i> Google Antigravity is for paid Google AI Pro or Ultra subscribers.</li><li data-block-key="9nk22"><b>Gemini API:</b> Use <code>gemini-4-hydrogen</code> in the <a href="https://ai.google.dev/gemini-api/docs">Interactions API</a>, with day-one support in the <code>google-genai</code> SDKs.</li><li data-block-key="ctmin"><a href="https://aistudio.google.com/"><b>Google AI Studio</b></a><b>:</b> Try spatial prompts, live camera streams, and structured tool calls in the browser.</li></ul>
+</div> 
+      </div>
+    </section>
+    
+
+    <section class="navigation-container glue-page glue-spacer-6-top">
+      <div class="posted-in-section">
+        <div class="posted-in-section__heading">
+          <span class="glue-caption">
+            posted in:
+          </span>
+        </div>
+        <div class="posted-in-section__tags">
+          <ul>
+              
+                  <li>
+                      <a href="/en/search/?technology_categories=AI" class="glue-caption">AI</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?content_type_categories=Case+Studies" class="glue-caption">Case Studies</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?content_type_categories=Announcements" class="glue-caption">Announcements</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?content_type_categories=Learn" class="glue-caption">Learn</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?content_type_categories=Explore" class="glue-caption">Explore</a>
+                  </li>
+              
+                  <li>
+                      <a href="/en/search/?content_type_categories=Solve" class="glue-caption">Solve</a>
+                  </li>
+              
+              
+          </ul>
+      </div>
+      </div>
+      <div class="buttons-section">
+        <div class="buttons-section__left">
+          <a href="" class="glue-button--icon glue-elevation-level-1 disabled" aria-label="Previous">
+            <svg role="presentation" aria-hidden="true" class="glue-icon">
+              <use href="/glue-icon/#chevron-left"></use>
+            </svg>
+          </a>
+          <span class="caption disabled">Previous</span>
+        </div>
+        <div class="buttons-section__right">
+          <span class="caption ">Next</span>
+          <a href="/en/build-full-stack-android-apps-with-gemini-in-google-ai-studio/" class="glue-button--icon glue-elevation-level-1 "  aria-label="Next">
+            <svg role="presentation" aria-hidden="true" class="glue-icon">
+              <use href="/glue-icon/#chevron-right"></use>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="related-posts-container glue-page glue-spacer-6-top glue-spacer-3-bottom">
+      <span class="glue-headline glue-headline--headline-3">Related Posts</span>
+      <div class="related-posts-container__carousel glue-page glue-spacer-5-top">
+        <div class="glue-carousel glue-carousel--cards glue-carousel-related-posts" aria-label="Related Posts">
+          <!-- Previous -->
+          <button class="glue-carousel__button glue-carousel__button--prev"
+              aria-label="Go to the previous slide">
+            <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--32px">
+              <use href="/glue-icon/#chevron-left"></use>
+            </svg>
+          </button>
+          <!-- Next -->
+          <button class="glue-carousel__button glue-carousel__button--next"
+              aria-label="Go to the next slide">
+            <svg role="presentation" aria-hidden="true" class="glue-icon glue-icon--32px">
+              <use href="/glue-icon/#chevron-right"></use>
+            </svg>
+          </button>
+          <!-- List -->
+          <div class="glue-carousel__viewport">
+            <div class="glue-carousel__list">
+              
+                <a class="glue-card glue-carousel__item" href="/en/build-full-stack-android-apps-with-gemini-in-google-ai-studio/">
+                  <div aria-label="Build full-stack Android apps with Gemini in Google AI Studio" class="glue-card__inner">
+                    <picture class="glue-card__asset">
+                      <img alt="Build full-stack Android apps with Gemini in Google AI Studio" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/Gemini_Generated_Image_41reuz41reu.2e16d0ba.fill-800x400.jpg">
+                    </picture>
+                    <div class="glue-card__content">
+                      <div class="glue-card__tags glue-spacer-2-top">
+                        
+                            
+                            
+                            <span class="glue-label">Web</span>
+                            
+                            <span class="glue-label">AI</span>
+                            
+                            
+                            <span class="glue-label">Announcements</span>
+                            
+                            <span class="glue-label">Solutions</span>
+                            
+                        
+                      </div>
+                      <p class="glue-headline glue-headline--headline-5">Build full-stack Android apps with Gemini in Google AI Studio</p>
+                      <div class="glue-card__cta-custom glue-spacer-3-top">
+                        <span class="glue-cta">NOV. 17, 2026</span>
+                        <svg aria-hidden="true" class="glue-icon glue-icon--24px" role="presentation">
+                          <use href="/glue-icon/#arrow-forward"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              
+                <a class="glue-card glue-carousel__item" href="/en/accelerating-development-for-massive-git-repositories/">
+                  <div aria-label="Accelerating development for massive Git repositories" class="glue-card__inner">
+                    <picture class="glue-card__asset">
+                      <img alt="Accelerating development for massive Git repositories" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/ABFS-Header-Meta.2e16d0ba.fill-800x400.png">
+                    </picture>
+                    <div class="glue-card__content">
+                      <div class="glue-card__tags glue-spacer-2-top">
+                        
+                            
+                            
+                            <span class="glue-label">Mobile</span>
+                            
+                            <span class="glue-label">AI</span>
+                            
+                            
+                            <span class="glue-label">Case Studies</span>
+                            
+                            <span class="glue-label">Announcements</span>
+                            
+                        
+                      </div>
+                      <p class="glue-headline glue-headline--headline-5">Accelerating development for massive Git repositories</p>
+                      <div class="glue-card__cta-custom glue-spacer-3-top">
+                        <span class="glue-cta">NOV. 17, 2026</span>
+                        <svg aria-hidden="true" class="glue-icon glue-icon--24px" role="presentation">
+                          <use href="/glue-icon/#arrow-forward"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              
+                <a class="glue-card glue-carousel__item" href="/en/unlocking-stable-on-policy-rl-on-tpu-with-bitwise-zero-traininference-mismatch/">
+                  <div aria-label="Unlocking Stable On-Policy RL on TPU with Bitwise-Zero Train–Inference Mismatch" class="glue-card__inner">
+                    <picture class="glue-card__asset">
+                      <img alt="Unlocking Stable On-Policy RL on TPU with Bitwise-Zero Train–Inference Mismatch" src="https://storage.googleapis.com/gweb-developer-goog-blog-assets/images/zero_tim_tpu_blog_header_1600x900.2e16d0ba.fill-800x400.png">
+                    </picture>
+                    <div class="glue-card__content">
+                      <div class="glue-card__tags glue-spacer-2-top">
+                        
+                            
+                            
+                            <span class="glue-label">AI</span>
+                            
+                            <span class="glue-label">Cloud</span>
+                            
+                            
+                            <span class="glue-label">Tutorials</span>
+                            
+                            <span class="glue-label">Case Studies</span>
+                            
+                        
+                      </div>
+                      <p class="glue-headline glue-headline--headline-5">Unlocking Stable On-Policy RL on TPU with Bitwise-Zero Train–Inference Mismatch</p>
+                      <div class="glue-card__cta-custom glue-spacer-3-top">
+                        <span class="glue-cta">NOV. 16, 2026</span>
+                        <svg aria-hidden="true" class="glue-icon glue-icon--24px" role="presentation">
+                          <use href="/glue-icon/#arrow-forward"></use>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              
+            </div>
+          </div>
+          <!-- Navigation dots -->
+          <div class="glue-carousel__navigation" aria-label="Choose a page"
+               data-glue-carousel-navigation-label="Selected tab $glue_carousel_page_number$ of $glue_carousel_page_total$">
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </div>
+
+
+				
+				
+
+<div class="footer-linkboxes__wrapper">
+  <nav class="footer-linkboxes" aria-label="Footer links">
+    <ul class="footer-linkboxes__list">
+      <li class="footer-linkbox">
+        <span class="footer-linkbox-heading">
+          Connect
+        </span>
+        <ul class="footer-linkbox-list">
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//googledevelopers.blogspot.com" class="footer-linkbox-list__link">
+                Blog
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/3FReQXN" class="footer-linkbox-list__link">
+                Bluesky
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/googlefordevs" class="footer-linkbox-list__link">
+                Instagram
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/gdevs-li" class="footer-linkbox-list__link">
+                LinkedIn
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/gdevs-tw" class="footer-linkbox-list__link">
+                X (Twitter)
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="https://goo.gle/developers" class="footer-linkbox-list__link">
+                YouTube
+              </a>
+            </li>
+          
+        </ul>
+      </li>
+      <li class="footer-linkbox">
+        <span class="footer-linkbox-heading">
+          Programs
+        </span>
+        <ul class="footer-linkbox-list">
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/program" class="footer-linkbox-list__link">
+                Google Developer Program
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/gdg" class="footer-linkbox-list__link">
+                Google Developer Groups
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/experts" class="footer-linkbox-list__link">
+                Google Developer Experts
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/accelerators" class="footer-linkbox-list__link">
+                Accelerators
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//www.womentechmakers.com" class="footer-linkbox-list__link">
+                Women Techmakers
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//developers.google.com/community/nvidia" class="footer-linkbox-list__link">
+                Google Cloud &amp; NVIDIA
+              </a>
+            </li>
+          
+        </ul>
+      </li>
+      <li class="footer-linkbox">
+        <span class="footer-linkbox-heading">
+          Developer consoles
+        </span>
+        <ul class="footer-linkbox-list">
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.developers.google.com" class="footer-linkbox-list__link">
+                Google API Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.cloud.google.com" class="footer-linkbox-list__link">
+                Google Cloud Platform Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//play.google.com/apps/publish" class="footer-linkbox-list__link">
+                Google Play Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.firebase.google.com" class="footer-linkbox-list__link">
+                Firebase Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.actions.google.com" class="footer-linkbox-list__link">
+                Actions on Google Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//cast.google.com/publish" class="footer-linkbox-list__link">
+                Cast SDK Developer Console
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//chrome.google.com/webstore/developer/dashboard" class="footer-linkbox-list__link">
+                Chrome Web Store Dashboard
+              </a>
+            </li>
+          
+            <li class="footer-linkbox-list__item">
+              <a href="//console.home.google.com/" class="footer-linkbox-list__link">
+                Google Home Developer Console
+              </a>
+            </li>
+          
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="footer-utility__wrapper">
+  <div>
+    <nav class="footer-sites" aria-label="Other Google Developers websites">
+      <a href="https://developers.google.com/" class="site-logo-link" data-label="Site logo">
+        <img src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260817-205152/images/g-dev.svg" class="site-logo" alt="Google for Developers">
+      </a>
+      <ul class="footer-sites-list">
+        <li class="footer-sites-item">
+          <a href="//developer.android.com" class="footer-sites-link">
+            Android
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//developer.chrome.com/home" class="footer-sites-link">
+            Chrome
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//firebase.google.com" class="footer-sites-link">
+            Firebase
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//cloud.google.com" class="footer-sites-link">
+            Google Cloud Platform
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <a href="//developers.google.com/products" class="footer-sites-link">
+            All products
+          </a>
+        </li>
+        <li class="footer-sites-item">
+          <button aria-hidden="true" class="glue-cookie-notification-bar-control footer-sites-link">
+            Manage cookies
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <nav class="footer-utility-links">
+      <ul class="footer-utility-list">
+        <li class="footer-utility-item">
+          <a href="//developers.google.com/terms/site-terms" class="footer-utility-link">
+            Terms
+          </a>
+        </li>
+        <li class="footer-utility-item">
+          <a href="//policies.google.com/privacy" class="footer-utility-link">
+            Privacy
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+        
+				
+
+        
+        <script nonce="CMTNiqp9om2aZbovitj1Gg==" src="https://www.youtube.com/player_api"></script>
+        <script nonce="CMTNiqp9om2aZbovitj1Gg==" src="//www.gstatic.com/glue/v27_1/glue.min.js"></script>
+        <script nonce="CMTNiqp9om2aZbovitj1Gg==" type="text/javascript" src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260817-205152/js/dgc_blog.js"></script>
+
+        <script nonce="CMTNiqp9om2aZbovitj1Gg==" src="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.js"
+            data-glue-cookie-notification-bar-category="2A"
+            data-glue-cookie-notification-bar-site-id="developers.googleblog.com"></script>
+
+        
+  <script src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260817-205152/js/blog_detail.js" nonce="CMTNiqp9om2aZbovitj1Gg=="></script>
+  <script src="https://storage.googleapis.com/gweb-developer-goog-blog-cms-assets/site/20260817-205152/js/prism.js" nonce="CMTNiqp9om2aZbovitj1Gg=="></script>
+
+    </body>
+</html>
