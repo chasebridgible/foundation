@@ -17,6 +17,6 @@ Compared with: `2026-11-23-agent-scout-01` recorded scout state
 
 No new meaningful findings. The only potentially relevant Google release was already preserved, graded 6/10, and rejected as non-additive in the merged November 25 checkpoint. No new principle candidate or principles-document patch is warranted.
 
-## Next action
+## Publication
 
-Publish this routine scout-state checkpoint through the protected GitHub flow, notify `@chasebridgible` with the PR path, then merge only after required checks pass.
+PR [#203](https://github.com/chasebridgible/foundation/pull/203) is labeled `codex` and `codex-automation`. The automated-worker-notifications GitHub App notified `@chasebridgible`; merge remains pending required checks.
